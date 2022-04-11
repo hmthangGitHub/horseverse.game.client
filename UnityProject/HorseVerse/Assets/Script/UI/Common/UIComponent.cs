@@ -14,7 +14,7 @@ public interface IUIComponent<T> : UIComponent where T : new()
 
 }
 
-public abstract class LeaderBoardUIComponent<T> : MonoBehaviour, IUIComponent<T> where T : new()
+public abstract class UIComponent<T> : MonoBehaviour, IUIComponent<T> where T : new()
 {
     public T entity { get; protected set; }
 

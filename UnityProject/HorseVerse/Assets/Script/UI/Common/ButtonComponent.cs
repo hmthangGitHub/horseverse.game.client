@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public class ButtonComponent : LeaderBoardUIComponent<ButtonComponent.Entity>
+public class ButtonComponent : UIComponent<ButtonComponent.Entity>
 {
 
     [Serializable]
