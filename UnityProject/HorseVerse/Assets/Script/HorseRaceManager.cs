@@ -23,6 +23,7 @@ public class HorseRaceManager : MonoBehaviour
     public int playerHorseIndex = 0;
     private void Start()
     {
+        path.GetComponent<PathCreation.Examples.RoadMeshCreator>().TriggerUpdate();
         playerHorseIndex = UnityEngine.Random.Range(0, transforms.Length);
         raceLength = path.path.length * path.transform.lossyScale.x;
         averageTimeToFinish = raceLength / averageSpeed * totalLap;
