@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using UnityEngine;
 public class HorseRaceManager : MonoBehaviour
 {
     public Transform[] transforms;
+    public List<HorseController> horseControllers = new List<HorseController>();
     public int[] top;
     public float[] timeToFinish;
     public uint laneNumber = 10;
@@ -20,11 +22,13 @@ public class HorseRaceManager : MonoBehaviour
     public Vector2 timeOffSet = new Vector2(-1.0f, 1.0f);
 
     public float raceLength = 0.0f;
-    public int playerHorseIndex = 0;
-    private void Start()
+    public int playerHorseId = 0;
+    public Action OnFinishTrackEvent;
+
+    public void StartRace(int[] playerList, int horseId)
     {
+        playerHorseId = horseId;
         path.GetComponent<PathCreation.Examples.RoadMeshCreator>().TriggerUpdate();
-        playerHorseIndex = UnityEngine.Random.Range(0, transforms.Length);
         raceLength = path.path.length * path.transform.lossyScale.x;
         averageTimeToFinish = raceLength / averageSpeed * totalLap;
         timeToFinish = new float[top.Length];
@@ -37,13 +41,31 @@ public class HorseRaceManager : MonoBehaviour
 
         for (int i = 0; i < transforms.Length; i++)
         {
-            HorseController horseController = transforms[i].GetComponent<HorseController>();
+            HorseController horseController = transforms[playerList[i]].GetComponent<HorseController>();
             horseController.currentOffset = offSet + i * offsetPerLane;
             horseController.top = top[i];
             horseController.timeToFinish = timeToFinish[top[i] - 1];
+            horseController.currentTimeToFinish = horseController.timeToFinish;
             horseController.averageTimeToFinish = averageTimeToFinish;
             horseController.lap = totalLap;
-            horseController.IsPlayer = playerHorseIndex == i;
+            horseController.IsPlayer = playerHorseId == playerList[i];
+            horseController.Lane = i;
+            horseControllers.Add(horseController);
+        }
+
+        horseControllers.FirstOrDefault(x => x.top == 1).OnFinishTrackEvent += OnFinishTrack;
+    }
+
+    private void OnFinishTrack()
+    {
+        OnFinishTrackEvent.Invoke();
+    }
+
+    public void Skip()
+    {
+        foreach (var item in horseControllers)
+        {
+            item.Skip();
         }
     }
 }

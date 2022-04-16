@@ -9,20 +9,7 @@ public class HorsePickingState : BState
 {
     private UIHorsePicker uiHorsePicker = default;
     private CancellationTokenSource cts = default;
-    private string[] horseMasterData = new string[]
-    {
-        "Horses/Horse_Black",
-        "Horses/Horse_Black_Tobiano_pinto",
-        "Horses/Horse_Brown",
-        "Horses/Horse_Buckskin",
-        "Horses/Horse_GraysRoans",
-        "Horses/Horse_Palomino",
-        "Horses/Horse_palomino_overo_pinto",
-        "Horses/Horse_White",
-    };
-
-    public int HorseIndex { get; private set; }
-
+    public int HorseId { get; private set; }
     public override async void Enter()
     {
         base.Enter();
@@ -33,17 +20,17 @@ public class HorsePickingState : BState
         {
             horseLoader = new HorseLoader.Entity()
             {
-                horse = horseMasterData[HorseIndex]
+                horse = HorseMasterDataContainer.HorseModelPaths[HorseId]
             },
             left = new ButtonComponent.Entity(() =>
             {
-                HorseIndex = ((HorseIndex - 1 + horseMasterData.Length) % horseMasterData.Length);
+                HorseId = ((HorseId - 1 + HorseMasterDataContainer.HorseModelPaths.Count) % HorseMasterDataContainer.HorseModelPaths.Count);
                 LoadHorse();
 
             }),
             right = new ButtonComponent.Entity(() =>
             {
-                HorseIndex = ((HorseIndex + 1 + horseMasterData.Length) % horseMasterData.Length);
+                HorseId = ((HorseId + 1 + HorseMasterDataContainer.HorseModelPaths.Count) % HorseMasterDataContainer.HorseModelPaths.Count);
                 LoadHorse();
             }),
             race = new ButtonComponent.Entity(() =>
@@ -58,7 +45,7 @@ public class HorsePickingState : BState
     {
         uiHorsePicker.horseLoader.SetEntity(new HorseLoader.Entity()
         {
-            horse = horseMasterData[HorseIndex]
+            horse = HorseMasterDataContainer.HorseModelPaths[HorseId]
         });
     }
 

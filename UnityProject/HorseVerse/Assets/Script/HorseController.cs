@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using PathCreation;
+using System;
 using UnityEngine;
 
 // Moves along a path at constant speed.
@@ -19,6 +20,7 @@ public class HorseController : MonoBehaviour
     public float sideRayCastDistance = 1.0f;
     public Vector3 offset = new Vector3(0.0f, 1.264721f, 0.0f);
     public float timeToFinish = 50.0f;
+    public float currentTimeToFinish = 50.0f;
     public float lap = 1.0f;
 
     public int top;
@@ -32,11 +34,14 @@ public class HorseController : MonoBehaviour
     public GameObject playerIndicator;
 
     private bool isPlayer = false;
-
+    public float normalizePath;
+    public event Action OnFinishTrackEvent;
     public bool IsPlayer { get => isPlayer; set { 
             isPlayer = value;
             playerIndicator.SetActive(isPlayer);
         } }
+
+    public int Lane;
 
     private void Start()
     {
@@ -49,25 +54,36 @@ public class HorseController : MonoBehaviour
         if (pathCreator != null)
         {
             currentRaceTime += Time.deltaTime;
-            if (currentRaceTime > timeToFinish && timeOffset == 0)
+            if (currentRaceTime > currentTimeToFinish && timeOffset == 0)
             {
-                timeOffset = averageTimeToFinish - timeToFinish;
-                timeToFinish = averageTimeToFinish;
-                currentCurve = defaultCurve;
+                OnFinishTrack();
             }
-            var linearT = ((currentRaceTime + timeOffset)/ (timeToFinish));
-            var t = currentCurve.Evaluate(linearT % 1);
+            var linearT = ((currentRaceTime + timeOffset)/ (currentTimeToFinish));
+            normalizePath = currentCurve.Evaluate(linearT % 1);
             
-            var pos = pathCreator.path.GetPointAtTime(t * lap, EndOfPathInstruction.Loop);
+            var pos = pathCreator.path.GetPointAtTime(normalizePath * lap, EndOfPathInstruction.Loop);
             transform.position = Vector3.Scale(new Vector3(1, 0, 1), (pos + transform.right * currentOffset));
-            Quaternion rotationAtDistance = pathCreator.path.GetRotation(t * lap, EndOfPathInstruction.Loop);
+            Quaternion rotationAtDistance = pathCreator.path.GetRotation(normalizePath * lap, EndOfPathInstruction.Loop);
             transform.rotation = rotationAtDistance;
             transform.rotation = Quaternion.Euler(0, rotationAtDistance.eulerAngles.y, 0);
         }
-        currentChangeLaneTime += Time.deltaTime;
 #if UNITY_EDITOR
         DrawRay();
 #endif
+    }
+
+    private void OnFinishTrack()
+    {
+        timeOffset = averageTimeToFinish - timeToFinish;
+        currentTimeToFinish = averageTimeToFinish;
+        currentCurve = defaultCurve;
+        OnFinishTrackEvent?.Invoke();
+    }
+
+    public void Skip()
+    {
+        OnFinishTrack();
+        currentRaceTime = averageTimeToFinish + timeOffset;
     }
 
 #if UNITY_EDITOR
