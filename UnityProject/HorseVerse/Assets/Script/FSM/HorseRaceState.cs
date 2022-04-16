@@ -13,14 +13,18 @@ public class HorseRaceState : BState
     private HorseRaceManager horseRaceManager;
     private UIHorseRaceStatus uIHorseRaceStatus;
     private UISpeedController uiSpeedController;
-    private Scene racing;
+    private UIRaceResultSelf uiRaceResultSelf;
+    private UIRaceResultList uiRaceResultList;
+    private Scene racing = default;
     private int[] cachePositions;
     private bool IsGameStart = false;
     private Scene racingScene;
+    private int playerHorseId;
 
     public override async void Enter()
     {
         base.Enter();
+        playerHorseId = this.SuperMachine.GetPreviousState<HorsePickingState>().HorseId;
         await InitUI();
         StartGame();
     }
@@ -35,14 +39,61 @@ public class HorseRaceState : BState
 
     private void SetEntityHorseRaceManager(int[] horseIdInLanes)
     {
-        horseRaceManager.StartRace(horseIdInLanes, this.SuperMachine.GetPreviousState<HorsePickingState>().HorseId);
+        horseRaceManager.StartRace(horseIdInLanes, playerHorseId);
         horseRaceManager.OnFinishTrackEvent += OnFinishTrack;
         SetEntityUIHorseRace(horseIdInLanes, horseRaceManager.horseControllers.Min(x => x.currentTimeToFinish));
     }
 
     private void OnFinishTrack()
     {
+        Time.timeScale = 1.0f;
         uiSpeedController.Out().Forget();
+        uiRaceResultSelf.SetEntity(new UIRaceResultSelf.Entity()
+        {
+            name = "My name",
+            speech = "The plates will still shift and the clouds will still spew. The sun will slowly rise and the moon will follow too.",
+            btnTapAnyWhere = new ButtonComponent.Entity(() =>
+            {
+                uiRaceResultSelf.Out().Forget();
+                SetEntityResultList();
+            }),
+            top = horseRaceManager.horseControllers.Find(x => x.IsPlayer).top
+        });
+        uiRaceResultSelf.In().Forget();
+    }
+
+    private void SetEntityResultList()
+    {
+        uiRaceResultList.SetEntity(new UIRaceResultList.Entity()
+        {
+            horseList = new UIComponentHorseResultList.Entity()
+            {
+                entities = GetResultList()
+            },
+            closeBtn = new ButtonComponent.Entity(() =>
+            {
+                ToMainState();
+            })
+        });
+        uiRaceResultList.In().Forget();
+    }
+
+    private UIComponentHorseResult.Entity[] GetResultList()
+    {
+        return horseRaceManager.horseControllers.Select(x => new UIComponentHorseResult.Entity()
+        {
+            isPlayer = x.IsPlayer,
+            lane = x.Lane + 1,
+            top = x.top,
+            name = x.name,
+            time = x.timeToFinish
+        }).OrderBy(x => x.top)
+          .ToArray();
+    }
+
+    private void ToMainState()
+    {
+        this.SuperMachine.ChangeState<HorsePickingState>();
     }
 
     private static int[] RandomHorseInLanes()
@@ -85,7 +136,7 @@ public class HorseRaceState : BState
             playerList = new HorseRaceStatusPlayerList.Entity()
             {
                 horseIdInLane = playerList,
-                playerIndex = horseRaceManager.playerHorseId,
+                playerId = playerHorseId,
             },
             finishTime = timeToFinish
         });
@@ -97,6 +148,8 @@ public class HorseRaceState : BState
         horseRaceManager ??= GameObject.Instantiate<HorseRaceManager>((await Resources.LoadAsync<HorseRaceManager>("HorseRaceManager") as HorseRaceManager));
         uIHorseRaceStatus ??= await UILoader.Load<UIHorseRaceStatus>();
         uiSpeedController ??= await UILoader.Load<UISpeedController>();
+        uiRaceResultSelf ??= await UILoader.Load<UIRaceResultSelf>();
+        uiRaceResultList ??= await UILoader.Load<UIRaceResultList>();
         await LoadRacingScene();
     }
 
@@ -120,7 +173,6 @@ public class HorseRaceState : BState
             {
                 if (cachePositions[i] != positions[i].Lane)
                 {
-                    Debug.Log($"positions[{i}] " + "positions[i].Lane" + positions[i].Lane);
                     uIHorseRaceStatus.playerList.ChangePosition(positions[i].Lane, i);
                     cachePositions[i] = positions[i].Lane;
                 }
@@ -137,5 +189,16 @@ public class HorseRaceState : BState
     {
         base.Exit();
         IsGameStart = false;
+        GameObject.Destroy(horseRaceManager.gameObject);
+        horseRaceManager = default;
+        GameObject.Destroy(uiSpeedController.gameObject);
+        uiSpeedController = default;
+        GameObject.Destroy(uiRaceResultSelf.gameObject);
+        uiRaceResultSelf = default;
+        GameObject.Destroy(uiRaceResultList.gameObject);
+        uiRaceResultList = default;
+        GameObject.Destroy(uIHorseRaceStatus.gameObject);
+        uIHorseRaceStatus = default;
+        SceneManager.UnloadSceneAsync(racingScene).ToUniTask().Forget();
     }
 }

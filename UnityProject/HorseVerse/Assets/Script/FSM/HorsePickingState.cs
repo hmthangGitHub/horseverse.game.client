@@ -55,6 +55,7 @@ public class HorsePickingState : BState
         cts?.Cancel();
         cts = default;
         GameObject.Destroy(uiHorsePicker.gameObject);
+        uiHorsePicker = null;
     }
 
     public override void Initialize()

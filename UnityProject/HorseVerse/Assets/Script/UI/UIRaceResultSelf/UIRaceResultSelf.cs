@@ -9,22 +9,28 @@ public class UIRaceResultSelf : PopupEntity<UIRaceResultSelf.Entity>
     [Serializable]
     public class Entity
     {
-        public ButtonComponent.Entity pause;
-        public ButtonComponent.Entity normal;
-        public ButtonComponent.Entity fast;
-        public ButtonComponent.Entity skip;
+        public string name;
+        public int top;
+        public string speech;
+        public ButtonComponent.Entity btnTapAnyWhere;
     }
 
-    public ButtonComponent pause;
-    public ButtonComponent normal;
-    public ButtonComponent fast;
-    public ButtonComponent skip;
+    public new FormattedTextComponent name;
+    public UIComponentHorsePosition top;
+    public UIComponentPlayerSpeech speech;
+    public ButtonComponent btnTapAnyWhere;
 
     protected override void OnSetEntity()
     {
-        pause.SetEntity(this.entity.pause);
-        normal.SetEntity(this.entity.normal);
-        fast.SetEntity(this.entity.fast);
-        skip.SetEntity(this.entity.skip);
+        name.SetEntity(this.entity.name);
+        top.SetEntity(new UIComponentHorsePosition.Entity()
+        {
+            top = this.entity.top
+        });
+        speech.SetEntity(new UIComponentPlayerSpeech.Entity()
+        {
+            speech = this.entity.speech
+        });
+        btnTapAnyWhere.SetEntity(this.entity.btnTapAnyWhere);
     }
 }

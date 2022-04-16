@@ -10,7 +10,7 @@ public class HorseRaceStatusPlayerList : UIComponent<HorseRaceStatusPlayerList.E
     public class Entity
     {
         public int[] horseIdInLane;
-        public int playerIndex;
+        public int playerId;
     }
 
     public RectTransform[] predefinePositions;
@@ -37,8 +37,8 @@ public class HorseRaceStatusPlayerList : UIComponent<HorseRaceStatusPlayerList.E
             instance.gameObject.SetActive(true);
             instance.SetEntity(new HorseRaceStatusPlayer.Entity()
             {
-                lane = this.entity.horseIdInLane[i] + 1,
-                isPlayer = this.entity.horseIdInLane[i] == this.entity.playerIndex,
+                lane = i + 1,
+                isPlayer = this.entity.horseIdInLane[i] == this.entity.playerId,
             });
             horseRaceStatusPlayerList.Add(instance);
         }
