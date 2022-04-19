@@ -9,12 +9,7 @@ public class HorseController : MonoBehaviour
 {
     public PathCreator pathCreator;
     public float averageSpeed = 24;
-    public float offsetPerLane = -1;
-    public float targetlane = 0;
-    public float laneNumber = 10;
     public float currentOffset = 0;
-    public float changeLaneTime = 5.0f;
-    public float currentChangeLaneTime = 0.0f;
 
     public float rayCastDistance = 2.0f;
     public float sideRayCastDistance = 1.0f;
@@ -43,15 +38,18 @@ public class HorseController : MonoBehaviour
 
     public int Lane;
 
-    private void Start()
+    private bool isStartRace = false;
+
+    public void StartRace()
     {
         currentCurve = speedCurve[UnityEngine.Random.Range(0, speedCurve.Length - 1)];
         this.GetComponentInChildren<Animator>().Play("Movement", 0, UnityEngine.Random.insideUnitCircle.x);
+        isStartRace = true;
     }
 
     void Update()
     {
-        if (pathCreator != null)
+        if (pathCreator != null && isStartRace)
         {
             currentRaceTime += Time.deltaTime;
             if (currentRaceTime > currentTimeToFinish && timeOffset == 0)

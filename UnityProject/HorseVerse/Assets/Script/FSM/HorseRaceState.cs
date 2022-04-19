@@ -25,7 +25,7 @@ public class HorseRaceState : BState
     {
         base.Enter();
         playerHorseId = this.SuperMachine.GetPreviousState<HorsePickingState>().HorseId;
-        await InitUI();
+        await LoadResources();
         StartGame();
     }
 
@@ -143,14 +143,19 @@ public class HorseRaceState : BState
         uIHorseRaceStatus.In().Forget();
     }
 
-    private async UniTask InitUI()
+    private async UniTask LoadResources()
+    {
+        await LoadUI();
+        await LoadRacingScene();
+    }
+
+    private async UniTask LoadUI()
     {
         horseRaceManager ??= GameObject.Instantiate<HorseRaceManager>((await Resources.LoadAsync<HorseRaceManager>("HorseRaceManager") as HorseRaceManager));
         uIHorseRaceStatus ??= await UILoader.Load<UIHorseRaceStatus>();
         uiSpeedController ??= await UILoader.Load<UISpeedController>();
         uiRaceResultSelf ??= await UILoader.Load<UIRaceResultSelf>();
         uiRaceResultList ??= await UILoader.Load<UIRaceResultList>();
-        await LoadRacingScene();
     }
 
     private async UniTask LoadRacingScene()

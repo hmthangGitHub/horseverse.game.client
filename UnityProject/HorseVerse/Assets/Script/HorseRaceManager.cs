@@ -50,6 +50,7 @@ public class HorseRaceManager : MonoBehaviour
             horseController.lap = totalLap;
             horseController.IsPlayer = playerHorseId == playerList[i];
             horseController.Lane = i;
+            horseController.StartRace();
             horseControllers.Add(horseController);
         }
 
@@ -58,7 +59,7 @@ public class HorseRaceManager : MonoBehaviour
 
     private void OnFinishTrack()
     {
-        OnFinishTrackEvent.Invoke();
+        OnFinishTrackEvent?.Invoke();
     }
 
     public void Skip()
