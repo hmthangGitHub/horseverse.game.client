@@ -17,7 +17,8 @@ public class HorseRaceState : BState
     private UIRaceResultList uiRaceResultList;
     private Scene racing = default;
     private int[] cachePositions;
-    private bool IsGameStart = false;
+    private bool isGameStart = false;
+    private bool isLoadedUI = false;
     private Scene racingScene;
     private int playerHorseId;
 
@@ -26,12 +27,13 @@ public class HorseRaceState : BState
         base.Enter();
         playerHorseId = this.SuperMachine.GetPreviousState<HorsePickingState>().HorseId;
         await LoadResources();
-        StartGame();
+        isLoadedUI = true;
+        this.SuperMachine.GetState<LoadingState>().HideLoading();
     }
 
     private void StartGame()
     {
-        IsGameStart = true;
+        isGameStart = true;
         int[] horseIdInLanes = RandomHorseInLanes();
         SetEntityHorseRaceManager(horseIdInLanes);
         SetEntityUISpeedController();
@@ -151,7 +153,7 @@ public class HorseRaceState : BState
 
     private async UniTask LoadUI()
     {
-        horseRaceManager ??= GameObject.Instantiate<HorseRaceManager>((await Resources.LoadAsync<HorseRaceManager>("HorseRaceManager") as HorseRaceManager));
+        horseRaceManager ??= GameObject.Instantiate<HorseRaceManager>((await Resources.LoadAsync<HorseRaceManager>("GamePlay/HorseRaceManager") as HorseRaceManager));
         uIHorseRaceStatus ??= await UILoader.Load<UIHorseRaceStatus>();
         uiSpeedController ??= await UILoader.Load<UISpeedController>();
         uiRaceResultSelf ??= await UILoader.Load<UIRaceResultSelf>();
@@ -169,7 +171,7 @@ public class HorseRaceState : BState
     public override void PhysicsExecute()
     {
         base.PhysicsExecute();
-        if (IsGameStart)
+        if (isGameStart)
         {
             var positions = horseRaceManager.horseControllers.OrderByDescending(x => x.normalizePath)
                                                              .Select(x => x)
@@ -185,6 +187,16 @@ public class HorseRaceState : BState
         }
     }
 
+    public override void Execute()
+    {
+        base.ManualExecute();
+        if (isLoadedUI && !isGameStart && (Input.touchCount >= 1 || Input.anyKey))
+        {
+            isGameStart = true;
+            StartGame();
+        }
+    }
+
     public override void Initialize()
     {
         base.Initialize();
@@ -193,7 +205,7 @@ public class HorseRaceState : BState
     public override void Exit()
     {
         base.Exit();
-        IsGameStart = false;
+        isGameStart = false;
         GameObject.Destroy(horseRaceManager.gameObject);
         horseRaceManager = default;
         GameObject.Destroy(uiSpeedController.gameObject);
@@ -205,5 +217,6 @@ public class HorseRaceState : BState
         GameObject.Destroy(uIHorseRaceStatus.gameObject);
         uIHorseRaceStatus = default;
         SceneManager.UnloadSceneAsync(racingScene).ToUniTask().Forget();
+        isLoadedUI = false;
     }
 }

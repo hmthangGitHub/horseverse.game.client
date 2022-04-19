@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class HorseRaceManager : MonoBehaviour
 {
+    public FreeCamera freeCamera;
     public Transform[] transforms;
     public List<HorseController> horseControllers = new List<HorseController>();
     public int[] top;
@@ -27,6 +28,7 @@ public class HorseRaceManager : MonoBehaviour
 
     public void StartRace(int[] playerList, int horseId)
     {
+        freeCamera.gameObject.SetActive(false);
         playerHorseId = horseId;
         path.GetComponent<PathCreation.Examples.RoadMeshCreator>().TriggerUpdate();
         raceLength = path.path.length * path.transform.lossyScale.x;
