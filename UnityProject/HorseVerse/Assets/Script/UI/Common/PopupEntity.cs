@@ -19,11 +19,16 @@ public abstract class PopupEntity<T> : MonoBehaviour, IUIComponent<T>, IPopupEnt
 
     public virtual async UniTask In()
     {
+        DefaultIn();
+        await UniTask.CompletedTask;
+    }
+
+    private void DefaultIn()
+    {
         canvasGroup.alpha = 1.0f;
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
         this.gameObject.SetActive(true);
-        await UniTask.CompletedTask;
     }
 
     public virtual async UniTask Out()

@@ -7,6 +7,7 @@ public class RootFSM : MonoFSM
 {
     public override void AddStates()
     {
+        AddState<LoadingState>();
         AddState<HorsePickingState>();
         AddState<HorseRaceState>();
         SetInitialState<HorsePickingState>();

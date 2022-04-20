@@ -35,6 +35,7 @@ public class HorsePickingState : BState
             }),
             race = new ButtonComponent.Entity(() =>
             {
+                this.SuperMachine.GetState<LoadingState>().ShowLoading();
                 this.SuperMachine.ChangeState<HorseRaceState>();
             })
         });
