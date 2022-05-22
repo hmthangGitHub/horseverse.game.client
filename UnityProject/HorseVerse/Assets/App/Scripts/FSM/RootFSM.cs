@@ -3,13 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RootFSM : MonoFSM
+public class RootFSM : MonoFSMContainer
 {
     public override void AddStates()
     {
-        AddState<LoadingState>();
-        AddState<HorsePickingState>();
-        AddState<HorseRaceState>();
-        SetInitialState<HorsePickingState>();
+        base.AddStates();
+        AddState<InitialState>();
+        SetInitialState<InitialState>();
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class HorseRaceState : BState
+public class HorseRaceState : InjectedBState
 {
     private HorseRaceManager horseRaceManager;
     private UIHorseRaceStatus uIHorseRaceStatus;
@@ -25,10 +25,11 @@ public class HorseRaceState : BState
     public override async void Enter()
     {
         base.Enter();
-        playerHorseId = this.SuperMachine.GetPreviousState<HorsePickingState>().HorseId;
+        playerHorseId = this.Machine.GetPreviousState<HorsePickingState>().HorseId;
         await LoadResources();
         isLoadedUI = true;
-        this.SuperMachine.GetState<LoadingState>().HideLoading();
+        var uiLoadingPresenter = this.Container.Inject<UILoadingPresenter>();
+        uiLoadingPresenter.HideLoading();
     }
 
     private void StartGame()
@@ -74,7 +75,7 @@ public class HorseRaceState : BState
             },
             closeBtn = new ButtonComponent.Entity(() =>
             {
-                ToMainState();
+                ToMainState().Forget();
             })
         });
         uiRaceResultList.In().Forget();
@@ -93,9 +94,11 @@ public class HorseRaceState : BState
           .ToArray();
     }
 
-    private void ToMainState()
+    private async UniTaskVoid ToMainState()
     {
-        this.SuperMachine.ChangeState<HorsePickingState>();
+        this.Container.Inject<UILoadingPresenter>().ShowLoadingAsync().Forget();
+        await UniTask.Delay(1000);
+        this.Machine.ChangeState<HorsePickingState>();
     }
 
     private static int[] RandomHorseInLanes()
@@ -206,17 +209,14 @@ public class HorseRaceState : BState
     {
         base.Exit();
         isGameStart = false;
-        GameObject.Destroy(horseRaceManager.gameObject);
-        horseRaceManager = default;
-        GameObject.Destroy(uiSpeedController.gameObject);
-        uiSpeedController = default;
-        GameObject.Destroy(uiRaceResultSelf.gameObject);
-        uiRaceResultSelf = default;
-        GameObject.Destroy(uiRaceResultList.gameObject);
-        uiRaceResultList = default;
-        GameObject.Destroy(uIHorseRaceStatus.gameObject);
-        uIHorseRaceStatus = default;
-        SceneManager.UnloadSceneAsync(racingScene).ToUniTask().Forget();
         isLoadedUI = false;
+
+        UILoader.SafeUnload(ref horseRaceManager);
+        UILoader.SafeUnload(ref uiSpeedController);
+        UILoader.SafeUnload(ref uiRaceResultSelf);
+        UILoader.SafeUnload(ref uiRaceResultList);
+        UILoader.SafeUnload(ref uIHorseRaceStatus);
+
+        SceneManager.UnloadSceneAsync(racingScene).ToUniTask().Forget();
     }
 }

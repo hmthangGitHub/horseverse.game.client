@@ -1,19 +1,21 @@
 ﻿using Cysharp.Threading.Tasks;
 using RobustFSM.Base;
+using System;
 using UnityEngine;
 
-public class LoadingState : BState
+public class LoadingState : InjectedBState
 {
-    public UILoading uiLoading;
-
-    public async void ShowLoading()
+    public override void Enter()
     {
-        uiLoading ??= await UILoader.Load<UILoading>();
-        uiLoading.In().Forget();
+        base.Enter();
+        ShowLoadingThenChangeState().Forget();
     }
 
-    public void HideLoading()
+    private async UniTaskVoid ShowLoadingThenChangeState()
     {
-        uiLoading?.Out().Forget();
+        var uiLoadingPresenter = this.Container.Inject<UILoadingPresenter>();
+        uiLoadingPresenter.ShowLoadingAsync().Forget();
+        await UniTask.Delay(1000);
+        this.Machine.ChangeState<HorsePickingState>();
     }
 }
