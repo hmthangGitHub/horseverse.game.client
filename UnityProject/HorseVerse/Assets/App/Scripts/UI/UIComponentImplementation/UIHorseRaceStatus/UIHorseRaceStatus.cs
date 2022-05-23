@@ -36,7 +36,7 @@ public class UIHorseRaceStatus : PopupEntity<UIHorseRaceStatus.Entity>
         }
     }
 
-    internal void Skip()
+    public void Skip()
     {
         this.currentTimer = this.entity.finishTime;
     }

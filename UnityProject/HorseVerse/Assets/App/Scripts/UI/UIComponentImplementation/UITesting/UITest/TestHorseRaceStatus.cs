@@ -8,7 +8,7 @@ public class TestHorseRaceStatus : TestUIScript<UIHorseRaceStatus, UIHorseRaceSt
     public int changePos;
     public int changeTo;
 
-    private void OnGUI()
+    protected override void OnGUI()
     {
         base.OnGUI();
         if (GUILayout.Button("Change Pos"))
