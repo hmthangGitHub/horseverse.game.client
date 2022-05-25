@@ -2,6 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestHorsePicker : TestUIScript<UIHorsePicker, UIHorsePicker.Entity>
+public class TestUIMainMenu : TestUIScript<UIMainMenu, UIMainMenu.Entity>
 {
 }
