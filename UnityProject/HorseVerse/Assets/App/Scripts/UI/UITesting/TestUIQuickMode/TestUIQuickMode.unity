@@ -544,19 +544,40 @@ MonoBehaviour:
       onClickEvent:
         m_PersistentCalls:
           m_Calls: []
+      isInteractable: 1
     findMatchBtn:
       onClickEvent:
         m_PersistentCalls:
           m_Calls: []
+      isInteractable: 1
     cancelMatchBtn:
       onClickEvent:
         m_PersistentCalls:
           m_Calls: []
+      isInteractable: 1
     findMatchBtnVisible:
-      isVisible: 0
+      isVisible: 1
     cancelMatchBtnVisible:
       isVisible: 0
+    findMatchEnergyCost: 0
     findMatchTimer: 100
+    horseDetail:
+      horseName: 
+      speedProgressBarWithBonus:
+        progressBar:
+          progress: 0
+        bonus: 0
+      powerProgressBarWithBonus:
+        progressBar:
+          progress: 0
+        bonus: 0
+      technicallyProgressBarWithBonus:
+        progressBar:
+          progress: 0
+        bonus: 0
+      earning: 0
+    horseSelectSumaryList:
+      entities: []
 --- !u!1001 &6754922710750537184
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -564,6 +585,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1265037717}
     m_Modifications:
+    - target: {fileID: 361057138263434639, guid: 9e5d640d07e86284da92c1b6fbfe1a28, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 361057138263434639, guid: 9e5d640d07e86284da92c1b6fbfe1a28, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827180751527226929, guid: 9e5d640d07e86284da92c1b6fbfe1a28, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827180751527226929, guid: 9e5d640d07e86284da92c1b6fbfe1a28, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2873065881654893532, guid: 9e5d640d07e86284da92c1b6fbfe1a28, type: 3}
       propertyPath: m_Name
       value: UIQuickMode
@@ -650,6 +687,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3764579121107192919, guid: 9e5d640d07e86284da92c1b6fbfe1a28, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7109270780553990760, guid: 9e5d640d07e86284da92c1b6fbfe1a28, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7109270780553990760, guid: 9e5d640d07e86284da92c1b6fbfe1a28, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
