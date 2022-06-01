@@ -26,4 +26,12 @@ public class IsVisibleComponent : UIComponent<IsVisibleComponent.Entity>
         };
         OnSetEntity();
     }
+
+    public void Reset()
+    {
+        if (this.gameObject == null)
+        {
+            this.gameObject = base.gameObject;
+        }
+    }
 }

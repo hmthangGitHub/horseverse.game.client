@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VirtualUIList<Template, TemplateEntity> : UIComponent<VirtualUIList<Template, TemplateEntity>.Entity> where TemplateEntity : new()
+public class UIComponentList<Template, TemplateEntity> : UIComponent<UIComponentList<Template, TemplateEntity>.Entity> where TemplateEntity : new()
                                                                                                                    where Template : UIComponent<TemplateEntity>
 {
     [Serializable]
-    public class Entity
+    public partial class Entity
     {
         public TemplateEntity[] entities;
     }

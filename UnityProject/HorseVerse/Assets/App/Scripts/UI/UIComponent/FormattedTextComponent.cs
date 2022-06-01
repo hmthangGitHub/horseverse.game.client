@@ -18,11 +18,18 @@ public class FormattedTextComponent : UIComponent<FormattedTextComponent.Entity>
 
     public void SetEntity(object value)
     {
-        this.entity = new Entity()
+        if (value is FormattedTextComponent.Entity entity)
         {
-            param = new object[] { value }
-        };
-        OnSetEntity();
+            this.entity = entity;
+        }
+        else
+        {
+            this.entity = new Entity()
+            {
+                param = new object[] { value }
+            };
+            OnSetEntity();
+        }
     }
 
     public void SetEntity(params object[] param)

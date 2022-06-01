@@ -1,0 +1,34 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class UIBetMode : PopupEntity<UIBetMode.Entity>
+{
+	[System.Serializable]
+    public class Entity
+    {
+        public UIComponentBetModeHeader.Entity header;
+        public ButtonComponent.Entity backBtn;
+        public UIComponentSingleBetSlotList.Entity singleBetSlotList;
+        public UIComponentDoubleBetList.Entity doubleBetSlotList;
+        public UIComponentQuickBetButtonsContainer.Entity quickBetButtonsContainer;
+        public UIComponentBetAmouthsContainer.Entity betAmouthsContainer;
+    }
+
+    public UIComponentBetModeHeader header;
+    public ButtonComponent backBtn;
+    public UIComponentSingleBetSlotList singleBetSlotList;
+    public UIComponentDoubleBetList doubleBetSlotList;
+    public UIComponentQuickBetButtonsContainer quickBetButtonsContainer;
+    public UIComponentBetAmouthsContainer betAmouthsContainer;
+
+    protected override void OnSetEntity()
+    {
+        header.SetEntity(this.entity.header);
+        backBtn.SetEntity(this.entity.backBtn);
+        singleBetSlotList.SetEntity(this.entity.singleBetSlotList);
+        doubleBetSlotList.SetEntity(this.entity.doubleBetSlotList);
+        quickBetButtonsContainer.SetEntity(this.entity.quickBetButtonsContainer);
+        betAmouthsContainer.SetEntity(this.entity.betAmouthsContainer);
+    }
+}	

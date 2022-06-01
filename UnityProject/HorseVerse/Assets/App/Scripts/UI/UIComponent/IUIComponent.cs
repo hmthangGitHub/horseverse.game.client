@@ -2,19 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface UIComponent
+public interface IUIComponent
 {
     
 }
 
-public interface IUIComponent<T> : UIComponent where T : new()
+public interface IUIComponent<T> : IUIComponent where T : new()
 {
     T entity { get; }
     void SetEntity(T entity);
 
 }
 
-public abstract class UIComponent<T> : MonoBehaviour, IUIComponent<T> where T : new()
+public class UIComponent : MonoBehaviour
+{
+    
+}
+
+public abstract class UIComponent<T> : UIComponent, IUIComponent<T> where T : new()
 {
     public T entity { get; protected set; }
 

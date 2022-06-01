@@ -4,8 +4,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
+public class PopupEntity : UIComponent
+{
+}
+
 [RequireComponent(typeof(CanvasGroup))]
-public abstract class PopupEntity<T> : MonoBehaviour, IUIComponent<T>, IPopupEntity<T> where T : new()
+public abstract class PopupEntity<T> : PopupEntity, IUIComponent<T>, IPopupEntity<T> where T : new()
 {
     public CanvasGroup canvasGroup;
     public T entity { get; protected set; }

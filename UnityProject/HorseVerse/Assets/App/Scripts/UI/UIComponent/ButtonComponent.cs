@@ -13,11 +13,13 @@ public class ButtonComponent : UIComponent<ButtonComponent.Entity>
     public class Entity
     {
         public UnityEvent onClickEvent;
+        public bool isInteractable = true;
 
-        public Entity(Action action)
+        public Entity(Action action, bool isInteractable = true)
         {
             onClickEvent = new UnityEvent();
             onClickEvent.AddListener(() => action.Invoke());
+            this.isInteractable = isInteractable;
         }
 
         public Entity(UnityEvent buttonEvent)
@@ -43,6 +45,7 @@ public class ButtonComponent : UIComponent<ButtonComponent.Entity>
     {
         buttonEvent.RemoveAllListeners();
         buttonEvent.AddListener(() => this.entity.onClickEvent.Invoke());
+        button.interactable = this.entity.isInteractable;
     }
 
     public void SetEntity(UnityEvent buttonEvent)
@@ -55,6 +58,15 @@ public class ButtonComponent : UIComponent<ButtonComponent.Entity>
     {
         this.entity = new Entity(action);
         OnSetEntity();
+    }
+
+    public void SetInteractable(bool isInteractable)
+    {
+        if (this.entity != null)
+        {
+            this.entity.isInteractable = isInteractable;
+            button.interactable = this.entity.isInteractable;
+        }
     }
 
     void Reset()
