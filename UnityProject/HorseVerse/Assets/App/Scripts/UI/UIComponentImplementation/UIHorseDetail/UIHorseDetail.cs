@@ -7,25 +7,16 @@ public class UIHorseDetail : PopupEntity<UIHorseDetail.Entity>
 	[System.Serializable]
     public class Entity
     {
-        public string horseName;
-        public UIComponentProgressBarWithBonus.Entity speedProgressBarWithBonus;
-        public UIComponentProgressBarWithBonus.Entity powerProgressBarWithBonus;
-        public UIComponentProgressBarWithBonus.Entity technicallyProgressBarWithBonus;
-        public int earning;
+        public UIComponentHorseDetail.Entity horseDetail;
+        public ButtonComponent.Entity levelUpBtn;
     }
 
-    public FormattedTextComponent horseName;
-    public UIComponentProgressBarWithBonus speedProgressBarWithBonus;
-    public UIComponentProgressBarWithBonus powerProgressBarWithBonus;
-    public UIComponentProgressBarWithBonus technicallyProgressBarWithBonus;
-    public FormattedTextComponent earning;
+    public UIComponentHorseDetail horseDetail;
+    public ButtonComponent levelUpBtn;
 
     protected override void OnSetEntity()
     {
-        horseName.SetEntity(this.entity.horseName);
-        speedProgressBarWithBonus.SetEntity(this.entity.speedProgressBarWithBonus);
-        powerProgressBarWithBonus.SetEntity(this.entity.powerProgressBarWithBonus);
-        technicallyProgressBarWithBonus.SetEntity(this.entity.technicallyProgressBarWithBonus);
-        earning.SetEntity(this.entity.earning);
+        horseDetail.SetEntity(this.entity.horseDetail);
+        levelUpBtn.SetEntity(this.entity.levelUpBtn);
     }
 }	
