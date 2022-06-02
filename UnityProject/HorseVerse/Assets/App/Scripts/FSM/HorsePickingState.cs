@@ -5,17 +5,21 @@ using System.Threading;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 
-public class HorsePickingState : BState
+public class HorsePickingState : InjectedBState
 {
     private UIHorsePicker uiHorsePicker = default;
     private CancellationTokenSource cts = default;
     public int HorseId { get; private set; }
+    public UILoadingPresenter uiLoadingPresenter;
     public override async void Enter()
     {
         base.Enter();
-        cts?.Cancel();
+        uiLoadingPresenter = this.Container.Inject<UILoadingPresenter>();
+        uiLoadingPresenter.HideLoading();
+
+        cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
-        uiHorsePicker ??= await UILoader.Load<UIHorsePicker>().AttachExternalCancellation(cts.Token);
+        uiHorsePicker ??= await UILoader.Load<UIHorsePicker>(token: cts.Token);
         uiHorsePicker.SetEntity(new UIHorsePicker.Entity()
         {
             horseLoader = new HorseLoader.Entity()
@@ -35,8 +39,8 @@ public class HorsePickingState : BState
             }),
             race = new ButtonComponent.Entity(() =>
             {
-                this.SuperMachine.GetState<LoadingState>().ShowLoading();
-                this.SuperMachine.ChangeState<HorseRaceState>();
+                uiLoadingPresenter.ShowLoadingAsync().Forget();
+                this.Machine.ChangeState<HorseRaceState>();
             })
         });
         uiHorsePicker.In().Forget();
