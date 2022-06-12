@@ -26,6 +26,12 @@ public class AssetBundleGenerateNameEditor : EditorWindow
     int _selected = 0;
     string[] _options = {   "localization",
                             "data",
+                            "shader",
+                            "horse_animation",
+                            "horse_model",
+                            "horse_material",
+                            "horse_texture",
+
                         };
 
     [MenuItem("Tools/AssetBundle/Change Bundle Name")]

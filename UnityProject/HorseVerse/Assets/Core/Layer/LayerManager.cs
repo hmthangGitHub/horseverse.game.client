@@ -79,6 +79,7 @@ namespace Core
 
         IEnumerator WaitingForStartScene()
         {
+            if (string.IsNullOrEmpty(RootLayerPath)) yield break;
             yield return null;
             CreateLayer(new ElementParameter(RootLayerPath, TransitionType.None));
         }
