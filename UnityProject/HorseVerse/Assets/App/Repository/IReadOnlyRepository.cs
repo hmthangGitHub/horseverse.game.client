@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-public interface IReadOnlyRepository<TKey, TModel>
+public interface IReadOnlyRepository<TKey, TModel> : IDisposable
 {
     IReadOnlyDictionary<TKey, TModel> Models { get; }
     UniTask LoadRepositoryIfNeedAsync();

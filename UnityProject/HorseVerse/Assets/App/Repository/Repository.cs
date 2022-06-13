@@ -30,6 +30,7 @@ public class Repository<TKey, TData, TModel> : IRepository<TKey, TData, TModel>
 
     public void Reset()
     {
+        cts.SafeCancelAndDispose();
         isInitilized = false;
         models.Clear();
     }
@@ -39,6 +40,7 @@ public class Repository<TKey, TData, TModel> : IRepository<TKey, TData, TModel>
         if (!isInitilized)
         {
             cts.SafeCancelAndDispose();
+            cts = new CancellationTokenSource();
             await Load().AttachExternalCancellation(cts.Token);
             isInitilized = true;
         }
@@ -67,5 +69,10 @@ public class Repository<TKey, TData, TModel> : IRepository<TKey, TData, TModel>
         models.TryGetValue(key, out TModel oldModel);
         models[key] = model;
         OnModelUpdate((oldModel, model));
+    }
+
+    public void Dispose()
+    {
+        Reset();
     }
 }

@@ -10,12 +10,18 @@ public class HorsePickingState : InjectedBState
     private UIHorsePicker uiHorsePicker = default;
     private CancellationTokenSource cts = default;
     public int HorseId { get; private set; }
-    public UILoadingPresenter uiLoadingPresenter;
+
+    private UILoadingPresenter uiLoadingPresenter;
+    public UILoadingPresenter UiLoadingPresenter => uiLoadingPresenter ??= this.Container.Inject<UILoadingPresenter>();
+
+    private UIHeaderPresenter uiHeaderPresenter;
+    public UIHeaderPresenter UiHeaderPresenter => uiHeaderPresenter ??= this.Container.Inject<UIHeaderPresenter>();
+
     public override async void Enter()
     {
         base.Enter();
-        uiLoadingPresenter = this.Container.Inject<UILoadingPresenter>();
-        uiLoadingPresenter.HideLoading();
+        UiLoadingPresenter.HideLoading();
+        UiHeaderPresenter.ShowHeaderAsync().Forget();
 
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
@@ -39,7 +45,7 @@ public class HorsePickingState : InjectedBState
             }),
             race = new ButtonComponent.Entity(() =>
             {
-                uiLoadingPresenter.ShowLoadingAsync().Forget();
+                UiLoadingPresenter.ShowLoadingAsync().Forget();
                 this.Machine.ChangeState<HorseRaceState>();
             })
         });
@@ -59,12 +65,7 @@ public class HorsePickingState : InjectedBState
         base.Exit();
         cts?.Cancel();
         cts = default;
-        GameObject.Destroy(uiHorsePicker.gameObject);
-        uiHorsePicker = null;
-    }
 
-    public override void Initialize()
-    {
-        base.Initialize();
+        UILoader.SafeUnload(ref uiHorsePicker);
     }
 }
