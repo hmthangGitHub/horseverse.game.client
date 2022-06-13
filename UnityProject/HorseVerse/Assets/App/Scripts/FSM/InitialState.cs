@@ -27,6 +27,8 @@ public class InitialState : InjectedBHState, IDisposable
 
         AddState<HorsePickingState>();
         AddState<HorseRaceState>();
+        AddState<BetModeState>();
+        AddState<MainMenuState>();
 
         SetInitialState<LoadingState>();
     }
