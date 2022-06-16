@@ -7,13 +7,14 @@ public class UIComponentBetModeHeader : UIComponent<UIComponentBetModeHeader.Ent
 	[System.Serializable]
     public class Entity
     {
-        public long timeCountDown;
+        public UIComponentCountDownTimer.Entity timeCountDown;
         public UIComponentBetModeUserInfo.Entity userInfo;
-        public FormattedTextComponent.Entity energy;
+        public int energy;
+        public int maxEnergy;
         public ButtonComponent.Entity changeRaceBtn;
     }
 
-    public FormattedTextComponent timeCountDown;
+    public UIComponentCountDownTimer timeCountDown;
     public UIComponentBetModeUserInfo userInfo;
     public FormattedTextComponent energy;
     public ButtonComponent changeRaceBtn;
@@ -22,7 +23,7 @@ public class UIComponentBetModeHeader : UIComponent<UIComponentBetModeHeader.Ent
     {
         timeCountDown.SetEntity(this.entity.timeCountDown);
         userInfo.SetEntity(this.entity.userInfo);
-        energy.SetEntity(this.entity.energy);
+        energy.SetEntity(this.entity.energy, this.entity.maxEnergy);
         changeRaceBtn.SetEntity(this.entity.changeRaceBtn);
     }
 }	

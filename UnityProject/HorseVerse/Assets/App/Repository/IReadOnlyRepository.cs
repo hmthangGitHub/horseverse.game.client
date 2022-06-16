@@ -12,5 +12,5 @@ public interface IReadOnlyRepository<TKey, TModel> : IDisposable
 
 public interface IRepository<TKey, TData, TModel> : IReadOnlyRepository<TKey, TModel>
 {
-    UniTask UpdateDataAsync(TData[] data);
+    UniTask UpdateDataAsync(IEnumerable<TData> data);
 }

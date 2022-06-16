@@ -6,16 +6,14 @@ using UnityEngine;
 
 public class InitialState : InjectedBHState, IDisposable
 {
-    private UILoadingPresenter uiloadingPresenter = new UILoadingPresenter();
-    private UIHeaderPresenter uiHeaderPresenter = default;
-    private IReadOnlyUserDataRepository userDataRepository = new UserDataRepository();
-
-    public override void Enter()
+    public async override void Enter()
     {
-        this.Container.Bind<IReadOnlyUserDataRepository>(userDataRepository);
-        this.Container.Bind<UILoadingPresenter>(uiloadingPresenter);
-        this.Container.Bind<UIHeaderPresenter>(uiHeaderPresenter = new UIHeaderPresenter(Container));
-        
+        this.Container.Bind(new BetRateRepository());
+        this.Container.Bind(new UserDataRepository());
+        this.Container.Bind(new UILoadingPresenter());
+        this.Container.Bind(new UIHeaderPresenter(Container));
+        this.Container.Bind(new UIHorse3DViewPresenter(Container));
+        this.Container.Bind(await MasterLoader.LoadAsync<MasterHorseContainer>());
         base.Enter();
     }
 
@@ -41,8 +39,11 @@ public class InitialState : InjectedBHState, IDisposable
 
     public void Dispose()
     {
-        this.Container.RemoveAndDisposeIfNeed<IReadOnlyUserDataRepository>();
+        this.Container.RemoveAndDisposeIfNeed<BetRateRepository>();
+        this.Container.RemoveAndDisposeIfNeed<UserDataRepository>();
         this.Container.RemoveAndDisposeIfNeed<UILoadingPresenter>();
         this.Container.RemoveAndDisposeIfNeed<UIHeaderPresenter>();
+        this.Container.RemoveAndDisposeIfNeed<UIHorse3DViewPresenter>();
+        this.Container.RemoveAndDisposeIfNeed<MasterHorseContainer>();
     }
 }

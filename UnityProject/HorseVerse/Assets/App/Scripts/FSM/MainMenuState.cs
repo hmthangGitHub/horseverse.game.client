@@ -11,6 +11,9 @@ public class MainMenuState : InjectedBState
     private UIHeaderPresenter uiHeaderPresenter;
     public UIHeaderPresenter UiHeaderPresenter => uiHeaderPresenter ??= this.Container.Inject<UIHeaderPresenter>();
 
+    private UIHorse3DViewPresenter uiHorse3DViewPresenter;
+    public UIHorse3DViewPresenter UIHorse3DViewPresenter => uiHorse3DViewPresenter ??= this.Container.Inject<UIHorse3DViewPresenter>();
+
     private UIMainMenuPresenter uiMainMenuPresenter = new UIMainMenuPresenter();
 
     public override void Enter()
@@ -18,6 +21,7 @@ public class MainMenuState : InjectedBState
         base.Enter();
         SubcribeEvents();
         UiLoadingPresenter.HideLoading();
+        UIHorse3DViewPresenter.ShowHorse3DViewAsync().Forget();
         UiHeaderPresenter.ShowHeaderAsync().Forget();
         uiMainMenuPresenter.ShowMainMenuAsync().Forget();
     }

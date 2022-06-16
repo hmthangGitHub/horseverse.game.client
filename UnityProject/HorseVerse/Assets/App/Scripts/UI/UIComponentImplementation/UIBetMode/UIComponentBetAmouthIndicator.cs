@@ -19,6 +19,7 @@ public class UIComponentBetAmouthIndicator : UIComponent<UIComponentBetAmouthInd
     public int currentFocusIndex = 0;
     public RectTransform viewportRectTransform;
     public RectTransform betAmouthListScrollerRectTransform;
+    private Action<int> OnFocusIndex = ActionUtility.EmptyAction<int>.Instance;
 
     protected override void OnSetEntity()
     {
@@ -28,13 +29,14 @@ public class UIComponentBetAmouthIndicator : UIComponent<UIComponentBetAmouthInd
         currentFocusIndex = 0;
         SetInitialListPosition();
         SetButtonsState();
-        this.entity.OnFocusIndex?.Invoke(currentFocusIndex);
+        OnFocusIndex += this.entity.OnFocusIndex;
+        OnFocusIndex.Invoke(currentFocusIndex);
     }
 
     private void OnPrevious()
     {
         currentFocusIndex--;
-        this.entity.OnFocusIndex?.Invoke(currentFocusIndex);
+        OnFocusIndex.Invoke(currentFocusIndex);
         ChangeFocusIndexAnimation();
         SetButtonsState();
     }
@@ -49,7 +51,7 @@ public class UIComponentBetAmouthIndicator : UIComponent<UIComponentBetAmouthInd
     private void OnNext()
     {
         currentFocusIndex++;
-        this.entity.OnFocusIndex?.Invoke(currentFocusIndex);
+        OnFocusIndex.Invoke(currentFocusIndex);
         ChangeFocusIndexAnimation();
         SetButtonsState();
     }

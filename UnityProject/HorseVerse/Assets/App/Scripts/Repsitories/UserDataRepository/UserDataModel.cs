@@ -5,4 +5,5 @@
     public string UserName { get; set; }
     public int MaxEnergy { get; set; }
     public int Energy { get; set; }
+    public long MasterHorseId { get; set; }
 }

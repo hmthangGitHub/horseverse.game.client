@@ -18,6 +18,7 @@ public class Repository<TKey, TData, TModel> : IRepository<TKey, TData, TModel>
     private Func<UniTask<IEnumerable<TData>>> datasPredicator;
     private bool isInitilized = false;
     private CancellationTokenSource cts;
+    private UniTaskCompletionSource completionSource = default;
 
     public Repository(Func<TModel, TKey> keyPredicator,
                       Func<TData, TModel> modelPredicator,
@@ -39,10 +40,20 @@ public class Repository<TKey, TData, TModel> : IRepository<TKey, TData, TModel>
     {
         if (!isInitilized)
         {
-            cts.SafeCancelAndDispose();
-            cts = new CancellationTokenSource();
-            await Load().AttachExternalCancellation(cts.Token);
-            isInitilized = true;
+            if (completionSource != default)
+            {
+                await completionSource.Task;
+            }
+            else
+            {
+                completionSource = new UniTaskCompletionSource();
+                cts.SafeCancelAndDispose();
+                cts = new CancellationTokenSource();
+                await Load().AttachExternalCancellation(cts.Token);
+                isInitilized = true;
+                completionSource.TrySetResult();
+                completionSource = default;
+            }
         }
     }
 
@@ -53,7 +64,7 @@ public class Repository<TKey, TData, TModel> : IRepository<TKey, TData, TModel>
                       .ToDictionary(keyPredicator);
     }
 
-    public async UniTask UpdateDataAsync(TData[] data)
+    public async UniTask UpdateDataAsync(IEnumerable<TData> data)
     {
         var beforeModels = models.ToDictionary(x => x.Key, x => x.Value);
         data.Select(modelPredicator)

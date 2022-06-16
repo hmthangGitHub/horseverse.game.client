@@ -24,7 +24,8 @@ public class UserDataRepository : Repository<string, UserDataModel, UserDataMode
             Coin = UnityEngine.Random.Range(100, 1000),
             Energy = UnityEngine.Random.Range(100, 1000),
             MaxEnergy = UnityEngine.Random.Range(100,1000),
-            UserName = $"HorseVerse {UnityEngine.Random.Range(1, 1000)}"
+            UserName = $"HorseVerse {UnityEngine.Random.Range(1, 1000)}",
+            MasterHorseId = 10000001
         } }; 
 #endif
     }
