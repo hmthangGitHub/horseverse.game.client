@@ -439,6 +439,7 @@ namespace Assets.RobustFSM.Mono
             }
         }
 
+#if UNITY_EDITOR
         /// <summary>
         /// Draws a gizmo on the player
         /// </summary>
@@ -453,6 +454,7 @@ namespace Assets.RobustFSM.Mono
                 Handles.Label(transform.position, printText);
             }
         }
+#endif
 
         /// <summary>
         /// Called everytime time just before the physics updates
