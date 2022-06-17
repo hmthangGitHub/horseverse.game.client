@@ -26,7 +26,10 @@ public class UIQuickRacePresenter : IDisposable
     private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= container.Inject<MasterHorseContainer>();
     private IQuickRaceDomainService quickRaceDomainService;
     private IQuickRaceDomainService QuickRaceDomainService => quickRaceDomainService ??= container.Inject<IQuickRaceDomainService>();
-
+    private HorseDetailEntityFactory horseDetailEntityFactory;
+    private HorseDetailEntityFactory HorseDetailEntityFactory => horseDetailEntityFactory ??= container.Inject<HorseDetailEntityFactory>();
+    private HorseSumaryListEntityFactory horseSumaryListEntityFactory;
+    private HorseSumaryListEntityFactory HorseSumaryListEntityFactory => horseSumaryListEntityFactory ??= container.Inject<HorseSumaryListEntityFactory>();
     public UIQuickRacePresenter(IDIContainer container)
     {
         this.container = container;
@@ -56,66 +59,19 @@ public class UIQuickRacePresenter : IDisposable
             },
             findMatchTimer = new UIComponentDuration.Entity(),
             findMatchEnergyCost = findMatchEnergyCost,
-            horseDetail = GetHorseDetailEntity(),
-            horseSelectSumaryList = new UIComponentTraningHorseSelectSumaryList.Entity()
-            {
-                entities = HorseRepository.Models.Select(x => new UIComponentTraningHorseSelectSumary.Entity()
-                {
-                    horseName = MasterHorseContainer.MasterHorseIndexer[x.Key].Name,
-                    selectBtn = new ButtonComponent.Entity(() => OnSelectHorse(x.Key))
-                }).ToArray()
-            }
+            horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.MasterHorseId),
+            horseSelectSumaryList = HorseSumaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(),
         });
         uiQuickMode.In().Forget();
-    }
-
-    private UIComponentHorseDetail.Entity GetHorseDetailEntity()
-    {
-        var userHorse = HorseRepository.Models[UserDataRepository.Current.MasterHorseId];
-        var masterHorse = MasterHorseContainer.MasterHorseIndexer[UserDataRepository.Current.MasterHorseId];
-        return new UIComponentHorseDetail.Entity()
-        {
-            earning = userHorse.Earning,
-            horseName = masterHorse.Name,
-            powerProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
-            {
-                bonus = userHorse.PowerBonus,
-                progressBar = new UIComponentProgressBar.Entity()
-                {
-                    progress = userHorse.PowerRatio
-                }
-            },
-            speedProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
-            {
-                bonus = userHorse.SpeedBonus,
-                progressBar = new UIComponentProgressBar.Entity()
-                {
-                    progress = userHorse.SpeedRatio
-                }
-            },
-            technicallyProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
-            {
-                bonus = userHorse.TechnicallyBonus,
-                progressBar = new UIComponentProgressBar.Entity()
-                {
-                    progress = userHorse.TechnicallyRatio
-                }
-            },
-        };
     }
 
     private void UserDataRepositoryOnModelUpdate((UserDataModel before, UserDataModel after) model)
     {
         if (model.before.MasterHorseId != model.after.MasterHorseId)
         {
-            uiQuickMode.entity.horseDetail = GetHorseDetailEntity();
+            uiQuickMode.entity.horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(model.after.MasterHorseId);
             uiQuickMode.horseDetail.SetEntity(uiQuickMode.entity.horseDetail);
         }
-    }
-
-    private void OnSelectHorse(long masterHorseId)
-    {
-        QuickRaceDomainService.ChangeHorse(masterHorseId).Forget();
     }
 
     private void OnFindMatch()

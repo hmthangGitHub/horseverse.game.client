@@ -24,7 +24,6 @@ public class QuickRaceMenuState : InjectedBState
 
     private async UniTask OnEnterStateAsync()
     {
-        Container.Bind(new LocalQuickRaceDomainService(this.Container));
         uiQuickRacePresenter = new UIQuickRacePresenter(this.Container);
         uiQuickRacePresenter.OnBack += OnBack;
         uiQuickRacePresenter.OnFoundMatch += OnFoundMatch;
@@ -52,6 +51,5 @@ public class QuickRaceMenuState : InjectedBState
         uiQuickRacePresenter.OnBack -= OnBack;
         uiQuickRacePresenter.Dispose();
         uiQuickRacePresenter = default;
-        Container.RemoveAndDisposeIfNeed<LocalQuickRaceDomainService>();
     }
 }

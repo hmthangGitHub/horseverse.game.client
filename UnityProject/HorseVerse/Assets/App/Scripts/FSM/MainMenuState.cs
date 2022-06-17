@@ -34,6 +34,7 @@ public class MainMenuState : InjectedBState
         uiMainMenuPresenter.OnLibraryBtn+= ToLibraryState;
         uiMainMenuPresenter.OnPlayBtn+= ToQuickRaceState;
         uiMainMenuPresenter.OnStableBtn += ToStableState;
+        uiMainMenuPresenter.OnTraningBtn += ToTrainingState;
     }
 
     private void UnSubcribeEvents()
@@ -44,6 +45,7 @@ public class MainMenuState : InjectedBState
         uiMainMenuPresenter.OnLibraryBtn -= ToLibraryState;
         uiMainMenuPresenter.OnPlayBtn -= ToQuickRaceState;
         uiMainMenuPresenter.OnStableBtn -= ToStableState;
+        uiMainMenuPresenter.OnTraningBtn -= ToTrainingState;
     }
 
     private void ToStableState()
@@ -74,6 +76,11 @@ public class MainMenuState : InjectedBState
     private void ToQuickRaceState()
     {
         this.Machine.ChangeState<QuickRaceState>();
+    }
+
+    private void ToTrainingState()
+    {
+        this.Machine.ChangeState<TrainingState>();
     }
 
     public override void Exit()

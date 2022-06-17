@@ -16,6 +16,7 @@ public class UIMainMenuPresenter : IDisposable
     public event Action OnLibraryBtn = ActionUtility.EmptyAction.Instance;
     public event Action OnPlayBtn = ActionUtility.EmptyAction.Instance;
     public event Action OnStableBtn = ActionUtility.EmptyAction.Instance;
+    public event Action OnTraningBtn = ActionUtility.EmptyAction.Instance;
 
     public async UniTaskVoid ShowMainMenuAsync()
     {
@@ -29,7 +30,8 @@ public class UIMainMenuPresenter : IDisposable
             inventoryBtn = new ButtonComponent.Entity(OnInventoryBtn),
             libraryBtn = new ButtonComponent.Entity(OnLibraryBtn),
             playBtn = new ButtonComponent.Entity(OnPlayBtn),
-            stableBtn = new ButtonComponent.Entity(OnStableBtn)
+            stableBtn = new ButtonComponent.Entity(OnStableBtn),
+            trainingBtn = new ButtonComponent.Entity(OnTraningBtn),
         });
         uiMainMenu.In().Forget();
     }
