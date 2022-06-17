@@ -8,12 +8,13 @@ public class InitialState : InjectedBHState, IDisposable
 {
     public async override void Enter()
     {
+        this.Container.Bind(await MasterLoader.LoadAsync<MasterHorseContainer>());
+        this.Container.Bind(new HorseRepository(Container));
         this.Container.Bind(new BetRateRepository());
         this.Container.Bind(new UserDataRepository());
         this.Container.Bind(new UILoadingPresenter());
         this.Container.Bind(new UIHeaderPresenter(Container));
         this.Container.Bind(new UIHorse3DViewPresenter(Container));
-        this.Container.Bind(await MasterLoader.LoadAsync<MasterHorseContainer>());
         base.Enter();
     }
 
@@ -23,7 +24,7 @@ public class InitialState : InjectedBHState, IDisposable
 
         AddState<LoadingState>();
 
-        AddState<HorsePickingState>();
+        AddState<QuickRaceState>();
         AddState<HorseRaceState>();
         AddState<BetModeState>();
         AddState<MainMenuState>();
@@ -39,11 +40,12 @@ public class InitialState : InjectedBHState, IDisposable
 
     public void Dispose()
     {
+        this.Container.RemoveAndDisposeIfNeed<MasterHorseContainer>();
+        this.Container.RemoveAndDisposeIfNeed<HorseRepository>();
         this.Container.RemoveAndDisposeIfNeed<BetRateRepository>();
         this.Container.RemoveAndDisposeIfNeed<UserDataRepository>();
         this.Container.RemoveAndDisposeIfNeed<UILoadingPresenter>();
         this.Container.RemoveAndDisposeIfNeed<UIHeaderPresenter>();
         this.Container.RemoveAndDisposeIfNeed<UIHorse3DViewPresenter>();
-        this.Container.RemoveAndDisposeIfNeed<MasterHorseContainer>();
     }
 }

@@ -10,7 +10,11 @@ public class MasterHorse
     [JsonProperty]
     private long master_horse_id;
     [JsonProperty]
-    public string master_horse_model_path;
+    private string model_path;
+    [JsonProperty]
+    private string name;
+
     public long MasterHorseId => master_horse_id;
-    public string ModelPath => master_horse_model_path;
+    public string ModelPath => model_path;
+    public string Name => name;
 }

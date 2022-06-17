@@ -73,7 +73,7 @@ public class MainMenuState : InjectedBState
 
     private void ToQuickRaceState()
     {
-        this.Machine.ChangeState<HorsePickingState>();
+        this.Machine.ChangeState<QuickRaceState>();
     }
 
     public override void Exit()

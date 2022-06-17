@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class UserDataRepository : Repository<string, UserDataModel, UserDataModel>, IReadOnlyUserDataRepository
+public class UserDataRepository : Repository<string, UserDataModel, UserDataModel>, IReadOnlyUserDataRepository, IUserDataRepository
 {
     public UserDataRepository() : base(x => x.UserId, x => x, GetUserDataModels)
     {
@@ -32,6 +32,11 @@ public class UserDataRepository : Repository<string, UserDataModel, UserDataMode
 }
 
 public interface IReadOnlyUserDataRepository : IReadOnlyRepository<string, UserDataModel>
+{
+    UserDataModel Current { get; }
+}
+
+public interface IUserDataRepository : IRepository<string, UserDataModel, UserDataModel> 
 {
     UserDataModel Current { get; }
 }

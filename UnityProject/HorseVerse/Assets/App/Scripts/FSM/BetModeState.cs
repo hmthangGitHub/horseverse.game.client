@@ -4,7 +4,6 @@ using System;
 
 public class BetModeState : InjectedBState
 {
-    private IBetRateRepository betRateRepository = default;
     private UIBetModePresenter uiBetModePresenter = default;
     private UIHeaderPresenter uiHeaderPresenter = default;
 

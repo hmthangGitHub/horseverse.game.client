@@ -27,7 +27,6 @@ public class UIHorse3DViewPresenter : IDisposable
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         await UserDataRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
-        UserDataRepository.OnModelUpdate += UserDataRepositoryOnModelUpdate;
 
         if (uiHorse3DView == default)
         {
@@ -40,8 +39,12 @@ public class UIHorse3DViewPresenter : IDisposable
                 }
             });
         }
-        uiHorse3DView.In().Forget();
-        isIn = true;
+        if (!isIn)
+        {
+            uiHorse3DView.In().Forget();
+            isIn = true;
+            UserDataRepository.OnModelUpdate += UserDataRepositoryOnModelUpdate;
+        }
     }
 
     public void HideHorse3DView()
@@ -55,7 +58,7 @@ public class UIHorse3DViewPresenter : IDisposable
 
     private void UserDataRepositoryOnModelUpdate((UserDataModel before, UserDataModel after) model)
     {
-        if (isIn && model.after.MasterHorseId != model.before.MasterHorseId)
+        if (model.after.MasterHorseId != model.before.MasterHorseId)
         {
             uiHorse3DView.SetEntity(new UIHorse3DView.Entity()
             {
@@ -64,7 +67,11 @@ public class UIHorse3DViewPresenter : IDisposable
                     horse = MasterHorseContainer.MasterHorseIndexer[UserDataRepository.Current.MasterHorseId].ModelPath
                 }
             });
-            uiHorse3DView.In().Forget();
+
+            if (isIn)
+            {
+                uiHorse3DView.In().Forget();
+            }
         }
     }
 

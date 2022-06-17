@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -27,7 +28,7 @@ public class MasterDataSchemaGenerator : EditorWindow
         EditorGUILayout.PropertyField(serialProp, true);
         serialObj.ApplyModifiedProperties();
 
-        csvJsonFolder = EditorGUILayout.ObjectField("Output Folder", csvJsonFolder, typeof(Object), allowSceneObjects : true);
+        csvJsonFolder = EditorGUILayout.ObjectField("Output Folder", csvJsonFolder, typeof(Object), allowSceneObjects: true);
 
         if (GUILayout.Button("Generate"))
         {
@@ -48,10 +49,22 @@ public class MasterDataSchemaGenerator : EditorWindow
 
     private void GenerateData(TextAsset master)
     {
-        var filePath = $"{Application.dataPath}/{AssetDatabase.GetAssetPath(csvJsonFolder).Replace("Assets", "")}/{master.name}.json";
+        var filePath = $"{Application.dataPath}/{AssetDatabase.GetAssetPath(csvJsonFolder).Replace("Assets", "")}/{ToTitleCaseFromMasterName(master.name)}.json";
         var jsonString = CSVFileToJson.ConvertCsvFileToJsonObject("");
         File.WriteAllText(filePath, jsonString);
+        AssetDatabase.Refresh();
     }
+
+    private string ToTitleCaseFromMasterName(string masterName)
+    {
+        return ToTitleCase(masterName.Replace("_", " ")).Replace(" ","");
+    }
+
+    public string ToTitleCase(string str)
+    {
+        return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str.ToLower());
+    }
+
 
     private void GenerateSchema(TextAsset master)
     {
