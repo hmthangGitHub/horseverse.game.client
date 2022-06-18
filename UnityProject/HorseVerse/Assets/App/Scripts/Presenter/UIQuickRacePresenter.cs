@@ -15,8 +15,8 @@ public class UIQuickRacePresenter : IDisposable
     private CancellationTokenSource cts;
     private IDIContainer container;
 
-    public event Action OnBack = EmptyAction.Instance;
-    public event Action OnFoundMatch = EmptyAction.Instance;
+    public event Action OnBack = ActionUtility.EmptyAction.Instance;
+    public event Action OnFoundMatch = ActionUtility.EmptyAction.Instance;
 
     private IReadOnlyUserDataRepository userDataRepository;
     private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();

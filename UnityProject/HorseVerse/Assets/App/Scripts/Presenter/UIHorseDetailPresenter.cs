@@ -10,7 +10,7 @@ public class UIHorseDetailPresenter : IDisposable
     private UIHorseDetail uiHorseDetail = default;
     private CancellationTokenSource cts;
     private IDIContainer container;
-    public event Action OnBack = EmptyAction.Instance;
+    public event Action OnBack = ActionUtility.EmptyAction.Instance;
 
     private HorseDetailEntityFactory horseDetailEntityFactor = default;
     private HorseDetailEntityFactory HorseDetailEntityFactory => horseDetailEntityFactor ??= container.Inject<HorseDetailEntityFactory>();

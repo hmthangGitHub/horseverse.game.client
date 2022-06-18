@@ -14,7 +14,7 @@ public class UIBetModePresenter : IDisposable
     private CancellationTokenSource cts = default;
     private IDIContainer container = default;
     public event Action OnBack = ActionUtility.EmptyAction.Instance;
-
+    public event Action OnToRaceMode = ActionUtility.EmptyAction.Instance;
     private IBetRateRepository betRateRepository = default;
     public IBetRateRepository BetRateRepository => betRateRepository ??= container.Inject<IBetRateRepository>();
 
@@ -94,6 +94,7 @@ public class UIBetModePresenter : IDisposable
                 maxEnergy = UserDataRepository.Current.MaxEnergy,
                 timeCountDown = new UIComponentCountDownTimer.Entity()
                 {
+                    outDatedEvent = OnToRaceMode,
                     utcEndTimeStamp = (int)BetMatchRepository.Current.BetMatchTimeStamp
                 },
                 userInfo = new UIComponentBetModeUserInfo.Entity()

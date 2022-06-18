@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class UIHorseTrainingPresenter : IDisposable
 {
-    public Action OnBack = EmptyAction.Instance;
+    public Action OnBack = ActionUtility.EmptyAction.Instance;
     public UIHorseTraining uiHorseTraining = default;
     private CancellationTokenSource cts;
     private HorseDetailEntityFactory horseDetailEntityFactory;

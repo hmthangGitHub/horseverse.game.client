@@ -23,7 +23,7 @@ public class BetMatchRepository : Repository<long, BetMatchModel, BetMatchModel>
             new BetMatchModel()
             {
                 BetMatchId = UnityEngine.Random.Range(1, 100),
-                BetMatchTimeStamp = (DateTimeOffset.Now.ToUniversalTime().ToUnixTimeSeconds() + 120),
+                BetMatchTimeStamp = (DateTimeOffset.Now.ToUniversalTime().ToUnixTimeSeconds() + 20),
             }
         }; 
 #endif

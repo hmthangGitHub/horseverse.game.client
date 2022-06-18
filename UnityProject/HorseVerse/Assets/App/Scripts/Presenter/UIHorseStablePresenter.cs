@@ -10,8 +10,8 @@ public class UIHorseStablePresenter : IDisposable
 {
     private UIHorseStable uiHorseStable = default;
     private CancellationTokenSource cts = default;
-    public event Action OnViewHorseDetail = EmptyAction.Instance;
-    public event Action OnBack = EmptyAction.Instance;
+    public event Action OnViewHorseDetail = ActionUtility.EmptyAction.Instance;
+    public event Action OnBack = ActionUtility.EmptyAction.Instance;
     private IDIContainer container;
 
     private IQuickRaceDomainService quickRaceDomainService = default;
