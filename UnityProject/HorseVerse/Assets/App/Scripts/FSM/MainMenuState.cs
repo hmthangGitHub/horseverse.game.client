@@ -50,7 +50,7 @@ public class MainMenuState : InjectedBState
 
     private void ToStableState()
     {
-        this.Machine.ChangeState<BetModeState>();
+        this.Machine.ChangeState<StableState>();
     }
 
     private void ToLibraryState()

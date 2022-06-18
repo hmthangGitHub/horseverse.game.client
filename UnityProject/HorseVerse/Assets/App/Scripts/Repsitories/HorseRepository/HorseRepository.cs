@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class HorseRepository : Repository<long, HorseDataModel, HorseDataModel>, IReadOnlyHorseRepository
+public class HorseRepository : Repository<long, HorseDataModel, HorseDataModel>, IReadOnlyHorseRepository, IHorseRepository
 {
     private IDIContainer container;
     public HorseRepository(IDIContainer container) : base(x => x.MasterHorseId, x => x, () => GetHorseDatas(container))
@@ -38,3 +38,4 @@ public class HorseRepository : Repository<long, HorseDataModel, HorseDataModel>,
 }
 
 public interface IReadOnlyHorseRepository : IReadOnlyRepository<long, HorseDataModel> { }
+public interface IHorseRepository : IRepository<long, HorseDataModel, HorseDataModel> { }

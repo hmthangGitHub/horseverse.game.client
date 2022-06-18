@@ -26,9 +26,9 @@ public class UIMainMenuPresenter : IDisposable
         uiMainMenu.SetEntity(new UIMainMenu.Entity()
         {
             betmodeBtn = new ButtonComponent.Entity(OnBetModeBtn),
-            breedingBtn = new ButtonComponent.Entity(OnBreedingBtn),
-            inventoryBtn = new ButtonComponent.Entity(OnInventoryBtn),
-            libraryBtn = new ButtonComponent.Entity(OnLibraryBtn),
+            //breedingBtn = new ButtonComponent.Entity(OnBreedingBtn),
+            //inventoryBtn = new ButtonComponent.Entity(OnInventoryBtn),
+            //libraryBtn = new ButtonComponent.Entity(OnLibraryBtn),
             playBtn = new ButtonComponent.Entity(OnPlayBtn),
             stableBtn = new ButtonComponent.Entity(OnStableBtn),
             trainingBtn = new ButtonComponent.Entity(OnTraningBtn),

@@ -33,6 +33,7 @@ public class InitialState : InjectedBHState, IDisposable
         AddState<BetModeState>();
         AddState<MainMenuState>();
         AddState<TrainingState>();
+        AddState<StableState>();
 
         SetInitialState<LoadingState>();
     }
