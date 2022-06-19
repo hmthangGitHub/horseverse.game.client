@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Obsolete]
 public class HorseMasterDataContainer
 {
     static string[] horseModelPath = new string[]

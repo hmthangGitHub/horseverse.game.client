@@ -1,12 +1,13 @@
-type_name,master_horse_id,master_horse_model_path
-type,long,string
-out_put_client,TRUE,TRUE
-out_put_server,TRUE,FALSE
-,10000001,Horses/Horse_Black
-,10000002,Horses/Horse_Black_Tobiano_pinto
-,10000003,Horses/Horse_Brown
-,10000004,Horses/Horse_Buckskin
-,10000005,Horses/Horse_GraysRoans
-,10000006,Horses/Horse_Palomino
-,10000007,Horses/Horse_palomino_overo_pinto
-,10000008,Horses/Horse_White
+type_name,master_horse_id,model_path,name
+type,long,string,string
+out_put_client,TRUE,TRUE,TRUE
+out_put_server,TRUE,FALSE,FALSE
+id,id,,
+,10000001,Horses/Horse_Black,Black
+,10000002,Horses/Horse_Black_Tobiano_pinto,Black Tobiano
+,10000003,Horses/Horse_Brown,Brown
+,10000004,Horses/Horse_Buckskin,Buckskin
+,10000005,Horses/Horse_GraysRoans,GraysRoans
+,10000006,Horses/Horse_Palomino,Palomino
+,10000007,Horses/Horse_palomino_overo_pinto,Overo Pinto
+,10000008,Horses/Horse_White,White
