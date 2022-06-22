@@ -8,6 +8,8 @@ public class InitialState : InjectedBHState, IDisposable
 {
     public async override void Enter()
     {
+        //this.Container.Bind(await WebSocketClient.Initialize("ws://localhost", 8080));
+        this.Container.Bind(await TCPSocketClient.Initialize("tcp.prod.game.horsesoflegends.com", 8770));
         this.Container.Bind(await MasterLoader.LoadAsync<MasterHorseContainer>());
         this.Container.Bind(new HorseRepository(Container));
         this.Container.Bind(new BetRateRepository());
@@ -46,6 +48,8 @@ public class InitialState : InjectedBHState, IDisposable
 
     public void Dispose()
     {
+        //this.Container.RemoveAndDisposeIfNeed<WebSocketClient>();
+        this.Container.RemoveAndDisposeIfNeed<TCPSocketClient>();
         this.Container.RemoveAndDisposeIfNeed<MasterHorseContainer>();
         this.Container.RemoveAndDisposeIfNeed<HorseRepository>();
         this.Container.RemoveAndDisposeIfNeed<BetRateRepository>();
