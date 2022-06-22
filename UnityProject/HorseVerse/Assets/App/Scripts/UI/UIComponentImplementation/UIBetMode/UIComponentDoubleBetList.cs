@@ -14,11 +14,11 @@ public class UIComponentDoubleBetList : UIComponentList<UIComponentBetSlot, UICo
     public void ArrangeSlot()
     {
         var horseCount = gridLayoutGroup.constraintCount;
-        for (int i = 1; i < this.transform.childCount; i++)
+        for (int i = 0; i < instanceList.Count; i++)
         {
-            var col = (i - 1) % horseCount;
-            var row = (i - 1) / horseCount;
-            this.transform.GetChild(i).GetComponent<UIComponentBetSlot>().SetVisible(row <= col);
+            var col = i % horseCount;
+            var row = i / horseCount;
+            instanceList[i].SetVisible(row < col);
         }
     }
 

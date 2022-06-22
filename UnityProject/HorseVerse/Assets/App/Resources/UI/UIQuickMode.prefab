@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 31656868}
   - component: {fileID: 31656867}
   - component: {fileID: 8642872931941445519}
-  - component: {fileID: 1476498765308070352}
+  - component: {fileID: 6671331331221366378}
   m_Layer: 5
   m_Name: findMatchTimer
   m_TagString: Untagged
@@ -284,7 +284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 31656867}
   format: '{0:00}:{1:00}'
---- !u!114 &1476498765308070352
+--- !u!114 &6671331331221366378
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -293,11 +293,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 31656865}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5191d4c33a3144b4bb9cfdc78624bfb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 1831e3c5dcbe9c74aa3c78ebba0c9ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 31656867}
-  format: '{0}'
+  text: {fileID: 8642872931941445519}
 --- !u!1 &1578572113
 GameObject:
   m_ObjectHideFlags: 0
@@ -1051,7 +1050,7 @@ MonoBehaviour:
   cancelMatchBtn: {fileID: 7149656276904234858}
   findMatchBtnVisible: {fileID: 4350053599642293081}
   cancelMatchBtnVisible: {fileID: 2905822280958298770}
-  findMatchTimer: {fileID: 1476498765308070352}
+  findMatchTimer: {fileID: 6671331331221366378}
   horseDetail: {fileID: 8718895672971907541}
   horseSelectSumaryList: {fileID: 7455885081418579090}
 --- !u!1 &5590806933329925103

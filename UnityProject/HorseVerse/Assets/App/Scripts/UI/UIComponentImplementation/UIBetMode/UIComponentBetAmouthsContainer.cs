@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIComponentBetAmouthsContainer : UIComponent<UIComponentBetAmouthsContainer.Entity>
 {
-	[System.Serializable]
+    [System.Serializable]
     public class Entity
     {
         public int totalBetAmouth;
@@ -21,5 +21,11 @@ public class UIComponentBetAmouthsContainer : UIComponent<UIComponentBetAmouthsC
         totalBetAmouth.SetEntity(this.entity.totalBetAmouth);
         cancelBtn.SetEntity(this.entity.cancelBtn);
         betAmouthIndicator.SetEntity(this.entity.betAmouthIndicator);
+    }
+
+    public void SetTotalBetAmouth(int amouth)
+    {
+        this.entity.totalBetAmouth = amouth;
+        totalBetAmouth.SetEntity(this.entity.totalBetAmouth);
     }
 }	

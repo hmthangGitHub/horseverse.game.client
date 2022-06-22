@@ -20,12 +20,18 @@ public class HorseRaceState : InjectedBState
     private bool isGameStart = false;
     private bool isLoadedUI = false;
     private Scene racingScene;
-    private int playerHorseId;
+    private IReadOnlyUserDataRepository userDataRepository;
+    private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= Container.Inject<IReadOnlyUserDataRepository>();
+    private MasterHorseContainer masterHorseContainer;
+    private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= Container.Inject<MasterHorseContainer>();
+    private int playerHorseIndex;
 
     public override async void Enter()
     {
         base.Enter();
-        playerHorseId = this.Machine.GetPreviousState<HorsePickingState>().HorseId;
+        playerHorseIndex = MasterHorseContainer.DataList
+                                               .ToList()
+                                               .FindIndex(x => x.MasterHorseId == UserDataRepository.Current.MasterHorseId);
         await LoadResources();
         isLoadedUI = true;
         var uiLoadingPresenter = this.Container.Inject<UILoadingPresenter>();
@@ -42,7 +48,7 @@ public class HorseRaceState : InjectedBState
 
     private void SetEntityHorseRaceManager(int[] horseIdInLanes)
     {
-        horseRaceManager.StartRace(horseIdInLanes, playerHorseId);
+        horseRaceManager.StartRace(horseIdInLanes, playerHorseIndex);
         horseRaceManager.OnFinishTrackEvent += OnFinishTrack;
         SetEntityUIHorseRace(horseIdInLanes, horseRaceManager.horseControllers.Min(x => x.currentTimeToFinish));
     }
@@ -98,7 +104,7 @@ public class HorseRaceState : InjectedBState
     {
         this.Container.Inject<UILoadingPresenter>().ShowLoadingAsync().Forget();
         await UniTask.Delay(1000);
-        this.Machine.ChangeState<HorsePickingState>();
+        this.SuperMachine.GetInitialState<InitialState>().ChangeState<MainMenuState>();
     }
 
     private static int[] RandomHorseInLanes()
@@ -141,7 +147,7 @@ public class HorseRaceState : InjectedBState
             playerList = new HorseRaceStatusPlayerList.Entity()
             {
                 horseIdInLane = playerList,
-                playerId = playerHorseId,
+                playerId = playerHorseIndex,
             },
             finishTime = timeToFinish
         });

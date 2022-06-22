@@ -43,4 +43,10 @@ public class UIComponentBetSlot : UIComponent<UIComponentBetSlot.Entity>
         canvasGroup.interactable = visible;
         canvasGroup.blocksRaycasts = visible;
     }
+
+    public void SetTotalBetAmouth(int totalBet)
+    {
+        this.entity.totalBet = totalBet;
+        this.totalBet.SetEntity(this.entity.totalBet);
+    }
 }	

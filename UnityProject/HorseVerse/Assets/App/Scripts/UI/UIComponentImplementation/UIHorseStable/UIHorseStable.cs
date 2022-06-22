@@ -8,12 +8,15 @@ public class UIHorseStable : PopupEntity<UIHorseStable.Entity>
     public class Entity
     {
         public UIComponentHorseStableAvatarList.Entity stableHorseAvatarList;
+        public ButtonComponent.Entity backBtn;
     }
 
     public UIComponentHorseStableAvatarList stableHorseAvatarList;
+    public ButtonComponent backBtn;
 
     protected override void OnSetEntity()
     {
         stableHorseAvatarList.SetEntity(this.entity.stableHorseAvatarList);
+        backBtn.SetEntity(this.entity.backBtn);
     }
 }	

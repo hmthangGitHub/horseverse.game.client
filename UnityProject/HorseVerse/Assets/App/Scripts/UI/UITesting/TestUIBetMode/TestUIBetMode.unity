@@ -317,10 +317,13 @@ MonoBehaviour:
   uiTest: {fileID: 8677790270213479224}
   entity:
     header:
-      timeCountDown: 100000
+      timeCountDown:
+        utcEndTimeStamp: 1686855975
       userInfo:
         userName: My name
         coin: 999999
+      energy: 0
+      maxEnergy: 0
       changeRaceBtn:
         onClickEvent:
           m_PersistentCalls:
@@ -1164,13 +1167,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7134344885237779008, guid: eb446aacf1469894c8d6f00892d0addd, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7134344885237779008, guid: eb446aacf1469894c8d6f00892d0addd, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7134344885237779009, guid: eb446aacf1469894c8d6f00892d0addd, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 881802505}
     - target: {fileID: 7134344885237779009, guid: eb446aacf1469894c8d6f00892d0addd, type: 3}
       propertyPath: m_RenderMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7134344885237779010, guid: eb446aacf1469894c8d6f00892d0addd, type: 3}
       propertyPath: m_Pivot.x
@@ -1206,6 +1217,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7134344885237779010, guid: eb446aacf1469894c8d6f00892d0addd, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7134344885237779010, guid: eb446aacf1469894c8d6f00892d0addd, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7134344885237779010, guid: eb446aacf1469894c8d6f00892d0addd, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7134344885237779010, guid: eb446aacf1469894c8d6f00892d0addd, type: 3}
+      propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7134344885237779010, guid: eb446aacf1469894c8d6f00892d0addd, type: 3}

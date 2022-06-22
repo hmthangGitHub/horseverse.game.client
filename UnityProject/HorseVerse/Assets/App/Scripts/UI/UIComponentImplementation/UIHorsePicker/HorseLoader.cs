@@ -22,7 +22,6 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
 
     protected override void OnSetEntity()
     {
-        
         LoadHorseAsync().Forget();
     }
 

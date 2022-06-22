@@ -16,6 +16,6 @@ public class LoadingState : InjectedBState
         var uiLoadingPresenter = this.Container.Inject<UILoadingPresenter>();
         uiLoadingPresenter.ShowLoadingAsync().Forget();
         await UniTask.Delay(1000);
-        this.Machine.ChangeState<HorsePickingState>();
+        this.Machine.ChangeState<MainMenuState>();
     }
 }

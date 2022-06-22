@@ -15,6 +15,7 @@ public class UIMainMenu : PopupEntity<UIMainMenu.Entity>
         public ButtonComponent.Entity libraryBtn;
         public ButtonComponent.Entity playBtn;
         public ButtonComponent.Entity inventoryBtn;
+        public ButtonComponent.Entity trainingBtn;
     }
 
     public ButtonComponent breedingBtn;
@@ -23,6 +24,7 @@ public class UIMainMenu : PopupEntity<UIMainMenu.Entity>
     public ButtonComponent libraryBtn;
     public ButtonComponent playBtn;
     public ButtonComponent inventoryBtn;
+    public ButtonComponent trainingBtn;
 
     protected override void OnSetEntity()
     {
@@ -32,5 +34,6 @@ public class UIMainMenu : PopupEntity<UIMainMenu.Entity>
         libraryBtn.SetEntity(this.entity.libraryBtn);
         playBtn.SetEntity(this.entity.playBtn);
         inventoryBtn.SetEntity(this.entity.inventoryBtn);
+        trainingBtn.SetEntity(this.entity.trainingBtn);
     }
 }
