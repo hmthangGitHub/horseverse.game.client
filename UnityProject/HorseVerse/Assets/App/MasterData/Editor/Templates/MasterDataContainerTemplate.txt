@@ -1,0 +1,11 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+public partial class {0}Container : MasterContainer<{1}, {0}>
+{{
+    public {0}Container() : base(x => x.{2}) {{ }}
+    public IReadOnlyDictionary<{1}, {0}> {0}Indexer => Indexer;
+}}
