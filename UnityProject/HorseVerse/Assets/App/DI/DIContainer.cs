@@ -43,6 +43,7 @@ public class DIContainer : IDIContainer
             {
                 disposeable.Dispose();
             }
+            dependency = default(T);
             dependencies.Remove(typeof(T));
         }
     }

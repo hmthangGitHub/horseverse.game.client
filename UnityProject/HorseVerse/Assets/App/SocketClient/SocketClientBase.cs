@@ -1,11 +1,18 @@
 ﻿using Cysharp.Threading.Tasks;
+using Google.Protobuf;
 using System;
 using UnityEngine;
 
 public abstract class SocketClientBase : MonoBehaviour, ISocketClient
 {
     protected MessageBroker.IMessageBroker messageBroker = new MessageBroker.ChannelMessageBroker();
-    protected IMessageParser messageParser = new ProtobufMessageParser();
+    protected IMessageParser messageParser;
+
+    public void SetIMessageParser(IMessageParser messageParser)
+    {
+        this.messageParser = messageParser;
+    }
+
     protected void OnMessage(byte[] data)
     {
         var message = messageParser.Parse(data);

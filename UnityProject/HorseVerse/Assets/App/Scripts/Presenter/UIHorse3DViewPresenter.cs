@@ -48,7 +48,7 @@ public class UIHorse3DViewPresenter : IDisposable
         cts.SafeCancelAndDispose();
         cts = default;
         UserDataRepository.OnModelUpdate -= UserDataRepositoryOnModelUpdate;
-        uiHorse3DView.Out().Forget();
+        uiHorse3DView?.Out().Forget();
         isIn = false;
     }
 

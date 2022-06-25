@@ -8,7 +8,12 @@ public class RootFSM : MonoFSMContainer
     public override void AddStates()
     {
         base.AddStates();
-        AddState<InitialState>();
-        SetInitialState<InitialState>();
+        AddState<StartUpState>();
+        SetInitialState<StartUpState>();
+    }
+
+    private void OnApplicationQuit()
+    {
+        CurrentState.Exit();
     }
 }

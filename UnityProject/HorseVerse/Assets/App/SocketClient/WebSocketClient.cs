@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Google.Protobuf;
 using NativeWebSocket;
 using UnityEngine;
 
@@ -19,10 +20,11 @@ public class WebSocketClient : SocketClientBase, ISocketClient
 {
     private WebSocket ws;
 
-    public static async UniTask<WebSocketClient> Initialize(string url, int port)
+    public static async UniTask<WebSocketClient> Initialize(string url, int port, IMessageParser messageParser)
     {
         var go = new GameObject("WebSocketClient");
         var webSocketClient = go.AddComponent<WebSocketClient>();
+        webSocketClient.SetIMessageParser(messageParser);
         await webSocketClient.Connect(url, port);
         return webSocketClient;
     }
@@ -45,6 +47,7 @@ public class WebSocketClient : SocketClientBase, ISocketClient
         ws.OnMessage -= OnMessage;
         ws.OnError -= OnError;
         ws.OnClose -= OnClose;
+        ws.OnOpen += OnOpen;
     }
 
     private void OnClose(WebSocketCloseCode closeCode)

@@ -23,7 +23,7 @@ public class StableUIState : InjectedBState
 
     private void OnBack()
     {
-        this.SuperMachine.GetInitialState<InitialState>().ChangeState<MainMenuState>();
+        this.SuperMachine.GetState<InitialState>().ChangeState<MainMenuState>();
     }
 
     private void OnViewHorseDetail()

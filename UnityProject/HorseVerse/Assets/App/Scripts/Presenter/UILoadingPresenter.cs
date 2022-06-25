@@ -28,5 +28,6 @@ public class UILoadingPresenter : IDisposable
     public void Dispose()
     {
         cts.SafeCancelAndDispose();
+        UILoader.SafeUnload(ref uiLoading);
     }
 }
