@@ -447,9 +447,14 @@ namespace Assets.RobustFSM.Mono
         {
             if (CurrentState != null)
             {
-                //set the print text
-                string printText = MachineName + "\n" + CurrentState.StateName;
-
+                string printText = MachineName;
+                var cs = CurrentState;
+                printText += "\n" + cs.StateName;
+                while (cs is BHState bhState)
+                {
+                    cs = bhState.CurrentState;
+                    printText += "\n" + cs.StateName;
+                }
                 //render the label
                 Handles.Label(transform.position, printText);
             }

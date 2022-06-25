@@ -104,7 +104,7 @@ public class HorseRaceState : InjectedBState
     {
         this.Container.Inject<UILoadingPresenter>().ShowLoadingAsync().Forget();
         await UniTask.Delay(1000);
-        this.SuperMachine.GetInitialState<InitialState>().ChangeState<MainMenuState>();
+        this.SuperMachine.GetState<InitialState>().ChangeState<MainMenuState>();
     }
 
     private static int[] RandomHorseInLanes()

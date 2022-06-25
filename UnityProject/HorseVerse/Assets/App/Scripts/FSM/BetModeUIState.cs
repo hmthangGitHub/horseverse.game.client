@@ -41,7 +41,7 @@ public class BetModeUIState : InjectedBState
 
     private void OnBackToMainMenu()
     {
-        this.SuperMachine.GetInitialState<InitialState>().ChangeState<MainMenuState>();
+        this.SuperMachine.GetState<InitialState>().ChangeState<MainMenuState>();
     }
 
     public override void Exit()
