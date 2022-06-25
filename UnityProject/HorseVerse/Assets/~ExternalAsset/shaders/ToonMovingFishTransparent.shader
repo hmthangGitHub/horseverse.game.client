@@ -8,6 +8,7 @@ Shader "Custom/ToonMovingFishTransparent"
         _RimColor ("Rim Color Tint", Color) = (1, 1, 1, 1)
 		_RimDistance("Rim Distance", Range(0, 1)) = 1
 		_RimThreshold("Rim Threshold", Range(0, 1)) = 1
+        _Speed("Speed", Float) = 1
         [Space(5)]
         [Header(Debug DrawMode)]
         [Space(5)][Toggle(DEBUG_COLOR_MASK)]
@@ -76,6 +77,7 @@ Shader "Custom/ToonMovingFishTransparent"
             float _SpineYawLength;
             float _SpineYawFreq;
             float _InvertScale;
+            float _Speed;
 
             struct appdata
             {
@@ -91,7 +93,7 @@ Shader "Custom/ToonMovingFishTransparent"
  
             v2f vert(appdata v)
             {
-                half fac = smoothstep(-1/_InvertScale + _MaskZ/_InvertScale, 1/_InvertScale, v.vertex.z);
+                half fac = smoothstep(-1/_InvertScale + _MaskZ/_InvertScale, 1/_InvertScale, v.vertex.z) * _Speed;
                 #ifdef APPLY_SIDE_MOVE
                 v.vertex = SideMove(v.vertex,_SideDisplaceFreq,_SideDisplaceLength,fac);
                 #endif
@@ -172,11 +174,12 @@ Shader "Custom/ToonMovingFishTransparent"
             float _SpineYawFreq;
             float _InvertScale;
             int _ApplyShadow;
+            float _Speed;
 
             v2f vert (appdata v)
             {
                 v2f o;
-                half fac = smoothstep(-1/_InvertScale + _MaskZ/_InvertScale, 1/_InvertScale, v.vertex.z);
+                half fac = smoothstep(-1/_InvertScale + _MaskZ/_InvertScale, 1/_InvertScale, v.vertex.z) * _Speed;
                 #ifdef APPLY_SIDE_MOVE
                 v.vertex = SideMove(v.vertex,_SideDisplaceFreq,_SideDisplaceLength,fac);
                 #endif
