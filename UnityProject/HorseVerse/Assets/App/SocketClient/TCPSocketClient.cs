@@ -18,11 +18,18 @@ public class TCPSocketClient : SocketClientBase
     private int dataBufferSize = 1024;
     #endregion
 
-    public static async UniTask<TCPSocketClient> Initialize(string host, int port)
+    public static async UniTask<TCPSocketClient> Initialize(string host, int port, IMessageParser messageParser)
+    {
+        TCPSocketClient tcpSocketClient = Initialize(messageParser);
+        await tcpSocketClient.Connect(host, port);
+        return tcpSocketClient;
+    }
+
+    public static TCPSocketClient Initialize(IMessageParser messageParser)
     {
         var go = new GameObject("TCPSocketClient");
         var tcpSocketClient = go.AddComponent<TCPSocketClient>();
-        await tcpSocketClient.Connect(host, port);
+        tcpSocketClient.SetIMessageParser(messageParser);
         return tcpSocketClient;
     }
 
@@ -38,23 +45,26 @@ public class TCPSocketClient : SocketClientBase
     {
         cancellationTokenSource.SafeCancelAndDispose();
         cancellationTokenSource = default;
-        socketConnection.Close();
-        socketConnection.Dispose();
+        socketConnection?.Close();
+        socketConnection?.Dispose();
+        socketConnection = default;
+        Destroy(this.gameObject);
+        
     }
 
     public override async UniTask Connect(string url, int port)
     {
-		try
-        {
-            socketConnection = new TcpClient();
-            await socketConnection.ConnectAsync(url, port);
-            ReadMessageAsync(socketConnection).Forget();
-        }
-        catch (Exception e)
-		{
-			Debug.Log("On client connect exception " + e);
-		}
+        cancellationTokenSource.SafeCancelAndDispose();
+        cancellationTokenSource = new CancellationTokenSource();
+        await ConnectTask(url, port).AttachExternalCancellation(cancellationTokenSource.Token);
+        ReadMessageAsync(socketConnection).Forget();
 	}
+
+    private async UniTask ConnectTask(string url, int port)
+    {
+        socketConnection = new TcpClient();
+        await socketConnection.ConnectAsync(url, port);
+    }
 
     private async UniTask ReadMessageAsync(TcpClient socketConnection)
     {
