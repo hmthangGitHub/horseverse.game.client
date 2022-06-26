@@ -27,9 +27,15 @@ public class ErrorHandler : IDisposable
             if (condition.Contains("Exception"))
             {
 #if UNITY_EDITOR && EDITOR_DIALOG
-                EditorUtility.DisplayDialog("Error", $"{condition}\n{stackTrace}", "OK");
+                if (EditorUtility.DisplayDialog("Error", $"{condition}\n{stackTrace}", "OK", "Quit"))
+                {
+                    OnError.Invoke();
+                }
+                else
+                {
+                    UnityEditor.EditorApplication.isPlaying = false;
+                };
 #endif
-                OnError.Invoke();
             }
         }
     }

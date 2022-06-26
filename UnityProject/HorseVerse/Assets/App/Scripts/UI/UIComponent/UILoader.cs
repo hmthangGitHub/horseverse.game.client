@@ -7,7 +7,7 @@ using UnityEngine;
 
 public static class UILoader
 {
-    public static async UniTask<T> Load<T>(UICanvas.UICanvasType canvasType = UICanvas.UICanvasType.Default, CancellationToken token = default) where T : MonoBehaviour
+    public static async UniTask<T> Initiate<T>(UICanvas.UICanvasType canvasType = UICanvas.UICanvasType.Default, CancellationToken token = default) where T : PopupEntity
     {
         var type = typeof(T).ToString();
         var prefab = await LoadResource<T>(type).AttachExternalCancellation(token) as T;
@@ -15,14 +15,21 @@ public static class UILoader
         return instance;
     }
 
-    private static async UniTask<Object> LoadResource<T>(string type) where T : MonoBehaviour
+    private static async UniTask<T> LoadResource<T>(string type) where T : PopupEntity
     {
-        return await Resources.LoadAsync<T>($"UI/{type}");
+        var go = await PrimitiveAssetLoader.LoadAsset<GameObject>(GetPathFromType(type));
+        return go.GetComponent<T>();
     }
 
-    public static void SafeUnload<T>(ref T ui) where T : MonoBehaviour
+    private static string GetPathFromType(string type)
+    {
+        return $"UI/{type}";
+    }
+
+    public static void SafeRelease<T>(ref T ui) where T : PopupEntity
     {
         GameObject.Destroy(ui?.gameObject);
         ui = null;
+        PrimitiveAssetLoader.UnloadAssetAtPath(GetPathFromType(typeof(T).ToString()));
     }
 }

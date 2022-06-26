@@ -45,7 +45,7 @@ public class UIBetModePresenter : IDisposable
         BetRateRepository.OnModelUpdate += BetRateRepositoryOnModelUpdate;
         BetRateRepository.OnModelsUpdate += BetRateRepositoryOnModelsUpdate;
 
-        uiBetMode ??= await UILoader.Load<UIBetMode>(token: cts.Token);
+        uiBetMode ??= await UILoader.Initiate<UIBetMode>(token: cts.Token);
         uiBetMode.SetEntity(new UIBetMode.Entity()
         {
             backBtn = new ButtonComponent.Entity(OnBack),
@@ -196,7 +196,7 @@ public class UIBetModePresenter : IDisposable
     {
         cts.SafeCancelAndDispose();
         cts = default;
-        UILoader.SafeUnload(ref uiBetMode);
+        UILoader.SafeRelease(ref uiBetMode);
         BetRateRepository.OnModelUpdate -= BetRateRepositoryOnModelUpdate;
         BetRateRepository.OnModelsUpdate -= BetRateRepositoryOnModelsUpdate;
     }

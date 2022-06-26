@@ -22,7 +22,7 @@ public class UIMainMenuPresenter : IDisposable
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
-        uiMainMenu ??= await UILoader.Load<UIMainMenu>(token: cts.Token);
+        uiMainMenu ??= await UILoader.Initiate<UIMainMenu>(token: cts.Token);
         uiMainMenu.SetEntity(new UIMainMenu.Entity()
         {
             betmodeBtn = new ButtonComponent.Entity(OnBetModeBtn),
@@ -40,6 +40,6 @@ public class UIMainMenuPresenter : IDisposable
     {
         cts.SafeCancelAndDispose();
         cts = default;
-        UILoader.SafeUnload(ref uiMainMenu);
+        UILoader.SafeRelease(ref uiMainMenu);
     }
 }
