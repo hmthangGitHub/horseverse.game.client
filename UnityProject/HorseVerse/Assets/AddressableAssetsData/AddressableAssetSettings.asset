@@ -64,6 +64,8 @@ MonoBehaviour:
         m_Value: http://localhost/[BuildTarget]
       - m_Id: 7d7b62f2529d59d4ebde085d43b426c6
         m_Value: 0.01
+      - m_Id: f00a2668e4f20d0409afeb53c737348b
+        m_Value: Development
     - m_InheritedParent: 
       m_Id: f36108bb235a4f145a761d6dfa066ae9
       m_ProfileName: Development
@@ -71,15 +73,18 @@ MonoBehaviour:
       - m_Id: bec296d3b7b5c9147bfee6b24e64a1d3
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
       - m_Id: c3dffa598b01a1b4192ce5fdc5d116a5
-        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[Asset Version]/[Enviroment]/[BuildTarget]'
       - m_Id: eb491af109ef13a429f6dbf5c235b020
-        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[Asset
+          Version]/[Enviroment]/[BuildTarget]'
       - m_Id: 3e0cbcc3430a2544f954fe9d3946923d
-        m_Value: ServerData/[BuildTarget]/Development/[Version]
+        m_Value: ServerData/[Asset Version]/[Enviroment]/[BuildTarget]
       - m_Id: 10d19f7d92c8bbc4ca4f92ed9c66c982
-        m_Value: http://localhost/[BuildTarget]/Development/[Version]
+        m_Value: http://localhost:8080/[Asset Version]/[Enviroment]/[BuildTarget]
       - m_Id: 7d7b62f2529d59d4ebde085d43b426c6
-        m_Value: 0.01
+        m_Value: 0.02
+      - m_Id: f00a2668e4f20d0409afeb53c737348b
+        m_Value: Development
     - m_InheritedParent: 
       m_Id: 3763df9bcec403647acd34f8e09beacf
       m_ProfileName: Staging
@@ -87,31 +92,37 @@ MonoBehaviour:
       - m_Id: bec296d3b7b5c9147bfee6b24e64a1d3
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
       - m_Id: c3dffa598b01a1b4192ce5fdc5d116a5
-        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[Asset Version]/[Enviroment]/[BuildTarget]'
       - m_Id: eb491af109ef13a429f6dbf5c235b020
-        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[Asset
+          Version]/[Enviroment]/[BuildTarget]'
       - m_Id: 3e0cbcc3430a2544f954fe9d3946923d
-        m_Value: ServerData/[BuildTarget]/Staging/[Version]
+        m_Value: ServerData/[Asset Version]/[Enviroment]/[BuildTarget]
       - m_Id: 10d19f7d92c8bbc4ca4f92ed9c66c982
-        m_Value: http://localhost/[BuildTarget]/Staging/[Version]
+        m_Value: http://localhost:8080/[Asset Version]/[Enviroment]/[BuildTarget]
       - m_Id: 7d7b62f2529d59d4ebde085d43b426c6
         m_Value: 0.01
+      - m_Id: f00a2668e4f20d0409afeb53c737348b
+        m_Value: Staging
     - m_InheritedParent: 
       m_Id: 152580a4e4d5ac141b0d7270269ca517
-      m_ProfileName: Prodcution
+      m_ProfileName: Production
       m_Values:
       - m_Id: bec296d3b7b5c9147bfee6b24e64a1d3
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
       - m_Id: c3dffa598b01a1b4192ce5fdc5d116a5
-        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[Asset Version]/[Enviroment]/[BuildTarget]'
       - m_Id: eb491af109ef13a429f6dbf5c235b020
-        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[Asset
+          Version]/[Enviroment]/[BuildTarget]'
       - m_Id: 3e0cbcc3430a2544f954fe9d3946923d
-        m_Value: ServerData/[BuildTarget]/Production/[Version]
+        m_Value: ServerData/[Asset Version]/[Enviroment]/[BuildTarget]
       - m_Id: 10d19f7d92c8bbc4ca4f92ed9c66c982
-        m_Value: http://localhost/[BuildTarget]/Production/[Version]
+        m_Value: http://localhost:8080/[Asset Version]/[Enviroment]/[BuildTarget]
       - m_Id: 7d7b62f2529d59d4ebde085d43b426c6
         m_Value: 0.01
+      - m_Id: f00a2668e4f20d0409afeb53c737348b
+        m_Value: Production
     m_ProfileEntryNames:
     - m_Id: bec296d3b7b5c9147bfee6b24e64a1d3
       m_Name: BuildTarget
@@ -129,7 +140,10 @@ MonoBehaviour:
       m_Name: RemoteLoadPath
       m_InlineUsage: 0
     - m_Id: 7d7b62f2529d59d4ebde085d43b426c6
-      m_Name: Version
+      m_Name: Asset Version
+      m_InlineUsage: 0
+    - m_Id: f00a2668e4f20d0409afeb53c737348b
+      m_Name: Enviroment
       m_InlineUsage: 0
     m_ProfileVersion: 1
   m_LabelTable:
