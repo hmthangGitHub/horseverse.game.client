@@ -5,28 +5,38 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
+using UnityEditor.AddressableAssets.Build;
+using UnityEditor.AddressableAssets.Settings;
 using UnityEngine;
 
-public class AdressableBuilder
+public class AssetBuilder
 {
     [MenuItem("Tool/AssetBuilder/BuildStreamingAsset")]
-    public static void AddAssetToStreamingGroup()
+    public static AddressablesPlayerBuildResult BuildAssetToStreamingGroup()
     {
         Directory.GetFiles($"{Application.dataPath}/App/AssetBundles", "*.*", SearchOption.AllDirectories)
                  .Where(x => !x.EndsWith(".meta"))
                  .Where(IsNotInDefaultGroup)
                  .ToList()
                  .ForEach(ToStreamingGroup);
+        return BuildContent();
     }
 
     [MenuItem("Tool/AssetBuilder/BuildRemoteBundle")]
-    public static void AddAssetToRemoteGroup()
+    public static AddressablesPlayerBuildResult BuildAssetToRemoteGroup()
     {
         Directory.GetFiles(GetAssetBundlePath(), "*.*", SearchOption.AllDirectories)
                  .Where(x => !x.EndsWith(".meta"))
                  .Where(IsNotInDefaultGroup)
                  .ToList()
                  .ForEach(ToRemoteGroup);
+        return BuildContent();
+    }
+
+    public static AddressablesPlayerBuildResult BuildContent()
+    {
+        AddressableAssetSettings.BuildPlayerContent(out var result);
+        return result;
     }
 
     private static string GetAssetBundlePath()
@@ -91,4 +101,6 @@ public class AdressableBuilder
             throw new Exception($"Addressable : can't add {path} to group {groupName}");
         }
     }
+
+
 }
