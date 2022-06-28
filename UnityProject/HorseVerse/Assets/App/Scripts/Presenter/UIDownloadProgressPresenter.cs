@@ -12,27 +12,35 @@ public class UIDownloadProgressPresenter : IDisposable, IProgress<float>
     public event Action OnDownLoadDone = ActionUtility.EmptyAction.Instance;
     private UIDownloadAssetProgress uiDownloadAssetProgress;
     private CancellationTokenSource cts;
+    private bool isPerformDownloaded = false;
     public async UniTaskVoid PerformDownLoadAsync()
     {
-        cts.SafeCancelAndDispose();
-        cts = new CancellationTokenSource();
-        uiDownloadAssetProgress = await UILoader.Instantiate<UIDownloadAssetProgress>(token: cts.Token);
         var resourceLocators = await Addressables.InitializeAsync().ToUniTask();
-        uiDownloadAssetProgress.SetEntity(new UIDownloadAssetProgress.Entity()
-        {
-            totalFiles = resourceLocators.Keys.Count(),
-            currentFiles = 0,
-            progressBar = new UIComponentProgressBar.Entity()
-            {
-                progress = 0
-            }
-        });
-        await uiDownloadAssetProgress.In();
         var keys = resourceLocators.Keys.ToArray();
-        for (int i = 0; i < keys.Length; i++)
+        var downloadKeys = await keys.Select(async x => (key: x, size: await Addressables.GetDownloadSizeAsync(x).ToUniTask()));
+        downloadKeys = downloadKeys.Where(x => x.size > 0).ToArray();
+
+        if (downloadKeys.Length > 0)
         {
-            await Addressables.DownloadDependenciesAsync(keys[i]).ToUniTask(this);
-            uiDownloadAssetProgress.detailProgress.SetEntity(i + 1, keys.Length);
+            isPerformDownloaded = true;
+            cts.SafeCancelAndDispose();
+            cts = new CancellationTokenSource();
+            uiDownloadAssetProgress = await UILoader.Instantiate<UIDownloadAssetProgress>(token: cts.Token);
+            uiDownloadAssetProgress.SetEntity(new UIDownloadAssetProgress.Entity()
+            {
+                totalFiles = resourceLocators.Keys.Count(),
+                currentFiles = 0,
+                progressBar = new UIComponentProgressBar.Entity()
+                {
+                    progress = 0
+                }
+            });
+            await uiDownloadAssetProgress.In();
+            for (int i = 0; i < keys.Length; i++)
+            {
+                await Addressables.DownloadDependenciesAsync(keys[i]).ToUniTask(this);
+                uiDownloadAssetProgress.detailProgress.SetEntity(i + 1, keys.Length);
+            } 
         }
         await UniTask.Delay(1000);
         OnDownLoadDone.Invoke();
@@ -42,7 +50,10 @@ public class UIDownloadProgressPresenter : IDisposable, IProgress<float>
     {
         cts.SafeCancelAndDispose();
         cts = default;
-        UILoader.SafeRelease(ref uiDownloadAssetProgress);
+        if (isPerformDownloaded)
+        {
+            UILoader.SafeRelease(ref uiDownloadAssetProgress);
+        }
     }
 
     public void Report(float value)

@@ -11,7 +11,7 @@ using UnityEngine;
 
 public class AssetBuilder
 {
-    [MenuItem("Tool/AssetBuilder/BuildStreamingAsset")]
+    [MenuItem("Tools/AssetBuilder/BuildStreamingAsset")]
     public static AddressablesPlayerBuildResult BuildAssetToStreamingGroup()
     {
         Directory.GetFiles($"{Application.dataPath}/App/AssetBundles", "*.*", SearchOption.AllDirectories)
@@ -22,7 +22,7 @@ public class AssetBuilder
         return BuildContent();
     }
 
-    [MenuItem("Tool/AssetBuilder/BuildRemoteBundle")]
+    [MenuItem("Tools/AssetBuilder/BuildRemoteBundle")]
     public static AddressablesPlayerBuildResult BuildAssetToRemoteGroup()
     {
         Directory.GetFiles(GetAssetBundlePath(), "*.*", SearchOption.AllDirectories)
@@ -31,6 +31,21 @@ public class AssetBuilder
                  .ToList()
                  .ForEach(ToRemoteGroup);
         return BuildContent();
+    }
+
+    [MenuItem("Tools/AssetBuilder/ClearAllCache")]
+    public static void ClearAllCache()
+    {
+        Debug.Log("clear cache at " + Application.persistentDataPath);
+        var list = Directory.GetDirectories(Application.persistentDataPath);
+
+        foreach (var item in list)
+        {
+            Debug.Log("Delete" + " " + item);
+            Directory.Delete(item, true);
+        }
+
+        Caching.ClearCache();
     }
 
     public static AddressablesPlayerBuildResult BuildContent()
