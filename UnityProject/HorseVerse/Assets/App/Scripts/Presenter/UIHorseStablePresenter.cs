@@ -29,7 +29,7 @@ public class UIHorseStablePresenter : IDisposable
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         await HorseRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
-        uiHorseStable ??= await UILoader.Initiate<UIHorseStable>(token: cts.Token);
+        uiHorseStable ??= await UILoader.Instantiate<UIHorseStable>(token: cts.Token);
 
         uiHorseStable.SetEntity(new UIHorseStable.Entity()
         {

@@ -25,7 +25,7 @@ public class HorsePickingState : InjectedBState
 
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
-        uiHorsePicker ??= await UILoader.Initiate<UIHorsePicker>(token: cts.Token);
+        uiHorsePicker ??= await UILoader.Instantiate<UIHorsePicker>(token: cts.Token);
         uiHorsePicker.SetEntity(new UIHorsePicker.Entity()
         {
             horseLoader = new HorseLoader.Entity()

@@ -30,7 +30,7 @@ public class UIHorseDetailPresenter : IDisposable
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
-        uiHorseDetail ??= await UILoader.Initiate<UIHorseDetail>(token: cts.Token);
+        uiHorseDetail ??= await UILoader.Instantiate<UIHorseDetail>(token: cts.Token);
         HorseRepository.OnModelUpdate += HorseRepositoryOnModelUpdate;
         uiHorseDetail.SetEntity(new UIHorseDetail.Entity()
         {

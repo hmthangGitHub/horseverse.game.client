@@ -163,10 +163,10 @@ public class HorseRaceState : InjectedBState
     private async UniTask LoadUI()
     {
         horseRaceManager ??= GameObject.Instantiate<HorseRaceManager>((await Resources.LoadAsync<HorseRaceManager>("GamePlay/HorseRaceManager") as HorseRaceManager));
-        uIHorseRaceStatus ??= await UILoader.Initiate<UIHorseRaceStatus>();
-        uiSpeedController ??= await UILoader.Initiate<UISpeedController>();
-        uiRaceResultSelf ??= await UILoader.Initiate<UIRaceResultSelf>();
-        uiRaceResultList ??= await UILoader.Initiate<UIRaceResultList>();
+        uIHorseRaceStatus ??= await UILoader.Instantiate<UIHorseRaceStatus>();
+        uiSpeedController ??= await UILoader.Instantiate<UISpeedController>();
+        uiRaceResultSelf ??= await UILoader.Instantiate<UIRaceResultSelf>();
+        uiRaceResultList ??= await UILoader.Instantiate<UIRaceResultList>();
     }
 
     private async UniTask LoadRacingScene()

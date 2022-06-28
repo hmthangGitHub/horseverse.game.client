@@ -35,7 +35,7 @@ public class UIHorseTrainingPresenter : IDisposable
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         await HorseRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
-        uiHorseTraining ??= await UILoader.Initiate<UIHorseTraining>(token : cts.Token);
+        uiHorseTraining ??= await UILoader.Instantiate<UIHorseTraining>(token : cts.Token);
         var currentState = UserDataRepository.Current.TraningTimeStamp <= DateTimeOffset.UtcNow.ToUnixTimeSeconds() ? UIComponentTraningState.TraningState.Prepare 
                                                                                                                     : UIComponentTraningState.TraningState.Processing;
         if (currentState == UIComponentTraningState.TraningState.Prepare && UserDataRepository.Current.TraningTimeStamp != 0)

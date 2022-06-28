@@ -7,7 +7,7 @@ using UnityEngine;
 
 public static class UILoader
 {
-    public static async UniTask<T> Initiate<T>(UICanvas.UICanvasType canvasType = UICanvas.UICanvasType.Default, CancellationToken token = default) where T : PopupEntity
+    public static async UniTask<T> Instantiate<T>(UICanvas.UICanvasType canvasType = UICanvas.UICanvasType.Default, CancellationToken token = default) where T : PopupEntity
     {
         var type = typeof(T).ToString();
         var prefab = await LoadResource<T>(type).AttachExternalCancellation(token) as T;

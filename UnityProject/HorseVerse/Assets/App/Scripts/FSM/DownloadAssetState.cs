@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,22 +9,24 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class DownloadAssetState : InjectedBState
 {
+    private UIDownloadProgressPresenter uIDownloadProgressPresenter;
+
     public override void Enter()
     {
         base.Enter();
-        PerformDownLoadAsync().Forget();
+        uIDownloadProgressPresenter = new UIDownloadProgressPresenter();
+        uIDownloadProgressPresenter.OnDownLoadDone += OnDownLoadDone;
+        uIDownloadProgressPresenter.PerformDownLoadAsync().Forget();
     }
 
-    public async UniTaskVoid PerformDownLoadAsync()
+    private void OnDownLoadDone()
     {
-        var resourceLocators = await Addressables.InitializeAsync().ToUniTask();
-        await resourceLocators.Keys.Select(x => Addressables.DownloadDependenciesAsync(x).ToUniTask());
-
         this.Machine.ChangeState<InitialState>();
     }
 
     public override void Exit()
     {
         base.Exit();
+        uIDownloadProgressPresenter.Dispose();
     }
 }
