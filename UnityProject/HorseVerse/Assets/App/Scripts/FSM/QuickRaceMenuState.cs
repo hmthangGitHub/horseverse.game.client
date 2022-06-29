@@ -42,7 +42,7 @@ public class QuickRaceMenuState : InjectedBState
 
     private void OnBack()
     {
-        this.SuperMachine.GetState<InitialState>().ChangeState<MainMenuState>();
+        this.GetMachine<QuickRaceState>().GetMachine<InitialState>().ChangeState<MainMenuState>();
     }
 
     public override void Exit()

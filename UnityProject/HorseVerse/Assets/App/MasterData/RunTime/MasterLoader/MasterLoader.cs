@@ -6,12 +6,22 @@ using UnityEngine;
 
 public static class MasterLoader
 {
-    public static async UniTask<TMasterContainer> LoadAsync<TMasterContainer>() where TMasterContainer : IMasterContainer, new()
+    public static async UniTask<TMasterContainer> LoadMasterAsync<TMasterContainer>() where TMasterContainer : IMasterContainer, new()
     {
         var masterContainer = new TMasterContainer();
-        var textAsset = await Resources.LoadAsync<TextAsset>($"MasterData/{masterContainer.MasterType}") as TextAsset;
+        var textAsset = await PrimitiveAssetLoader.LoadAsset<TextAsset>(GetMasterPath<TMasterContainer>());
         masterContainer.SetDataList(textAsset.text);
         return masterContainer;
+    }
+
+    private static string GetMasterPath<TMasterContainer>() where TMasterContainer : IMasterContainer, new()
+    {
+        return $"MasterData/{typeof(TMasterContainer)}".Replace("Container", "");
+    }
+
+    public static void Unload<TMasterContainer>() where TMasterContainer : IMasterContainer, new()
+    {
+        PrimitiveAssetLoader.UnloadAssetAtPath(GetMasterPath<TMasterContainer>());
     }
 }
  

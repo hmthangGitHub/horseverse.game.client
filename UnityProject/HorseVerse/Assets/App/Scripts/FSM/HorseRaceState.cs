@@ -104,7 +104,7 @@ public class HorseRaceState : InjectedBState
     {
         this.Container.Inject<UILoadingPresenter>().ShowLoadingAsync().Forget();
         await UniTask.Delay(1000);
-        this.SuperMachine.GetState<InitialState>().ChangeState<MainMenuState>();
+        this.SuperMachine.GetState<StartUpState>().GetState<InitialState>().ChangeState<MainMenuState>();
     }
 
     private static int[] RandomHorseInLanes()
@@ -163,10 +163,10 @@ public class HorseRaceState : InjectedBState
     private async UniTask LoadUI()
     {
         horseRaceManager ??= GameObject.Instantiate<HorseRaceManager>((await Resources.LoadAsync<HorseRaceManager>("GamePlay/HorseRaceManager") as HorseRaceManager));
-        uIHorseRaceStatus ??= await UILoader.Load<UIHorseRaceStatus>();
-        uiSpeedController ??= await UILoader.Load<UISpeedController>();
-        uiRaceResultSelf ??= await UILoader.Load<UIRaceResultSelf>();
-        uiRaceResultList ??= await UILoader.Load<UIRaceResultList>();
+        uIHorseRaceStatus ??= await UILoader.Instantiate<UIHorseRaceStatus>();
+        uiSpeedController ??= await UILoader.Instantiate<UISpeedController>();
+        uiRaceResultSelf ??= await UILoader.Instantiate<UIRaceResultSelf>();
+        uiRaceResultList ??= await UILoader.Instantiate<UIRaceResultList>();
     }
 
     private async UniTask LoadRacingScene()
@@ -217,11 +217,13 @@ public class HorseRaceState : InjectedBState
         isGameStart = false;
         isLoadedUI = false;
 
-        UILoader.SafeUnload(ref horseRaceManager);
-        UILoader.SafeUnload(ref uiSpeedController);
-        UILoader.SafeUnload(ref uiRaceResultSelf);
-        UILoader.SafeUnload(ref uiRaceResultList);
-        UILoader.SafeUnload(ref uIHorseRaceStatus);
+        GameObject.Destroy(horseRaceManager?.gameObject);
+        horseRaceManager = null;
+
+        UILoader.SafeRelease(ref uiSpeedController);
+        UILoader.SafeRelease(ref uiRaceResultSelf);
+        UILoader.SafeRelease(ref uiRaceResultList);
+        UILoader.SafeRelease(ref uIHorseRaceStatus);
 
         SceneManager.UnloadSceneAsync(racingScene).ToUniTask().Forget();
     }

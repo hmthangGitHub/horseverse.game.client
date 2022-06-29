@@ -9,7 +9,7 @@ public class InitialState : InjectedBHState, IDisposable
     public async override void Enter()
     {
         this.Container.Bind(TCPSocketClient.Initialize(new ProtobufMessageParser()));
-        this.Container.Bind(await MasterLoader.LoadAsync<MasterHorseContainer>());
+        this.Container.Bind(await MasterLoader.LoadMasterAsync<MasterHorseContainer>());
         this.Container.Bind(new HorseRepository(Container));
         this.Container.Bind(new BetRateRepository());
         this.Container.Bind(new UserDataRepository());
@@ -67,6 +67,8 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.RemoveAndDisposeIfNeed<BetRateRepository>();
         this.Container.RemoveAndDisposeIfNeed<UserDataRepository>();
         this.Container.RemoveAndDisposeIfNeed<HorseSumaryListEntityFactory>();
+        this.Container.RemoveAndDisposeIfNeed<MasterHorseContainer>();
+        MasterLoader.Unload<MasterHorseContainer>();
         this.Container.RemoveAndDisposeIfNeed<TCPSocketClient>();
     }
 }

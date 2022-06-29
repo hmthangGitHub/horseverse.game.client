@@ -39,7 +39,7 @@ public class UIQuickRacePresenter : IDisposable
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
-        uiQuickMode = await UILoader.Load<UIQuickMode>(token: cts.Token);
+        uiQuickMode = await UILoader.Instantiate<UIQuickMode>(token: cts.Token);
         await HorseRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
 
         UserDataRepository.OnModelUpdate += UserDataRepositoryOnModelUpdate;
@@ -131,7 +131,7 @@ public class UIQuickRacePresenter : IDisposable
     {
         cts.SafeCancelAndDispose();
         cts = default;
-        UILoader.SafeUnload(ref uiQuickMode);
+        UILoader.SafeRelease(ref uiQuickMode);
         UserDataRepository.OnModelUpdate -= UserDataRepositoryOnModelUpdate;
     }
 }

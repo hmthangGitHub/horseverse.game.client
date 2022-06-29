@@ -4,7 +4,7 @@ public class StartUpState : InjectedBHState
 {
     private ErrorHandler errorHandler = new ErrorHandler();
 
-    public async override void Enter()
+    public override void Enter()
     {
         base.Enter();
         errorHandler.OnError += ErrorHandlerOnError;
@@ -14,7 +14,8 @@ public class StartUpState : InjectedBHState
     {
         base.AddStates();
         this.AddState<InitialState>();
-        this.SetInitialState<InitialState>();
+        this.AddState<DownloadAssetState>();
+        this.SetInitialState<DownloadAssetState>();
     }
 
     private void ErrorHandlerOnError()

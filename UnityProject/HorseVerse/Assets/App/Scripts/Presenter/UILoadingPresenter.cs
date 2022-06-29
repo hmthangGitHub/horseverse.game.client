@@ -14,7 +14,7 @@ public class UILoadingPresenter : IDisposable
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
-        uiLoading ??= await UILoader.Load<UILoading>(UICanvas.UICanvasType.Loading).AttachExternalCancellation(cancellationToken: cts.Token);
+        uiLoading ??= await UILoader.Instantiate<UILoading>(UICanvas.UICanvasType.Loading).AttachExternalCancellation(cancellationToken: cts.Token);
         uiLoading.SetEntity(new UILoading.Entity());
         await uiLoading.In();
     }
@@ -28,6 +28,6 @@ public class UILoadingPresenter : IDisposable
     public void Dispose()
     {
         cts.SafeCancelAndDispose();
-        UILoader.SafeUnload(ref uiLoading);
+        UILoader.SafeRelease(ref uiLoading);
     }
 }

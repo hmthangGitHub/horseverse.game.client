@@ -23,7 +23,7 @@ public class UIHeaderPresenter : IDisposable
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         await UserDataRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
-        uiHeader ??= await UILoader.Load<UIHeader>(UICanvas.UICanvasType.Header, token: cts.Token);
+        uiHeader ??= await UILoader.Instantiate<UIHeader>(UICanvas.UICanvasType.Header, token: cts.Token);
         uiHeader.SetEntity(new UIHeader.Entity()
         {
             coin = UserDataRepository.Current.Coin,
@@ -45,6 +45,6 @@ public class UIHeaderPresenter : IDisposable
     {
         cts.SafeCancelAndDispose();
         cts = default;
-        UILoader.SafeUnload(ref uiHeader);
+        UILoader.SafeRelease(ref uiHeader);
     }
 }
