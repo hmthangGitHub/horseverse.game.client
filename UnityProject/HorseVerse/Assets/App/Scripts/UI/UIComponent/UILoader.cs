@@ -17,7 +17,7 @@ public static class UILoader
 
     private static async UniTask<T> LoadResource<T>(string type, CancellationToken token) where T : PopupEntity
     {
-        var go = await PrimitiveAssetLoader.LoadAsset<GameObject>(GetPathFromType(type), token);
+        var go = await PrimitiveAssetLoader.LoadAssetAsync<GameObject>(GetPathFromType(type), token);
         return go.GetComponent<T>();
     }
 

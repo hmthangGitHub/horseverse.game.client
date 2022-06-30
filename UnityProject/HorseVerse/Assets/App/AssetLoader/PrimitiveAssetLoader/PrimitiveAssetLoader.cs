@@ -9,7 +9,7 @@ using System.Threading;
 
 public class PrimitiveAssetLoader : AssetLoaderBase<PrimitiveAssetLoader>
 {
-    public static async UniTask<T> LoadAsset<T>(string path, CancellationToken token) where T : UnityEngine.Object
+    public static async UniTask<T> LoadAssetAsync<T>(string path, CancellationToken token) where T : UnityEngine.Object
     {
         var handle = Instance.GetOrCreatOperationHandle<T>(path);
         return await Instance.LoadAssetInternal<T>(path, handle, token);

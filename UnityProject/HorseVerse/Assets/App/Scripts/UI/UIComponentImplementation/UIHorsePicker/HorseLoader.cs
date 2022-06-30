@@ -19,6 +19,7 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
     private CancellationTokenSource cts;
     public new CinemachineVirtualCamera camera;
     private GameObject horse;
+    private string oldHorse = string.Empty;
 
     protected override void OnSetEntity()
     {
@@ -39,20 +40,27 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
 
     private async UniTask LoadHorseAsync()
     {
-        cts?.Cancel();
-        cts = new CancellationTokenSource();
-        if (horsePosition.transform.childCount > 0)
+        if (oldHorse != this.entity.horse)
         {
-            Destroy(horsePosition.transform.GetChild(0).gameObject);
-        }
-        var horsePrefab = await Resources.LoadAsync<GameObject>(this.entity.horse) as GameObject;
-        horse = Instantiate<GameObject>(horsePrefab, Vector3.zero, Quaternion.identity, horsePosition.transform);
-        horse.transform.localScale = Vector3.one;
-        horse.transform.localPosition = Vector3.zero;
-        SetLayerRecursively(horse, LayerMask.NameToLayer("UI"));
-        if (this.gameObject.activeInHierarchy)
-        {
-            AnimatateHorse().Forget();
+            cts.SafeCancelAndDispose();
+            cts = new CancellationTokenSource();
+            if (horsePosition.transform.childCount > 0)
+            {
+                Destroy(horsePosition.transform.GetChild(0).gameObject);
+                PrimitiveAssetLoader.UnloadAssetAtPath(oldHorse);
+            }
+            var horsePrefab = await PrimitiveAssetLoader.LoadAssetAsync<GameObject>(this.entity.horse, cts.Token);
+            oldHorse = this.entity.horse;
+            horse = Instantiate<GameObject>(horsePrefab, Vector3.zero, Quaternion.identity, horsePosition.transform);
+            horse.transform.localScale = Vector3.one;
+            horse.transform.localPosition = Vector3.zero;
+
+            SetLayerRecursively(horse, LayerMask.NameToLayer("UI"));
+
+            if (this.gameObject.activeInHierarchy)
+            {
+                AnimatateHorse().Forget();
+            } 
         }
     }
 
@@ -83,5 +91,9 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
     private void OnDestroy()
     {
         cts?.Cancel();
+        if (horse != null)
+        {
+            PrimitiveAssetLoader.UnloadAssetAtPath(oldHorse);
+        }
     }
 }
