@@ -5,45 +5,28 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using System;
 using Cysharp.Threading.Tasks;
+using System.Threading;
 
-public class PrimitiveAssetLoader
+public class PrimitiveAssetLoader : AssetLoaderBase<PrimitiveAssetLoader>
 {
-    private static Dictionary<string, (AsyncOperationHandle operationHandle, int refCount)> operationHandles = new Dictionary<string, (AsyncOperationHandle operationHandle, int refCount)>();
-
-    public static async UniTask<T> LoadAsset<T>(string path) where T : UnityEngine.Object
+    public static async UniTask<T> LoadAsset<T>(string path, CancellationToken token) where T : UnityEngine.Object
     {
-        var handle = PrimitiveAssetLoader.GetOrCreatOperationHandle<T>(path);
-        if (!handle.IsDone)
-        {
-            await handle.Task;
-        }
-        return (T)handle.Result;
+        var handle = Instance.GetOrCreatOperationHandle<T>(path);
+        return await Instance.LoadAssetInternal<T>(path, handle, token);
     }
 
-    private static AsyncOperationHandle GetOrCreatOperationHandle<T>(string path) where T : UnityEngine.Object
+    protected override void ReleaseHandle(AsyncOperationHandle handle)
     {
-        if (!operationHandles.TryGetValue(path, out var handler))
-        {
-            var handle = Addressables.LoadAssetAsync<T>(path);
-            var refCount = 0;
-            handler = (handle, refCount);
-            operationHandles.Add(path, handler);
-        }
-        handler.refCount++;
-        return handler.operationHandle;
+        Addressables.Release(handle);
     }
 
-    public static void UnloadAssetAtPath(string path)
+    private AsyncOperationHandle GetOrCreatOperationHandle<T>(string path) where T : UnityEngine.Object
     {
-        if (!operationHandles.TryGetValue(path, out var handler))
+        if (!AsyncOperationHandleRefCount.TryGetHandler(path, out var handle))
         {
-            throw new Exception($"No asset loaded at path {path}");
+            handle = Addressables.LoadAssetAsync<T>(path);
+            AsyncOperationHandleRefCount.Add(path, handle);
         }
-        handler.refCount--;
-        if (handler.refCount == 0)
-        {
-            Addressables.Release(handler.operationHandle);
-            operationHandles.Remove(path);
-        }
+        return handle;
     }
 }
