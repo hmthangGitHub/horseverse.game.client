@@ -12,7 +12,7 @@ public abstract class AssetLoaderBase
 public abstract class AssetLoaderBase<T> : AssetLoaderBase where T : AssetLoaderBase<T>, new()
 {
     private static T instance;
-    public static T Instance => instance ?? new T();
+    protected static T Instance => instance ?? new T();
 
     public static void UnloadAssetAtPath(string path)
     {

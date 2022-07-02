@@ -79,6 +79,15 @@ public class AssetBuilder
         var group = AddressableAssetSettingsDefaultObject.Settings.groups.FirstOrDefault(x => key.Contains(x.Name));
         var entry = AddressableAssetSettingsDefaultObject.Settings.CreateOrMoveEntry(guid, group);
         entry.SetAddress(key);
+        AddLabelIfHorses(entry, Path.GetFileName(file));
+    }
+
+    private static void AddLabelIfHorses(AddressableAssetEntry entry, string label)
+    {
+        if (entry.parentGroup.Name == "Horses")
+        {
+            entry.SetLabel(AddressableAssetSettingsDefaultObject.Settings.GetLabels().FirstOrDefault(x => x == label), true);
+        }
     }
 
     private static void ToStreamingGroup(string file)

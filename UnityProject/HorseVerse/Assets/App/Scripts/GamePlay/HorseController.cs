@@ -30,7 +30,7 @@ public class HorseController : MonoBehaviour
 
     private bool isPlayer = false;
     public float normalizePath;
-    public event Action OnFinishTrackEvent;
+    public event Action OnFinishTrackEvent = ActionUtility.EmptyAction.Instance;
     public bool IsPlayer { get => isPlayer; set { 
             isPlayer = value;
             playerIndicator.SetActive(isPlayer);
@@ -75,7 +75,7 @@ public class HorseController : MonoBehaviour
         timeOffset = averageTimeToFinish - timeToFinish;
         currentTimeToFinish = averageTimeToFinish;
         currentCurve = defaultCurve;
-        OnFinishTrackEvent?.Invoke();
+        OnFinishTrackEvent.Invoke();
     }
 
     public void Skip()
