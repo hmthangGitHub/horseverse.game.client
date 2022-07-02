@@ -16,7 +16,7 @@ public class UIQuickRacePresenter : IDisposable
     private IDIContainer container;
 
     public event Action OnBack = ActionUtility.EmptyAction.Instance;
-    public event Action OnFoundMatch = ActionUtility.EmptyAction.Instance;
+    public event Action<RaceMatchData> OnFoundMatch = ActionUtility.EmptyAction<RaceMatchData>.Instance;
 
     private IReadOnlyUserDataRepository userDataRepository;
     private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
@@ -82,9 +82,9 @@ public class UIQuickRacePresenter : IDisposable
     private async UniTaskVoid OnFindMatchAsync()
     {
         StartFindMatchTimerAsync().Forget();
-        await QuickRaceDomainService.FindMatch().AttachExternalCancellation(cts.Token);
+        var raceMatchData = await QuickRaceDomainService.FindMatch().AttachExternalCancellation(cts.Token);
         StopFindMatchTimer();
-        OnFoundMatch.Invoke();
+        OnFoundMatch.Invoke(raceMatchData);
     }
 
     public void StopFindMatchTimer()

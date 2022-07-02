@@ -1,18 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FreeCamera : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    public event Action OnSkipFreeCamera = ActionUtility.EmptyAction.Instance;
     void Update()
     {
-        
+        if (Input.GetMouseButtonDown(0))
+        {
+            OnSkipFreeCamera.Invoke();
+        }
     }
 }

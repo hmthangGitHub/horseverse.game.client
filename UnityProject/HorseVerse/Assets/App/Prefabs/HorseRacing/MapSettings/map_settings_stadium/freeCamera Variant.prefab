@@ -9,8 +9,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5871849353297403953, guid: 62c98a6e06957c5458c7f04d34b1690d, type: 3}
       propertyPath: m_Name
-      value: freeCamera
+      value: freeCamera Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 5871849353297403958, guid: 62c98a6e06957c5458c7f04d34b1690d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7c2eb2bd665df0145b70102550a54569, type: 2}
     - target: {fileID: 5871849353297403959, guid: 62c98a6e06957c5458c7f04d34b1690d, type: 3}
       propertyPath: m_RootOrder
       value: 0

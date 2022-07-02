@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,8 @@ public class HorseRaceTest : MonoBehaviour
                                                UnityEngine.Random.Range(0, 7),
                                                Enumerable.Range(1, 8).Shuffle().ToArray(),
                                                default);
+
+        await horseRaceManager.ShowFreeCamera();
         horseRaceManager.StartRace();
     }
 
@@ -29,8 +32,5 @@ public class HorseRaceTest : MonoBehaviour
         return masterHorseContainer.MasterHorseIndexer.Keys.Shuffle()
                                                            .Take(maxHorseInLane)
                                                            .ToArray();
-        //var randomizeHorsePath = HorseMasterDataContainer.HorseModelPaths.Shuffle().ToList();
-        //var horseIdInLanes = HorseMasterDataContainer.HorseModelPaths.Select(x => randomizeHorsePath.FindIndex(path => path == x)).ToArray();
-        //return horseIdInLanes;
     }
 }

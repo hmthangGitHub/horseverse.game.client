@@ -57,10 +57,24 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         SetHorseControllerStat(top);
     }
 
+    public async UniTask ShowFreeCamera()
+    {
+        freeCamera.gameObject.SetActive(true);
+        var ucs = new UniTaskCompletionSource();
+
+        void OnSkipFreeCamera()
+        {
+            ucs.TrySetResult();
+        }
+        freeCamera.OnSkipFreeCamera += OnSkipFreeCamera;
+        await UniTask.WhenAny(ucs.Task, UniTask.Delay(5000));
+        freeCamera.OnSkipFreeCamera -= OnSkipFreeCamera;
+    }
+
     private async UniTask LoadMapSettings(CancellationToken token)
     {
         var mapSettings = await PrimitiveAssetLoader.LoadAssetAsync<MapSettings>(mapSettingsPath, token);
-        freeCamera = Instantiate<FreeCamera>(mapSettings.freeCamera, Vector3.zero, Quaternion.identity, transform);
+        freeCamera = Instantiate<FreeCamera>(mapSettings.freeCamera, transform, true);
         raceCamera = Instantiate<RaceModeCameras>(mapSettings.raceModeCamera, Vector3.zero, Quaternion.identity, transform);
         path = Instantiate<PathCreation.PathCreator>(mapSettings.path, Vector3.zero,Quaternion.identity, transform);
         raceCamera.SetHorseGroup(this.horseGroup);

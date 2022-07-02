@@ -10,7 +10,6 @@ using UnityEngine.SceneManagement;
 
 public class HorseRacePresenter : IDisposable
 {
-    private const string mapPath = "Maps/racing_scene_stadium";
     private HorseRaceManager horseRaceManager;
     private UIHorseRaceStatus uIHorseRaceStatus;
     private UISpeedController uiSpeedController;
@@ -25,7 +24,15 @@ public class HorseRacePresenter : IDisposable
     private int playerHorseIndex;
     public event Action OnBackToMainState = ActionUtility.EmptyAction.Instance;
 
+    private RaceMatchData raceMatchData;
+    private RaceMatchData RaceMatchData => raceMatchData ??= Container.Inject<RaceMatchData>();
+
+    private MasterMapContainer masterMapContainer;
+    private MasterMap masterMap;
+
     private IDIContainer Container { get; }
+
+    private RaceModeHorseIntroPresenter RaceModeHorseIntroPresenter { get; } = new RaceModeHorseIntroPresenter();
 
     public HorseRacePresenter(IDIContainer container)
     {
@@ -34,41 +41,43 @@ public class HorseRacePresenter : IDisposable
 
     public async UniTask LoadAssetAsync()
     {
+        await GetMasterMap();
         await InitHorseRaceAsync();
         await LoadUI();
         await LoadRacingScene(default);
     }
 
+    public async UniTask PlayIntro()
+    {
+        await horseRaceManager.ShowFreeCamera();
+        await RaceModeHorseIntroPresenter.ShowHorsesInfoIntro();
+    }
+
+    private async UniTask ShowIntroCamera()
+    {
+        await UniTask.CompletedTask;
+    }
+
+    private async UniTask GetMasterMap()
+    {
+        masterMapContainer = await MasterLoader.LoadMasterAsync<MasterMapContainer>();
+        masterMap = masterMapContainer.MasterMapIndexer[RaceMatchData.masterMapId];
+    }
+
     private async UniTask InitHorseRaceAsync()
     {
         horseRaceManager ??= GameObject.Instantiate<HorseRaceManager>((await Resources.LoadAsync<HorseRaceManager>("GamePlay/HorseRaceManager") as HorseRaceManager));
-        var masterHorseIds = GetAllMasterHorseIds();
-        var playerHorseIndex = masterHorseIds.ToList().FindIndex(x => x == UserDataRepository.Current.MasterHorseId);
-        await horseRaceManager.InitializeAsync(masterHorseIds.Select(x => MasterHorseContainer.MasterHorseIndexer[x].RaceModeModelPath)
-                                                             .ToArray(),
-                                               "",
+        var playerHorseIndex = RaceMatchData.masterHorseIds.ToList().FindIndex(x => x == UserDataRepository.Current.MasterHorseId);
+        await horseRaceManager.InitializeAsync(RaceMatchData.masterHorseIds.Select(x => MasterHorseContainer.MasterHorseIndexer[x].RaceModeModelPath).ToArray(),
+                                               masterMap.MapSettings,
                                                playerHorseIndex,
-                                               GetHorseTopPosition(),
+                                               RaceMatchData.tops,
                                                default);
-    }
-
-    private static int[] GetHorseTopPosition()
-    {
-        return Enumerable.Range(1, 8).Shuffle().ToArray();
-    }
-
-    private long[] GetAllMasterHorseIds()
-    {
-        return MasterHorseContainer.MasterHorseIndexer.Keys.Shuffle()
-                                                           .Append(UserDataRepository.Current.MasterHorseId)
-                                                           .Shuffle()
-                                                           .Take(8)
-                                                           .ToArray();
     }
 
     private async UniTask LoadRacingScene(CancellationToken token)
     {
-        await SceneAssetLoader.LoadSceneAsync(mapPath, true, token : token);
+        await SceneAssetLoader.LoadSceneAsync(masterMap.MapPath, true, token : token);
     }
 
     private async UniTask LoadUI()
@@ -212,6 +221,14 @@ public class HorseRacePresenter : IDisposable
         UILoader.SafeRelease(ref uiRaceResultList);
         UILoader.SafeRelease(ref uIHorseRaceStatus);
 
-        SceneAssetLoader.UnloadAssetAtPath(mapPath);
+        masterMapContainer = default;
+        masterMap = default;
+        raceMatchData = default;
+        OnBackToMainState = ActionUtility.EmptyAction.Instance;
+        cachePositions = default;
+        masterHorseContainer = default;
+
+        MasterLoader.Unload<MasterMapContainer>();
+        SceneAssetLoader.UnloadAssetAtPath(masterMap.MapPath);
     }
 }

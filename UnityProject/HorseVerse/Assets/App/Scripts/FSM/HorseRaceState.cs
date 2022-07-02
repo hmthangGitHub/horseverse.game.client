@@ -25,6 +25,8 @@ public class HorseRaceState : InjectedBState
 
         uiLoadingPresenter = this.Container.Inject<UILoadingPresenter>();
         uiLoadingPresenter.HideLoading();
+
+        await horseRacePresenter.PlayIntro();
     }  
 
     private void ToMainState()
@@ -67,5 +69,7 @@ public class HorseRaceState : InjectedBState
         uiLoadingPresenter = default;
         horseRacePresenter.OnBackToMainState -= ToMainState;
         horseRacePresenter.Dispose();
+        horseRacePresenter = default;
+        Container.RemoveAndDisposeIfNeed<RaceMatchData>();
     }
 }
