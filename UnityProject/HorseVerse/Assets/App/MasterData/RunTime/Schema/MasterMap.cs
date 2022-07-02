@@ -16,4 +16,8 @@ public partial class MasterMap
 	private string map_name;
 	public string MapName => map_name;
 
+	[JsonProperty]
+	private string map_settings;
+	public string MapSettings => map_settings;
+
 }

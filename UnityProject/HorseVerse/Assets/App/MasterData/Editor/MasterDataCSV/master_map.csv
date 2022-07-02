@@ -1,6 +1,7 @@
-type_name,master_map_id,map_path,map_name
-type,long,string,string
-out_put_client,TRUE,TRUE,TRUE
-out_put_server,TRUE,FALSE,FALSE
-id,id,,
-,10001001,Maps/racing_scene1,Racing Scene 1
+type_name,master_map_id,map_path,map_name,map_settings
+type,long,string,string,string
+out_put_client,TRUE,TRUE,TRUE,TRUE
+out_put_server,TRUE,FALSE,FALSE,FALSE
+id,id,,,
+,10001001,Maps/racing_scene_1,Racing Scene 1,Maps/MapSettings/map_settings_1
+,10001002,race_scene_stadium,Stadium,Maps/MapSettings/map_settings_stadium

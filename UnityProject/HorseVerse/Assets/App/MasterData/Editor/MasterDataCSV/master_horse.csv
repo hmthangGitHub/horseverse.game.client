@@ -1,13 +1,13 @@
-type_name,master_horse_id,model_path,name
-type,long,string,string
-out_put_client,TRUE,TRUE,TRUE
-out_put_server,TRUE,FALSE,FALSE
-id,id,,
-,10000001,Horses/Horse_Black,Black
-,10000002,Horses/Horse_Black_Tobiano_pinto,Black Tobiano
-,10000003,Horses/Horse_Brown,Brown
-,10000004,Horses/Horse_Buckskin,Buckskin
-,10000005,Horses/Horse_GraysRoans,GraysRoans
-,10000006,Horses/Horse_Palomino,Palomino
-,10000007,Horses/Horse_palomino_overo_pinto,Overo Pinto
-,10000008,Horses/Horse_White,White
+type_name,master_horse_id,model_path,race_mode_model_path,name
+type,long,string,string,string
+out_put_client,TRUE,TRUE,TRUE,TRUE
+out_put_server,TRUE,FALSE,FALSE,FALSE
+id,id,,,
+,10000001,Horses/Horse_Black,Horses/RaceMode/Horse_Black,Black
+,10000002,Horses/Horse_Black_Tobiano_pinto,Horses/RaceMode/Horse_Black_Tobiano_pinto,Black Tobiano
+,10000003,Horses/Horse_Brown,Horses/RaceMode/Horse_Brown,Brown
+,10000004,Horses/Horse_Buckskin,Horses/RaceMode/Horse_Buckskin,Buckskin
+,10000005,Horses/Horse_GraysRoans,Horses/RaceMode/Horse_GraysRoans,GraysRoans
+,10000006,Horses/Horse_Palomino,Horses/RaceMode/Horse_Palomino,Palomino
+,10000007,Horses/Horse_palomino_overo_pinto,Horses/RaceMode/Horse_palomino_overo_pinto,Overo Pinto
+,10000008,Horses/Horse_White,Horses/RaceMode/Horse_White,White
