@@ -20,7 +20,7 @@ public class HorseRaceState : InjectedBState
         base.Enter();
         horseRacePresenter = new HorseRacePresenter(Container);
         horseRacePresenter.OnBackToMainState += ToMainState;
-        await horseRacePresenter.LoadResources();
+        await horseRacePresenter.LoadAssetAsync();
         isLoadedUI = true;
 
         uiLoadingPresenter = this.Container.Inject<UILoadingPresenter>();

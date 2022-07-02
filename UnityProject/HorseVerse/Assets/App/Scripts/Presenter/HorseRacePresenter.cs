@@ -4,22 +4,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class HorseRacePresenter : IDisposable
 {
-    private const string mapPath = "Maps/racing_scene_1";
+    private const string mapPath = "Maps/racing_scene_stadium";
     private HorseRaceManager horseRaceManager;
     private UIHorseRaceStatus uIHorseRaceStatus;
     private UISpeedController uiSpeedController;
     private UIRaceResultSelf uiRaceResultSelf;
     private UIRaceResultList uiRaceResultList;
-    private Scene racing = default;
+
     private int[] cachePositions;
-    private bool isGameStart = false;
-    private bool isLoadedUI = false;
-    private Scene racingScene;
     private IReadOnlyUserDataRepository userDataRepository;
     private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= Container.Inject<IReadOnlyUserDataRepository>();
     private MasterHorseContainer masterHorseContainer;
@@ -34,17 +32,38 @@ public class HorseRacePresenter : IDisposable
         Container = container;
     }
 
-    public async UniTask LoadResources()
+    public async UniTask LoadAssetAsync()
     {
-        playerHorseIndex = GetHorseIndex(UserDataRepository.Current.MasterHorseId);
+        await InitHorseRaceAsync();
         await LoadUI();
         await LoadRacingScene(default);
     }
 
-    private int GetHorseIndex(long masterHorseId)
+    private async UniTask InitHorseRaceAsync()
     {
-        return MasterHorseContainer.DataList.ToList()
-                                            .FindIndex(x => x.MasterHorseId == masterHorseId);
+        horseRaceManager ??= GameObject.Instantiate<HorseRaceManager>((await Resources.LoadAsync<HorseRaceManager>("GamePlay/HorseRaceManager") as HorseRaceManager));
+        var masterHorseIds = GetAllMasterHorseIds();
+        var playerHorseIndex = masterHorseIds.ToList().FindIndex(x => x == UserDataRepository.Current.MasterHorseId);
+        await horseRaceManager.InitializeAsync(masterHorseIds.Select(x => MasterHorseContainer.MasterHorseIndexer[x].RaceModeModelPath)
+                                                             .ToArray(),
+                                               "",
+                                               playerHorseIndex,
+                                               GetHorseTopPosition(),
+                                               default);
+    }
+
+    private static int[] GetHorseTopPosition()
+    {
+        return Enumerable.Range(1, 8).Shuffle().ToArray();
+    }
+
+    private long[] GetAllMasterHorseIds()
+    {
+        return MasterHorseContainer.MasterHorseIndexer.Keys.Shuffle()
+                                                           .Append(UserDataRepository.Current.MasterHorseId)
+                                                           .Shuffle()
+                                                           .Take(8)
+                                                           .ToArray();
     }
 
     private async UniTask LoadRacingScene(CancellationToken token)
@@ -54,7 +73,6 @@ public class HorseRacePresenter : IDisposable
 
     private async UniTask LoadUI()
     {
-        horseRaceManager ??= GameObject.Instantiate<HorseRaceManager>((await Resources.LoadAsync<HorseRaceManager>("GamePlay/HorseRaceManager") as HorseRaceManager));
         uIHorseRaceStatus ??= await UILoader.Instantiate<UIHorseRaceStatus>();
         uiSpeedController ??= await UILoader.Instantiate<UISpeedController>();
         uiRaceResultSelf ??= await UILoader.Instantiate<UIRaceResultSelf>();
@@ -63,7 +81,6 @@ public class HorseRacePresenter : IDisposable
 
     public void StartGame()
     {
-        isGameStart = true;
         int[] horseIdInLanes = RandomHorseInLanes();
         SetEntityHorseRaceManager(horseIdInLanes);
         SetEntityUISpeedController();
@@ -71,9 +88,9 @@ public class HorseRacePresenter : IDisposable
 
     private void SetEntityHorseRaceManager(int[] horseIdInLanes)
     {
-        horseRaceManager.StartRace(horseIdInLanes, playerHorseIndex);
+        horseRaceManager.StartRace();
         horseRaceManager.OnFinishTrackEvent += OnFinishTrack;
-        SetEntityUIHorseRace(horseIdInLanes, horseRaceManager.horseControllers.Min(x => x.currentTimeToFinish));
+        SetEntityUIHorseRaceStatus(horseIdInLanes, horseRaceManager.RaceTime);
     }
 
     private void SetEntityResultList()
@@ -118,7 +135,7 @@ public class HorseRacePresenter : IDisposable
                 uiRaceResultSelf.Out().Forget();
                 SetEntityResultList();
             }),
-            top = horseRaceManager.horseControllers.Find(x => x.IsPlayer).top
+            top = horseRaceManager.horseControllers.First(x => x.IsPlayer).top
         });
         uiRaceResultSelf.In().Forget();
     }
@@ -163,7 +180,7 @@ public class HorseRacePresenter : IDisposable
         uiSpeedController.In().Forget();
     }
 
-    private void SetEntityUIHorseRace(int[] playerList, float timeToFinish)
+    private void SetEntityUIHorseRaceStatus(int[] playerList, float timeToFinish)
     {
         cachePositions = Enumerable.Repeat(-1, playerList.Length).ToArray();
         uIHorseRaceStatus.SetEntity(new UIHorseRaceStatus.Entity()
