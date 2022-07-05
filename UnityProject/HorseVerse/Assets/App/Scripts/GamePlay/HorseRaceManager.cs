@@ -13,6 +13,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
     public FreeCamera freeCamera;
     public RaceModeCameras raceCamera;
     public PathCreation.PathCreator path;
+    public WarmUpCamera warmUpCamera;
 
     private string[] horseControllerModelPaths;
     private string mapSettingsPath;
@@ -69,6 +70,27 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         freeCamera.OnSkipFreeCamera += OnSkipFreeCamera;
         await UniTask.WhenAny(ucs.Task, UniTask.Delay(5000));
         freeCamera.OnSkipFreeCamera -= OnSkipFreeCamera;
+        freeCamera.gameObject.SetActive(false);
+    }
+
+    public async UniTask ShowWarmUpCamera()
+    {
+        warmUpCamera.gameObject.SetActive(true);
+        horseControllers.ForEach(x =>
+        {
+            x.gameObject.SetActive(true);
+        });
+
+        var ucs = new UniTaskCompletionSource();
+
+        void OnFinishWarmingUp()
+        {
+            warmUpCamera.OnFinishWarmingUp -= OnFinishWarmingUp;
+            ucs.TrySetResult();
+        }
+        warmUpCamera.OnFinishWarmingUp += OnFinishWarmingUp;
+        await ucs.Task;
+        warmUpCamera.gameObject.SetActive(false);
     }
 
     private async UniTask LoadMapSettings(CancellationToken token)
@@ -77,12 +99,17 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         freeCamera = Instantiate<FreeCamera>(mapSettings.freeCamera, transform, true);
         raceCamera = Instantiate<RaceModeCameras>(mapSettings.raceModeCamera, Vector3.zero, Quaternion.identity, transform);
         path = Instantiate<PathCreation.PathCreator>(mapSettings.path, Vector3.zero,Quaternion.identity, transform);
+        warmUpCamera = Instantiate<WarmUpCamera>(mapSettings.warmUpCamera, Vector3.zero, Quaternion.identity, transform);
+
+        warmUpCamera.gameObject.SetActive(false);
         raceCamera.SetHorseGroup(this.horseGroup);
+        warmUpCamera.SetTargetGroup(this.horseGroup.transform);
     }
 
-    private async Task LoadHorses(string[] horseControllerPaths, CancellationToken token)
+    private async UniTask LoadHorses(string[] horseControllerPaths, CancellationToken token)
     {
         horseControllers = await UniTask.WhenAll(horseControllerPaths.Select(x => LoadHorseController(x, token)));
+        horseControllers.ForEach(x => x.gameObject.SetActive(false));
     }
 
     private async UniTask<HorseController> LoadHorseController(string horseControllerPath, CancellationToken token)
@@ -97,7 +124,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
     {
         freeCamera.gameObject.SetActive(false);
         raceCamera.gameObject.SetActive(true);
-
+        horseControllers.ForEach(x => x.StartRace());
         horseControllers.FirstOrDefault(x => x.top == 1).OnFinishTrackEvent += OnFinishTrack;
     }
 
@@ -119,8 +146,8 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         for (int i = 0; i < horseControllers.Length; i++)
         {
             HorseController horseController = horseControllers[i];
-            horseController.pathCreator = this.path;
-            horseController.currentOffset = offSet + i * offsetPerLane;
+            horseController.PathCreator = this.path;
+            horseController.CurrentOffset = offSet + i * offsetPerLane;
             horseController.top = top[i];
             horseController.timeToFinish = timeToFinish[top[i] - 1];
             horseController.currentTimeToFinish = horseController.timeToFinish;
@@ -128,7 +155,6 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
             horseController.lap = totalLap;
             horseController.IsPlayer = playerHorseIndex == i;
             horseController.Lane = i;
-            horseController.StartRace();
         }
     }
 

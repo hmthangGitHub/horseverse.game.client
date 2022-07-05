@@ -29,10 +29,10 @@ public class HorseRacePresenter : IDisposable
 
     private MasterMapContainer masterMapContainer;
     private MasterMap masterMap;
+    private MapSettings mapSettings;
+    private PathCreation.PathCreator path;
 
     private IDIContainer Container { get; }
-
-    private RaceModeHorseIntroPresenter RaceModeHorseIntroPresenter { get; } = new RaceModeHorseIntroPresenter();
 
     public HorseRacePresenter(IDIContainer container)
     {
@@ -42,20 +42,26 @@ public class HorseRacePresenter : IDisposable
     public async UniTask LoadAssetAsync()
     {
         await GetMasterMap();
+        await GetMapSettings();
         await InitHorseRaceAsync();
         await LoadUI();
         await LoadRacingScene(default);
     }
 
+    private async UniTask GetMapSettings()
+    {
+        mapSettings = await PrimitiveAssetLoader.LoadAssetAsync<MapSettings>(masterMap.MapSettings, default);
+        path = GameObject.Instantiate(mapSettings.path, Vector3.zero, Quaternion.identity);
+    }
+
     public async UniTask PlayIntro()
     {
         await horseRaceManager.ShowFreeCamera();
-        await RaceModeHorseIntroPresenter.ShowHorsesInfoIntro();
-    }
-
-    private async UniTask ShowIntroCamera()
-    {
-        await UniTask.CompletedTask;
+        using (var raceModeHorseIntroPresenter = new RaceModeHorseIntroPresenter(Container))
+        {
+            await raceModeHorseIntroPresenter.ShowHorsesInfoIntroAsync(RaceMatchData.masterHorseIds, path.path.GetPointAtTime(0), Quaternion.identity);
+        }
+        await horseRaceManager.ShowWarmUpCamera();
     }
 
     private async UniTask GetMasterMap()
@@ -215,11 +221,17 @@ public class HorseRacePresenter : IDisposable
     {
         GameObject.Destroy(horseRaceManager?.gameObject);
         horseRaceManager = null;
+        GameObject.Destroy(path);
+        path = null;
 
         UILoader.SafeRelease(ref uiSpeedController);
         UILoader.SafeRelease(ref uiRaceResultSelf);
         UILoader.SafeRelease(ref uiRaceResultList);
         UILoader.SafeRelease(ref uIHorseRaceStatus);
+
+        MasterLoader.Unload<MasterMapContainer>();
+        SceneAssetLoader.UnloadAssetAtPath(masterMap.MapPath);
+        PrimitiveAssetLoader.UnloadAssetAtPath(masterMap.MapSettings);
 
         masterMapContainer = default;
         masterMap = default;
@@ -227,8 +239,5 @@ public class HorseRacePresenter : IDisposable
         OnBackToMainState = ActionUtility.EmptyAction.Instance;
         cachePositions = default;
         masterHorseContainer = default;
-
-        MasterLoader.Unload<MasterMapContainer>();
-        SceneAssetLoader.UnloadAssetAtPath(masterMap.MapPath);
     }
 }

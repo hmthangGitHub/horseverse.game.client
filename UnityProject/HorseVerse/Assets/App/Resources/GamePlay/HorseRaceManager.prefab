@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5eb80d8e62d9d145bb50fb783c0f731, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PositionMode: 0
+  m_PositionMode: 1
   m_RotationMode: 0
   m_UpdateMethod: 2
   m_Targets: []
@@ -95,6 +95,7 @@ MonoBehaviour:
   freeCamera: {fileID: 0}
   raceCamera: {fileID: 0}
   path: {fileID: 0}
+  warmUpCamera: {fileID: 0}
   transforms:
   - {fileID: 0}
   - {fileID: 0}
@@ -174,8 +175,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3105539194236147834}
-  m_LocalRotation: {x: 0.11381788, y: 0.8091735, z: -0.16692257, w: 0.5517433}
-  m_LocalPosition: {x: -300.42, y: 4.3, z: -97.08}
+  m_LocalRotation: {x: 0.24904607, y: -0.5010058, z: 0.15317936, w: 0.8145584}
+  m_LocalPosition: {x: -87.77619, y: 3.831556, z: 24.418827}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3105539193444477319}
@@ -205,8 +206,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 5000
-  field of view: 40
+  far clip plane: 500
+  field of view: 70
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -238,7 +239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ShowDebugText: 0
   m_ShowCameraFrustum: 1
-  m_IgnoreTimeScale: 0
+  m_IgnoreTimeScale: 1
   m_WorldUpOverride: {fileID: 0}
   m_UpdateMethod: 2
   m_BlendUpdateMethod: 1
@@ -251,7 +252,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  m_CustomBlends: {fileID: 0}
+  m_CustomBlends: {fileID: 11400000, guid: 9a12087c7d0edf945ab25665e93b264e, type: 2}
   m_CameraCutEvent:
     m_PersistentCalls:
       m_Calls: []

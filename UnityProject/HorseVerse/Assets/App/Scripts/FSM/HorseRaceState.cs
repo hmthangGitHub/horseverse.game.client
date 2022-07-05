@@ -15,6 +15,8 @@ public class HorseRaceState : InjectedBState
     private HorseRacePresenter horseRacePresenter;
     private UILoadingPresenter uiLoadingPresenter;
 
+    public UILoadingPresenter UiLoadingPresenter => uiLoadingPresenter ??= Container.Inject<UILoadingPresenter>();
+
     public override async void Enter()
     {
         base.Enter();
@@ -23,11 +25,15 @@ public class HorseRaceState : InjectedBState
         await horseRacePresenter.LoadAssetAsync();
         isLoadedUI = true;
 
-        uiLoadingPresenter = this.Container.Inject<UILoadingPresenter>();
-        uiLoadingPresenter.HideLoading();
+        UiLoadingPresenter.HideLoading();
+        await StartRaceAsync();
+    }
 
+    private async UniTask StartRaceAsync()
+    {
         await horseRacePresenter.PlayIntro();
-    }  
+        horseRacePresenter.StartGame();
+    }
 
     private void ToMainState()
     {
@@ -47,16 +53,6 @@ public class HorseRaceState : InjectedBState
         if (isGameStart)
         {
             horseRacePresenter.UpdateRaceStatus();
-        }
-    }
-
-    public override void Execute()
-    {
-        base.ManualExecute();
-        if (isLoadedUI && !isGameStart && (Input.touchCount >= 1 || Input.anyKey))
-        {
-            isGameStart = true;
-            horseRacePresenter.StartGame();
         }
     }
 

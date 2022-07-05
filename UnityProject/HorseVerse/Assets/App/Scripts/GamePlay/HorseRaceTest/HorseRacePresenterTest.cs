@@ -17,6 +17,7 @@ public class HorseRacePresenterTest : MonoBehaviour
         var horsePresenter = new HorseRacePresenter(container);
         await horsePresenter.LoadAssetAsync();
         await horsePresenter.PlayIntro();
+        horsePresenter.StartGame();
     }
 
     public RaceMatchData FindMatch(DIContainer container)
