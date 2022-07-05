@@ -10,14 +10,14 @@ public static class UILoader
     public static async UniTask<T> Instantiate<T>(UICanvas.UICanvasType canvasType = UICanvas.UICanvasType.Default, CancellationToken token = default) where T : PopupEntity
     {
         var type = typeof(T).ToString();
-        var prefab = await LoadResource<T>(type).AttachExternalCancellation(token) as T;
+        var prefab = await LoadResource<T>(type, token);
         var instance = GameObject.Instantiate<T>(prefab, UICanvas.GetCanvas(canvasType).transform, false);
         return instance;
     }
 
-    private static async UniTask<T> LoadResource<T>(string type) where T : PopupEntity
+    private static async UniTask<T> LoadResource<T>(string type, CancellationToken token) where T : PopupEntity
     {
-        var go = await PrimitiveAssetLoader.LoadAsset<GameObject>(GetPathFromType(type));
+        var go = await PrimitiveAssetLoader.LoadAssetAsync<GameObject>(GetPathFromType(type), token);
         return go.GetComponent<T>();
     }
 
@@ -28,8 +28,11 @@ public static class UILoader
 
     public static void SafeRelease<T>(ref T ui) where T : PopupEntity
     {
-        GameObject.Destroy(ui?.gameObject);
-        ui = null;
-        PrimitiveAssetLoader.UnloadAssetAtPath(GetPathFromType(typeof(T).ToString()));
+        if (ui != null)
+        {
+            GameObject.Destroy(ui?.gameObject);
+            ui = null;
+            PrimitiveAssetLoader.UnloadAssetAtPath(GetPathFromType(typeof(T).ToString()));
+        }
     }
 }

@@ -30,13 +30,13 @@ public class QuickRaceMenuState : InjectedBState
         await uiQuickRacePresenter.ShowUIQuickRaceAsync();
     }
 
-    private void OnFoundMatch()
+    private void OnFoundMatch(RaceMatchData data)
     {
         UILoadingPresenter.ShowLoadingAsync().Forget();
 
         UiHorse3DViewPresenter.Dispose();
         UIHeaderPresenter.Dispose();
-
+        Container.Bind(data);
         this.Machine.ChangeState<HorseRaceState>();
     }
 
@@ -48,6 +48,7 @@ public class QuickRaceMenuState : InjectedBState
     public override void Exit()
     {
         base.Exit();
+        uiQuickRacePresenter.OnFoundMatch -= OnFoundMatch;
         uiQuickRacePresenter.OnBack -= OnBack;
         uiQuickRacePresenter.Dispose();
         uiQuickRacePresenter = default;

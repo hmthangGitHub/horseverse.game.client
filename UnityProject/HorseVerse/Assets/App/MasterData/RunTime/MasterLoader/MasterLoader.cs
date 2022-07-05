@@ -2,14 +2,15 @@ using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 
 public static class MasterLoader
 {
-    public static async UniTask<TMasterContainer> LoadMasterAsync<TMasterContainer>() where TMasterContainer : IMasterContainer, new()
+    public static async UniTask<TMasterContainer> LoadMasterAsync<TMasterContainer>(CancellationToken token = default) where TMasterContainer : IMasterContainer, new()
     {
         var masterContainer = new TMasterContainer();
-        var textAsset = await PrimitiveAssetLoader.LoadAsset<TextAsset>(GetMasterPath<TMasterContainer>());
+        var textAsset = await PrimitiveAssetLoader.LoadAssetAsync<TextAsset>(GetMasterPath<TMasterContainer>(), token);
         masterContainer.SetDataList(textAsset.text);
         return masterContainer;
     }

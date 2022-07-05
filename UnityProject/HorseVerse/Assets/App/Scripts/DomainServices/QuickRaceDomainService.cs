@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public interface IQuickRaceDomainService
 {
     UniTask ChangeHorse(long masterHorseId);
-    UniTask FindMatch();
+    UniTask<RaceMatchData> FindMatch();
     UniTask CancelFindMatch();
 }
 
@@ -37,7 +38,7 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
         throw new NotImplementedException();
     }
 
-    public UniTask FindMatch()
+    public UniTask<RaceMatchData> FindMatch()
     {
         throw new NotImplementedException();
     }
@@ -67,8 +68,29 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
         await UserDataRepository.UpdateDataAsync(new UserDataModel[] { model });
     }
 
-    public async UniTask FindMatch()
+    public async UniTask<RaceMatchData> FindMatch()
     {
+        int[] GetHorseTopPosition()
+        {
+            return Enumerable.Range(1, 8).Shuffle().ToArray();
+        }
+
+        long[] GetAllMasterHorseIds()
+        {
+            return container.Inject<MasterHorseContainer>().MasterHorseIndexer.Keys
+                            .Shuffle()
+                            .Append(UserDataRepository.Current.MasterHorseId)
+                            .Shuffle()
+                            .Take(8)
+                            .ToArray();
+        }
+
         await UniTask.Delay(10000);
+        return new RaceMatchData()
+        {
+            masterHorseIds = GetAllMasterHorseIds(),
+            tops = GetHorseTopPosition(),
+            masterMapId = 10001002
+        };
     }
 }

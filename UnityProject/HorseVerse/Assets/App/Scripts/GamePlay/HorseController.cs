@@ -7,9 +7,27 @@ using UnityEngine;
 // Depending on the end of path instruction, will either loop, reverse, or stop at the end of the path.
 public class HorseController : MonoBehaviour
 {
-    public PathCreator pathCreator;
+    private PathCreator pathCreator;
+    public PathCreator PathCreator
+    {
+        get => pathCreator; 
+        set
+        {
+            pathCreator = value;
+            CalculateRotation(0);
+        }
+    }
+
     public float averageSpeed = 24;
-    public float currentOffset = 0;
+    private float currentOffset = 0;
+    public float CurrentOffset
+    {
+        get => currentOffset; set
+        {
+            currentOffset = value;
+            CalculatePosition(0);
+        }
+    }
 
     public float rayCastDistance = 2.0f;
     public float sideRayCastDistance = 1.0f;
@@ -30,44 +48,64 @@ public class HorseController : MonoBehaviour
 
     private bool isPlayer = false;
     public float normalizePath;
-    public event Action OnFinishTrackEvent;
+    public event Action OnFinishTrackEvent = ActionUtility.EmptyAction.Instance;
     public bool IsPlayer { get => isPlayer; set { 
             isPlayer = value;
             playerIndicator.SetActive(isPlayer);
         } }
 
+
     public int Lane;
 
     private bool isStartRace = false;
+    private Animator animator;
+
+    private void Start()
+    {
+        animator = GetComponentInChildren<Animator>(true);
+        animator?.SetFloat("Speed", 0.0f);
+        animator?.Play("Idle");
+    }
 
     public void StartRace()
     {
         currentCurve = speedCurve[UnityEngine.Random.Range(0, speedCurve.Length - 1)];
-        this.GetComponentInChildren<Animator>().Play("Movement", 0, UnityEngine.Random.insideUnitCircle.x);
+        animator?.Play("Movement", 0, UnityEngine.Random.insideUnitCircle.x);
+        animator?.SetFloat("Speed", 1.0f);
         isStartRace = true;
     }
 
     void Update()
     {
-        if (pathCreator != null && isStartRace)
+        if (PathCreator != null && isStartRace)
         {
             currentRaceTime += Time.deltaTime;
             if (currentRaceTime > currentTimeToFinish && timeOffset == 0)
             {
                 OnFinishTrack();
             }
-            var linearT = ((currentRaceTime + timeOffset)/ (currentTimeToFinish));
+            var linearT = ((currentRaceTime + timeOffset) / (currentTimeToFinish));
             normalizePath = currentCurve.Evaluate(linearT % 1);
-            
-            var pos = pathCreator.path.GetPointAtTime(normalizePath * lap, EndOfPathInstruction.Loop);
-            transform.position = Vector3.Scale(new Vector3(1, 0, 1), (pos + transform.right * currentOffset));
-            Quaternion rotationAtDistance = pathCreator.path.GetRotation(normalizePath * lap, EndOfPathInstruction.Loop);
-            transform.rotation = rotationAtDistance;
-            transform.rotation = Quaternion.Euler(0, rotationAtDistance.eulerAngles.y, 0);
+
+            CalculatePosition(normalizePath * lap);
+            CalculateRotation(normalizePath * lap);
         }
 #if UNITY_EDITOR
         DrawRay();
 #endif
+    }
+
+    public void CalculatePosition(float time)
+    {
+        var pos = PathCreator.path.GetPointAtTime(time, EndOfPathInstruction.Loop);
+        transform.position = Vector3.Scale(new Vector3(1, 0, 1), (pos + transform.right * CurrentOffset));
+    }
+
+    public void CalculateRotation(float time)
+    {
+        Quaternion rotationAtDistance = PathCreator.path.GetRotation(time, EndOfPathInstruction.Loop);
+        transform.rotation = rotationAtDistance;
+        transform.rotation = Quaternion.Euler(0, rotationAtDistance.eulerAngles.y, 0);
     }
 
     private void OnFinishTrack()
@@ -75,7 +113,7 @@ public class HorseController : MonoBehaviour
         timeOffset = averageTimeToFinish - timeToFinish;
         currentTimeToFinish = averageTimeToFinish;
         currentCurve = defaultCurve;
-        OnFinishTrackEvent?.Invoke();
+        OnFinishTrackEvent.Invoke();
     }
 
     public void Skip()

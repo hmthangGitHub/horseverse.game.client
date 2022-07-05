@@ -25,12 +25,17 @@ public class AssetBuilder
     [MenuItem("Tools/AssetBuilder/BuildRemoteBundle")]
     public static AddressablesPlayerBuildResult BuildAssetToRemoteGroup()
     {
-        Directory.GetFiles(GetAssetBundlePath(), "*.*", SearchOption.AllDirectories)
-                 .Where(x => !x.EndsWith(".meta"))
-                 .Where(IsNotInDefaultGroup)
-                 .ToList()
-                 .ForEach(ToRemoteGroup);
+        UpdateAssetToRemoteGroup();
         return BuildContent();
+    }
+
+    private static void UpdateAssetToRemoteGroup()
+    {
+        Directory.GetFiles(GetAssetBundlePath(), "*.*", SearchOption.AllDirectories)
+                         .Where(x => !x.EndsWith(".meta"))
+                         .Where(IsNotInDefaultGroup)
+                         .ToList()
+                         .ForEach(ToRemoteGroup);
     }
 
     [MenuItem("Tools/AssetBuilder/ClearAllCache")]
@@ -48,6 +53,13 @@ public class AssetBuilder
         Caching.ClearCache();
     }
 
+    [MenuItem("Tools/AssetBuilder/UpdateAssetsAddress")]
+    public static void UpdateAssetsAddress()
+    {
+        UpdateAssetToRemoteGroup();
+        AssetDatabase.Refresh();
+    }
+
     public static AddressablesPlayerBuildResult BuildContent()
     {
         AddressableAssetSettings.BuildPlayerContent(out var result);
@@ -56,15 +68,26 @@ public class AssetBuilder
 
     private static string GetAssetBundlePath()
     {
-        return $"{Application.dataPath}/App/AssetBundles";
+        return $"{Application.dataPath}/App/AssetBundles/";
     }
 
     private static void ToRemoteGroup(string file)
     {
+        var fileWithOutExtension = file.Replace(Path.GetExtension(file), "").Replace("\\","/");
         string guid = GetGUID(file);
-        var key = file.Substring(GetAssetBundlePath().Length);
+        var key = fileWithOutExtension.Substring(GetAssetBundlePath().Length);
         var group = AddressableAssetSettingsDefaultObject.Settings.groups.FirstOrDefault(x => key.Contains(x.Name));
-        AddressableAssetSettingsDefaultObject.Settings.CreateOrMoveEntry(guid, group);
+        var entry = AddressableAssetSettingsDefaultObject.Settings.CreateOrMoveEntry(guid, group);
+        entry.SetAddress(key);
+        AddLabelIfHorses(entry, Path.GetFileName(file));
+    }
+
+    private static void AddLabelIfHorses(AddressableAssetEntry entry, string label)
+    {
+        if (entry.parentGroup.Name == "Horses")
+        {
+            entry.SetLabel(AddressableAssetSettingsDefaultObject.Settings.GetLabels().FirstOrDefault(x => x == label), true);
+        }
     }
 
     private static void ToStreamingGroup(string file)
