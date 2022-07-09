@@ -119,7 +119,7 @@ public class HorseRacePresenter : IDisposable
             closeBtn = new ButtonComponent.Entity(() =>
             {
                 OnBackToMainState.Invoke();
-            })
+            }),
         });
         uiRaceResultList.In().Forget();
     }

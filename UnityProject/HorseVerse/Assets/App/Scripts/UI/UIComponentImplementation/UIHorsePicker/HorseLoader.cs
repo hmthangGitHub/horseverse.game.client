@@ -66,7 +66,7 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
 
     private void AnimateCamera()
     {
-        camera.GetCinemachineComponent<CinemachineOrbitalTransposer>().m_XAxis.m_InputAxisValue = 0.1f;
+        //camera.GetCinemachineComponent<CinemachineOrbitalTransposer>().m_XAxis.m_InputAxisValue = 0.1f;
     }
 
     private void SetHorseAnimation()

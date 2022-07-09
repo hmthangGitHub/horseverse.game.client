@@ -7,14 +7,17 @@ using UnityEngine;
 public class TrainingState : InjectedBState
 {
     private UIHorseTrainingPresenter presenter;
+    private UIHeaderPresenter UIHeaderPresenter => Container.Inject<UIHeaderPresenter>();
     public override void Enter()
     {
         base.Enter();
         presenter = new UIHorseTrainingPresenter(Container);
-        presenter.OnBack += OnBack;
+
+        UIHeaderPresenter.OnBack += OnBack;
+        UIHeaderPresenter.ShowHeaderAsync(true).Forget();
         presenter.ShowUIHorseTraningAsync().Forget();
     }
-
+    
     private void OnBack()
     {
         this.Machine.ChangeState<MainMenuState>();
@@ -23,7 +26,7 @@ public class TrainingState : InjectedBState
     public override void Exit()
     {
         base.Exit();
-        presenter.OnBack -= OnBack;
+        UIHeaderPresenter.OnBack -= OnBack;
         presenter.Dispose();
         presenter = null;
     }

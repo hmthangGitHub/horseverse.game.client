@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,11 +15,12 @@ public class StableHorseDetailState : InjectedBState
         base.Enter();
         Container.Bind(new LocalHorseDetailDomainService(Container));
 
-        UIHeaderPresenter.ShowHeaderAsync().Forget();
+        UIHeaderPresenter.ShowHeaderAsync(true).Forget();
+        UIHeaderPresenter.OnBack += OnBack;
+
         UIHorse3DViewPresenter.ShowHorse3DViewAsync().Forget();
 
         uiHorseStablePresenter = new UIHorseDetailPresenter(Container);
-        uiHorseStablePresenter.OnBack += OnBack;
         uiHorseStablePresenter.ShowUIHorseDetailAsync().Forget();
     }
 
@@ -30,7 +32,7 @@ public class StableHorseDetailState : InjectedBState
     public override void Exit()
     {
         base.Exit();
-        uiHorseStablePresenter.OnBack -= OnBack;
+        UIHeaderPresenter.OnBack -= OnBack;
         uiHorseStablePresenter.Dispose();
         uiHorseStablePresenter = default;
         Container.RemoveAndDisposeIfNeed<LocalHorseDetailDomainService>();

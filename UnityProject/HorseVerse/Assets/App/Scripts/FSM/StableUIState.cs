@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,11 +14,11 @@ public class StableUIState : InjectedBState
     public override void Enter()
     {
         base.Enter();
-        UIHeaderPresenter.HideHeader();
         UIHorse3DViewPresenter.HideHorse3DView();
         uiHorseStablePresenter ??= new UIHorseStablePresenter(Container);
         uiHorseStablePresenter.OnViewHorseDetail += OnViewHorseDetail;
-        uiHorseStablePresenter.OnBack += OnBack;
+        UIHeaderPresenter.ShowHeaderAsync(true).Forget();
+        UIHeaderPresenter.OnBack += OnBack;
         uiHorseStablePresenter.ShowUIHorseStableAsync().Forget();
     }
 
@@ -35,7 +36,7 @@ public class StableUIState : InjectedBState
     {
         base.Exit();
         uiHorseStablePresenter.OnViewHorseDetail -= OnViewHorseDetail;
-        uiHorseStablePresenter.OnBack -= OnBack;
+        UIHeaderPresenter.OnBack -= OnBack;
         uiHorseStablePresenter.Dispose();
         uiHorseStablePresenter = default;
     }

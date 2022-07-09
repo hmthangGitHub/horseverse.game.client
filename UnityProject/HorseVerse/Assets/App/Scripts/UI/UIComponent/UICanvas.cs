@@ -6,6 +6,7 @@ public class UICanvas : MonoBehaviour
 {
     public enum UICanvasType
     {
+        BackGround,
         Default,
         Header,
         Loading
@@ -15,6 +16,7 @@ public class UICanvas : MonoBehaviour
     {
         return canvasType switch
         {
+            UICanvasType.BackGround => BackgroundCanvas,
             UICanvasType.Default => DefaultCanvas,
             UICanvasType.Header => HeaderCanvas,
             UICanvasType.Loading => LoadingCanvas,
@@ -23,12 +25,15 @@ public class UICanvas : MonoBehaviour
     }
 
     [SerializeField]
+    private Canvas backgroundCanvas;
+    [SerializeField]
     private Canvas defaultCanvas;
     [SerializeField]
     private Canvas headerCanvas;
     [SerializeField]
     private Canvas loadingCanvas;
 
+    public static Canvas BackgroundCanvas { get; private set; }
     public static Canvas DefaultCanvas { get; private set; }
     public static Canvas HeaderCanvas { get; private set; }
     public static Canvas LoadingCanvas { get; private set; }
@@ -38,5 +43,6 @@ public class UICanvas : MonoBehaviour
         DefaultCanvas = defaultCanvas;
         HeaderCanvas = headerCanvas;
         LoadingCanvas = loadingCanvas;
+        BackgroundCanvas = backgroundCanvas;
     }
 }

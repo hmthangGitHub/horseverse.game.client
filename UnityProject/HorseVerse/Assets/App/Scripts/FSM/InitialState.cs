@@ -15,6 +15,7 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.Bind(new UserDataRepository());
         this.Container.Bind(new UILoadingPresenter());
         this.Container.Bind(new UIHeaderPresenter(Container));
+        this.Container.Bind(new UIBackGroundPresenter(Container));
         this.Container.Bind(new UIHorse3DViewPresenter(Container));
         this.Container.Bind(new HorseDetailEntityFactory(Container));
         this.Container.Bind(new LocalQuickRaceDomainService(this.Container));
@@ -58,6 +59,7 @@ public class InitialState : InjectedBHState, IDisposable
     {
         this.Container.RemoveAndDisposeIfNeed<UILoadingPresenter>();
         this.Container.RemoveAndDisposeIfNeed<UIHeaderPresenter>();
+        this.Container.RemoveAndDisposeIfNeed<UIBackGroundPresenter>();
         this.Container.RemoveAndDisposeIfNeed<UIHorse3DViewPresenter>();
         this.Container.RemoveAndDisposeIfNeed<HorseDetailEntityFactory>();
         this.Container.RemoveAndDisposeIfNeed<LocalQuickRaceDomainService>();

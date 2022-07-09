@@ -14,17 +14,19 @@ public class HorseRaceState : InjectedBState
     private bool isLoadedUI = false;
     private HorseRacePresenter horseRacePresenter;
     private UILoadingPresenter uiLoadingPresenter;
-
     public UILoadingPresenter UiLoadingPresenter => uiLoadingPresenter ??= Container.Inject<UILoadingPresenter>();
+    private UIBackGroundPresenter uiBackGroundPresenter;
+    public UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
 
     public override async void Enter()
     {
         base.Enter();
         horseRacePresenter = new HorseRacePresenter(Container);
         horseRacePresenter.OnBackToMainState += ToMainState;
+        UIBackGroundPresenter.ReleaseBackGround();
+
         await horseRacePresenter.LoadAssetAsync();
         isLoadedUI = true;
-
         UiLoadingPresenter.HideLoading();
         await StartRaceAsync();
     }

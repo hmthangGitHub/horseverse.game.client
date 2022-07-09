@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class UIHorseTrainingPresenter : IDisposable
 {
-    public Action OnBack = ActionUtility.EmptyAction.Instance;
     public UIHorseTraining uiHorseTraining = default;
     private CancellationTokenSource cts;
     private HorseDetailEntityFactory horseDetailEntityFactory;
@@ -71,7 +70,6 @@ public class UIHorseTrainingPresenter : IDisposable
             {
                 enumEntity = UserDataRepository.Current.TraningTimeStamp <= DateTimeOffset.UtcNow.ToUnixTimeSeconds() ? UIComponentTraningState.TraningState.Prepare : UIComponentTraningState.TraningState.Processing
             },
-            backBtn = new ButtonComponent.Entity(OnBack)
         });
         uiHorseTraining.In().Forget();
     }

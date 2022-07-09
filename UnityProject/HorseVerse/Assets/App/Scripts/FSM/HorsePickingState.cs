@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using System;
 
 public class HorsePickingState : InjectedBState
 {
@@ -22,7 +23,6 @@ public class HorsePickingState : InjectedBState
         base.Enter();
         UiLoadingPresenter.HideLoading();
         UiHeaderPresenter.ShowHeaderAsync().Forget();
-
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         uiHorsePicker ??= await UILoader.Instantiate<UIHorsePicker>(token: cts.Token);
