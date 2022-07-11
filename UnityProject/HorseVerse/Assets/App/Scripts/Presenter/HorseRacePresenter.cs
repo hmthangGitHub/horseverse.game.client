@@ -10,8 +10,9 @@ using UnityEngine.SceneManagement;
 
 public class HorseRacePresenter : IDisposable
 {
+    private const int numberOfHorses = 8;
     private HorseRaceManager horseRaceManager;
-    private UIHorseRaceStatus uIHorseRaceStatus;
+    private UIHorseRaceStatus uiHorseRaceStatus;
     private UISpeedController uiSpeedController;
     private UIRaceResultSelf uiRaceResultSelf;
     private UIRaceResultList uiRaceResultList;
@@ -31,6 +32,7 @@ public class HorseRacePresenter : IDisposable
     private MasterMap masterMap;
     private MapSettings mapSettings;
     private PathCreation.PathCreator path;
+    private CancellationTokenSource cts;
 
     private IDIContainer Container { get; }
 
@@ -88,7 +90,7 @@ public class HorseRacePresenter : IDisposable
 
     private async UniTask LoadUI()
     {
-        uIHorseRaceStatus ??= await UILoader.Instantiate<UIHorseRaceStatus>();
+        uiHorseRaceStatus ??= await UILoader.Instantiate<UIHorseRaceStatus>();
         uiSpeedController ??= await UILoader.Instantiate<UISpeedController>();
         uiRaceResultSelf ??= await UILoader.Instantiate<UIRaceResultSelf>();
         uiRaceResultList ??= await UILoader.Instantiate<UIRaceResultList>();
@@ -99,6 +101,17 @@ public class HorseRacePresenter : IDisposable
         int[] horseIdInLanes = RandomHorseInLanes();
         SetEntityHorseRaceManager(horseIdInLanes);
         SetEntityUISpeedController();
+        StartUpdateRaceHorseStatus().Forget();
+    }
+
+    private async UniTaskVoid StartUpdateRaceHorseStatus()
+    {
+        cts = new CancellationTokenSource();
+        while (true)
+        {
+            await UniTask.WaitForFixedUpdate(cancellationToken : cts.Token);
+            UpdateRaceStatus();
+        }
     }
 
     private void SetEntityHorseRaceManager(int[] horseIdInLanes)
@@ -164,7 +177,7 @@ public class HorseRacePresenter : IDisposable
         {
             if (cachePositions[i] != positions[i].Lane)
             {
-                uIHorseRaceStatus.playerList.ChangePosition(positions[i].Lane, i);
+                uiHorseRaceStatus.playerList.ChangePosition(positions[i].Lane, i);
                 cachePositions[i] = positions[i].Lane;
             }
         }
@@ -189,7 +202,7 @@ public class HorseRacePresenter : IDisposable
             skip = new ButtonComponent.Entity(() =>
             {
                 this.horseRaceManager.Skip();
-                this.uIHorseRaceStatus.Skip();
+                this.uiHorseRaceStatus.Skip();
             })
         });
         uiSpeedController.In().Forget();
@@ -198,7 +211,7 @@ public class HorseRacePresenter : IDisposable
     private void SetEntityUIHorseRaceStatus(int[] playerList, float timeToFinish)
     {
         cachePositions = Enumerable.Repeat(-1, playerList.Length).ToArray();
-        uIHorseRaceStatus.SetEntity(new UIHorseRaceStatus.Entity()
+        uiHorseRaceStatus.SetEntity(new UIHorseRaceStatus.Entity()
         {
             playerList = new HorseRaceStatusPlayerList.Entity()
             {
@@ -207,14 +220,12 @@ public class HorseRacePresenter : IDisposable
             },
             finishTime = timeToFinish
         });
-        uIHorseRaceStatus.In().Forget();
+        uiHorseRaceStatus.In().Forget();
     }
 
     private int[] RandomHorseInLanes()
     {
-        var randomizeHorsePath = MasterHorseContainer.MasterHorseIndexer.Select(x => x.Value.ModelPath).Shuffle().ToList();
-        var horseIdInLanes = MasterHorseContainer.MasterHorseIndexer.Select(x => randomizeHorsePath.FindIndex(path => path == x.Value.ModelPath)).ToArray();
-        return horseIdInLanes;
+        return Enumerable.Range(0, RaceMatchData.masterHorseIds.Length).ToArray();
     }
 
     public void Dispose()
@@ -227,7 +238,7 @@ public class HorseRacePresenter : IDisposable
         UILoader.SafeRelease(ref uiSpeedController);
         UILoader.SafeRelease(ref uiRaceResultSelf);
         UILoader.SafeRelease(ref uiRaceResultList);
-        UILoader.SafeRelease(ref uIHorseRaceStatus);
+        UILoader.SafeRelease(ref uiHorseRaceStatus);
 
         MasterLoader.Unload<MasterMapContainer>();
         SceneAssetLoader.UnloadAssetAtPath(masterMap.MapPath);
@@ -239,5 +250,6 @@ public class HorseRacePresenter : IDisposable
         OnBackToMainState = ActionUtility.EmptyAction.Instance;
         cachePositions = default;
         masterHorseContainer = default;
+        cts.SafeCancelAndDispose();
     }
 }

@@ -18,8 +18,23 @@ public class UIMainMenuPresenter : IDisposable
     public event Action OnStableBtn = ActionUtility.EmptyAction.Instance;
     public event Action OnTraningBtn = ActionUtility.EmptyAction.Instance;
 
+    private HorseDetailEntityFactory horseDetailEntityFactory;
+    private HorseDetailEntityFactory HorseDetailEntityFactory => horseDetailEntityFactory ??= Container.Inject< HorseDetailEntityFactory>();
+    private IUserDataRepository userDataRepository;
+    private IUserDataRepository UserDataRepository => userDataRepository ??= Container.Inject<IUserDataRepository>();
+    private IDIContainer Container { get; }
+    private IHorseRepository horseRepository;
+    private IHorseRepository HorseRepository => horseRepository ??= Container.Inject<IHorseRepository>();
+
+    public UIMainMenuPresenter(IDIContainer container)
+    {
+        Container = container;
+    }
+
     public async UniTaskVoid ShowMainMenuAsync()
     {
+        await HorseRepository.LoadRepositoryIfNeedAsync();
+        await UserDataRepository.LoadRepositoryIfNeedAsync();
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         uiMainMenu ??= await UILoader.Instantiate<UIMainMenu>(token: cts.Token);
@@ -32,6 +47,45 @@ public class UIMainMenuPresenter : IDisposable
             playBtn = new ButtonComponent.Entity(OnPlayBtn),
             stableBtn = new ButtonComponent.Entity(OnStableBtn),
             trainingBtn = new ButtonComponent.Entity(OnTraningBtn),
+            horseInfo = new UIComponentHorseBreedInfoAndDetail.Entity()
+            {
+                horseBreedProgressList = new UIComponentHorseBreedProgressList.Entity()
+                {
+                    entities = new UIComponentHorseBreedProgressType.Entity[] 
+                    {
+                        new UIComponentHorseBreedProgressType.Entity()
+                        {
+                            breedType = UIComponentHorseBreedProgressType.BreedType.Night,
+                            progress = 0.25f
+                        },
+                        new UIComponentHorseBreedProgressType.Entity()
+                        {
+                            breedType = UIComponentHorseBreedProgressType.BreedType.Thunder,
+                            progress = 0.35f
+                        },
+                        new UIComponentHorseBreedProgressType.Entity()
+                        {
+                            breedType = UIComponentHorseBreedProgressType.BreedType.Light,
+                            progress = 0.65f
+                        }
+                    }
+                },
+                horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.MasterHorseId),
+            },
+            userInfo = new UIComponentMainMenuUserInfo.Entity()
+            {
+                energy = UserDataRepository.Current.Energy,
+                energyMax = UserDataRepository.Current.MaxEnergy,
+                level = UserDataRepository.Current.Level,
+                levelIcon = string.Empty,
+                levelProgressBar = new UIComponentProgressBar.Entity()
+                {
+                    progress = (float)UserDataRepository.Current.Exp / UserDataRepository.Current.NextLevelExp
+                },
+                currentExp = UserDataRepository.Current.Exp,
+                maxExp = UserDataRepository.Current.NextLevelExp,
+                userName = UserDataRepository.Current.UserName
+            }
         });
         uiMainMenu.In().Forget();
     }

@@ -37,11 +37,13 @@ public class ErrorHandler : IDisposable
     {
         if (!string.IsNullOrEmpty(error))
         {
+            GUI.skin.label.fontSize = 30;
+            GUI.skin.button.fontSize = 30;
             GUI.backgroundColor = new Color(0, 0, 0, 1.0f);
             GUILayout.BeginArea(new Rect(20, 20, Screen.width - 40, Screen.height - 40), areStyle);
             GUI.backgroundColor = Color.white;
             GUILayout.BeginVertical();
-            GUILayout.BeginScrollView(scrollPos);
+            scrollPos = GUILayout.BeginScrollView(scrollPos);
             GUI.backgroundColor = new Color(0, 0, 0, 1.0f);
             GUILayout.Label($"Error : {error}");
             GUILayout.Label(stackTrace);

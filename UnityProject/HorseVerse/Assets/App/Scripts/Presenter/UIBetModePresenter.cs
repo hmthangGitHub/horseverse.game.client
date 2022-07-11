@@ -94,7 +94,32 @@ public class UIBetModePresenter : IDisposable
                 maxEnergy = UserDataRepository.Current.MaxEnergy,
                 timeCountDown = new UIComponentCountDownTimer.Entity()
                 {
-                    outDatedEvent = OnToRaceMode,
+                    outDatedEvent = () => {
+
+                        int[] GetHorseTopPosition()
+                        {
+                            return Enumerable.Range(1, 8).Shuffle().ToArray();
+                        }
+
+                        long[] GetAllMasterHorseIds()
+                        {
+                            return container.Inject<MasterHorseContainer>().MasterHorseIndexer.Keys
+                                            .Shuffle()
+                                            .Append(container.Inject<UserDataRepository>().Current.MasterHorseId)
+                                            .Shuffle()
+                                            .Take(8)
+                                            .ToArray();
+                        }
+
+                        container.Bind(new RaceMatchData()
+                        {
+                            masterHorseIds = GetAllMasterHorseIds(),
+                            tops = GetHorseTopPosition(),
+                            masterMapId = 10001002
+                        });
+
+                        OnToRaceMode.Invoke();
+                    },
                     utcEndTimeStamp = (int)BetMatchRepository.Current.BetMatchTimeStamp
                 },
                 userInfo = new UIComponentBetModeUserInfo.Entity()
