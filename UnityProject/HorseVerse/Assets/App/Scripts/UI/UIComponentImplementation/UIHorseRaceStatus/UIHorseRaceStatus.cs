@@ -37,8 +37,6 @@ public class UIHorseRaceStatus : PopupEntity<UIHorseRaceStatus.Entity>
         secondHorseRankName.SetEntity(this.entity.secondHorseRankName);
         betSlot.SetEntity(this.entity.betSlot);
         isBetSlotVisible.SetEntity(this.entity.betSlotVisible);
-        timeText.SetEntity(new UIComponentTimeSpan.Entity()
-        { format = UIComponentTimeSpan.Format.DD_HH_MM_SS_MM });
     }
 
     private void Update()
@@ -51,7 +49,7 @@ public class UIHorseRaceStatus : PopupEntity<UIHorseRaceStatus.Entity>
                 timeLine.fillAmount = currentTimer / this.entity.finishTime;
                 this.playerList.UpdatePosition(timeLine.fillAmount);
             }
-            timeText.SetTotalSecond(currentTimer);
+            timeText.SetEntity(currentTimer);
         }
     }
 

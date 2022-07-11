@@ -45,17 +45,18 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
     public async UniTask InitializeAsync(string[] horseControllerPaths,
                                          string mapSettingsPath,
                                          int playerHorseIndex,
-                                         int[] top,
+                                         float[] times,
+                                         int totalLap,
                                          CancellationToken token)
     {
         this.horseControllerModelPaths = horseControllerPaths;
         this.mapSettingsPath = mapSettingsPath;
         this.playerHorseIndex = playerHorseIndex;
-
+        var tops = times.GetTopByTimes();
         await LoadHorses(horseControllerPaths, token);
         await LoadMapSettings(token);
-        CalculateRaceStat(top);
-        SetHorseControllerStat(top);
+        CalculateRaceStat(times, totalLap);
+        SetHorseControllerStat(tops);
     }
 
     public async UniTask ShowFreeCamera()
@@ -128,11 +129,11 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         horseControllers.FirstOrDefault(x => x.top == 1).OnFinishTrackEvent += OnFinishTrack;
     }
 
-    private void CalculateRaceStat(int[] top)
+    private void CalculateRaceStat(float[] times, int totalLap)
     {
         raceLength = path.path.length * path.transform.lossyScale.x;
         averageTimeToFinish = raceLength / averageSpeed * totalLap;
-        timeToFinish = new float[top.Length];
+        timeToFinish = new float[times.Length];
         //top = top.OrderBy(x => UnityEngine.Random.Range(-1.0f, 1.0f)).ToArray();
         for (int i = 0; i < timeToFinish.Length; i++)
         {

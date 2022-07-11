@@ -63,9 +63,9 @@ public class HorsePickingState : InjectedBState
     public override void Exit()
     {
         base.Exit();
-        cts?.Cancel();
+        cts?.Cancel();  
         cts = default;
-
+        UiHeaderPresenter.HideHeader();
         UILoader.SafeRelease(ref uiHorsePicker);
     }
 }

@@ -12,7 +12,7 @@ public class UIBackGroundPresenter : IDisposable
         this.container = container;
     }
 
-    public async UniTask ShowBackGround()
+    public async UniTask ShowBackGroundAsync()
     {
         if(uiBackGround == null)
         {

@@ -35,6 +35,7 @@ public class StableUIState : InjectedBState
     public override void Exit()
     {
         base.Exit();
+        UIHeaderPresenter.HideHeader();
         uiHorseStablePresenter.OnViewHorseDetail -= OnViewHorseDetail;
         UIHeaderPresenter.OnBack -= OnBack;
         uiHorseStablePresenter.Dispose();

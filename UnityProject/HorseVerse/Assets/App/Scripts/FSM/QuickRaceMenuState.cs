@@ -50,6 +50,7 @@ public class QuickRaceMenuState : InjectedBState
     {
         base.Exit();
         uiQuickRacePresenter.OnFoundMatch -= OnFoundMatch;
+        UIHeaderPresenter.HideHeader();
         UIHeaderPresenter.OnBack -= OnBack;
         uiQuickRacePresenter.Dispose();
         uiQuickRacePresenter = default;

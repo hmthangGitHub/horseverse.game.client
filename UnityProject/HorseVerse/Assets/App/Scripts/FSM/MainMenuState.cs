@@ -25,16 +25,16 @@ public class MainMenuState : InjectedBState
         
         ShowBackGrounAsync().Forget();
         UIHorse3DViewPresenter.ShowHorse3DViewAsync().Forget();
-        UiHeaderPresenter.ShowHeaderAsync(false).Forget();
+        //UiHeaderPresenter.ShowHeaderAsync(false).Forget();
 
-        uiMainMenuPresenter ??= new UIMainMenuPresenter();
+        uiMainMenuPresenter ??= new UIMainMenuPresenter(this.Container);
         SubcribeEvents();
         uiMainMenuPresenter.ShowMainMenuAsync().Forget();
     }
 
     private async UniTask ShowBackGrounAsync()
     {
-        await UIBackGroundPresenter.ShowBackGround();
+        await UIBackGroundPresenter.ShowBackGroundAsync();
         UiLoadingPresenter.HideLoading();
     }
 

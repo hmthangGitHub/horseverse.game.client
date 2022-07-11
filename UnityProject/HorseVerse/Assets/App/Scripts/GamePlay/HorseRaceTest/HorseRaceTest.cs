@@ -19,7 +19,8 @@ public class HorseRaceTest : MonoBehaviour
         await horseRaceManager.InitializeAsync(horseIdInLanes.Select(x => masterHorseContainer.MasterHorseIndexer[x].RaceModeModelPath).ToArray(),
                                                masterMapContainer.MasterMapIndexer[masterMapId].MapSettings,
                                                UnityEngine.Random.Range(0, 7),
-                                               Enumerable.Range(1, 8).Shuffle().ToArray(),
+                                               Enumerable.Range(1, 8).Select(x => UnityEngine.Random.Range(49.5f, 50.5f)).ToArray(),
+                                               1,
                                                default);
 
         await horseRaceManager.ShowFreeCamera();

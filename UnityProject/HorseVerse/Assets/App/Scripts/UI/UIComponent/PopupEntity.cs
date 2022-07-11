@@ -21,9 +21,22 @@ public abstract class PopupEntity<T> : PopupEntity, IUIComponent<T>, IPopupEntit
         OnSetEntity();
     }
 
-    public virtual async UniTask In()
+    protected virtual UniTask AnimationIn()
     {
         DefaultIn();
+        return UniTask.CompletedTask;
+    }
+
+    protected virtual UniTask AnimationOut()
+    {
+        DefaultOut();
+        return UniTask.CompletedTask;
+    }
+
+    public async UniTask In()
+    {
+        this.gameObject.SetActive(true);
+        await AnimationIn();
         await UniTask.CompletedTask;
     }
 
@@ -32,13 +45,12 @@ public abstract class PopupEntity<T> : PopupEntity, IUIComponent<T>, IPopupEntit
         canvasGroup.alpha = 1.0f;
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
-        this.gameObject.SetActive(true);
     }
 
-    public virtual async UniTask Out()
+    public async UniTask Out()
     {
-        DefaultOut();
-        await UniTask.CompletedTask;
+        await AnimationOut();
+        this.gameObject.SetActive(false);
     }
 
     private void DefaultOut()

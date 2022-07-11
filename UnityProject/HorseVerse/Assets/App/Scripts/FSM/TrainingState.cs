@@ -26,6 +26,7 @@ public class TrainingState : InjectedBState
     public override void Exit()
     {
         base.Exit();
+        UIHeaderPresenter.HideHeader();
         UIHeaderPresenter.OnBack -= OnBack;
         presenter.Dispose();
         presenter = null;
