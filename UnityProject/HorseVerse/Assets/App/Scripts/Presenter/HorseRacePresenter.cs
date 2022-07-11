@@ -26,6 +26,8 @@ public class HorseRacePresenter : IDisposable
 
     private RaceMatchData raceMatchData;
     private RaceMatchData RaceMatchData => raceMatchData ??= Container.Inject<RaceMatchData>();
+    private UIBackGroundPresenter uiBackGroundPresenter;
+    private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
 
     private MasterMapContainer masterMapContainer;
     private MasterMap masterMap;
@@ -122,24 +124,17 @@ public class HorseRacePresenter : IDisposable
         SetEntityUIHorseRaceStatus(horseIdInLanes, horseRaceManager.RaceTime);
     }
 
-    private UIComponentHorseResult.Entity[] GetResultList()
+    private void OnFinishTrack()
     {
-        return horseRaceManager.horseControllers.Select(x => new UIComponentHorseResult.Entity()
-        {
-            isPlayer = x.IsPlayer,
-            lane = x.Lane + 1,
-            top = x.top,
-            name = x.name,
-            time = x.timeToFinish
-        }).OrderBy(x => x.top)
-          .ToArray();
+        OnFinishTrackAsync().Forget();
     }
 
-    private void OnFinishTrack()
+    private async UniTask OnFinishTrackAsync()
     {
         Time.timeScale = 1.0f;
         uiSpeedController.Out().Forget();
         uiHorseRaceStatus.Out().Forget();
+        await UIBackGroundPresenter.ShowBackGroundAsync();
         if (RaceMatchData.mode == RaceMode.QuickMode)
         {
             OnToQuickRaceModeResultState();

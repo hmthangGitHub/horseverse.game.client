@@ -64,6 +64,10 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
             MaxEnergy = UserDataRepository.Current.MaxEnergy,
             UserId = UserDataRepository.Current.UserId,
             UserName = UserDataRepository.Current.UserName,
+            Exp = UserDataRepository.Current.Exp,
+            Level = UserDataRepository.Current.Level,
+            NextLevelExp = UserDataRepository.Current.NextLevelExp,
+            TraningTimeStamp = UserDataRepository.Current.TraningTimeStamp,
         };
         await UserDataRepository.UpdateDataAsync(new UserDataModel[] { model });
     }

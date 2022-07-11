@@ -21,6 +21,8 @@ public class QuickRaceResultState : InjectedBState
     {
         base.Exit();
         UILoader.SafeRelease(ref uiRaceResultList);
+        presenter.OnBackToMainState -= ToMainState;
         presenter?.Dispose();
+        presenter = null;
     }
 }

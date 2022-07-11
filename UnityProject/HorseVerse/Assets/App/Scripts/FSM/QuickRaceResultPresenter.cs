@@ -16,6 +16,7 @@ public class QuickRaceResultPresenter : IDisposable
     private MasterHorseContainer masterHorseContainer;
     private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= Container.Inject<MasterHorseContainer>();
     private UIRaceResultSelf uiRaceResultSelf;
+    private UIHorseQuickRaceResultList uiHorseQuickRaceResultList;
 
     private IDIContainer Container { get; }
 
@@ -30,9 +31,27 @@ public class QuickRaceResultPresenter : IDisposable
         cts = new CancellationTokenSource();
         await ShowRaceResultSelf();
         await ShowResultList();
+        await ShowReward();
     }
 
     private async UniTask ShowResultList()
+    {
+        var ucs = new UniTaskCompletionSource();
+        uiHorseQuickRaceResultList ??= await UILoader.Instantiate<UIHorseQuickRaceResultList>();
+        uiHorseQuickRaceResultList.SetEntity(new UIHorseQuickRaceResultList.Entity()
+        {
+            horseNames = RaceMatchData.horseRaceTimes.Select(x => MasterHorseContainer.MasterHorseIndexer[x.masterHorseId].Name).ToArray(),
+            outerBtn = new ButtonComponent.Entity(UniTask.Action(async () =>
+            {
+                await uiHorseQuickRaceResultList.Out();
+                ucs.TrySetResult();
+            }))
+        });
+        await uiHorseQuickRaceResultList.In();
+        await ucs.Task.AttachExternalCancellation(cts.Token);
+    }
+
+    private async UniTask ShowReward()
     {
         uiRaceResultList ??= await UILoader.Instantiate<UIRaceResultList>(token: cts.Token);
         SetEntityResultList();

@@ -76,6 +76,8 @@ public class HorseRaceState : InjectedBHState
 
         uiLoadingPresenter = default;
         horseRacePresenter.OnBackToMainState -= ToMainState;
+        horseRacePresenter.OnToBetModeResultState -= ToBetModeResultState;
+        horseRacePresenter.OnToQuickRaceModeResultState -= ToQuickRaceResultState;
         horseRacePresenter.Dispose();
         horseRacePresenter = default;
         Container.RemoveAndDisposeIfNeed<RaceMatchData>();

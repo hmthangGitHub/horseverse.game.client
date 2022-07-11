@@ -3,7 +3,7 @@
 public class BetModeRaceResultState : InjectedBState
 {
     private BetModeRaceResultPresenter presenter;
-    private UIBackGroundPresenter uiBackGroundPresenter => Container.Inject<UIBackGroundPresenter>();
+
     public override void Enter()
     {
         base.Enter();
@@ -13,7 +13,6 @@ public class BetModeRaceResultState : InjectedBState
 
     private async UniTaskVoid ShowResultAndRewardAsync()
     {
-        await uiBackGroundPresenter.ShowBackGroundAsync();
         await presenter.ShowResultAsynnc();
         this.GetSuperMachine<RootFSM>().ToChildStateRecursive<MainMenuState>();
     }
@@ -22,5 +21,6 @@ public class BetModeRaceResultState : InjectedBState
     {
         base.Exit();
         presenter?.Dispose();
+        presenter = null;
     }
 }
