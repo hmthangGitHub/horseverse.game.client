@@ -8,30 +8,52 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class HorseRaceState : InjectedBState
+public class HorseRaceState : InjectedBHState
 {
     private bool isGameStart = false;
-    private bool isLoadedUI = false;
     private HorseRacePresenter horseRacePresenter;
     private UILoadingPresenter uiLoadingPresenter;
-
     public UILoadingPresenter UiLoadingPresenter => uiLoadingPresenter ??= Container.Inject<UILoadingPresenter>();
+    private UIBackGroundPresenter uiBackGroundPresenter;
+    public UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
 
     public override async void Enter()
     {
         base.Enter();
         horseRacePresenter = new HorseRacePresenter(Container);
         horseRacePresenter.OnBackToMainState += ToMainState;
-        await horseRacePresenter.LoadAssetAsync();
-        isLoadedUI = true;
+        horseRacePresenter.OnToBetModeResultState += ToBetModeResultState;
+        horseRacePresenter.OnToQuickRaceModeResultState += ToQuickRaceResultState;
+        UIBackGroundPresenter.ReleaseBackGround();
 
+        await horseRacePresenter.LoadAssetAsync();
         UiLoadingPresenter.HideLoading();
         await StartRaceAsync();
+    }
+
+    public override void AddStates()
+    {
+        base.AddStates();
+        AddState<EmptyState>();
+        AddState<BetModeRaceResultState>();
+        AddState<QuickRaceResultState>();
+        SetInitialState<EmptyState>();
+    }
+
+    private void ToBetModeResultState()
+    {
+        this.ChangeState<BetModeRaceResultState>();
+    }
+
+    private void ToQuickRaceResultState()
+    {
+        this.ChangeState<QuickRaceResultState>();
     }
 
     private async UniTask StartRaceAsync()
     {
         await horseRacePresenter.PlayIntro();
+        isGameStart = true;
         horseRacePresenter.StartGame();
     }
 
@@ -47,23 +69,15 @@ public class HorseRaceState : InjectedBState
         this.SuperMachine.GetState<StartUpState>().GetState<InitialState>().ChangeState<MainMenuState>();
     }
 
-    public override void PhysicsExecute()
-    {
-        base.PhysicsExecute();
-        if (isGameStart)
-        {
-            horseRacePresenter.UpdateRaceStatus();
-        }
-    }
-
     public override void Exit()
     {
         base.Exit();
         isGameStart = false;
-        isLoadedUI = false;
 
         uiLoadingPresenter = default;
         horseRacePresenter.OnBackToMainState -= ToMainState;
+        horseRacePresenter.OnToBetModeResultState -= ToBetModeResultState;
+        horseRacePresenter.OnToQuickRaceModeResultState -= ToQuickRaceResultState;
         horseRacePresenter.Dispose();
         horseRacePresenter = default;
         Container.RemoveAndDisposeIfNeed<RaceMatchData>();

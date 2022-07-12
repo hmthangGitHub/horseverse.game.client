@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,16 +15,27 @@ public class MainMenuState : InjectedBState
     private UIHorse3DViewPresenter uiHorse3DViewPresenter;
     public UIHorse3DViewPresenter UIHorse3DViewPresenter => uiHorse3DViewPresenter ??= this.Container.Inject<UIHorse3DViewPresenter>();
 
-    private UIMainMenuPresenter uiMainMenuPresenter = new UIMainMenuPresenter();
+    private UIMainMenuPresenter uiMainMenuPresenter;
+    private UIBackGroundPresenter uiBackGroundPresenter;
+    private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
 
     public override void Enter()
     {
         base.Enter();
-        SubcribeEvents();
-        UiLoadingPresenter.HideLoading();
+        
+        ShowBackGrounAsync().Forget();
         UIHorse3DViewPresenter.ShowHorse3DViewAsync().Forget();
-        UiHeaderPresenter.ShowHeaderAsync().Forget();
+        //UiHeaderPresenter.ShowHeaderAsync(false).Forget();
+
+        uiMainMenuPresenter ??= new UIMainMenuPresenter(this.Container);
+        SubcribeEvents();
         uiMainMenuPresenter.ShowMainMenuAsync().Forget();
+    }
+
+    private async UniTask ShowBackGrounAsync()
+    {
+        await UIBackGroundPresenter.ShowBackGroundAsync();
+        UiLoadingPresenter.HideLoading();
     }
 
     private void SubcribeEvents()
@@ -88,5 +100,6 @@ public class MainMenuState : InjectedBState
         base.Exit();
         UnSubcribeEvents();
         uiMainMenuPresenter.Dispose();
+        uiMainMenuPresenter = null;
     }
 }

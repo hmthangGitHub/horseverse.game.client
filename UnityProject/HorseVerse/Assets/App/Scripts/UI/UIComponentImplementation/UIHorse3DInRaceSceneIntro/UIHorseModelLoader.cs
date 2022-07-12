@@ -50,8 +50,9 @@ public class UIHorseModelLoader : UIComponent<UIHorseModelLoader.Entity>
             }
             var horsePrefab = await PrimitiveAssetLoader.LoadAssetAsync<GameObject>(this.entity.horse, cts.Token);
             oldHorse = this.entity.horse;
-            horse = Instantiate<GameObject>(horsePrefab, Vector3.zero, Quaternion.identity, horsePosition.transform);
+            horse = Instantiate<GameObject>(horsePrefab, Vector3.zero, Quaternion.identity);
             horse.transform.localScale = Vector3.one;
+            horse.transform.parent = horsePosition.transform;
             horse.transform.localPosition = Vector3.zero;
             horse.transform.localRotation = Quaternion.Euler(0, 90, 0);
 

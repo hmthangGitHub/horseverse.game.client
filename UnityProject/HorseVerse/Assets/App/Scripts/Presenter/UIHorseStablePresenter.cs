@@ -11,7 +11,6 @@ public class UIHorseStablePresenter : IDisposable
     private UIHorseStable uiHorseStable = default;
     private CancellationTokenSource cts = default;
     public event Action OnViewHorseDetail = ActionUtility.EmptyAction.Instance;
-    public event Action OnBack = ActionUtility.EmptyAction.Instance;
     private IDIContainer container;
 
     private IQuickRaceDomainService quickRaceDomainService = default;
@@ -39,8 +38,7 @@ public class UIHorseStablePresenter : IDisposable
                 {
                     selectBtn = new ButtonComponent.Entity(() => OnSelectHorseAsync(x.MasterHorseId).Forget())
                 }).ToArray()
-            },
-            backBtn = new ButtonComponent.Entity(OnBack)
+            }
         });
         await uiHorseStable.In();
     }

@@ -11,6 +11,7 @@ public class TestUIScript<T, TEntity> : MonoBehaviour  where T : MonoBehaviour, 
 
     protected virtual void OnGUI()
     {
+        GUI.skin.button.fontSize = 30;
         if (GUILayout.Button("Set Entity"))
         {
             SetEntity();

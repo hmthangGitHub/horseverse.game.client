@@ -242,6 +242,12 @@ MonoBehaviour:
     coin: 100
     maxEnergy: 100
     energy: 12
+    backBtnVisible: 0
+    backBtn:
+      onClickEvent:
+        m_PersistentCalls:
+          m_Calls: []
+      isInteractable: 1
 --- !u!1 &594668833
 GameObject:
   m_ObjectHideFlags: 0

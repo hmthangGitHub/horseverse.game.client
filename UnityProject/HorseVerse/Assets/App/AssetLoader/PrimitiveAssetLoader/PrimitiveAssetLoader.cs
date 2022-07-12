@@ -27,6 +27,10 @@ public class PrimitiveAssetLoader : AssetLoaderBase<PrimitiveAssetLoader>
             handle = Addressables.LoadAssetAsync<T>(path);
             AsyncOperationHandleRefCount.Add(path, handle);
         }
+        else
+        {
+            AsyncOperationHandleRefCount.IncreaseRef(path);
+        }
         return handle;
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class UIHeaderPresenter : IDisposable
@@ -12,26 +13,37 @@ public class UIHeaderPresenter : IDisposable
     private IDIContainer container;
     private IReadOnlyUserDataRepository userDataRepository = default;
     public IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
+    public event Action OnBack = ActionUtility.EmptyAction.Instance;
 
     public UIHeaderPresenter(IDIContainer container)
     {
         this.container = container;
     }
 
-    public async UniTaskVoid ShowHeaderAsync()
+    public async UniTask ShowHeaderAsync(bool showBackBtn = true)
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         await UserDataRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
-        uiHeader ??= await UILoader.Instantiate<UIHeader>(UICanvas.UICanvasType.Header, token: cts.Token);
-        uiHeader.SetEntity(new UIHeader.Entity()
-        {
-            coin = UserDataRepository.Current.Coin,
-            energy = UserDataRepository.Current.Energy,
-            maxEnergy = UserDataRepository.Current.MaxEnergy,
-            userName = UserDataRepository.Current.UserName,
-        });
+        await InstantiateUIIfNeed();
+        ShowBackBtn(showBackBtn);
         uiHeader.In().Forget();
+    }
+
+    private async UniTask InstantiateUIIfNeed()
+    {
+        if(uiHeader == default)
+        {
+            uiHeader = await UILoader.Instantiate<UIHeader>(UICanvas.UICanvasType.Header, token: cts.Token);
+            uiHeader.SetEntity(new UIHeader.Entity()
+            {
+                coin = UserDataRepository.Current.Coin,
+                energy = UserDataRepository.Current.Energy,
+                maxEnergy = UserDataRepository.Current.MaxEnergy,
+                userName = UserDataRepository.Current.UserName,
+                backBtn = new ButtonComponent.Entity(() => OnBack())
+            });
+        }
     }
 
     public void HideHeader()
@@ -39,6 +51,11 @@ public class UIHeaderPresenter : IDisposable
         cts.SafeCancelAndDispose();
         cts = default;
         uiHeader?.Out().Forget();
+    }
+
+    public void ShowBackBtn(bool showBackBtn)
+    {
+        uiHeader.SetVisibleBackBtn(showBackBtn);
     }
 
     public void Dispose()

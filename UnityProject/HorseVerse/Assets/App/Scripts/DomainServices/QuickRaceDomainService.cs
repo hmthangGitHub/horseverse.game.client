@@ -64,33 +64,37 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
             MaxEnergy = UserDataRepository.Current.MaxEnergy,
             UserId = UserDataRepository.Current.UserId,
             UserName = UserDataRepository.Current.UserName,
+            Exp = UserDataRepository.Current.Exp,
+            Level = UserDataRepository.Current.Level,
+            NextLevelExp = UserDataRepository.Current.NextLevelExp,
+            TraningTimeStamp = UserDataRepository.Current.TraningTimeStamp,
         };
         await UserDataRepository.UpdateDataAsync(new UserDataModel[] { model });
     }
 
     public async UniTask<RaceMatchData> FindMatch()
     {
-        int[] GetHorseTopPosition()
-        {
-            return Enumerable.Range(1, 8).Shuffle().ToArray();
-        }
-
-        long[] GetAllMasterHorseIds()
+        HorseRaceTime[] GetAllMasterHorseIds()
         {
             return container.Inject<MasterHorseContainer>().MasterHorseIndexer.Keys
                             .Shuffle()
                             .Append(UserDataRepository.Current.MasterHorseId)
                             .Shuffle()
                             .Take(8)
+                            .Select(x => new HorseRaceTime()
+                            {
+                                masterHorseId = x,
+                                time = 15 + UnityEngine.Random.Range(-1.0f, 1.0f)
+                            })
                             .ToArray();
         }
 
         await UniTask.Delay(10000);
         return new RaceMatchData()
         {
-            masterHorseIds = GetAllMasterHorseIds(),
-            tops = GetHorseTopPosition(),
-            masterMapId = 10001002
+            horseRaceTimes = GetAllMasterHorseIds(),
+            masterMapId = 10001002,
+            mode = RaceMode.QuickMode
         };
     }
 }

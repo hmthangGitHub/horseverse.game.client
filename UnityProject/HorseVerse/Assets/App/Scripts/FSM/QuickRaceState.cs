@@ -14,6 +14,7 @@ public class QuickRaceState : InjectedBHState
         base.AddStates();
         AddState<QuickRaceMenuState>();
         AddState<HorseRaceState>();
+        AddState<RaceState>();
         SetInitialState<QuickRaceMenuState>();
     }
 }

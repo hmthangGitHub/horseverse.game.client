@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: RaceResult
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 2f1a1ec9d0a90a04c8098ed9b9d346c8, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 520c1730c12aea1459700afcee29e603, type: 3}
+  - {fileID: 21300000, guid: a33867a0a28572a438868534cb56320e, type: 3}
+  - {fileID: 21300000, guid: 9db24b5825fada44890471764d905335, type: 3}
+  - {fileID: 21300000, guid: 2dcedd9a9db497245bce2ead2b6757be, type: 3}
+  - {fileID: 21300000, guid: 02608cce632cc874588785e2e8160cad, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - bg_item_line
+  - dot_glow_line
+  - bg_raceresult_title
+  - Daco
+  - bg_border
+  m_RenderDataMap: {}
+  m_Tag: RaceResult
+  m_IsVariant: 0

@@ -6,11 +6,11 @@ public class BetModeUIState : InjectedBState
 {
     private UIBetModePresenter uiBetModePresenter = default;
     private UIHeaderPresenter uiHeaderPresenter = default;
-
     private UIHorse3DViewPresenter uiHorse3DViewPresenter;
     public UIHorse3DViewPresenter UIHorse3DViewPresenter => uiHorse3DViewPresenter ??= this.Container.Inject<UIHorse3DViewPresenter>();
     private UILoadingPresenter uiLoadingPresenter = default;
     private UILoadingPresenter UILoadingPresenter => uiLoadingPresenter ?? Container.Inject<UILoadingPresenter>();
+    private UIHeaderPresenter UIHeaderPresenter => uiHeaderPresenter ??= Container.Inject<UIHeaderPresenter>();
 
     public override void Enter()
     {
@@ -36,6 +36,8 @@ public class BetModeUIState : InjectedBState
     private void OnToRaceMode()
     {
         UILoadingPresenter.ShowLoadingAsync().Forget();
+        UIHorse3DViewPresenter.Dispose();
+        UIHeaderPresenter.Dispose();
         this.Machine.ChangeState<HorseRaceState>();
     }
 

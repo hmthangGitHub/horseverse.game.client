@@ -29,6 +29,7 @@ public class AsyncOperationHandleRefCount : MonoBehaviour
     {
         (AsyncOperationHandle operationHandle, int refCount) handler = operationHandles[key];
         handler.refCount++;
+        operationHandles[key] = handler;
     }
 
     public static bool DecreaseRef(string key)

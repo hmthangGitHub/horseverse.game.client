@@ -15,7 +15,6 @@ public class UIQuickRacePresenter : IDisposable
     private CancellationTokenSource cts;
     private IDIContainer container;
 
-    public event Action OnBack = ActionUtility.EmptyAction.Instance;
     public event Action<RaceMatchData> OnFoundMatch = ActionUtility.EmptyAction<RaceMatchData>.Instance;
 
     private IReadOnlyUserDataRepository userDataRepository;
@@ -46,7 +45,6 @@ public class UIQuickRacePresenter : IDisposable
 
         uiQuickMode.SetEntity(new UIQuickMode.Entity()
         {
-            backBtn = new ButtonComponent.Entity(OnBack),
             cancelMatchBtn = new ButtonComponent.Entity(OnCancelFindMatch),
             cancelMatchBtnVisible = new IsVisibleComponent.Entity()
             {
