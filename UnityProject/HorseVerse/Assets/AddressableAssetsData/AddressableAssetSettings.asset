@@ -68,6 +68,8 @@ MonoBehaviour:
         m_Value: 0.01
       - m_Id: f00a2668e4f20d0409afeb53c737348b
         m_Value: Development
+      - m_Id: 3f923e0402b116f439c972cd8f145195
+        m_Value: https://cdn-game-01.billionaireplus.io/HorseVerse/ServerData/
     - m_InheritedParent: 
       m_Id: f36108bb235a4f145a761d6dfa066ae9
       m_ProfileName: Development
@@ -82,11 +84,13 @@ MonoBehaviour:
       - m_Id: 3e0cbcc3430a2544f954fe9d3946923d
         m_Value: ServerData/[Asset Version]/[Enviroment]/[BuildTarget]
       - m_Id: 10d19f7d92c8bbc4ca4f92ed9c66c982
-        m_Value: http://localhost:8080/[Asset Version]/[Enviroment]/[BuildTarget]
+        m_Value: '[BucketURL]/[Asset Version]/[Enviroment]/[BuildTarget]'
       - m_Id: 7d7b62f2529d59d4ebde085d43b426c6
         m_Value: 0.02
       - m_Id: f00a2668e4f20d0409afeb53c737348b
         m_Value: Development
+      - m_Id: 3f923e0402b116f439c972cd8f145195
+        m_Value: https://cdn-game-01.billionaireplus.io/HorseVerse/ServerData
     - m_InheritedParent: 
       m_Id: 3763df9bcec403647acd34f8e09beacf
       m_ProfileName: Staging
@@ -101,11 +105,13 @@ MonoBehaviour:
       - m_Id: 3e0cbcc3430a2544f954fe9d3946923d
         m_Value: ServerData/[Asset Version]/[Enviroment]/[BuildTarget]
       - m_Id: 10d19f7d92c8bbc4ca4f92ed9c66c982
-        m_Value: http://localhost:8080/[Asset Version]/[Enviroment]/[BuildTarget]
+        m_Value: '[BucketURL]/[Asset Version]/[Enviroment]/[BuildTarget]'
       - m_Id: 7d7b62f2529d59d4ebde085d43b426c6
         m_Value: 0.01
       - m_Id: f00a2668e4f20d0409afeb53c737348b
         m_Value: Staging
+      - m_Id: 3f923e0402b116f439c972cd8f145195
+        m_Value: https://cdn-game-01.billionaireplus.io/HorseVerse/ServerData
     - m_InheritedParent: 
       m_Id: 152580a4e4d5ac141b0d7270269ca517
       m_ProfileName: Production
@@ -120,11 +126,13 @@ MonoBehaviour:
       - m_Id: 3e0cbcc3430a2544f954fe9d3946923d
         m_Value: ServerData/[Asset Version]/[Enviroment]/[BuildTarget]
       - m_Id: 10d19f7d92c8bbc4ca4f92ed9c66c982
-        m_Value: http://localhost:8080/[Asset Version]/[Enviroment]/[BuildTarget]
+        m_Value: '[BucketURL]/[Asset Version]/[Enviroment]/[BuildTarget]'
       - m_Id: 7d7b62f2529d59d4ebde085d43b426c6
         m_Value: 0.01
       - m_Id: f00a2668e4f20d0409afeb53c737348b
         m_Value: Production
+      - m_Id: 3f923e0402b116f439c972cd8f145195
+        m_Value: https://cdn-game-01.billionaireplus.io/HorseVerse/ServerData
     m_ProfileEntryNames:
     - m_Id: bec296d3b7b5c9147bfee6b24e64a1d3
       m_Name: BuildTarget
@@ -146,6 +154,9 @@ MonoBehaviour:
       m_InlineUsage: 0
     - m_Id: f00a2668e4f20d0409afeb53c737348b
       m_Name: Enviroment
+      m_InlineUsage: 0
+    - m_Id: 3f923e0402b116f439c972cd8f145195
+      m_Name: BucketURL
       m_InlineUsage: 0
     m_ProfileVersion: 1
   m_LabelTable:
