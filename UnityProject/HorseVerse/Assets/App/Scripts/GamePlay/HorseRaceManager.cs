@@ -10,6 +10,9 @@ using UnityEngine;
 
 public class HorseRaceManager : MonoBehaviour, IDisposable
 {
+    public float maximumDistance = 1.0f;
+    public Vector2Int times;
+
     public FreeCamera freeCamera;
     public RaceModeCameras raceCamera;
     public PathCreation.PathCreator path;
@@ -156,7 +159,13 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
             horseController.lap = totalLap;
             horseController.IsPlayer = playerHorseIndex == i;
             horseController.Lane = i;
+            horseController.currentCurve = RandomASppedCurve();
         }
+    }
+
+    private AnimationCurve RandomASppedCurve()
+    {
+        return AnimationCurveClamping.GenerateCurve(raceLength, maximumDistance, UnityEngine.Random.Range(times.x, times.y));
     }
 
     private void OnFinishTrack()

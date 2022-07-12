@@ -345,6 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ab3879247a95774e882e3a9b70fc974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backgroundCanvas: {fileID: 0}
   defaultCanvas: {fileID: 318579438}
   headerCanvas: {fileID: 2091790063}
   loadingCanvas: {fileID: 1579491642}
@@ -942,8 +943,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1008511620}
-  m_LocalRotation: {x: 0.24904607, y: -0.5010058, z: 0.15317936, w: 0.8145584}
-  m_LocalPosition: {x: -82.52619, y: 5.8315563, z: 49.418827}
+  m_LocalRotation: {x: 0.23945533, y: -0.4200104, z: 0.115915105, w: 0.8676498}
+  m_LocalPosition: {x: 13.86058, y: 5.399978, z: 49.299328}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1493573173}
@@ -1452,21 +1453,9 @@ PrefabInstance:
       propertyPath: m_LookAt
       value: 
       objectReference: {fileID: 666500300}
-    - target: {fileID: 265194370476426686, guid: ef2cb238e586cc74fb88c43532e1a6ba, type: 3}
+    - target: {fileID: 2263654106809861234, guid: ef2cb238e586cc74fb88c43532e1a6ba, type: 3}
       propertyPath: m_ChildCameras.Array.size
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2294983768887283300, guid: ef2cb238e586cc74fb88c43532e1a6ba, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.24904607
-      objectReference: {fileID: 0}
-    - target: {fileID: 2294983768887283300, guid: ef2cb238e586cc74fb88c43532e1a6ba, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.5010058
-      objectReference: {fileID: 0}
-    - target: {fileID: 2294983768887283300, guid: ef2cb238e586cc74fb88c43532e1a6ba, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.15317936
       objectReference: {fileID: 0}
     - target: {fileID: 3622486050752028206, guid: ef2cb238e586cc74fb88c43532e1a6ba, type: 3}
       propertyPath: m_RootOrder
@@ -1515,42 +1504,6 @@ PrefabInstance:
     - target: {fileID: 3622486050752028209, guid: ef2cb238e586cc74fb88c43532e1a6ba, type: 3}
       propertyPath: m_Name
       value: raceCameras
-      objectReference: {fileID: 0}
-    - target: {fileID: 4853019115842671229, guid: ef2cb238e586cc74fb88c43532e1a6ba, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.053398497
-      objectReference: {fileID: 0}
-    - target: {fileID: 4853019115842671229, guid: ef2cb238e586cc74fb88c43532e1a6ba, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.45213893
-      objectReference: {fileID: 0}
-    - target: {fileID: 4853019115842671229, guid: ef2cb238e586cc74fb88c43532e1a6ba, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.02712958
-      objectReference: {fileID: 0}
-    - target: {fileID: 5231962760407570879, guid: ef2cb238e586cc74fb88c43532e1a6ba, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.11411235
-      objectReference: {fileID: 0}
-    - target: {fileID: 5231962760407570879, guid: ef2cb238e586cc74fb88c43532e1a6ba, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.41124463
-      objectReference: {fileID: 0}
-    - target: {fileID: 5231962760407570879, guid: ef2cb238e586cc74fb88c43532e1a6ba, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.051977202
-      objectReference: {fileID: 0}
-    - target: {fileID: 7149890488365602184, guid: ef2cb238e586cc74fb88c43532e1a6ba, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.014155533
-      objectReference: {fileID: 0}
-    - target: {fileID: 8125109629747343017, guid: ef2cb238e586cc74fb88c43532e1a6ba, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.021616306
-      objectReference: {fileID: 0}
-    - target: {fileID: 8125109629747343017, guid: ef2cb238e586cc74fb88c43532e1a6ba, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.020477898
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef2cb238e586cc74fb88c43532e1a6ba, type: 3}

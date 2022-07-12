@@ -36,7 +36,7 @@ public class CameraChangeTriggerer : MonoBehaviour
         {
             if (isLookingForTopHorse)
             {
-                var target = targetGroup.m_Targets.OrderBy(x => x.target.GetComponent<HorseController>().normalizePath).FirstOrDefault().target;
+                var target = targetGroup.m_Targets.OrderByDescending(x => x.target.GetComponent<HorseController>().normalizePath).FirstOrDefault().target;
                 if (changingFollow)
                 {
                     to.Follow = target;
