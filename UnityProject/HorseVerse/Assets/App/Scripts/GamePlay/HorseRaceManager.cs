@@ -101,7 +101,10 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
     {
         var mapSettings = await PrimitiveAssetLoader.LoadAssetAsync<MapSettings>(mapSettingsPath, token);
         freeCamera = Instantiate<FreeCamera>(mapSettings.freeCamera, transform, true);
-        raceCamera = Instantiate<RaceModeCameras>(mapSettings.raceModeCamera, Vector3.zero, Quaternion.identity, transform);
+        raceCamera = Instantiate<RaceModeCameras>(mapSettings.raceModeCamera[UnityEngine.Random.Range(0, mapSettings.raceModeCamera.Length)],
+                                                  Vector3.zero,
+                                                  Quaternion.identity,
+                                                  transform);
         path = Instantiate<PathCreation.PathCreator>(mapSettings.path, Vector3.zero,Quaternion.identity, transform);
         warmUpCamera = Instantiate<WarmUpCamera>(mapSettings.warmUpCamera, Vector3.zero, Quaternion.identity, transform);
 
