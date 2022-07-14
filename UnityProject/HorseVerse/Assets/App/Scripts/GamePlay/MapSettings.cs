@@ -6,7 +6,7 @@ using UnityEngine;
 public class MapSettings : ScriptableObject
 {
     public PathCreation.PathCreator path;
-    public RaceModeCameras raceModeCamera;
+    public RaceModeCameras[] raceModeCamera;
     public FreeCamera freeCamera;
     public WarmUpCamera warmUpCamera;
 }

@@ -13,6 +13,7 @@ public class HorseRacePresenter : IDisposable
     private HorseRaceManager horseRaceManager;
     private UIHorseRaceStatus uiHorseRaceStatus;
     private UISpeedController uiSpeedController;
+    private UIFlashScreenAnimation uiFlashScreen;
 
     private int[] cachePositions;
     private IReadOnlyUserDataRepository userDataRepository;
@@ -22,7 +23,7 @@ public class HorseRacePresenter : IDisposable
     private int playerHorseIndex;
     public event Action OnBackToMainState = ActionUtility.EmptyAction.Instance;
     public event Action OnToBetModeResultState = ActionUtility.EmptyAction.Instance;
-    public Action OnToQuickRaceModeResultState = ActionUtility.EmptyAction.Instance;
+    public event Action OnToQuickRaceModeResultState = ActionUtility.EmptyAction.Instance;
 
     private RaceMatchData raceMatchData;
     private RaceMatchData RaceMatchData => raceMatchData ??= Container.Inject<RaceMatchData>();
@@ -97,6 +98,7 @@ public class HorseRacePresenter : IDisposable
     {
         uiHorseRaceStatus ??= await UILoader.Instantiate<UIHorseRaceStatus>();
         uiSpeedController ??= await UILoader.Instantiate<UISpeedController>();
+        uiFlashScreen ??= await UILoader.Instantiate<UIFlashScreenAnimation>();
     }
 
     public void StartGame()
@@ -131,9 +133,12 @@ public class HorseRacePresenter : IDisposable
 
     private async UniTask OnFinishTrackAsync()
     {
-        Time.timeScale = 1.0f;
         uiSpeedController.Out().Forget();
         uiHorseRaceStatus.Out().Forget();
+        FreezeTimeWhenFinishTrack().Forget();
+        await uiFlashScreen.In();
+        await uiFlashScreen.Out();
+
         await UIBackGroundPresenter.ShowBackGroundAsync();
         if (RaceMatchData.mode == RaceMode.QuickMode)
         {
@@ -143,6 +148,14 @@ public class HorseRacePresenter : IDisposable
         {
             OnToBetModeResultState();
         }
+    }
+
+    private async UniTaskVoid FreezeTimeWhenFinishTrack()
+    {
+        var currentTimeScale = Time.timeScale;
+        Time.timeScale = 0.0f;
+        await UniTask.Delay((int)(0.7f * 1000), ignoreTimeScale: true);
+        Time.timeScale = currentTimeScale;
     }
 
     public void UpdateRaceStatus()
@@ -215,6 +228,7 @@ public class HorseRacePresenter : IDisposable
 
         UILoader.SafeRelease(ref uiSpeedController);
         UILoader.SafeRelease(ref uiHorseRaceStatus);
+        UILoader.SafeRelease(ref uiFlashScreen);
 
         MasterLoader.Unload<MasterMapContainer>();
         SceneAssetLoader.UnloadAssetAtPath(masterMap.MapPath);
@@ -223,7 +237,11 @@ public class HorseRacePresenter : IDisposable
         masterMapContainer = default;
         masterMap = default;
         raceMatchData = default;
+
         OnBackToMainState = ActionUtility.EmptyAction.Instance;
+        OnToBetModeResultState = ActionUtility.EmptyAction.Instance;
+        OnToQuickRaceModeResultState = ActionUtility.EmptyAction.Instance;
+
         cachePositions = default;
         masterHorseContainer = default;
     }

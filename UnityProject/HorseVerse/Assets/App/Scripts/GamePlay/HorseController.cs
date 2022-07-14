@@ -69,7 +69,6 @@ public class HorseController : MonoBehaviour
 
     public void StartRace()
     {
-        currentCurve = speedCurve[UnityEngine.Random.Range(0, speedCurve.Length - 1)];
         animator?.Play("Movement", 0, UnityEngine.Random.insideUnitCircle.x);
         animator?.SetFloat("Speed", 1.0f);
         isStartRace = true;

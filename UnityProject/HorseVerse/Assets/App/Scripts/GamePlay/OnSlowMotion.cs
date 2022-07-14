@@ -17,7 +17,6 @@ public class OnSlowMotion : MonoBehaviour
         {
             isInAnimation = true;
             isIn = true;
-            Debug.Log("Slow");
             DOTween.Kill(tween, false);
             tween = DOTween.To(val =>
             {
@@ -35,7 +34,6 @@ public class OnSlowMotion : MonoBehaviour
         {
             isInAnimation = true;
             isIn = false;
-            Debug.Log("Normal");
             DOTween.Kill(tween, false);
             tween = DOTween.To(val =>
             {
