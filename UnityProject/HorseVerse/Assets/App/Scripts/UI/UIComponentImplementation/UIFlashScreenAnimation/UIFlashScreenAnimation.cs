@@ -21,7 +21,6 @@ public class UIFlashScreenAnimation : PopupEntity<UIFlashScreenAnimation.Entity>
         this.canvasGroup.alpha = 0.0f;
         await DOTween.Sequence().Append(this.canvasGroup.DOFade(1.0f, 0.05f).SetEase(Ease.OutQuint).SetUpdate(true))
                                 .Append(this.canvasGroup.DOFade(0.0f, 0.15f).SetEase(Ease.InQuint).SetUpdate(true))
-                                //.AwaitForComplete();
-                                .AsyncWaitForCompletion();
+                                .AwaitForComplete();
     }
 }
