@@ -28,7 +28,7 @@ public class ClientBuilder : EditorWindow
     }
 
     private const string AssetVersionLabel = "Asset Version";
-    private const string ClientVersionScripableObjectPath = "Assets/App/Resources/ClientInfo/ClientInfo.asset";
+    private const string ClientVersionScripableObjectPath = "ClientInfo/ClientInfo";
     private string assetVersion;
     private string assetProfileId;
     private ClientInfo clientInfo;
@@ -47,7 +47,18 @@ public class ClientBuilder : EditorWindow
 
     private void Awake()
     {
-        clientInfo = AssetDatabase.LoadAssetAtPath<ClientInfo>(ClientVersionScripableObjectPath);
+        //clientInfo = AssetDatabase.LoadAssetAtPath<ClientInfo>(ClientVersionScripableObjectPath);
+        clientInfo = Resources.Load<ClientInfo>(ClientVersionScripableObjectPath);
+        if (clientInfo == null) Debug.LogError("Client Info is null");
+        else Debug.Log("Current Enviroment " + clientInfo.CurrentEnviroment);
+
+        if (!AddressableAssetSettingsDefaultObject.SettingsExists)
+        {
+            Debug.LogWarning("Addressable Settings don't exist, creating new ones.");
+
+            AddressableAssetSettingsDefaultObject.Settings = AddressableAssetSettingsDefaultObject.GetSettings(true);
+        }
+
         currentEnviroment = clientInfo.CurrentEnviroment;
         GetVersionBaseOnEnviroment(currentEnviroment);
         platforms = GetEnumAsStringArray<BuildPlatform>();
@@ -64,6 +75,7 @@ public class ClientBuilder : EditorWindow
 
     private void GetVersionBaseOnEnviroment(ClientInfo.Enviroment currentEnviroment)
     {
+        if (clientInfo == null || AddressableAssetSettingsDefaultObject.Settings == null) return;
         var enviromentInfo = clientInfo[currentEnviroment];
         currentClientVersion = enviromentInfo.Version;
         assetVersion = enviromentInfo.AssetVersion;
@@ -236,6 +248,7 @@ public class ClientBuilder : EditorWindow
 
     private void ApplySettings()
     {
+        if (AddressableAssetSettingsDefaultObject.Settings == null) Debug.LogError("Setting is null");
         AddressableAssetSettingsDefaultObject.Settings.activeProfileId = assetProfileId;
         AddressableAssetSettingsDefaultObject.Settings.profileSettings.SetValue(assetProfileId, AssetVersionLabel, assetVersion);
         clientInfo.CurrentEnviroment = currentEnviroment;
