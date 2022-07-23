@@ -28,8 +28,8 @@ public class FormattedTextComponent : UIComponent<FormattedTextComponent.Entity>
             {
                 param = new object[] { value }
             };
-            OnSetEntity();
         }
+        OnSetEntity();
     }
 
     public void SetEntity(params object[] param)

@@ -32,4 +32,10 @@ public class UIComponentHorseBreedProgressType : UIComponent<UIComponentHorseBre
             progress = this.entity.progress
         });
     }
+
+    public void SetProgress(float progress)
+    {
+        this.entity.progress = progress;
+        OnSetEntity();
+    }
 }	

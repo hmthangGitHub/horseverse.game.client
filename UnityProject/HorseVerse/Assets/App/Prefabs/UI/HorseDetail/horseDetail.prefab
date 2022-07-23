@@ -340,6 +340,7 @@ GameObject:
   - component: {fileID: 2467051021557279176}
   - component: {fileID: 4811668881512588452}
   - component: {fileID: 5746662434661682997}
+  - component: {fileID: 936797438961968532}
   m_Layer: 5
   m_Name: horseDetail
   m_TagString: Untagged
@@ -439,6 +440,23 @@ MonoBehaviour:
   speedProgressBarWithBonus: {fileID: 2506121888883172286}
   powerProgressBarWithBonus: {fileID: 3855248671517609540}
   technicallyProgressBarWithBonus: {fileID: 8308843792280622781}
+  earning: {fileID: 2166263543563085381}
+--- !u!114 &936797438961968532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291696931125795789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a77f3676d9f4d042a670ba0a001fa09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progressBarWithBonuses:
+  - {fileID: 2506121888883172286}
+  - {fileID: 3855248671517609540}
+  - {fileID: 8308843792280622781}
   earning: {fileID: 2166263543563085381}
 --- !u!1 &1823697766474784108
 GameObject:

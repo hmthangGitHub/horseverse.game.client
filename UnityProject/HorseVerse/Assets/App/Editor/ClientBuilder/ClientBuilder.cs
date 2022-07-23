@@ -189,7 +189,7 @@ public class ClientBuilder : EditorWindow
         {
             var scenes = EditorBuildSettings.scenes.Select(x => x.path).ToArray();
             BuildPipeline.BuildPlayer(scenes,
-                                      $"{Application.dataPath.Replace("Assets", "")}/Builds/{currentClientVersion}/{currentEnviroment}/{UnityEditor.EditorUserBuildSettings.activeBuildTarget}/{GetAssetTypeAsString(assetBuildMode)}/{Application.productName}_{currentEnviroment}_{currentClientVersion}{GetFileExtension()}",
+                                      $"{Application.dataPath.Replace("Assets", "")}Builds/{currentClientVersion}/{currentEnviroment}/{UnityEditor.EditorUserBuildSettings.activeBuildTarget}/{GetAssetTypeAsString(assetBuildMode)}/{Application.productName}_{currentEnviroment}_{currentClientVersion}{GetFileExtension()}",
                                       EditorUserBuildSettings.activeBuildTarget,
                                       BuildOptions.None);
         }

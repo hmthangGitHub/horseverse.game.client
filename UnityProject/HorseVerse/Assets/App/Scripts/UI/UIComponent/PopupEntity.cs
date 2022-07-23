@@ -23,18 +23,17 @@ public abstract class PopupEntity<T> : PopupEntity, IUIComponent<T>, IPopupEntit
 
     protected virtual UniTask AnimationIn()
     {
-        DefaultIn();
         return UniTask.CompletedTask;
     }
 
     protected virtual UniTask AnimationOut()
     {
-        DefaultOut();
         return UniTask.CompletedTask;
     }
 
     public async UniTask In()
     {
+        DefaultIn();
         this.gameObject.SetActive(true);
         await AnimationIn();
         await UniTask.CompletedTask;
@@ -51,6 +50,7 @@ public abstract class PopupEntity<T> : PopupEntity, IUIComponent<T>, IPopupEntit
     {
         await AnimationOut();
         this.gameObject.SetActive(false);
+        DefaultOut();
     }
 
     private void DefaultOut()

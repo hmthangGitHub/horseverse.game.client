@@ -15,6 +15,7 @@ public class UIHorseModelLoader : UIComponent<UIHorseModelLoader.Entity>
         public Quaternion rotation;
     }
 
+    public GameObject horseIntro3DContainer;
     public GameObject horsePosition;
     private CancellationTokenSource cts;
     private GameObject horse;
@@ -43,6 +44,8 @@ public class UIHorseModelLoader : UIComponent<UIHorseModelLoader.Entity>
         {
             cts.SafeCancelAndDispose();
             cts = new CancellationTokenSource();
+            horseIntro3DContainer.transform.parent = default;
+
             if (horsePosition.transform.childCount > 0)
             {
                 Destroy(horsePosition.transform.GetChild(0).gameObject);
@@ -84,5 +87,6 @@ public class UIHorseModelLoader : UIComponent<UIHorseModelLoader.Entity>
         {
             PrimitiveAssetLoader.UnloadAssetAtPath(oldHorse);
         }
+        GameObject.Destroy(horseIntro3DContainer);
     }
 }	
