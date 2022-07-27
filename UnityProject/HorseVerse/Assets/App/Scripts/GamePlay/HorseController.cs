@@ -1,130 +1,143 @@
 ﻿using DG.Tweening;
 using PathCreation;
 using System;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
-// Moves along a path at constant speed.
-// Depending on the end of path instruction, will either loop, reverse, or stop at the end of the path.
 public class HorseController : MonoBehaviour
 {
-    private PathCreator pathCreator;
-    public PathCreator PathCreator
+    private HorseInGameData horseInGameData;
+    public void SetHorseData(HorseInGameData horseInGameData)
     {
-        get => pathCreator; 
-        set
-        {
-            pathCreator = value;
-            CalculateRotation(0);
-        }
+        this.horseInGameData = horseInGameData;
+
+        playerIndicator.SetActive(horseInGameData.IsPlayer);
+        CalculateRotation(0);
+        CalculatePosition(0);
+        OnFinishTrackEvent += horseInGameData.OnFinishTrack;
     }
 
-    public float averageSpeed = 24;
-    private float currentOffset = 0;
-    public float CurrentOffset
-    {
-        get => currentOffset; set
-        {
-            currentOffset = value;
-            CalculatePosition(0);
-        }
-    }
+    public bool IsPlayer => horseInGameData.IsPlayer;
+    private float CurrentOffset => horseInGameData.CurrentOffset;
+    public int TopInRaceMatch => horseInGameData.TopInRaceMatch;
+    public float CurrentRaceProgressWeight => currentTargetIndex * 1000 - DistanceToCurrentTarget();
+    public int InitialLane => horseInGameData.InitialLane;
+    private PathCreator PathCreator => horseInGameData.PathCreator;
+    private (Vector3 target, float time)[] PredefineTargets => horseInGameData?.PredefineTargets;
 
-    public float rayCastDistance = 2.0f;
-    public float sideRayCastDistance = 1.0f;
-    public Vector3 offset = new Vector3(0.0f, 1.264721f, 0.0f);
-    public float timeToFinish = 50.0f;
-    public float currentTimeToFinish = 50.0f;
-    public float lap = 1.0f;
+    private event Action OnFinishTrackEvent = ActionUtility.EmptyAction.Instance;
 
-    public int top;
-    public float currentRaceTime = 0.0f;
-    public AnimationCurve[] speedCurve;
-    public AnimationCurve currentCurve;
-    public AnimationCurve defaultCurve;
-    public float averageTimeToFinish;
-    public float timeOffset = 0.0f;
-
-    public GameObject playerIndicator;
-
-    private bool isPlayer = false;
-    public float normalizePath;
-    public event Action OnFinishTrackEvent = ActionUtility.EmptyAction.Instance;
-    public bool IsPlayer { get => isPlayer; set { 
-            isPlayer = value;
-            playerIndicator.SetActive(isPlayer);
-        } }
-
-
-    public int Lane;
-
-    private bool isStartRace = false;
+    private Transform _transform;
+    private Transform Transform => _transform ?? this.transform;
+    private int currentTargetIndex = -1;
+    private bool isStart;
     private Animator animator;
+
+    [SerializeField] private GameObject playerIndicator;
+    [SerializeField] NavMeshAgent navMeshAgent;
+
+#if UNITY_EDITOR
+    private GameObject target;
+    public GameObject Target => target ??= new GameObject($"{gameObject.name}_Target");
+    Color? color;
+    Color Color => color ??= UnityEngine.Random.ColorHSV();
+#endif
 
     private void Start()
     {
         animator = GetComponentInChildren<Animator>(true);
-        animator?.SetFloat("Speed", 0.0f);
-        animator?.Play("Idle");
+        animator.SetFloat("Speed", 0.0f);
+        animator.Play("Idle");
     }
 
     public void StartRace()
     {
-        animator?.Play("Movement", 0, UnityEngine.Random.insideUnitCircle.x);
-        animator?.SetFloat("Speed", 1.0f);
-        isStartRace = true;
+        animator.Play("Movement", 0, UnityEngine.Random.insideUnitCircle.x);
+        animator.SetFloat("Speed", 1.0f);
+        isStart = true;
+        ChangeTarget();
     }
 
-    void Update()
-    {
-        if (PathCreator != null && isStartRace)
-        {
-            currentRaceTime += Time.deltaTime;
-            if (currentRaceTime > currentTimeToFinish && timeOffset == 0)
-            {
-                OnFinishTrack();
-            }
-            var linearT = ((currentRaceTime + timeOffset) / (currentTimeToFinish));
-            normalizePath = currentCurve.Evaluate(linearT % 1);
-
-            CalculatePosition(normalizePath * lap);
-            CalculateRotation(normalizePath * lap);
-        }
-#if UNITY_EDITOR
-        DrawRay();
-#endif
-    }
-
-    public void CalculatePosition(float time)
+    private void CalculatePosition(float time)
     {
         var pos = PathCreator.path.GetPointAtTime(time, EndOfPathInstruction.Loop);
         transform.position = Vector3.Scale(new Vector3(1, 0, 1), (pos + transform.right * CurrentOffset));
     }
 
-    public void CalculateRotation(float time)
+    private void CalculateRotation(float time)
     {
         Quaternion rotationAtDistance = PathCreator.path.GetRotation(time, EndOfPathInstruction.Loop);
         transform.rotation = rotationAtDistance;
         transform.rotation = Quaternion.Euler(0, rotationAtDistance.eulerAngles.y, 0);
     }
 
-    private void OnFinishTrack()
-    {
-        timeOffset = averageTimeToFinish - timeToFinish;
-        currentTimeToFinish = averageTimeToFinish;
-        currentCurve = defaultCurve;
-        OnFinishTrackEvent.Invoke();
-    }
-
     public void Skip()
     {
-        OnFinishTrack();
-        currentRaceTime = averageTimeToFinish + timeOffset;
+        //OnFinishTrack();//TODO
+    }
+
+    public void StartRun()
+    {
+        isStart = true;
+        ChangeTarget();
+    }
+
+    private void Update()
+    {
+        if (isStart)
+        {
+            if (IsReachTarget())
+            {
+                if (IsLastWayPoint())
+                {
+                    OnFinishTrackEvent();
+                    OnFinishTrackEvent -= horseInGameData.OnFinishTrack;
+                }
+                ChangeTarget();
+            }
+
+        }
     }
 
 #if UNITY_EDITOR
-    private void DrawRay()
+    [SerializeField] private float totalTime = -1;
+    private float TotalTime => totalTime < 0 ? totalTime = (PredefineTargets?.Sum(x => x.time) ?? 0) : totalTime;
+
+    private void OnDrawGizmos()
     {
-        Debug.DrawLine(this.transform.position + offset, this.transform.position + this.transform.forward * this.rayCastDistance);
+        if (Application.isPlaying && UnityEditor.Selection.gameObjects.Contains(this.gameObject))
+        {
+            Gizmos.color = Color;
+            PredefineTargets?.ForEach(x => Gizmos.DrawSphere(x.target, 0.5f));
+            UnityEditor.Handles.Label(this.transform.position, $"Total Time {TotalTime}");
+            Debug.DrawLine(this.transform.position, Target.transform.position, Color);
+        }
     }
 #endif
+    private bool IsReachTarget()
+    {
+        return DistanceToCurrentTarget() < 1f;
+    }
+
+    private float DistanceToCurrentTarget()
+    {
+        return (Transform.position - PredefineTargets[currentTargetIndex].target).XZ().magnitude;
+    }
+
+    private bool IsLastWayPoint()
+    {
+        return currentTargetIndex == PredefineTargets.Length - 1;
+    }
+
+    private void ChangeTarget()
+    {
+        currentTargetIndex++;
+        currentTargetIndex %= PredefineTargets.Length;
+        navMeshAgent.destination = PredefineTargets[currentTargetIndex].target;
+        navMeshAgent.speed = (Transform.position - PredefineTargets[currentTargetIndex].target).magnitude / PredefineTargets[currentTargetIndex].time;
+#if UNITY_EDITOR
+        Target.transform.position = PredefineTargets[currentTargetIndex].target;
+#endif
+    }
 }

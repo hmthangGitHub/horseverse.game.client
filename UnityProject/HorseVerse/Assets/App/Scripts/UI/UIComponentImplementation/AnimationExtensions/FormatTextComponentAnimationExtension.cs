@@ -10,7 +10,7 @@ public static class FormatTextComponentAnimationExtension
     public static Tween CreateNumberAnimation<T>(this FormattedTextComponent formattedTextComponent, float duration, params int[] animationIndices)
     {
         var originalValues = formattedTextComponent.entity.param.Cast<T>().ToArray();
-        return SequenceExtentions.To(val =>
+        return DOTweenExtensions.To(val =>
         {
             for (int i = 0; i < originalValues.Length; i++)
             {

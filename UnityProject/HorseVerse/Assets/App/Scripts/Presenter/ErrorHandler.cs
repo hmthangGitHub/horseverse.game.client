@@ -1,13 +1,17 @@
 ﻿#define DEVELOPMENT
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ErrorHandler : IDisposable
 {
     public event Action OnError = ActionUtility.EmptyAction.Instance;
-    private string error = string.Empty;
-    private string stackTrace = string.Empty;
+    private string error => errorList[currentErrorIndex].error;
+    private string stackTrace => errorList[currentErrorIndex].stackTrace;
 
+    private List<(string error, string stackTrace)> errorList = new List<(string error, string stackTrace)>();
+    private int currentErrorIndex = 0;
     public ErrorHandler()
     {
         SubscribeEvents();
@@ -49,6 +53,12 @@ public class ErrorHandler : IDisposable
             GUILayout.Label(stackTrace);
             GUILayout.EndScrollView();
             GUILayout.BeginHorizontal();
+            if (GUILayout.Button($"<{currentErrorIndex}"))
+            {
+                currentErrorIndex--;
+                currentErrorIndex += errorList.Count;
+                currentErrorIndex %= errorList.Count;
+            }
             if (GUILayout.Button("OK"))
             {
                 OnError.Invoke();
@@ -66,6 +76,12 @@ public class ErrorHandler : IDisposable
 #else
                 Application.Quit();
 #endif
+            }
+
+            if (GUILayout.Button($"{errorList.Count - currentErrorIndex}>"))
+            {
+                currentErrorIndex++;
+                currentErrorIndex %= errorList.Count;
             }
 
             GUILayout.EndHorizontal();
@@ -93,7 +109,6 @@ public class ErrorHandler : IDisposable
     {
         if (type == LogType.Error || type == LogType.Exception)
         {
-
             if (condition.Contains("Exception"))
             {
                 ShowError(condition, stackTrace);
@@ -103,10 +118,14 @@ public class ErrorHandler : IDisposable
 
     private void ShowError(string condition, string stackTrace)
     {
-        UnityMessageForwarder.RemoveListener(UnityMessageForwarder.MessageType.OnGUI, OnGUIFunction);
-        UnityMessageForwarder.AddListener(UnityMessageForwarder.MessageType.OnGUI, OnGUIFunction);
-        this.error = condition;
-        this.stackTrace = stackTrace;
+        if(!errorList.Any())
+        {
+            UnityMessageForwarder.AddListener(UnityMessageForwarder.MessageType.OnGUI, OnGUIFunction);
+        }
+        if(errorList.Count < 999)
+        {
+            errorList.Add((condition, stackTrace));
+        }
     }
 
     private void UnsubcribeEvents()

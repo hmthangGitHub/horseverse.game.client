@@ -30,9 +30,9 @@ public class UIMainMenuAnimation : UISequenceAnimationBase
         return DOTween.Sequence()
                       .Append(((RectTransform)userInfoAndhorseBreed.transform).DOAnchorPosXFrom(-700, 0.25f))
                       .Join(((RectTransform)userInfoAndhorseBreed.transform).DOFade(0.0f, 1.0f, 0.25f))
-                      .Append(horseProgressList.instanceList.Select(x => SequenceExtentions.To(x.SetProgress, 0, x.entity.progress, 0.25f)).ToArray().AsSequence(false))
+                      .Append(horseProgressList.instanceList.Select(x => DOTweenExtensions.To(x.SetProgress, 0, x.entity.progress, 0.25f)).ToArray().AsSequence(false))
                       .Join(horseDetailAnimation.CreateAnimation())
-                      .Join(SequenceExtentions.To(levelProgress.SetProgress, 0.0f, levelProgress.entity.progress, 0.25f))
+                      .Join(DOTweenExtensions.To(levelProgress.SetProgress, 0.0f, levelProgress.entity.progress, 0.25f))
                       .Join(currentExp.CreateNumberAnimation<int>(0.25f, 0, 1))
                       .Join(energy.CreateNumberAnimation<int>(0.25f, 0, 1))
                       .Append(buttons.Select(x => ((RectTransform)x.transform).DOAnchorPosXFrom(600, 0.25f)).ToArray().AsSequence());

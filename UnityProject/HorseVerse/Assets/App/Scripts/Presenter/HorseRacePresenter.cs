@@ -33,8 +33,9 @@ public class HorseRacePresenter : IDisposable
     private MasterMapContainer masterMapContainer;
     private MasterMap masterMap;
     private MapSettings mapSettings;
-    private PathCreation.PathCreator path;
+    private TargetGenerator targetGenerator;
     private CancellationTokenSource cts;
+    private Scene mapScene;
 
     private IDIContainer Container { get; }
 
@@ -55,7 +56,7 @@ public class HorseRacePresenter : IDisposable
     private async UniTask GetMapSettings()
     {
         mapSettings = await PrimitiveAssetLoader.LoadAssetAsync<MapSettings>(masterMap.MapSettings, default);
-        path = GameObject.Instantiate(mapSettings.path, Vector3.zero, Quaternion.identity);
+        targetGenerator = GameObject.Instantiate(mapSettings.targetGenerator, Vector3.zero, Quaternion.identity);
     }
 
     public async UniTask PlayIntro()
@@ -65,7 +66,7 @@ public class HorseRacePresenter : IDisposable
         {
             await raceModeHorseIntroPresenter.ShowHorsesInfoIntroAsync(RaceMatchData.horseRaceTimes.Select(x => x.masterHorseId)
                                                                                                    .ToArray(), 
-                                                                        path.path.GetPointAtTime(0), 
+                                                                        targetGenerator.SimplyPath.path.GetPointAtTime(0), 
                                                                         Quaternion.identity);
         }
         await horseRaceManager.ShowWarmUpCamera();
@@ -86,12 +87,13 @@ public class HorseRacePresenter : IDisposable
                                                playerHorseIndex,
                                                RaceMatchData.horseRaceTimes.Select(x => x.time).ToArray(),
                                                1,
+                                               RaceMatchData.horseRaceTimes,
                                                default);
     }
 
     private async UniTask LoadRacingScene(CancellationToken token)
     {
-        await SceneAssetLoader.LoadSceneAsync(masterMap.MapPath, true, token : token);
+        mapScene = await SceneAssetLoader.LoadSceneAsync(masterMap.MapPath, true, token : token);
     }
 
     private async UniTask LoadUI()
@@ -128,6 +130,7 @@ public class HorseRacePresenter : IDisposable
 
     private void OnFinishTrack()
     {
+        horseRaceManager.OnFinishTrackEvent -= OnFinishTrack;
         OnFinishTrackAsync().Forget();
     }
 
@@ -154,21 +157,21 @@ public class HorseRacePresenter : IDisposable
     {
         var currentTimeScale = Time.timeScale;
         Time.timeScale = 0.0f;
-        await UniTask.Delay((int)(0.7f * 1000), ignoreTimeScale: true);
+        await UniTask.Delay((int)(1.0f * 1000), ignoreTimeScale: true);
         Time.timeScale = currentTimeScale;
     }
 
     public void UpdateRaceStatus()
     {
-        var positions = horseRaceManager.horseControllers.OrderByDescending(x => x.normalizePath)
+        var positions = horseRaceManager.horseControllers.OrderByDescending(x => x.CurrentRaceProgressWeight)
                                                              .Select(x => x)
                                                              .ToArray();
         for (int i = 0; i < positions.Length; i++)
         {
-            if (cachePositions[i] != positions[i].Lane)
+            if (cachePositions[i] != positions[i].InitialLane)
             {
-                uiHorseRaceStatus.playerList.ChangePosition(positions[i].Lane, i);
-                cachePositions[i] = positions[i].Lane;
+                uiHorseRaceStatus.playerList.ChangePosition(positions[i].InitialLane, i);
+                cachePositions[i] = positions[i].InitialLane;
             }
         }
     }
@@ -221,20 +224,29 @@ public class HorseRacePresenter : IDisposable
     public void Dispose()
     {
         cts.SafeCancelAndDispose();
+        horseRaceManager.Dispose();
         GameObject.Destroy(horseRaceManager?.gameObject);
         horseRaceManager = null;
-        GameObject.Destroy(path);
-        path = null;
+        GameObject.Destroy(targetGenerator);
+        targetGenerator = null;
 
         UILoader.SafeRelease(ref uiSpeedController);
         UILoader.SafeRelease(ref uiHorseRaceStatus);
         UILoader.SafeRelease(ref uiFlashScreen);
+        MasterLoader.SafeRelease(ref masterMapContainer);
 
-        MasterLoader.Unload<MasterMapContainer>();
-        SceneAssetLoader.UnloadAssetAtPath(masterMap.MapPath);
-        PrimitiveAssetLoader.UnloadAssetAtPath(masterMap.MapSettings);
+        if(mapScene != default)
+        {
+            SceneAssetLoader.UnloadAssetAtPath(masterMap.MapPath);
+            mapScene = default;
+        }    
+        
+        if(mapSettings != default)
+        {
+            PrimitiveAssetLoader.UnloadAssetAtPath(masterMap.MapSettings);
+            mapSettings = default;
+        }
 
-        masterMapContainer = default;
         masterMap = default;
         raceMatchData = default;
 

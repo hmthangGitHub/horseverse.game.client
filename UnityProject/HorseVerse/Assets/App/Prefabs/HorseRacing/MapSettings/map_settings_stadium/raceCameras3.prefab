@@ -34,7 +34,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10.37488, z: 10}
   m_Children: []
   m_Father: {fileID: 5073729071350838104}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &311306602
 MeshFilter:
@@ -176,7 +176,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activateCamera: {fileID: 2771604663208461116}
-  excludeVCam: {fileID: 0}
 --- !u!1 &1394788695
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +210,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10.37488, z: 10}
   m_Children: []
   m_Father: {fileID: 5073729071350838104}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1394788704
 MeshFilter:
@@ -353,7 +352,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activateCamera: {fileID: 7529348003520735300}
-  excludeVCam: {fileID: 0}
 --- !u!1 &1595266066
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,7 +386,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10.37488, z: 10}
   m_Children: []
   m_Father: {fileID: 5073729071350838104}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1595266075
 MeshFilter:
@@ -530,7 +528,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activateCamera: {fileID: 3980291035960573399}
-  excludeVCam: {fileID: 0}
 --- !u!1 &696365250356002813
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,12 +822,18 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_ShowDebugText: 1
-  m_ChildCameras: []
+  m_ChildCameras:
+  - {fileID: 6902628640749980023}
+  - {fileID: 6008568480340438682}
+  - {fileID: 8518989936825986828}
+  - {fileID: 6961138596463460394}
+  - {fileID: 4134849089823229046}
+  - {fileID: 944383496744599541}
   m_ActivateAfter: 0
   m_MinDuration: 0.5
   m_RandomizeChoice: 0
   m_DefaultBlend:
-    m_Style: 1
+    m_Style: 0
     m_Time: 1
     m_CustomCurve:
       serializedVersion: 2
@@ -838,7 +841,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  m_CustomBlends: {fileID: 11400000, guid: 9a12087c7d0edf945ab25665e93b264e, type: 2}
+  m_CustomBlends: {fileID: 0}
 --- !u!1 &1697404661142532643
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,7 +934,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10.37488, z: 10}
   m_Children: []
   m_Father: {fileID: 5073729071350838104}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &726638531813301579
 MeshFilter:
@@ -1073,7 +1076,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activateCamera: {fileID: 8449148280384268349}
-  excludeVCam: {fileID: 0}
 --- !u!1 &1840302519236625753
 GameObject:
   m_ObjectHideFlags: 0
@@ -1919,7 +1921,7 @@ GameObject:
   - component: {fileID: 5587455852072202633}
   - component: {fileID: 1663310489}
   m_Layer: 0
-  m_Name: front
+  m_Name: dollyFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1937,7 +1939,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10.374879, z: 10}
   m_Children: []
   m_Father: {fileID: 5073729071350838104}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4534031521830701029
 MeshFilter:
@@ -2079,7 +2081,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activateCamera: {fileID: 8759835897718547894}
-  excludeVCam: {fileID: 0}
 --- !u!1 &5239869548386769080
 GameObject:
   m_ObjectHideFlags: 0
@@ -2401,12 +2402,12 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 2094325962791190757}
   - {fileID: 595095236794074247}
   - {fileID: 815696218143553614}
   - {fileID: 1595266067}
   - {fileID: 1394788696}
   - {fileID: 311306594}
-  - {fileID: 2094325962791190757}
   m_Father: {fileID: 3622486050752028206}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2444,7 +2445,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10.37488, z: 10}
   m_Children: []
   m_Father: {fileID: 5073729071350838104}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6454839099973497834
 MeshFilter:
@@ -2586,7 +2587,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activateCamera: {fileID: 3244200881548169043}
-  excludeVCam: {fileID: 0}
 --- !u!1 &7529348003520735300
 GameObject:
   m_ObjectHideFlags: 0

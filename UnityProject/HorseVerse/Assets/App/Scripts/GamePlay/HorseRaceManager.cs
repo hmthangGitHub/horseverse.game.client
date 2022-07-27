@@ -15,13 +15,13 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
 
     public FreeCamera freeCamera;
     public RaceModeCameras raceCamera;
-    public PathCreation.PathCreator path;
+    public TargetGenerator targetGenerator;
     public WarmUpCamera warmUpCamera;
+    public PathCreation.PathCreator path => targetGenerator.SimplyPath;
 
     private string[] horseControllerModelPaths;
     private string mapSettingsPath;
 
-    public Transform[] transforms;
     public float[] timeToFinish;
 
     public uint laneNumber = 10;
@@ -32,7 +32,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
 
     public Transform horsePosition;
     public CinemachineTargetGroup horseGroup;
-    public float RaceTime => horseControllers.Min(x => x.currentTimeToFinish);
+    public float RaceTime { get; private set; }
 
     public int totalLap = 1;
     public float timeToFinishAround = 0.0f;
@@ -50,6 +50,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
                                          int playerHorseIndex,
                                          float[] times,
                                          int totalLap,
+                                         HorseRaceTime[] horseRaceTimes,
                                          CancellationToken token)
     {
         this.horseControllerModelPaths = horseControllerPaths;
@@ -59,7 +60,8 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         await LoadHorses(horseControllerPaths, token);
         await LoadMapSettings(token);
         CalculateRaceStat(times, totalLap);
-        SetHorseControllerStat(tops);
+        SetHorseControllerStat(tops, horseRaceTimes);
+        RaceTime = GetMinimumRaceTime(horseRaceTimes);
     }
 
     public async UniTask ShowFreeCamera()
@@ -105,7 +107,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
                                                   Vector3.zero,
                                                   Quaternion.identity,
                                                   transform);
-        path = Instantiate<PathCreation.PathCreator>(mapSettings.path, Vector3.zero,Quaternion.identity, transform);
+        targetGenerator = Instantiate<TargetGenerator>(mapSettings.targetGenerator, Vector3.zero,Quaternion.identity, transform);
         warmUpCamera = Instantiate<WarmUpCamera>(mapSettings.warmUpCamera, Vector3.zero, Quaternion.identity, transform);
 
         warmUpCamera.gameObject.SetActive(false);
@@ -132,7 +134,6 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         freeCamera.gameObject.SetActive(false);
         raceCamera.gameObject.SetActive(true);
         horseControllers.ForEach(x => x.StartRace());
-        horseControllers.FirstOrDefault(x => x.top == 1).OnFinishTrackEvent += OnFinishTrack;
     }
 
     private void CalculateRaceStat(float[] times, int totalLap)
@@ -140,7 +141,6 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         raceLength = path.path.length * path.transform.lossyScale.x;
         averageTimeToFinish = raceLength / averageSpeed * totalLap;
         timeToFinish = new float[times.Length];
-        //top = top.OrderBy(x => UnityEngine.Random.Range(-1.0f, 1.0f)).ToArray();
         for (int i = 0; i < timeToFinish.Length; i++)
         {
             timeToFinish[i] = averageTimeToFinish + UnityEngine.Random.Range(timeOffSet.x, timeOffSet.y);
@@ -148,32 +148,38 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         timeToFinish = timeToFinish.OrderBy(x => x).ToArray();
     }
 
-    private void SetHorseControllerStat(int[] top)
+    private void SetHorseControllerStat(int[] topInRaceMatch, HorseRaceTime[] horseRaceTimes)
     {
         for (int i = 0; i < horseControllers.Length; i++)
         {
+            var index = i;
             HorseController horseController = horseControllers[i];
-            horseController.PathCreator = this.path;
-            horseController.CurrentOffset = offSet + i * offsetPerLane;
-            horseController.top = top[i];
-            horseController.timeToFinish = timeToFinish[top[i] - 1];
-            horseController.currentTimeToFinish = horseController.timeToFinish;
-            horseController.averageTimeToFinish = averageTimeToFinish;
-            horseController.lap = totalLap;
-            horseController.IsPlayer = playerHorseIndex == i;
-            horseController.Lane = i;
-            horseController.currentCurve = RandomASppedCurve();
+            horseController.SetHorseData(new HorseInGameData()
+            {
+                PathCreator = this.path,
+                CurrentOffset = offSet + i * offsetPerLane,
+                TopInRaceMatch = topInRaceMatch[i],
+                IsPlayer = playerHorseIndex == i,
+                InitialLane = i,
+                OnFinishTrack = () => OnFinishTrack(topInRaceMatch[index]),
+                PredefineTargets = CalculatePredifineTarget(horseRaceTimes[i])
+            });
         }
     }
 
-    private AnimationCurve RandomASppedCurve()
+    private float GetMinimumRaceTime(HorseRaceTime[] horseRaceTimes)
     {
-        return AnimationCurveClamping.GenerateCurve(raceLength, maximumDistance, UnityEngine.Random.Range(times.x, times.y));
+        return horseRaceTimes.Min(x => x.raceSegments.Sum(x => x.waypoints.Sum(y => y.time)));
     }
 
-    private void OnFinishTrack()
+    private (Vector3 , float)[] CalculatePredifineTarget(HorseRaceTime horseRaceTime)
     {
-        OnFinishTrackEvent?.Invoke();
+        return targetGenerator.GenerateTargets(horseRaceTime.raceSegments);
+    }
+
+    private void OnFinishTrack(int topInGame)
+    {
+        OnFinishTrackEvent.Invoke();
     }
 
     public void Skip()
@@ -188,5 +194,6 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
     {
         this.horseControllerModelPaths.ToList().ForEach(x => PrimitiveAssetLoader.UnloadAssetAtPath(x));
         PrimitiveAssetLoader.UnloadAssetAtPath(mapSettingsPath);
+        Time.timeScale = 1;
     }
 }

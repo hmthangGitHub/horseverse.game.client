@@ -5,7 +5,7 @@ using UnityEngine;
 using DG.Tweening.Core;
 using System;
 
-public static class SequenceExtentions
+public static class DOTweenExtensions
 {
     public static Sequence Join(this Sequence sequence, Tween[] tweens)
     {
@@ -60,4 +60,6 @@ public static class SequenceExtentions
         return DOTween.To(val => setter(val), from, to, duration)
                       .OnKill(() => setter(reverseOnKill ? from : to));
     }
+
+
 }
