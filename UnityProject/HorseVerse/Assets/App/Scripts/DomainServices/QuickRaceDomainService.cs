@@ -84,17 +84,42 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
                             .Select(x => new HorseRaceTime()
                             {
                                 masterHorseId = x,
-                                time = 15 + UnityEngine.Random.Range(-1.0f, 1.0f)
+                                time = 15 + UnityEngine.Random.Range(-1.0f, 1.0f),
+                                raceSegments = GenerateRandomSegment()
                             })
                             .ToArray();
         }
 
-        await UniTask.Delay(10000);
+        await UniTask.Delay(1000);
         return new RaceMatchData()
         {
             horseRaceTimes = GetAllMasterHorseIds(),
             masterMapId = 10001002,
             mode = RaceMode.QuickMode
+        };
+    }
+
+    private RaceSegment[] GenerateRandomSegment()
+    {
+        return Enumerable.Range(0, 4)
+            .Select(x => GenerateRandomSegment(x, 2.0f))
+            .ToArray();
+    }
+
+    private RaceSegment GenerateRandomSegment(int id, float averageTime)
+    {
+        int numberSegment = 10;
+        return new RaceSegment()
+        {
+            id = id,
+            currentLane = UnityEngine.Random.Range(0, 8),
+            toLane = UnityEngine.Random.Range(0, 8),
+            waypoints = Enumerable.Range(1, numberSegment)
+            .Select(x => new WayPoints()
+            {
+                percentage = x * 0.1f,
+                time = averageTime + UnityEngine.Random.Range(-0.25f, 0.25f),
+            }).ToArray(),
         };
     }
 }

@@ -19,6 +19,12 @@ public class UIComponentProgressBar : UIComponent<UIComponentProgressBar.Entity>
         slider.value = this.entity.progress;
     }
 
+    public void SetProgress(float progress)
+    {
+        this.entity.progress = progress;
+        OnSetEntity();
+    }
+
     void Reset()
     {
         slider ??= this.GetComponent<Slider>();

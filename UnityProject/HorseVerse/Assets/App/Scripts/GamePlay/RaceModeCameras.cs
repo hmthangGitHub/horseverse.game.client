@@ -11,11 +11,6 @@ public class RaceModeCameras : MonoBehaviour
     {
         cinemachineClearShot.Follow = targetGroup.transform;
         cinemachineClearShot.LookAt = targetGroup.transform;
-        this.GetComponentsInChildren<CameraChangeTriggerer>().ToList().ForEach(x => x.targetGroup = targetGroup);
-    }
-
-    public void EnterIntroCamera()
-    {
-
+        this.GetComponentsInChildren<CameraChangeTriggerer>(true).ToList().ForEach(x => x.targetGroup = targetGroup);
     }
 }

@@ -122,7 +122,7 @@ namespace PathCreationEditor {
 
                     // If a point has been selected
                     if (handleIndexToDisplayAsTransform != -1) {
-                        EditorGUILayout.LabelField ("Selected Point:");
+                        EditorGUILayout.LabelField ($"Selected Point: {handleIndexToDisplayAsTransform}");
 
                         using (new EditorGUI.IndentLevelScope ()) {
                             var currentPosition = creator.bezierPath[handleIndexToDisplayAsTransform];
@@ -456,6 +456,7 @@ namespace PathCreationEditor {
                     bool highlightSegment = (i == selectedSegmentIndex && Event.current.shift && draggingHandleIndex == -1 && mouseOverHandleIndex == -1);
                     Color segmentCol = (highlightSegment) ? globalDisplaySettings.highlightedPath : globalDisplaySettings.bezierPath;
                     Handles.DrawBezier (points[0], points[3], points[1], points[2], segmentCol, null, 2);
+                    UnityEditor.Handles.Label(points[0], $"{i + 1}");
                 }
 
                 if (data.showPathBounds) {

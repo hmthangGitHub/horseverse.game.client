@@ -258,7 +258,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 881802503}
   m_LocalRotation: {x: 0.11906751, y: -0.55947685, z: 0.08161882, w: 0.8161783}
-  m_LocalPosition: {x: -282.66806, y: -95.49617, z: 87.64028}
+  m_LocalPosition: {x: -97.819786, y: 15.97121, z: 29.588507}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -563,6 +563,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1596991739 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4847346876780574497, guid: ffb6a2fe15129c84b8c668ce2cbf75ad, type: 3}
+  m_PrefabInstance: {fileID: 5547939179488926550}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5547939179488926550
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -570,6 +575,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1265037717}
     m_Modifications:
+    - target: {fileID: 2019800300, guid: ffb6a2fe15129c84b8c668ce2cbf75ad, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.03717
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019800300, guid: ffb6a2fe15129c84b8c668ce2cbf75ad, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.2930117
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019800300, guid: ffb6a2fe15129c84b8c668ce2cbf75ad, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.9225998
+      objectReference: {fileID: 0}
+    - target: {fileID: 3855246016540870635, guid: ffb6a2fe15129c84b8c668ce2cbf75ad, type: 3}
+      propertyPath: horseIntro3DContainer
+      value: 
+      objectReference: {fileID: 1596991739}
     - target: {fileID: 6098877880156309231, guid: ffb6a2fe15129c84b8c668ce2cbf75ad, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

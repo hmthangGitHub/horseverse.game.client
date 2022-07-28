@@ -21,6 +21,7 @@ public class HorseRaceTest : MonoBehaviour
                                                UnityEngine.Random.Range(0, 7),
                                                Enumerable.Range(1, 8).Select(x => UnityEngine.Random.Range(49.5f, 50.5f)).ToArray(),
                                                1,
+                                               null,
                                                default);
 
         await horseRaceManager.ShowFreeCamera();

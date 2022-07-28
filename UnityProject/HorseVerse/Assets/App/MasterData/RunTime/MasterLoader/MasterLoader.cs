@@ -15,14 +15,23 @@ public static class MasterLoader
         return masterContainer;
     }
 
-    private static string GetMasterPath<TMasterContainer>() where TMasterContainer : IMasterContainer, new()
+    private static string GetMasterPath<TMasterContainer>() where TMasterContainer : IMasterContainer
     {
         return $"MasterData/{typeof(TMasterContainer)}".Replace("Container", "");
     }
 
-    public static void Unload<TMasterContainer>() where TMasterContainer : IMasterContainer, new()
+    public static void Unload<TMasterContainer>() where TMasterContainer : IMasterContainer
     {
         PrimitiveAssetLoader.UnloadAssetAtPath(GetMasterPath<TMasterContainer>());
+    }
+
+    public static void SafeRelease<TMasterContainer>(ref TMasterContainer masterContainer) where TMasterContainer : IMasterContainer
+    {
+        if (masterContainer != null)
+        {
+            masterContainer = default;
+            MasterLoader.Unload<TMasterContainer>();
+        }
     }
 }
  

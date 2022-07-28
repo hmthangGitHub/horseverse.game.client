@@ -30,6 +30,8 @@ public class UIMainMenu : PopupEntity<UIMainMenu.Entity>
     public UIComponentMainMenuUserInfo userInfo;
     public UIComponentHorseBreedInfoAndDetail horseInfo;
 
+    public UIMainMenuAnimation mainMenuAnimation;
+
     protected override void OnSetEntity()
     {
         breedingBtn.SetEntity(this.entity.breedingBtn);
@@ -41,5 +43,15 @@ public class UIMainMenu : PopupEntity<UIMainMenu.Entity>
         trainingBtn.SetEntity(this.entity.trainingBtn);
         userInfo.SetEntity(this.entity.userInfo);
         horseInfo.SetEntity(this.entity.horseInfo);
+    }
+
+    protected override UniTask AnimationIn()
+    {
+        return mainMenuAnimation.AnimationIn();
+    }
+
+    protected override UniTask AnimationOut()
+    {
+        return mainMenuAnimation.AnimationOut();
     }
 }

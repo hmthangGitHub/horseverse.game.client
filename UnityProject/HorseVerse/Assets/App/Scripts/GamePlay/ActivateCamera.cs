@@ -6,7 +6,6 @@ using UnityEngine;
 public class ActivateCamera : MonoBehaviour
 {
     public GameObject activateCamera;
-    public CinemachineVirtualCamera excludeVCam;
 
     public void Activate()
     {
@@ -14,5 +13,15 @@ public class ActivateCamera : MonoBehaviour
         {
             item.gameObject.SetActive(item.gameObject == activateCamera);
         }
-    }    
+
+        var parent = this.transform.parent;
+        var nextTrigger = this.transform.GetSiblingIndex();
+        nextTrigger++;
+        nextTrigger %= parent.childCount;
+
+        for (int i = 0; i < parent.childCount; i++)
+        {
+            parent.GetChild(i).gameObject.SetActive(i == nextTrigger);
+        }
+    }
 }

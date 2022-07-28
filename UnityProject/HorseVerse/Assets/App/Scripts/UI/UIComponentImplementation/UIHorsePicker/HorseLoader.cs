@@ -15,9 +15,10 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
         public string horse;
     }
 
-    public GameObject horsePosition;
+    public Transform horseContainer;
+    public Transform horsePosition;
+
     private CancellationTokenSource cts;
-    public new CinemachineVirtualCamera camera;
     private GameObject horse;
     private string oldHorse = string.Empty;
 
@@ -28,14 +29,7 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
 
     private void OnEnable()
     {
-        AnimatateHorse().Forget();
-    }
-
-    private async UniTask AnimatateHorse()
-    {
-        SetHorseAnimation();
-        await UniTask.DelayFrame(2);
-        AnimateCamera();
+        SetHorseAnimationIfNeed();
     }
 
     private async UniTask LoadHorseAsync()
@@ -44,29 +38,47 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
         {
             cts.SafeCancelAndDispose();
             cts = new CancellationTokenSource();
-            if (horsePosition.transform.childCount > 0)
-            {
-                Destroy(horsePosition.transform.GetChild(0).gameObject);
-                PrimitiveAssetLoader.UnloadAssetAtPath(oldHorse);
-            }
-            var horsePrefab = await PrimitiveAssetLoader.LoadAssetAsync<GameObject>(this.entity.horse, cts.Token);
-            oldHorse = this.entity.horse;
-            horse = Instantiate<GameObject>(horsePrefab, Vector3.zero, Quaternion.identity, horsePosition.transform);
-            horse.transform.localScale = Vector3.one;
-            horse.transform.localPosition = Vector3.zero;
 
-            SetLayerRecursively(horse, LayerMask.NameToLayer("UI"));
-
-            if (this.gameObject.activeInHierarchy)
-            {
-                AnimatateHorse().Forget();
-            } 
+            DetachHorseContainer();
+            RemoveOldHorse();
+            await LoadNewHorse();
+            SetHorseAnimationIfNeed();
         }
     }
 
-    private void AnimateCamera()
+    private void SetHorseAnimationIfNeed()
     {
-        //camera.GetCinemachineComponent<CinemachineOrbitalTransposer>().m_XAxis.m_InputAxisValue = 0.1f;
+        if (this.gameObject.activeInHierarchy)
+        {
+            SetHorseAnimation();
+        }
+    }
+
+    private async UniTask LoadNewHorse()
+    {
+        var horsePrefab = await PrimitiveAssetLoader.LoadAssetAsync<GameObject>(this.entity.horse, cts.Token);
+        oldHorse = this.entity.horse;
+
+        horse = Instantiate<GameObject>(horsePrefab, Vector3.zero, Quaternion.identity, horsePosition.transform);
+        horse.transform.localScale = Vector3.one;
+        horse.transform.localPosition = Vector3.zero;
+
+        SetLayerRecursively(horse, LayerMask.NameToLayer("RenderTexture"));
+    }
+
+    private void RemoveOldHorse()
+    {
+        if (horsePosition.transform.childCount > 0)
+        {
+            Destroy(horsePosition.transform.GetChild(0).gameObject);
+            PrimitiveAssetLoader.UnloadAssetAtPath(oldHorse);
+        }
+    }
+
+    private void DetachHorseContainer()
+    {
+        horseContainer.transform.parent = null;
+        horseContainer.transform.localScale = Vector3.one;
     }
 
     private void SetHorseAnimation()
@@ -90,10 +102,11 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
 
     private void OnDestroy()
     {
-        cts?.Cancel();
+        cts.SafeCancelAndDispose();
         if (horse != null)
         {
             PrimitiveAssetLoader.UnloadAssetAtPath(oldHorse);
         }
+        GameObject.Destroy(this.horseContainer.gameObject);
     }
 }

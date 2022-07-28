@@ -854,7 +854,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activateCamera: {fileID: 1785193188998227037}
-  excludeVCam: {fileID: 0}
 --- !u!1 &2999760315752646440
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,7 +888,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10.37488, z: 10}
   m_Children: []
   m_Father: {fileID: 6779461204880998889}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2999760315752646435
 MeshFilter:
@@ -1031,7 +1030,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activateCamera: {fileID: 1141660155068640629}
-  excludeVCam: {fileID: 0}
 --- !u!1 &2999760316601727579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,7 +1064,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10.37488, z: 10}
   m_Children: []
   m_Father: {fileID: 6779461204880998889}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2999760316601727570
 MeshFilter:
@@ -1208,7 +1206,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activateCamera: {fileID: 2206094793985479582}
-  excludeVCam: {fileID: 0}
 --- !u!1 &2999760316804163358
 GameObject:
   m_ObjectHideFlags: 0
@@ -1243,7 +1240,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10.37488, z: 10}
   m_Children: []
   m_Father: {fileID: 6779461204880998889}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2999760316804163369
 MeshFilter:
@@ -1385,7 +1382,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activateCamera: {fileID: 4745901207991109133}
-  excludeVCam: {fileID: 0}
 --- !u!1 &3226867051433528057
 GameObject:
   m_ObjectHideFlags: 0
@@ -1413,12 +1409,12 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 3797027346209451692}
   - {fileID: 2441929469060803278}
   - {fileID: 2517694154203289095}
   - {fileID: 2999760316601727578}
   - {fileID: 2999760316804163345}
   - {fileID: 2999760315752646443}
-  - {fileID: 3797027346209451692}
   m_Father: {fileID: 2009992759241338983}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1574,7 +1570,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10.37488, z: 10}
   m_Children: []
   m_Father: {fileID: 6779461204880998889}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2572896757551330050
 MeshFilter:
@@ -1716,7 +1712,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activateCamera: {fileID: 6692399097668044404}
-  excludeVCam: {fileID: 0}
 --- !u!1 &3892523784196372148
 GameObject:
   m_ObjectHideFlags: 0
@@ -2045,12 +2040,18 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_ShowDebugText: 1
-  m_ChildCameras: []
+  m_ChildCameras:
+  - {fileID: 8532731607706576702}
+  - {fileID: 8846181479395541203}
+  - {fileID: 6888469121226096965}
+  - {fileID: 5276992494133407331}
+  - {fileID: 1207146445762521663}
+  - {fileID: 2646522101841646012}
   m_ActivateAfter: 0
   m_MinDuration: 0.5
   m_RandomizeChoice: 0
   m_DefaultBlend:
-    m_Style: 1
+    m_Style: 0
     m_Time: 1
     m_CustomCurve:
       serializedVersion: 2
@@ -2058,7 +2059,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  m_CustomBlends: {fileID: 11400000, guid: 9a12087c7d0edf945ab25665e93b264e, type: 2}
+  m_CustomBlends: {fileID: 0}
 --- !u!1 &4480851379361946730
 GameObject:
   m_ObjectHideFlags: 0
@@ -2809,7 +2810,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10.374879, z: 10}
   m_Children: []
   m_Father: {fileID: 6779461204880998889}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1679094686522452396
 MeshFilter:
@@ -2951,7 +2952,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activateCamera: {fileID: 5778252785857629183}
-  excludeVCam: {fileID: 0}
 --- !u!1 &8670127395977885382
 GameObject:
   m_ObjectHideFlags: 0
@@ -3160,7 +3160,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10.37488, z: 10}
   m_Children: []
   m_Father: {fileID: 6779461204880998889}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8085504956762086819
 MeshFilter:
@@ -3302,7 +3302,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activateCamera: {fileID: 334671129157181722}
-  excludeVCam: {fileID: 0}
 --- !u!1001 &2818023455111895519
 PrefabInstance:
   m_ObjectHideFlags: 0
