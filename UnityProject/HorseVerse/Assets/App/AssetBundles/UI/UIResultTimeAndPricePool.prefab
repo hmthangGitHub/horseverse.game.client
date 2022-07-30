@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 7912448326234047246}
   - component: {fileID: 6921099338147913330}
   - component: {fileID: 2983566033681907537}
+  - component: {fileID: 1275859977624128689}
   m_Layer: 5
   m_Name: UIResultTimeAndPricePool
   m_TagString: Untagged
@@ -139,8 +140,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 6921099338147913330}
+  animation: {fileID: 1275859977624128689}
   totalSeconds: {fileID: 5792028501959669971}
   prizePool: {fileID: 2558989643604340369}
+--- !u!114 &1275859977624128689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997592468895451025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 593f6732e8543df43a1e07d6cb21fc1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  container: {fileID: 733737938980488802}
+  prizePool: {fileID: 2558989643604340369}
+  timeSpan: {fileID: 5792028501959669971}
 --- !u!1 &1209162182596172428
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,7 +329,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: -10.4, y: -27.5}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 380.9666, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6180030562852303553
 CanvasRenderer:
@@ -376,7 +393,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -450,6 +467,7 @@ GameObject:
   - component: {fileID: 733737938980488802}
   - component: {fileID: 7195516616456192549}
   - component: {fileID: 5120064369090681407}
+  - component: {fileID: 4976718269299392385}
   m_Layer: 5
   m_Name: container
   m_TagString: Untagged
@@ -497,6 +515,19 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &4976718269299392385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4330354497551752184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
 --- !u!1 &4342785668083468307
 GameObject:
   m_ObjectHideFlags: 0

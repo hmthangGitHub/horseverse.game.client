@@ -1,22 +1,24 @@
-using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
-public class UIHorseDetailAnimation : MonoBehaviour
+public class UIHorseDetailAnimation : UISequenceAnimationBase
 {
-    public UIComponentProgressBarWithBonus[] progressBarWithBonuses;
-    public FormattedTextComponent earning;
-
-    public Tween CreateAnimation()
+    public UIComponentHorseDetailAnimation horseDetailAnimation;
+    public RectTransform levelUpBtn;
+    protected override Tween CreateInAnimation()
     {
         return DOTween.Sequence()
-                      .Join(progressBarWithBonuses.Select(x => DOTweenExtensions.To(x.progressBar.SetProgress,
-                                                                                     0,
-                                                                                     x.entity.progressBar.progress,
-                                                                                     0.25f)).ToArray())
-                      .Join(progressBarWithBonuses.Select(x => x.bonus.CreateNumberAnimation<float>(0.25f)).ToArray())
-                      .Join(earning.CreateNumberAnimation<int>(0.25f, 0));
+            .Append(horseDetailAnimation.RectTransform().DOAnchorPosXFrom(900, 0.20f))
+            .Append(horseDetailAnimation.CreateAnimation())
+            .Append(levelUpBtn.DOFade(0.0f, 1.0f, 0.25f));
+    }
+
+    protected override Tween CreateOutAnimation()
+    {
+        return DOTween.Sequence()
+            .Append(levelUpBtn.DOFade(1.0f, 0.0f, 0.25f, true))
+            .Append(horseDetailAnimation.RectTransform().DOAnchorPosXToThenReverse(900, 0.20f));
     }
 }

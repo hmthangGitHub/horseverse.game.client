@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class UIHorseTraining : PopupEntity<UIHorseTraining.Entity>
@@ -21,7 +22,6 @@ public class UIHorseTraining : PopupEntity<UIHorseTraining.Entity>
     public UIComponentTraningProcessingState processingState;
     public UIComponentTraningHorseSelectSumaryList horseSelectSumaryList;
     public ButtonComponent backBtn;
-
     protected override void OnSetEntity()
     {
         horseDetail.SetEntity(this.entity.horseDetail);
@@ -35,5 +35,12 @@ public class UIHorseTraining : PopupEntity<UIHorseTraining.Entity>
     public void ChangeState(UIComponentTraningState.TraningState state)
     {
         this.traningStates.SetEntity(state);
+    }
+
+    public void SetHorseDetailEntity(UIComponentHorseDetail.Entity entityHorseDetail)
+    {
+        entity.horseDetail = entityHorseDetail;
+        horseDetail.SetEntity(entity.horseDetail);
+        animation.PlayAnimationAsync(horseDetail.GetComponent<UIComponentHorseDetailAnimation>().CreateAnimation).Forget();
     }
 }	

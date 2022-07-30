@@ -83,8 +83,7 @@ public class UIHorseTrainingPresenter : IDisposable
     {
         if (model.before.MasterHorseId != model.after.MasterHorseId)
         {
-            uiHorseTraining.entity.horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(model.after.MasterHorseId);
-            uiHorseTraining.horseDetail.SetEntity(uiHorseTraining.entity.horseDetail);
+            uiHorseTraining.SetHorseDetailEntity(HorseDetailEntityFactory.InstantiateHorseDetailEntity(model.after.MasterHorseId));
         }
 
         if (model.before.TraningTimeStamp == 0 && model.after.TraningTimeStamp != 0)

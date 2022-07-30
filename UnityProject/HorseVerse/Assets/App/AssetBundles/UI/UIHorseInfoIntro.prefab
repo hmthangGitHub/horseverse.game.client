@@ -279,6 +279,7 @@ GameObject:
   - component: {fileID: 3536235792321730018}
   - component: {fileID: 7251914894582812198}
   - component: {fileID: 621310988911011641}
+  - component: {fileID: 7134253895665262879}
   m_Layer: 5
   m_Name: UIHorseInfoIntro
   m_TagString: Untagged
@@ -332,10 +333,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 7251914894582812198}
+  animation: {fileID: 7134253895665262879}
   outerBtn: {fileID: 3114924857909872673}
   skipAllBtn: {fileID: 6865874210165322383}
   horseName: {fileID: 7810641406858354338}
   gate: {fileID: 2875123588711932799}
+--- !u!114 &7134253895665262879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682671298715166456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e817178faa9994642815fe1429da611b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  container: {fileID: 1472364549459248334}
+  horseInfoContainer: {fileID: 3962015947277467645}
+  gate: {fileID: 7020075591715186202}
+  horseName: {fileID: 7810641406858354338}
+  stats: {fileID: 8376747468695257879}
 --- !u!1 &2692386606574674585
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,6 +934,7 @@ GameObject:
   - component: {fileID: 3962015947277467645}
   - component: {fileID: 731207104945534250}
   - component: {fileID: 744050692383013001}
+  - component: {fileID: 1639544796366252178}
   m_Layer: 5
   m_Name: horseInfoContainer
   m_TagString: Untagged
@@ -982,6 +1002,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1639544796366252178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8325569254481260987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
 --- !u!1 &8325913295777417078
 GameObject:
   m_ObjectHideFlags: 0

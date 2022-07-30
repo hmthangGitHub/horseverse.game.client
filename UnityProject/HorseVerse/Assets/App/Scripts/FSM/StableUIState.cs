@@ -14,7 +14,7 @@ public class StableUIState : InjectedBState
     public override void Enter()
     {
         base.Enter();
-        UIHorse3DViewPresenter.HideHorse3DView();
+        UIHorse3DViewPresenter.HideHorse3DViewAsync().Forget();
         uiHorseStablePresenter ??= new UIHorseStablePresenter(Container);
         uiHorseStablePresenter.OnViewHorseDetail += OnViewHorseDetail;
         UIHeaderPresenter.ShowHeaderAsync(true).Forget();
@@ -24,6 +24,12 @@ public class StableUIState : InjectedBState
 
     private void OnBack()
     {
+        OnBackAsync().Forget();
+    }
+
+    private async UniTaskVoid OnBackAsync()
+    {
+        await uiHorseStablePresenter.OutAsync();
         this.GetMachine<StableState>().GetMachine<InitialState>().ChangeState<MainMenuState>();
     }
 

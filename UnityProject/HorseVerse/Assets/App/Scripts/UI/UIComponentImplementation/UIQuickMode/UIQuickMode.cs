@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class UIQuickMode : PopupEntity<UIQuickMode.Entity>
@@ -39,5 +40,12 @@ public class UIQuickMode : PopupEntity<UIQuickMode.Entity>
         horseSelectSumaryList.SetEntity(this.entity.horseSelectSumaryList);
         findMatchBtnVisible.SetEntity(this.entity.findMatchBtnVisible);
         cancelMatchBtnVisible.SetEntity(this.entity.cancelMatchBtnVisible);
+    }
+
+    public void SetHorseDetailEntity(UIComponentHorseDetail.Entity entityHorseDetail)
+    {
+        entity.horseDetail = entityHorseDetail;
+        horseDetail.SetEntity(entity.horseDetail);
+        animation.PlayAnimationAsync(horseDetail.GetComponent<UIComponentHorseDetailAnimation>().CreateAnimation).Forget();
     }
 }	

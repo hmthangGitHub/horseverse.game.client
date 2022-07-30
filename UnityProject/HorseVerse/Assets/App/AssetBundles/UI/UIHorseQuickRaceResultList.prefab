@@ -185,9 +185,9 @@ RectTransform:
   m_Father: {fileID: 1971961321}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 264.70386, y: -36.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 264.70386, y: 0}
   m_SizeDelta: {x: 530, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &209497896
@@ -1088,9 +1088,9 @@ RectTransform:
   m_Father: {fileID: 209497895}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 265, y: -36.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 265, y: 0}
   m_SizeDelta: {x: 530, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1493280197
@@ -1595,6 +1595,7 @@ GameObject:
   - component: {fileID: 4111526828682004115}
   - component: {fileID: 1689210393075999059}
   - component: {fileID: 6296324421012417810}
+  - component: {fileID: 1077756767}
   m_Layer: 5
   m_Name: UIHorseQuickRaceResultList
   m_TagString: Untagged
@@ -1648,8 +1649,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 1689210393075999059}
+  animation: {fileID: 1077756767}
   quickRaceResultList: {fileID: 1971961323}
   outerBtn: {fileID: 7542869835538611113}
+--- !u!114 &1077756767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3893822525547515311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e26d57c62e1b74486875bc4a47f530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layoutGroup: {fileID: 1971961322}
+  quickRaceResultList: {fileID: 1971961323}
+  container: {fileID: 1949516273938699989}
 --- !u!1 &9162392225774982225
 GameObject:
   m_ObjectHideFlags: 0

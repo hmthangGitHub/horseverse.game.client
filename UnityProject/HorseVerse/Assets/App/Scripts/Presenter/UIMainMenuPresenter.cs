@@ -40,13 +40,13 @@ public class UIMainMenuPresenter : IDisposable
         uiMainMenu ??= await UILoader.Instantiate<UIMainMenu>(token: cts.Token);
         uiMainMenu.SetEntity(new UIMainMenu.Entity()
         {
-            betmodeBtn = new ButtonComponent.Entity(OnBetModeBtn),
+            betmodeBtn = new ButtonComponent.Entity(() => TransitionToAsync(OnBetModeBtn).Forget()),
             //breedingBtn = new ButtonComponent.Entity(OnBreedingBtn),
             //inventoryBtn = new ButtonComponent.Entity(OnInventoryBtn),
             //libraryBtn = new ButtonComponent.Entity(OnLibraryBtn),
-            playBtn = new ButtonComponent.Entity(OnPlayBtn),
-            stableBtn = new ButtonComponent.Entity(OnStableBtn),
-            trainingBtn = new ButtonComponent.Entity(OnTraningBtn),
+            playBtn = new ButtonComponent.Entity(() => TransitionToAsync(OnPlayBtn).Forget()),
+            stableBtn = new ButtonComponent.Entity(() => TransitionToAsync(OnStableBtn).Forget()),
+            trainingBtn = new ButtonComponent.Entity(() => TransitionToAsync(OnTraningBtn).Forget()),
             horseInfo = new UIComponentHorseBreedInfoAndDetail.Entity()
             {
                 horseBreedProgressList = new UIComponentHorseBreedProgressList.Entity()
@@ -88,6 +88,12 @@ public class UIMainMenuPresenter : IDisposable
             }
         });
         uiMainMenu.In().Forget();
+    }
+
+    private async UniTask TransitionToAsync(Action action)
+    {
+        await uiMainMenu.Out();
+        action();
     }
 
     public void Dispose()

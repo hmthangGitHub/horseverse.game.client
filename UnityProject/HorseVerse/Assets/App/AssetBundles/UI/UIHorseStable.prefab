@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 7363923685276769351}
   - component: {fileID: 2393006353316549527}
   - component: {fileID: 7762955752773293556}
+  - component: {fileID: 1343814822}
   m_Layer: 5
   m_Name: UIHorseStable
   m_TagString: Untagged
@@ -143,8 +144,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 2393006353316549527}
+  animation: {fileID: 1343814822}
   stableHorseAvatarList: {fileID: 765017854}
   backBtn: {fileID: 4300844199455517697}
+--- !u!114 &1343814822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079512633865430060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3141689295f0ace40a7ec58ac7c62cce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layoutGroup: {fileID: 765017855}
+  stableHorseAvatarList: {fileID: 765017854}
 --- !u!1 &2291633384272731950
 GameObject:
   m_ObjectHideFlags: 0

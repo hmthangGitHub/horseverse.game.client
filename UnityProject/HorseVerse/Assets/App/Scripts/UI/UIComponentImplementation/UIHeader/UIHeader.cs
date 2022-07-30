@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class UIHeader : PopupEntity<UIHeader.Entity>
@@ -21,7 +22,8 @@ public class UIHeader : PopupEntity<UIHeader.Entity>
     public FormattedTextComponent energy;
     public ButtonComponent backBtn;
     public IsVisibleComponent backBtnVisible;
-
+    public UIHeaderAnimation uiHeaderAnimation;
+    
     protected override void OnSetEntity()
     {
         userName.SetEntity(this.entity.userName);
@@ -40,5 +42,15 @@ public class UIHeader : PopupEntity<UIHeader.Entity>
     public void SetBackBtnCallBack(Action callback)
     {
         backBtn.SetEntity(callback);
-    } 
+    }
+
+    protected override UniTask AnimationIn()
+    {
+        return uiHeaderAnimation.AnimationIn();
+    }
+
+    protected override UniTask AnimationOut()
+    {
+        return uiHeaderAnimation.AnimationOut();
+    }
 }

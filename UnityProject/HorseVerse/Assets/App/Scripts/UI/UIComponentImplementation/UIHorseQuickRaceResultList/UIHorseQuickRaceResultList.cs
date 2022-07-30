@@ -42,28 +42,4 @@ public class UIHorseQuickRaceResultList : PopupEntity<UIHorseQuickRaceResultList
             _ => UIComponentQuickRaceResultType.ResultType.other
         };
     }
-
-    private void OnEnable()
-    {
-        RectTransform layoutRoot = transform as RectTransform;
-        LayoutRebuilder.ForceRebuildLayoutImmediate(layoutRoot);
-        layoutRoot.ForceUpdateRectTransforms();
-        TryEnableLayoutBuilder().Forget();
-    }
-
-    protected async override UniTask AnimationIn()
-    {
-        await base.AnimationIn();
-        TryEnableLayoutBuilder().Forget();
-    }
-
-    private async UniTaskVoid TryEnableLayoutBuilder()
-    {
-        await UniTask.DelayFrame(2,cancellationToken: this.GetCancellationTokenOnDestroy());
-        this.quickRaceResultList.gameObject.SetActive(false);
-        this.quickRaceResultList.gameObject.SetActive(true);
-        await UniTask.Yield(this.GetCancellationTokenOnDestroy());  
-        this.quickRaceResultList.gameObject.SetActive(false);
-        this.quickRaceResultList.gameObject.SetActive(true);
-    }
 }	

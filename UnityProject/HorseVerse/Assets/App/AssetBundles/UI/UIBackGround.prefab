@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5229287391692455840}
   - component: {fileID: 8265518584176033506}
   - component: {fileID: 5742413090591370465}
+  - component: {fileID: 7179380491836255140}
   m_Layer: 5
   m_Name: UIBackGround
   m_TagString: Untagged
@@ -29,7 +30,6 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1517581251478411583}
   - {fileID: 959131295414099454}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -64,6 +64,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 8265518584176033506}
+  animation: {fileID: 7179380491836255140}
+--- !u!114 &7179380491836255140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3598418444634009535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31efe324f290ca641a43579e14256c40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  container: {fileID: 959131295414099454}
 --- !u!1 &6102095813157925235
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,9 +106,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1517581251478411583}
   m_Father: {fileID: 5229287391692455840}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -146,11 +161,11 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6342499909593884508}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 5229287391692455840}
+  m_Father: {fileID: 959131295414099454}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

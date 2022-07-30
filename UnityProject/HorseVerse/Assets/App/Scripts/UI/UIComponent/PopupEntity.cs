@@ -12,6 +12,8 @@ public class PopupEntity : UIComponent
 public abstract class PopupEntity<T> : PopupEntity, IUIComponent<T>, IPopupEntity<T> where T : new()
 {
     public CanvasGroup canvasGroup;
+    public UISequenceAnimationBase animation;
+
     public T entity { get; protected set; }
 
     public void SetEntity(T entity)
@@ -23,20 +25,20 @@ public abstract class PopupEntity<T> : PopupEntity, IUIComponent<T>, IPopupEntit
 
     protected virtual UniTask AnimationIn()
     {
-        return UniTask.CompletedTask;
+        return animation?.AnimationIn() ?? UniTask.CompletedTask;
     }
 
     protected virtual UniTask AnimationOut()
     {
-        return UniTask.CompletedTask;
+        return animation?.AnimationOut() ?? UniTask.CompletedTask;
     }
 
     public async UniTask In()
     {
+        gameObject.SetActive(true);
+        await UniTask.Yield(PlayerLoopTiming.LastPostLateUpdate);
         DefaultIn();
-        this.gameObject.SetActive(true);
         await AnimationIn();
-        await UniTask.CompletedTask;
     }
 
     private void DefaultIn()
@@ -48,7 +50,7 @@ public abstract class PopupEntity<T> : PopupEntity, IUIComponent<T>, IPopupEntit
 
     public async UniTask Out()
     {
-        await AnimationOut();
+        await AnimationOut().AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
         this.gameObject.SetActive(false);
         DefaultOut();
     }

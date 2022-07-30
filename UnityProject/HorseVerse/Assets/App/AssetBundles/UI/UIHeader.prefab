@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 4783557916862708419}
   - component: {fileID: 1676079212925581649}
   - component: {fileID: 6694215566369516339}
+  - component: {fileID: 666211247}
   m_Layer: 5
   m_Name: UIHeader
   m_TagString: Untagged
@@ -252,6 +253,20 @@ MonoBehaviour:
   energy: {fileID: 4850524478917203453}
   backBtn: {fileID: 1842977916807347966}
   backBtnVisible: {fileID: 3182468608603480501}
+  uiHeaderAnimation: {fileID: 666211247}
+--- !u!114 &666211247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4783557916862708428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6e2f953cfc4bc147b7c84d475ae7ee1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  container: {fileID: 4850524478158976373}
 --- !u!1 &4850524477345253436
 GameObject:
   m_ObjectHideFlags: 0
