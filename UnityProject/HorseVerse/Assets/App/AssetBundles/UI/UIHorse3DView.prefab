@@ -160,6 +160,7 @@ GameObject:
   - component: {fileID: 4777185726210397641}
   - component: {fileID: 1687658703497844315}
   - component: {fileID: 4777185726210397640}
+  - component: {fileID: 5758788604700789202}
   m_Layer: 5
   m_Name: UIHorse3DView
   m_TagString: Untagged
@@ -214,7 +215,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 1687658703497844315}
+  animation: {fileID: 5758788604700789202}
   horseLoader: {fileID: 4862167823592637977}
+--- !u!114 &5758788604700789202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4777185726210397638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ef34a2967fea54dbd324624433cf49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiDissolve: {fileID: 1268592351}
 --- !u!1 &4866121505390690234
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,6 +241,7 @@ GameObject:
   - component: {fileID: 5868445752506493287}
   - component: {fileID: 5821196505495741873}
   - component: {fileID: 159472070854888556}
+  - component: {fileID: 1268592351}
   m_Layer: 5
   m_Name: HorseImage
   m_TagString: Untagged
@@ -287,6 +303,34 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &1268592351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4866121505390690234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce76b7a490bd74f34a2f2752641aea24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectFactor: 0
+  m_Width: 1
+  m_Softness: 0.477
+  m_Color: {r: 0.83214664, g: 0.85863465, b: 0.9433962, a: 1}
+  m_ColorMode: 2
+  m_TransitionTexture: {fileID: 2800000, guid: 3e04c247fb2604af186173fce0bc62de, type: 3}
+  m_EffectArea: 0
+  m_KeepAspectRatio: 0
+  m_Player:
+    play: 0
+    initialPlayDelay: 0
+    duration: 1
+    loop: 0
+    loopDelay: 0
+    updateMode: 0
+  m_Reverse: 0
 --- !u!1001 &5588795730465981924
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -296,23 +340,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3787930242729280721, guid: 8aa441a095ada6f4484b055f32685cb0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -24.315237
+      value: -19.580812
       objectReference: {fileID: 0}
     - target: {fileID: 3787930242729280721, guid: 8aa441a095ada6f4484b055f32685cb0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.9658203
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3787930242729280721, guid: 8aa441a095ada6f4484b055f32685cb0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0000028986015
+      value: 0.0000023342234
       objectReference: {fileID: 0}
     - target: {fileID: 3787930242729280721, guid: 8aa441a095ada6f4484b055f32685cb0, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.03583469
+      value: 0.03583483
       objectReference: {fileID: 0}
     - target: {fileID: 3787930242729280721, guid: 8aa441a095ada6f4484b055f32685cb0, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.035834692
+      value: -0.035834834
       objectReference: {fileID: 0}
     - target: {fileID: 3787930242889397656, guid: 8aa441a095ada6f4484b055f32685cb0, type: 3}
       propertyPath: m_Pivot.x
@@ -404,23 +448,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3787930244075276855, guid: 8aa441a095ada6f4484b055f32685cb0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0000020325942
+      value: 0.0000014301146
       objectReference: {fileID: 0}
     - target: {fileID: 3787930244075276855, guid: 8aa441a095ada6f4484b055f32685cb0, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.03583469
+      value: 0.03583483
       objectReference: {fileID: 0}
     - target: {fileID: 3787930244075276855, guid: 8aa441a095ada6f4484b055f32685cb0, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.035834692
+      value: -0.035834834
       objectReference: {fileID: 0}
     - target: {fileID: 3787930244075276855, guid: 8aa441a095ada6f4484b055f32685cb0, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -11.106955
+      value: -8.944198
       objectReference: {fileID: 0}
     - target: {fileID: 3787930244075276855, guid: 8aa441a095ada6f4484b055f32685cb0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5.7470703
+      value: 4.6289062
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8aa441a095ada6f4484b055f32685cb0, type: 3}

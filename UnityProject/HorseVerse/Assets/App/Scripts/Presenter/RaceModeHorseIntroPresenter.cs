@@ -78,7 +78,6 @@ public class RaceModeHorseIntroPresenter : IDisposable
             uiHorse3DIntro.entity.horseModelLoader.horse = masterHorse.ModelPath;
             uiHorse3DIntro.horseModelLoader.SetEntity(uiHorse3DIntro.entity.horseModelLoader);
         }
-
         
         uiHorseInfoIntro.In().Forget();
 

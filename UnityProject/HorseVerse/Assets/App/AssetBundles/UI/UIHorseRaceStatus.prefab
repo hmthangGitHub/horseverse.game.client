@@ -1825,6 +1825,7 @@ GameObject:
   - component: {fileID: 6522158410589962165}
   - component: {fileID: 6522158410589962166}
   - component: {fileID: 6522158410589962164}
+  - component: {fileID: 3410126417712330213}
   m_Layer: 5
   m_Name: UIHorseRaceStatus
   m_TagString: Untagged
@@ -1887,6 +1888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 6522158410589962166}
+  animation: {fileID: 3410126417712330213}
   playerList: {fileID: 6522158410881460979}
   timeLine: {fileID: 6522158410896680402}
   currentTimer: 0
@@ -1896,6 +1898,20 @@ MonoBehaviour:
   timeText: {fileID: 6522158411058450946}
   betSlot: {fileID: 7490963110244965705}
   isBetSlotVisible: {fileID: 5475778592612921041}
+--- !u!114 &3410126417712330213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6522158410589962162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8307d67d48f6f474c958a72e93d324d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  container: {fileID: 6522158409758030578}
+  duration: 0.25
 --- !u!1 &6522158410654393667
 GameObject:
   m_ObjectHideFlags: 0

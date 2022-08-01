@@ -48,7 +48,7 @@ public class UIBetModePresenter : IDisposable
         uiBetMode ??= await UILoader.Instantiate<UIBetMode>(token: cts.Token);
         uiBetMode.SetEntity(new UIBetMode.Entity()
         {
-            backBtn = new ButtonComponent.Entity(OnBack),
+            backBtn = new ButtonComponent.Entity(() => TransitionAsync(OnBack).Forget()),
             betAmouthsContainer = new UIComponentBetAmouthsContainer.Entity()
             {
                 betAmouthIndicator = new UIComponentBetAmouthIndicator.Entity()
@@ -117,7 +117,7 @@ public class UIBetModePresenter : IDisposable
                             masterMapId = 10001002,
                             mode = RaceMode.BetMode
                         });
-                        OnToRaceMode.Invoke();
+                        TransitionAsync(OnToRaceMode).Forget();
                     },
                     utcEndTimeStamp = (int)BetMatchRepository.Current.BetMatchTimeStamp
                 },
@@ -202,6 +202,12 @@ public class UIBetModePresenter : IDisposable
             }
         };
 #endif
+    }
+
+    private async UniTaskVoid TransitionAsync(Action action)
+    {
+        await uiBetMode.Out();
+        action();
     }
 
     private void OnSelectBetAmouthAtIndex(int index)

@@ -1599,6 +1599,7 @@ MonoBehaviour:
   levelProgress: {fileID: 976476472}
   currentExp: {fileID: 8298068678945458708}
   energy: {fileID: 306318075116835286}
+  buttonLayOutGroup: {fileID: 2503413919177738478}
 --- !u!1 &2820524769846862991
 GameObject:
   m_ObjectHideFlags: 0
@@ -2175,9 +2176,9 @@ RectTransform:
   m_Father: {fileID: 6337525306053572668}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 2480.5, y: -1114.0692}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 225, y: 225}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2820524770175106354
@@ -2580,9 +2581,9 @@ RectTransform:
   m_Father: {fileID: 6337525306053572668}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 2480.5, y: -673.02954}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 225, y: 225}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2820524771165595374
@@ -3036,9 +3037,9 @@ RectTransform:
   m_Father: {fileID: 6337525306053572668}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 2480.5, y: -231.98984}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 225, y: 225}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5287576925274432318
@@ -3860,10 +3861,10 @@ RectTransform:
   m_Father: {fileID: 2820524771373769358}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -6}
-  m_SizeDelta: {x: 2688, y: -165.94092}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -198.67505, y: -6}
+  m_SizeDelta: {x: 397.3501, y: -165.94092}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2503413919177738478
 MonoBehaviour:
@@ -3872,7 +3873,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7133071239148127112}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
   m_Name: 

@@ -29,7 +29,7 @@ public class BetModeUIState : InjectedBState
         uiBetModePresenter = new UIBetModePresenter(Container);
         uiBetModePresenter.OnBack += OnBackToMainMenu;
         uiBetModePresenter.OnToRaceMode += OnToRaceMode;
-        UIHorse3DViewPresenter.HideHorse3DView();
+        await UIHorse3DViewPresenter.HideHorse3DViewAsync();
         await uiBetModePresenter.ShowUIBetModeAsync();
     }
 

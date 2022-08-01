@@ -67,8 +67,8 @@ public class UIQuickRacePresenter : IDisposable
     {
         if (model.before.MasterHorseId != model.after.MasterHorseId)
         {
-            uiQuickMode.entity.horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(model.after.MasterHorseId);
-            uiQuickMode.horseDetail.SetEntity(uiQuickMode.entity.horseDetail);
+            uiQuickMode.SetHorseDetailEntity(HorseDetailEntityFactory.InstantiateHorseDetailEntity(model.after.MasterHorseId));
+
         }
     }
 

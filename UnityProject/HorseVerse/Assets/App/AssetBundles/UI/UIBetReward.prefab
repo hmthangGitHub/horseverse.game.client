@@ -504,6 +504,7 @@ GameObject:
   - component: {fileID: 4877238808537900582}
   - component: {fileID: 4999728234734275933}
   - component: {fileID: 4950227480324322444}
+  - component: {fileID: 6709798800842955802}
   m_Layer: 5
   m_Name: UIBetReward
   m_TagString: Untagged
@@ -557,5 +558,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 4999728234734275933}
+  animation: {fileID: 6709798800842955802}
   reward: {fileID: 5211754975374130898}
   outerBtn: {fileID: 9059623101505706146}
+--- !u!114 &6709798800842955802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8644430455736096752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 126b255b453dc4e4dacf7e3753db0825, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  container: {fileID: 1833770064194714236}
+  effectContainer: {fileID: 7545402497961312862}
+  reward: {fileID: 5211754975374130898}
+  icon: {fileID: 7866283571375165076}

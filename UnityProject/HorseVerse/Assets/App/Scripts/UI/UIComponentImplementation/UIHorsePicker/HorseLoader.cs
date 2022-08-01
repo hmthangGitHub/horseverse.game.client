@@ -107,6 +107,10 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
         {
             PrimitiveAssetLoader.UnloadAssetAtPath(oldHorse);
         }
-        GameObject.Destroy(this.horseContainer.gameObject);
+
+        if (this.horseContainer != default)
+        {
+            GameObject.Destroy(this.horseContainer.gameObject);    
+        }
     }
 }

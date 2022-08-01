@@ -392,6 +392,7 @@ GameObject:
   - component: {fileID: 374810755623435245}
   - component: {fileID: 7203766163933767834}
   - component: {fileID: 3974846165913115100}
+  - component: {fileID: 5097409836108463825}
   m_Layer: 5
   m_Name: UIHorseDetail
   m_TagString: Untagged
@@ -445,8 +446,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 7203766163933767834}
+  animation: {fileID: 5097409836108463825}
   horseDetail: {fileID: 4831434227922379184}
   levelUpBtn: {fileID: 1600121344567863880}
+--- !u!114 &5097409836108463825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8470585117317137015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d370af874cc4c304d9743ef3e725c51e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horseDetailAnimation: {fileID: 129655038871046929}
+  levelUpBtn: {fileID: 4750722202990450202}
 --- !u!1001 &922266902522064517
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -594,5 +610,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 553b105b242a8e4488be348a49df3ccf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &129655038871046929 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 936797438961968532, guid: 2c8d19656c3c1f54da493414f6104926, type: 3}
+  m_PrefabInstance: {fileID: 922266902522064517}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a77f3676d9f4d042a670ba0a001fa09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

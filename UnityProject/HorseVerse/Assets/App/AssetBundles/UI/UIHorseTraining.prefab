@@ -2111,6 +2111,7 @@ GameObject:
   - component: {fileID: 5625419401657212099}
   - component: {fileID: 3902531851376377161}
   - component: {fileID: 1672276311502217232}
+  - component: {fileID: 662452181691786528}
   m_Layer: 5
   m_Name: UIHorseTraining
   m_TagString: Untagged
@@ -2164,12 +2165,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 3902531851376377161}
+  animation: {fileID: 662452181691786528}
   horseDetail: {fileID: 532478929776204939}
   traningStates: {fileID: 8461887214742783557}
   prepareState: {fileID: 750911343081520498}
   processingState: {fileID: 4162617117678331045}
   horseSelectSumaryList: {fileID: 1579185590}
   backBtn: {fileID: 847268551258064560}
+--- !u!114 &662452181691786528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4297067179066024845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 470a54babce9f4449a56ae3de666aece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horseSelectAnimation: {fileID: 7240418342287604959}
+  horseDetailAnimation: {fileID: 5018045195933283882}
+  trainingStates: {fileID: 5205065745933396045}
 --- !u!1 &4844348502751737601
 GameObject:
   m_ObjectHideFlags: 0
@@ -3294,6 +3311,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c8d19656c3c1f54da493414f6104926, type: 3}
+--- !u!224 &3968388902363181204 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 9201150237149897514, guid: 2c8d19656c3c1f54da493414f6104926, type: 3}
+  m_PrefabInstance: {fileID: 5234169898491941822}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &532478929776204939 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5746662434661682997, guid: 2c8d19656c3c1f54da493414f6104926, type: 3}
@@ -3305,11 +3327,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 553b105b242a8e4488be348a49df3ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &3968388902363181204 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 9201150237149897514, guid: 2c8d19656c3c1f54da493414f6104926, type: 3}
+--- !u!114 &5018045195933283882 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 936797438961968532, guid: 2c8d19656c3c1f54da493414f6104926, type: 3}
   m_PrefabInstance: {fileID: 5234169898491941822}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a77f3676d9f4d042a670ba0a001fa09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7875285711575685568
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3440,6 +3468,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7875285711092066850, guid: 9a857116304fde94a8c3ae59aaae437d, type: 3}
   m_PrefabInstance: {fileID: 7875285711575685568}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7240418342287604959 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 662452181691786527, guid: 9a857116304fde94a8c3ae59aaae437d, type: 3}
+  m_PrefabInstance: {fileID: 7875285711575685568}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c47a5792863e7ac4793f62af13f5a30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1579185590 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7875285712680905846, guid: 9a857116304fde94a8c3ae59aaae437d, type: 3}

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class UIBetMode : PopupEntity<UIBetMode.Entity>
@@ -21,7 +22,8 @@ public class UIBetMode : PopupEntity<UIBetMode.Entity>
     public UIComponentDoubleBetList doubleBetSlotList;
     public UIComponentQuickBetButtonsContainer quickBetButtonsContainer;
     public UIComponentBetAmouthsContainer betAmouthsContainer;
-
+    public UIBetModeAnimation uiBetModeAnimation;
+    
     protected override void OnSetEntity()
     {
         header.SetEntity(this.entity.header);
@@ -30,5 +32,15 @@ public class UIBetMode : PopupEntity<UIBetMode.Entity>
         doubleBetSlotList.SetEntity(this.entity.doubleBetSlotList);
         quickBetButtonsContainer.SetEntity(this.entity.quickBetButtonsContainer);
         betAmouthsContainer.SetEntity(this.entity.betAmouthsContainer);
+    }
+
+    protected override UniTask AnimationIn()
+    {
+        return uiBetModeAnimation.AnimationIn();
+    }
+
+    protected override UniTask AnimationOut()
+    {
+        return uiBetModeAnimation.AnimationOut();
     }
 }	

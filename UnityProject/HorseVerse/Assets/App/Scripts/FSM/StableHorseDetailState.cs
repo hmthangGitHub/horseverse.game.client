@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class StableHorseDetailState : InjectedBState
@@ -26,6 +27,12 @@ public class StableHorseDetailState : InjectedBState
 
     private void OnBack()
     {
+        OnBackAsync().Forget();
+    }
+
+    private async UniTask OnBackAsync()
+    {
+        await uiHorseStablePresenter.OutAsync();
         this.Machine.ChangeState<StableUIState>();
     }
 

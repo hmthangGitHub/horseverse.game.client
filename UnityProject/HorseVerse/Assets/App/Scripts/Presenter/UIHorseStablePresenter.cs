@@ -46,7 +46,13 @@ public class UIHorseStablePresenter : IDisposable
     private async UniTaskVoid OnSelectHorseAsync(long masterHorseId)
     {
         await QuickRaceDomainService.ChangeHorse(masterHorseId);
+        await OutAsync();
         OnViewHorseDetail.Invoke();
+    }
+
+    public UniTask OutAsync()
+    {
+        return uiHorseStable?.Out() ?? UniTask.CompletedTask;
     }
 
     public void Dispose()

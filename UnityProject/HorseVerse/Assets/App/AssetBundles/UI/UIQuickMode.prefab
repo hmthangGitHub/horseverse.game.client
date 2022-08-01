@@ -990,6 +990,7 @@ GameObject:
   - component: {fileID: 3764579121107192919}
   - component: {fileID: 324900829823346594}
   - component: {fileID: 1433892470592029509}
+  - component: {fileID: 1656516277226243655}
   m_Layer: 5
   m_Name: UIQuickMode
   m_TagString: Untagged
@@ -1043,6 +1044,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 324900829823346594}
+  animation: {fileID: 1656516277226243655}
   backBtn: {fileID: 3219542245009546189}
   findMatchEnergyCost: {fileID: 4502738398607390598}
   findMatchBtn: {fileID: 3836613193963919860}
@@ -1052,6 +1054,21 @@ MonoBehaviour:
   findMatchTimer: {fileID: 6671331331221366378}
   horseDetail: {fileID: 8718895672971907541}
   horseSelectSumaryList: {fileID: 7455885081418579090}
+--- !u!114 &1656516277226243655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2873065881654893532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 470a54babce9f4449a56ae3de666aece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horseSelectAnimation: {fileID: 217225994790024699}
+  horseDetailAnimation: {fileID: 4197264883159137140}
+  trainingStates: {fileID: 4224097955607012411}
 --- !u!1 &5252724623690917024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1449,6 +1466,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90d0953bcd9b84349b743dd04e468459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &217225994790024699 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 662452181691786527, guid: 9a857116304fde94a8c3ae59aaae437d, type: 3}
+  m_PrefabInstance: {fileID: 734717154378338532}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c47a5792863e7ac4793f62af13f5a30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7455885083082324678 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7875285711092066850, guid: 9a857116304fde94a8c3ae59aaae437d, type: 3}
@@ -1579,6 +1607,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c8d19656c3c1f54da493414f6104926, type: 3}
+--- !u!114 &4197264883159137140 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 936797438961968532, guid: 2c8d19656c3c1f54da493414f6104926, type: 3}
+  m_PrefabInstance: {fileID: 3981043957252038368}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a77f3676d9f4d042a670ba0a001fa09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8718895672971907541 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5746662434661682997, guid: 2c8d19656c3c1f54da493414f6104926, type: 3}

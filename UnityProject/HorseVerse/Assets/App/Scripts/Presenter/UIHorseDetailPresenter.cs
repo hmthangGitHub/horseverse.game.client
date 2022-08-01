@@ -1,23 +1,20 @@
 using Cysharp.Threading.Tasks;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading;
-using UnityEngine;
 
 public class UIHorseDetailPresenter : IDisposable
 {
-    private UIHorseDetail uiHorseDetail = default;
+    private UIHorseDetail uiHorseDetail;
     private CancellationTokenSource cts;
-    private IDIContainer container;
+    private readonly IDIContainer container;
 
-    private HorseDetailEntityFactory horseDetailEntityFactor = default;
+    private HorseDetailEntityFactory horseDetailEntityFactor;
     private HorseDetailEntityFactory HorseDetailEntityFactory => horseDetailEntityFactor ??= container.Inject<HorseDetailEntityFactory>();
-    private IReadOnlyUserDataRepository userDataRepository = default;
+    private IReadOnlyUserDataRepository userDataRepository;
     private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
-    private IHorseDetailDomainService horseDetailDomainService = default;
+    private IHorseDetailDomainService horseDetailDomainService;
     private IHorseDetailDomainService HorseDetailDomainService => horseDetailDomainService ??= container.Inject<IHorseDetailDomainService>();
-    private IHorseRepository horseRepository = default;
+    private IHorseRepository horseRepository;
     private IHorseRepository HorseRepository => horseRepository ??= container.Inject<IHorseRepository>();
 
     public UIHorseDetailPresenter(IDIContainer container)
@@ -37,6 +34,11 @@ public class UIHorseDetailPresenter : IDisposable
             levelUpBtn = new ButtonComponent.Entity(() => OnLevelUpAsync().Forget())
         });
         await uiHorseDetail.In();
+    }
+
+    public UniTask OutAsync()
+    {
+        return uiHorseDetail?.Out() ?? UniTask.CompletedTask;
     }
 
     private void HorseRepositoryOnModelUpdate((HorseDataModel before, HorseDataModel after) model)
