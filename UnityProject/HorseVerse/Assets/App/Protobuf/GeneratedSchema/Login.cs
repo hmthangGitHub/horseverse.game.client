@@ -4,6 +4,7 @@
 // </auto-generated>
 #pragma warning disable 1591, 0612, 3021
 #region Designer generated code
+
 using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
@@ -24,29 +25,29 @@ namespace io.hverse.game.protogen {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "Cgtsb2dpbi5wcm90bxoMcGxheWVyLnByb3RvIqMBCgpDbGllbnRJbmZvEhAK",
-            "CHFyY29kZUlkGAEgASgJEhMKC2FjY2Vzc1Rva2VuGAIgASgJEg0KBWVtYWls",
+            "CHFyQ29kZUlkGAEgASgJEhMKC2FjY2Vzc1Rva2VuGAIgASgJEg0KBWVtYWls",
             "GAMgASgJEhAKCHBhc3N3b3JkGAQgASgJEg8KB3ZlcnNpb24YBSABKAkSEAoI",
             "ZGV2aWNlSWQYBiABKAkSGwoIcGxhdGZvcm0YByABKA4yCS5QbGF0Zm9ybRIN",
             "CgVtb2RlbBgIIAEoCSJOCgxMb2dpblJlcXVlc3QSHwoKY2xpZW50SW5mbxgB",
             "IAEoCzILLkNsaWVudEluZm8SHQoJbG9naW5UeXBlGAIgASgOMgouTG9naW5U",
-            "eXBlIlEKDUxvZ2luUmVzcG9uc2USDgoGcmVzdWx0GAEgASgIEg8KB21lc3Nh",
-            "Z2UYAiABKAkSHwoKcGxheWVySW5mbxgDIAEoCzILLlBsYXllckluZm8ifgoM",
-            "TG9naW5NZXNzYWdlEiIKB21zZ1R5cGUYASABKA4yES5Mb2dpbk1lc3NhZ2VU",
-            "eXBlEiMKDGxvZ2luUmVxdWVzdBgCIAEoCzINLkxvZ2luUmVxdWVzdBIlCg1s",
-            "b2dpblJlc3BvbnNlGAMgASgLMg4uTG9naW5SZXNwb25zZSo5ChBMb2dpbk1l",
-            "c3NhZ2VUeXBlEhEKDUxPR0lOX1JFUVVFU1QQABISCg5MT0dJTl9SRVNQT05T",
-            "RRABKmsKCUxvZ2luVHlwZRIUChBMT0dJTl9UWVBFX1FVSUNLEAASFQoRTE9H",
-            "SU5fVFlQRV9RUkNPREUQARIbChdMT0dJTl9UWVBFX0FDQ0VTU19UT0tFThAC",
-            "EhQKEExPR0lOX1RZUEVfRU1BSUwQAyogCghQbGF0Zm9ybRILCgdBTkRST0lE",
-            "EAASBwoDSU9TEAFCSAoXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5CE0xvZ2lu",
-            "TWVzc2FnZUZhY3RvcnmqAhdpby5odmVyc2UuZ2FtZS5wcm90b2dlbmIGcHJv",
-            "dG8z"));
+            "eXBlImUKDUxvZ2luUmVzcG9uc2USDgoGcmVzdWx0GAEgASgIEg8KB21lc3Nh",
+            "Z2UYAiABKAkSHwoKcGxheWVySW5mbxgDIAEoCzILLlBsYXllckluZm8SEgoK",
+            "a2V5RW5jcnlwdBgEIAEoCSJ+CgxMb2dpbk1lc3NhZ2USIgoHbXNnVHlwZRgB",
+            "IAEoDjIRLkxvZ2luTWVzc2FnZVR5cGUSIwoMbG9naW5SZXF1ZXN0GAIgASgL",
+            "Mg0uTG9naW5SZXF1ZXN0EiUKDWxvZ2luUmVzcG9uc2UYAyABKAsyDi5Mb2dp",
+            "blJlc3BvbnNlKjkKEExvZ2luTWVzc2FnZVR5cGUSEQoNTE9HSU5fUkVRVUVT",
+            "VBAAEhIKDkxPR0lOX1JFU1BPTlNFEAEqawoJTG9naW5UeXBlEhQKEExPR0lO",
+            "X1RZUEVfUVVJQ0sQABIVChFMT0dJTl9UWVBFX1FSQ09ERRABEhsKF0xPR0lO",
+            "X1RZUEVfQUNDRVNTX1RPS0VOEAISFAoQTE9HSU5fVFlQRV9FTUFJTBADKiAK",
+            "CFBsYXRmb3JtEgsKB0FORFJPSUQQABIHCgNJT1MQAUJIChdpby5odmVyc2Uu",
+            "Z2FtZS5wcm90b2dlbkITTG9naW5NZXNzYWdlRmFjdG9yeaoCF2lvLmh2ZXJz",
+            "ZS5nYW1lLnByb3RvZ2VuYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::io.hverse.game.protogen.PlayerReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.LoginMessageType), typeof(global::io.hverse.game.protogen.LoginType), typeof(global::io.hverse.game.protogen.Platform), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ClientInfo), global::io.hverse.game.protogen.ClientInfo.Parser, new[]{ "QrcodeId", "AccessToken", "Email", "Password", "Version", "DeviceId", "Platform", "Model" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ClientInfo), global::io.hverse.game.protogen.ClientInfo.Parser, new[]{ "QrCodeId", "AccessToken", "Email", "Password", "Version", "DeviceId", "Platform", "Model" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginRequest), global::io.hverse.game.protogen.LoginRequest.Parser, new[]{ "ClientInfo", "LoginType" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginResponse), global::io.hverse.game.protogen.LoginResponse.Parser, new[]{ "Result", "Message", "PlayerInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginResponse), global::io.hverse.game.protogen.LoginResponse.Parser, new[]{ "Result", "Message", "PlayerInfo", "KeyEncrypt" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginMessage), global::io.hverse.game.protogen.LoginMessage.Parser, new[]{ "MsgType", "LoginRequest", "LoginResponse" }, null, null, null, null)
           }));
     }
@@ -108,7 +109,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ClientInfo(ClientInfo other) : this() {
-      qrcodeId_ = other.qrcodeId_;
+      qrCodeId_ = other.qrCodeId_;
       accessToken_ = other.accessToken_;
       email_ = other.email_;
       password_ = other.password_;
@@ -125,15 +126,15 @@ namespace io.hverse.game.protogen {
       return new ClientInfo(this);
     }
 
-    /// <summary>Field number for the "qrcodeId" field.</summary>
-    public const int QrcodeIdFieldNumber = 1;
-    private string qrcodeId_ = "";
+    /// <summary>Field number for the "qrCodeId" field.</summary>
+    public const int QrCodeIdFieldNumber = 1;
+    private string qrCodeId_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string QrcodeId {
-      get { return qrcodeId_; }
+    public string QrCodeId {
+      get { return qrCodeId_; }
       set {
-        qrcodeId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        qrCodeId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -236,7 +237,7 @@ namespace io.hverse.game.protogen {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (QrcodeId != other.QrcodeId) return false;
+      if (QrCodeId != other.QrCodeId) return false;
       if (AccessToken != other.AccessToken) return false;
       if (Email != other.Email) return false;
       if (Password != other.Password) return false;
@@ -251,7 +252,7 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (QrcodeId.Length != 0) hash ^= QrcodeId.GetHashCode();
+      if (QrCodeId.Length != 0) hash ^= QrCodeId.GetHashCode();
       if (AccessToken.Length != 0) hash ^= AccessToken.GetHashCode();
       if (Email.Length != 0) hash ^= Email.GetHashCode();
       if (Password.Length != 0) hash ^= Password.GetHashCode();
@@ -277,9 +278,9 @@ namespace io.hverse.game.protogen {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (QrcodeId.Length != 0) {
+      if (QrCodeId.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(QrcodeId);
+        output.WriteString(QrCodeId);
       }
       if (AccessToken.Length != 0) {
         output.WriteRawTag(18);
@@ -319,9 +320,9 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (QrcodeId.Length != 0) {
+      if (QrCodeId.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(QrcodeId);
+        output.WriteString(QrCodeId);
       }
       if (AccessToken.Length != 0) {
         output.WriteRawTag(18);
@@ -361,8 +362,8 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (QrcodeId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(QrcodeId);
+      if (QrCodeId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(QrCodeId);
       }
       if (AccessToken.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(AccessToken);
@@ -397,8 +398,8 @@ namespace io.hverse.game.protogen {
       if (other == null) {
         return;
       }
-      if (other.QrcodeId.Length != 0) {
-        QrcodeId = other.QrcodeId;
+      if (other.QrCodeId.Length != 0) {
+        QrCodeId = other.QrCodeId;
       }
       if (other.AccessToken.Length != 0) {
         AccessToken = other.AccessToken;
@@ -437,7 +438,7 @@ namespace io.hverse.game.protogen {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            QrcodeId = input.ReadString();
+            QrCodeId = input.ReadString();
             break;
           }
           case 18: {
@@ -484,7 +485,7 @@ namespace io.hverse.game.protogen {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            QrcodeId = input.ReadString();
+            QrCodeId = input.ReadString();
             break;
           }
           case 18: {
@@ -794,6 +795,7 @@ namespace io.hverse.game.protogen {
       result_ = other.result_;
       message_ = other.message_;
       playerInfo_ = other.playerInfo_ != null ? other.playerInfo_.Clone() : null;
+      keyEncrypt_ = other.keyEncrypt_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -839,6 +841,18 @@ namespace io.hverse.game.protogen {
       }
     }
 
+    /// <summary>Field number for the "keyEncrypt" field.</summary>
+    public const int KeyEncryptFieldNumber = 4;
+    private string keyEncrypt_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string KeyEncrypt {
+      get { return keyEncrypt_; }
+      set {
+        keyEncrypt_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -857,6 +871,7 @@ namespace io.hverse.game.protogen {
       if (Result != other.Result) return false;
       if (Message != other.Message) return false;
       if (!object.Equals(PlayerInfo, other.PlayerInfo)) return false;
+      if (KeyEncrypt != other.KeyEncrypt) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -867,6 +882,7 @@ namespace io.hverse.game.protogen {
       if (Result != false) hash ^= Result.GetHashCode();
       if (Message.Length != 0) hash ^= Message.GetHashCode();
       if (playerInfo_ != null) hash ^= PlayerInfo.GetHashCode();
+      if (KeyEncrypt.Length != 0) hash ^= KeyEncrypt.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -897,6 +913,10 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(26);
         output.WriteMessage(PlayerInfo);
       }
+      if (KeyEncrypt.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(KeyEncrypt);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -919,6 +939,10 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(26);
         output.WriteMessage(PlayerInfo);
       }
+      if (KeyEncrypt.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(KeyEncrypt);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -937,6 +961,9 @@ namespace io.hverse.game.protogen {
       }
       if (playerInfo_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayerInfo);
+      }
+      if (KeyEncrypt.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(KeyEncrypt);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -961,6 +988,9 @@ namespace io.hverse.game.protogen {
           PlayerInfo = new global::io.hverse.game.protogen.PlayerInfo();
         }
         PlayerInfo.MergeFrom(other.PlayerInfo);
+      }
+      if (other.KeyEncrypt.Length != 0) {
+        KeyEncrypt = other.KeyEncrypt;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -992,6 +1022,10 @@ namespace io.hverse.game.protogen {
             input.ReadMessage(PlayerInfo);
             break;
           }
+          case 34: {
+            KeyEncrypt = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -1020,6 +1054,10 @@ namespace io.hverse.game.protogen {
               PlayerInfo = new global::io.hverse.game.protogen.PlayerInfo();
             }
             input.ReadMessage(PlayerInfo);
+            break;
+          }
+          case 34: {
+            KeyEncrypt = input.ReadString();
             break;
           }
         }

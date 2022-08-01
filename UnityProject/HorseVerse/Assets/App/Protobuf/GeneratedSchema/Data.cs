@@ -24,15 +24,17 @@ namespace io.hverse.game.protogen {
     static DataReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgpkYXRhLnByb3RvIk0KCUhvcnNlSW5mbxINCgVuZnRJZBgBIAEoBRIeCghy",
-            "YW5rVHlwZRgCIAEoDjIMLk5mdFJhbmtUeXBlEhEKCWhvcnNlVHlwZRgDIAEo",
-            "BSpYCgtOZnRSYW5rVHlwZRIVChFSQU5LX1RZUEVfVU5LTk9XThAAEgUKAUQQ",
-            "ARIFCgFDEAISBQoBQhADEgUKAUEQBBIFCgFTEAUSBgoCU1MQBhIHCgNTU1MQ",
-            "B0JHChdpby5odmVyc2UuZ2FtZS5wcm90b2dlbkISRGF0YU1lc3NhZ2VGYWN0",
-            "b3J5qgIXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5iBnByb3RvMw=="));
+            "CgpkYXRhLnByb3RvIlkKCUhvcnNlSW5mbxINCgVuZnRJZBgBIAEoBRIeCghy",
+            "YW5rVHlwZRgCIAEoDjIMLk5mdFJhbmtUeXBlEh0KCWhvcnNlVHlwZRgDIAEo",
+            "DjIKLkhvcnNlVHlwZSpYCgtOZnRSYW5rVHlwZRIVChFSQU5LX1RZUEVfVU5L",
+            "Tk9XThAAEgUKAUQQARIFCgFDEAISBQoBQhADEgUKAUEQBBIFCgFTEAUSBgoC",
+            "U1MQBhIHCgNTU1MQByotCglIb3JzZVR5cGUSCQoFTElHSFQQABILCgdUSFVO",
+            "REVSEAESCAoEREFSSxACQkcKF2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuQhJE",
+            "YXRhTWVzc2FnZUZhY3RvcnmqAhdpby5odmVyc2UuZ2FtZS5wcm90b2dlbmIG",
+            "cHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.NftRankType), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.NftRankType), typeof(global::io.hverse.game.protogen.HorseType), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "RankType", "HorseType" }, null, null, null, null)
           }));
     }
@@ -49,6 +51,12 @@ namespace io.hverse.game.protogen {
     [pbr::OriginalName("S")] S = 5,
     [pbr::OriginalName("SS")] Ss = 6,
     [pbr::OriginalName("SSS")] Sss = 7,
+  }
+
+  public enum HorseType {
+    [pbr::OriginalName("LIGHT")] Light = 0,
+    [pbr::OriginalName("THUNDER")] Thunder = 1,
+    [pbr::OriginalName("DARK")] Dark = 2,
   }
 
   #endregion
@@ -126,10 +134,10 @@ namespace io.hverse.game.protogen {
 
     /// <summary>Field number for the "horseType" field.</summary>
     public const int HorseTypeFieldNumber = 3;
-    private int horseType_;
+    private global::io.hverse.game.protogen.HorseType horseType_ = global::io.hverse.game.protogen.HorseType.Light;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int HorseType {
+    public global::io.hverse.game.protogen.HorseType HorseType {
       get { return horseType_; }
       set {
         horseType_ = value;
@@ -163,7 +171,7 @@ namespace io.hverse.game.protogen {
       int hash = 1;
       if (NftId != 0) hash ^= NftId.GetHashCode();
       if (RankType != global::io.hverse.game.protogen.NftRankType.RankTypeUnknown) hash ^= RankType.GetHashCode();
-      if (HorseType != 0) hash ^= HorseType.GetHashCode();
+      if (HorseType != global::io.hverse.game.protogen.HorseType.Light) hash ^= HorseType.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -190,9 +198,9 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(16);
         output.WriteEnum((int) RankType);
       }
-      if (HorseType != 0) {
+      if (HorseType != global::io.hverse.game.protogen.HorseType.Light) {
         output.WriteRawTag(24);
-        output.WriteInt32(HorseType);
+        output.WriteEnum((int) HorseType);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -212,9 +220,9 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(16);
         output.WriteEnum((int) RankType);
       }
-      if (HorseType != 0) {
+      if (HorseType != global::io.hverse.game.protogen.HorseType.Light) {
         output.WriteRawTag(24);
-        output.WriteInt32(HorseType);
+        output.WriteEnum((int) HorseType);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -232,8 +240,8 @@ namespace io.hverse.game.protogen {
       if (RankType != global::io.hverse.game.protogen.NftRankType.RankTypeUnknown) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) RankType);
       }
-      if (HorseType != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(HorseType);
+      if (HorseType != global::io.hverse.game.protogen.HorseType.Light) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) HorseType);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -253,7 +261,7 @@ namespace io.hverse.game.protogen {
       if (other.RankType != global::io.hverse.game.protogen.NftRankType.RankTypeUnknown) {
         RankType = other.RankType;
       }
-      if (other.HorseType != 0) {
+      if (other.HorseType != global::io.hverse.game.protogen.HorseType.Light) {
         HorseType = other.HorseType;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -280,7 +288,7 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 24: {
-            HorseType = input.ReadInt32();
+            HorseType = (global::io.hverse.game.protogen.HorseType) input.ReadEnum();
             break;
           }
         }
@@ -307,7 +315,7 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 24: {
-            HorseType = input.ReadInt32();
+            HorseType = (global::io.hverse.game.protogen.HorseType) input.ReadEnum();
             break;
           }
         }
