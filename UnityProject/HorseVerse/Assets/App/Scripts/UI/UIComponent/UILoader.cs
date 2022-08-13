@@ -30,7 +30,7 @@ public static class UILoader
     {
         if (ui != null)
         {
-            GameObject.Destroy(ui?.gameObject);
+            GameObject.Destroy(ui.gameObject);
             ui = null;
             PrimitiveAssetLoader.UnloadAssetAtPath(GetPathFromType(typeof(T).ToString()));
         }

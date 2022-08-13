@@ -1,3 +1,4 @@
+#define DEVELOPMENT
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
@@ -7,13 +8,14 @@ using UnityEngine;
 using System.Linq;
 using System.Threading.Tasks;
 
-public class UIQuickRacePresenter : IDisposable
+public partial class UIQuickRacePresenter : IDisposable
 {
     private const int findMatchEnergyCost = 10;
     private const int findMatchTimerInterval = 1000;
     private UIQuickMode uiQuickMode = default;
     private CancellationTokenSource cts;
     private IDIContainer container;
+    private List<IDisposable> disposableList = new List<IDisposable>();
 
     public event Action<RaceMatchData> OnFoundMatch = ActionUtility.EmptyAction<RaceMatchData>.Instance;
 
@@ -32,8 +34,11 @@ public class UIQuickRacePresenter : IDisposable
     public UIQuickRacePresenter(IDIContainer container)
     {
         this.container = container;
+#if DEVELOPMENT
+        DebugSetUp();
+#endif
     }
-
+    
     public async UniTask ShowUIQuickRaceAsync()
     {
         cts.SafeCancelAndDispose();
@@ -127,9 +132,16 @@ public class UIQuickRacePresenter : IDisposable
 
     public void Dispose()
     {
+#if DEVELOPMENT
+        DebugCleanUp();
+#endif
         cts.SafeCancelAndDispose();
         cts = default;
+        
         UILoader.SafeRelease(ref uiQuickMode);
         UserDataRepository.OnModelUpdate -= UserDataRepositoryOnModelUpdate;
+        
+        disposableList.ForEach(x => x.Dispose());
+        disposableList.Clear();
     }
 }

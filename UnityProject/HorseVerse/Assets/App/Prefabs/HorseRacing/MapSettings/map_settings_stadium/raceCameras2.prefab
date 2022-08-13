@@ -327,7 +327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &958716681
 Transform:
   m_ObjectHideFlags: 0
@@ -503,7 +503,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1019478557
 Transform:
   m_ObjectHideFlags: 0
@@ -584,7 +584,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_WithTag: 
   m_WithoutTag: 
-  m_SkipFirst: 8
+  m_SkipFirst: -16
   m_Repeating: 1
   m_OnObjectEnter:
     m_Action: 0
@@ -679,7 +679,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1188600718
 Transform:
   m_ObjectHideFlags: 0
@@ -908,7 +908,7 @@ GameObject:
   - component: {fileID: 1628865093}
   - component: {fileID: 1628865092}
   m_Layer: 0
-  m_Name: dollyFront (1)
+  m_Name: dollyBeginning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1046,7 +1046,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1663346478
 Transform:
   m_ObjectHideFlags: 0
@@ -1523,7 +1523,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5438075159164162165
 Transform:
   m_ObjectHideFlags: 0
@@ -2490,15 +2490,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_ShowDebugText: 1
-  m_ChildCameras:
-  - {fileID: 697062863541377511}
-  - {fileID: 361941518851505674}
-  - {fileID: 2332564303912435612}
-  - {fileID: 3962473319782961338}
-  - {fileID: 8000232973151884518}
-  - {fileID: 6592277129099276133}
-  - {fileID: 647863112}
-  - {fileID: 1628865090}
+  m_ChildCameras: []
   m_ActivateAfter: 0
   m_MinDuration: 0.5
   m_RandomizeChoice: 0

@@ -11,9 +11,11 @@ public class OnSlowMotion : MonoBehaviour
     private Tween tween;
     private bool isIn = false;
     private bool isInAnimation = false;
+    private bool finishSlowMotion = false;
+    
     public void Slow()
     {
-        if (!isIn && !isInAnimation)
+        if (!isIn && !isInAnimation && !finishSlowMotion)
         {
             isInAnimation = true;
             isIn = true;
@@ -30,7 +32,7 @@ public class OnSlowMotion : MonoBehaviour
 
     public void Normal()
     {
-        if (isIn && isInAnimation == false)
+        if (isIn && isInAnimation == false && !finishSlowMotion)
         {
             isInAnimation = true;
             isIn = false;
@@ -41,6 +43,7 @@ public class OnSlowMotion : MonoBehaviour
             }, timeScale, 1.0f, duration).SetUpdate(true).OnComplete(() =>
             {
                 isInAnimation = false;
+                finishSlowMotion = true;
             });
         }    
     }
