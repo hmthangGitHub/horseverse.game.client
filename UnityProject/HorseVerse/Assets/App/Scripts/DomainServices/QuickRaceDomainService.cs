@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using System.Threading;
+using io.hverse.game.protogen;
 
 public interface IQuickRaceDomainService
 {
