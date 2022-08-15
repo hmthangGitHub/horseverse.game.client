@@ -12,8 +12,8 @@ public class HorseRacePresenterTest : MonoBehaviour
         await userDataRepository.LoadRepositoryIfNeedAsync();
         container.Bind(userDataRepository);
         container.Bind(await MasterLoader.LoadMasterAsync<MasterHorseContainer>());
-        container.Bind(FindMatch(container));
-
+        var matchData = await new LocalQuickRaceDomainService(container).FindMatch();
+        container.Bind(matchData);
         var horsePresenter = new HorseRacePresenter(container);
         await horsePresenter.LoadAssetAsync();
         await horsePresenter.PlayIntro();

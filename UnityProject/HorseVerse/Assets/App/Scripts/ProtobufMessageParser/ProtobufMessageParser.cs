@@ -5,78 +5,49 @@ using UnityEngine;
 using Google.Protobuf;
 using Google.Protobuf.WellKnownTypes;
 using System;
+using System.Linq;
 
 public class ProtobufMessageParser : IMessageParser
 {
+    private readonly Dictionary<System.Enum, Func<ISubMessage, IMessage>> lookUpToMessageFunc = new Dictionary<System.Enum, Func<ISubMessage, IMessage>>();
+    private readonly Dictionary<string, Func<Any, ISubMessage>> lookUpToISubMessageFunc = new Dictionary<string, Func<Any, ISubMessage>>();
+    private readonly Dictionary<System.Type, Func<IMessage, byte[]>> serializeLookUpFunc = new Dictionary<System.Type, Func<IMessage, byte[]>>(); 
+    public ProtobufMessageParser()
+    {
+        AddToParseLookUpTable<RaceMessage, RaceMessageType>(RaceMessageType.RaceScriptResponse, x => x.RaceScriptResponse);
+        AddToSerializeLookUpTable<RaceScriptRequest>(x => new RaceMessage(x));
+    }
+    
+    private void AddToParseLookUpTable<TSubMessage, TEnum>(TEnum enumMessage, Func<TSubMessage, IMessage> resultFactory) where TEnum : System.Enum
+                                                                                                                         where TSubMessage : ISubMessage, IMessage, ISubMessage<TEnum>, new()
+    {
+        TSubMessage message = new TSubMessage();
+        lookUpToISubMessageFunc.Add(message.Descriptor.FullName, x => x.Unpack<TSubMessage>());
+        lookUpToMessageFunc.Add(enumMessage, x => resultFactory((TSubMessage)x));
+    }
+    
+    private void AddToSerializeLookUpTable<T>(Func<T, ISubMessage> serializeFunc) where T : Google.Protobuf.IMessage, new()
+    {
+        serializeLookUpFunc.Add(typeof(T), x =>
+        {
+            var subMessage = serializeFunc((T)x);
+            return new GameMessage()
+            {
+                MsgType = subMessage.gameMessageType,
+                MsgData = Any.Pack(subMessage)
+            }.ToByteArray();
+        });
+    }
+
     public IMessage Parse(byte[] rawMessage)
     {
-        var message = GameMessage.Parser.ParseFrom(rawMessage);
-        switch (message.MsgType)
-        {
-            case GameMessageType.LoginMessage:
-                {
-                    var dataMessage = message.MsgData.Unpack<LoginMessage>();
-                    switch (dataMessage.MsgType)
-                    {
-                        case LoginMessageType.LoginResponse:
-                            return dataMessage.LoginResponse;
-                        default:
-                            throw new UnKnownServerMessageTypeException($"{message.MsgType}.{dataMessage.MsgType}");
-                    }
-                }
-            case GameMessageType.MasterDataMessage:
-                {
-                    var dataMessage = message.MsgData.Unpack<PlayerMessage>();
-                    switch (dataMessage.MsgType)
-                    {
-                        default:
-                            throw new UnKnownServerMessageTypeException($"{message.MsgType}.{dataMessage.MsgType}");
-                    }
-                }
-        }
-        return message.MsgType switch
-        {
-            GameMessageType.LoginMessage => message.MsgData.Unpack<LoginRequest>(),
-            GameMessageType.MasterDataMessage => message.MsgData.Unpack<LoginRequest>(),
-            _ => default
-        };
+        var message = GameMessage.Parser.ParseFrom(rawMessage); 
+        var iSubMessage = lookUpToISubMessageFunc[Any.GetTypeName(message.MsgData.TypeUrl)](message.MsgData);
+        return lookUpToMessageFunc[iSubMessage.MsgType](iSubMessage);
     }
 
     public byte[] ToByteArray(IMessage message)
     {
-        GameMessageType messageType = default;
-        IMessage data = default;
-
-        switch (message.GetType().Name)
-        {
-            case nameof(LoginRequest):
-                {
-                    messageType = GameMessageType.LoginMessage;
-                    data = new LoginMessage()
-                    {
-                        MsgType = LoginMessageType.LoginRequest,
-                        LoginRequest = (LoginRequest)message
-                    };
-                    break;
-                }
-            case nameof(PlayerInventoryRequest):
-                {
-                    messageType = GameMessageType.PlayerMessage;
-                    data = new PlayerMessage()
-                    {
-                        MsgType = PlayerMessageType.PlayerInventoryRequest,
-                        PlayerInventoryRequest = (PlayerInventoryRequest)message
-                    };
-                    break;
-                }
-            default:
-                break;
-        }
-
-        return new GameMessage()
-        {
-            MsgType = messageType,
-            MsgData = Any.Pack(data)
-        }.ToByteArray();
+        return serializeLookUpFunc[message.GetType()](message);
     }
 }

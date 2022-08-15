@@ -21,7 +21,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &311306594
 Transform:
   m_ObjectHideFlags: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_WithTag: 
   m_WithoutTag: 
-  m_SkipFirst: 0
+  m_SkipFirst: -16
   m_Repeating: 1
   m_OnObjectEnter:
     m_Action: 0
@@ -197,7 +197,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1394788696
 Transform:
   m_ObjectHideFlags: 0
@@ -373,7 +373,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1595266067
 Transform:
   m_ObjectHideFlags: 0
@@ -822,13 +822,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_ShowDebugText: 1
-  m_ChildCameras:
-  - {fileID: 6902628640749980023}
-  - {fileID: 6008568480340438682}
-  - {fileID: 8518989936825986828}
-  - {fileID: 6961138596463460394}
-  - {fileID: 4134849089823229046}
-  - {fileID: 944383496744599541}
+  m_ChildCameras: []
   m_ActivateAfter: 0
   m_MinDuration: 0.5
   m_RandomizeChoice: 0
@@ -867,7 +861,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1697404661142532643}
   m_LocalRotation: {x: 0.016214631, y: 0.8011731, z: -0.016745063, w: 0.59797865}
-  m_LocalPosition: {x: 153.4, y: 8.34, z: -35.5}
+  m_LocalPosition: {x: 148.2, y: 8.5, z: -47.5}
   m_LocalScale: {x: 1.7386004, y: 1.7385997, z: 1.7385999}
   m_Children: []
   m_Father: {fileID: 7317108200117413357}
@@ -921,7 +915,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &815696218143553614
 Transform:
   m_ObjectHideFlags: 0
@@ -1729,15 +1723,15 @@ MonoBehaviour:
     width: 4.16
   m_Looped: 0
   m_Waypoints:
-  - position: {x: -6.8091383, y: -7.2363486, z: -150.36722}
+  - position: {x: -7.1533713, y: -5.644607, z: -150.36722}
     roll: 0
-  - position: {x: -2.4267716, y: -6.4200845, z: -155.68008}
+  - position: {x: -2.4888484, y: -5.7997627, z: -155.78658}
     roll: 0
-  - position: {x: 3.0710359, y: -6.118739, z: -158.95543}
+  - position: {x: 2.658195, y: -6.118736, z: -159.56775}
     roll: 0
-  - position: {x: 4.5862684, y: -6.4816084, z: -167.7517}
+  - position: {x: 9.515919, y: -2.833921, z: -167.75168}
     roll: 0
-  - position: {x: 9.836882, y: -7.3268266, z: -178.2932}
+  - position: {x: 14.892565, y: -2.8985682, z: -168.3806}
     roll: 0
 --- !u!1 &3805984844299940964
 GameObject:
@@ -1926,7 +1920,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2094325962791190757
 Transform:
   m_ObjectHideFlags: 0
@@ -2224,7 +2218,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5806393036084426987}
   m_LocalRotation: {x: 0.016214631, y: 0.8011731, z: -0.016745063, w: 0.59797865}
-  m_LocalPosition: {x: 153.4, y: 8.34, z: -35.5}
+  m_LocalPosition: {x: 140.9, y: 8.9, z: -40.1}
   m_LocalScale: {x: 1.7386004, y: 1.7385997, z: 1.7385999}
   m_Children: []
   m_Father: {fileID: 7317108200117413357}
@@ -2251,11 +2245,11 @@ MonoBehaviour:
   m_Waypoints:
   - position: {x: 51.342487, y: -8.652219, z: -152.91527}
     roll: 0
-  - position: {x: 46.080868, y: -9.14906, z: -165.54585}
+  - position: {x: 45.290195, y: -9.149061, z: -164.59193}
     roll: 0
-  - position: {x: 40.095947, y: -9.747079, z: -172.1622}
+  - position: {x: 38.66057, y: -9.74708, z: -170.48561}
     roll: 0
-  - position: {x: 27.980017, y: -12.113562, z: -174.76764}
+  - position: {x: 26.263138, y: -10.007752, z: -172.63867}
     roll: 0
 --- !u!1 &5905117357317740687
 GameObject:
@@ -3181,6 +3175,10 @@ PrefabInstance:
     - target: {fileID: 1675385010472109552, guid: 65269e73e4da52148bfded9facc81089, type: 3}
       propertyPath: m_Name
       value: SlowMo
+      objectReference: {fileID: 0}
+    - target: {fileID: 8307135297733662481, guid: 65269e73e4da52148bfded9facc81089, type: 3}
+      propertyPath: duration
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65269e73e4da52148bfded9facc81089, type: 3}

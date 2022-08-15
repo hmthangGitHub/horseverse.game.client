@@ -1,12 +1,11 @@
 using Cysharp.Threading.Tasks;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 
 public class HorseRacePresenter : IDisposable
 {
@@ -21,7 +20,6 @@ public class HorseRacePresenter : IDisposable
     private MasterHorseContainer masterHorseContainer;
     private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= Container.Inject<MasterHorseContainer>();
     private int playerHorseIndex;
-    public event Action OnBackToMainState = ActionUtility.EmptyAction.Instance;
     public event Action OnToBetModeResultState = ActionUtility.EmptyAction.Instance;
     public event Action OnToQuickRaceModeResultState = ActionUtility.EmptyAction.Instance;
 
@@ -56,7 +54,7 @@ public class HorseRacePresenter : IDisposable
     private async UniTask GetMapSettings()
     {
         mapSettings = await PrimitiveAssetLoader.LoadAssetAsync<MapSettings>(masterMap.MapSettings, default);
-        targetGenerator = GameObject.Instantiate(mapSettings.targetGenerator, Vector3.zero, Quaternion.identity);
+        targetGenerator = Object.Instantiate(mapSettings.targetGenerator, Vector3.zero, Quaternion.identity);
     }
 
     public async UniTask PlayIntro()
@@ -80,8 +78,8 @@ public class HorseRacePresenter : IDisposable
 
     private async UniTask InitHorseRaceAsync()
     {
-        horseRaceManager ??= GameObject.Instantiate<HorseRaceManager>((await Resources.LoadAsync<HorseRaceManager>("GamePlay/HorseRaceManager") as HorseRaceManager));
-        var playerHorseIndex = RaceMatchData.horseRaceTimes.ToList().FindIndex(x => x.masterHorseId == UserDataRepository.Current.MasterHorseId);
+        horseRaceManager ??= Object.Instantiate((await Resources.LoadAsync<HorseRaceManager>("GamePlay/HorseRaceManager") as HorseRaceManager));
+        playerHorseIndex = RaceMatchData.horseRaceTimes.ToList().FindIndex(x => x.masterHorseId == UserDataRepository.Current.MasterHorseId);
         await horseRaceManager.InitializeAsync(RaceMatchData.horseRaceTimes.Select(x => MasterHorseContainer.MasterHorseIndexer[x.masterHorseId].RaceModeModelPath).ToArray(),
                                                masterMap.MapSettings,
                                                playerHorseIndex,
@@ -138,9 +136,8 @@ public class HorseRacePresenter : IDisposable
     {
         uiSpeedController.Out().Forget();
         uiHorseRaceStatus.Out().Forget();
-        FreezeTimeWhenFinishTrack().Forget();
-        await uiFlashScreen.In();
-        await uiFlashScreen.Out();
+        
+        await FlashScreenAsync();
 
         await UIBackGroundPresenter.ShowBackGroundAsync();
         if (RaceMatchData.mode == RaceMode.QuickMode)
@@ -153,6 +150,18 @@ public class HorseRacePresenter : IDisposable
         }
     }
 
+    private async UniTask FlashScreenAsync()
+    {
+        var currentTimeScale = Time.timeScale;
+        Time.timeScale = 0.0f;
+        await UniTask.Delay(TimeSpan.FromSeconds(0.5f), ignoreTimeScale: true);
+        await uiFlashScreen.In();
+        await UniTask.Delay(TimeSpan.FromSeconds(0.5f), ignoreTimeScale: true);
+        
+        Time.timeScale = currentTimeScale;
+        await uiFlashScreen.Out();
+    }
+
     private async UniTaskVoid FreezeTimeWhenFinishTrack()
     {
         var currentTimeScale = Time.timeScale;
@@ -161,7 +170,7 @@ public class HorseRacePresenter : IDisposable
         Time.timeScale = currentTimeScale;
     }
 
-    public void UpdateRaceStatus()
+    private void UpdateRaceStatus()
     {
         var positions = horseRaceManager.horseControllers.OrderByDescending(x => x.CurrentRaceProgressWeight)
                                                              .Select(x => x)
@@ -225,9 +234,9 @@ public class HorseRacePresenter : IDisposable
     {
         cts.SafeCancelAndDispose();
         horseRaceManager.Dispose();
-        GameObject.Destroy(horseRaceManager?.gameObject);
+        Object.Destroy(horseRaceManager?.gameObject);
         horseRaceManager = null;
-        GameObject.Destroy(targetGenerator);
+        Object.Destroy(targetGenerator);
         targetGenerator = null;
 
         UILoader.SafeRelease(ref uiSpeedController);
@@ -250,7 +259,6 @@ public class HorseRacePresenter : IDisposable
         masterMap = default;
         raceMatchData = default;
 
-        OnBackToMainState = ActionUtility.EmptyAction.Instance;
         OnToBetModeResultState = ActionUtility.EmptyAction.Instance;
         OnToQuickRaceModeResultState = ActionUtility.EmptyAction.Instance;
 

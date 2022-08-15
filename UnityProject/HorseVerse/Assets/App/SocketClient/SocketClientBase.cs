@@ -1,14 +1,15 @@
 ﻿using Cysharp.Threading.Tasks;
 using Google.Protobuf;
 using System;
+using System.Threading;
 using UnityEngine;
 
 public abstract class SocketClientBase : MonoBehaviour, ISocketClient
 {
-    protected MessageBroker.IMessageBroker messageBroker = new MessageBroker.ChannelMessageBroker();
+    private MessageBroker.IMessageBroker messageBroker = new MessageBroker.ChannelMessageBroker();
     protected IMessageParser messageParser;
 
-    public void SetIMessageParser(IMessageParser messageParser)
+    protected void SetIMessageParser(IMessageParser messageParser)
     {
         this.messageParser = messageParser;
     }
@@ -16,6 +17,7 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
     protected void OnMessage(byte[] data)
     {
         var message = messageParser.Parse(data);
+        Debug.Log("Received Response" + message);
         messageBroker.Publish(message);
     }
 
@@ -29,18 +31,34 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
         messageBroker.UnSubscribe(callback);
     }
 
-    public async UniTask<TResponse> Send<TRequest, TResponse>(TRequest request) where TRequest : IMessage
+    public async UniTask<TResponse> Send<TRequest, TResponse>(TRequest request, CancellationToken token = default(CancellationToken)) where TRequest : IMessage
                                                                                 where TResponse : IMessage
     {
+        Debug.Log($"Sending request {request.GetType()} {request}");
         var ucs = new UniTaskCompletionSource<TResponse>();
         void OnResponse(TResponse response)
         {
             ucs.TrySetResult(response);
-            messageBroker.UnSubscribe<TResponse>(OnResponse);
+            Debug.Log("Received response " + response);
         }
         messageBroker.Subscribe<TResponse>(OnResponse);
         await Send<TRequest>(request);
-        return await ucs.Task;
+        try
+        {
+            if (token == default)
+            {
+                return await ucs.Task.ThrowWhenTimeOut();
+            }
+            else
+            {
+                return await ucs.Task.AttachExternalCancellation(token);
+            }
+        }
+        finally
+        {
+            messageBroker.UnSubscribe<TResponse>(OnResponse);
+        }
+        
     }
 
     public abstract UniTask Connect(string url, int port);

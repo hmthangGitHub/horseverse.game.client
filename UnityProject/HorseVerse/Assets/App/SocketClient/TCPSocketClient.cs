@@ -49,7 +49,6 @@ public class TCPSocketClient : SocketClientBase
         socketConnection?.Dispose();
         socketConnection = default;
         Destroy(this.gameObject);
-        
     }
 
     public override async UniTask Connect(string url, int port)
@@ -75,8 +74,8 @@ public class TCPSocketClient : SocketClientBase
         var cancellationToken = cancellationTokenSource.Token;
         while (!cancellationToken.IsCancellationRequested)
         {
-            await stream.ReadRawMessage(buffer).AttachExternalCancellation(cancellationToken : cancellationToken);
-            OnMessage(buffer);
+            var rawMessage = await stream.ReadRawMessage(buffer).AttachExternalCancellation(cancellationToken : cancellationToken);
+            OnMessage(rawMessage);
         }
     }
 }

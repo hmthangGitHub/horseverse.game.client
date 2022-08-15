@@ -30,7 +30,7 @@ public class CameraChangeTriggerer : MonoBehaviour
         }
     }
 
-    private void Change()
+    private void Change()   
     {
         if(targetGroup?.m_Targets.Length > 0)
         {
@@ -49,30 +49,16 @@ public class CameraChangeTriggerer : MonoBehaviour
             }
             else
             {
-                int index = UnityEngine.Random.Range(0, targetGroup.m_Targets.Length);
+                var target = targetGroup.m_Targets.RandomElement().target;
                 if (changingFollow)
                 {
-                    to.Follow = targetGroup.m_Targets[index].target;
+                    to.Follow = target;
                 }
-
                 if (changingLookAt)
                 {
-                    to.LookAt = targetGroup.m_Targets[index].target;
+                    to.LookAt = target;
                 }
             }    
         }    
-    }
-
-    public void Update()
-    {
-        if (updateChangingTarget && this.to != null)
-        {
-            changeTargetTime += Time.deltaTime;
-            if (changeTargetTime >= timeToChangeTarget)
-            {
-                changeTargetTime = 0.0f;
-                Change();
-            }
-        }
     }
 }

@@ -561,7 +561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3090521806849396701
 Transform:
   m_ObjectHideFlags: 0
@@ -642,7 +642,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_WithTag: 
   m_WithoutTag: 
-  m_SkipFirst: 0
+  m_SkipFirst: -16
   m_Repeating: 1
   m_OnObjectEnter:
     m_Action: 0
@@ -737,7 +737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3090521806889260745
 Transform:
   m_ObjectHideFlags: 0
@@ -918,14 +918,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3090521807212697223}
-  m_LocalRotation: {x: 0.083127424, y: -0.19489981, z: 0.01658032, w: 0.97715354}
+  m_LocalRotation: {x: 0.1978385, y: -0.19158222, z: 0.03946022, w: 0.96052027}
   m_LocalPosition: {x: -94.36, y: 8.55, z: 68.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3090521808716402775}
   m_Father: {fileID: 1950421643162974980}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 9.725, y: -22.56, z: 0}
+  m_LocalEulerAnglesHint: {x: 23.277, y: -22.56, z: 0}
 --- !u!114 &3090521807212697224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1308,7 +1308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3090521808332122862
 Transform:
   m_ObjectHideFlags: 0
@@ -1675,7 +1675,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3090521808827831886
 Transform:
   m_ObjectHideFlags: 0
@@ -2145,7 +2145,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7031334795603107253
 Transform:
   m_ObjectHideFlags: 0
@@ -3239,15 +3239,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_ShowDebugText: 1
-  m_ChildCameras:
-  - {fileID: 2544476402537681959}
-  - {fileID: 3451554816151827402}
-  - {fileID: 773866887442051676}
-  - {fileID: 2026115466769931642}
-  - {fileID: 5036489711251265830}
-  - {fileID: 8187478335001698981}
-  - {fileID: 3090521807212697224}
-  - {fileID: 3090521808362393474}
+  m_ChildCameras: []
   m_ActivateAfter: 0
   m_MinDuration: 0.5
   m_RandomizeChoice: 0

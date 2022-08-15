@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public static class Ultil
+public static class EnumerableUtil
 {
     public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> list)
     {
@@ -26,5 +26,11 @@ public static class Ultil
         {
             await action(item);
         }
+    }
+
+    public static T RandomElement<T>(this IEnumerable<T> enumeration)
+    {
+        return enumeration.OrderBy(x => UnityEngine.Random.value)
+                          .FirstOrDefault();
     }
 }

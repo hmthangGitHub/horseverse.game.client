@@ -21,7 +21,6 @@ public class HorseRaceState : InjectedBHState
     {
         base.Enter();
         horseRacePresenter = new HorseRacePresenter(Container);
-        horseRacePresenter.OnBackToMainState += ToMainState;
         horseRacePresenter.OnToBetModeResultState += ToBetModeResultState;
         horseRacePresenter.OnToQuickRaceModeResultState += ToQuickRaceResultState;
         UIBackGroundPresenter.ReleaseBackGround();
@@ -75,7 +74,6 @@ public class HorseRaceState : InjectedBHState
         isGameStart = false;
 
         uiLoadingPresenter = default;
-        horseRacePresenter.OnBackToMainState -= ToMainState;
         horseRacePresenter.OnToBetModeResultState -= ToBetModeResultState;
         horseRacePresenter.OnToQuickRaceModeResultState -= ToQuickRaceResultState;
         horseRacePresenter.Dispose();
