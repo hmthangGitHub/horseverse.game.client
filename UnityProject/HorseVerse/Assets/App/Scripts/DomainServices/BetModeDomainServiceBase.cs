@@ -11,4 +11,8 @@ public class BetModeDomainServiceBase
         this.container = container;
     }
 
+    public async UniTask<RaceMatchData> GetCurrentBetModeRaceMatchData()
+    {
+        return await new LocalQuickRaceDomainService(container).FindMatch();
+    }
 }

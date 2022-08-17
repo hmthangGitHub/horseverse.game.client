@@ -5,12 +5,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class UIBetModePresenter : IDisposable
 {
     private const int horseNumber = 8;
     private UIBetMode uiBetMode = default;
+    private UIBetConfirmation uiBetConfirmation = default;
     private CancellationTokenSource cts = default;
     private IDIContainer container = default;
     public event Action OnBack = ActionUtility.EmptyAction.Instance;
@@ -44,8 +46,10 @@ public class UIBetModePresenter : IDisposable
 
         BetRateRepository.OnModelUpdate += BetRateRepositoryOnModelUpdate;
         BetRateRepository.OnModelsUpdate += BetRateRepositoryOnModelsUpdate;
-
+        
         uiBetMode ??= await UILoader.Instantiate<UIBetMode>(token: cts.Token);
+        uiBetConfirmation ??= await UILoader.Instantiate<UIBetConfirmation>(token: cts.Token);
+        
         uiBetMode.SetEntity(new UIBetMode.Entity()
         {
             backBtn = new ButtonComponent.Entity(() => TransitionAsync(OnBack).Forget()),
@@ -71,7 +75,7 @@ public class UIBetModePresenter : IDisposable
                     betRatio = x.Value.Rate,
                     betType = UIComponentBetSlotType.BetType.SingleBet,
                     totalBet = x.Value.TotalBet,
-                    betBtn = new ButtonComponent.Entity(() => OnBetAtSlot(x.Key)),
+                    betBtn = new ButtonComponent.Entity(() => OnBetAtSlotAsync(x.Key).Forget()),
                 }).ToArray()
             },
             doubleBetSlotList = new UIComponentDoubleBetList.Entity()
@@ -84,7 +88,7 @@ public class UIBetModePresenter : IDisposable
                     firstHorseNumber = x.Key.first,
                     secondHorseNumber = x.Key.second,
                     totalBet = x.Value.TotalBet,
-                    betBtn = new ButtonComponent.Entity(() => OnBetAtSlot(x.Key)),
+                    betBtn = new ButtonComponent.Entity(() => OnBetAtSlotAsync(x.Key).Forget()),
                 }).ToArray()
             },
             header = new UIComponentBetModeHeader.Entity()
@@ -94,31 +98,7 @@ public class UIBetModePresenter : IDisposable
                 maxEnergy = UserDataRepository.Current.MaxEnergy,
                 timeCountDown = new UIComponentCountDownTimer.Entity()
                 {
-                    outDatedEvent = () => {
-
-                        HorseRaceTime[] GetAllMasterHorseIds()
-                        {
-                            return container.Inject<MasterHorseContainer>().MasterHorseIndexer.Keys
-                                            .Shuffle()
-                                            .Append(UserDataRepository.Current.MasterHorseId)
-                                            .Shuffle()
-                                            .Take(8)
-                                            .Select(x => new HorseRaceTime()
-                                            {
-                                                masterHorseId = x,
-                                                time = 15 + UnityEngine.Random.Range(-1.0f, 1.0f)
-                                            })
-                                            .ToArray();
-                        }
-
-                        container.Bind(new RaceMatchData()
-                        {
-                            horseRaceTimes = GetAllMasterHorseIds(),
-                            masterMapId = 10001002,
-                            mode = RaceMode.BetMode
-                        });
-                        TransitionAsync(OnToRaceMode).Forget();
-                    },
+                    outDatedEvent = () => OnChangeToRaceModeAsync().Forget(),
                     utcEndTimeStamp = (int)BetMatchRepository.Current.BetMatchTimeStamp
                 },
                 userInfo = new UIComponentBetModeUserInfo.Entity()
@@ -134,6 +114,13 @@ public class UIBetModePresenter : IDisposable
         });
 
         await uiBetMode.In();
+    }
+
+    private async UniTaskVoid OnChangeToRaceModeAsync()
+    {
+        var raceMatchData = await betModeDomainService.GetCurrentBetModeRaceMatchData();
+        container.Bind(raceMatchData);
+        TransitionAsync(OnToRaceMode).Forget();
     }
 
     private void OnBetAllAtHorseNumber(int horseNumber)
@@ -164,11 +151,48 @@ public class UIBetModePresenter : IDisposable
 
     private void ChangeRaceBtn()
     {
+        //TODO
     }
 
-    private void OnBetAtSlot((int first, int second) key)
+    private async UniTaskVoid OnBetAtSlotAsync((int first, int second) key)
     {
-        BetModeDomainService.BetAsync(new (int first, int second)[] { key }, currentBettingAmouth).Forget();
+        var confirm = await ShowConfirmationIfNeed();
+        if (confirm)
+        {
+            BetModeDomainService.BetAsync(new (int first, int second)[] { key }, currentBettingAmouth).Forget();    
+        }
+    }
+
+    private async UniTask<bool> ShowConfirmationIfNeed()
+    {
+        if (UserSettingLocalRepository.IsSkipConfirmBet)
+        {
+            return true;
+        }
+        else
+        {
+            var ucs = new UniTaskCompletionSource<bool>();
+            uiBetConfirmation.SetEntity(new UIBetConfirmation.Entity()
+            {
+                cancelBtn = new ButtonComponent.Entity(() =>
+                {
+                    ucs.TrySetResult(false);
+                }),
+                confirmBtn = new ButtonComponent.Entity(() =>
+                {
+                    ucs.TrySetResult(true);
+                }),
+                showAgain = new UIComponentToggle.Entity()
+                {
+                    isOn = UserSettingLocalRepository.IsSkipConfirmBet,
+                    onActiveToggle = val => UserSettingLocalRepository.IsSkipConfirmBet = val
+                }
+            });
+            await uiBetConfirmation.In();
+            await ucs.Task;
+            await uiBetConfirmation.Out();
+            return ucs.Task.GetAwaiter().GetResult();
+        }
     }
 
     private UIComponentBetAmouth.Entity[] GetBetAmouthEntities()
@@ -227,6 +251,7 @@ public class UIBetModePresenter : IDisposable
         cts.SafeCancelAndDispose();
         cts = default;
         UILoader.SafeRelease(ref uiBetMode);
+        UILoader.SafeRelease(ref uiBetConfirmation);
         BetRateRepository.OnModelUpdate -= BetRateRepositoryOnModelUpdate;
         BetRateRepository.OnModelsUpdate -= BetRateRepositoryOnModelsUpdate;
     }

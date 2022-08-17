@@ -81,4 +81,9 @@ public static class DOTweenExtensions
     {
         return (RectTransform)component.transform;
     }
+
+    public static Tween DOScaleFrom(this Transform transform, float from, float to, float duration)
+    {
+        return To(val => transform.localScale = Vector3.one * val, from, to, duration);
+    }
 }
