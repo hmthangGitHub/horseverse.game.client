@@ -64,7 +64,7 @@ public class HorseRacePresenter : IDisposable
         {
             await raceModeHorseIntroPresenter.ShowHorsesInfoIntroAsync(RaceMatchData.horseRaceTimes.Select(x => x.masterHorseId)
                                                                                                    .ToArray(), 
-                                                                        targetGenerator.SimplyPath.path.GetPointAtTime(0), 
+                                                                        targetGenerator.StartPosition, 
                                                                         Quaternion.identity);
         }
         await horseRaceManager.ShowWarmUpCamera();

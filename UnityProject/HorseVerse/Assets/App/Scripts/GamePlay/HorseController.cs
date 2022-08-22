@@ -13,8 +13,8 @@ public class HorseController : MonoBehaviour
         this.horseInGameData = horseInGameData;
 
         playerIndicator.SetActive(horseInGameData.IsPlayer);
-        CalculateRotation(0);
-        CalculatePosition(0);
+        CalculateRotation();
+        CalculatePosition();
         OnFinishTrackEvent += horseInGameData.OnFinishTrack;
     }
 
@@ -23,8 +23,9 @@ public class HorseController : MonoBehaviour
     public int TopInRaceMatch => horseInGameData.TopInRaceMatch;
     public float CurrentRaceProgressWeight => currentTargetIndex * 1000 - DistanceToCurrentTarget();
     public int InitialLane => horseInGameData.InitialLane;
-    private PathCreator PathCreator => horseInGameData.PathCreator;
-    private (Vector3 target, float time)[] PredefineTargets => horseInGameData?.PredefineTargets;
+    private PathCreator PathCreator => horseInGameData.TargetGenerator.SimplyPath;
+    private (Vector3 target, float time)[] PredefineTargets => horseInGameData?.PredefineTargets.targets;
+    private int FinishIndex => horseInGameData.PredefineTargets.finishIndex;
 
     private event Action OnFinishTrackEvent = ActionUtility.EmptyAction.Instance;
 
@@ -59,16 +60,15 @@ public class HorseController : MonoBehaviour
         ChangeTarget();
     }
 
-    private void CalculatePosition(float time)
+    private void CalculatePosition()
     {
-        var pos = PathCreator.path.GetPointAtTime(time, EndOfPathInstruction.Loop);
+        var pos = this.horseInGameData.TargetGenerator.StartPosition;
         transform.position = Vector3.Scale(new Vector3(1, 0, 1), (pos + transform.right * CurrentOffset));
     }
 
-    private void CalculateRotation(float time)
+    private void CalculateRotation()
     {
-        Quaternion rotationAtDistance = PathCreator.path.GetRotation(time, EndOfPathInstruction.Loop);
-        transform.rotation = rotationAtDistance;
+        Quaternion rotationAtDistance = horseInGameData.TargetGenerator.StartRotation;
         transform.rotation = Quaternion.Euler(0, rotationAtDistance.eulerAngles.y, 0);
     }
 
@@ -108,8 +108,16 @@ public class HorseController : MonoBehaviour
     {
         if (Application.isPlaying && UnityEditor.Selection.gameObjects.Contains(this.gameObject))
         {
-            Gizmos.color = Color;
-            PredefineTargets?.ForEach(x => Gizmos.DrawSphere(x.target, 0.5f));
+            
+            if (PredefineTargets != default)
+            {
+                for (int i = 0; i < PredefineTargets.Length; i++)
+                {
+                    Gizmos.color = i <= FinishIndex ? Color : Color.red;
+                    var x = PredefineTargets[i];
+                    Gizmos.DrawSphere(x.target, 0.5f);
+                }    
+            }
             UnityEditor.Handles.Label(this.transform.position, $"Total Time {TotalTime}");
             Debug.DrawLine(this.transform.position, Target.transform.position, Color);
         }
@@ -127,7 +135,7 @@ public class HorseController : MonoBehaviour
 
     private bool IsLastWayPoint()
     {
-        return currentTargetIndex == PredefineTargets.Length - 1;
+        return currentTargetIndex == FinishIndex;
     }
 
     private void ChangeTarget()
