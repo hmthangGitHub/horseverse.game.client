@@ -4,11 +4,9 @@ using System;
 
 public class BetModeUIState : InjectedBState
 {
-    private UIBetModePresenter uiBetModePresenter = default;
-    private UIHeaderPresenter uiHeaderPresenter = default;
-    private UIHorse3DViewPresenter uiHorse3DViewPresenter;
-    public UIHorse3DViewPresenter UIHorse3DViewPresenter => uiHorse3DViewPresenter ??= this.Container.Inject<UIHorse3DViewPresenter>();
-    private UILoadingPresenter uiLoadingPresenter = default;
+    private UIBetModePresenter uiBetModePresenter;
+    private UIHeaderPresenter uiHeaderPresenter;
+    private UILoadingPresenter uiLoadingPresenter;
     private UILoadingPresenter UILoadingPresenter => uiLoadingPresenter ?? Container.Inject<UILoadingPresenter>();
     private UIHeaderPresenter UIHeaderPresenter => uiHeaderPresenter ??= Container.Inject<UIHeaderPresenter>();
 
@@ -29,14 +27,12 @@ public class BetModeUIState : InjectedBState
         uiBetModePresenter = new UIBetModePresenter(Container);
         uiBetModePresenter.OnBack += OnBackToMainMenu;
         uiBetModePresenter.OnToRaceMode += OnToRaceMode;
-        await UIHorse3DViewPresenter.HideHorse3DViewAsync();
         await uiBetModePresenter.ShowUIBetModeAsync();
     }
 
     private void OnToRaceMode()
     {
         UILoadingPresenter.ShowLoadingAsync().Forget();
-        UIHorse3DViewPresenter.Dispose();
         UIHeaderPresenter.Dispose();
         this.Machine.ChangeState<HorseRaceState>();
     }

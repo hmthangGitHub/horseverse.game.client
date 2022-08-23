@@ -6,6 +6,7 @@ public interface IBetModeDomainService
 {
     UniTask CancelBetAsync();
     UniTask BetAsync((int first, int second)[] keys, int amouth);
+    UniTask<RaceMatchData> GetCurrentBetModeRaceMatchData();
 }
 
 public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainService
