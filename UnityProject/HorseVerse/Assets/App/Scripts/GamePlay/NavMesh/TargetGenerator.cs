@@ -12,6 +12,10 @@ public class TargetGenerator : MonoBehaviour
     public PathCreator SimplyPath { get => simplyPath; set => simplyPath = value; }
     public float spacing = 2.5f;
     public int numberOfAgents = 8;
+    public Vector3 StartPosition => simplyPath.bezierPath.GetPoint(PredefinedWayPointIndices[0]);
+    public Quaternion StartRotation =>
+        Quaternion.FromToRotation(Vector3.forward, simplyPath.bezierPath.GetPoint(PredefinedWayPointIndices[1]) 
+                                                   - simplyPath.bezierPath.GetPoint(PredefinedWayPointIndices[0]));
 
     public Vector3[] GenerateRandomTargets()
     {
@@ -33,10 +37,21 @@ public class TargetGenerator : MonoBehaviour
         return start + spacing * lane;
     }
 
-    public (Vector3 target, float time)[] GenerateTargets(RaceSegment[] raceSegments)
+    public ((Vector3 target, float time)[] targets,int finishIndex) GenerateTargets(RaceSegment[] raceSegments)
     {
-        var normalizePaths = FromSegmentToNormalizePath(raceSegments);
-        return raceSegments.SelectMany((x, segmentIndex) =>
+        var paddingRaceSegments = raceSegments.Concat(new[]
+        {
+            new RaceSegment()
+            {
+                id = raceSegments.Length,
+                currentLane = raceSegments[raceSegments.Length - 1].toLane,
+                toLane = raceSegments[raceSegments.Length - 1].toLane,
+                waypoints = GetPaddingWayPoints()
+            }
+        }).ToArray();
+
+        var normalizePaths = FromSegmentToNormalizePath(paddingRaceSegments);
+        var paddingTargets = paddingRaceSegments.SelectMany((x, segmentIndex) =>
         {
             var startOffset = GetOffsetFromLane(x.currentLane);
             var endOffset = GetOffsetFromLane(x.toLane);
@@ -45,10 +60,22 @@ public class TargetGenerator : MonoBehaviour
             return x.waypoints.Select((w, wIndex) =>
             {
                 var t = Mathf.Lerp(normalizePaths[segmentIndex].x, normalizePaths[segmentIndex].y, w.percentage);
-                var offset = Mathf.Lerp(startOffset, endOffset, (wIndex - startChangeLaneSegmentIndex) / totalWayPointToChangeLane);
+                var offset = Mathf.Lerp(startOffset, endOffset,(wIndex - startChangeLaneSegmentIndex) / totalWayPointToChangeLane);
                 return (FromTimeToPoint(t, offset), w.time);
             });
         }).ToArray();
+        return (paddingTargets, raceSegments.SelectMany(x => x.waypoints).Count() - 1);
+    }
+
+    private WayPoints[] GetPaddingWayPoints()
+    {
+        var paddingWayPointCount = 5;
+        return Enumerable.Range(0, paddingWayPointCount)
+            .Select((x, i) => new WayPoints()
+            {
+                percentage = (float)i / (paddingWayPointCount - 1),
+                time = 10.0f
+            }).ToArray();
     }
 
     private Vector2[] FromSegmentToNormalizePath(RaceSegment[] segment)
@@ -62,7 +89,7 @@ public class TargetGenerator : MonoBehaviour
         {
             if(i == segment.Length - 1)
             {
-                return new Vector2(GetTimeAtIndex(i), 1.0f);
+                return new Vector2(GetTimeAtIndex(i), 1.0f * Mathf.Sign( GetTimeAtIndex(i) - GetTimeAtIndex(i - 1) ) + GetTimeAtIndex(0));
             }
             else
             {
