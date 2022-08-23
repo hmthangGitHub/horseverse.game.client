@@ -9,7 +9,7 @@ public class HorseInGameData
     public int TopInRaceMatch { get; set; }
     public float NormalizePath { get; set; }
     public int InitialLane { get; set; }
-    public PathCreator PathCreator { get; set; }
-    public (Vector3 target, float time)[] PredefineTargets { get; set; }
+    public TargetGenerator TargetGenerator { get; set; }
+    public ((Vector3 target, float time)[] targets, int finishIndex) PredefineTargets { get; set; }
     public Action OnFinishTrack { get; set; }
 }

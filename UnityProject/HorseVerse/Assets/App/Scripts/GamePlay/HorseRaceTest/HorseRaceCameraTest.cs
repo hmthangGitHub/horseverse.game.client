@@ -11,6 +11,7 @@ public class HorseRaceCameraTest : MonoBehaviour
     public Transform[] horseControllers;
     public float t;
     public PathCreation.PathCreator path;
+    public TargetGenerator targetGenerator;
 
     void Update()
     {

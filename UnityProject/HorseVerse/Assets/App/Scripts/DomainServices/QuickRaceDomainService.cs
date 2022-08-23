@@ -103,7 +103,7 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
 
     private RaceSegment[] GenerateRandomSegment()
     {
-        return Enumerable.Range(0, 4)
+        return Enumerable.Range(0, 3)
             .Select(x => GenerateRandomSegment(x, 2.0f))
             .ToArray();
     }

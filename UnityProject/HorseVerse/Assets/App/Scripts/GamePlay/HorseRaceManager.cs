@@ -48,8 +48,8 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         this.mapSettingsPath = mapSettingsPath;
         this.playerHorseIndex = playerHorseIndex;
         var tops = times.GetTopByTimes();
-        await LoadHorses(horseControllerPaths, token);
         await LoadMapSettings(token);
+        await LoadHorses(horseControllerPaths, token);
         CalculateRaceStat(times, totalLap);
         SetHorseControllerStat(tops, horseRaceTimes);
         RaceTime = GetMinimumRaceTime(horseRaceTimes);
@@ -99,6 +99,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         targetGenerator = Instantiate(mapSettings.targetGenerator, Vector3.zero,Quaternion.identity, transform);
         warmUpCamera = Instantiate(mapSettings.warmUpCamera, Vector3.zero, Quaternion.identity, transform);
 
+        horsePosition.position = targetGenerator.StartPosition;
         warmUpCamera.gameObject.SetActive(false);
         raceCamera.SetHorseGroup(this.horseGroup);
         warmUpCamera.SetTargetGroup(this.horseGroup.transform);
@@ -107,9 +108,15 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
     private static RaceModeCameras GetRaceModeCamera(MapSettings mapSettings)
     {
 #if DEVELOPMENT
-        if (PlayerPrefs.GetInt(CameraInMapDebugPanel.MapNumberKey) >= 1)
+        try
         {
-            return mapSettings.raceModeCamera[PlayerPrefs.GetInt(CameraInMapDebugPanel.MapNumberKey) - 1];
+            if (PlayerPrefs.GetInt(CameraInMapDebugPanel.MapNumberKey) >= 1)
+            {
+                return mapSettings.raceModeCamera[PlayerPrefs.GetInt(CameraInMapDebugPanel.MapNumberKey) - 1];
+            }
+        }
+        catch (Exception)
+        {
         }
 #endif
         return mapSettings.raceModeCamera.RandomElement();
@@ -156,7 +163,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
             HorseController horseController = horseControllers[i];
             horseController.SetHorseData(new HorseInGameData()
             {
-                PathCreator = this.Path,
+                TargetGenerator = targetGenerator,
                 CurrentOffset = offSet + i * offsetPerLane,
                 TopInRaceMatch = topInRaceMatch[i],
                 IsPlayer = playerHorseIndex == i,
@@ -172,7 +179,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         return horseRaceTimes.Min(x => x.raceSegments.Sum(raceSegment => raceSegment.waypoints.Sum(y => y.time)));
     }
 
-    private (Vector3 , float)[] CalculatePredefineTarget(HorseRaceTime horseRaceTime)
+    private ((Vector3 , float)[], int finishIndex) CalculatePredefineTarget(HorseRaceTime horseRaceTime)
     {
         return targetGenerator.GenerateTargets(horseRaceTime.raceSegments);
     }
