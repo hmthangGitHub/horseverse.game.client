@@ -24,25 +24,26 @@ namespace io.hverse.game.protogen {
     static RaceReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgpyYWNlLnByb3RvGgpkYXRhLnByb3RvImIKCkhvcnNlU3RhdHMSDAoEdGlt",
-            "ZRgBIAEoBRIRCglsYW5kU3RhcnQYAiABKAUSDwoHbGFuZEVuZBgDIAEoBRIR",
-            "CglkZWxheVRpbWUYBCABKAISDwoHc3RhbWluYRgFIAEoBSJECgVQaGFzZRIN",
-            "CgVzdGFydBgBIAEoBRILCgNlbmQYAiABKAUSHwoKaG9yc2VTdGF0cxgDIAMo",
-            "CzILLkhvcnNlU3RhdHMiJAoKUmFjZVNjcmlwdBIWCgZwaGFzZXMYASADKAsy",
-            "Bi5QaGFzZSITChFSYWNlU2NyaXB0UmVxdWVzdCI1ChJSYWNlU2NyaXB0UmVz",
-            "cG9uc2USHwoKcmFjZVNjcmlwdBgBIAEoCzILLlJhY2VTY3JpcHQikAEKC1Jh",
-            "Y2VNZXNzYWdlEiEKB21zZ1R5cGUYASABKA4yEC5SYWNlTWVzc2FnZVR5cGUS",
-            "LQoRcmFjZVNjcmlwdFJlcXVlc3QYAiABKAsyEi5SYWNlU2NyaXB0UmVxdWVz",
-            "dBIvChJyYWNlU2NyaXB0UmVzcG9uc2UYAyABKAsyEy5SYWNlU2NyaXB0UmVz",
-            "cG9uc2UqRAoPUmFjZU1lc3NhZ2VUeXBlEhcKE1JBQ0VfU0NSSVBUX1JFUVVF",
-            "U1QQABIYChRSQUNFX1NDUklQVF9SRVNQT05TRRABQkcKF2lvLmh2ZXJzZS5n",
-            "YW1lLnByb3RvZ2VuQhJSYWNlTWVzc2FnZUZhY3RvcnmqAhdpby5odmVyc2Uu",
-            "Z2FtZS5wcm90b2dlbmIGcHJvdG8z"));
+            "CgpyYWNlLnByb3RvGgpkYXRhLnByb3RvIp4BCgpIb3JzZVN0YXRzEgwKBHRp",
+            "bWUYASABKAISEQoJbGFuZFN0YXJ0GAIgASgFEg8KB2xhbmRFbmQYAyABKAUS",
+            "EQoJZGVsYXlUaW1lGAQgASgCEg8KB3N0YW1pbmEYBSABKAUSEAoIcG9zaXRp",
+            "b24YBiABKAUSDAoEcmFuaxgHIAEoBRINCgVzdGFydBgIIAEoBRILCgNlbmQY",
+            "CSABKAUiKAoFUGhhc2USHwoKaG9yc2VTdGF0cxgDIAMoCzILLkhvcnNlU3Rh",
+            "dHMiJAoKUmFjZVNjcmlwdBIWCgZwaGFzZXMYASADKAsyBi5QaGFzZSITChFS",
+            "YWNlU2NyaXB0UmVxdWVzdCI1ChJSYWNlU2NyaXB0UmVzcG9uc2USHwoKcmFj",
+            "ZVNjcmlwdBgBIAEoCzILLlJhY2VTY3JpcHQikAEKC1JhY2VNZXNzYWdlEiEK",
+            "B21zZ1R5cGUYASABKA4yEC5SYWNlTWVzc2FnZVR5cGUSLQoRcmFjZVNjcmlw",
+            "dFJlcXVlc3QYAiABKAsyEi5SYWNlU2NyaXB0UmVxdWVzdBIvChJyYWNlU2Ny",
+            "aXB0UmVzcG9uc2UYAyABKAsyEy5SYWNlU2NyaXB0UmVzcG9uc2UqRAoPUmFj",
+            "ZU1lc3NhZ2VUeXBlEhcKE1JBQ0VfU0NSSVBUX1JFUVVFU1QQABIYChRSQUNF",
+            "X1NDUklQVF9SRVNQT05TRRABQkcKF2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2Vu",
+            "QhJSYWNlTWVzc2FnZUZhY3RvcnmqAhdpby5odmVyc2UuZ2FtZS5wcm90b2dl",
+            "bmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::io.hverse.game.protogen.DataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.RaceMessageType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseStats), global::io.hverse.game.protogen.HorseStats.Parser, new[]{ "Time", "LandStart", "LandEnd", "DelayTime", "Stamina" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.Phase), global::io.hverse.game.protogen.Phase.Parser, new[]{ "Start", "End", "HorseStats" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseStats), global::io.hverse.game.protogen.HorseStats.Parser, new[]{ "Time", "LandStart", "LandEnd", "DelayTime", "Stamina", "Position", "Rank", "Start", "End" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.Phase), global::io.hverse.game.protogen.Phase.Parser, new[]{ "HorseStats" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RaceScript), global::io.hverse.game.protogen.RaceScript.Parser, new[]{ "Phases" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RaceScriptRequest), global::io.hverse.game.protogen.RaceScriptRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RaceScriptResponse), global::io.hverse.game.protogen.RaceScriptResponse.Parser, new[]{ "RaceScript" }, null, null, null, null),
@@ -100,6 +101,10 @@ namespace io.hverse.game.protogen {
       landEnd_ = other.landEnd_;
       delayTime_ = other.delayTime_;
       stamina_ = other.stamina_;
+      position_ = other.position_;
+      rank_ = other.rank_;
+      start_ = other.start_;
+      end_ = other.end_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -111,10 +116,10 @@ namespace io.hverse.game.protogen {
 
     /// <summary>Field number for the "time" field.</summary>
     public const int TimeFieldNumber = 1;
-    private int time_;
+    private float time_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int Time {
+    public float Time {
       get { return time_; }
       set {
         time_ = value;
@@ -169,6 +174,54 @@ namespace io.hverse.game.protogen {
       }
     }
 
+    /// <summary>Field number for the "position" field.</summary>
+    public const int PositionFieldNumber = 6;
+    private int position_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Position {
+      get { return position_; }
+      set {
+        position_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "rank" field.</summary>
+    public const int RankFieldNumber = 7;
+    private int rank_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Rank {
+      get { return rank_; }
+      set {
+        rank_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "start" field.</summary>
+    public const int StartFieldNumber = 8;
+    private int start_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Start {
+      get { return start_; }
+      set {
+        start_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "end" field.</summary>
+    public const int EndFieldNumber = 9;
+    private int end_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int End {
+      get { return end_; }
+      set {
+        end_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -184,11 +237,15 @@ namespace io.hverse.game.protogen {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Time != other.Time) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Time, other.Time)) return false;
       if (LandStart != other.LandStart) return false;
       if (LandEnd != other.LandEnd) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(DelayTime, other.DelayTime)) return false;
       if (Stamina != other.Stamina) return false;
+      if (Position != other.Position) return false;
+      if (Rank != other.Rank) return false;
+      if (Start != other.Start) return false;
+      if (End != other.End) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -196,11 +253,15 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Time != 0) hash ^= Time.GetHashCode();
+      if (Time != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Time);
       if (LandStart != 0) hash ^= LandStart.GetHashCode();
       if (LandEnd != 0) hash ^= LandEnd.GetHashCode();
       if (DelayTime != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(DelayTime);
       if (Stamina != 0) hash ^= Stamina.GetHashCode();
+      if (Position != 0) hash ^= Position.GetHashCode();
+      if (Rank != 0) hash ^= Rank.GetHashCode();
+      if (Start != 0) hash ^= Start.GetHashCode();
+      if (End != 0) hash ^= End.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -219,9 +280,9 @@ namespace io.hverse.game.protogen {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Time != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(Time);
+      if (Time != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(Time);
       }
       if (LandStart != 0) {
         output.WriteRawTag(16);
@@ -238,6 +299,22 @@ namespace io.hverse.game.protogen {
       if (Stamina != 0) {
         output.WriteRawTag(40);
         output.WriteInt32(Stamina);
+      }
+      if (Position != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(Position);
+      }
+      if (Rank != 0) {
+        output.WriteRawTag(56);
+        output.WriteInt32(Rank);
+      }
+      if (Start != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(Start);
+      }
+      if (End != 0) {
+        output.WriteRawTag(72);
+        output.WriteInt32(End);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -249,9 +326,9 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Time != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(Time);
+      if (Time != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(Time);
       }
       if (LandStart != 0) {
         output.WriteRawTag(16);
@@ -269,6 +346,22 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(40);
         output.WriteInt32(Stamina);
       }
+      if (Position != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(Position);
+      }
+      if (Rank != 0) {
+        output.WriteRawTag(56);
+        output.WriteInt32(Rank);
+      }
+      if (Start != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(Start);
+      }
+      if (End != 0) {
+        output.WriteRawTag(72);
+        output.WriteInt32(End);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -279,8 +372,8 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Time != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Time);
+      if (Time != 0F) {
+        size += 1 + 4;
       }
       if (LandStart != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(LandStart);
@@ -294,6 +387,18 @@ namespace io.hverse.game.protogen {
       if (Stamina != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Stamina);
       }
+      if (Position != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Position);
+      }
+      if (Rank != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Rank);
+      }
+      if (Start != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Start);
+      }
+      if (End != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(End);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -306,7 +411,7 @@ namespace io.hverse.game.protogen {
       if (other == null) {
         return;
       }
-      if (other.Time != 0) {
+      if (other.Time != 0F) {
         Time = other.Time;
       }
       if (other.LandStart != 0) {
@@ -320,6 +425,18 @@ namespace io.hverse.game.protogen {
       }
       if (other.Stamina != 0) {
         Stamina = other.Stamina;
+      }
+      if (other.Position != 0) {
+        Position = other.Position;
+      }
+      if (other.Rank != 0) {
+        Rank = other.Rank;
+      }
+      if (other.Start != 0) {
+        Start = other.Start;
+      }
+      if (other.End != 0) {
+        End = other.End;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -336,8 +453,8 @@ namespace io.hverse.game.protogen {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            Time = input.ReadInt32();
+          case 13: {
+            Time = input.ReadFloat();
             break;
           }
           case 16: {
@@ -354,6 +471,22 @@ namespace io.hverse.game.protogen {
           }
           case 40: {
             Stamina = input.ReadInt32();
+            break;
+          }
+          case 48: {
+            Position = input.ReadInt32();
+            break;
+          }
+          case 56: {
+            Rank = input.ReadInt32();
+            break;
+          }
+          case 64: {
+            Start = input.ReadInt32();
+            break;
+          }
+          case 72: {
+            End = input.ReadInt32();
             break;
           }
         }
@@ -371,8 +504,8 @@ namespace io.hverse.game.protogen {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            Time = input.ReadInt32();
+          case 13: {
+            Time = input.ReadFloat();
             break;
           }
           case 16: {
@@ -389,6 +522,22 @@ namespace io.hverse.game.protogen {
           }
           case 40: {
             Stamina = input.ReadInt32();
+            break;
+          }
+          case 48: {
+            Position = input.ReadInt32();
+            break;
+          }
+          case 56: {
+            Rank = input.ReadInt32();
+            break;
+          }
+          case 64: {
+            Start = input.ReadInt32();
+            break;
+          }
+          case 72: {
+            End = input.ReadInt32();
             break;
           }
         }
@@ -432,8 +581,6 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public Phase(Phase other) : this() {
-      start_ = other.start_;
-      end_ = other.end_;
       horseStats_ = other.horseStats_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -442,30 +589,6 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public Phase Clone() {
       return new Phase(this);
-    }
-
-    /// <summary>Field number for the "start" field.</summary>
-    public const int StartFieldNumber = 1;
-    private int start_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int Start {
-      get { return start_; }
-      set {
-        start_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "end" field.</summary>
-    public const int EndFieldNumber = 2;
-    private int end_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int End {
-      get { return end_; }
-      set {
-        end_ = value;
-      }
     }
 
     /// <summary>Field number for the "horseStats" field.</summary>
@@ -494,8 +617,6 @@ namespace io.hverse.game.protogen {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Start != other.Start) return false;
-      if (End != other.End) return false;
       if(!horseStats_.Equals(other.horseStats_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -504,8 +625,6 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Start != 0) hash ^= Start.GetHashCode();
-      if (End != 0) hash ^= End.GetHashCode();
       hash ^= horseStats_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -525,14 +644,6 @@ namespace io.hverse.game.protogen {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Start != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(Start);
-      }
-      if (End != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(End);
-      }
       horseStats_.WriteTo(output, _repeated_horseStats_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -544,14 +655,6 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Start != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(Start);
-      }
-      if (End != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(End);
-      }
       horseStats_.WriteTo(ref output, _repeated_horseStats_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -563,12 +666,6 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Start != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Start);
-      }
-      if (End != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(End);
-      }
       size += horseStats_.CalculateSize(_repeated_horseStats_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -581,12 +678,6 @@ namespace io.hverse.game.protogen {
     public void MergeFrom(Phase other) {
       if (other == null) {
         return;
-      }
-      if (other.Start != 0) {
-        Start = other.Start;
-      }
-      if (other.End != 0) {
-        End = other.End;
       }
       horseStats_.Add(other.horseStats_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -604,14 +695,6 @@ namespace io.hverse.game.protogen {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            Start = input.ReadInt32();
-            break;
-          }
-          case 16: {
-            End = input.ReadInt32();
-            break;
-          }
           case 26: {
             horseStats_.AddEntriesFrom(input, _repeated_horseStats_codec);
             break;
@@ -631,14 +714,6 @@ namespace io.hverse.game.protogen {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            Start = input.ReadInt32();
-            break;
-          }
-          case 16: {
-            End = input.ReadInt32();
-            break;
-          }
           case 26: {
             horseStats_.AddEntriesFrom(ref input, _repeated_horseStats_codec);
             break;

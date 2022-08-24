@@ -13,7 +13,7 @@ public static class UniTaskExtension
         }
     }
     
-    public static async UniTask<T> ThrowWhenTimeOut<T>(this UniTask<T> task, float seconds = 100.0f)
+    public static async UniTask<T> ThrowWhenTimeOut<T>(this UniTask<T> task, float seconds = 3.0f)
     {
         UniTaskScheduler.UnobservedExceptionWriteLogType = LogType.Exception;
         await UniTask.WhenAny(task, UniTask.Delay(TimeSpan.FromSeconds(seconds)));
