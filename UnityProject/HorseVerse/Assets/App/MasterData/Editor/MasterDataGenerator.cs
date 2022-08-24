@@ -125,7 +125,7 @@ public class MasterDataGenerator : EditorWindow
                                                .Select(x => x.i)
                                                .ToArray();
         var outputFieldNames = linesAsColumn.FirstOrDefault(line => line[0] == Prefix.type_name.ToString())
-                                            .Where((x, i) => outputClientColumns.Contains(i))
+                                            .Where((x, i) => outputClientColumns.Contains(i) && !string.IsNullOrEmpty(x))
                                             .ToArray();
         var outPutTypes = linesAsColumn.FirstOrDefault(line => line[0] == Prefix.type.ToString())
                                        .Where((x, i) => outputClientColumns.Contains(i))

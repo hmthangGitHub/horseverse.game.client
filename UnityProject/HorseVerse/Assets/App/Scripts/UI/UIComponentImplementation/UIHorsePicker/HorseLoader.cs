@@ -87,7 +87,6 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
         {
             Animator animator = horse.GetComponent<Animator>();
             animator.applyRootMotion = false;
-            animator.SetFloat("Speed", UnityEngine.Random.Range(0.0f, 1.0f));
         }
     }
 

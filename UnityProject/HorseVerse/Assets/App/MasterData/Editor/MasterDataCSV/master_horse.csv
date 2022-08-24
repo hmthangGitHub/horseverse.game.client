@@ -1,15 +1,14 @@
-type_name,master_horse_id,model_path,race_mode_model_path,name
-type,long,string,string,string
-out_put_client,TRUE,TRUE,TRUE,TRUE
-out_put_server,TRUE,FALSE,FALSE,FALSE
-id,id,,,
-,10000001,Horses/Horse_Black,Horses/RaceMode/Horse_Black,Black
-,10000002,Horses/Horse_Black_Tobiano_pinto,Horses/RaceMode/Horse_Black_Tobiano_pinto,Black Tobiano
-,10000003,Horses/Horse_Brown,Horses/RaceMode/Horse_Brown,Brown
-,10000004,Horses/Horse_Buckskin,Horses/RaceMode/Horse_Buckskin,Buckskin
-,10000005,Horses/Horse_GraysRoans,Horses/RaceMode/Horse_GraysRoans,GraysRoans
-,10000006,Horses/Horse_Palomino,Horses/RaceMode/Horse_Palomino,Palomino
-,10000007,Horses/Horse_palomino_overo_pinto,Horses/RaceMode/Horse_palomino_overo_pinto,Overo Pinto
-,10000008,Horses/Horse_White,Horses/RaceMode/Horse_White,White
-,10000009,Horses/Thunder_Horse,Horses/RaceMode/Thunder_Horse,Thunder Horse
-,10000010,Horses/Windy_Horse,Horses/RaceMode/Windy_Horse,Windy Horse
+type_name,master_horse_id,model_path,race_mode_model_path,name,asset_name,,,,
+type,long,string,string,string,ignore,,,,
+out_put_client,TRUE,TRUE,TRUE,TRUE,FALSE,,,,
+out_put_server,TRUE,FALSE,FALSE,FALSE,FALSE,,,,
+id,id,,,,,,,,
+,10000001,Horses/Windy,Horses/RaceMode/Windy,Windy,Windy,,,,
+,10000002,Horses/Windy_Aqua,Horses/RaceMode/Windy_Aqua,Windy Aqua,Windy_Aqua,,,,
+,10000003,Horses/Windy_Majestic,Horses/RaceMode/Windy_Majestic,Windy Majestic,Windy_Majestic,,,,
+,10000004,Horses/Thunder,Horses/RaceMode/Thunder,Thunder,Thunder,,,,
+,10000005,Horses/Thunder_Lightning,Horses/RaceMode/Thunder_Lightning,Thunder Lightning,Thunder_Lightning,,,,
+,10000006,Horses/Thunder_Majestic,Horses/RaceMode/Thunder_Majestic,Thunder Majestic,Thunder_Majestic,,,,
+,10000007,Horses/Cloud,Horses/RaceMode/Cloud,Cloud,Cloud,,,,
+,10000008,Horses/Cloud_Magma,Horses/RaceMode/Cloud_Magma,Cloud Magma,Cloud_Magma,,,,
+,10000009,Horses/Cloud_Majestic,Horses/RaceMode/Cloud_Majestic,Cloud Majestic,Cloud_Majestic,,,,

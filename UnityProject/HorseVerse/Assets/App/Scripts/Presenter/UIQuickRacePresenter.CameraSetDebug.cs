@@ -69,15 +69,10 @@ public partial class UIQuickRacePresenter
 {
     private void DebugSetUp()
     {
-        cameraInMapDebugPanel = new CameraInMapDebugPanel();
     }
     
     private void DebugCleanUp()
     {
-        cameraInMapDebugPanel.Dispose();
-        cameraInMapDebugPanel = null;
     }
-
-    private CameraInMapDebugPanel cameraInMapDebugPanel;
 }
 #endif

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEngine;
@@ -13,32 +14,38 @@ public class HorseImporter
     [MenuItem("Assets/ImportHorse", true)]
     public static bool ImportHorseValidate()
     {
-        return PrefabUtility.GetPrefabAssetType(Selection.activeObject) == PrefabAssetType.Regular;
+        return Selection.gameObjects.All(x => PrefabUtility.GetPrefabAssetType(x) == PrefabAssetType.Regular);
     }
 
     [MenuItem("Assets/ImportHorse")]
     public static void ImportHorse()
     {
-        var horseModelPath = ImportHorseModel();
-        ImportHorseRaceMode(horseModelPath);
+        Selection.gameObjects.ForEach(x =>
+        {
+            var (path, name) = ImportHorseModel(x);
+            ImportHorseRaceMode(path, name);    
+        });
+        
     }
 
-    public static void ImportHorseRaceMode(string horseModelPath)
+    public static void ImportHorseRaceMode(string horseModelPath, string name)
     {
         GameObject objSource = PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(horseControllerBasePath)) as GameObject;
         var meshGO = objSource.FindGameObjectByName("Mesh");
-        PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(horseModelPath), meshGO.transform);
-        PrefabUtility.SaveAsPrefabAsset(objSource, $"{horseRaceModePath}/{Selection.activeObject.name}.prefab");
+        var horseModel = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(horseModelPath), meshGO.transform);
+        horseModel.transform.localPosition = Vector3.zero;
+        PrefabUtility.SaveAsPrefabAsset(objSource, $"{horseRaceModePath}/{name}.prefab");
         GameObject.DestroyImmediate(objSource);
     }
 
-    private static string ImportHorseModel()
+    private static (string path, string name) ImportHorseModel(GameObject prefab)
     {
-        GameObject objSource = PrefabUtility.InstantiatePrefab(Selection.activeObject) as GameObject;
-        string horseModelPath = $"{horsePath}/{Selection.activeObject.name}.prefab";
+        GameObject objSource = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
+        objSource.transform.localPosition = Vector3.zero;
+        string horseModelPath = $"{horsePath}/{prefab.name}.prefab";
         PrefabUtility.SaveAsPrefabAsset(objSource, horseModelPath);
         GameObject.DestroyImmediate(objSource);
-        AddressableAssetSettingsDefaultObject.Settings.AddLabel(Selection.activeObject.name);
-        return horseModelPath;
+        AddressableAssetSettingsDefaultObject.Settings.AddLabel(prefab.name);
+        return (horseModelPath, prefab.name);
     }
 }
