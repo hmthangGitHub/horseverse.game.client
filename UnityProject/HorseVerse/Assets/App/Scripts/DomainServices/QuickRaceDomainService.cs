@@ -16,33 +16,52 @@ public interface IQuickRaceDomainService
 
 public class QuickRaceDomainServiceBase
 {
-    protected IDIContainer container;
-    protected IUserDataRepository userDataRepository;
-    protected IUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IUserDataRepository>();
+    protected IDIContainer Container { get;}
+    private IUserDataRepository userDataRepository;
+    protected IUserDataRepository UserDataRepository => userDataRepository ??= Container.Inject<IUserDataRepository>();
 
-    public QuickRaceDomainServiceBase(IDIContainer container)
+    protected QuickRaceDomainServiceBase(IDIContainer container)
     {
-        this.container = container;
+        this.Container = container;
     }
 }
 
 public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDomainService
 {
+    private ISocketClient socketClient;
+    private ISocketClient SocketClient => socketClient ??= Container.Inject<ISocketClient>();
+
     public QuickRaceDomainService(IDIContainer container) : base(container){}
 
     public UniTask CancelFindMatch()
     {
-        throw new NotImplementedException();
+        return UniTask.CompletedTask;
     }
 
-    public UniTask ChangeHorse(long masterHorseId)
+    public async UniTask ChangeHorse(long masterHorseId)
     {
-        throw new NotImplementedException();
+        await UniTask.Delay(500);
+        var model = new UserDataModel()
+        {
+            Coin = UserDataRepository.Current.Coin,
+            Energy = UserDataRepository.Current.Energy,
+            MasterHorseId = masterHorseId,
+            MaxEnergy = UserDataRepository.Current.MaxEnergy,
+            UserId = UserDataRepository.Current.UserId,
+            UserName = UserDataRepository.Current.UserName,
+            Exp = UserDataRepository.Current.Exp,
+            Level = UserDataRepository.Current.Level,
+            NextLevelExp = UserDataRepository.Current.NextLevelExp,
+            TraningTimeStamp = UserDataRepository.Current.TraningTimeStamp,
+        };
+        await UserDataRepository.UpdateDataAsync(new UserDataModel[] { model });
     }
 
-    public UniTask<RaceMatchData> FindMatch()
+    public async UniTask<RaceMatchData> FindMatch()
     {
-        throw new NotImplementedException();
+        await UniTask.Delay(1000);
+        var response = await SocketClient.Send<RaceScriptRequest, RaceScriptResponse>(new RaceScriptRequest());
+        return default;
     }
 }
 
@@ -78,7 +97,7 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
     {
         HorseRaceTime[] GetAllMasterHorseIds()
         {
-            return container.Inject<MasterHorseContainer>().MasterHorseIndexer.Keys
+            return Container.Inject<MasterHorseContainer>().MasterHorseIndexer.Keys
                             .Shuffle()
                             .Append(UserDataRepository.Current.MasterHorseId)
                             .Shuffle()

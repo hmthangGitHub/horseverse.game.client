@@ -2,11 +2,18 @@ using RobustFSM.Base;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class InitialState : InjectedBHState, IDisposable
 {
-    public async override void Enter()
+    public override void Enter()
+    {
+        OnEnterStateAsync().Forget();
+    }
+
+    private async UniTaskVoid OnEnterStateAsync()
     {
         this.Container.Bind(TCPSocketClient.Initialize(new ProtobufMessageParser()));
         this.Container.Bind(await MasterLoader.LoadMasterAsync<MasterHorseContainer>());

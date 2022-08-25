@@ -6,7 +6,7 @@ using UnityEngine;
 
 public abstract class SocketClientBase : MonoBehaviour, ISocketClient
 {
-    private MessageBroker.IMessageBroker messageBroker = new MessageBroker.ChannelMessageBroker();
+    private readonly MessageBroker.IMessageBroker messageBroker = new MessageBroker.ChannelMessageBroker();
     protected IMessageParser messageParser;
 
     protected void SetIMessageParser(IMessageParser messageParser)
@@ -45,14 +45,9 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
         await Send<TRequest>(request);
         try
         {
-            if (token == default)
-            {
-                return await ucs.Task.ThrowWhenTimeOut();
-            }
-            else
-            {
-                return await ucs.Task.AttachExternalCancellation(token);
-            }
+            return token == default
+                ? await ucs.Task.ThrowWhenTimeOut()
+                : await ucs.Task.AttachExternalCancellation(token);
         }
         finally
         {

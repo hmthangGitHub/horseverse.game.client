@@ -29,12 +29,12 @@ namespace io.hverse.game.protogen {
             "DjIKLkhvcnNlVHlwZSpYCgtOZnRSYW5rVHlwZRIVChFSQU5LX1RZUEVfVU5L",
             "Tk9XThAAEgUKAUQQARIFCgFDEAISBQoBQhADEgUKAUEQBBIFCgFTEAUSBgoC",
             "U1MQBhIHCgNTU1MQByotCglIb3JzZVR5cGUSCQoFTElHSFQQABILCgdUSFVO",
-            "REVSEAESCAoEREFSSxACQkcKF2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuQhJE",
-            "YXRhTWVzc2FnZUZhY3RvcnmqAhdpby5odmVyc2UuZ2FtZS5wcm90b2dlbmIG",
-            "cHJvdG8z"));
+            "REVSEAESCAoEREFSSxACKiAKBExhbmUSBgoCSU4QABIHCgNNSUQQARIHCgNP",
+            "VVQQAkJHChdpby5odmVyc2UuZ2FtZS5wcm90b2dlbkISRGF0YU1lc3NhZ2VG",
+            "YWN0b3J5qgIXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.NftRankType), typeof(global::io.hverse.game.protogen.HorseType), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.NftRankType), typeof(global::io.hverse.game.protogen.HorseType), typeof(global::io.hverse.game.protogen.Lane), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "RankType", "HorseType" }, null, null, null, null)
           }));
     }
@@ -57,6 +57,12 @@ namespace io.hverse.game.protogen {
     [pbr::OriginalName("LIGHT")] Light = 0,
     [pbr::OriginalName("THUNDER")] Thunder = 1,
     [pbr::OriginalName("DARK")] Dark = 2,
+  }
+
+  public enum Lane {
+    [pbr::OriginalName("IN")] In = 0,
+    [pbr::OriginalName("MID")] Mid = 1,
+    [pbr::OriginalName("OUT")] Out = 2,
   }
 
   #endregion
