@@ -8,7 +8,6 @@ public class QuickRaceResultPresenter : IDisposable
 {
     private CancellationTokenSource cts;
     private UIRaceResultList uiRaceResultList;
-    public Action OnBackToMainState = ActionUtility.EmptyAction.Instance;
     private RaceMatchData raceMatchData;
     private RaceMatchData RaceMatchData => raceMatchData ??= Container.Inject<RaceMatchData>();
     private IUserDataRepository userDataRepository;
@@ -25,7 +24,7 @@ public class QuickRaceResultPresenter : IDisposable
         Container = container;
     }
 
-    public async UniTaskVoid ShowResultAsynnc()
+    public async UniTask ShowResultAsync()
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
@@ -47,14 +46,28 @@ public class QuickRaceResultPresenter : IDisposable
                 ucs.TrySetResult();
             }))
         });
-        await uiHorseQuickRaceResultList.In();
+        uiHorseQuickRaceResultList.In().Forget();
         await ucs.Task.AttachExternalCancellation(cts.Token);
     }
 
     private async UniTask ShowReward()
     {
         uiRaceResultList ??= await UILoader.Instantiate<UIRaceResultList>(token: cts.Token);
-        SetEntityResultList();
+        var ucs = new UniTaskCompletionSource();
+        uiRaceResultList.SetEntity(new UIRaceResultList.Entity()
+        {
+            horseList = new UIComponentHorseResultList.Entity()
+            {
+                entities = GetResultList()
+            },
+            closeBtn = new ButtonComponent.Entity(() =>
+            {
+                ucs.TrySetResult();
+            }),
+        });
+
+        uiRaceResultList.In().Forget();
+        await ucs.Task;
     }
 
     private async UniTask ShowRaceResultSelf()
@@ -77,22 +90,6 @@ public class QuickRaceResultPresenter : IDisposable
         });
         uiRaceResultSelf.In().Forget();
         await ucs.Task.AttachExternalCancellation(cts.Token);
-    }
-
-    private void SetEntityResultList()
-    {
-        uiRaceResultList.SetEntity(new UIRaceResultList.Entity()
-        {
-            horseList = new UIComponentHorseResultList.Entity()
-            {
-                entities = GetResultList()
-            },
-            closeBtn = new ButtonComponent.Entity(() =>
-            {
-                OnBackToMainState.Invoke();
-            }),
-        });
-        uiRaceResultList.In().Forget();
     }
 
     private UIComponentHorseResult.Entity[] GetResultList()

@@ -63,11 +63,11 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         void OnSkipFreeCamera()
         {
             ucs.TrySetResult();
+            freeCamera.OnSkipFreeCamera -= OnSkipFreeCamera;
+            freeCamera.gameObject.SetActive(false);
         }
         freeCamera.OnSkipFreeCamera += OnSkipFreeCamera;
-        await UniTask.WhenAny(ucs.Task, UniTask.Delay(5000));
-        freeCamera.OnSkipFreeCamera -= OnSkipFreeCamera;
-        freeCamera.gameObject.SetActive(false);
+        await ucs.Task;
     }
 
     public async UniTask ShowWarmUpCamera()
@@ -96,6 +96,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         freeCamera = Instantiate(mapSettings.freeCamera, transform, true);
 
         raceCamera = Instantiate(GetRaceModeCamera(mapSettings), Vector3.zero, Quaternion.identity, transform);
+        raceCamera.gameObject.SetActive(false);
         targetGenerator = Instantiate(mapSettings.targetGenerator, Vector3.zero,Quaternion.identity, transform);
         warmUpCamera = Instantiate(mapSettings.warmUpCamera, Vector3.zero, Quaternion.identity, transform);
 
