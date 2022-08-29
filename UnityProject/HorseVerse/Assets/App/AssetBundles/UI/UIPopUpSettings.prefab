@@ -398,6 +398,7 @@ GameObject:
   - component: {fileID: 7277820301159438452}
   - component: {fileID: 9103293331328372735}
   - component: {fileID: 8089131783175338564}
+  - component: {fileID: 1262069175750608527}
   m_Layer: 5
   m_Name: logOutBtn
   m_TagString: Untagged
@@ -520,6 +521,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 9103293331328372735}
+--- !u!114 &1262069175750608527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865024219612445835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94fb2b71e8a04f57a51be466a1d1828a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationTransform: {fileID: 0}
+  button: {fileID: 9103293331328372735}
+  toggle: {fileID: 0}
+  durationIn: 0.05
+  durationOut: 0.15
+  scale: 0.8
 --- !u!1 &1030527758874815847
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,6 +976,7 @@ GameObject:
   - component: {fileID: 1671228529905137065}
   - component: {fileID: 5820682988851847936}
   - component: {fileID: 6921887859723068893}
+  - component: {fileID: 6960762916030030584}
   m_Layer: 5
   m_Name: closeBtn
   m_TagString: Untagged
@@ -1079,6 +1099,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 5820682988851847936}
+--- !u!114 &6960762916030030584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2483590770938435812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94fb2b71e8a04f57a51be466a1d1828a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationTransform: {fileID: 0}
+  button: {fileID: 5820682988851847936}
+  toggle: {fileID: 0}
+  durationIn: 0.05
+  durationOut: 0.15
+  scale: 0.8
 --- !u!1 &3239758666640684877
 GameObject:
   m_ObjectHideFlags: 0
@@ -1278,6 +1316,7 @@ GameObject:
   - component: {fileID: 4478958702267905384}
   - component: {fileID: 562550573541027899}
   - component: {fileID: 6730252307755614177}
+  - component: {fileID: 3091686835188149773}
   m_Layer: 5
   m_Name: resumeBtn
   m_TagString: Untagged
@@ -1400,6 +1439,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 562550573541027899}
+--- !u!114 &3091686835188149773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3556159305513440190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94fb2b71e8a04f57a51be466a1d1828a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationTransform: {fileID: 0}
+  button: {fileID: 562550573541027899}
+  toggle: {fileID: 0}
+  durationIn: 0.05
+  durationOut: 0.15
+  scale: 0.8
 --- !u!1 &3754577017812310663
 GameObject:
   m_ObjectHideFlags: 0
@@ -2086,7 +2143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2567,6 +2624,7 @@ GameObject:
   - component: {fileID: 168634360273448454}
   - component: {fileID: 3257918967371234893}
   - component: {fileID: 2244659078565780086}
+  - component: {fileID: 522039686}
   m_Layer: 5
   m_Name: UIPopUpSettings
   m_TagString: Untagged
@@ -2620,12 +2678,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 3257918967371234893}
+  animation: {fileID: 522039686}
   sfxSlider: {fileID: 5110638598709972907}
   bgmSlider: {fileID: 1649468293144089087}
   gfxSlider: {fileID: 4859119568532416733}
   outerBtn: {fileID: 1763336063308831098}
   closeBtn: {fileID: 6921887859723068893}
   logOutBtn: {fileID: 8089131783175338564}
+--- !u!114 &522039686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6452011584654066427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 803677f9be66a5142850d1cb446bcbed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  container: {fileID: 8700465635659030820}
+  duration: 0.25
 --- !u!1 &6893373456175538303
 GameObject:
   m_ObjectHideFlags: 0
@@ -2637,7 +2710,6 @@ GameObject:
   - component: {fileID: 8700465635659030820}
   - component: {fileID: 514186089304713669}
   - component: {fileID: 3124297467100747184}
-  - component: {fileID: 6340470228912514894}
   - component: {fileID: 3904021953342888762}
   m_Layer: 5
   m_Name: container
@@ -2687,18 +2759,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &6340470228912514894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6893373456175538303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85297b3f875c33242a7c7a06a86852a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3904021953342888762
 MonoBehaviour:
   m_ObjectHideFlags: 0

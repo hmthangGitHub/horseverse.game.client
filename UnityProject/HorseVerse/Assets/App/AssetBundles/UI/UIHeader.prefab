@@ -63,6 +63,7 @@ GameObject:
   - component: {fileID: 8493678125713936675}
   - component: {fileID: 3683515773971537534}
   - component: {fileID: 1842977916807347966}
+  - component: {fileID: 2472033032196963945}
   m_Layer: 5
   m_Name: backBtn
   m_TagString: Untagged
@@ -184,6 +185,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 3683515773971537534}
+--- !u!114 &2472033032196963945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2338584015539969819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94fb2b71e8a04f57a51be466a1d1828a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 3683515773971537534}
+  toggle: {fileID: 0}
+  durationIn: 0.05
+  durationOut: 0.15
+  scale: 0.8
 --- !u!1 &4783557916862708428
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,6 +266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 1676079212925581649}
+  animation: {fileID: 0}
   userName: {fileID: 7465671971508281125}
   coin: {fileID: 4850524478846466216}
   energy: {fileID: 4850524478917203453}
@@ -622,6 +641,7 @@ GameObject:
   - component: {fileID: 4850524477576259710}
   - component: {fileID: 4850524477576259711}
   - component: {fileID: 4850524477576259708}
+  - component: {fileID: 5064337821902669604}
   m_Layer: 5
   m_Name: settingBtn
   m_TagString: Untagged
@@ -743,6 +763,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 4850524477576259711}
+--- !u!114 &5064337821902669604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4850524477576259705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94fb2b71e8a04f57a51be466a1d1828a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 4850524477576259711}
+  toggle: {fileID: 0}
+  durationIn: 0.05
+  durationOut: 0.15
+  scale: 0.8
 --- !u!1 &4850524477620669393
 GameObject:
   m_ObjectHideFlags: 0

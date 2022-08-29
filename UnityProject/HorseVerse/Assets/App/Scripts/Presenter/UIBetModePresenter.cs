@@ -10,7 +10,7 @@ using UnityEngine;
 
 public class UIBetModePresenter : IDisposable
 {
-    private const int horseNumber = 8;
+    private const int HorseNumber = 8;
     private UIBetMode uiBetMode = default;
     private UIBetConfirmation uiBetConfirmation = default;
     private CancellationTokenSource cts = default;
@@ -109,7 +109,7 @@ public class UIBetModePresenter : IDisposable
             },
             quickBetButtonsContainer = new UIComponentQuickBetButtonsContainer.Entity()
             {
-                onBetAll = OnBetAllAtHorseNumber
+                onBetAll = val => OnBetAllAtHorseNumber(val).Forget()
             }
         });
 
@@ -118,17 +118,20 @@ public class UIBetModePresenter : IDisposable
 
     private async UniTaskVoid OnChangeToRaceModeAsync()
     {
-        var raceMatchData = await betModeDomainService.GetCurrentBetModeRaceMatchData();
+        var raceMatchData = await BetModeDomainService.GetCurrentBetModeRaceMatchData();
         container.Bind(raceMatchData);
         TransitionAsync(OnToRaceMode).Forget();
     }
 
-    private void OnBetAllAtHorseNumber(int horseNumber)
+    private async UniTaskVoid OnBetAllAtHorseNumber(int horseNumber)
     {
-        var keys = BetRateRepository.Models.Where(x => x.Key.second != default && x.Key.first == horseNumber || x.Key.second == horseNumber)
-                                           .Select(x => x.Key)
-                                           .ToArray();
-        BetModeDomainService.BetAsync(keys, currentBettingAmouth).Forget();
+        if (await AskIsConfirmBet())
+        {
+            var keys = BetRateRepository.Models.Where(x => x.Key.second != default && x.Key.first == horseNumber || x.Key.second == horseNumber)
+                .Select(x => x.Key)
+                .ToArray();
+            BetModeDomainService.BetAsync(keys, currentBettingAmouth).Forget();    
+        }
     }
 
     private void BetRateRepositoryOnModelsUpdate((IReadOnlyDictionary<(int first, int second), BetRateModel> before, IReadOnlyDictionary<(int first, int second), BetRateModel> after) obj)
@@ -144,7 +147,7 @@ public class UIBetModePresenter : IDisposable
         }
         else
         {
-            int betSlotIndex = (model.after.First - 1) * horseNumber + (model.after.Second - 1);
+            int betSlotIndex = (model.after.First - 1) * HorseNumber + (model.after.Second - 1);
             uiBetMode.doubleBetSlotList.instanceList[betSlotIndex].SetTotalBetAmouth((int)model.after.TotalBet);
         }
     }
@@ -156,14 +159,14 @@ public class UIBetModePresenter : IDisposable
 
     private async UniTaskVoid OnBetAtSlotAsync((int first, int second) key)
     {
-        var confirm = await ShowConfirmationIfNeed();
+        var confirm = await AskIsConfirmBet();
         if (confirm)
         {
             BetModeDomainService.BetAsync(new (int first, int second)[] { key }, currentBettingAmouth).Forget();    
         }
     }
 
-    private async UniTask<bool> ShowConfirmationIfNeed()
+    private async UniTask<bool> AskIsConfirmBet()
     {
         if (UserSettingLocalRepository.IsSkipConfirmBet)
         {

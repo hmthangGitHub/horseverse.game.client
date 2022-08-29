@@ -13,7 +13,6 @@ public class UIHorseTraining : PopupEntity<UIHorseTraining.Entity>
         public UIComponentTrainingPrepareState.Entity prepareState;
         public UIComponentTraningProcessingState.Entity processingState;
         public UIComponentTraningHorseSelectSumaryList.Entity horseSelectSumaryList;
-        public ButtonComponent.Entity backBtn;
     }
 
     public UIComponentHorseDetail horseDetail;
@@ -21,7 +20,7 @@ public class UIHorseTraining : PopupEntity<UIHorseTraining.Entity>
     public UIComponentTrainingPrepareState prepareState;
     public UIComponentTraningProcessingState processingState;
     public UIComponentTraningHorseSelectSumaryList horseSelectSumaryList;
-    public ButtonComponent backBtn;
+    
     protected override void OnSetEntity()
     {
         horseDetail.SetEntity(this.entity.horseDetail);
@@ -29,7 +28,6 @@ public class UIHorseTraining : PopupEntity<UIHorseTraining.Entity>
         prepareState.SetEntity(this.entity.prepareState);
         processingState.SetEntity(this.entity.processingState);
         horseSelectSumaryList.SetEntity(this.entity.horseSelectSumaryList);
-        backBtn.SetEntity(this.entity.backBtn);
     }
 
     public void ChangeState(UIComponentTraningState.TraningState state)
