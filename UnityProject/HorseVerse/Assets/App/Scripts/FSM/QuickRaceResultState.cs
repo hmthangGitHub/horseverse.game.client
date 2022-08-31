@@ -1,28 +1,19 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 public class QuickRaceResultState : InjectedBState
 {
-    private QuickRaceResultPresenter presenter;
-    private UIRaceResultList uiRaceResultList;
     public override void Enter()
     {
         base.Enter();
-        presenter = new QuickRaceResultPresenter(Container);
-        presenter.OnBackToMainState += ToMainState;
-        presenter.ShowResultAsynnc().Forget();
+        OnStateEnterAsync().Forget();
     }
 
-    private void ToMainState()
+    private async UniTask OnStateEnterAsync()
     {
+        using var presenter = new QuickRaceResultPresenter(Container);
+        await presenter.ShowResultAsync();
         this.GetSuperMachine<RootFSM>().ToChildStateRecursive<MainMenuState>();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-        UILoader.SafeRelease(ref uiRaceResultList);
-        presenter.OnBackToMainState -= ToMainState;
-        presenter?.Dispose();
-        presenter = null;
     }
 }

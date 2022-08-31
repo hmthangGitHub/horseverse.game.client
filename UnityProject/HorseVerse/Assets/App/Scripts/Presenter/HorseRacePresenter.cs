@@ -34,6 +34,7 @@ public class HorseRacePresenter : IDisposable
     private TargetGenerator targetGenerator;
     private CancellationTokenSource cts;
     private Scene mapScene;
+    private RaceModeHorseIntroPresenter raceModeHorseIntroPresenter;
 
     private IDIContainer Container { get; }
 
@@ -49,6 +50,8 @@ public class HorseRacePresenter : IDisposable
         await InitHorseRaceAsync();
         await LoadUI();
         await LoadRacingScene(default);
+        raceModeHorseIntroPresenter = new RaceModeHorseIntroPresenter(Container);
+        await raceModeHorseIntroPresenter.LoadUIAsync();
     }
 
     private async UniTask GetMapSettings()
@@ -60,13 +63,13 @@ public class HorseRacePresenter : IDisposable
     public async UniTask PlayIntro()
     {
         await horseRaceManager.ShowFreeCamera();
-        using (var raceModeHorseIntroPresenter = new RaceModeHorseIntroPresenter(Container))
-        {
-            await raceModeHorseIntroPresenter.ShowHorsesInfoIntroAsync(RaceMatchData.horseRaceTimes.Select(x => x.masterHorseId)
-                                                                                                   .ToArray(), 
-                                                                        targetGenerator.StartPosition, 
-                                                                        Quaternion.identity);
-        }
+        raceModeHorseIntroPresenter = new RaceModeHorseIntroPresenter(Container);
+        await raceModeHorseIntroPresenter.ShowHorsesInfoIntroAsync(RaceMatchData.horseRaceTimes.Select(x => x.masterHorseId)
+                                                                                               .ToArray(), 
+                                                                    targetGenerator.StartPosition, 
+                                                                    Quaternion.identity);
+        raceModeHorseIntroPresenter.Dispose();
+        raceModeHorseIntroPresenter = default;
         await horseRaceManager.ShowWarmUpCamera();
     }
 

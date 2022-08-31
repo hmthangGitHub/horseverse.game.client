@@ -22,10 +22,7 @@ public class RaceModeHorseIntroPresenter : IDisposable
 
     public async UniTask ShowHorsesInfoIntroAsync(long[] masterHorseIds, Vector3 horsePosition, Quaternion rotation)
     {
-        cts.SafeCancelAndDispose();
-        cts = new CancellationTokenSource();
-        uiHorseInfoIntro = await UILoader.Instantiate<UIHorseInfoIntro>(token: cts.Token);
-        uiHorse3DIntro = await UILoader.Instantiate<UIHorse3DInRaceSceneIntro>(token: cts.Token);
+        await LoadUIAsync();
         this.horsePosition = horsePosition;
         this.rotation = rotation;
 
@@ -42,6 +39,14 @@ public class RaceModeHorseIntroPresenter : IDisposable
         catch (OperationCanceledException)
         {
         }
+    }
+
+    public async UniTask LoadUIAsync()
+    {
+        cts.SafeCancelAndDispose();
+        cts = new CancellationTokenSource();
+        uiHorseInfoIntro = await UILoader.Instantiate<UIHorseInfoIntro>(token: cts.Token);
+        uiHorse3DIntro = await UILoader.Instantiate<UIHorse3DInRaceSceneIntro>(token: cts.Token);
     }
 
     private async UniTask ShowHorseInfoAsync(MasterHorse masterHorse, int gate, float introTime)
