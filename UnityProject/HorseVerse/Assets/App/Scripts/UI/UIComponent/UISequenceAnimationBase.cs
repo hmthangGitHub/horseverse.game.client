@@ -4,25 +4,8 @@ using System;
 using System.Threading;
 using UnityEngine;
 
-public class UISequenceAnimationBase : MonoBehaviour
+public class UISequenceAnimationBase : UIAnimationBase
 {
-    private CancellationTokenSource cts;
-    private Tween tweenAnimation;
-    
-    public UniTask PlayAnimationAsync(Func<Tween> animationFactory)
-    {
-        EndAnimation();
-        tweenAnimation = animationFactory.Invoke();
-        return tweenAnimation?.AwaitForComplete(TweenCancelBehaviour.CancelAwait, cts.Token) ?? UniTask.CompletedTask;
-    }
-
-    private void EndAnimation()
-    {
-        cts.SafeCancelAndDispose();
-        cts = new CancellationTokenSource();
-        tweenAnimation?.Kill(true);
-    }
-
     public virtual UniTask AnimationIn()
     {
         return PlayAnimationAsync(CreateInAnimation);

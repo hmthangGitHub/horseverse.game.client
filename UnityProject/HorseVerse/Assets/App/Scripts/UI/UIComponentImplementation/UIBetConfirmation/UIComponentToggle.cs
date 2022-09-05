@@ -14,11 +14,17 @@ public class UIComponentToggle : UIComponent<UIComponentToggle.Entity>
     }
 
     public Toggle toggle;
+    private Action<bool> onActiveToggleInternal = ActionUtility.EmptyAction<bool>.Instance;
+
+    private void Awake()
+    {
+	    toggle.onValueChanged.AddListener(val => onActiveToggleInternal(val));
+    }
 
     protected override void OnSetEntity()
     {
 	    toggle.isOn = this.entity.isOn;
-	    toggle.onValueChanged.RemoveAllListeners();
-	    toggle.onValueChanged.AddListener(val => this.entity.onActiveToggle(val));
+	    onActiveToggleInternal = ActionUtility.EmptyAction<bool>.Instance;
+	    onActiveToggleInternal += this.entity.onActiveToggle;
     }
 }	
