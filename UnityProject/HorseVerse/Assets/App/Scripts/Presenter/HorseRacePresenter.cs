@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
 public class HorseRacePresenter : IDisposable
@@ -33,8 +32,8 @@ public class HorseRacePresenter : IDisposable
     private MapSettings mapSettings;
     private TargetGenerator targetGenerator;
     private CancellationTokenSource cts;
-    private Scene mapScene;
     private RaceModeHorseIntroPresenter raceModeHorseIntroPresenter;
+    private int numberOfHorseFinishTheRace = 0;
 
     private IDIContainer Container { get; }
 
@@ -49,7 +48,6 @@ public class HorseRacePresenter : IDisposable
         await GetMapSettings();
         await InitHorseRaceAsync();
         await LoadUI();
-        await LoadRacingScene(default);
         raceModeHorseIntroPresenter = new RaceModeHorseIntroPresenter(Container);
         await raceModeHorseIntroPresenter.LoadUIAsync();
     }
@@ -63,14 +61,16 @@ public class HorseRacePresenter : IDisposable
     public async UniTask PlayIntro()
     {
         await horseRaceManager.ShowFreeCamera();
-        raceModeHorseIntroPresenter = new RaceModeHorseIntroPresenter(Container);
-        await raceModeHorseIntroPresenter.ShowHorsesInfoIntroAsync(RaceMatchData.horseRaceTimes.Select(x => x.masterHorseId)
-                                                                                               .ToArray(), 
+        await (horseRaceManager.cameraBlendingAnimation.FadeOutAnimationAsync(),
+               raceModeHorseIntroPresenter.ShowHorsesInfoIntroAsync(RaceMatchData.horseRaceTimes.Select(x => x.masterHorseId).ToArray(), 
                                                                     targetGenerator.StartPosition, 
-                                                                    Quaternion.identity);
+                                                                    Quaternion.identity));
         raceModeHorseIntroPresenter.Dispose();
         raceModeHorseIntroPresenter = default;
-        await horseRaceManager.ShowWarmUpCamera();
+        await horseRaceManager.cameraBlendingAnimation.FadeInAnimationAsync();
+        
+        await (horseRaceManager.ShowWarmUpCameraThenWait(),
+               horseRaceManager.cameraBlendingAnimation.FadeOutAnimationAsync());
     }
 
     private async UniTask GetMasterMap()
@@ -85,16 +85,12 @@ public class HorseRacePresenter : IDisposable
         playerHorseIndex = RaceMatchData.horseRaceTimes.ToList().FindIndex(x => x.masterHorseId == UserDataRepository.Current.MasterHorseId);
         await horseRaceManager.InitializeAsync(RaceMatchData.horseRaceTimes.Select(x => MasterHorseContainer.MasterHorseIndexer[x.masterHorseId].RaceModeModelPath).ToArray(),
                                                masterMap.MapSettings,
+                                               masterMap.MapPath,
                                                playerHorseIndex,
                                                RaceMatchData.horseRaceTimes.Select(x => x.time).ToArray(),
                                                1,
                                                RaceMatchData.horseRaceTimes,
                                                default);
-    }
-
-    private async UniTask LoadRacingScene(CancellationToken token)
-    {
-        mapScene = await SceneAssetLoader.LoadSceneAsync(masterMap.MapPath, true, token : token);
     }
 
     private async UniTask LoadUI()
@@ -131,25 +127,27 @@ public class HorseRacePresenter : IDisposable
 
     private void OnFinishTrack()
     {
-        horseRaceManager.OnFinishTrackEvent -= OnFinishTrack;
         OnFinishTrackAsync().Forget();
     }
 
     private async UniTask OnFinishTrackAsync()
     {
-        uiSpeedController.Out().Forget();
-        uiHorseRaceStatus.Out().Forget();
-        
+        numberOfHorseFinishTheRace++;
         await FlashScreenAsync();
-
-        await UIBackGroundPresenter.ShowBackGroundAsync();
-        if (RaceMatchData.mode == RaceMode.QuickMode)
+        if (numberOfHorseFinishTheRace == 2)
         {
-            OnToQuickRaceModeResultState();
-        }
-        else
-        {
-            OnToBetModeResultState();
+            horseRaceManager.OnFinishTrackEvent -= OnFinishTrack;
+            uiSpeedController.Out().Forget();
+            uiHorseRaceStatus.Out().Forget();
+            await UIBackGroundPresenter.ShowBackGroundAsync();
+            if (RaceMatchData.mode == RaceMode.QuickMode)
+            {
+                OnToQuickRaceModeResultState();
+            }
+            else
+            {
+                OnToBetModeResultState();
+            }
         }
     }
 
@@ -247,12 +245,6 @@ public class HorseRacePresenter : IDisposable
         UILoader.SafeRelease(ref uiFlashScreen);
         MasterLoader.SafeRelease(ref masterMapContainer);
 
-        if(mapScene != default)
-        {
-            SceneAssetLoader.UnloadAssetAtPath(masterMap.MapPath);
-            mapScene = default;
-        }    
-        
         if(mapSettings != default)
         {
             PrimitiveAssetLoader.UnloadAssetAtPath(masterMap.MapSettings);

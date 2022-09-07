@@ -92,6 +92,7 @@ public class HorseController : MonoBehaviour
                 if (IsLastWayPoint())
                 {
                     OnFinishTrackEvent();
+                    Debug.Log($"Finish Track : {Transform.name}");
                     OnFinishTrackEvent -= horseInGameData.OnFinishTrack;
                 }
                 ChangeTarget();

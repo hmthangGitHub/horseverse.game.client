@@ -15,7 +15,6 @@ public class InitialState : InjectedBHState, IDisposable
 
     private async UniTaskVoid OnEnterStateAsync()
     {
-        this.Container.Bind(TCPSocketClient.Initialize(new ProtobufMessageParser()));
         this.Container.Bind(await MasterLoader.LoadMasterAsync<MasterHorseContainer>());
         this.Container.Bind(new HorseRepository(Container));
         this.Container.Bind(new BetRateRepository());
@@ -28,6 +27,7 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.Bind(new LocalQuickRaceDomainService(this.Container));
         this.Container.Bind(new LocalTraningDomainService(Container));
         this.Container.Bind(new HorseSumaryListEntityFactory(Container));
+        this.Container.Bind(TCPSocketClient.Initialize(new ProtobufMessageParser()));
         base.Enter();
     }
 
@@ -64,6 +64,7 @@ public class InitialState : InjectedBHState, IDisposable
 
     public void Dispose()
     {
+        this.Container.RemoveAndDisposeIfNeed<TCPSocketClient>();
         this.Container.RemoveAndDisposeIfNeed<UILoadingPresenter>();
         this.Container.RemoveAndDisposeIfNeed<UIHeaderPresenter>();
         this.Container.RemoveAndDisposeIfNeed<UIBackGroundPresenter>();
@@ -78,6 +79,5 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.RemoveAndDisposeIfNeed<HorseSumaryListEntityFactory>();
         this.Container.RemoveAndDisposeIfNeed<MasterHorseContainer>();
         MasterLoader.Unload<MasterHorseContainer>();
-        this.Container.RemoveAndDisposeIfNeed<TCPSocketClient>();
     }
 }

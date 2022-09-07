@@ -16,14 +16,16 @@ public class UIHorseQuickRaceResultListAnimation : UISequenceAnimationBase
     {
         layoutGroup.enabled = false;
         return DOTween.Sequence()
-            .Append(quickRaceResultList.instanceList.Select(x => x.RectTransform().DOAnchorPosYFrom(-1700, 0.2f))
-                .ToArray().AsSequence(false,0.1f))
-            .OnKill(() => layoutGroup.enabled = true);
+            .Append(quickRaceResultList.CreateSequenceAnimation(x => x.RectTransform().DOAnchorPosYFrom(-1700, 0.2f)
+                , false
+                , 0.1f))
+            .OnKill(() => layoutGroup.enabled = true)
+            .SetUpdate(true);
     }
 
     protected override Tween CreateOutAnimation()
     {
-        return container.RectTransform().DOFade(1.0f, 0.0f, 0.15f, true);
+        return container.RectTransform().DOFade(1.0f, 0.0f, 0.15f, true).SetUpdate(true);
     }
     
     public override async UniTask AnimationIn()
