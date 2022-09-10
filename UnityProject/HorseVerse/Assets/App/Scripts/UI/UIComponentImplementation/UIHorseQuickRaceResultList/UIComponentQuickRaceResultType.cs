@@ -6,9 +6,8 @@ public class UIComponentQuickRaceResultType : UIComponentEnum<UIComponentQuickRa
 {
 	public enum ResultType
     {
-        first,
-        second,
-        third,
-        other
+        First,
+        Second,
+        Other
     }
 }	

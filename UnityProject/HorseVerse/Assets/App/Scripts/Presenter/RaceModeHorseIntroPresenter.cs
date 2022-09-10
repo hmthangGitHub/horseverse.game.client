@@ -22,7 +22,8 @@ public class RaceModeHorseIntroPresenter : IDisposable
 
     public async UniTask ShowHorsesInfoIntroAsync(long[] masterHorseIds, Vector3 horsePosition, Quaternion rotation)
     {
-        await LoadUIAsync();
+        cts.SafeCancelAndDispose();
+        cts = new CancellationTokenSource();
         this.horsePosition = horsePosition;
         this.rotation = rotation;
 

@@ -18,6 +18,7 @@ public class HorseRaceTest : MonoBehaviour
 
         await horseRaceManager.InitializeAsync(horseIdInLanes.Select(x => masterHorseContainer.MasterHorseIndexer[x].RaceModeModelPath).ToArray(),
                                                masterMapContainer.MasterMapIndexer[masterMapId].MapSettings,
+                                               masterMapContainer.MasterMapIndexer[masterMapId].MapPath,
                                                UnityEngine.Random.Range(0, 7),
                                                Enumerable.Range(1, 8).Select(x => UnityEngine.Random.Range(49.5f, 50.5f)).ToArray(),
                                                1,
@@ -25,7 +26,7 @@ public class HorseRaceTest : MonoBehaviour
                                                default);
 
         await horseRaceManager.ShowFreeCamera();
-        await horseRaceManager.ShowWarmUpCamera();
+        await horseRaceManager.ShowWarmUpCameraThenWait();
         horseRaceManager.StartRace();
     }
 

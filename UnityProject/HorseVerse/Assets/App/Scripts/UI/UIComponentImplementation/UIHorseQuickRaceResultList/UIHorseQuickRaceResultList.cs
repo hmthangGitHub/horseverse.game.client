@@ -36,10 +36,9 @@ public class UIHorseQuickRaceResultList : PopupEntity<UIHorseQuickRaceResultList
     {
         return i switch
         {
-            0 => UIComponentQuickRaceResultType.ResultType.first,
-            1 => UIComponentQuickRaceResultType.ResultType.second,
-            2 => UIComponentQuickRaceResultType.ResultType.third,
-            _ => UIComponentQuickRaceResultType.ResultType.other
+            0 => UIComponentQuickRaceResultType.ResultType.First,
+            1 => UIComponentQuickRaceResultType.ResultType.Second,
+            _ => UIComponentQuickRaceResultType.ResultType.Other
         };
     }
 }	

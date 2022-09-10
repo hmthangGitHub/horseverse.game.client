@@ -21,7 +21,8 @@ public class UIBetModeResultAnimation : UISequenceAnimationBase
                 .ToArray()
                 .AsSequence())
             .Append(nextButton.DOFade(0.0f, 1.0f, 0.15f))
-            .OnKill(() => layoutGroup.enabled = true);
+            .OnKill(() => layoutGroup.enabled = true)
+            .SetUpdate(true);
     }
 
     protected override Tween CreateOutAnimation()

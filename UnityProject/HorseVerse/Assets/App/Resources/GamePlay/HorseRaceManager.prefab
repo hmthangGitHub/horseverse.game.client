@@ -76,6 +76,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3105539194236147831}
+  - {fileID: 8251910977996556368}
   - {fileID: 3105539193534741760}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -96,6 +97,8 @@ MonoBehaviour:
   raceCamera: {fileID: 0}
   targetGenerator: {fileID: 0}
   warmUpCamera: {fileID: 0}
+  mainCamera: {fileID: 3105539194236147834}
+  cameraBlendingAnimation: {fileID: 1807355937092762920}
   timeToFinish: []
   offSet: -2.56
   offsetPerLane: 0.75
@@ -136,7 +139,7 @@ Transform:
   m_Children:
   - {fileID: 3105539192944362202}
   m_Father: {fileID: 3105539193444477319}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3105539194236147834
 GameObject:
@@ -149,6 +152,7 @@ GameObject:
   - component: {fileID: 3105539194236147831}
   - component: {fileID: 3105539194236147832}
   - component: {fileID: 3105539194236147830}
+  - component: {fileID: 8230424119911017830}
   - component: {fileID: 1807355937092762920}
   - component: {fileID: 5390368373788565429}
   - component: {fileID: 5695391223216266384}
@@ -158,7 +162,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3105539194236147831
 Transform:
   m_ObjectHideFlags: 0
@@ -169,8 +173,7 @@ Transform:
   m_LocalRotation: {x: -0.1417375, y: 0.83344346, z: -0.25038496, w: -0.47179428}
   m_LocalPosition: {x: -87.42414, y: 4.2021904, z: 38.19406}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 8251910977996556368}
+  m_Children: []
   m_Father: {fileID: 3105539193444477319}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -229,40 +232,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShowDebugText: 0
+  m_ShowDebugText: 1
   m_ShowCameraFrustum: 1
-  m_IgnoreTimeScale: 1
+  m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
   m_UpdateMethod: 2
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
-    m_Style: 0
-    m_Time: 1
+    m_Style: 1
+    m_Time: 2
     m_CustomCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  m_CustomBlends: {fileID: 0}
+  m_CustomBlends: {fileID: 11400000, guid: 0e557c42be77d6646bad61dfa81e5bfa, type: 2}
   m_CameraCutEvent:
     m_PersistentCalls:
       m_Calls: []
   m_CameraActivatedEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1807355937092762920}
-        m_TargetAssemblyTypeName: CameraBlendingAnimation, Assembly-CSharp
-        m_MethodName: OnCameraActivate
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &8230424119911017830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3105539194236147834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78488c8dd3c226c46bb0df8645edccf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStartBlending:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEndBlending:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1807355937092762920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,6 +303,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 7200690568617021472}
+  durationOut: 0.5
+  durationIn: 0.5
+  excludeCameraBlending: []
+  cinemachineBrain: {fileID: 3105539194236147830}
 --- !u!114 &5390368373788565429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,8 +412,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 5501869844545406114}
-  m_Father: {fileID: 3105539194236147831}
-  m_RootOrder: 0
+  m_Father: {fileID: 3105539193444477319}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

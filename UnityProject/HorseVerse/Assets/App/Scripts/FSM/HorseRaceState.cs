@@ -13,9 +13,9 @@ public class HorseRaceState : InjectedBHState
     private bool isGameStart = false;
     private HorseRacePresenter horseRacePresenter;
     private UILoadingPresenter uiLoadingPresenter;
-    public UILoadingPresenter UiLoadingPresenter => uiLoadingPresenter ??= Container.Inject<UILoadingPresenter>();
+    private UILoadingPresenter UiLoadingPresenter => uiLoadingPresenter ??= Container.Inject<UILoadingPresenter>();
     private UIBackGroundPresenter uiBackGroundPresenter;
-    public UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
+    private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
 
     public override async void Enter()
     {

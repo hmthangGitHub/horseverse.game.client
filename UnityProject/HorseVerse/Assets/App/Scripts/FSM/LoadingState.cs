@@ -19,8 +19,8 @@ public class LoadingState : InjectedBState
         uiLoadingPresenter.ShowLoadingAsync().Forget();
         await UniTask.Delay(1000);
         
-        //await SocketClient.Connect("tcp.prod.game.horsesoflegends.com", 8770);
-        // await SocketClient.Connect("127.0.0.1", 8080);
+        await SocketClient.Connect("tcp.prod.game.horsesoflegends.com", 8770);
+        //await SocketClient.Connect("127.0.0.1", 8080);
         this.Machine.ChangeState<MainMenuState>();
     }
 }
