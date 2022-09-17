@@ -15,7 +15,7 @@ public static class StreamExtensions
         var length = 0;
         while (length == 0)
         {
-            length = await stream.ReadAsync(buffer, 0, 1024).ConfigureAwait(false);
+            length = await stream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
         }
         await UniTask.SwitchToMainThread();
         return buffer.Take(length).ToArray();

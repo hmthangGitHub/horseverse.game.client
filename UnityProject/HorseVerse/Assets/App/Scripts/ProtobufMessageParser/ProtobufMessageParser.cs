@@ -41,13 +41,34 @@ public class ProtobufMessageParser : IMessageParser
 
     public IMessage Parse(byte[] rawMessage)
     {
-        var message = GameMessage.Parser.ParseFrom(rawMessage); 
-        var iSubMessage = lookUpToISubMessageFunc[Any.GetTypeName(message.MsgData.TypeUrl)](message.MsgData);
-        return lookUpToMessageFunc[iSubMessage.MsgType](iSubMessage);
+        var message = GameMessage.ParseFromRawMessageWithAdditionalSizeHeader(rawMessage);
+        if (message.MsgType == GameMessageType.PingMessage)
+        {
+            return message;
+        }
+        else
+        {
+            if (lookUpToISubMessageFunc.TryGetValue(Any.GetTypeName(message.MsgData.TypeUrl),out var parser))
+            {
+                var iSubMessage = parser(message.MsgData);
+                return lookUpToMessageFunc[iSubMessage.MsgType](iSubMessage);
+            }
+            else
+            {
+                throw new UnKnownServerMessageTypeException(message.ToString());
+            }
+        }
     }
 
     public byte[] ToByteArray(IMessage message)
     {
-        return serializeLookUpFunc[message.GetType()](message);
+        if (message is GameMessage gameMessage)
+        {
+            return gameMessage.ToByteArray();
+        }
+        else
+        {
+            return serializeLookUpFunc[message.GetType()](message);    
+        }
     }
 }

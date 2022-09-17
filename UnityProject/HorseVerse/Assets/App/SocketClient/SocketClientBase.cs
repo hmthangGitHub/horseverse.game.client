@@ -53,7 +53,6 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
         {
             messageBroker.UnSubscribe<TResponse>(OnResponse);
         }
-        
     }
 
     public abstract UniTask Connect(string url, int port);
