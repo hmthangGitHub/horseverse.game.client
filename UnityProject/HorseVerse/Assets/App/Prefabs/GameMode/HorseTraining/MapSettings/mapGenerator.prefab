@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3368562485139984853
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4712697734379235429}
+  - component: {fileID: -3804708989283087237}
+  m_Layer: 0
+  m_Name: mapGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4712697734379235429
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3368562485139984853}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-3804708989283087237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3368562485139984853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7af33f0b88fec8f4d9362c969684f182, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  predefinePathPrefab: {fileID: 2354310582042565781, guid: 2a994ffbdc4013a408db29004ee91b6b, type: 3}
+  coinPrefab: {fileID: 2342296183655528524, guid: 8b9668838ab9bc549a1350298e954bc6, type: 3}
+  trainingObstaclePrefab: {fileID: 1985880257532520265, guid: f18fd7d3b1ac45242a6b9855ad342947, type: 3}
+  groundOffset: 1
+  jumpHeight: 2
+  jumpAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 4.8343034
+      outSlope: 4.8343034
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.05947046
+    - serializedVersion: 3
+      time: 0.50772274
+      value: 0.99284136
+      inSlope: -0.0582522
+      outSlope: -0.0582522
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.5023432
+    - serializedVersion: 3
+      time: 0.9791667
+      value: 0.0070754886
+      inSlope: -4.3442664
+      outSlope: -4.3442664
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.058428347
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spacingBetweenCoins: 1.5
+  horizontalOffset: 2
+  spacingBetweenBlocks: {x: 20, y: 20}
+  numberOfBlockRange: {x: 30, y: 40}
+  totalNumberOfCoin: 200
+  numberOfBlock: 0
+  timeOffset: 0
+  direction: 0
