@@ -10,7 +10,8 @@ public class HorseTrainingController : MonoBehaviour
     public PredefinePath predefinePath;
     public HorseTrainingTrigger horseTrainingTrigger;
     public bool isStart = false;
-    public float speed = 10;
+    public float speed = 0;
+    public float originalSpeed = 12;
     public float offset = 5;
     public float moveTime = 0.5f;
     public float regularJumpTime = 1.0f;
@@ -18,6 +19,7 @@ public class HorseTrainingController : MonoBehaviour
     
     private new Transform transform;
     private Animator animator;
+    private Transform horseMesh;
     
     public float totalDistance;
     public float startTime;
@@ -29,6 +31,9 @@ public class HorseTrainingController : MonoBehaviour
     private Tween currentMovingTween;
     private static readonly int Jumping = Animator.StringToHash("Jumping");
     private static readonly int Speed = Animator.StringToHash("Speed");
+
+    public event Action OnTakeCoin = ActionUtility.EmptyAction.Instance;
+    public event Action OnTouchObstacle = ActionUtility.EmptyAction.Instance;
 
     public enum Move
     {
@@ -43,17 +48,14 @@ public class HorseTrainingController : MonoBehaviour
     private void Awake()
     {
         SetData(this.mapGenerator.PredefinePath); // TODO remove
-        animator = this.GetComponentInChildren<Animator>();
-        horseTrainingTrigger.OnTouchObstacle += OnTouchObstacle;
-        horseTrainingTrigger.OnTakeCoin += OnTakeCoin;
-    }
-
-    private void OnTakeCoin()
-    {
-    }
-
-    private void OnTouchObstacle()
-    {
+        animator = this.GetComponentInChildren<Animator>(true);
+        horseMesh = animator.transform;
+        horseTrainingTrigger.OnTouchObstacle += () =>
+        {
+            isStart = false;
+            OnTouchObstacle.Invoke();
+        };
+        horseTrainingTrigger.OnTakeCoin += () => OnTakeCoin.Invoke();
     }
 
     public void SetData(PredefinePath predefinePath)
@@ -66,8 +68,9 @@ public class HorseTrainingController : MonoBehaviour
         direction = predefinePath.Direction;
     }
 
-    public void Start()
+    public void StartGame()
     {
+        speed = originalSpeed;
         isStart = true;
         animator.SetFloat(Speed, 1.0f);
     }
@@ -144,7 +147,15 @@ public class HorseTrainingController : MonoBehaviour
         currentMovingTween = DOTween.To(val =>
         {
             currentOffset = Mathf.Lerp(sourceOffset, targetOffSet, val);
-        }, 0.0f, 1.0f, moveTime).SetEase(Ease.InOutQuart);    
+        }, 0.0f, 1.0f, moveTime).SetEase(Ease.InOutQuart);
+
+        horseMesh.DOLocalRotate(new Vector3(0, 40.0f * Mathf.Sign(targetOffSet - sourceOffset), 0), moveTime * 0.5f)
+            .SetEase(Ease.InBack)
+            .SetLoops(2, LoopType.Yoyo)
+            .OnComplete(() =>
+            {
+                horseMesh.localRotation = Quaternion.identity;
+            });
     }
     
     private void Update()
@@ -153,24 +164,10 @@ public class HorseTrainingController : MonoBehaviour
         {
             JumpLeft();
         }
-        else
-        {
-            if (lastStrafeMove == Move.LEFT)
-            {
-                lastStrafeMove = Move.NONE;
-            }
-        }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
             JumpRight();
-        }
-        else
-        {
-            if (lastStrafeMove == Move.RIGHT)
-            {
-                lastStrafeMove = Move.NONE;
-            }
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -182,15 +179,22 @@ public class HorseTrainingController : MonoBehaviour
     public void FixedUpdate()
     {
         if (!isStart) return;
-        
-        totalDistance += speed * Time.deltaTime;
         var t = (totalDistance / predefinePath.SimplyPath.path.length) * direction + startTime;
+
+        speed = GetDesiredSpeed(t);
+        totalDistance += speed * Time.deltaTime;
         
+        t = (totalDistance / predefinePath.SimplyPath.path.length) * direction + startTime;
         var rotationAtDistance = predefinePath.SimplyPath.path.GetRotation(t);
         transform.rotation = Quaternion.Euler(0, rotationAtDistance.eulerAngles.y + 180 * direction, 0);
         
         var right = transform.right;
         var pos = predefinePath.SimplyPath.path.GetPointAtTime(t);
         transform.position = pos + right * currentOffset + transform.up * currentHeight;
+    }
+
+    private float GetDesiredSpeed(float t)
+    {
+        return originalSpeed + (int)((Mathf.Abs(t - startTime)) / 1.0f) * originalSpeed * 0.15f;
     }
 }

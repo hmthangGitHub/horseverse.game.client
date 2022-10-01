@@ -21,7 +21,7 @@ public class RootFSM : MonoFSMContainer
         CurrentState.Exit();
     }
 
-    public void ToChildStateRecursive<T>() where T : IState
+    public void ChangeToChildStateRecursive<T>() where T : IState
     {
         var states = this.States;
         var state = States.FirstOrDefault(x => x.Key == typeof(T)).Value;

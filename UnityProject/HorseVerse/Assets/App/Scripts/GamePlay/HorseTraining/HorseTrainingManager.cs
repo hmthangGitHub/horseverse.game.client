@@ -12,5 +12,12 @@ public class HorseTrainingManager : MonoBehaviour
     public async UniTask Initialize(string horseTrainingPath, string mapPath, Action onTakeCoin, Action onTouchObstacle)
     {
         await UniTask.CompletedTask;
+        horseTrainingController.OnTakeCoin += onTakeCoin;
+        horseTrainingController.OnTouchObstacle += onTouchObstacle;
+    }
+
+    public void StartGame()
+    {
+        horseTrainingController.StartGame();
     }
 }

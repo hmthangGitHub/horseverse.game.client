@@ -97,6 +97,10 @@ MonoBehaviour:
     m_Address: Maps/racing_scene_stadium
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 9d29f4937c0d69d4a95ade919ff3b49e
+    m_Address: Maps/racing_scene_stadium_light_settings
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 67cd23e8f8174ce48ab5dc6172d828bf
     m_Address: Maps/MapSettings/map_settings_1
     m_ReadOnly: 0
@@ -105,8 +109,64 @@ MonoBehaviour:
     m_Address: Maps/MapSettings/map_settings_stadium
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 93d50cfe41104354b8ab53977cfcef1d
+    m_Address: Maps/racing_scene_stadium/LightingData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 513a735f43ad3274c95e38fe0994a1c2
+    m_Address: Maps/racing_scene_stadium/Lightmap-0_comp_dir
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b8d604e3bab215443b20692ea9a9e354
+    m_Address: Maps/racing_scene_stadium/Lightmap-0_comp_light
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f1ee2eacdb81bc143aff1fcc1e6c30e3
+    m_Address: Maps/racing_scene_stadium/Lightmap-1_comp_dir
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 34ebbb1d28d65484f9749fef37e4a004
+    m_Address: Maps/racing_scene_stadium/Lightmap-1_comp_light
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ff01faf629f2c984eb0160f4ee8a3851
+    m_Address: Maps/racing_scene_stadium/ReflectionProbe-0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d0d6ea66012686b42a15580a2ad7fd9a
+    m_Address: Maps/racing_scene_stadium/ReflectionProbe-1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: f79d704960bc6284d8ee4c5a22c1621a
     m_Address: MasterData/MasterHorse
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a71dd0edd3a8c6e479a497b30d4eb6ff
+    m_Address: MasterData/MasterMap
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c048c7e69838df54d937d90b2b7de8f9
+    m_Address: UI/UIBackGround
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5a4c397ff27798b438e10d1341b495fd
+    m_Address: UI/UIBetConfirmation
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 02992266875dd0245a4b9d703ecba00d
+    m_Address: UI/UIBetInProgressPopUp
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c9bd18317771ee0489208c5255a0e637
+    m_Address: UI/UIBetMode
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ab93dd222bd96c14aafcd7aff875084d
+    m_Address: UI/UIBetModeResult
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d5fe754faa277f64f80733ad4748d1df
+    m_Address: UI/UIBetReward
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 2a940bfb5b8f0454b985cead1f822442
@@ -115,6 +175,10 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 3807de52fe7bc8646ab855f86510e266
     m_Address: UI/UIHeader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ffb6a2fe15129c84b8c668ce2cbf75ad
+    m_Address: UI/UIHorse3DInRaceSceneIntro
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: e65f822c8b1f0264fbc4f65e3e9c8e0e
@@ -197,68 +261,8 @@ MonoBehaviour:
     m_Address: UI/UISpeedController
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 9d29f4937c0d69d4a95ade919ff3b49e
-    m_Address: Maps/racing_scene_stadium_light_settings
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 93d50cfe41104354b8ab53977cfcef1d
-    m_Address: Maps/racing_scene_stadium/LightingData
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 513a735f43ad3274c95e38fe0994a1c2
-    m_Address: Maps/racing_scene_stadium/Lightmap-0_comp_dir
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: b8d604e3bab215443b20692ea9a9e354
-    m_Address: Maps/racing_scene_stadium/Lightmap-0_comp_light
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: f1ee2eacdb81bc143aff1fcc1e6c30e3
-    m_Address: Maps/racing_scene_stadium/Lightmap-1_comp_dir
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 34ebbb1d28d65484f9749fef37e4a004
-    m_Address: Maps/racing_scene_stadium/Lightmap-1_comp_light
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: ff01faf629f2c984eb0160f4ee8a3851
-    m_Address: Maps/racing_scene_stadium/ReflectionProbe-0
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: d0d6ea66012686b42a15580a2ad7fd9a
-    m_Address: Maps/racing_scene_stadium/ReflectionProbe-1
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: ffb6a2fe15129c84b8c668ce2cbf75ad
-    m_Address: UI/UIHorse3DInRaceSceneIntro
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: d5fe754faa277f64f80733ad4748d1df
-    m_Address: UI/UIBetReward
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: ab93dd222bd96c14aafcd7aff875084d
-    m_Address: UI/UIBetModeResult
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: c9bd18317771ee0489208c5255a0e637
-    m_Address: UI/UIBetMode
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 02992266875dd0245a4b9d703ecba00d
-    m_Address: UI/UIBetInProgressPopUp
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 5a4c397ff27798b438e10d1341b495fd
-    m_Address: UI/UIBetConfirmation
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: c048c7e69838df54d937d90b2b7de8f9
-    m_Address: UI/UIBackGround
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: a71dd0edd3a8c6e479a497b30d4eb6ff
-    m_Address: MasterData/MasterMap
+  - m_GUID: a81fde10d082c5b41ae2e4f57a6c3224
+    m_Address: UI/UITrainingCoinCounting
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading;
 using UnityEngine;
 
@@ -23,6 +24,7 @@ public class UIHorseTrainingPresenter : IDisposable
     private IReadOnlyHorseRepository HorseRepository => horseRepository ??= container.Inject<IReadOnlyHorseRepository>();
 
     private const int traningCost = 100;
+    public event Action ToTraningActionState = ActionUtility.EmptyAction.Instance;
 
     public UIHorseTrainingPresenter(IDIContainer container)
     {
@@ -76,7 +78,13 @@ public class UIHorseTrainingPresenter : IDisposable
 
     private async UniTask ToTraningAsycn()
     {
-        await TrainingDomainService.SendHorseToTraining(UserDataRepository.Current.MasterHorseId);
+        ToTraningActionState.Invoke();
+        container.Bind(new HorseTrainingDataContext()
+        {
+            masterHorseId = 10000001,
+            masterMapId = 10001002,
+        });
+        //await TrainingDomainService.SendHorseToTraining(UserDataRepository.Current.MasterHorseId);
     }
 
     private void UserDataRepositoryOnModelUpdate((UserDataModel before, UserDataModel after) model)
