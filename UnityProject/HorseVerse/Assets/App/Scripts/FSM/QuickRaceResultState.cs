@@ -14,6 +14,6 @@ public class QuickRaceResultState : InjectedBState
     {
         using var presenter = new QuickRaceResultPresenter(Container);
         await presenter.ShowResultAsync();
-        this.GetSuperMachine<RootFSM>().ToChildStateRecursive<MainMenuState>();
+        this.GetSuperMachine<RootFSM>().ChangeToChildStateRecursive<MainMenuState>();
     }
 }

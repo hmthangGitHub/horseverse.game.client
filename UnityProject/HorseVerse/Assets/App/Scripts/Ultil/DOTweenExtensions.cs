@@ -86,4 +86,16 @@ public static class DOTweenExtensions
     {
         return To(val => transform.localScale = Vector3.one * val, from, to, duration);
     }
+    
+    public static Tween DOScaleFrom(this Transform transform, Vector3 from, Vector3 to, float duration)
+    {
+        transform.localScale = from;
+        return transform.DOScale(to, duration);
+    }
+
+    public static Tween DOMoveFrom(this Transform transform, Vector3 from, Vector3 to, float duration)
+    {
+        transform.position = from;
+        return transform.DOMove(to, duration);
+    }
 }

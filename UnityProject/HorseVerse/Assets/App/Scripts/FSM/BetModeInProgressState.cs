@@ -13,7 +13,7 @@
 
     private void OnBack()
     {
-        this.GetSuperMachine<RootFSM>().ToChildStateRecursive<MainMenuState>();
+        this.GetSuperMachine<RootFSM>().ChangeToChildStateRecursive<MainMenuState>();
     }
 
     public override void Exit()

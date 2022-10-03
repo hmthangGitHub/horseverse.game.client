@@ -1,31 +1,25 @@
 using PathCreation;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class TargetGenerator : MonoBehaviour
 {
-    [SerializeField] private PathCreation.PathCreator simplyPath;
-    [SerializeField] private int[] predefinedWayPointIndices;
-    public int[] PredefinedWayPointIndices { get => predefinedWayPointIndices; set => predefinedWayPointIndices = value; }
-    public PathCreator SimplyPath { get => simplyPath; set => simplyPath = value; }
+    [SerializeField] private PredefinePath predefinePath;
+    public PathCreator SimplyPath => predefinePath.SimplyPath;
     public float spacing = 2.5f;
     public int numberOfAgents = 8;
-    public Vector3 StartPosition => simplyPath.bezierPath.GetPoint(PredefinedWayPointIndices[0]);
-    public Quaternion StartRotation =>
-        Quaternion.FromToRotation(Vector3.forward, simplyPath.bezierPath.GetPoint(PredefinedWayPointIndices[1]) 
-                                                   - simplyPath.bezierPath.GetPoint(PredefinedWayPointIndices[0]));
+    public Vector3 StartPosition => predefinePath.StartPosition;
+    public Quaternion StartRotation => predefinePath.StartRotation;
 
     public Vector3[] GenerateRandomTargets()
     {
         return Enumerable.Range(0, 11)
-            .Select(i => i * 0.1f + UnityEngine.Random.Range(-0.05f, 0.05f))
+            .Select(i => i * 0.1f + Random.Range(-0.05f, 0.05f))
             .Select(x => FromTimeToPoint(x, 0))
             .ToArray();
     }
 
-    public Vector3 FromTimeToPoint(float t, float offset)
+    private Vector3 FromTimeToPoint(float t, float offset)
     {
         Vector3 rightV = Quaternion.Euler(0, SimplyPath.path.GetRotation(t).eulerAngles.y, 0) * Vector3.right;
         return SimplyPath.path.GetPointAtTime(t) + rightV.X0Z() * offset;
@@ -33,7 +27,7 @@ public class TargetGenerator : MonoBehaviour
 
     private float GetOffsetFromLane(int lane)
     {
-        var start = -spacing * ((float)(numberOfAgents - 1) / 2.0f);
+        var start = -spacing * ((numberOfAgents - 1) / 2.0f);
         return start + spacing * lane;
     }
 
@@ -55,7 +49,7 @@ public class TargetGenerator : MonoBehaviour
         {
             var startOffset = GetOffsetFromLane(x.currentLane);
             var endOffset = GetOffsetFromLane(x.toLane);
-            var startChangeLaneSegmentIndex = UnityEngine.Random.Range(0, x.waypoints.Length - 1);
+            var startChangeLaneSegmentIndex = Random.Range(0, x.waypoints.Length - 1);
             var totalWayPointToChangeLane = (float)(x.waypoints.Length - 1) - startChangeLaneSegmentIndex;
             return x.waypoints.Select((w, wIndex) =>
             {
@@ -80,7 +74,7 @@ public class TargetGenerator : MonoBehaviour
 
     private Vector2[] FromSegmentToNormalizePath(RaceSegment[] segment)
     {
-        if(segment.Length < PredefinedWayPointIndices.Length)
+        if(segment.Length < predefinePath.PredefinedWayPointIndices.Length)
         {
             throw new System.Exception("Segment number larger than predefine one");
         }
@@ -100,6 +94,6 @@ public class TargetGenerator : MonoBehaviour
 
     private float GetTimeAtIndex(int i)
     {
-         return simplyPath.path.GetClosestTimeOnPath(simplyPath.bezierPath.GetPoint(PredefinedWayPointIndices[i]));
+         return SimplyPath.path.GetClosestTimeOnPath(SimplyPath.bezierPath.GetPoint(predefinePath.PredefinedWayPointIndices[i]));
     }
 }
