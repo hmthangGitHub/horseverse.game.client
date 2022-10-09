@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using UnityEditor;
 using UnityEngine;
 
 public class HorseTrainingManager : MonoBehaviour
@@ -19,5 +20,6 @@ public class HorseTrainingManager : MonoBehaviour
     public void StartGame()
     {
         horseTrainingController.StartGame();
+        mapGenerator.StartGame();
     }
 }

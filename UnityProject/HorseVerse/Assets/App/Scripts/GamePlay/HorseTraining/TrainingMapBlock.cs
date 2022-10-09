@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using JetBrains.Annotations;
+using PathCreation;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,9 +16,16 @@ public class TrainingMapBlock : MonoBehaviour
     [SerializeField] private Transform boundingBoxReference;
     [SerializeField] private GameObject container;
     [SerializeField] private TrainingBlockLane[] lanes;
-    
-    public PredefinePath PredefinePath { get; set; } 
+    [SerializeField] private PathCreator pathCreator;
+
     public float Size => boundingBoxReference.localScale.z;
+
+    public PathCreator PathCreator
+    {
+        get => pathCreator;
+        set => pathCreator = value;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         StartGenerate();
