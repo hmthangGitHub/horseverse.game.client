@@ -82,7 +82,7 @@ public class UIHorseTrainingPresenter : IDisposable
         container.Bind(new HorseTrainingDataContext()
         {
             masterHorseId = 10000001,
-            masterMapId = 10001002,
+            masterMapId = 10001003,
         });
         //await TrainingDomainService.SendHorseToTraining(UserDataRepository.Current.MasterHorseId);
     }

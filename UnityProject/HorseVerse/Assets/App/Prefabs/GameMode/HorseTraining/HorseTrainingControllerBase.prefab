@@ -176,7 +176,11 @@ MonoBehaviour:
     regularJumpTime: 0.4
     jumpHeight: 2
     moveTime: 0.2
-    bridgeTime: 5
+    bridgeTime: 4
+    flyingAngle: 20
+    angularSpeed: 15
+  horseTrainingControllerData:
+    totalDistance: 0
   pathCreator: {fileID: 0}
   horseTrainingTrigger: {fileID: 8369072937532698544}
   transform: {fileID: 0}

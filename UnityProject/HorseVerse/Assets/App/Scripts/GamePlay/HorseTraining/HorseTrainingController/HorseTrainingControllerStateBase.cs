@@ -32,6 +32,18 @@ public class HorseTrainingControllerStateBase : BState
         var right = Transform.right;
         var pos = PathCreator.path.GetPointAtTime(t);
         Transform.position = pos + right * HorseTrainingControllerData.CurrentOffset + Transform.up * HorseTrainingControllerData.CurrentHeight;
+        UpdateSpeed();
+    }
+    
+    private void UpdateSpeed()
+    {
+        HorseTrainingControllerData.movingTime += Time.deltaTime;
+        HorseTrainingController.HorseTrainingControllerData.Speed = GetDesiredSpeed(HorseTrainingControllerData.movingTime);
+    }
+
+    private float GetDesiredSpeed(float time)
+    {
+        return HorseTrainingAttribute.originalSpeed + (int)((Mathf.Abs(time)) / 60.0f) * HorseTrainingAttribute.originalSpeed * 0.30f;
     }
 
     protected void UpdateJumpAnimation(bool isJumping)

@@ -13,6 +13,7 @@ public class HorseTrainingControllerData
         set => totalDistance = value;
     }
 
+    public float movingTime;
     public float Speed { get; set; }
     public TrainingPathBridge Bridge { get; set; }
     public float CurrentHeight { get; set; }

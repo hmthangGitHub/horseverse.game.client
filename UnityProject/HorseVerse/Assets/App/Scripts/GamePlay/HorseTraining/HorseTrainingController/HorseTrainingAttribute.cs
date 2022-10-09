@@ -9,4 +9,6 @@ public class HorseTrainingAttribute
     public float jumpHeight = 2.0f;
     public float moveTime = 0.2f;
     public float bridgeTime = 2.0f;
+    public float flyingAngle = 30.0f;
+    public float angularSpeed = 0.2f;
 }

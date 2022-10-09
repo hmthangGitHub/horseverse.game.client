@@ -61,7 +61,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4021545984452010056}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 749346962891712208}
@@ -436,7 +436,7 @@ MonoBehaviour:
   - {fileID: 5812980975852742069}
   - {fileID: 6600195069361934622}
   - {fileID: 1517018613779217415}
-  predefinePath: {fileID: 0}
+  pathCreator: {fileID: 0}
 --- !u!65 &1407717525
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class CoinGenerator : MonoBehaviour
     [SerializeField] private TrainingCoin coinPrefab;
     [SerializeField] private PathCreator pathCreator;
     private PathCreator PathCreator => pathCreator ??= GetComponentsInParent<TrainingMapBlock>(true).First().PathCreator;
+    private MeshPathContainer.PathType PathType => GetComponentsInParent<TrainingMapBlock>(true).First().PathType;
     [SerializeField] private float groundOffset;
     [SerializeField] private AnimationCurve jumpAnimationCurve;
     [SerializeField] private float jumpHeight = 2.0f;
@@ -24,7 +25,7 @@ public class CoinGenerator : MonoBehaviour
     private void GenerateCoinBlock(int numberOfCoin)
     {
         var height = groundOffset;
-        var isRequiredJumping = Random.Range(1, 5) == 1; //25%
+        var isRequiredJumping = PathType == MeshPathContainer.PathType.Cloud && Random.Range(1, 5) == 1; //25%
         var timeOffset = spacingBetweenCoins / PathCreator.path.length;
         
         for (int i = 0; i < numberOfCoin; i++)

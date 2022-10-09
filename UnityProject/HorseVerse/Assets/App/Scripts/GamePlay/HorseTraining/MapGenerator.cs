@@ -15,7 +15,7 @@ public class MapGenerator : MonoBehaviour
 
     [SerializeField] private MeshPathContainer[] meshPathContainers;
     [SerializeField] private  TrainingPathBridge bridgePrefab;
-    private int currentPath = 0;
+    private int currentPath = 1;
 
     [SerializeField] private TrainingMapBlock trainingBlockPrefab;
     [SerializeField] private HorseTrainingController horseTrainingController;
@@ -54,10 +54,11 @@ public class MapGenerator : MonoBehaviour
         var pathContainer = pathCreator.transform.parent.parent;
         var newPathContainer = Object.Instantiate(meshPathContainers[currentPath], pathContainer);
         newPathContainer.pathCreator.transform.position = pathCreator.bezierPath.GetPoint(pathCreator.bezierPath.NumPoints - 1) +
-                                              pathCreator.transform.position + new Vector3(0, 50, 75);
+                                              pathCreator.transform.position + new Vector3(0, 0, 100);
         newPathContainer.pathCreator.InitializeEditorData(false);
         newPathContainer.pathCreator.GetComponent<MapMeshGenerator>()?.TriggerUpdate();
         trainingBlockPrefab.PathCreator = newPathContainer.pathCreator;
+        trainingBlockPrefab.PathType = newPathContainer.pathType;
         CreateBridge(pathContainer, newPathContainer);
     }
 
@@ -68,6 +69,7 @@ public class MapGenerator : MonoBehaviour
         var bridge = Object.Instantiate(bridgePrefab, pathContainer);
         bridge.SourcePath = pathCreator;
         bridge.DestinationPath = newPathContainer.pathCreator;
+        bridge.DestinationPathType = newPathContainer.pathType;
         bridge.CreateBridge();
 
         horseTrainingController.HorseTrainingControllerData.Bridge = bridge;

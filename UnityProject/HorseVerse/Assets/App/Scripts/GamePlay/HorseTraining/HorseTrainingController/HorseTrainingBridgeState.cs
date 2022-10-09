@@ -14,13 +14,16 @@ public class HorseTrainingBridgeState : HorseTrainingControllerStateBase
         var t = HorseTrainingControllerData.TotalDistance / PathCreator.path.length;
         var time = (PathCreator.path.length - HorseTrainingControllerData.TotalDistance) / HorseTrainingControllerData.Speed;
         UpdateOffSet();
-        UpdateJumpAnimation(true);
         
         DOTween.Sequence()
             .Append(DOTween.To(x =>
             {
                 UpdatePosition();
             }, 0.0f, 1.0f, time))
+            .AppendCallback(() =>
+            {
+                UpdateJumpAnimation(true);
+            })
             .Append(DOTween.To(UpdateHorseOnBridgePosition, 0.0f, 0.5f, HorseTrainingAttribute.bridgeTime * 0.5f).SetEase(Ease.OutQuint))
             .Append(DOTween.To(UpdateHorseOnBridgePosition, 0.5f, 1.0f, HorseTrainingAttribute.bridgeTime * 0.5f).SetEase(Ease.InQuint))
             .OnComplete(() =>
@@ -35,7 +38,7 @@ public class HorseTrainingBridgeState : HorseTrainingControllerStateBase
                 }
                 else
                 {
-                    Machine.ChangeState<HorseTrainingCloudState>();
+                    Machine.ChangeState<HorseTrainingAirState>();
                 }
                 HorseTrainingControllerData.OnFinishLandingBridge();
             }).SetUpdate(UpdateType.Fixed);
@@ -58,13 +61,15 @@ public class HorseTrainingBridgeState : HorseTrainingControllerStateBase
             HorseTrainingControllerData.CurrentOffset = Mathf.Lerp(sourceOffset, targetOffSet, val);
         }, 0.0f, 1.0f, HorseTrainingAttribute.moveTime).SetEase(Ease.InOutQuart);
 
-        HorseMesh.DOLocalRotate(new Vector3(0, 40.0f * Mathf.Sign(targetOffSet - sourceOffset), 0), HorseTrainingAttribute.moveTime * 0.5f)
-            .SetEase(Ease.InBack)
-            .SetLoops(2, LoopType.Yoyo)
-            .OnComplete(() =>
-            {
-                HorseMesh.localRotation = Quaternion.identity;
-            });
+        if (targetOffSet != sourceOffset)
+        {
+            HorseMesh.DOLocalRotate(new Vector3(0, 40.0f * Mathf.Sign(targetOffSet - sourceOffset), 0), HorseTrainingAttribute.moveTime * 0.5f)
+                .SetEase(Ease.InBack)
+                .SetLoops(2, LoopType.Yoyo)
+                .OnComplete(() =>
+                {
+                    HorseMesh.localRotation = Quaternion.identity;
+                });    
+        }
     }
-
 }

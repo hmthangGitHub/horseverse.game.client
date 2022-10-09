@@ -4,7 +4,6 @@ using UnityEngine;
 public class HorseTrainingCloudState : HorseTrainingControllerStateBase
 {
     private Tween currentMovingTween;
-    private float movingTime;
 
     public override void Enter()
     {
@@ -101,23 +100,5 @@ public class HorseTrainingCloudState : HorseTrainingControllerStateBase
     public override void PhysicsExecute()
     {
         UpdatePosition();        
-        UpdateSpeed();
-    }
-
-    private void UpdateSpeed()
-    {
-        movingTime += Time.deltaTime;
-        HorseTrainingController.HorseTrainingControllerData.Speed = GetDesiredSpeed(movingTime);
-    }
-
-    private float GetDesiredSpeed(float time)
-    {
-        return HorseTrainingAttribute.originalSpeed + (int)((Mathf.Abs(time)) / 60.0f) * HorseTrainingAttribute.originalSpeed * 0.30f;
-    }
-    
-    public override void Exit()
-    {
-        base.Exit();
-        movingTime = 0;
     }
 }
