@@ -29,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1304591377060451178}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 0.577, y: 0.98240995, z: 1.9075}
+  m_LocalPosition: {x: 0, y: 0.6575, z: 0}
+  m_LocalScale: {x: 0.577, y: 0.66735107, z: 1.9075}
   m_Children: []
   m_Father: {fileID: 1304591377426752540}
   m_RootOrder: 1
@@ -170,23 +170,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38807b3f9db68594fb30974c47c87794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapGenerator: {fileID: 0}
-  predefinePath: {fileID: 0}
+  horseTrainingAttribute:
+    originalSpeed: 10
+    offset: 2
+    regularJumpTime: 0.4
+    jumpHeight: 2
+    moveTime: 0.2
+    bridgeTime: 4
+    flyingAngle: 20
+    angularSpeed: 15
+  horseTrainingControllerData:
+    totalDistance: 0
+  pathCreator: {fileID: 0}
   horseTrainingTrigger: {fileID: 8369072937532698544}
-  isStart: 0
-  speed: 12
-  originalSpeed: 10
-  offset: 2.7335
-  moveTime: 0.2
-  regularJumpTime: 0.4
-  jumpHeight: 2
-  totalDistance: 0
-  startTime: 0
-  direction: 0
-  currentOffset: 0
-  currentHeight: 0
-  currentOffSetInt: 0
-  lastStrafeMove: 0
+  transform: {fileID: 0}
+  animator: {fileID: 0}
+  horseMesh: {fileID: 0}
 --- !u!1 &1304591377439792539
 GameObject:
   m_ObjectHideFlags: 0
