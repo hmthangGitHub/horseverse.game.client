@@ -33,7 +33,7 @@ public class RaceModeHorseIntroPresenter : IDisposable
             {
                 await ShowHorseInfoAsync(MasterHorseContainer.MasterHorseIndexer[masterHorseIds[i]],
                                          i + 1,
-                                         3.0f)
+                                         100.0f)
                      .AttachExternalCancellation(cts.Token);
             }
         }
@@ -72,7 +72,7 @@ public class RaceModeHorseIntroPresenter : IDisposable
             {
                 horseModelLoader = new UIHorseModelLoader.Entity()
                 {
-                    horse = masterHorse.ModelPath,
+                    horse = masterHorse.IntroRaceModeModelPath,
                     position = horsePosition,
                     rotation = rotation
                 }
@@ -81,7 +81,7 @@ public class RaceModeHorseIntroPresenter : IDisposable
         }
         else
         {
-            uiHorse3DIntro.entity.horseModelLoader.horse = masterHorse.ModelPath;
+            uiHorse3DIntro.entity.horseModelLoader.horse = masterHorse.IntroRaceModeModelPath;
             uiHorse3DIntro.horseModelLoader.SetEntity(uiHorse3DIntro.entity.horseModelLoader);
         }
         

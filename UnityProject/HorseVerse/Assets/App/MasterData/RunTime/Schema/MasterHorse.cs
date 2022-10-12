@@ -17,6 +17,10 @@ public partial class MasterHorse
 	public string RaceModeModelPath => race_mode_model_path;
 
 	[JsonProperty]
+	private string intro_race_mode_model_path;
+	public string IntroRaceModeModelPath => intro_race_mode_model_path;
+
+	[JsonProperty]
 	private string name;
 	public string Name => name;
 
