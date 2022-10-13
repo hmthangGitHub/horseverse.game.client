@@ -13,6 +13,7 @@ public class HorseIntroPresenterTest : MonoBehaviour
         container.Bind(masterHorseContaienr);
         using (var horseIntroPresenter = new RaceModeHorseIntroPresenter(container))
         {
+            await horseIntroPresenter.LoadUIAsync();
             await horseIntroPresenter.ShowHorsesInfoIntroAsync(GetAllMasterHorseIds(masterHorseContaienr), Vector3.zero, Quaternion.identity);
         }
     }
@@ -21,7 +22,7 @@ public class HorseIntroPresenterTest : MonoBehaviour
     {
         return horseContainer.MasterHorseIndexer.Keys
                         .Shuffle()
-                        .Take(8)
+                        .Take(9)
                         .ToArray();
     }
 }

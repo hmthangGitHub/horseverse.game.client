@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 1807355937092762920}
   - component: {fileID: 5390368373788565429}
   - component: {fileID: 5695391223216266384}
+  - component: {fileID: 4125408972228170872}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -322,7 +323,7 @@ MonoBehaviour:
   volumeTrigger: {fileID: 3105539194236147831}
   volumeLayer:
     serializedVersion: 2
-    m_Bits: 896
+    m_Bits: 4033
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
   antialiasingMode: 0
@@ -381,6 +382,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Resolution: 1
   DefaultSpotCookie: {fileID: 2800000, guid: 5157bf6d690b6df458f6c0ce0c06d329, type: 3}
+--- !u!114 &4125408972228170872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3105539194236147834}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: ef8c869ba3fa3014383a33c493eabac1, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!1 &4187152895292982040
 GameObject:
   m_ObjectHideFlags: 0

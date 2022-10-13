@@ -1,14 +1,14 @@
-type_name,master_horse_id,model_path,race_mode_model_path,name,asset_name,,,,
-type,long,string,string,string,ignore,,,,
-out_put_client,TRUE,TRUE,TRUE,TRUE,FALSE,,,,
-out_put_server,TRUE,FALSE,FALSE,FALSE,FALSE,,,,
-id,id,,,,,,,,
-,10000001,Horses/Windy,Horses/RaceMode/Windy,Windy,Windy,,,,
-,10000002,Horses/Windy_Aqua,Horses/RaceMode/Windy_Aqua,Windy Aqua,Windy_Aqua,,,,
-,10000003,Horses/Windy_Majestic,Horses/RaceMode/Windy_Majestic,Windy Majestic,Windy_Majestic,,,,
-,10000004,Horses/Thunder,Horses/RaceMode/Thunder,Thunder,Thunder,,,,
-,10000005,Horses/Thunder_Lightning,Horses/RaceMode/Thunder_Lightning,Thunder Lightning,Thunder_Lightning,,,,
-,10000006,Horses/Thunder_Majestic,Horses/RaceMode/Thunder_Majestic,Thunder Majestic,Thunder_Majestic,,,,
-,10000007,Horses/Cloud,Horses/RaceMode/Cloud,Cloud,Cloud,,,,
-,10000008,Horses/Cloud_Magma,Horses/RaceMode/Cloud_Magma,Cloud Magma,Cloud_Magma,,,,
-,10000009,Horses/Cloud_Majestic,Horses/RaceMode/Cloud_Majestic,Cloud Majestic,Cloud_Majestic,,,,
+type_name,master_horse_id,model_path,race_mode_model_path,intro_race_mode_model_path,name,asset_name
+type,long,string,string,string,string,ignore
+out_put_client,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE
+out_put_server,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE
+id,id,,,,,
+,10000001,Horses/Windy,Horses/RaceMode/Windy,Horses/Intro/Windy,Windy,Windy
+,10000002,Horses/Windy_Aqua,Horses/RaceMode/Windy_Aqua,Horses/Intro/Windy_Aqua,Windy Aqua,Windy_Aqua
+,10000003,Horses/Windy_Majestic,Horses/RaceMode/Windy_Majestic,Horses/Intro/Windy_Majestic,Windy Majestic,Windy_Majestic
+,10000004,Horses/Thunder,Horses/RaceMode/Thunder,Horses/Intro/Thunder,Thunder,Thunder
+,10000005,Horses/Thunder_Lightning,Horses/RaceMode/Thunder_Lightning,Horses/Intro/Thunder_Lightning,Thunder Lightning,Thunder_Lightning
+,10000006,Horses/Thunder_Majestic,Horses/RaceMode/Thunder_Majestic,Horses/Intro/Thunder_Majestic,Thunder Majestic,Thunder_Majestic
+,10000007,Horses/Cloud,Horses/RaceMode/Cloud,Horses/Intro/Cloud,Cloud,Cloud
+,10000008,Horses/Cloud_Magma,Horses/RaceMode/Cloud_Magma,Horses/Intro/Cloud_Magma,Cloud Magma,Cloud_Magma
+,10000009,Horses/Cloud_Majestic,Horses/RaceMode/Cloud_Majestic,Horses/Intro/Cloud_Majestic,Cloud Majestic,Cloud_Majestic

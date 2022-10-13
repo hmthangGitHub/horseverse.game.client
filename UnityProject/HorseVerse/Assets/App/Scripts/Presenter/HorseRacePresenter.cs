@@ -61,12 +61,14 @@ public class HorseRacePresenter : IDisposable
     public async UniTask PlayIntro()
     {
         await horseRaceManager.ShowFreeCamera();
+        horseRaceManager.EnablePostProcessing(true);
         await (horseRaceManager.cameraBlendingAnimation.FadeOutAnimationAsync(),
                raceModeHorseIntroPresenter.ShowHorsesInfoIntroAsync(RaceMatchData.horseRaceTimes.Select(x => x.masterHorseId).ToArray(), 
                                                                     targetGenerator.StartPosition, 
                                                                     Quaternion.identity));
         raceModeHorseIntroPresenter.Dispose();
         raceModeHorseIntroPresenter = default;
+        horseRaceManager.EnablePostProcessing(false);
         await horseRaceManager.cameraBlendingAnimation.FadeInAnimationAsync();
         
         await (horseRaceManager.ShowWarmUpCameraThenWait(),

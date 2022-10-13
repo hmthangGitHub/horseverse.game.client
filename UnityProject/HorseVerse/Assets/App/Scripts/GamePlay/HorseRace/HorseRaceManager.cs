@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
 
 public class HorseRaceManager : MonoBehaviour, IDisposable
@@ -181,6 +182,11 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
     public void StartRace()
     {
         horseControllers.ForEach(x => x.StartRace());
+    }
+
+    public void EnablePostProcessing(bool enable)
+    {
+        mainCamera.GetComponent<PostProcessVolume>().enabled = enable;
     }
 
     private async UniTask WaitAndCountDownAsync()
