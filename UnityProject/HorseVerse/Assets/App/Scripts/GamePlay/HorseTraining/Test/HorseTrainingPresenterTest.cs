@@ -11,7 +11,7 @@ public class HorseTrainingPresenterTest : MonoBehaviour
         di.Bind(new HorseTrainingDataContext()
         {
             masterHorseId = 10000001,
-            masterMapId = 10001002,
+            masterMapId = 10001003,
         });
         var presenter = new HorseTrainingPresenter(di);
         await presenter.LoadAssetsAsync();

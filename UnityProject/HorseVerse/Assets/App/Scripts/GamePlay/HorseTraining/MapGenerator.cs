@@ -22,11 +22,15 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private int preGenerateBlocks;
     [SerializeField] private int offsetBlocks;
     [SerializeField] private float spacingPerBlockWorldSpace;
+    [SerializeField] private float bridgeHeight;
+    [SerializeField] private BoxCollider referencesCollider;
+    private Bounds ReferencesBounds => referencesCollider.bounds;
 
     private bool isWaitingForPlayerToReachNewPath;
     private int numberOfBlockToChangeToNewPath;
 
     private readonly Queue<PathBlockGenerator> pathBlockGenerators = new Queue<PathBlockGenerator>();
+    public Vector3 Offset = new Vector3(0, 0, 20);
 
 
     private void LateUpdate()
@@ -36,7 +40,7 @@ public class MapGenerator : MonoBehaviour
             var playerBlockMove = (int)(horseTrainingController.HorseTrainingControllerData.TotalDistance / (trainingBlockPrefab.Size + spacingPerBlockWorldSpace));
             if (playerBlockMove <= numberOfBlockToChangeToNewPath)
             {
-                pathBlockGenerators.First().GeneratePathAndBlock(playerBlockMove);
+                pathBlockGenerators.First().GeneratePathAndBlock(playerBlockMove, playerBlockMove == numberOfBlockToChangeToNewPath);
             }
             else
             {
@@ -53,16 +57,16 @@ public class MapGenerator : MonoBehaviour
         currentPath %= meshPathContainers.Length;
         var pathContainer = pathCreator.transform.parent.parent;
         var newPathContainer = Object.Instantiate(meshPathContainers[currentPath], pathContainer);
-        newPathContainer.pathCreator.transform.position = pathCreator.bezierPath.GetPoint(pathCreator.bezierPath.NumPoints - 1) +
-                                              pathCreator.transform.position + new Vector3(0, 0, 100);
+        newPathContainer.pathCreator.transform.position =
+            pathCreator.bezierPath.GetPoint(pathCreator.bezierPath.NumPoints - 1) + pathCreator.transform.position + Offset + RandomPointInBounds(ReferencesBounds);
         newPathContainer.pathCreator.InitializeEditorData(false);
         newPathContainer.pathCreator.GetComponent<MapMeshGenerator>()?.TriggerUpdate();
         trainingBlockPrefab.PathCreator = newPathContainer.pathCreator;
         trainingBlockPrefab.PathType = newPathContainer.pathType;
-        CreateBridge(pathContainer, newPathContainer);
+        CreateBridge(pathContainer, newPathContainer, bridgeHeight);
     }
 
-    private void CreateBridge(Transform pathContainer, MeshPathContainer newPathContainer)
+    private void CreateBridge(Transform pathContainer, MeshPathContainer newPathContainer, float height)
     {
         CreatePathBlockGenerator(newPathContainer.pathCreator);
 
@@ -70,7 +74,7 @@ public class MapGenerator : MonoBehaviour
         bridge.SourcePath = pathCreator;
         bridge.DestinationPath = newPathContainer.pathCreator;
         bridge.DestinationPathType = newPathContainer.pathType;
-        bridge.CreateBridge();
+        bridge.CreateBridge(height);
 
         horseTrainingController.HorseTrainingControllerData.Bridge = bridge;
 
@@ -81,10 +85,10 @@ public class MapGenerator : MonoBehaviour
             horseTrainingController.HorseTrainingControllerData.Bridge = default;
             isWaitingForPlayerToReachNewPath = false;
             RemoveOldPathBlockGenerator();
-            horseTrainingController.HorseTrainingControllerData.OnFinishLandingBridge -= OnFinishLandingBridge;
+            horseTrainingController.OnLandingEvent -= OnFinishLandingBridge;
         }
 
-        horseTrainingController.HorseTrainingControllerData.OnFinishLandingBridge += OnFinishLandingBridge;
+        horseTrainingController.OnLandingEvent += OnFinishLandingBridge;
     }
 
     public void StartGame()
@@ -92,7 +96,7 @@ public class MapGenerator : MonoBehaviour
         pathCreator.InitializeEditorData (false);
         CreatePathBlockGenerator(pathCreator);
         gameObject.SetActive(true);
-        numberOfBlockToChangeToNewPath = preGenerateBlocks + Random.Range(5, 5);
+        numberOfBlockToChangeToNewPath = preGenerateBlocks + Random.Range(1, 3);
     }
 
     private void CreatePathBlockGenerator(PathCreator pathCreator)
@@ -110,5 +114,13 @@ public class MapGenerator : MonoBehaviour
     {
         var generator = pathBlockGenerators.Dequeue();
         generator.Dispose();
+    }
+    
+    public static Vector3 RandomPointInBounds(Bounds bounds) {
+        return new Vector3(
+            Random.Range(bounds.min.x, bounds.max.x),
+            Random.Range(bounds.min.y, bounds.max.y),
+            Random.Range(bounds.min.z, bounds.max.z)
+        );
     }
 }

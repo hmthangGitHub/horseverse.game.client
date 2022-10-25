@@ -19,7 +19,4 @@ public class HorseTrainingControllerData
     public float CurrentHeight { get; set; }
     public float CurrentOffset { get; set; }
     public int CurrentOffSetInt { get; set; }
-
-    public Action OnBeginBridge { get; set; } = ActionUtility.EmptyAction.Instance;
-    public Action OnFinishLandingBridge { get; set; } = ActionUtility.EmptyAction.Instance;
 }

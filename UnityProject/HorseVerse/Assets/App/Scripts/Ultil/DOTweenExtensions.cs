@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening.Core;
 using System;
+using System.Net.Mime;
+using UnityEngine.UI;
 
 public static class DOTweenExtensions
 {
@@ -66,7 +68,21 @@ public static class DOTweenExtensions
         return DOTween.To(val => canvasGroup.alpha = val, from, to, duration)
                       .OnKill(() => canvasGroup.alpha = reverseOnKill ? from : to);
     }
+    
+    public static Tween DOFade(this UnityEngine.UI.Image image, float from, float to, float duration, bool reverseOnKill = false)
+    {
+        image.SetAlpha(from);
+        return DOTween.To(image.SetAlpha, from, to, duration)
+            .OnKill(() => image.SetAlpha(reverseOnKill ? from : to));
+    }
 
+    public static void SetAlpha(this Image image, float alpha)
+    {
+        var color = image.color;
+        color.a = alpha;
+        image.color = color;
+    }
+    
     public static Tween To(Action<float> setter, float from, float to, float duration, bool isWarmUp = true, bool reverseOnKill = false)
     {
         if(isWarmUp)

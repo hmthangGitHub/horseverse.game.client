@@ -33,10 +33,14 @@ public class TrainingMapBlock : MonoBehaviour
         set => pathType = value;
     }
 
-    private void OnTriggerEnter(Collider other)
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     StartGenerate();
+    // }
+
+    private void Start()
     {
         StartGenerate();
-        container.SetActive(true);
     }
 
     private void StartGenerate()
@@ -49,5 +53,6 @@ public class TrainingMapBlock : MonoBehaviour
         {
             coinLane.GenCoin();
         }
+        container.SetActive(true);
     }
 }

@@ -45,13 +45,17 @@ public class HorseTrainingPresenter : IDisposable
             masterHorseContainer.MasterHorseIndexer[HorseTrainingDataContext.masterHorseId].ModelPath,
             masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.masterMapId].MapPath,
             OnTakeCoin,
-            OnTouchObstacle);
-        UpdateCoinUI();
+            () => OnTouchObstacleAsync().Forget());
+        
+        uiTrainingCoinCounting.SetEntity(new UITrainingCoinCounting.Entity()
+        {
+            coin = numberOfCoinTaken
+        });
+        uiTrainingCoinCounting.In().Forget();
     }
 
     public async UniTask<int> StartTrainingAsync()
     {
-        horseTrainingManager.StartGame();
         ucs = new UniTaskCompletionSource();
         await ucs.Task.AttachExternalCancellation(cts.Token);
         return numberOfCoinTaken;
@@ -65,15 +69,12 @@ public class HorseTrainingPresenter : IDisposable
 
     private void UpdateCoinUI()
     {
-        uiTrainingCoinCounting.SetEntity(new UITrainingCoinCounting.Entity()
-        {
-            coin = numberOfCoinTaken
-        });
-        uiTrainingCoinCounting.In().Forget();
+        uiTrainingCoinCounting.coin.SetEntity(numberOfCoinTaken);
     }
 
-    private void OnTouchObstacle()
+    private async UniTaskVoid OnTouchObstacleAsync()
     {
+        await uiTrainingCoinCounting.Out();
         ucs.TrySetResult();
     }
 
