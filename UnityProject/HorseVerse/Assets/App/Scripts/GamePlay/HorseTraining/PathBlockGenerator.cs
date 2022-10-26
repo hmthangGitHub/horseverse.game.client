@@ -30,11 +30,11 @@ public class PathBlockGenerator : IDisposable
         this.blockContainer = blockContainer;
     }
 
-    public void GeneratePathAndBlock(int playerBlockMove)
+    public void GeneratePathAndBlock(int playerBlockMove, bool lastBlock)
     {
         if (playerBlockMove != cachedPlayerBlockMoved)
         {
-            GeneratePath();
+            GeneratePath(lastBlock);
             GenerateBlocks();
             cachedPlayerBlockMoved = playerBlockMove;
             if (cachedPlayerBlockMoved > offsetBlocks + 3)
@@ -48,7 +48,7 @@ public class PathBlockGenerator : IDisposable
     {
         for (int i = 0; i < preGenerateBlocks; i++)
         {
-            GeneratePath();
+            GeneratePath(false);
             GenerateBlocks();
         }
     }
@@ -62,18 +62,29 @@ public class PathBlockGenerator : IDisposable
         generatedTrainingMapBlocksQueue.Enqueue(block);
     }
     
-    private void GeneratePath()
+    private void GeneratePath(bool lastBlock)
     {
         var lastPoint = pathCreator.bezierPath[pathCreator.bezierPath.NumPoints - 1];
+        var direction = lastBlock ? GetLastBlockDirection(lastPoint) : GetLastBlockDirection(lastPoint);
+        pathCreator.bezierPath.AddSegmentToEnd(lastPoint + direction * (trainingBlockPrefab.Size + spacingPerBlockWorldSpace));
+        pathCreator.GetComponent<MapMeshGenerator>()?.TriggerUpdate();
+    }
+
+    private Vector3 GetLastBlockDirection(Vector3 lastPoint)
+    {
+        return Vector3.forward;
+    }
+
+    private Vector3 GetDirection(Vector3 lastPoint)
+    {
         var direction = lastPoint - pathCreator.bezierPath[pathCreator.bezierPath.NumPoints - 2];
         direction = new Vector3(direction.x, 0, direction.z);
         var angle = Vector3.Angle(direction.normalized, Vector3.right);
         angle = Random.Range(angle - 5.0f, angle + 5.0f);
         direction = Quaternion.Euler(0, -angle, 0) * Vector3.right;
-        pathCreator.bezierPath.AddSegmentToEnd(lastPoint + direction * (trainingBlockPrefab.Size + spacingPerBlockWorldSpace));
-        pathCreator.GetComponent<MapMeshGenerator>()?.TriggerUpdate();
+        return direction;
     }
-    
+
     private float GetTimeFromWorldSpaceDistance(float distance)
     {
         return distance / pathCreator.path.length;

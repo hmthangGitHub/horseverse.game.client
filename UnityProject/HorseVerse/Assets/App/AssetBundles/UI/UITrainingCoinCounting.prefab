@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7236634760179888645
 RectTransform:
   m_ObjectHideFlags: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.0754717, g: 0.06941973, b: 0.06941973, a: 0.9411765}
+  m_Color: {r: 0.0754717, g: 0.06941973, b: 0.06941973, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 3646945480003228814}
   - component: {fileID: 4927692442021053111}
   - component: {fileID: 6317432298652631595}
+  - component: {fileID: 2699119713205874262}
   m_Layer: 5
   m_Name: UITrainingCoinCounting
   m_TagString: Untagged
@@ -197,8 +198,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 4927692442021053111}
-  animation: {fileID: 0}
+  animation: {fileID: 2699119713205874262}
   coin: {fileID: 160230543733453843}
+--- !u!114 &2699119713205874262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235665090979004761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fb4bd46f72b532449328eb3918a2ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bg: {fileID: 311110767459763981}
 --- !u!1 &7614237921370708962
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,8 +288,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4287072229
-  m_fontColor: {r: 0.8962264, g: 0.5284354, b: 0.5284354, a: 1}
+    rgba: 4278255598
+  m_fontColor: {r: 0.93372107, g: 1, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

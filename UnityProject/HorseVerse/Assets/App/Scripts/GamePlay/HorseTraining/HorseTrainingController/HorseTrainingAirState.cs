@@ -12,6 +12,10 @@ public class HorseTrainingAirState : HorseTrainingControllerStateBase
     public override void Enter()
     {
         base.Enter();
+        var transformPosition = HorseTrainingController.transform.position;
+        var point = PathCreator.path.GetPointAtTime(PathCreator.path.GetClosestDistanceAlongPath(transformPosition));
+        HorseTrainingControllerData.CurrentOffset = -(point - transformPosition).x;
+        HorseTrainingController.HorseTrainingControllerData.Speed = HorseTrainingController.HorseTrainingControllerData.Speed == 0 ? HorseTrainingAttribute.originalSpeed : HorseTrainingController.HorseTrainingControllerData.Speed;
         Animator.SetBool(Flying, true);
         Animator.CrossFade(Flying, 0.25f, 0);
     }
@@ -36,12 +40,6 @@ public class HorseTrainingAirState : HorseTrainingControllerStateBase
         if (Input.GetKeyUp(KeyCode.D))
         {
             ChangeVelocity(-1);
-        }
-        
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // Jump();
         }
     }
     

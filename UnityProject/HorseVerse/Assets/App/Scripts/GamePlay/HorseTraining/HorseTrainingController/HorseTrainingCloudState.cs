@@ -4,10 +4,15 @@ using UnityEngine;
 public class HorseTrainingCloudState : HorseTrainingControllerStateBase
 {
     private Tween currentMovingTween;
+    private Tween currentJumpingTween;
 
     public override void Enter()
     {
         base.Enter();
+
+        var transformPosition = HorseTrainingController.transform.position;
+        var point = PathCreator.path.GetPointAtTime(PathCreator.path.GetClosestDistanceAlongPath(transformPosition));
+        HorseTrainingControllerData.CurrentOffset = -(point - transformPosition).x;
         HorseTrainingController.HorseTrainingControllerData.Speed = HorseTrainingController.HorseTrainingControllerData.Speed == 0 ? HorseTrainingAttribute.originalSpeed : HorseTrainingController.HorseTrainingControllerData.Speed;
         Animator.SetFloat(SpeedHash, 1.0f);
     }
@@ -20,16 +25,16 @@ public class HorseTrainingCloudState : HorseTrainingControllerStateBase
 
     private void Jump()
     {
-        if (!ValidateBeforeMove(0)) return;
+        if (currentJumpingTween?.IsPlaying() == true) return;
         UpdateHeight();
         UpdateJumpAnimation(true);
     }
 
     private void UpdateHeight()
     {
-        currentMovingTween?.Kill();
+        currentJumpingTween?.Kill();
 
-        currentMovingTween = DOTween.To(val =>
+        currentJumpingTween = DOTween.To(val =>
         {
             HorseTrainingControllerData.CurrentHeight = Mathf.Lerp(0, HorseTrainingController.HorseTrainingAttribute.jumpHeight, val);
         }, 0.0f, 1.0f, HorseTrainingController.HorseTrainingAttribute.regularJumpTime)

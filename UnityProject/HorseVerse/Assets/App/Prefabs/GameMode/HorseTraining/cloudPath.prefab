@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 3863284950982753649}
   - component: {fileID: 3863284950982753648}
   - component: {fileID: 7301875506012790470}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: pathCreator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,24 +95,28 @@ MonoBehaviour:
     _bezierPath:
       points:
       - {x: -0.09034383, y: 0, z: 0.20256996}
-      - {x: -0.47031084, y: 0, z: 2.3199193}
-      - {x: -0.85027784, y: 0, z: 4.4372687}
+      - {x: -0.15963525, y: 0, z: 2.3023217}
+      - {x: -0.22892666, y: 0, z: 4.4020734}
       - {x: -0.20661509, y: 0, z: 10.298368}
-      - {x: 0.45042604, y: 0, z: 16.28129}
-      - {x: 1.3387027, y: 0, z: 14.368097}
-      - {x: 2.1457896, y: 0, z: 20.332632}
-      - {x: 7.0532265, y: 0, z: 56.59958}
-      - {x: 5.812319, y: 0, z: 69.77607}
-      - {x: 4.571411, y: 0, z: 82.95256}
+      - {x: -0.18353684, y: 0, z: 16.397274}
+      - {x: 0.0252138, y: 0, z: 14.64101}
+      - {x: -0.007322669, y: 0, z: 20.739872}
+      - {x: -0.039688446, y: 0, z: 26.806738}
+      - {x: -0.2711101, y: 0, z: 25.057108}
+      - {x: -0.31637824, y: 0, z: 31.123892}
+      - {x: -0.38609546, y: 0, z: 40.467316}
+      - {x: -0.23259851, y: 0, z: 43.794456}
+      - {x: -0.07910156, y: 0, z: 47.121593}
       isClosed: 0
       space: 0
       controlMode: 3
       autoControlLength: 0.584
       boundsUpToDate: 0
       bounds:
-        m_Center: {x: 0.30425262, y: 0, z: 19.876764}
-        m_Extent: {x: 147.28946, y: 0, z: 77.178535}
+        m_Center: {x: 0.79622483, y: 0, z: 10.267601}
+        m_Extent: {x: 1.3495648, y: 0, z: 10.065031}
       perAnchorNormalsAngle:
+      - 0
       - 0
       - 0
       - 0
@@ -173,7 +177,8 @@ GameObject:
   - component: {fileID: 7077882273834292219}
   - component: {fileID: 6644177469959787830}
   - component: {fileID: 4075066016786148658}
-  m_Layer: 0
+  - component: {fileID: 6949155047131438364}
+  m_Layer: 12
   m_Name: Road Mesh Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,3 +250,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6949155047131438364
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6606388654609487289}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}

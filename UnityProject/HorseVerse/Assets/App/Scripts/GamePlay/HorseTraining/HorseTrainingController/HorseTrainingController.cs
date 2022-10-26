@@ -11,15 +11,21 @@ public class HorseTrainingController : MonoFSMContainer
     public HorseTrainingAttribute HorseTrainingAttribute => horseTrainingAttribute;
     [SerializeField] private HorseTrainingControllerData horseTrainingControllerData;
     public HorseTrainingControllerData HorseTrainingControllerData => horseTrainingControllerData;
+    
 
     public PathCreator pathCreator;
     public HorseTrainingTrigger horseTrainingTrigger;
+    public Rigidbody rigidbody;
     public new Transform transform;
     public Animator animator;
     public Transform horseMesh;
 
     public event Action OnTakeCoin = ActionUtility.EmptyAction.Instance;
     public event Action OnTouchObstacle = ActionUtility.EmptyAction.Instance;
+    public event Action OnBridgeEvent = ActionUtility.EmptyAction.Instance;
+    public event Action OnLandingEvent = ActionUtility.EmptyAction.Instance;
+    public event Action OnFallEvent = ActionUtility.EmptyAction.Instance;
+
 
     private void Awake()
     {
@@ -42,6 +48,7 @@ public class HorseTrainingController : MonoFSMContainer
         AddState<HorseTrainingIdleState>();
         AddState<HorseTrainingBridgeState>();
         AddState<HorseTrainingAirState>();
+        AddState<HorseTrainingFallState>();
         SetInitialState<HorseTrainingIdleState>();
     }
 
@@ -52,6 +59,27 @@ public class HorseTrainingController : MonoFSMContainer
 
     public void StartGame()
     {
-        ChangeState<HorseTrainingCloudState>();
+        ChangeState<HorseTrainingAirState>();
+    }
+
+    public void SetEnablePhysicController(bool enable)
+    {
+        rigidbody.useGravity = enable;
+        rigidbody.isKinematic = !enable;
+    }
+
+    public void OnBridge()
+    {
+        OnBridgeEvent.Invoke();
+    }
+    
+    public void OnLanding()
+    {
+        OnLandingEvent.Invoke();
+    }
+
+    public void OnFall()
+    {
+        OnFallEvent.Invoke();
     }
 }

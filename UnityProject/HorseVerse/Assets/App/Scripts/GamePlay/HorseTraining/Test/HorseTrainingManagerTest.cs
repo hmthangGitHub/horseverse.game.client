@@ -14,7 +14,7 @@ public class HorseTrainingManagerTest : MonoBehaviour
     {
         if (GUILayout.Button("Start"))
         {
-            StartAsync();
+            StartAsync().Forget();
         }
     }
 
@@ -25,6 +25,6 @@ public class HorseTrainingManagerTest : MonoBehaviour
         clonedHorseTrainingManager = Object.Instantiate(horseTrainingManager);
         clonedHorseTrainingManager.gameObject.SetActive(true);
         await UniTask.DelayFrame(2);
-        clonedHorseTrainingManager.StartGame();
+        await clonedHorseTrainingManager.Initialize("", "", default, default);
     }
 }

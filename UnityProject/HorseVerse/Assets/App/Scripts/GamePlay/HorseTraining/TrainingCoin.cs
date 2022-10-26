@@ -17,11 +17,12 @@ public class TrainingCoin : MonoBehaviour
             .SetEase(Ease.Linear)
             .SetDelay(delay);
         
-        DOTween.Sequence()
-            .Join(transform.DOMoveFrom(transform.position + Vector3.up * (-1.0f), transform.position, 1.0f).SetEase(Ease.OutElastic))
-            .Join(transform.DOScaleFrom(transform.localScale * 0.0f, transform.localScale, 1.0f).SetEase(Ease.OutElastic))
-            .SetDelay(UnityEngine.Random.Range(0.1f, 0.6f))
-            .SetUpdate(true);
+        // DOTween.Sequence()
+        //     .SetDelay(0.1f)
+        //     .Join(transform.DOMoveFrom(transform.position + Vector3.up * (-1.0f), transform.position, 1.0f).SetEase(Ease.OutElastic))
+        //     .Join(transform.DOScaleFrom(transform.localScale * 0.0f, transform.localScale, 1.0f).SetEase(Ease.OutElastic))
+        //     .SetDelay(UnityEngine.Random.Range(0.1f, 0.6f))
+        //     .SetUpdate(true);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -4,6 +4,7 @@ using UnityEngine;
 public class TrainingPathBridge : MonoBehaviour
 {
     [SerializeField] private Transform bridgeTrigger;
+    [SerializeField] private Transform destinationBridgeTrigger;
     
     [SerializeField] private PathCreator destinationPath;
     [SerializeField] private MeshPathContainer.PathType destinationPathType;
@@ -39,27 +40,29 @@ public class TrainingPathBridge : MonoBehaviour
     }
 
     [ContextMenu("CreateBridge")]
-    public void CreateBridge()
+    public void CreateBridge(float height)
     {
         var bridgePosition = transform.position;
         Bridge.InitializeEditorData(false);
         var sourcePoint = sourcePath.bezierPath[sourcePath.bezierPath.NumPoints - 1] + sourcePath.transform.position;
         Bridge.bezierPath.SetPoint(0, sourcePoint - bridgePosition);
-        
-        var destinationPoint = destinationPath.bezierPath[0] + destinationPath.transform.position;
+
+        var destinationPoint = destinationPath.path.GetPointAtTime(0.05f);
+        destinationPoint.x = sourcePoint.x;
         Bridge.bezierPath.SetPoint(Bridge.bezierPath.NumPoints - 1, destinationPoint - bridgePosition);
 
         var middlePoint = Vector3.Lerp(sourcePoint, destinationPoint, 0.5f);
-        middlePoint = new Vector3(middlePoint.x, middlePointHeight + destinationPoint.y, middlePoint.z);
+        middlePoint = new Vector3(middlePoint.x, height + sourcePoint.y, middlePoint.z);
         Bridge.bezierPath.SetPoint(3, middlePoint - bridgePosition);
 
-        var lowerPoint = Vector3.Lerp(middlePoint, destinationPoint, 0.5f);// - Vector3.up * lowerPointHeight;
-        Bridge.bezierPath.SetPoint(6, lowerPoint - bridgePosition);
+        // var lowerPoint = Vector3.Lerp(middlePoint, destinationPoint, 0.5f);// - Vector3.up * lowerPointHeight;
+        // Bridge.bezierPath.SetPoint(6, lowerPoint - bridgePosition);
         
         var temp = Bridge.bezierPath.AutoControlLength;
         Bridge.bezierPath.AutoControlLength = temp * 1.1f;
         Bridge.bezierPath.AutoControlLength = temp;
 
         bridgeTrigger.position = sourcePoint;
+        destinationBridgeTrigger.position = destinationPath.path.GetPointAtTime(0.05f);
     }
 }

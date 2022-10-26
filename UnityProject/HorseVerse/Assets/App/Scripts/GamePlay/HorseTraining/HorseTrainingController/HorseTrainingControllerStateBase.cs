@@ -30,7 +30,7 @@ public class HorseTrainingControllerStateBase : BState
         Transform.rotation = Quaternion.Euler(0, rotationAtDistance.eulerAngles.y, 0);
 
         var right = Transform.right;
-        var pos = PathCreator.path.GetPointAtTime(t);
+        var pos = PathCreator.path.GetPointAtTime(t, EndOfPathInstruction.Stop);
         Transform.position = pos + right * HorseTrainingControllerData.CurrentOffset + Transform.up * HorseTrainingControllerData.CurrentHeight;
         UpdateSpeed();
     }
