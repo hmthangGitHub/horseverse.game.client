@@ -1,8 +1,10 @@
+using System;
 using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public static class MasterLoader
@@ -10,18 +12,48 @@ public static class MasterLoader
     public static async UniTask<TMasterContainer> LoadMasterAsync<TMasterContainer>(CancellationToken token = default) where TMasterContainer : IMasterContainer, new()
     {
         var masterContainer = new TMasterContainer();
-        var textAsset = await PrimitiveAssetLoader.LoadAssetAsync<TextAsset>(GetMasterPath<TMasterContainer>(), token);
-        masterContainer.SetDataList(textAsset.text);
+        var text = await GetMasterRawDataText<TMasterContainer>(token);
+#if ENABLE_MASTER_RUN_TIME_EDIT
+        try
+        {
+#endif
+            masterContainer.SetDataList(text);
+#if ENABLE_MASTER_RUN_TIME_EDIT
+        }
+        catch
+        {
+            PlayerPrefs.DeleteKey(GetMasterPath<TMasterContainer>());
+            throw;
+        }
+#endif
         return masterContainer;
     }
 
-    private static string GetMasterPath<TMasterContainer>() where TMasterContainer : IMasterContainer
+    private static async UniTask<string> GetMasterRawDataText<TMasterContainer>(CancellationToken token) where TMasterContainer : IMasterContainer, new()
+    {
+        var masterPath = GetMasterPath<TMasterContainer>();
+#if ENABLE_MASTER_RUN_TIME_EDIT
+        if(PlayerPrefs.HasKey(masterPath))
+        {
+            return PlayerPrefs.GetString(masterPath);
+        }
+#endif
+        return (await PrimitiveAssetLoader.LoadAssetAsync<TextAsset>(masterPath, token)).text;
+    }
+
+    public static string GetMasterPath<TMasterContainer>() where TMasterContainer : IMasterContainer
     {
         return $"MasterData/{typeof(TMasterContainer)}".Replace("Container", "");
     }
 
     public static void Unload<TMasterContainer>() where TMasterContainer : IMasterContainer
     {
+#if ENABLE_MASTER_RUN_TIME_EDIT
+        if(PlayerPrefs.HasKey(GetMasterPath<TMasterContainer>()))
+        {
+            return;
+        }
+#endif
         PrimitiveAssetLoader.UnloadAssetAtPath(GetMasterPath<TMasterContainer>());
     }
 
