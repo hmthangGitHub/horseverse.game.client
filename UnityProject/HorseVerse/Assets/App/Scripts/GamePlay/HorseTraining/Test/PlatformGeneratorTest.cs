@@ -11,15 +11,18 @@ public class PlatformGeneratorTest : MonoBehaviour
    public HorseTrainingControllerV2 horseTrainingControllerV2;
    private readonly Queue<GameObject> platformQueue = new Queue<GameObject>();
    private bool isFirstJump = true;
-   private void Start()
+   private MasterHorseTrainingProperty masterHorseTrainingProperty;
+
+   public void SetMasterHorseTrainingProperty(MasterHorseTrainingProperty masterHorseTrainingProperty)
    {
+      this.masterHorseTrainingProperty = masterHorseTrainingProperty;
       lastPlatform = platformPrefab;
       for (var i = 0; i < 4; i++)
       {
          Generate();
       }
    }
-
+   
    private void Generate()
    {
       var relativePointToPlayer = PredictRelativePointToPlayer();
@@ -35,11 +38,8 @@ public class PlatformGeneratorTest : MonoBehaviour
       var highestPoint = PredictHighestPoint();
 
       var timeToReach = Random.Range(horseTrainingControllerV2.AirTime.x, horseTrainingControllerV2.AirTime.y);
-      var relativePointToPlayer =
-         PredictDownPoint(Random.Range(0.0f, horseTrainingControllerV2.ForwardVelocity * timeToReach))
-         + highestPoint + Vector3.right * horseTrainingControllerV2.HorizontalVelocity
-                                        * Random.Range(-0.4f, 0.4f)
-                                        * timeToReach;
+      var relativePointToPlayer = PredictDownPoint(Random.Range(0.0f, horseTrainingControllerV2.ForwardVelocity * timeToReach)) 
+                                  + highestPoint + Vector3.right * (horseTrainingControllerV2.HorizontalVelocity * Random.Range(-0.4f, 0.4f) * timeToReach);
       return relativePointToPlayer;
    }
 
@@ -47,7 +47,12 @@ public class PlatformGeneratorTest : MonoBehaviour
    {
       var platform = Instantiate(platformPrefab, this.transform);
       var platformTest = platform.GetComponent<PlatformTest>();
-      platformTest.GenerateBlocks(relativePointToPlayer, lastEndPosition);
+      platformTest.GenerateBlocks(relativePointToPlayer,
+         lastEndPosition,
+         masterHorseTrainingProperty.BlockPadding,
+         masterHorseTrainingProperty.BlockSpacing,
+         masterHorseTrainingProperty.BlockNumbersMin,
+         masterHorseTrainingProperty.BlockNumbersMax);
       platformTest.OnJump += OnJump;
       return platform;
    }
