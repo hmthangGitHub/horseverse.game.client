@@ -303,8 +303,8 @@ public class HorseTrainingControllerV2 : MonoBehaviour
             cam1.SetActive(false);
             cam2.SetActive(true);
             
-            trailVFX.SetActive(true);
-            Jump(false);
+            // trailVFX.SetActive(true);
+            // Jump(false);
         }
         
         if (other.CompareTag(Obstacle) && !isDead)
