@@ -56,4 +56,12 @@ public partial class MasterHorseTrainingProperty
 	private float fall_camera_rotation;
 	public float FallCameraRotation => fall_camera_rotation;
 
+	[JsonProperty]
+	private float jumping_point;
+	public float JumpingPoint => jumping_point;
+
+	[JsonProperty]
+	private float landing_point;
+	public float LandingPoint => landing_point;
+
 }

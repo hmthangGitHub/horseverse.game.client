@@ -30,8 +30,10 @@ public class PlatformTest : MonoBehaviour
         return Vector3.forward * (i * trainingMapBlockPrefab.Size + i * spacing);
     }
 
-    public void GenerateBlocks(Vector3 relativePointToPlayer, Vector3 lastEndPosition, float blockPadding, float blockSpacing, int blockNumbersMin, int blockNumbersMax)
+    public void GenerateBlocks(Vector3 relativePointToPlayer, Vector3 lastEndPosition, float blockPadding, float blockSpacing, int blockNumbersMin, int blockNumbersMax, float jumpPoint, float landingPoint)
     {
+        start.transform.localPosition = -Vector3.forward * landingPoint;
+        end.transform.localPosition = Vector3.forward * jumpPoint;
         gameObject.SetActive(true);
         var numberOfBlocks = UnityEngine.Random.Range(blockNumbersMin, blockNumbersMax);
         var scale = platform.localScale;

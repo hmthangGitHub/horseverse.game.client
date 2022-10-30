@@ -16,7 +16,7 @@ public interface IMasterContainer<TMaster>
     public TMaster[] DataList { get;}
 }
 
-public class MasterContainer<TKey, TMaster> : IMasterContainer, IMasterContainer<TMaster>
+public abstract class MasterContainer<TKey, TMaster> : IMasterContainer, IMasterContainer<TMaster>
 {
     public TMaster[] DataList { get; private set; }
     private Func<TMaster, TKey> keyPredictor = default;

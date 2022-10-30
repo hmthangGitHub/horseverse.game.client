@@ -11,12 +11,17 @@ public class UIDebugMenu : PopupEntity<UIDebugMenu.Entity>
     {
 	    public UIDebugMenuItemList.Entity debugMenuItemList;
 	    public ButtonComponent.Entity closeBtn;
+	    public ButtonComponent.Entity openBtn;
+	    public UIDebugMenuState.State states;
     }
     
     public UIDebugMenuItemList debugMenuItemList;
     public FormattedTextComponent title;
     public ButtonComponent closeBtn;
+    public ButtonComponent openBtn;
     public ButtonComponent backBtn;
+    public UIDebugMenuState states;
+    public CanvasGroup collapseCanvasGroup;
 
     private string currentPath = string.Empty;
 	private IOrderedEnumerable<UIDebugMenuItem.Entity> sortedEntities;
@@ -26,15 +31,24 @@ public class UIDebugMenu : PopupEntity<UIDebugMenu.Entity>
 	    sortedEntities = this.entity.debugMenuItemList.entities.OrderBy(x => x.debugMenu);
 	    UpdateDebugMenus();
 	    closeBtn.SetEntity(this.entity.closeBtn);
+	    openBtn.SetEntity(this.entity.openBtn);
 	    backBtn.SetEntity(() =>
 	    {
-		    var subMenus = currentPath.Split('/')
-			    .Where(x => !string.IsNullOrEmpty(x))
-			    .ToArray();
-		    currentPath = string.Join("/", subMenus.Take(subMenus.Length - 1));
-		    currentPath += subMenus.Length > 1 ? "/" : string.Empty;
-		    UpdateDebugMenus();
+		    if (!string.IsNullOrEmpty(currentPath))
+		    {
+				 var subMenus = currentPath.Split('/')
+                 			    .Where(x => !string.IsNullOrEmpty(x))
+                 			    .ToArray();
+                 		    currentPath = string.Join("/", subMenus.Take(subMenus.Length - 1));
+                 		    currentPath += subMenus.Length > 1 ? "/" : string.Empty;
+                 		    UpdateDebugMenus();   
+		    }
+		    else
+		    {
+			    closeBtn.button.onClick.Invoke();
+		    }
 	    });
+	    states.SetEntity(this.entity.states);	
     }
 
     private void UpdateDebugMenus()
@@ -78,5 +92,16 @@ public class UIDebugMenu : PopupEntity<UIDebugMenu.Entity>
 	    });
 	    
 	    title.SetEntity($"Debug/{currentPath}");
+    }
+
+    public void RefreshMenu()
+    {
+	    sortedEntities = this.entity.debugMenuItemList.entities.OrderBy(x => x.debugMenu);
+	    UpdateDebugMenus();
+    }
+
+    public void ShowDebugMenuAsVisible(bool isInvisible)
+    {
+	    collapseCanvasGroup.alpha = isInvisible ? 0.0f : 1.0f;
     }
 }	

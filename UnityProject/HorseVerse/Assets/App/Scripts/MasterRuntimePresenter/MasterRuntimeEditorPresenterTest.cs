@@ -9,7 +9,7 @@ public class MasterRuntimeEditorPresenterTest : MonoBehaviour
     // Start is called before the first frame update
     async void Start()
     {
-        await new MasterRuntimeEditorPresenter().PerformMasterEditAsync<MasterHorseTrainingPropertyContainer, MasterHorseTrainingProperty>();
+        await new MasterRuntimeEditorPresenter().PerformMasterEditAsyncGeneric<MasterHorseTrainingPropertyContainer>();
     }
 }
 #endif

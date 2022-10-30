@@ -52,7 +52,9 @@ public class PlatformGeneratorTest : MonoBehaviour
          masterHorseTrainingProperty.BlockPadding,
          masterHorseTrainingProperty.BlockSpacing,
          masterHorseTrainingProperty.BlockNumbersMin,
-         masterHorseTrainingProperty.BlockNumbersMax);
+         masterHorseTrainingProperty.BlockNumbersMax,
+         masterHorseTrainingProperty.JumpingPoint,
+         masterHorseTrainingProperty.LandingPoint);
       platformTest.OnJump += OnJump;
       return platform;
    }
