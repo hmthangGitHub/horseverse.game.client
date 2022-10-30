@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
 using DG.Tweening;
+using Lean.Touch;
 using UnityEngine;
 
 public class HorseTrainingControllerV2 : MonoBehaviour
@@ -14,13 +15,12 @@ public class HorseTrainingControllerV2 : MonoBehaviour
     [SerializeField] private new Rigidbody rigidbody;
     [SerializeField] private GameObject landingVFX;
     [SerializeField] private GameObject trailVFX;
+    [SerializeField] private LeanFingerUp touchUp;
+    [SerializeField] private LeanFingerDown touchDown;
+    [SerializeField] private LeanFingerTap doubleTap;
     
-    [SerializeField] private float jumpVelocity;
-    [SerializeField] private float jumpVelocity2;
-    [SerializeField] private float horizontalVelocity;
-    [SerializeField] private float forwardVelocity;
     [SerializeField] private float currentForwardVelocity;
-    [SerializeField] private float lowJumpMultiplier;
+    [SerializeField] private float currentHorizontalVelocity;
     [SerializeField] private float defaultGravity;
     [SerializeField] Vector2 airTime;
     
@@ -37,16 +37,80 @@ public class HorseTrainingControllerV2 : MonoBehaviour
     public Transform pivotPoint;
     private Animator animator;
     private float currentAirTime;
-    private float MaxAirTime => JumpVelocity / DefaultGravity + AirTime.y + 1.5f;
+    private float MaxAirTime => JumpVelocity / DefaultGravity + AirTime.y + 1.0f;
 
     public event Action OnTakeCoin = ActionUtility.EmptyAction.Instance;
     public event Action OnDeadEvent = ActionUtility.EmptyAction.Instance;
 
-    public float JumpVelocity => jumpVelocity;
-    public float HorizontalVelocity => horizontalVelocity;
-    public float ForwardVelocity => forwardVelocity;
-    public float LowJumpMultiplier => lowJumpMultiplier;
+    public float JumpVelocity => masterHorseTrainingProperty.JumpVelocity;
+    public float HorizontalVelocity => masterHorseTrainingProperty.HorizontalVelocity;
+    public float ForwardVelocity => masterHorseTrainingProperty.ForwardVelocity;
+    public float LowJumpMultiplier => masterHorseTrainingProperty.FallGravityMultiplier;
     public float DefaultGravity => defaultGravity;
+    public float lastTap = 0;
+    public int index = 0;
+    private MasterHorseTrainingProperty masterHorseTrainingProperty;
+
+    private void AddInputEvents()
+    {
+        touchDown.OnFinger.AddListener(finger =>
+        {
+            if (!IsStart) return;
+
+            if (finger.Down && finger.StartScreenPosition.x < Screen.width / 2)
+            {
+                groundVelocity += Vector3.right * HorizontalVelocity;
+            }
+            else if (finger.Down && finger.StartScreenPosition.x > Screen.width / 2)
+            {
+                groundVelocity -= Vector3.right * HorizontalVelocity;
+            }
+        });
+
+        touchUp.OnFinger.AddListener(finger =>
+        {
+            if (!IsStart) return;
+
+            if (finger.Up && finger.StartScreenPosition.x < Screen.width / 2)
+            {
+                groundVelocity -= Vector3.right * HorizontalVelocity;
+            }
+            else if (finger.Up && finger.StartScreenPosition.x > Screen.width / 2)
+            {
+                groundVelocity += Vector3.right * HorizontalVelocity;
+            }
+        });
+
+        doubleTap.OnFinger.AddListener(finger =>
+        {
+            if (!IsStart) return;
+            
+            if (finger.Index != index)
+            {
+                if (Time.realtimeSinceStartup - lastTap < 0.2f)
+                {
+                    ManualJump();
+                }
+            }
+
+            lastTap = Time.realtimeSinceStartup;
+            index = finger.Index;
+        });
+    }
+
+    public void SetMasterHorseTrainingProperty(MasterHorseTrainingProperty masterHorseTrainingProperty)
+    {
+        this.masterHorseTrainingProperty = masterHorseTrainingProperty;
+        SetCameraYaw(masterHorseTrainingProperty.RunCameraRotation, cam1.transform);
+        SetCameraYaw(masterHorseTrainingProperty.FallCameraRotation, cam2.transform);
+    }
+
+    private void SetCameraYaw(float rotation, Transform cameraTransform)
+    {
+        var localRotation =  cameraTransform.localEulerAngles;
+        localRotation.x = rotation;
+        cameraTransform.localEulerAngles = localRotation;
+    }
 
     public bool IsGrounded
     {
@@ -84,11 +148,14 @@ public class HorseTrainingControllerV2 : MonoBehaviour
     {
         if (b)
         {
-            currentForwardVelocity = forwardVelocity;  
+            currentForwardVelocity = ForwardVelocity;  
+            currentHorizontalVelocity = HorizontalVelocity;
             cam3.SetActive(false);
             cam1.SetActive(true);
             animator = GetComponentInChildren<Animator>();
             animator.SetFloat("Speed", 1.0f);
+            
+            AddInputEvents();
         }
     }
 
@@ -99,9 +166,9 @@ public class HorseTrainingControllerV2 : MonoBehaviour
             CheckIfGrounded();
             CheckIfFall();
 
-            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                Jump(true);
+                ManualJump();
             }
         
             if (Input.GetKeyDown(KeyCode.A))
@@ -126,8 +193,16 @@ public class HorseTrainingControllerV2 : MonoBehaviour
         if(!IsStart)
         {
             cam3.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineOrbitalTransposer>().m_XAxis
-                .m_InputAxisValue = 0.07f;
-            IsStart = Input.anyKey || Input.touchCount > 0;
+                .m_InputAxisValue = 0.03f;
+        }
+    }
+
+
+    public void ManualJump()
+    {
+        if (isGrounded)
+        {
+            Jump(true);
         }
     }
 
@@ -150,11 +225,12 @@ public class HorseTrainingControllerV2 : MonoBehaviour
     private void Jump(bool manual)
     {
         isJustManualJump = manual;
-        rigidbody.velocity = Vector3.up * (manual ? jumpVelocity2 : JumpVelocity);
+        rigidbody.velocity = Vector3.up * JumpVelocity;
     }
 
     private void FixedUpdate()
     {
+        if (!IsStart) return;
         rigidbody.velocity = new Vector3(-groundVelocity.x, rigidbody.velocity.y, currentForwardVelocity);
         if (rigidbody.velocity.y < 0)
         {
@@ -227,15 +303,15 @@ public class HorseTrainingControllerV2 : MonoBehaviour
             cam1.SetActive(false);
             cam2.SetActive(true);
             
-            trailVFX.SetActive(true);
-            Jump(false);
+            // trailVFX.SetActive(true);
+            // Jump(false);
         }
         
         if (other.CompareTag(Obstacle) && !isDead)
         {
             OnDead();
-            cam1.transform.DOShakePosition(0.5f, 7.0f);
-            cam2.transform.DOShakePosition(0.5f, 7.0f);
+            cam1.transform.DOShakePosition(0.5f, 4.0f);
+            cam2.transform.DOShakePosition(0.5f, 4.0f);
         }
 
         if (other.CompareTag(Coin))
@@ -248,7 +324,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour
     {
         isDead = true;
         currentForwardVelocity = 0.0f;
-        horizontalVelocity = 0.0f;
+        currentHorizontalVelocity = 0.0f;
         OnDeadEvent.Invoke();
     }
 }

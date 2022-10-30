@@ -11,7 +11,12 @@ public interface IMasterContainer
     void SetDataList(string jsonDataList);
 }
 
-public class MasterContainer<TKey, TMaster> : IMasterContainer
+public interface IMasterContainer<TMaster>
+{
+    public TMaster[] DataList { get;}
+}
+
+public abstract class MasterContainer<TKey, TMaster> : IMasterContainer, IMasterContainer<TMaster>
 {
     public TMaster[] DataList { get; private set; }
     private Func<TMaster, TKey> keyPredictor = default;

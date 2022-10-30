@@ -8,6 +8,10 @@ using UnityEngine;
 
 public class InitialState : InjectedBHState, IDisposable
 {
+#if ENABLE_DEBUG_MODULE    
+    private UIDebugMenuPresenter uiDebugMenuPresenter;
+#endif
+    
     public override void Enter()
     {
         OnEnterStateAsync().Forget();
@@ -29,6 +33,9 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.Bind(new HorseSumaryListEntityFactory(Container));
         this.Container.Bind(TCPSocketClient.Initialize(new ProtobufMessageParser()));
         base.Enter();
+        
+        uiDebugMenuPresenter ??= new UIDebugMenuPresenter(Container);
+        uiDebugMenuPresenter.InitializeAsync().Forget();
     }
 
     public override void AddStates()
@@ -53,15 +60,6 @@ public class InitialState : InjectedBHState, IDisposable
         Dispose();
     }
 
-    public override void Execute()
-    {
-        base.Execute();
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            throw new Exception("Exception, test exception?");
-        }
-    }
-
     public void Dispose()
     {
         this.Container.RemoveAndDisposeIfNeed<TCPSocketClient>();
@@ -79,5 +77,7 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.RemoveAndDisposeIfNeed<HorseSumaryListEntityFactory>();
         this.Container.RemoveAndDisposeIfNeed<MasterHorseContainer>();
         MasterLoader.Unload<MasterHorseContainer>();
+        uiDebugMenuPresenter.Dispose();
+        uiDebugMenuPresenter = default;
     }
 }
