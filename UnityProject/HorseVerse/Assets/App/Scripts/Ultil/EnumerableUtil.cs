@@ -19,6 +19,18 @@ public static class EnumerableUtil
             action(item);
         }
     }
+    
+    public static void ForEach<T>(this IEnumerable<T> enumeration, Action<T, int> action)
+    {
+        var enumerable = enumeration as T[] ?? enumeration.ToArray();
+        var count = enumerable.Count();
+        for (var i = 0; i < count; i++)
+        {
+            var index = i;
+            var item = enumerable.ElementAt(index);
+            action(item, index);
+        }
+    }
 
     public static async UniTask AsyncForEach<T>(this IEnumerable<T> enumeration, Func<T, UniTask> action)
     {

@@ -2,26 +2,27 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class MainMenuState : InjectedBState
 {
     private UILoadingPresenter uiLoadingPresenter;
     public UILoadingPresenter UiLoadingPresenter => uiLoadingPresenter ??= this.Container.Inject<UILoadingPresenter>();
-
     private UIHeaderPresenter uiHeaderPresenter;
     public UIHeaderPresenter UiHeaderPresenter => uiHeaderPresenter ??= this.Container.Inject<UIHeaderPresenter>();
-
     private UIHorse3DViewPresenter uiHorse3DViewPresenter;
     public UIHorse3DViewPresenter UIHorse3DViewPresenter => uiHorse3DViewPresenter ??= this.Container.Inject<UIHorse3DViewPresenter>();
-
     private UIMainMenuPresenter uiMainMenuPresenter;
     private UIBackGroundPresenter uiBackGroundPresenter;
     private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
-
+    private CancellationTokenSource cts;
+    
     public override void Enter()
     {
         base.Enter();
+        cts.SafeCancelAndDispose();
+        cts = new CancellationTokenSource();
         
         ShowBackGrounAsync().Forget();
         UIHorse3DViewPresenter.ShowHorse3DViewAsync().Forget();
@@ -34,7 +35,7 @@ public class MainMenuState : InjectedBState
 
     private async UniTask ShowBackGrounAsync()
     {
-        await UIBackGroundPresenter.ShowBackGroundAsync();
+        await UIBackGroundPresenter.ShowBackGroundAsync().AttachExternalCancellation(cts.Token);
         UiLoadingPresenter.HideLoading();
     }
 
@@ -100,6 +101,12 @@ public class MainMenuState : InjectedBState
         base.Exit();
         UnSubcribeEvents();
         uiMainMenuPresenter.Dispose();
-        uiMainMenuPresenter = null;
+        uiMainMenuPresenter = default;
+        uiLoadingPresenter = default;
+        uiHeaderPresenter = default;
+        uiHorse3DViewPresenter = default;
+        uiBackGroundPresenter = default;
+        cts.SafeCancelAndDispose();
+        cts = default;
     }
 }

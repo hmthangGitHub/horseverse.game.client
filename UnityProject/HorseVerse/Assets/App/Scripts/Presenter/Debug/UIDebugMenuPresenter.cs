@@ -15,6 +15,7 @@ public partial class UIDebugMenuPresenter : IDisposable
     private UIDebugMenu uiDebugMenu;
     private CancellationTokenSource cts;
     private readonly List<(string debugMenu, Action action)> debugMenuList = new List<(string debugMenu, Action)>();
+    public event Action OnToLevelEditorState = ActionUtility.EmptyAction.Instance;
 
     public UIDebugMenuPresenter(IDIContainer container)
     {
@@ -60,6 +61,16 @@ public partial class UIDebugMenuPresenter : IDisposable
         debugMenuList.AddRange(await CreateMasterEditionDebugMenu());
         debugMenuList.Add(CreateReloadDebugMenu());
         debugMenuList.Add(CreateInvisibleDebugMenu());
+        debugMenuList.Add(CreateLevelEditorDebugMenu());
+    }
+
+    private (string debugMenu, Action action) CreateLevelEditorDebugMenu()
+    {
+        return ("Level Editor", () =>
+        {
+            UpdateDebugMenuState(UIDebugMenuState.State.Collapse);
+            OnToLevelEditorState.Invoke();
+        });
     }
 
     private (string debugMenu, Action action) CreateInvisibleDebugMenu()

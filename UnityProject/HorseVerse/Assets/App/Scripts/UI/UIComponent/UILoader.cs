@@ -30,9 +30,19 @@ public static class UILoader
     {
         if (ui != null)
         {
-            GameObject.Destroy(ui.gameObject);
+            Object.Destroy(ui.gameObject);
             ui = null;
             PrimitiveAssetLoader.UnloadAssetAtPath(GetPathFromType(typeof(T).ToString()));
         }
+    }
+    
+    public static void SafeRelease<T>(ref T[] uis) where T : PopupEntity
+    {
+        for (int i = 0; i < uis.Length; i++)
+        {
+            var ui = uis[i];
+            SafeRelease(ref ui);
+        }
+        uis = default;
     }
 }

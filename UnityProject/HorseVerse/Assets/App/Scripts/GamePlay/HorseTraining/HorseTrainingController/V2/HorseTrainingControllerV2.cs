@@ -37,7 +37,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour
     public Transform pivotPoint;
     private Animator animator;
     private float currentAirTime;
-    private float MaxAirTime => JumpVelocity / DefaultGravity + AirTime.y + 1.0f;
+    private float MaxAirTime => JumpVelocity / DefaultGravity + masterHorseTrainingProperty.FallAirTimeMax + 1.0f;
 
     public event Action OnTakeCoin = ActionUtility.EmptyAction.Instance;
     public event Action OnDeadEvent = ActionUtility.EmptyAction.Instance;
@@ -138,16 +138,13 @@ public class HorseTrainingControllerV2 : MonoBehaviour
         }
     }
 
-    public Vector2 AirTime
-    {
-        get => airTime;
-        set => airTime = value;
-    }
+    public Vector2 AirTime => new Vector2(masterHorseTrainingProperty.FallAirTimeMin, masterHorseTrainingProperty.FallAirTimeMax);
 
     private void OnStart(bool b)
     {
         if (b)
         {
+            Debug.Log("OnStart");
             currentForwardVelocity = ForwardVelocity;  
             currentHorizontalVelocity = HorizontalVelocity;
             cam3.SetActive(false);

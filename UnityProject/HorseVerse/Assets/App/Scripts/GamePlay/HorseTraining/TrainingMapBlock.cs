@@ -19,7 +19,7 @@ public class TrainingMapBlock : MonoBehaviour
     [SerializeField] private PathCreator pathCreator;
     [SerializeField] private MeshPathContainer.PathType pathType;
 
-    public float Size => boundingBoxReference.localScale.z;
+    public float Size => BoundingBoxReference.localScale.z;
 
     public PathCreator PathCreator
     {
@@ -33,22 +33,26 @@ public class TrainingMapBlock : MonoBehaviour
         set => pathType = value;
     }
 
+    public TrainingBlockLane[] Lanes => lanes;
+
+    public Transform BoundingBoxReference => boundingBoxReference;
+
     // private void OnTriggerEnter(Collider other)
     // {
     //     StartGenerate();
     // }
 
-    private void Start()
-    {
-        StartGenerate();
-    }
+    // private void Start()
+    // {
+    //     // StartGenerate();
+    // }
 
     private void StartGenerate()
     {
         var numberObstacle = Random.Range(0, 3);
-        var obstacleLanes = (lanes.Shuffle()).Take(numberObstacle).ToArray();
+        var obstacleLanes = (Lanes.Shuffle()).Take(numberObstacle).ToArray();
         obstacleLanes.ForEach(x => x.GenObstacle());
-        var coinLane = lanes.Where(x => !obstacleLanes.Contains(x)).Shuffle().First();
+        var coinLane = Lanes.Where(x => !obstacleLanes.Contains(x)).Shuffle().First();
         if (Random.Range(0, 2) == 1 || true)
         {
             coinLane.GenCoin();

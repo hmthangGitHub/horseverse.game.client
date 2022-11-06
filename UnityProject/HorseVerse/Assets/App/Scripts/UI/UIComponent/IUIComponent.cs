@@ -28,6 +28,7 @@ public abstract class UIComponent<T> : UIComponent, IUIComponent<T> where T : ne
         this.entity = entity;
         if (!EqualityComparer<T>.Default.Equals(this.entity, default(T)))
         {
+            this.gameObject.SetActive(true);
             OnSetEntity();
         }
         else

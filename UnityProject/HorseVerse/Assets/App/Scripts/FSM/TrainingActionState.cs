@@ -1,11 +1,13 @@
 ﻿using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 public class TrainingActionState : InjectedBState
 {
     private UILoadingPresenter uiLoadingPresenter;
     private UIHorse3DViewPresenter uiHorse3DViewPresenter;
     private UIBackGroundPresenter uiBackGroundPresenter;
+    private HorseTrainingPresenter presenter;
     private UILoadingPresenter UILoadingPresenter => uiLoadingPresenter ??= Container.Inject<UILoadingPresenter>();
     private UIHorse3DViewPresenter UIHorse3DViewPresenter => uiHorse3DViewPresenter ??= Container.Inject<UIHorse3DViewPresenter>();
     private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
@@ -20,7 +22,7 @@ public class TrainingActionState : InjectedBState
     {
         await HideHorseAndBackGround();
 
-        using var presenter = new HorseTrainingPresenter(Container);
+        presenter = new HorseTrainingPresenter(Container);
         await presenter.LoadAssetsAsync();
         UILoadingPresenter.HideLoading();
         var coinCollected = await presenter.StartTrainingAsync();
@@ -31,14 +33,14 @@ public class TrainingActionState : InjectedBState
         UILoadingPresenter.HideLoading();
     }
 
-    private async Task ShowHorseAndBackground()
+    private async UniTask ShowHorseAndBackground()
     {
         await UniTask.Delay(500);
         UIHorse3DViewPresenter.ShowHorse3DViewAsync().Forget();
         await UIBackGroundPresenter.ShowBackGroundAsync();
     }
 
-    private async Task HideHorseAndBackGround()
+    private async UniTask HideHorseAndBackGround()
     {
         await UIHorse3DViewPresenter.HideHorse3DViewAsync();
         await UILoadingPresenter.ShowLoadingAsync();
@@ -53,5 +55,7 @@ public class TrainingActionState : InjectedBState
         uiLoadingPresenter = default;
         uiHorse3DViewPresenter = default;
         uiBackGroundPresenter = default;
+        presenter.Dispose();
+        presenter = default;
     }
 }

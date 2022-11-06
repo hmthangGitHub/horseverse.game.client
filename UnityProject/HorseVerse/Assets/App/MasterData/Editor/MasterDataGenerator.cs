@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-public class MasterDataGenerator : EditorWindow
+public partial class MasterDataGenerator : EditorWindow
 {
     [MenuItem("Window/MasterData/Generator")]
     public static void ShowWindows()
@@ -44,10 +44,26 @@ public class MasterDataGenerator : EditorWindow
 
         if (GUILayout.Button("Generate"))
         {
-            csvFiles.Where(x => x != null)
+            csvFiles.Where(x => x != null && x.name != "enum")
                     .ToList()
-                    .ForEach(x => GenerateMaster(x));
+                    .ForEach(GenerateMaster);
+
+            var enumMaster = csvFiles.FirstOrDefault(x => x != null && x.name == "enum");
+            if (enumMaster != default)
+            {
+                GenerateEnum(enumMaster);
+            }
         }
+    }
+
+    
+    
+    private static int FindIndexOfColumn(string[] lines, string columnName)
+    {
+        return lines.First()
+            .Split(',')
+            .ToList()
+            .FindIndex(x => x == columnName);
     }
 
     private void ChooseMasterData()
@@ -64,18 +80,18 @@ public class MasterDataGenerator : EditorWindow
     {
         if (ValidateMaster(master))
         {
-            var excutedCSVData = PreExecuteCSVData(master);
-            GenerateSchema(excutedCSVData.outputFieldNames, excutedCSVData.outPutTypeNames, excutedCSVData.idColumn, master.name);
-            GenerateData(excutedCSVData.preExecuteCSVData, master.name);
+            var executedCSVData = PreExecuteCSVData(master);
+            GenerateSchema(executedCSVData.outputFieldNames, executedCSVData.outPutTypeNames, executedCSVData.idColumn, master.name);
+            GenerateData(executedCSVData.preExecuteCSVData, master.name);
         }
     }
 
     private void GenerateSchema(string[] outputFieldNames, string[] outPutTypeNames, string idColumn, string masterName)
     {
-        var masterDataContaienrTemplateFile = AssetDatabase.LoadAssetAtPath<TextAsset>(MasterDataGenerator.masterDataContainerTemplateFile) as TextAsset;
+        var masterDataContainerTemplateFile = AssetDatabase.LoadAssetAtPath<TextAsset>(MasterDataGenerator.masterDataContainerTemplateFile) as TextAsset;
         var masterUpperCaseName = ToTitleCaseWith_(masterName);
         GenerateMasterDataSource(outputFieldNames, outPutTypeNames, masterUpperCaseName);
-        GenerateMasterDataContainerSource(outputFieldNames, outPutTypeNames, idColumn, masterDataContaienrTemplateFile, masterUpperCaseName);
+        GenerateMasterDataContainerSource(outputFieldNames, outPutTypeNames, idColumn, masterDataContainerTemplateFile, masterUpperCaseName);
         AssetDatabase.Refresh();
     }
 
@@ -150,6 +166,9 @@ public class MasterDataGenerator : EditorWindow
             var newLine = string.Join(",", cols);
             preExecuteCSVData.Add(newLine);
         }
+
+        outPutTypes = outPutTypes.Select(x => x.Contains("_") ? ToTitleCaseWith_(x) : x).ToArray();
+            
         return (preExecuteCSVData.ToArray(), outputFieldNames, outPutTypes, idColumn);
     }
 

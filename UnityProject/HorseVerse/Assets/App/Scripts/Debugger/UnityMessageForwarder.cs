@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public class UnityMessageForwarder : MonoBehaviour
     {
         get
         {
-            if (_instance == null)
+            if (_instance == null && Application.isPlaying)
             {
                 GameObject go = new GameObject("UnityMessageForwarder");
                 _instance = go.AddComponent<UnityMessageForwarder>();
@@ -95,7 +96,7 @@ public class UnityMessageForwarder : MonoBehaviour
     /// <param name="callback">The callback to remove</param>
     public static void RemoveListener(MessageType messageType, MessageCallback callback)
     {
-        Instance.RemoveListenerToUnityMessage(messageType, callback);
+        _instance?.RemoveListenerToUnityMessage(messageType, callback);
     }
     private void RemoveListenerToUnityMessage(MessageType messageType, MessageCallback callback)
     {
@@ -133,5 +134,14 @@ public class UnityMessageForwarder : MonoBehaviour
     {
         BroadcastMessage(MessageType.Update);
     }
+
+    private void OnDestroy()
+    {
+        if (this == _instance)
+        {
+            _messageCallbacks.Clear();
+        }
+    }
+
     #endregion
 }
