@@ -47,9 +47,17 @@ public class HorseTrainingControllerV2 : MonoBehaviour
     public float ForwardVelocity => masterHorseTrainingProperty.ForwardVelocity;
     public float LowJumpMultiplier => masterHorseTrainingProperty.FallGravityMultiplier;
     public float DefaultGravity => defaultGravity;
-    public float lastTap = 0;
+    public float lastTapTimeStamp = 0;
     public int index = 0;
     private MasterHorseTrainingProperty masterHorseTrainingProperty;
+    private enum LastTap
+    {
+        None,
+        Left,
+        Right
+    }
+
+    private LastTap lastTap;
 
     private void AddInputEvents()
     {
@@ -65,6 +73,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour
             {
                 groundVelocity -= Vector3.right * HorizontalVelocity;
             }
+            DetectDoubleTap(finger);
         });
 
         touchUp.OnFinger.AddListener(finger =>
@@ -80,22 +89,27 @@ public class HorseTrainingControllerV2 : MonoBehaviour
                 groundVelocity += Vector3.right * HorizontalVelocity;
             }
         });
+    }
 
-        doubleTap.OnFinger.AddListener(finger =>
+    private void DetectDoubleTap(LeanFinger finger)
+    {
+        var currentTouch = LastTap.None;
+        if ( finger.StartScreenPosition.x < Screen.width / 2)
         {
-            if (!IsStart) return;
-            
-            if (finger.Index != index)
-            {
-                if (Time.realtimeSinceStartup - lastTap < 0.2f)
-                {
-                    ManualJump();
-                }
-            }
+            currentTouch = LastTap.Left;
+        }
+        else if ( finger.StartScreenPosition.x > Screen.width / 2)
+        {
+            currentTouch = LastTap.Right;
+        }
 
-            lastTap = Time.realtimeSinceStartup;
-            index = finger.Index;
-        });
+        if (lastTap != LastTap.None && lastTap != currentTouch && (Time.realtimeSinceStartup - lastTapTimeStamp) < 0.2f)
+        {
+            ManualJump();
+        }
+
+        lastTapTimeStamp = Time.realtimeSinceStartup;
+        lastTap = currentTouch;
     }
 
     public void SetMasterHorseTrainingProperty(MasterHorseTrainingProperty masterHorseTrainingProperty)
