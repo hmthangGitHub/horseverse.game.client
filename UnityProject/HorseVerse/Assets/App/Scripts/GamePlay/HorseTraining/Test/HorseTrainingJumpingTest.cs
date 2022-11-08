@@ -13,8 +13,12 @@ public class HorseTrainingJumpingTest : MonoBehaviour
     {
         this.enabled = false;
         var masterHorseTrainingPropertyContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingPropertyContainer>();
+        var masterHorseTrainingBlockContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>();
+        var masterHorseTrainingBlockComboContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>();
         await UniTask.DelayFrame(2);
-        await horseTrainingManager.Initialize("", "", default, default, masterHorseTrainingPropertyContainer.DataList.First());
+        await horseTrainingManager.Initialize("", "", default, default, masterHorseTrainingPropertyContainer.DataList.First(), 
+            masterHorseTrainingBlockContainer ,
+            masterHorseTrainingBlockComboContainer);
         await UniTask.Delay(2000);
         this.enabled = true;
     }

@@ -43,7 +43,12 @@ public static class MasterLoader
 
     public static string GetMasterPath<TMasterContainer>() where TMasterContainer : IMasterContainer
     {
-        return $"MasterData/{typeof(TMasterContainer)}".Replace("Container", "");
+        return GetMasterPath(typeof(TMasterContainer));
+    }
+
+    public static string GetMasterPath(Type type)
+    {
+        return $"MasterData/{type}".Replace("Container", "");
     }
 
     public static void Unload<TMasterContainer>() where TMasterContainer : IMasterContainer

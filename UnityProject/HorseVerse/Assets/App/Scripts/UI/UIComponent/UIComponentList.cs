@@ -42,4 +42,12 @@ public class UIComponentList<Template, TemplateEntity> : UIComponent<UIComponent
     {
         return Instantiate<Template> (template, template.transform.parent);
     }
+
+    public void SetEntity(TemplateEntity[] entities)
+    {
+        base.SetEntity(new Entity()
+        {
+            entities = entities
+        });
+    }
 }

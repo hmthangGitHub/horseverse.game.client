@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public interface IMasterContainer
+public partial interface IMasterContainer
 {
     Type MasterType { get; }
     void SetDataList(string jsonDataList);
+
 }
 
 public interface IMasterContainer<TMaster>
@@ -16,7 +17,7 @@ public interface IMasterContainer<TMaster>
     public TMaster[] DataList { get;}
 }
 
-public abstract class MasterContainer<TKey, TMaster> : IMasterContainer, IMasterContainer<TMaster>
+public abstract partial class MasterContainer<TKey, TMaster> : IMasterContainer, IMasterContainer<TMaster>
 {
     public TMaster[] DataList { get; private set; }
     private Func<TMaster, TKey> keyPredictor = default;

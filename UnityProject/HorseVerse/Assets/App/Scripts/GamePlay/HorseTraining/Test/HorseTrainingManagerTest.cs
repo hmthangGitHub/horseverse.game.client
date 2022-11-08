@@ -26,7 +26,12 @@ public class HorseTrainingManagerTest : MonoBehaviour
         clonedHorseTrainingManager = Object.Instantiate(horseTrainingManager);
         clonedHorseTrainingManager.gameObject.SetActive(true);
         var masterHorseTrainingPropertyContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingPropertyContainer>();
+        var masterHorseTrainingBlockContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>();
+        var masterHorseTrainingBlockComboContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>();
+        
         await UniTask.DelayFrame(2);
-        await clonedHorseTrainingManager.Initialize("", "", default, default, masterHorseTrainingPropertyContainer.DataList.First());
+        await horseTrainingManager.Initialize("", "", default, default, masterHorseTrainingPropertyContainer.DataList.First(), 
+            masterHorseTrainingBlockContainer ,
+            masterHorseTrainingBlockComboContainer);
     }
 }

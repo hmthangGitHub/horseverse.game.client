@@ -17,15 +17,9 @@ public class CoinGenerator : MonoBehaviour
     [SerializeField] private float jumpHeight = 2.0f;
     [SerializeField] private float spacingBetweenCoins = 1.5f;
     
-    private void OnEnable()
-    {
-        GenerateCoinBlock(Random.Range(3, 8));
-    }
-
-    private void GenerateCoinBlock(int numberOfCoin)
+    public void GenerateCoinBlock(int numberOfCoin, bool isRequiredJumping)
     {
         var height = groundOffset;
-        var isRequiredJumping = PathType == MeshPathContainer.PathType.Cloud && Random.Range(1, 5) == 1; //25%
         
         for (int i = 0; i < numberOfCoin; i++)
         {
@@ -42,5 +36,14 @@ public class CoinGenerator : MonoBehaviour
     float Map(float s, float a1, float a2, float b1, float b2)
     {
         return b1 + (s-a1)*(b2-b1)/(a2-a1);
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log("OnDisable");
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class PlatformGeneratorTest : MonoBehaviour
+public class PlatformGenerator : MonoBehaviour
 {
    public GameObject platformPrefab;
    public GameObject lastPlatform;
@@ -12,10 +12,14 @@ public class PlatformGeneratorTest : MonoBehaviour
    private readonly Queue<GameObject> platformQueue = new Queue<GameObject>();
    private bool isFirstJump = true;
    private MasterHorseTrainingProperty masterHorseTrainingProperty;
+   private MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer;
+   private MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer;
 
-   public void SetMasterHorseTrainingProperty(MasterHorseTrainingProperty masterHorseTrainingProperty)
+   public void SetMasterHorseTrainingProperty(MasterHorseTrainingProperty masterHorseTrainingProperty, MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer, MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer)
    {
       this.masterHorseTrainingProperty = masterHorseTrainingProperty;
+      this.masterHorseTrainingBlockContainer = masterHorseTrainingBlockContainer;
+      this.masterHorseTrainingBlockComboContainer = masterHorseTrainingBlockComboContainer;
       lastPlatform = platformPrefab;
       for (var i = 0; i < 4; i++)
       {
@@ -26,7 +30,7 @@ public class PlatformGeneratorTest : MonoBehaviour
    private void Generate()
    {
       var relativePointToPlayer = PredictRelativePointToPlayer();
-      var platformTest = lastPlatform.GetComponent<PlatformTest>();
+      var platformTest = lastPlatform.GetComponent<Platform>();
       var lastEndPosition = platformTest.end.position;
       var platform = CreateNewPlatform(relativePointToPlayer, lastEndPosition);
       lastPlatform = platform;
@@ -46,15 +50,12 @@ public class PlatformGeneratorTest : MonoBehaviour
    private GameObject CreateNewPlatform(Vector3 relativePointToPlayer, Vector3 lastEndPosition)
    {
       var platform = Instantiate(platformPrefab, this.transform);
-      var platformTest = platform.GetComponent<PlatformTest>();
-      platformTest.GenerateBlocks(relativePointToPlayer,
-         lastEndPosition,
-         masterHorseTrainingProperty.BlockPadding,
-         masterHorseTrainingProperty.BlockSpacing,
-         masterHorseTrainingProperty.BlockNumbersMin,
-         masterHorseTrainingProperty.BlockNumbersMax,
-         masterHorseTrainingProperty.JumpingPoint,
-         masterHorseTrainingProperty.LandingPoint);
+      var platformTest = platform.GetComponent<Platform>();
+      platformTest.GenerateBlocks(relativePointToPlayer, 
+         lastEndPosition, 
+         masterHorseTrainingBlockContainer,
+         masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboIndexer.RandomElement().Value, masterHorseTrainingProperty);
+      
       platformTest.OnJump += OnJump;
       return platform;
    }

@@ -39,7 +39,7 @@ public abstract class AssetLoaderBase<T> : AssetLoaderBase where T : AssetLoader
             catch (OperationCanceledException e)
             {
                 UnloadAssetAtPath(path);
-                throw e;
+                throw;
             }
         }
         return (T)handle.Result;

@@ -91,7 +91,10 @@ public class MasterRuntimeEditorPresenter : IDisposable
                 Extensions = new[] { "csv" }
             }
         });
-        File.WriteAllText(path, csvDatas);
+        if (!string.IsNullOrEmpty(path))
+        {
+            File.WriteAllText(path, csvDatas);
+        }
 #endif
     }
 
@@ -101,7 +104,7 @@ public class MasterRuntimeEditorPresenter : IDisposable
         var csvDataAsLine = uiDebug.masterColumnList.entity.entities.Where(x => !x.isHeader)
             .Select((x, i) => (x.value, i))
             .GroupBy(x => x.i / fields.Length)
-            .Select(x => string.Join(",", x.Select(x => x.value)))
+            .Select(x => string.Join(",", x.Select(value => value.value)))
             .ToArray();
         var headerLine = string.Join(",", fields.Select(x => x.Name));
         var jsonData = CSVFileToJson.ConvertCsvFileToJsonObject(Array.Empty<string>()
