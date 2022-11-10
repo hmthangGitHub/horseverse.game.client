@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using NativeWebSocket;
 using UnityEngine;
@@ -7,13 +8,14 @@ using UnityEngine;
 public class WebSocketClient : SocketClientBase, ISocketClient
 {
     private WebSocket ws;
+    private CancellationTokenSource cancellationTokenSource;
+    private UniTaskCompletionSource connectTask;
 
-    public static async UniTask<WebSocketClient> Initialize(string url, int port, IMessageParser messageParser)
+    public static WebSocketClient Initialize(IMessageParser messageParser)
     {
         var go = new GameObject("WebSocketClient");
         var webSocketClient = go.AddComponent<WebSocketClient>();
         webSocketClient.SetIMessageParser(messageParser);
-        await webSocketClient.Connect(url, port);
         return webSocketClient;
     }
 
@@ -28,6 +30,7 @@ public class WebSocketClient : SocketClientBase, ISocketClient
     private void OnOpen()
     {
         Debug.Log("Open ws");
+        connectTask.TrySetResult();
     }
 
     public void UnSubscribeMessage()
@@ -59,9 +62,14 @@ public class WebSocketClient : SocketClientBase, ISocketClient
 
     public override async UniTask Connect(string url, int port)
     {
-        ws = new WebSocket($"{url}:{port}");
+        cancellationTokenSource.SafeCancelAndDispose();
+        cancellationTokenSource = new CancellationTokenSource();
+        connectTask = new UniTaskCompletionSource();
+        ws = new WebSocket("ws://tcp.prod.game.horsesoflegends.com:8769/ws");
+        // ws = new WebSocket($"{url}:{port}");
         SubscribeMessage();
-        await ws.Connect();
+        _ = ws.Connect();
+        await connectTask.Task.AttachExternalCancellation(cancellationTokenSource.Token);
     }
 
     void Update()
@@ -76,6 +84,8 @@ public class WebSocketClient : SocketClientBase, ISocketClient
 
     public override async void Dispose()
     {
+        cancellationTokenSource.SafeCancelAndDispose();
+        cancellationTokenSource = default;
         GameObject.Destroy(gameObject);
         UnSubscribeMessage();
         await ws.Close();

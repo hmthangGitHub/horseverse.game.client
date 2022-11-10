@@ -30,24 +30,23 @@ namespace io.hverse.game.protogen {
             "ZGV2aWNlSWQYBiABKAkSGwoIcGxhdGZvcm0YByABKA4yCS5QbGF0Zm9ybRIN",
             "CgVtb2RlbBgIIAEoCSJOCgxMb2dpblJlcXVlc3QSHwoKY2xpZW50SW5mbxgB",
             "IAEoCzILLkNsaWVudEluZm8SHQoJbG9naW5UeXBlGAIgASgOMgouTG9naW5U",
-            "eXBlImUKDUxvZ2luUmVzcG9uc2USDgoGcmVzdWx0GAEgASgIEg8KB21lc3Nh",
-            "Z2UYAiABKAkSHwoKcGxheWVySW5mbxgDIAEoCzILLlBsYXllckluZm8SEgoK",
-            "a2V5RW5jcnlwdBgEIAEoCSJ+CgxMb2dpbk1lc3NhZ2USIgoHbXNnVHlwZRgB",
-            "IAEoDjIRLkxvZ2luTWVzc2FnZVR5cGUSIwoMbG9naW5SZXF1ZXN0GAIgASgL",
-            "Mg0uTG9naW5SZXF1ZXN0EiUKDWxvZ2luUmVzcG9uc2UYAyABKAsyDi5Mb2dp",
-            "blJlc3BvbnNlKjkKEExvZ2luTWVzc2FnZVR5cGUSEQoNTE9HSU5fUkVRVUVT",
-            "VBAAEhIKDkxPR0lOX1JFU1BPTlNFEAEqawoJTG9naW5UeXBlEhQKEExPR0lO",
-            "X1RZUEVfUVVJQ0sQABIVChFMT0dJTl9UWVBFX1FSQ09ERRABEhsKF0xPR0lO",
-            "X1RZUEVfQUNDRVNTX1RPS0VOEAISFAoQTE9HSU5fVFlQRV9FTUFJTBADKiAK",
-            "CFBsYXRmb3JtEgsKB0FORFJPSUQQABIHCgNJT1MQAUJIChdpby5odmVyc2Uu",
-            "Z2FtZS5wcm90b2dlbkITTG9naW5NZXNzYWdlRmFjdG9yeaoCF2lvLmh2ZXJz",
-            "ZS5nYW1lLnByb3RvZ2VuYgZwcm90bzM="));
+            "eXBlIkQKDUxvZ2luUmVzcG9uc2USEgoKcmVzdWx0Q29kZRgBIAEoBRIfCgpw",
+            "bGF5ZXJJbmZvGAIgASgLMgsuUGxheWVySW5mbyJ+CgxMb2dpbk1lc3NhZ2US",
+            "IgoHbXNnVHlwZRgBIAEoDjIRLkxvZ2luTWVzc2FnZVR5cGUSIwoMbG9naW5S",
+            "ZXF1ZXN0GAIgASgLMg0uTG9naW5SZXF1ZXN0EiUKDWxvZ2luUmVzcG9uc2UY",
+            "AyABKAsyDi5Mb2dpblJlc3BvbnNlKjkKEExvZ2luTWVzc2FnZVR5cGUSEQoN",
+            "TE9HSU5fUkVRVUVTVBAAEhIKDkxPR0lOX1JFU1BPTlNFEAEqVQoJTG9naW5U",
+            "eXBlEhQKEExPR0lOX1RZUEVfRU1BSUwQABIVChFMT0dJTl9UWVBFX1FSQ09E",
+            "RRABEhsKF0xPR0lOX1RZUEVfQUNDRVNTX1RPS0VOEAIqKQoIUGxhdGZvcm0S",
+            "CwoHQU5EUk9JRBAAEgcKA0lPUxABEgcKA1dFQhACQkgKF2lvLmh2ZXJzZS5n",
+            "YW1lLnByb3RvZ2VuQhNMb2dpbk1lc3NhZ2VGYWN0b3J5qgIXaW8uaHZlcnNl",
+            "LmdhbWUucHJvdG9nZW5iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::io.hverse.game.protogen.PlayerReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.LoginMessageType), typeof(global::io.hverse.game.protogen.LoginType), typeof(global::io.hverse.game.protogen.Platform), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ClientInfo), global::io.hverse.game.protogen.ClientInfo.Parser, new[]{ "QrCodeId", "AccessToken", "Email", "Password", "Version", "DeviceId", "Platform", "Model" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginRequest), global::io.hverse.game.protogen.LoginRequest.Parser, new[]{ "ClientInfo", "LoginType" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginResponse), global::io.hverse.game.protogen.LoginResponse.Parser, new[]{ "Result", "Message", "PlayerInfo", "KeyEncrypt" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginResponse), global::io.hverse.game.protogen.LoginResponse.Parser, new[]{ "ResultCode", "PlayerInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginMessage), global::io.hverse.game.protogen.LoginMessage.Parser, new[]{ "MsgType", "LoginRequest", "LoginResponse" }, null, null, null, null)
           }));
     }
@@ -61,15 +60,15 @@ namespace io.hverse.game.protogen {
   }
 
   public enum LoginType {
-    [pbr::OriginalName("LOGIN_TYPE_QUICK")] Quick = 0,
+    [pbr::OriginalName("LOGIN_TYPE_EMAIL")] Email = 0,
     [pbr::OriginalName("LOGIN_TYPE_QRCODE")] Qrcode = 1,
     [pbr::OriginalName("LOGIN_TYPE_ACCESS_TOKEN")] AccessToken = 2,
-    [pbr::OriginalName("LOGIN_TYPE_EMAIL")] Email = 3,
   }
 
   public enum Platform {
     [pbr::OriginalName("ANDROID")] Android = 0,
     [pbr::OriginalName("IOS")] Ios = 1,
+    [pbr::OriginalName("WEB")] Web = 2,
   }
 
   #endregion
@@ -582,7 +581,7 @@ namespace io.hverse.game.protogen {
 
     /// <summary>Field number for the "loginType" field.</summary>
     public const int LoginTypeFieldNumber = 2;
-    private global::io.hverse.game.protogen.LoginType loginType_ = global::io.hverse.game.protogen.LoginType.Quick;
+    private global::io.hverse.game.protogen.LoginType loginType_ = global::io.hverse.game.protogen.LoginType.Email;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::io.hverse.game.protogen.LoginType LoginType {
@@ -617,7 +616,7 @@ namespace io.hverse.game.protogen {
     public override int GetHashCode() {
       int hash = 1;
       if (clientInfo_ != null) hash ^= ClientInfo.GetHashCode();
-      if (LoginType != global::io.hverse.game.protogen.LoginType.Quick) hash ^= LoginType.GetHashCode();
+      if (LoginType != global::io.hverse.game.protogen.LoginType.Email) hash ^= LoginType.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -640,7 +639,7 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(10);
         output.WriteMessage(ClientInfo);
       }
-      if (LoginType != global::io.hverse.game.protogen.LoginType.Quick) {
+      if (LoginType != global::io.hverse.game.protogen.LoginType.Email) {
         output.WriteRawTag(16);
         output.WriteEnum((int) LoginType);
       }
@@ -658,7 +657,7 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(10);
         output.WriteMessage(ClientInfo);
       }
-      if (LoginType != global::io.hverse.game.protogen.LoginType.Quick) {
+      if (LoginType != global::io.hverse.game.protogen.LoginType.Email) {
         output.WriteRawTag(16);
         output.WriteEnum((int) LoginType);
       }
@@ -675,7 +674,7 @@ namespace io.hverse.game.protogen {
       if (clientInfo_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(ClientInfo);
       }
-      if (LoginType != global::io.hverse.game.protogen.LoginType.Quick) {
+      if (LoginType != global::io.hverse.game.protogen.LoginType.Email) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) LoginType);
       }
       if (_unknownFields != null) {
@@ -696,7 +695,7 @@ namespace io.hverse.game.protogen {
         }
         ClientInfo.MergeFrom(other.ClientInfo);
       }
-      if (other.LoginType != global::io.hverse.game.protogen.LoginType.Quick) {
+      if (other.LoginType != global::io.hverse.game.protogen.LoginType.Email) {
         LoginType = other.LoginType;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -792,10 +791,8 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public LoginResponse(LoginResponse other) : this() {
-      result_ = other.result_;
-      message_ = other.message_;
+      resultCode_ = other.resultCode_;
       playerInfo_ = other.playerInfo_ != null ? other.playerInfo_.Clone() : null;
-      keyEncrypt_ = other.keyEncrypt_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -805,32 +802,20 @@ namespace io.hverse.game.protogen {
       return new LoginResponse(this);
     }
 
-    /// <summary>Field number for the "result" field.</summary>
-    public const int ResultFieldNumber = 1;
-    private bool result_;
+    /// <summary>Field number for the "resultCode" field.</summary>
+    public const int ResultCodeFieldNumber = 1;
+    private int resultCode_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Result {
-      get { return result_; }
+    public int ResultCode {
+      get { return resultCode_; }
       set {
-        result_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "message" field.</summary>
-    public const int MessageFieldNumber = 2;
-    private string message_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Message {
-      get { return message_; }
-      set {
-        message_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        resultCode_ = value;
       }
     }
 
     /// <summary>Field number for the "playerInfo" field.</summary>
-    public const int PlayerInfoFieldNumber = 3;
+    public const int PlayerInfoFieldNumber = 2;
     private global::io.hverse.game.protogen.PlayerInfo playerInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -838,18 +823,6 @@ namespace io.hverse.game.protogen {
       get { return playerInfo_; }
       set {
         playerInfo_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "keyEncrypt" field.</summary>
-    public const int KeyEncryptFieldNumber = 4;
-    private string keyEncrypt_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string KeyEncrypt {
-      get { return keyEncrypt_; }
-      set {
-        keyEncrypt_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -868,10 +841,8 @@ namespace io.hverse.game.protogen {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Result != other.Result) return false;
-      if (Message != other.Message) return false;
+      if (ResultCode != other.ResultCode) return false;
       if (!object.Equals(PlayerInfo, other.PlayerInfo)) return false;
-      if (KeyEncrypt != other.KeyEncrypt) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -879,10 +850,8 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Result != false) hash ^= Result.GetHashCode();
-      if (Message.Length != 0) hash ^= Message.GetHashCode();
+      if (ResultCode != 0) hash ^= ResultCode.GetHashCode();
       if (playerInfo_ != null) hash ^= PlayerInfo.GetHashCode();
-      if (KeyEncrypt.Length != 0) hash ^= KeyEncrypt.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -901,21 +870,13 @@ namespace io.hverse.game.protogen {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Result != false) {
+      if (ResultCode != 0) {
         output.WriteRawTag(8);
-        output.WriteBool(Result);
-      }
-      if (Message.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(Message);
+        output.WriteInt32(ResultCode);
       }
       if (playerInfo_ != null) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(18);
         output.WriteMessage(PlayerInfo);
-      }
-      if (KeyEncrypt.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(KeyEncrypt);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -927,21 +888,13 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Result != false) {
+      if (ResultCode != 0) {
         output.WriteRawTag(8);
-        output.WriteBool(Result);
-      }
-      if (Message.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(Message);
+        output.WriteInt32(ResultCode);
       }
       if (playerInfo_ != null) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(18);
         output.WriteMessage(PlayerInfo);
-      }
-      if (KeyEncrypt.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(KeyEncrypt);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -953,17 +906,11 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Result != false) {
-        size += 1 + 1;
-      }
-      if (Message.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Message);
+      if (ResultCode != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ResultCode);
       }
       if (playerInfo_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayerInfo);
-      }
-      if (KeyEncrypt.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(KeyEncrypt);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -977,20 +924,14 @@ namespace io.hverse.game.protogen {
       if (other == null) {
         return;
       }
-      if (other.Result != false) {
-        Result = other.Result;
-      }
-      if (other.Message.Length != 0) {
-        Message = other.Message;
+      if (other.ResultCode != 0) {
+        ResultCode = other.ResultCode;
       }
       if (other.playerInfo_ != null) {
         if (playerInfo_ == null) {
           PlayerInfo = new global::io.hverse.game.protogen.PlayerInfo();
         }
         PlayerInfo.MergeFrom(other.PlayerInfo);
-      }
-      if (other.KeyEncrypt.Length != 0) {
-        KeyEncrypt = other.KeyEncrypt;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1008,22 +949,14 @@ namespace io.hverse.game.protogen {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Result = input.ReadBool();
+            ResultCode = input.ReadInt32();
             break;
           }
           case 18: {
-            Message = input.ReadString();
-            break;
-          }
-          case 26: {
             if (playerInfo_ == null) {
               PlayerInfo = new global::io.hverse.game.protogen.PlayerInfo();
             }
             input.ReadMessage(PlayerInfo);
-            break;
-          }
-          case 34: {
-            KeyEncrypt = input.ReadString();
             break;
           }
         }
@@ -1042,22 +975,14 @@ namespace io.hverse.game.protogen {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            Result = input.ReadBool();
+            ResultCode = input.ReadInt32();
             break;
           }
           case 18: {
-            Message = input.ReadString();
-            break;
-          }
-          case 26: {
             if (playerInfo_ == null) {
               PlayerInfo = new global::io.hverse.game.protogen.PlayerInfo();
             }
             input.ReadMessage(PlayerInfo);
-            break;
-          }
-          case 34: {
-            KeyEncrypt = input.ReadString();
             break;
           }
         }

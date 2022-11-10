@@ -13,7 +13,6 @@ public class DoubleTapTest : MonoBehaviour
     [SerializeField] private LeanFingerUp touchUp;
 
     private double lastTap;
-    private int index;
 
     private enum LastTouch
     {
