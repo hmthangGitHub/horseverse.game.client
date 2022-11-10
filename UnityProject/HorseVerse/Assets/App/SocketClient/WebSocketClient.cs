@@ -8,7 +8,7 @@ using UnityEngine;
 public class WebSocketClient : SocketClientBase, ISocketClient
 {
     private WebSocket ws;
-    private CancellationTokenSource cancellationTokenSource;
+    private CancellationTokenSource cts;
     private UniTaskCompletionSource connectTask;
 
     public static WebSocketClient Initialize(IMessageParser messageParser)
@@ -62,14 +62,13 @@ public class WebSocketClient : SocketClientBase, ISocketClient
 
     public override async UniTask Connect(string url, int port)
     {
-        cancellationTokenSource.SafeCancelAndDispose();
-        cancellationTokenSource = new CancellationTokenSource();
+        cts.SafeCancelAndDispose();
+        cts = new CancellationTokenSource();
         connectTask = new UniTaskCompletionSource();
-        ws = new WebSocket("ws://tcp.prod.game.horsesoflegends.com:8769/ws");
-        // ws = new WebSocket($"{url}:{port}");
+        ws = new WebSocket($"{url}:{port}/ws");
         SubscribeMessage();
         _ = ws.Connect();
-        await connectTask.Task.AttachExternalCancellation(cancellationTokenSource.Token);
+        await connectTask.Task.AttachExternalCancellation(cts.Token).ThrowWhenTimeOut();
     }
 
     void Update()
@@ -84,8 +83,8 @@ public class WebSocketClient : SocketClientBase, ISocketClient
 
     public override async void Dispose()
     {
-        cancellationTokenSource.SafeCancelAndDispose();
-        cancellationTokenSource = default;
+        cts.SafeCancelAndDispose();
+        cts = default;
         GameObject.Destroy(gameObject);
         UnSubscribeMessage();
         await ws.Close();

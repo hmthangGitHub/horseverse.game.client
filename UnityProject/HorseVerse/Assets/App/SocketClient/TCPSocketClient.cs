@@ -55,7 +55,7 @@ public class TCPSocketClient : SocketClientBase
     {
         cancellationTokenSource.SafeCancelAndDispose();
         cancellationTokenSource = new CancellationTokenSource();
-        await ConnectTask(url, port).AttachExternalCancellation(cancellationTokenSource.Token);
+        await ConnectTask(url, port).AttachExternalCancellation(cancellationTokenSource.Token).ThrowWhenTimeOut();
         ReadMessageAsync(socketConnection).Forget();
 	}
 
