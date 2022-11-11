@@ -29,11 +29,35 @@ public class LoginStatePresenter : IDisposable
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
 #if UNITY_WEBGL
-        await SocketClient.Connect("ws://tcp.prod.game.horsesoflegends.com", 8769);
+        string host = "ws://tcp.prod.game.horsesoflegends.com";
+        int port = 8769;
 #else
-        await SocketClient.Connect("tcp.prod.game.horsesoflegends.com", 8770);
+        string host = "tcp.prod.game.horsesoflegends.com";
+        int port = 8770;
 #endif
+
+#if CUSTOM_SERVER
+        var uiSV = await UILoader.Instantiate<UIPopUpServerSelection>(token: cts.Token);
+        bool wait = true;
         
+        uiSV.SetEntity(new UIPopUpServerSelection.Entity()
+        {
+            cancelBtn = new ButtonComponent.Entity(()=> { wait = false; }),
+            connectBtn = new ButtonComponent.Entity(()=> { host = uiSV.hostInput.inputField.text; port = System.Convert.ToInt32(uiSV.portInput.inputField.text); wait = false; }),
+            hostInput = new UIComponentInputField.Entity() { defaultValue = host, interactable = true},
+            portInput = new UIComponentInputField.Entity() { defaultValue = port.ToString(), interactable = true },
+        });
+        uiSV.In().Forget();
+        UILoadingPresenter.HideLoading();
+        await UniTask.WaitUntil(() => wait == false);
+#endif
+
+#if UNITY_WEBGL
+        await SocketClient.Connect(host, port);
+#else
+        await SocketClient.Connect(host, port);
+#endif
+
         uiLogin = await UILoader.Instantiate<UILogin>(token: cts.Token);
         uiLogin.SetEntity(new UILogin.Entity()
         {
