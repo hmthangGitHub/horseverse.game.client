@@ -11,6 +11,7 @@ public class RootFSM : MonoFSMContainer
 {
     public override void AddStates()
     {
+        Application.runInBackground = true;
         base.AddStates();
         AddState<StartUpState>();
         SetInitialState<StartUpState>();
