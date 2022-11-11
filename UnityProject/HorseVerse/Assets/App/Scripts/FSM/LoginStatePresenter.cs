@@ -28,7 +28,7 @@ public class LoginStatePresenter : IDisposable
         ucs = new UniTaskCompletionSource();
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
-#if UNITY_WEBGL
+#if UNITY_WEBGL || WEB_SOCKET
         string host = "ws://tcp.prod.game.horsesoflegends.com";
         int port = 8769;
 #else
@@ -52,7 +52,7 @@ public class LoginStatePresenter : IDisposable
         await UniTask.WaitUntil(() => wait == false);
 #endif
 
-#if UNITY_WEBGL
+#if UNITY_WEBGL || WEB_SOCKET
         await SocketClient.Connect(host, port);
 #else
         await SocketClient.Connect(host, port);
