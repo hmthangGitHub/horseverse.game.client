@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -64,6 +65,17 @@ public partial class LevelEditorPresenter
 
     private async UniTask OnAddBlockInComboAsync()
     {
+        var selectingMasterHorseTrainingBlockId = await SelectingMasterHorseTrainingBlockIdAsync();
+        if (selectingMasterHorseTrainingBlockId != default)
+        {
+            var masterHorseTrainingBlockIdList = currentSelectingBlockCombo.masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList.ToList();
+            masterHorseTrainingBlockIdList.Add(selectingMasterHorseTrainingBlockId);
+            UpdateBlockCombo(masterHorseTrainingBlockIdList);
+        }
+    }
+
+    private async UniTask<long> SelectingMasterHorseTrainingBlockIdAsync()
+    {
         var ucs = new UniTaskCompletionSource<long>();
         uiDebugLevelEditor.editMode.SetEntity(UIDebugLevelEditorMode.Mode.BlockInCombo);
         uiDebugLevelEditor.entity.blockInComboList = new UIDebugLevelEditorBlockListContainer.Entity()
@@ -85,13 +97,7 @@ public partial class LevelEditorPresenter
             })
         };
         uiDebugLevelEditor.blockInComboList.SetEntity(uiDebugLevelEditor.entity.blockInComboList);
-        var selectingMasterHorseTrainingBlockId = await ucs.Task.AttachExternalCancellation(cts.Token);
-        if (selectingMasterHorseTrainingBlockId != default)
-        {
-            var masterHorseTrainingBlockIdList = currentSelectingBlockCombo.masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList.ToList();
-            masterHorseTrainingBlockIdList.Add(selectingMasterHorseTrainingBlockId);
-            UpdateBlockCombo(masterHorseTrainingBlockIdList);
-        }
+        return await ucs.Task.AttachExternalCancellation(cts.Token);
     }
 
     private void UpdateBlockCombo(List<long> masterHorseTrainingBlockIdList)
@@ -198,11 +204,24 @@ public partial class LevelEditorPresenter
                 }
             }),
             deleteBtn = new ButtonComponent.Entity(() => OnDeleteBlockInComBoAsync(masterHorseTrainingBlock, i).Forget()),
-            isDeleteBtnVisible = true
+            isDeleteBtnVisible = true,
+            shuffleBtn = new ButtonComponent.Entity(() => OnChangeToAnotherBlock(masterHorseTrainingBlockCombo, i).Forget()),
+            isShuffleBtnVisible = true
         });
         pin.In().Forget();
     }
-    
+
+    private async UniTaskVoid OnChangeToAnotherBlock(MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo, int i)
+    {
+        var selectingMasterHorseTrainingBlockId = await SelectingMasterHorseTrainingBlockIdAsync();
+        if (selectingMasterHorseTrainingBlockId != default)
+        {
+            var idList = masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList;
+            idList[i] = selectingMasterHorseTrainingBlockId;
+            UpdateBlockCombo(idList.ToList());
+        }
+    }
+
     public void Swap<T>(List<T> list, int index1, int index2)
     {
         (list[index1], list[index2]) = (list[index2], list[index1]);
