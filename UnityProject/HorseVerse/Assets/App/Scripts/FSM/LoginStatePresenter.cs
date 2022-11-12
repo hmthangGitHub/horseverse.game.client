@@ -15,6 +15,7 @@ public class LoginStatePresenter : IDisposable
     private CancellationTokenSource cts;
     private UniTaskCompletionSource ucs;
     private UILogin uiLogin;
+    private UILoginOTP uiLoginOTP;
     private UILoadingPresenter uiLoadingPresenter;
     private UILoadingPresenter UILoadingPresenter => uiLoadingPresenter ??=container.Inject<UILoadingPresenter>();
 
@@ -50,6 +51,7 @@ public class LoginStatePresenter : IDisposable
         uiSV.In().Forget();
         UILoadingPresenter.HideLoading();
         await UniTask.WaitUntil(() => wait == false);
+        UILoader.SafeRelease(ref uiLogin);
 #endif
 
 #if UNITY_WEBGL || WEB_SOCKET
@@ -57,6 +59,8 @@ public class LoginStatePresenter : IDisposable
 #else
         await SocketClient.Connect(host, port);
 #endif
+
+        await doLoginWithOTP();
 
         uiLogin = await UILoader.Instantiate<UILogin>(token: cts.Token);
         uiLogin.SetEntity(new UILogin.Entity()
@@ -111,7 +115,75 @@ public class LoginStatePresenter : IDisposable
         cts.SafeCancelAndDispose();
         cts = default;
         UILoader.SafeRelease(ref uiLogin);
+        if(uiLoginOTP != default) UILoader.SafeRelease(ref uiLoginOTP);
         socketClient = default;
         uiLoadingPresenter = default;
+    }
+
+    private async UniTask doLoginWithOTP()
+    {
+        uiLoginOTP = await UILoader.Instantiate<UILoginOTP>(token: cts.Token);
+        bool closed = false;
+        uiLoginOTP.SetEntity(new UILoginOTP.Entity()
+        {
+            id = new UIComponentInputField.Entity(),
+            code = new UIComponentInputField.Entity(),
+            loginBtn = new ButtonComponent.Entity(() => { LoginOTPAsync().Forget(); closed = true; }),
+            cancelBtn = new ButtonComponent.Entity(() => { closeOTP().Forget(); closed = true; }),
+            getCodeBtn = new ButtonComponent.Entity(() => GetCodeOTPAsync().Forget())
+        });
+        await uiLoginOTP.In();
+        await UniTask.WaitUntil(() => closed == true);
+    }
+
+    private async UniTask closeOTP()
+    {
+        await uiLoginOTP.Out();
+        UILoader.SafeRelease(ref uiLoginOTP);
+        uiLoginOTP = default;
+    }
+
+    private async UniTask LoginOTPAsync()
+    {
+        await SocketClient.Send<LoginRequest, LoginResponse>(new LoginRequest()
+        {
+            LoginType = LoginType.Email,
+            ClientInfo = new io.hverse.game.protogen.ClientInfo()
+            {
+                Email = uiLogin.id.inputField.text,
+                Password = uiLogin.passWord.inputField.text,
+                Platform = GetCurrentPlatform(),
+                DeviceId = SystemInfo.deviceUniqueIdentifier,
+                Model = SystemInfo.deviceModel,
+                Version = Application.version,
+            }
+        });
+        await SocketClient.Send<GameMessage, GameMessage>(new GameMessage()
+        {
+            MsgType = GameMessageType.PingMessage
+        });
+        ucs.TrySetResult();
+    }
+
+    private async UniTask GetCodeOTPAsync()
+    {
+        await SocketClient.Send<LoginRequest, LoginResponse>(new LoginRequest()
+        {
+            LoginType = LoginType.Email,
+            ClientInfo = new io.hverse.game.protogen.ClientInfo()
+            {
+                Email = uiLogin.id.inputField.text,
+                Password = uiLogin.passWord.inputField.text,
+                Platform = GetCurrentPlatform(),
+                DeviceId = SystemInfo.deviceUniqueIdentifier,
+                Model = SystemInfo.deviceModel,
+                Version = Application.version,
+            }
+        });
+        await SocketClient.Send<GameMessage, GameMessage>(new GameMessage()
+        {
+            MsgType = GameMessageType.PingMessage
+        });
+        ucs.TrySetResult();
     }
 }
