@@ -1,32 +1,21 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Google.Protobuf;
 using NativeWebSocket;
 using UnityEngine;
-
-public interface ISocketClient : IDisposable
-{
-    UniTask Connect(string url, int port);
-    UniTask Send<T>(T message) where T : IMessage;
-    UniTask<TResponse> Send<TRequest, TResponse>(TRequest request, CancellationToken token = default(CancellationToken)) where TRequest : IMessage
-                                                                   where TResponse : IMessage;
-    void Subscribe<T>(Action<T> callback) where T : IMessage;
-    void UnSubscribe<T>(Action<T> callback) where T : IMessage;
-}
 
 public class WebSocketClient : SocketClientBase, ISocketClient
 {
     private WebSocket ws;
+    private CancellationTokenSource cts;
+    private UniTaskCompletionSource connectTask;
 
-    public static async UniTask<WebSocketClient> Initialize(string url, int port, IMessageParser messageParser)
+    public static WebSocketClient Initialize(IMessageParser messageParser)
     {
         var go = new GameObject("WebSocketClient");
         var webSocketClient = go.AddComponent<WebSocketClient>();
         webSocketClient.SetIMessageParser(messageParser);
-        await webSocketClient.Connect(url, port);
         return webSocketClient;
     }
 
@@ -41,6 +30,7 @@ public class WebSocketClient : SocketClientBase, ISocketClient
     private void OnOpen()
     {
         Debug.Log("Open ws");
+        connectTask.TrySetResult();
     }
 
     public void UnSubscribeMessage()
@@ -72,9 +62,13 @@ public class WebSocketClient : SocketClientBase, ISocketClient
 
     public override async UniTask Connect(string url, int port)
     {
-        ws = new WebSocket($"{url}:{port}");
+        cts.SafeCancelAndDispose();
+        cts = new CancellationTokenSource();
+        connectTask = new UniTaskCompletionSource();
+        ws = new WebSocket($"{url}:{port}/ws");
         SubscribeMessage();
-        await ws.Connect();
+        _ = ws.Connect();
+        await connectTask.Task.AttachExternalCancellation(cts.Token).ThrowWhenTimeOut();
     }
 
     void Update()
@@ -89,6 +83,8 @@ public class WebSocketClient : SocketClientBase, ISocketClient
 
     public override async void Dispose()
     {
+        cts.SafeCancelAndDispose();
+        cts = default;
         GameObject.Destroy(gameObject);
         UnSubscribeMessage();
         await ws.Close();

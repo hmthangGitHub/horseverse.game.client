@@ -15,7 +15,7 @@ public class TCPSocketClient : SocketClientBase
 	private CancellationTokenSource cancellationTokenSource;
 
 	private TcpClient socketConnection;
-    private int dataBufferSize = 1024;
+    private int dataBufferSize = 4096;
     #endregion
 
     public static async UniTask<TCPSocketClient> Initialize(string host, int port, IMessageParser messageParser)
@@ -55,7 +55,7 @@ public class TCPSocketClient : SocketClientBase
     {
         cancellationTokenSource.SafeCancelAndDispose();
         cancellationTokenSource = new CancellationTokenSource();
-        await ConnectTask(url, port).AttachExternalCancellation(cancellationTokenSource.Token);
+        await ConnectTask(url, port).AttachExternalCancellation(cancellationTokenSource.Token).ThrowWhenTimeOut();
         ReadMessageAsync(socketConnection).Forget();
 	}
 

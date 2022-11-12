@@ -19,7 +19,6 @@ public static class UniTaskExtension
         await UniTask.WhenAny(task, UniTask.Delay(TimeSpan.FromSeconds(seconds)));
         if (task.Status != UniTaskStatus.Succeeded)
         {
-            throw new SystemException($"Timeout when execute task");
             throw new TimeoutException($"Timeout when execute task");
         }
         else

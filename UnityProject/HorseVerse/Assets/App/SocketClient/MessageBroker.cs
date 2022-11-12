@@ -14,41 +14,44 @@ namespace MessageBroker
 
     public class ChannelMessageBroker : IMessageBroker
     {
-        private Dictionary<int, Dictionary<Type, List<Delegate>>> channelSubScribers;
+        private readonly Dictionary<int, Dictionary<Type, List<Delegate>>> channelsubscribers;
 
         public ChannelMessageBroker()
         {
-            channelSubScribers = new Dictionary<int, Dictionary<Type, List<Delegate>>>();
-            channelSubScribers.Add(default, new Dictionary<Type, List<Delegate>>());
+            channelsubscribers = new Dictionary<int, Dictionary<Type, List<Delegate>>> { { default, new Dictionary<Type, List<Delegate>>() } };
         }
 
         private Dictionary<Type, List<Delegate>> GetSubscribersInChannelOrCreateNew(int channel)
         {
-            if (!channelSubScribers.TryGetValue(channel, out var subscribers))
+            if (!channelsubscribers.TryGetValue(channel, out var subscribers))
             {
                 subscribers = new Dictionary<Type, List<Delegate>>();
-                channelSubScribers.Add(channel, subscribers);
+                channelsubscribers.Add(channel, subscribers);
             }
             return subscribers;
         }
 
         public void Publish<T>(T message, int channel = default)
         {
-            if (!channelSubScribers.TryGetValue(channel, out var subscribers))
+            var invocationList = GetInvocationList(message, channel);
+            invocationList.ForEach(x => x.DynamicInvoke(message));
+        }
+
+        private Delegate[] GetInvocationList<T>(T message, int channel)
+        {
+            if (!channelsubscribers.TryGetValue(channel, out var subscribers))
             {
-                return;
+                return Array.Empty<Delegate>();
             }
 
-            if (!subscribers.ContainsKey(typeof(T)))
+            var type = message.GetType();
+            if (!subscribers.ContainsKey(type))
             {
-                return;
+                return Array.Empty<Delegate>();
             }
-            var delegates = subscribers[typeof(T)];
-            if (delegates == null || delegates.Count == 0) return;
-            foreach (var handler in delegates.Select(item => item as Action<T>))
-            {
-                handler?.Invoke(message);
-            }
+            var delegates = subscribers[type];
+            if (delegates == null || delegates.Count == 0) return Array.Empty<Delegate>();;
+            return delegates.ToArray();
         }
 
         public void Subscribe<T>(Action<T> subscription, int channel = default)
@@ -65,7 +68,7 @@ namespace MessageBroker
 
         public void UnSubscribe<T>(Action<T> subscription, int channel = default)
         {
-            if (!channelSubScribers.TryGetValue(channel, out var subscribers))
+            if (!channelsubscribers.TryGetValue(channel, out var subscribers))
             {
                 return;
             }
@@ -79,7 +82,7 @@ namespace MessageBroker
 
         public void Dispose()
         {
-            channelSubScribers.Clear();
+            channelsubscribers.Clear();
         }
     }
 }

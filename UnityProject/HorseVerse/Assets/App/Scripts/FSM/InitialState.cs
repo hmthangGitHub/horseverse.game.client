@@ -24,10 +24,14 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.Bind(new UIBackGroundPresenter(Container));
         this.Container.Bind(new UIHorse3DViewPresenter(Container));
         this.Container.Bind(new HorseDetailEntityFactory(Container));
-        this.Container.Bind(new LocalQuickRaceDomainService(this.Container));
+        this.Container.Bind(new QuickRaceDomainService(Container));
         this.Container.Bind(new LocalTraningDomainService(Container));
         this.Container.Bind(new HorseSumaryListEntityFactory(Container));
+#if UNITY_WEBGL || WEB_SOCKET
+        this.Container.Bind(WebSocketClient.Initialize(new ProtobufMessageParser()));
+#else
         this.Container.Bind(TCPSocketClient.Initialize(new ProtobufMessageParser()));
+#endif
         base.Enter();
 
     }
@@ -42,7 +46,7 @@ public class InitialState : InjectedBHState, IDisposable
         base.AddStates();
 
         AddState<LoadingState>();
-
+        AddState<LoginState>();
         AddState<QuickRaceState>();
         AddState<HorseRaceState>();
         AddState<BetModeState>();
@@ -60,13 +64,17 @@ public class InitialState : InjectedBHState, IDisposable
 
     public void Dispose()
     {
+#if UNITY_WEBGL || WEB_SOCKET
+        this.Container.RemoveAndDisposeIfNeed<WebSocketClient>();
+#else
         this.Container.RemoveAndDisposeIfNeed<TCPSocketClient>();
+#endif
         this.Container.RemoveAndDisposeIfNeed<UILoadingPresenter>();
         this.Container.RemoveAndDisposeIfNeed<UIHeaderPresenter>();
         this.Container.RemoveAndDisposeIfNeed<UIBackGroundPresenter>();
         this.Container.RemoveAndDisposeIfNeed<UIHorse3DViewPresenter>();
         this.Container.RemoveAndDisposeIfNeed<HorseDetailEntityFactory>();
-        this.Container.RemoveAndDisposeIfNeed<LocalQuickRaceDomainService>();
+        this.Container.RemoveAndDisposeIfNeed<QuickRaceDomainService>();
         this.Container.RemoveAndDisposeIfNeed<LocalTraningDomainService>();
         this.Container.RemoveAndDisposeIfNeed<MasterHorseContainer>();
         this.Container.RemoveAndDisposeIfNeed<HorseRepository>();

@@ -31,6 +31,7 @@ public class ScriptingDefineSymbolEditor : EditorWindow
 			{ "USE_LOCALIZATION", ""},
 			{ "ENABLE_LOG", "" },
             { "DEV", "" },
+			{ "CUSTOM_SERVER", "" },
 		 };
 	}
 

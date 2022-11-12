@@ -14,8 +14,11 @@ public class ProtobufMessageParser : IMessageParser
     private readonly Dictionary<System.Type, Func<IMessage, byte[]>> serializeLookUpFunc = new Dictionary<System.Type, Func<IMessage, byte[]>>(); 
     public ProtobufMessageParser()
     {
-        AddToParseLookUpTable<RaceMessage, RaceMessageType>(RaceMessageType.RaceScriptResponse, x => x.RaceScriptResponse);
         AddToSerializeLookUpTable<RaceScriptRequest>(x => new RaceMessage(x));
+        AddToParseLookUpTable<RaceMessage, RaceMessageType>(RaceMessageType.RaceScriptResponse, x => x.RaceScriptResponse);
+        
+        AddToSerializeLookUpTable<LoginRequest>(x => new LoginMessage(x));
+        AddToParseLookUpTable<LoginMessage, LoginMessageType>(LoginMessageType.LoginResponse, x => x.LoginResponse);
     }
     
     private void AddToParseLookUpTable<TSubMessage, TEnum>(TEnum enumMessage, Func<TSubMessage, IMessage> resultFactory) where TEnum : System.Enum
@@ -41,13 +44,43 @@ public class ProtobufMessageParser : IMessageParser
 
     public IMessage Parse(byte[] rawMessage)
     {
-        var message = GameMessage.Parser.ParseFrom(rawMessage); 
-        var iSubMessage = lookUpToISubMessageFunc[Any.GetTypeName(message.MsgData.TypeUrl)](message.MsgData);
-        return lookUpToMessageFunc[iSubMessage.MsgType](iSubMessage);
+        var dataFromRawMessageWithSizeAppendAhead = rawMessage.GetDataFromRawMessageWithSizeAppendAhead();
+        try
+        {
+            var message = GameMessage.Parser.ParseFrom(dataFromRawMessageWithSizeAppendAhead);
+            if (message.MsgType == GameMessageType.PingMessage)
+            {
+                return message;
+            }
+            else
+            {
+                if (lookUpToISubMessageFunc.TryGetValue(Any.GetTypeName(message.MsgData.TypeUrl),out var parser))
+                {
+                    var iSubMessage = parser(message.MsgData);
+                    return lookUpToMessageFunc[iSubMessage.MsgType](iSubMessage);
+                }
+                else
+                {
+                    throw new UnKnownServerMessageTypeException(message.ToString());
+                }
+            }
+        }
+        catch (InvalidProtocolBufferException)
+        {
+            var message = SystemMessage.Parser.ParseFrom(dataFromRawMessageWithSizeAppendAhead);
+            throw new Exception(message.Message);
+        }
     }
 
     public byte[] ToByteArray(IMessage message)
     {
-        return serializeLookUpFunc[message.GetType()](message);
+        if (message is GameMessage gameMessage)
+        {
+            return gameMessage.ToByteArray();
+        }
+        else
+        {
+            return serializeLookUpFunc[message.GetType()](message);    
+        }
     }
 }
