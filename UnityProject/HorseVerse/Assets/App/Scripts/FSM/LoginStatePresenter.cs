@@ -51,7 +51,7 @@ public class LoginStatePresenter : IDisposable
         uiSV.In().Forget();
         UILoadingPresenter.HideLoading();
         await UniTask.WaitUntil(() => wait == false);
-        UILoader.SafeRelease(ref uiLogin);
+        UILoader.SafeRelease(ref uiSV);
 #endif
 
 #if UNITY_WEBGL || WEB_SOCKET
@@ -60,17 +60,19 @@ public class LoginStatePresenter : IDisposable
         await SocketClient.Connect(host, port);
 #endif
 
-        await doLoginWithOTP();
-
-        uiLogin = await UILoader.Instantiate<UILogin>(token: cts.Token);
-        uiLogin.SetEntity(new UILogin.Entity()
-        {
-            id = new UIComponentInputField.Entity(),
-            passWord = new UIComponentInputField.Entity(),
-            loginBtn = new ButtonComponent.Entity(() => LoginAsync().Forget())
-        });
-        uiLogin.In().Forget();
         UILoadingPresenter.HideLoading();
+        int type = 0;
+        bool res = false;
+        while (!res)
+        {
+            type = await doSelectLoginType();
+
+            if (type == 1)
+                res = await doLoginWithOTP();
+            else
+                res = await doLoginWithEmail();
+        }
+
         await ucs.Task.AttachExternalCancellation(cts.Token);
     }
 
@@ -120,20 +122,53 @@ public class LoginStatePresenter : IDisposable
         uiLoadingPresenter = default;
     }
 
-    private async UniTask doLoginWithOTP()
+    private async UniTask<int> doSelectLoginType()
+    {
+        var ui = await UILoader.Instantiate<UILoginSelection>(token: cts.Token);
+        bool wait = true;
+        int type = 0;
+        ui.SetEntity(new UILoginSelection.Entity()
+        {
+            emailLoginBtn = new ButtonComponent.Entity(() => { type = 0; wait = false; }),
+            otpLoginBtn = new ButtonComponent.Entity(() => { type = 1; wait = false; })
+        });
+        await ui.In();
+        await UniTask.WaitUntil(() => wait == false);
+        UILoader.SafeRelease(ref ui);
+        return type;
+    }
+
+    private async UniTask<bool> doLoginWithEmail()
+    {
+        uiLogin = await UILoader.Instantiate<UILogin>(token: cts.Token);
+        bool closed = false;
+        uiLogin.SetEntity(new UILogin.Entity()
+        {
+            id = new UIComponentInputField.Entity(),
+            passWord = new UIComponentInputField.Entity(),
+            loginBtn = new ButtonComponent.Entity(() => LoginAsync().Forget())
+        });
+        uiLogin.In().Forget();
+        await UniTask.WaitUntil(() => closed == true);
+        return true;
+    }
+
+    private async UniTask<bool> doLoginWithOTP()
     {
         uiLoginOTP = await UILoader.Instantiate<UILoginOTP>(token: cts.Token);
         bool closed = false;
+        bool result = false;
         uiLoginOTP.SetEntity(new UILoginOTP.Entity()
         {
             id = new UIComponentInputField.Entity(),
             code = new UIComponentInputField.Entity(),
-            loginBtn = new ButtonComponent.Entity(() => { LoginOTPAsync().Forget(); closed = true; }),
-            cancelBtn = new ButtonComponent.Entity(() => { closeOTP().Forget(); closed = true; }),
+            loginBtn = new ButtonComponent.Entity(() => { LoginOTPAsync().Forget(); closed = true; result = true; }),
+            cancelBtn = new ButtonComponent.Entity(() => { closeOTP().Forget(); closed = true; result = false; }),
             getCodeBtn = new ButtonComponent.Entity(() => GetCodeOTPAsync().Forget())
         });
         await uiLoginOTP.In();
         await UniTask.WaitUntil(() => closed == true);
+        return result;
     }
 
     private async UniTask closeOTP()
@@ -147,11 +182,11 @@ public class LoginStatePresenter : IDisposable
     {
         await SocketClient.Send<LoginRequest, LoginResponse>(new LoginRequest()
         {
-            LoginType = LoginType.Email,
+            LoginType = LoginType.LoginEmailCode,
             ClientInfo = new io.hverse.game.protogen.ClientInfo()
             {
-                Email = uiLogin.id.inputField.text,
-                Password = uiLogin.passWord.inputField.text,
+                Email = uiLoginOTP.id.inputField.text,
+                EmailCode = uiLoginOTP.code.inputField.text,
                 Platform = GetCurrentPlatform(),
                 DeviceId = SystemInfo.deviceUniqueIdentifier,
                 Model = SystemInfo.deviceModel,
@@ -167,19 +202,36 @@ public class LoginStatePresenter : IDisposable
 
     private async UniTask GetCodeOTPAsync()
     {
-        await SocketClient.Send<LoginRequest, LoginResponse>(new LoginRequest()
+        if (SocketClient == null) Debug.Log("socket is null");
+        else Debug.Log("Try to get code");
+        var res = await SocketClient.Send<EmailCodeRequest, EmailCodeResponse>(new EmailCodeRequest()
         {
-            LoginType = LoginType.Email,
+            Email = uiLoginOTP.id.inputField.text,
             ClientInfo = new io.hverse.game.protogen.ClientInfo()
             {
-                Email = uiLogin.id.inputField.text,
-                Password = uiLogin.passWord.inputField.text,
+                Email = uiLoginOTP.id.inputField.text,
+                Password = "",
                 Platform = GetCurrentPlatform(),
                 DeviceId = SystemInfo.deviceUniqueIdentifier,
                 Model = SystemInfo.deviceModel,
                 Version = Application.version,
             }
         });
+        if (res != null && res.ResultCode == 100)
+        {
+            var uiConfirm = await UILoader.Instantiate<UIPopupMessage>(token: cts.Token);
+            bool wait = true;
+
+            uiConfirm.SetEntity(new UIPopupMessage.Entity()
+            {
+                title = "SUCCEED",
+                message = "Code sent successfully, please check your mailbox",
+                confirmBtn = new ButtonComponent.Entity(() => { wait = false; })
+            });
+            await uiConfirm.In();
+            await UniTask.WaitUntil(() => wait == false);
+            UILoader.SafeRelease(ref uiConfirm);
+        }
         await SocketClient.Send<GameMessage, GameMessage>(new GameMessage()
         {
             MsgType = GameMessageType.PingMessage
