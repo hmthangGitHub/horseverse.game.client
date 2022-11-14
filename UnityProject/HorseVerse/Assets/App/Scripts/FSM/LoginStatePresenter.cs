@@ -13,9 +13,8 @@ public class LoginStatePresenter : IDisposable
     private ISocketClient SocketClient => socketClient ??= container.Inject<ISocketClient>();
     private readonly IDIContainer container;
     private CancellationTokenSource cts;
-    private UniTaskCompletionSource ucs;
-    private UILogin uiLogin;
     private UILoginOTP uiLoginOTP;
+    private UILogin uiLogin;
     private UILoadingPresenter uiLoadingPresenter;
     private UILoadingPresenter UILoadingPresenter => uiLoadingPresenter ??=container.Inject<UILoadingPresenter>();
 
@@ -26,15 +25,14 @@ public class LoginStatePresenter : IDisposable
 
     public async UniTask ConnectAndLoginAsync()
     {
-        ucs = new UniTaskCompletionSource();
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
 #if UNITY_WEBGL || WEB_SOCKET
         string host = "ws://tcp.prod.game.horsesoflegends.com";
-        int port = 8769;
+        int port = 8669;
 #else
         string host = "tcp.prod.game.horsesoflegends.com";
-        int port = 8770;
+        int port = 8670;
 #endif
 
 #if CUSTOM_SERVER
@@ -66,14 +64,11 @@ public class LoginStatePresenter : IDisposable
         while (!res)
         {
             type = await doSelectLoginType();
-
             if (type == 1)
                 res = await doLoginWithOTP();
             else
                 res = await doLoginWithEmail();
         }
-
-        await ucs.Task.AttachExternalCancellation(cts.Token);
     }
 
     private async UniTask LoginAsync()
@@ -91,11 +86,6 @@ public class LoginStatePresenter : IDisposable
                 Version = Application.version,
             }
         });
-        await SocketClient.Send<GameMessage, GameMessage>(new GameMessage()
-        {
-            MsgType = GameMessageType.PingMessage
-        });
-        ucs.TrySetResult();
     }
 
     private io.hverse.game.protogen.Platform GetCurrentPlatform()
@@ -146,7 +136,11 @@ public class LoginStatePresenter : IDisposable
         {
             id = new UIComponentInputField.Entity(),
             passWord = new UIComponentInputField.Entity(),
-            loginBtn = new ButtonComponent.Entity(() => LoginAsync().Forget())
+            loginBtn = new ButtonComponent.Entity(() =>
+            {
+                LoginAsync().Forget();
+                closed = true;
+            })
         });
         uiLogin.In().Forget();
         await UniTask.WaitUntil(() => closed == true);
@@ -193,11 +187,6 @@ public class LoginStatePresenter : IDisposable
                 Version = Application.version,
             }
         });
-        await SocketClient.Send<GameMessage, GameMessage>(new GameMessage()
-        {
-            MsgType = GameMessageType.PingMessage
-        });
-        ucs.TrySetResult();
     }
 
     private async UniTask GetCodeOTPAsync()
@@ -232,10 +221,5 @@ public class LoginStatePresenter : IDisposable
             await UniTask.WaitUntil(() => wait == false);
             UILoader.SafeRelease(ref uiConfirm);
         }
-        await SocketClient.Send<GameMessage, GameMessage>(new GameMessage()
-        {
-            MsgType = GameMessageType.PingMessage
-        });
-        ucs.TrySetResult();
     }
 }
