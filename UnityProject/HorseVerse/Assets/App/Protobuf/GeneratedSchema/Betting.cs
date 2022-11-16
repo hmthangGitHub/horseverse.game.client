@@ -24,48 +24,48 @@ namespace io.hverse.game.protogen {
     static BettingReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cg1iZXR0aW5nLnByb3RvGgpkYXRhLnByb3RvGgpyYWNlLnByb3RvInoKB1dp",
-            "blJhdGUSIQoLYmV0dGluZ1R5cGUYASABKA4yDC5CZXR0aW5nVHlwZRIUCgxp",
-            "bmRleE9mSG91c2UYAiABKAkSDAoEcmF0ZRgDIAEoAhIOCgZ1c2VySWQYBCAB",
-            "KAUSGAoQdG90YWxBbW91bnRPZkJldBgFIAEoBSInChVHZXRJbmZvQmV0dGlu",
-            "Z1JlcXVlc3QSDgoGdXNlcklkGAEgASgFIoABChZHZXRJbmZvQmV0dGluZ1Jl",
-            "c3BvbnNlEg8KB21hdGNoSWQYASABKAUSIQoLbWF0Y2hTdGF0dXMYAiABKA4y",
-            "DC5NYXRjaFN0YXR1cxITCgt0aW1lVG9TdGFydBgDIAEoAxIdCgt3aW5SYXRl",
-            "TGlzdBgEIAMoCzIILldpblJhdGUiJQoSR2V0VGhlTWF0Y2hSZXF1ZXN0Eg8K",
-            "B21hdGNoSWQYASABKAUiUwoTR2V0VGhlTWF0Y2hSZXNwb25zZRIbCgZyZXN1",
-            "bHQYASABKA4yCy5SZXN1bHRDb2RlEh8KCnJhY2VTY3JpcHQYAiABKAsyCy5S",
-            "YWNlU2NyaXB0IocBChZTZW5kQmV0dGluZ0luZm9SZXF1ZXN0Eg8KB21hdGNo",
-            "SWQYASABKAUSDgoGdXNlcklkGAIgASgFEhMKC2Ftb3VudE9mQmV0GAMgASgF",
-            "EhQKDGluZGV4T2ZIb3VzZRgEIAEoCRIhCgtiZXR0aW5nVHlwZRgFIAEoDjIM",
-            "LkJldHRpbmdUeXBlIloKF1NlbmRCZXR0aW5nSW5mb1Jlc3BvbnNlEg8KB21h",
-            "dGNoSWQYASABKAUSFAoMaW5kZXhPZkhvdXNlGAIgASgJEhgKEHRvdGFsQW1v",
-            "dW50T2ZCZXQYAyABKAUiNwoUQ2FuY2VsQmV0dGluZ1JlcXVlc3QSDwoHbWF0",
-            "Y2hJZBgBIAEoBRIOCgZ1c2VySWQYAiABKAUiNAoVQ2FuY2VsQmV0dGluZ1Jl",
-            "c3BvbnNlEhsKBnJlc3VsdBgBIAEoDjILLlJlc3VsdENvZGUi9QMKDkJldHRp",
-            "bmdNZXNzYWdlEi8KEmJldHRpbmdNZXNzYWdlVHlwZRgBIAEoDjITLkJldHRp",
-            "bmdNZXNzYWdlVHlwZRI1ChVnZXRJbmZvQmV0dGluZ1JlcXVlc3QYAiABKAsy",
-            "Fi5HZXRJbmZvQmV0dGluZ1JlcXVlc3QSNwoWZ2V0SW5mb0JldHRpbmdSZXNw",
-            "b25zZRgDIAEoCzIXLkdldEluZm9CZXR0aW5nUmVzcG9uc2USLwoSZ2V0VGhl",
-            "TWF0Y2hSZXF1ZXN0GAQgASgLMhMuR2V0VGhlTWF0Y2hSZXF1ZXN0EjEKE2dl",
-            "dFRoZU1hdGNoUmVzcG9uc2UYBSABKAsyFC5HZXRUaGVNYXRjaFJlc3BvbnNl",
-            "EjcKFnNlbmRCZXR0aW5nSW5mb1JlcXVlc3QYBiABKAsyFy5TZW5kQmV0dGlu",
-            "Z0luZm9SZXF1ZXN0EjkKF3NlbmRCZXR0aW5nSW5mb1Jlc3BvbnNlGAcgASgL",
-            "MhguU2VuZEJldHRpbmdJbmZvUmVzcG9uc2USMwoUY2FuY2VsQmV0dGluZ1Jl",
-            "cXVlc3QYCCABKAsyFS5DYW5jZWxCZXR0aW5nUmVxdWVzdBI1ChVjYW5jZWxC",
-            "ZXR0aW5nUmVzcG9uc2UYCSABKAsyFi5DYW5jZWxCZXR0aW5nUmVzcG9uc2Uq",
-            "gAIKEkJldHRpbmdNZXNzYWdlVHlwZRIcChhHRVRfSU5GT19CRVRUSU5HX1JF",
-            "UVVFU1QQABIdChlHRVRfSU5GT19CRVRUSU5HX1JFU1BPTlNFEAESGQoVR0VU",
-            "X1RIRV9NQVRDSF9SRVFVRVNUEAISGgoWR0VUX1RIRV9NQVRDSF9SRVNQT05T",
-            "RRADEh0KGVNFTkRfQkVUVElOR19JTkZPX1JFUVVFU1QQBBIeChpTRU5EX0JF",
-            "VFRJTkdfSU5GT19SRVNQT05TRRAFEhoKFkNBTkNFTF9CRVRUSU5HX1JFUVVF",
-            "U1QQBhIbChdDQU5DRUxfQkVUVElOR19SRVNQT05TRRAHKigKC01hdGNoU3Rh",
-            "dHVzEg0KCVBSRVBBUklORxAAEgoKBkFDVElORxABKiUKC0JldHRpbmdUeXBl",
-            "EgoKBlNJTkdMRRAAEgoKBkRPVUJMRRABQkMKF2lvLmh2ZXJzZS5nYW1lLnBy",
-            "b3RvZ2VuQg5CZXR0aW5nRmFjdG9yeaoCF2lvLmh2ZXJzZS5nYW1lLnByb3Rv",
-            "Z2VuYgZwcm90bzM="));
+            "Cg1iZXR0aW5nLnByb3RvGgpyYWNlLnByb3RvIuoDCg5CZXR0aW5nTWVzc2Fn",
+            "ZRIkCgdtc2dUeXBlGAEgASgOMhMuQmV0dGluZ01lc3NhZ2VUeXBlEjUKFWdl",
+            "dEluZm9CZXR0aW5nUmVxdWVzdBgCIAEoCzIWLkdldEluZm9CZXR0aW5nUmVx",
+            "dWVzdBI3ChZnZXRJbmZvQmV0dGluZ1Jlc3BvbnNlGAMgASgLMhcuR2V0SW5m",
+            "b0JldHRpbmdSZXNwb25zZRIvChJnZXRUaGVNYXRjaFJlcXVlc3QYBCABKAsy",
+            "Ey5HZXRUaGVNYXRjaFJlcXVlc3QSMQoTZ2V0VGhlTWF0Y2hSZXNwb25zZRgF",
+            "IAEoCzIULkdldFRoZU1hdGNoUmVzcG9uc2USNwoWc2VuZEJldHRpbmdJbmZv",
+            "UmVxdWVzdBgGIAEoCzIXLlNlbmRCZXR0aW5nSW5mb1JlcXVlc3QSOQoXc2Vu",
+            "ZEJldHRpbmdJbmZvUmVzcG9uc2UYByABKAsyGC5TZW5kQmV0dGluZ0luZm9S",
+            "ZXNwb25zZRIzChRjYW5jZWxCZXR0aW5nUmVxdWVzdBgIIAEoCzIVLkNhbmNl",
+            "bEJldHRpbmdSZXF1ZXN0EjUKFWNhbmNlbEJldHRpbmdSZXNwb25zZRgJIAEo",
+            "CzIWLkNhbmNlbEJldHRpbmdSZXNwb25zZSJ6CgdXaW5SYXRlEiEKC2JldHRp",
+            "bmdUeXBlGAEgASgOMgwuQmV0dGluZ1R5cGUSFAoMaW5kZXhPZkhvdXNlGAIg",
+            "ASgJEgwKBHJhdGUYAyABKAISDgoGdXNlcklkGAQgASgFEhgKEHRvdGFsQW1v",
+            "dW50T2ZCZXQYBSABKAUiJwoVR2V0SW5mb0JldHRpbmdSZXF1ZXN0Eg4KBnVz",
+            "ZXJJZBgBIAEoBSKAAQoWR2V0SW5mb0JldHRpbmdSZXNwb25zZRIPCgdtYXRj",
+            "aElkGAEgASgFEiEKC21hdGNoU3RhdHVzGAIgASgOMgwuTWF0Y2hTdGF0dXMS",
+            "EwoLdGltZVRvU3RhcnQYAyABKAMSHQoLd2luUmF0ZUxpc3QYBCADKAsyCC5X",
+            "aW5SYXRlIiUKEkdldFRoZU1hdGNoUmVxdWVzdBIPCgdtYXRjaElkGAEgASgF",
+            "IlMKE0dldFRoZU1hdGNoUmVzcG9uc2USGwoGcmVzdWx0GAEgASgOMgsuUmVz",
+            "dWx0Q29kZRIfCgpyYWNlU2NyaXB0GAIgASgLMgsuUmFjZVNjcmlwdCKHAQoW",
+            "U2VuZEJldHRpbmdJbmZvUmVxdWVzdBIPCgdtYXRjaElkGAEgASgFEg4KBnVz",
+            "ZXJJZBgCIAEoBRITCgthbW91bnRPZkJldBgDIAEoBRIUCgxpbmRleE9mSG91",
+            "c2UYBCABKAkSIQoLYmV0dGluZ1R5cGUYBSABKA4yDC5CZXR0aW5nVHlwZSJa",
+            "ChdTZW5kQmV0dGluZ0luZm9SZXNwb25zZRIPCgdtYXRjaElkGAEgASgFEhQK",
+            "DGluZGV4T2ZIb3VzZRgCIAEoCRIYChB0b3RhbEFtb3VudE9mQmV0GAMgASgF",
+            "IjcKFENhbmNlbEJldHRpbmdSZXF1ZXN0Eg8KB21hdGNoSWQYASABKAUSDgoG",
+            "dXNlcklkGAIgASgFIjQKFUNhbmNlbEJldHRpbmdSZXNwb25zZRIbCgZyZXN1",
+            "bHQYASABKA4yCy5SZXN1bHRDb2RlKoACChJCZXR0aW5nTWVzc2FnZVR5cGUS",
+            "HAoYR0VUX0lORk9fQkVUVElOR19SRVFVRVNUEAASHQoZR0VUX0lORk9fQkVU",
+            "VElOR19SRVNQT05TRRABEhkKFUdFVF9USEVfTUFUQ0hfUkVRVUVTVBACEhoK",
+            "FkdFVF9USEVfTUFUQ0hfUkVTUE9OU0UQAxIdChlTRU5EX0JFVFRJTkdfSU5G",
+            "T19SRVFVRVNUEAQSHgoaU0VORF9CRVRUSU5HX0lORk9fUkVTUE9OU0UQBRIa",
+            "ChZDQU5DRUxfQkVUVElOR19SRVFVRVNUEAYSGwoXQ0FOQ0VMX0JFVFRJTkdf",
+            "UkVTUE9OU0UQByooCgtNYXRjaFN0YXR1cxINCglQUkVQQVJJTkcQABIKCgZB",
+            "Q1RJTkcQASolCgtCZXR0aW5nVHlwZRIKCgZTSU5HTEUQABIKCgZET1VCTEUQ",
+            "AUJDChdpby5odmVyc2UuZ2FtZS5wcm90b2dlbkIOQmV0dGluZ0ZhY3Rvcnmq",
+            "Ahdpby5odmVyc2UuZ2FtZS5wcm90b2dlbmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::io.hverse.game.protogen.DataReflection.Descriptor, global::io.hverse.game.protogen.RaceReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::io.hverse.game.protogen.RaceReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.BettingMessageType), typeof(global::io.hverse.game.protogen.MatchStatus), typeof(global::io.hverse.game.protogen.BettingType), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.BettingMessage), global::io.hverse.game.protogen.BettingMessage.Parser, new[]{ "MsgType", "GetInfoBettingRequest", "GetInfoBettingResponse", "GetTheMatchRequest", "GetTheMatchResponse", "SendBettingInfoRequest", "SendBettingInfoResponse", "CancelBettingRequest", "CancelBettingResponse" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.WinRate), global::io.hverse.game.protogen.WinRate.Parser, new[]{ "BettingType", "IndexOfHouse", "Rate", "UserId", "TotalAmountOfBet" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetInfoBettingRequest), global::io.hverse.game.protogen.GetInfoBettingRequest.Parser, new[]{ "UserId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetInfoBettingResponse), global::io.hverse.game.protogen.GetInfoBettingResponse.Parser, new[]{ "MatchId", "MatchStatus", "TimeToStart", "WinRateList" }, null, null, null, null),
@@ -74,8 +74,7 @@ namespace io.hverse.game.protogen {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.SendBettingInfoRequest), global::io.hverse.game.protogen.SendBettingInfoRequest.Parser, new[]{ "MatchId", "UserId", "AmountOfBet", "IndexOfHouse", "BettingType" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.SendBettingInfoResponse), global::io.hverse.game.protogen.SendBettingInfoResponse.Parser, new[]{ "MatchId", "IndexOfHouse", "TotalAmountOfBet" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.CancelBettingRequest), global::io.hverse.game.protogen.CancelBettingRequest.Parser, new[]{ "MatchId", "UserId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.CancelBettingResponse), global::io.hverse.game.protogen.CancelBettingResponse.Parser, new[]{ "Result" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.BettingMessage), global::io.hverse.game.protogen.BettingMessage.Parser, new[]{ "BettingMessageType", "GetInfoBettingRequest", "GetInfoBettingResponse", "GetTheMatchRequest", "GetTheMatchResponse", "SendBettingInfoRequest", "SendBettingInfoResponse", "CancelBettingRequest", "CancelBettingResponse" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.CancelBettingResponse), global::io.hverse.game.protogen.CancelBettingResponse.Parser, new[]{ "Result" }, null, null, null, null)
           }));
     }
     #endregion
@@ -118,6 +117,563 @@ namespace io.hverse.game.protogen {
   #endregion
 
   #region Messages
+  public sealed partial class BettingMessage : pb::IMessage<BettingMessage>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<BettingMessage> _parser = new pb::MessageParser<BettingMessage>(() => new BettingMessage());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<BettingMessage> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::io.hverse.game.protogen.BettingReflection.Descriptor.MessageTypes[0]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public BettingMessage() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public BettingMessage(BettingMessage other) : this() {
+      msgType_ = other.msgType_;
+      getInfoBettingRequest_ = other.getInfoBettingRequest_ != null ? other.getInfoBettingRequest_.Clone() : null;
+      getInfoBettingResponse_ = other.getInfoBettingResponse_ != null ? other.getInfoBettingResponse_.Clone() : null;
+      getTheMatchRequest_ = other.getTheMatchRequest_ != null ? other.getTheMatchRequest_.Clone() : null;
+      getTheMatchResponse_ = other.getTheMatchResponse_ != null ? other.getTheMatchResponse_.Clone() : null;
+      sendBettingInfoRequest_ = other.sendBettingInfoRequest_ != null ? other.sendBettingInfoRequest_.Clone() : null;
+      sendBettingInfoResponse_ = other.sendBettingInfoResponse_ != null ? other.sendBettingInfoResponse_.Clone() : null;
+      cancelBettingRequest_ = other.cancelBettingRequest_ != null ? other.cancelBettingRequest_.Clone() : null;
+      cancelBettingResponse_ = other.cancelBettingResponse_ != null ? other.cancelBettingResponse_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public BettingMessage Clone() {
+      return new BettingMessage(this);
+    }
+
+    /// <summary>Field number for the "msgType" field.</summary>
+    public const int MsgTypeFieldNumber = 1;
+    private global::io.hverse.game.protogen.BettingMessageType msgType_ = global::io.hverse.game.protogen.BettingMessageType.GetInfoBettingRequest;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.BettingMessageType MsgType {
+      get { return msgType_; }
+      set {
+        msgType_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "getInfoBettingRequest" field.</summary>
+    public const int GetInfoBettingRequestFieldNumber = 2;
+    private global::io.hverse.game.protogen.GetInfoBettingRequest getInfoBettingRequest_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.GetInfoBettingRequest GetInfoBettingRequest {
+      get { return getInfoBettingRequest_; }
+      set {
+        getInfoBettingRequest_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "getInfoBettingResponse" field.</summary>
+    public const int GetInfoBettingResponseFieldNumber = 3;
+    private global::io.hverse.game.protogen.GetInfoBettingResponse getInfoBettingResponse_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.GetInfoBettingResponse GetInfoBettingResponse {
+      get { return getInfoBettingResponse_; }
+      set {
+        getInfoBettingResponse_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "getTheMatchRequest" field.</summary>
+    public const int GetTheMatchRequestFieldNumber = 4;
+    private global::io.hverse.game.protogen.GetTheMatchRequest getTheMatchRequest_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.GetTheMatchRequest GetTheMatchRequest {
+      get { return getTheMatchRequest_; }
+      set {
+        getTheMatchRequest_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "getTheMatchResponse" field.</summary>
+    public const int GetTheMatchResponseFieldNumber = 5;
+    private global::io.hverse.game.protogen.GetTheMatchResponse getTheMatchResponse_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.GetTheMatchResponse GetTheMatchResponse {
+      get { return getTheMatchResponse_; }
+      set {
+        getTheMatchResponse_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "sendBettingInfoRequest" field.</summary>
+    public const int SendBettingInfoRequestFieldNumber = 6;
+    private global::io.hverse.game.protogen.SendBettingInfoRequest sendBettingInfoRequest_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.SendBettingInfoRequest SendBettingInfoRequest {
+      get { return sendBettingInfoRequest_; }
+      set {
+        sendBettingInfoRequest_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "sendBettingInfoResponse" field.</summary>
+    public const int SendBettingInfoResponseFieldNumber = 7;
+    private global::io.hverse.game.protogen.SendBettingInfoResponse sendBettingInfoResponse_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.SendBettingInfoResponse SendBettingInfoResponse {
+      get { return sendBettingInfoResponse_; }
+      set {
+        sendBettingInfoResponse_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "cancelBettingRequest" field.</summary>
+    public const int CancelBettingRequestFieldNumber = 8;
+    private global::io.hverse.game.protogen.CancelBettingRequest cancelBettingRequest_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.CancelBettingRequest CancelBettingRequest {
+      get { return cancelBettingRequest_; }
+      set {
+        cancelBettingRequest_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "cancelBettingResponse" field.</summary>
+    public const int CancelBettingResponseFieldNumber = 9;
+    private global::io.hverse.game.protogen.CancelBettingResponse cancelBettingResponse_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.CancelBettingResponse CancelBettingResponse {
+      get { return cancelBettingResponse_; }
+      set {
+        cancelBettingResponse_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as BettingMessage);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(BettingMessage other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (MsgType != other.MsgType) return false;
+      if (!object.Equals(GetInfoBettingRequest, other.GetInfoBettingRequest)) return false;
+      if (!object.Equals(GetInfoBettingResponse, other.GetInfoBettingResponse)) return false;
+      if (!object.Equals(GetTheMatchRequest, other.GetTheMatchRequest)) return false;
+      if (!object.Equals(GetTheMatchResponse, other.GetTheMatchResponse)) return false;
+      if (!object.Equals(SendBettingInfoRequest, other.SendBettingInfoRequest)) return false;
+      if (!object.Equals(SendBettingInfoResponse, other.SendBettingInfoResponse)) return false;
+      if (!object.Equals(CancelBettingRequest, other.CancelBettingRequest)) return false;
+      if (!object.Equals(CancelBettingResponse, other.CancelBettingResponse)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (MsgType != global::io.hverse.game.protogen.BettingMessageType.GetInfoBettingRequest) hash ^= MsgType.GetHashCode();
+      if (getInfoBettingRequest_ != null) hash ^= GetInfoBettingRequest.GetHashCode();
+      if (getInfoBettingResponse_ != null) hash ^= GetInfoBettingResponse.GetHashCode();
+      if (getTheMatchRequest_ != null) hash ^= GetTheMatchRequest.GetHashCode();
+      if (getTheMatchResponse_ != null) hash ^= GetTheMatchResponse.GetHashCode();
+      if (sendBettingInfoRequest_ != null) hash ^= SendBettingInfoRequest.GetHashCode();
+      if (sendBettingInfoResponse_ != null) hash ^= SendBettingInfoResponse.GetHashCode();
+      if (cancelBettingRequest_ != null) hash ^= CancelBettingRequest.GetHashCode();
+      if (cancelBettingResponse_ != null) hash ^= CancelBettingResponse.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (MsgType != global::io.hverse.game.protogen.BettingMessageType.GetInfoBettingRequest) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) MsgType);
+      }
+      if (getInfoBettingRequest_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(GetInfoBettingRequest);
+      }
+      if (getInfoBettingResponse_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(GetInfoBettingResponse);
+      }
+      if (getTheMatchRequest_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(GetTheMatchRequest);
+      }
+      if (getTheMatchResponse_ != null) {
+        output.WriteRawTag(42);
+        output.WriteMessage(GetTheMatchResponse);
+      }
+      if (sendBettingInfoRequest_ != null) {
+        output.WriteRawTag(50);
+        output.WriteMessage(SendBettingInfoRequest);
+      }
+      if (sendBettingInfoResponse_ != null) {
+        output.WriteRawTag(58);
+        output.WriteMessage(SendBettingInfoResponse);
+      }
+      if (cancelBettingRequest_ != null) {
+        output.WriteRawTag(66);
+        output.WriteMessage(CancelBettingRequest);
+      }
+      if (cancelBettingResponse_ != null) {
+        output.WriteRawTag(74);
+        output.WriteMessage(CancelBettingResponse);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (MsgType != global::io.hverse.game.protogen.BettingMessageType.GetInfoBettingRequest) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) MsgType);
+      }
+      if (getInfoBettingRequest_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(GetInfoBettingRequest);
+      }
+      if (getInfoBettingResponse_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(GetInfoBettingResponse);
+      }
+      if (getTheMatchRequest_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(GetTheMatchRequest);
+      }
+      if (getTheMatchResponse_ != null) {
+        output.WriteRawTag(42);
+        output.WriteMessage(GetTheMatchResponse);
+      }
+      if (sendBettingInfoRequest_ != null) {
+        output.WriteRawTag(50);
+        output.WriteMessage(SendBettingInfoRequest);
+      }
+      if (sendBettingInfoResponse_ != null) {
+        output.WriteRawTag(58);
+        output.WriteMessage(SendBettingInfoResponse);
+      }
+      if (cancelBettingRequest_ != null) {
+        output.WriteRawTag(66);
+        output.WriteMessage(CancelBettingRequest);
+      }
+      if (cancelBettingResponse_ != null) {
+        output.WriteRawTag(74);
+        output.WriteMessage(CancelBettingResponse);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (MsgType != global::io.hverse.game.protogen.BettingMessageType.GetInfoBettingRequest) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) MsgType);
+      }
+      if (getInfoBettingRequest_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetInfoBettingRequest);
+      }
+      if (getInfoBettingResponse_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetInfoBettingResponse);
+      }
+      if (getTheMatchRequest_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetTheMatchRequest);
+      }
+      if (getTheMatchResponse_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetTheMatchResponse);
+      }
+      if (sendBettingInfoRequest_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(SendBettingInfoRequest);
+      }
+      if (sendBettingInfoResponse_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(SendBettingInfoResponse);
+      }
+      if (cancelBettingRequest_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(CancelBettingRequest);
+      }
+      if (cancelBettingResponse_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(CancelBettingResponse);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(BettingMessage other) {
+      if (other == null) {
+        return;
+      }
+      if (other.MsgType != global::io.hverse.game.protogen.BettingMessageType.GetInfoBettingRequest) {
+        MsgType = other.MsgType;
+      }
+      if (other.getInfoBettingRequest_ != null) {
+        if (getInfoBettingRequest_ == null) {
+          GetInfoBettingRequest = new global::io.hverse.game.protogen.GetInfoBettingRequest();
+        }
+        GetInfoBettingRequest.MergeFrom(other.GetInfoBettingRequest);
+      }
+      if (other.getInfoBettingResponse_ != null) {
+        if (getInfoBettingResponse_ == null) {
+          GetInfoBettingResponse = new global::io.hverse.game.protogen.GetInfoBettingResponse();
+        }
+        GetInfoBettingResponse.MergeFrom(other.GetInfoBettingResponse);
+      }
+      if (other.getTheMatchRequest_ != null) {
+        if (getTheMatchRequest_ == null) {
+          GetTheMatchRequest = new global::io.hverse.game.protogen.GetTheMatchRequest();
+        }
+        GetTheMatchRequest.MergeFrom(other.GetTheMatchRequest);
+      }
+      if (other.getTheMatchResponse_ != null) {
+        if (getTheMatchResponse_ == null) {
+          GetTheMatchResponse = new global::io.hverse.game.protogen.GetTheMatchResponse();
+        }
+        GetTheMatchResponse.MergeFrom(other.GetTheMatchResponse);
+      }
+      if (other.sendBettingInfoRequest_ != null) {
+        if (sendBettingInfoRequest_ == null) {
+          SendBettingInfoRequest = new global::io.hverse.game.protogen.SendBettingInfoRequest();
+        }
+        SendBettingInfoRequest.MergeFrom(other.SendBettingInfoRequest);
+      }
+      if (other.sendBettingInfoResponse_ != null) {
+        if (sendBettingInfoResponse_ == null) {
+          SendBettingInfoResponse = new global::io.hverse.game.protogen.SendBettingInfoResponse();
+        }
+        SendBettingInfoResponse.MergeFrom(other.SendBettingInfoResponse);
+      }
+      if (other.cancelBettingRequest_ != null) {
+        if (cancelBettingRequest_ == null) {
+          CancelBettingRequest = new global::io.hverse.game.protogen.CancelBettingRequest();
+        }
+        CancelBettingRequest.MergeFrom(other.CancelBettingRequest);
+      }
+      if (other.cancelBettingResponse_ != null) {
+        if (cancelBettingResponse_ == null) {
+          CancelBettingResponse = new global::io.hverse.game.protogen.CancelBettingResponse();
+        }
+        CancelBettingResponse.MergeFrom(other.CancelBettingResponse);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            MsgType = (global::io.hverse.game.protogen.BettingMessageType) input.ReadEnum();
+            break;
+          }
+          case 18: {
+            if (getInfoBettingRequest_ == null) {
+              GetInfoBettingRequest = new global::io.hverse.game.protogen.GetInfoBettingRequest();
+            }
+            input.ReadMessage(GetInfoBettingRequest);
+            break;
+          }
+          case 26: {
+            if (getInfoBettingResponse_ == null) {
+              GetInfoBettingResponse = new global::io.hverse.game.protogen.GetInfoBettingResponse();
+            }
+            input.ReadMessage(GetInfoBettingResponse);
+            break;
+          }
+          case 34: {
+            if (getTheMatchRequest_ == null) {
+              GetTheMatchRequest = new global::io.hverse.game.protogen.GetTheMatchRequest();
+            }
+            input.ReadMessage(GetTheMatchRequest);
+            break;
+          }
+          case 42: {
+            if (getTheMatchResponse_ == null) {
+              GetTheMatchResponse = new global::io.hverse.game.protogen.GetTheMatchResponse();
+            }
+            input.ReadMessage(GetTheMatchResponse);
+            break;
+          }
+          case 50: {
+            if (sendBettingInfoRequest_ == null) {
+              SendBettingInfoRequest = new global::io.hverse.game.protogen.SendBettingInfoRequest();
+            }
+            input.ReadMessage(SendBettingInfoRequest);
+            break;
+          }
+          case 58: {
+            if (sendBettingInfoResponse_ == null) {
+              SendBettingInfoResponse = new global::io.hverse.game.protogen.SendBettingInfoResponse();
+            }
+            input.ReadMessage(SendBettingInfoResponse);
+            break;
+          }
+          case 66: {
+            if (cancelBettingRequest_ == null) {
+              CancelBettingRequest = new global::io.hverse.game.protogen.CancelBettingRequest();
+            }
+            input.ReadMessage(CancelBettingRequest);
+            break;
+          }
+          case 74: {
+            if (cancelBettingResponse_ == null) {
+              CancelBettingResponse = new global::io.hverse.game.protogen.CancelBettingResponse();
+            }
+            input.ReadMessage(CancelBettingResponse);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            MsgType = (global::io.hverse.game.protogen.BettingMessageType) input.ReadEnum();
+            break;
+          }
+          case 18: {
+            if (getInfoBettingRequest_ == null) {
+              GetInfoBettingRequest = new global::io.hverse.game.protogen.GetInfoBettingRequest();
+            }
+            input.ReadMessage(GetInfoBettingRequest);
+            break;
+          }
+          case 26: {
+            if (getInfoBettingResponse_ == null) {
+              GetInfoBettingResponse = new global::io.hverse.game.protogen.GetInfoBettingResponse();
+            }
+            input.ReadMessage(GetInfoBettingResponse);
+            break;
+          }
+          case 34: {
+            if (getTheMatchRequest_ == null) {
+              GetTheMatchRequest = new global::io.hverse.game.protogen.GetTheMatchRequest();
+            }
+            input.ReadMessage(GetTheMatchRequest);
+            break;
+          }
+          case 42: {
+            if (getTheMatchResponse_ == null) {
+              GetTheMatchResponse = new global::io.hverse.game.protogen.GetTheMatchResponse();
+            }
+            input.ReadMessage(GetTheMatchResponse);
+            break;
+          }
+          case 50: {
+            if (sendBettingInfoRequest_ == null) {
+              SendBettingInfoRequest = new global::io.hverse.game.protogen.SendBettingInfoRequest();
+            }
+            input.ReadMessage(SendBettingInfoRequest);
+            break;
+          }
+          case 58: {
+            if (sendBettingInfoResponse_ == null) {
+              SendBettingInfoResponse = new global::io.hverse.game.protogen.SendBettingInfoResponse();
+            }
+            input.ReadMessage(SendBettingInfoResponse);
+            break;
+          }
+          case 66: {
+            if (cancelBettingRequest_ == null) {
+              CancelBettingRequest = new global::io.hverse.game.protogen.CancelBettingRequest();
+            }
+            input.ReadMessage(CancelBettingRequest);
+            break;
+          }
+          case 74: {
+            if (cancelBettingResponse_ == null) {
+              CancelBettingResponse = new global::io.hverse.game.protogen.CancelBettingResponse();
+            }
+            input.ReadMessage(CancelBettingResponse);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
   public sealed partial class WinRate : pb::IMessage<WinRate>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -132,7 +688,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.BettingReflection.Descriptor.MessageTypes[0]; }
+      get { return global::io.hverse.game.protogen.BettingReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -475,7 +1031,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.BettingReflection.Descriptor.MessageTypes[1]; }
+      get { return global::io.hverse.game.protogen.BettingReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -664,7 +1220,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.BettingReflection.Descriptor.MessageTypes[2]; }
+      get { return global::io.hverse.game.protogen.BettingReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -953,7 +1509,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.BettingReflection.Descriptor.MessageTypes[3]; }
+      get { return global::io.hverse.game.protogen.BettingReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1142,7 +1698,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.BettingReflection.Descriptor.MessageTypes[4]; }
+      get { return global::io.hverse.game.protogen.BettingReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1377,7 +1933,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.BettingReflection.Descriptor.MessageTypes[5]; }
+      get { return global::io.hverse.game.protogen.BettingReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1714,7 +2270,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.BettingReflection.Descriptor.MessageTypes[6]; }
+      get { return global::io.hverse.game.protogen.BettingReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1977,7 +2533,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.BettingReflection.Descriptor.MessageTypes[7]; }
+      get { return global::io.hverse.game.protogen.BettingReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2203,7 +2759,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.BettingReflection.Descriptor.MessageTypes[8]; }
+      get { return global::io.hverse.game.protogen.BettingReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2369,563 +2925,6 @@ namespace io.hverse.game.protogen {
             break;
           case 8: {
             Result = (global::io.hverse.game.protogen.ResultCode) input.ReadEnum();
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  public sealed partial class BettingMessage : pb::IMessage<BettingMessage>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<BettingMessage> _parser = new pb::MessageParser<BettingMessage>(() => new BettingMessage());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<BettingMessage> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.BettingReflection.Descriptor.MessageTypes[9]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public BettingMessage() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public BettingMessage(BettingMessage other) : this() {
-      bettingMessageType_ = other.bettingMessageType_;
-      getInfoBettingRequest_ = other.getInfoBettingRequest_ != null ? other.getInfoBettingRequest_.Clone() : null;
-      getInfoBettingResponse_ = other.getInfoBettingResponse_ != null ? other.getInfoBettingResponse_.Clone() : null;
-      getTheMatchRequest_ = other.getTheMatchRequest_ != null ? other.getTheMatchRequest_.Clone() : null;
-      getTheMatchResponse_ = other.getTheMatchResponse_ != null ? other.getTheMatchResponse_.Clone() : null;
-      sendBettingInfoRequest_ = other.sendBettingInfoRequest_ != null ? other.sendBettingInfoRequest_.Clone() : null;
-      sendBettingInfoResponse_ = other.sendBettingInfoResponse_ != null ? other.sendBettingInfoResponse_.Clone() : null;
-      cancelBettingRequest_ = other.cancelBettingRequest_ != null ? other.cancelBettingRequest_.Clone() : null;
-      cancelBettingResponse_ = other.cancelBettingResponse_ != null ? other.cancelBettingResponse_.Clone() : null;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public BettingMessage Clone() {
-      return new BettingMessage(this);
-    }
-
-    /// <summary>Field number for the "bettingMessageType" field.</summary>
-    public const int BettingMessageTypeFieldNumber = 1;
-    private global::io.hverse.game.protogen.BettingMessageType bettingMessageType_ = global::io.hverse.game.protogen.BettingMessageType.GetInfoBettingRequest;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.BettingMessageType BettingMessageType {
-      get { return bettingMessageType_; }
-      set {
-        bettingMessageType_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "getInfoBettingRequest" field.</summary>
-    public const int GetInfoBettingRequestFieldNumber = 2;
-    private global::io.hverse.game.protogen.GetInfoBettingRequest getInfoBettingRequest_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.GetInfoBettingRequest GetInfoBettingRequest {
-      get { return getInfoBettingRequest_; }
-      set {
-        getInfoBettingRequest_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "getInfoBettingResponse" field.</summary>
-    public const int GetInfoBettingResponseFieldNumber = 3;
-    private global::io.hverse.game.protogen.GetInfoBettingResponse getInfoBettingResponse_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.GetInfoBettingResponse GetInfoBettingResponse {
-      get { return getInfoBettingResponse_; }
-      set {
-        getInfoBettingResponse_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "getTheMatchRequest" field.</summary>
-    public const int GetTheMatchRequestFieldNumber = 4;
-    private global::io.hverse.game.protogen.GetTheMatchRequest getTheMatchRequest_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.GetTheMatchRequest GetTheMatchRequest {
-      get { return getTheMatchRequest_; }
-      set {
-        getTheMatchRequest_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "getTheMatchResponse" field.</summary>
-    public const int GetTheMatchResponseFieldNumber = 5;
-    private global::io.hverse.game.protogen.GetTheMatchResponse getTheMatchResponse_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.GetTheMatchResponse GetTheMatchResponse {
-      get { return getTheMatchResponse_; }
-      set {
-        getTheMatchResponse_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "sendBettingInfoRequest" field.</summary>
-    public const int SendBettingInfoRequestFieldNumber = 6;
-    private global::io.hverse.game.protogen.SendBettingInfoRequest sendBettingInfoRequest_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.SendBettingInfoRequest SendBettingInfoRequest {
-      get { return sendBettingInfoRequest_; }
-      set {
-        sendBettingInfoRequest_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "sendBettingInfoResponse" field.</summary>
-    public const int SendBettingInfoResponseFieldNumber = 7;
-    private global::io.hverse.game.protogen.SendBettingInfoResponse sendBettingInfoResponse_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.SendBettingInfoResponse SendBettingInfoResponse {
-      get { return sendBettingInfoResponse_; }
-      set {
-        sendBettingInfoResponse_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "cancelBettingRequest" field.</summary>
-    public const int CancelBettingRequestFieldNumber = 8;
-    private global::io.hverse.game.protogen.CancelBettingRequest cancelBettingRequest_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.CancelBettingRequest CancelBettingRequest {
-      get { return cancelBettingRequest_; }
-      set {
-        cancelBettingRequest_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "cancelBettingResponse" field.</summary>
-    public const int CancelBettingResponseFieldNumber = 9;
-    private global::io.hverse.game.protogen.CancelBettingResponse cancelBettingResponse_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.CancelBettingResponse CancelBettingResponse {
-      get { return cancelBettingResponse_; }
-      set {
-        cancelBettingResponse_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as BettingMessage);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(BettingMessage other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (BettingMessageType != other.BettingMessageType) return false;
-      if (!object.Equals(GetInfoBettingRequest, other.GetInfoBettingRequest)) return false;
-      if (!object.Equals(GetInfoBettingResponse, other.GetInfoBettingResponse)) return false;
-      if (!object.Equals(GetTheMatchRequest, other.GetTheMatchRequest)) return false;
-      if (!object.Equals(GetTheMatchResponse, other.GetTheMatchResponse)) return false;
-      if (!object.Equals(SendBettingInfoRequest, other.SendBettingInfoRequest)) return false;
-      if (!object.Equals(SendBettingInfoResponse, other.SendBettingInfoResponse)) return false;
-      if (!object.Equals(CancelBettingRequest, other.CancelBettingRequest)) return false;
-      if (!object.Equals(CancelBettingResponse, other.CancelBettingResponse)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (BettingMessageType != global::io.hverse.game.protogen.BettingMessageType.GetInfoBettingRequest) hash ^= BettingMessageType.GetHashCode();
-      if (getInfoBettingRequest_ != null) hash ^= GetInfoBettingRequest.GetHashCode();
-      if (getInfoBettingResponse_ != null) hash ^= GetInfoBettingResponse.GetHashCode();
-      if (getTheMatchRequest_ != null) hash ^= GetTheMatchRequest.GetHashCode();
-      if (getTheMatchResponse_ != null) hash ^= GetTheMatchResponse.GetHashCode();
-      if (sendBettingInfoRequest_ != null) hash ^= SendBettingInfoRequest.GetHashCode();
-      if (sendBettingInfoResponse_ != null) hash ^= SendBettingInfoResponse.GetHashCode();
-      if (cancelBettingRequest_ != null) hash ^= CancelBettingRequest.GetHashCode();
-      if (cancelBettingResponse_ != null) hash ^= CancelBettingResponse.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (BettingMessageType != global::io.hverse.game.protogen.BettingMessageType.GetInfoBettingRequest) {
-        output.WriteRawTag(8);
-        output.WriteEnum((int) BettingMessageType);
-      }
-      if (getInfoBettingRequest_ != null) {
-        output.WriteRawTag(18);
-        output.WriteMessage(GetInfoBettingRequest);
-      }
-      if (getInfoBettingResponse_ != null) {
-        output.WriteRawTag(26);
-        output.WriteMessage(GetInfoBettingResponse);
-      }
-      if (getTheMatchRequest_ != null) {
-        output.WriteRawTag(34);
-        output.WriteMessage(GetTheMatchRequest);
-      }
-      if (getTheMatchResponse_ != null) {
-        output.WriteRawTag(42);
-        output.WriteMessage(GetTheMatchResponse);
-      }
-      if (sendBettingInfoRequest_ != null) {
-        output.WriteRawTag(50);
-        output.WriteMessage(SendBettingInfoRequest);
-      }
-      if (sendBettingInfoResponse_ != null) {
-        output.WriteRawTag(58);
-        output.WriteMessage(SendBettingInfoResponse);
-      }
-      if (cancelBettingRequest_ != null) {
-        output.WriteRawTag(66);
-        output.WriteMessage(CancelBettingRequest);
-      }
-      if (cancelBettingResponse_ != null) {
-        output.WriteRawTag(74);
-        output.WriteMessage(CancelBettingResponse);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (BettingMessageType != global::io.hverse.game.protogen.BettingMessageType.GetInfoBettingRequest) {
-        output.WriteRawTag(8);
-        output.WriteEnum((int) BettingMessageType);
-      }
-      if (getInfoBettingRequest_ != null) {
-        output.WriteRawTag(18);
-        output.WriteMessage(GetInfoBettingRequest);
-      }
-      if (getInfoBettingResponse_ != null) {
-        output.WriteRawTag(26);
-        output.WriteMessage(GetInfoBettingResponse);
-      }
-      if (getTheMatchRequest_ != null) {
-        output.WriteRawTag(34);
-        output.WriteMessage(GetTheMatchRequest);
-      }
-      if (getTheMatchResponse_ != null) {
-        output.WriteRawTag(42);
-        output.WriteMessage(GetTheMatchResponse);
-      }
-      if (sendBettingInfoRequest_ != null) {
-        output.WriteRawTag(50);
-        output.WriteMessage(SendBettingInfoRequest);
-      }
-      if (sendBettingInfoResponse_ != null) {
-        output.WriteRawTag(58);
-        output.WriteMessage(SendBettingInfoResponse);
-      }
-      if (cancelBettingRequest_ != null) {
-        output.WriteRawTag(66);
-        output.WriteMessage(CancelBettingRequest);
-      }
-      if (cancelBettingResponse_ != null) {
-        output.WriteRawTag(74);
-        output.WriteMessage(CancelBettingResponse);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (BettingMessageType != global::io.hverse.game.protogen.BettingMessageType.GetInfoBettingRequest) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) BettingMessageType);
-      }
-      if (getInfoBettingRequest_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetInfoBettingRequest);
-      }
-      if (getInfoBettingResponse_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetInfoBettingResponse);
-      }
-      if (getTheMatchRequest_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetTheMatchRequest);
-      }
-      if (getTheMatchResponse_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetTheMatchResponse);
-      }
-      if (sendBettingInfoRequest_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(SendBettingInfoRequest);
-      }
-      if (sendBettingInfoResponse_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(SendBettingInfoResponse);
-      }
-      if (cancelBettingRequest_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(CancelBettingRequest);
-      }
-      if (cancelBettingResponse_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(CancelBettingResponse);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(BettingMessage other) {
-      if (other == null) {
-        return;
-      }
-      if (other.BettingMessageType != global::io.hverse.game.protogen.BettingMessageType.GetInfoBettingRequest) {
-        BettingMessageType = other.BettingMessageType;
-      }
-      if (other.getInfoBettingRequest_ != null) {
-        if (getInfoBettingRequest_ == null) {
-          GetInfoBettingRequest = new global::io.hverse.game.protogen.GetInfoBettingRequest();
-        }
-        GetInfoBettingRequest.MergeFrom(other.GetInfoBettingRequest);
-      }
-      if (other.getInfoBettingResponse_ != null) {
-        if (getInfoBettingResponse_ == null) {
-          GetInfoBettingResponse = new global::io.hverse.game.protogen.GetInfoBettingResponse();
-        }
-        GetInfoBettingResponse.MergeFrom(other.GetInfoBettingResponse);
-      }
-      if (other.getTheMatchRequest_ != null) {
-        if (getTheMatchRequest_ == null) {
-          GetTheMatchRequest = new global::io.hverse.game.protogen.GetTheMatchRequest();
-        }
-        GetTheMatchRequest.MergeFrom(other.GetTheMatchRequest);
-      }
-      if (other.getTheMatchResponse_ != null) {
-        if (getTheMatchResponse_ == null) {
-          GetTheMatchResponse = new global::io.hverse.game.protogen.GetTheMatchResponse();
-        }
-        GetTheMatchResponse.MergeFrom(other.GetTheMatchResponse);
-      }
-      if (other.sendBettingInfoRequest_ != null) {
-        if (sendBettingInfoRequest_ == null) {
-          SendBettingInfoRequest = new global::io.hverse.game.protogen.SendBettingInfoRequest();
-        }
-        SendBettingInfoRequest.MergeFrom(other.SendBettingInfoRequest);
-      }
-      if (other.sendBettingInfoResponse_ != null) {
-        if (sendBettingInfoResponse_ == null) {
-          SendBettingInfoResponse = new global::io.hverse.game.protogen.SendBettingInfoResponse();
-        }
-        SendBettingInfoResponse.MergeFrom(other.SendBettingInfoResponse);
-      }
-      if (other.cancelBettingRequest_ != null) {
-        if (cancelBettingRequest_ == null) {
-          CancelBettingRequest = new global::io.hverse.game.protogen.CancelBettingRequest();
-        }
-        CancelBettingRequest.MergeFrom(other.CancelBettingRequest);
-      }
-      if (other.cancelBettingResponse_ != null) {
-        if (cancelBettingResponse_ == null) {
-          CancelBettingResponse = new global::io.hverse.game.protogen.CancelBettingResponse();
-        }
-        CancelBettingResponse.MergeFrom(other.CancelBettingResponse);
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 8: {
-            BettingMessageType = (global::io.hverse.game.protogen.BettingMessageType) input.ReadEnum();
-            break;
-          }
-          case 18: {
-            if (getInfoBettingRequest_ == null) {
-              GetInfoBettingRequest = new global::io.hverse.game.protogen.GetInfoBettingRequest();
-            }
-            input.ReadMessage(GetInfoBettingRequest);
-            break;
-          }
-          case 26: {
-            if (getInfoBettingResponse_ == null) {
-              GetInfoBettingResponse = new global::io.hverse.game.protogen.GetInfoBettingResponse();
-            }
-            input.ReadMessage(GetInfoBettingResponse);
-            break;
-          }
-          case 34: {
-            if (getTheMatchRequest_ == null) {
-              GetTheMatchRequest = new global::io.hverse.game.protogen.GetTheMatchRequest();
-            }
-            input.ReadMessage(GetTheMatchRequest);
-            break;
-          }
-          case 42: {
-            if (getTheMatchResponse_ == null) {
-              GetTheMatchResponse = new global::io.hverse.game.protogen.GetTheMatchResponse();
-            }
-            input.ReadMessage(GetTheMatchResponse);
-            break;
-          }
-          case 50: {
-            if (sendBettingInfoRequest_ == null) {
-              SendBettingInfoRequest = new global::io.hverse.game.protogen.SendBettingInfoRequest();
-            }
-            input.ReadMessage(SendBettingInfoRequest);
-            break;
-          }
-          case 58: {
-            if (sendBettingInfoResponse_ == null) {
-              SendBettingInfoResponse = new global::io.hverse.game.protogen.SendBettingInfoResponse();
-            }
-            input.ReadMessage(SendBettingInfoResponse);
-            break;
-          }
-          case 66: {
-            if (cancelBettingRequest_ == null) {
-              CancelBettingRequest = new global::io.hverse.game.protogen.CancelBettingRequest();
-            }
-            input.ReadMessage(CancelBettingRequest);
-            break;
-          }
-          case 74: {
-            if (cancelBettingResponse_ == null) {
-              CancelBettingResponse = new global::io.hverse.game.protogen.CancelBettingResponse();
-            }
-            input.ReadMessage(CancelBettingResponse);
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 8: {
-            BettingMessageType = (global::io.hverse.game.protogen.BettingMessageType) input.ReadEnum();
-            break;
-          }
-          case 18: {
-            if (getInfoBettingRequest_ == null) {
-              GetInfoBettingRequest = new global::io.hverse.game.protogen.GetInfoBettingRequest();
-            }
-            input.ReadMessage(GetInfoBettingRequest);
-            break;
-          }
-          case 26: {
-            if (getInfoBettingResponse_ == null) {
-              GetInfoBettingResponse = new global::io.hverse.game.protogen.GetInfoBettingResponse();
-            }
-            input.ReadMessage(GetInfoBettingResponse);
-            break;
-          }
-          case 34: {
-            if (getTheMatchRequest_ == null) {
-              GetTheMatchRequest = new global::io.hverse.game.protogen.GetTheMatchRequest();
-            }
-            input.ReadMessage(GetTheMatchRequest);
-            break;
-          }
-          case 42: {
-            if (getTheMatchResponse_ == null) {
-              GetTheMatchResponse = new global::io.hverse.game.protogen.GetTheMatchResponse();
-            }
-            input.ReadMessage(GetTheMatchResponse);
-            break;
-          }
-          case 50: {
-            if (sendBettingInfoRequest_ == null) {
-              SendBettingInfoRequest = new global::io.hverse.game.protogen.SendBettingInfoRequest();
-            }
-            input.ReadMessage(SendBettingInfoRequest);
-            break;
-          }
-          case 58: {
-            if (sendBettingInfoResponse_ == null) {
-              SendBettingInfoResponse = new global::io.hverse.game.protogen.SendBettingInfoResponse();
-            }
-            input.ReadMessage(SendBettingInfoResponse);
-            break;
-          }
-          case 66: {
-            if (cancelBettingRequest_ == null) {
-              CancelBettingRequest = new global::io.hverse.game.protogen.CancelBettingRequest();
-            }
-            input.ReadMessage(CancelBettingRequest);
-            break;
-          }
-          case 74: {
-            if (cancelBettingResponse_ == null) {
-              CancelBettingResponse = new global::io.hverse.game.protogen.CancelBettingResponse();
-            }
-            input.ReadMessage(CancelBettingResponse);
             break;
           }
         }

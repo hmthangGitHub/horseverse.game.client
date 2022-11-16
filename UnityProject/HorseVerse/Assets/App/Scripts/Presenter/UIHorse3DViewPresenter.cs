@@ -60,7 +60,7 @@ public class UIHorse3DViewPresenter : IDisposable
 
     private void UserDataRepositoryOnModelUpdate((UserDataModel before, UserDataModel after) model)
     {
-        if (model.after.MasterHorseId != model.before.MasterHorseId)
+        if (model.before == null || model.after.MasterHorseId != model.before.MasterHorseId)
         {
             uiHorse3DView.entity.horseLoader = new HorseLoader.Entity()
             {

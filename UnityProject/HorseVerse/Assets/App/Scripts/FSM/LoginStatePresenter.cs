@@ -57,23 +57,28 @@ public class LoginStatePresenter : IDisposable
 #else
         await SocketClient.Connect(host, port);
 #endif
+        var kq = await doLoginWithAccessToken();
 
         UILoadingPresenter.HideLoading();
-        int type = 0;
-        bool res = false;
-        while (!res)
+        if (kq == false)
         {
-            type = await doSelectLoginType();
-            if (type == 1)
-                res = await doLoginWithOTP();
-            else
-                res = await doLoginWithEmail();
+            int type = 0;
+            bool res = false;
+
+            while (!res)
+            {
+                type = await doSelectLoginType();
+                if (type == 1)
+                    res = await doLoginWithOTP();
+                else
+                    res = await doLoginWithEmail();
+            }
         }
     }
 
     private async UniTask LoginAsync()
     {
-        await SocketClient.Send<LoginRequest, LoginResponse>(new LoginRequest()
+        var res = await SocketClient.Send<LoginRequest, LoginResponse>(new LoginRequest()
         {
             LoginType = LoginType.Email,
             ClientInfo = new io.hverse.game.protogen.ClientInfo()
@@ -85,7 +90,8 @@ public class LoginStatePresenter : IDisposable
                 Model = SystemInfo.deviceModel,
                 Version = Application.version,
             }
-        });
+        }, 10.0f);
+        await HandleLoginRespons(res);
     }
 
     private io.hverse.game.protogen.Platform GetCurrentPlatform()
@@ -110,6 +116,30 @@ public class LoginStatePresenter : IDisposable
         if(uiLoginOTP != default) UILoader.SafeRelease(ref uiLoginOTP);
         socketClient = default;
         uiLoadingPresenter = default;
+    }
+
+    private async UniTask<bool> doLoginWithAccessToken()
+    {
+        var token = PlayerPrefs.GetString("USER_LOGIN_ACCESS_TOKEN", "");
+        if (!string.IsNullOrEmpty(token))
+        {
+            var res = await SocketClient.Send<LoginRequest, LoginResponse>(new LoginRequest()
+            {
+                LoginType = LoginType.AccessToken,
+                ClientInfo = new io.hverse.game.protogen.ClientInfo()
+                {
+                    AccessToken = token,
+                    Platform = GetCurrentPlatform(),
+                    DeviceId = SystemInfo.deviceUniqueIdentifier,
+                    Model = SystemInfo.deviceModel,
+                    Version = Application.version,
+                }
+            }, 10.0f);
+            await HandleLoginRespons(res);
+            if(res.ResultCode == 100)
+                return true;
+        }
+        return false;
     }
 
     private async UniTask<int> doSelectLoginType()
@@ -174,7 +204,7 @@ public class LoginStatePresenter : IDisposable
 
     private async UniTask LoginOTPAsync()
     {
-        await SocketClient.Send<LoginRequest, LoginResponse>(new LoginRequest()
+        var res = await SocketClient.Send<LoginRequest, LoginResponse>(new LoginRequest()
         {
             LoginType = LoginType.LoginEmailCode,
             ClientInfo = new io.hverse.game.protogen.ClientInfo()
@@ -186,7 +216,8 @@ public class LoginStatePresenter : IDisposable
                 Model = SystemInfo.deviceModel,
                 Version = Application.version,
             }
-        });
+        }, 10.0f);
+        await HandleLoginRespons(res);
     }
 
     private async UniTask GetCodeOTPAsync()
@@ -205,7 +236,7 @@ public class LoginStatePresenter : IDisposable
                 Model = SystemInfo.deviceModel,
                 Version = Application.version,
             }
-        });
+        }, 10.0f);
         if (res != null && res.ResultCode == 100)
         {
             var uiConfirm = await UILoader.Instantiate<UIPopupMessage>(token: cts.Token);
@@ -220,6 +251,29 @@ public class LoginStatePresenter : IDisposable
             await uiConfirm.In();
             await UniTask.WaitUntil(() => wait == false);
             UILoader.SafeRelease(ref uiConfirm);
+        }
+    }
+
+    private async UniTask HandleLoginRespons(LoginResponse res)
+    {
+        if (res != null && res.ResultCode == 100)
+        {
+            var model = new UserDataModel()
+            {
+                Coin = res.PlayerInfo.Chip,
+                Energy = res.PlayerInfo.Energy,
+                MasterHorseId = 10000001,
+                MaxEnergy = 100,
+                UserId = "" + res.PlayerInfo.Id,
+                UserName = res.PlayerInfo.Name,
+                Exp = 0,
+                Level = 1,
+                NextLevelExp = 1,
+                TraningTimeStamp = 0,
+            };
+            var data = container.Inject<UserDataRepository>();
+            await data.UpdateDataAsync(new UserDataModel[] { model });
+            PlayerPrefs.SetString("USER_LOGIN_ACCESS_TOKEN", res.PlayerInfo.AccessToken);
         }
     }
 }

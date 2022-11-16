@@ -22,6 +22,9 @@ public class ProtobufMessageParser : IMessageParser
 
         AddToSerializeLookUpTable<EmailCodeRequest>(x => new LoginMessage(x));
         AddToParseLookUpTable<LoginMessage, LoginMessageType>(LoginMessageType.EmailCodeResponse, x => x.EmailCodeResponse);
+
+        AddToSerializeLookUpTable<PlayerInventoryRequest>(x => new PlayerMessage(x));
+        AddToParseLookUpTable<PlayerMessage, PlayerMessageType>(PlayerMessageType.PlayerInventoryResponse, x => x.PlayerInventoryResponse);
     }
     
     private void AddToParseLookUpTable<TSubMessage, TEnum>(TEnum enumMessage, Func<TSubMessage, IMessage> resultFactory) where TEnum : System.Enum
