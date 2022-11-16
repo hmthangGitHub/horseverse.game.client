@@ -17,6 +17,10 @@ public class LoginState : InjectedBState
     private async UniTask OnStateEnterAsync()
     {
         loginPresenter = new LoginStatePresenter(Container);
+#if UNITY_WEBGL || WEB_SOCKET
+        this.Machine.ChangeState<MainMenuState>();
+        return;
+#endif
         await loginPresenter.ConnectAndLoginAsync();
         this.Machine.ChangeState<MainMenuState>();
     }
@@ -25,5 +29,6 @@ public class LoginState : InjectedBState
     {
         base.Exit();
         loginPresenter.Dispose();
+        loginPresenter = default;
     }
 }

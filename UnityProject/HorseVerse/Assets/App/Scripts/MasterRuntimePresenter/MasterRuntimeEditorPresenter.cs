@@ -53,7 +53,16 @@ public class MasterRuntimeEditorPresenter : IDisposable
             closeBtn = new ButtonComponent.Entity(() =>
             {
                 ucs.TrySetResult();
-            })
+            }),
+            importBtn = new ButtonComponent.Entity(UniTask.Action(async () =>
+            {
+                var paths = StandaloneFileBrowser.OpenFilePanel("Select Master To Import", "", "csv", false);
+                if (paths.Length > 0) {
+                    var loader = new WWW(new System.Uri(paths[0]).AbsoluteUri);
+                    await loader.ToUniTask();
+                    await SaveToLocalAsync<T>(uiDebugMasterEditor, fields, loader.text);
+                }
+            }))
         });
         await uiDebugMasterEditor.In().AttachExternalCancellation(cts.Token);
         await ucs.Task.AttachExternalCancellation(cts.Token);
@@ -95,6 +104,8 @@ public class MasterRuntimeEditorPresenter : IDisposable
         {
             File.WriteAllText(path, csvDatas);
         }
+        
+        // StandaloneFileBrowser.OpenFilePanel;
 #endif
     }
 
@@ -106,6 +117,12 @@ public class MasterRuntimeEditorPresenter : IDisposable
             .GroupBy(x => x.i / fields.Length)
             .Select(x => string.Join(",", x.Select(value => value.value)))
             .ToArray();
+        return await SaveToLocalAsync<T>(uiDebug, fields, csvDataAsLine);
+    }
+
+    private static async UniTask<string[]> SaveToLocalAsync<T>(UIDebugMasterEditor uiDebug, FieldInfo[] fields, string[] csvDataAsLine)
+        where T : IMasterContainer, new()
+    {
         var headerLine = string.Join(",", fields.Select(x => x.Name));
         var jsonData = CSVFileToJson.ConvertCsvFileToJsonObject(Array.Empty<string>()
             .Append(headerLine)
@@ -115,6 +132,13 @@ public class MasterRuntimeEditorPresenter : IDisposable
         MasterLoader.Unload<T>();
         uiDebug.masterColumnList.SetEntity(await CreateMasterColumnEntitiesAsync<T>());
         return csvDataAsLine;
+    }
+
+    private static async UniTask<string[]> SaveToLocalAsync<T>(UIDebugMasterEditor uiDebug, FieldInfo[] fields, string csvData)
+        where T : IMasterContainer, new()
+    {
+        var csvDataAsLine = csvData.Split(new[] { '\n' }, StringSplitOptions.None);
+        return await SaveToLocalAsync<T>(uiDebug, fields, csvDataAsLine);
     }
 
     private static async UniTask<UIDebugMasterColumnList.Entity> CreateMasterColumnEntitiesAsync<T>() where T : IMasterContainer, new()

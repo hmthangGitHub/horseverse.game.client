@@ -35,10 +35,13 @@ public class WebSocketClient : SocketClientBase, ISocketClient
 
     public void UnSubscribeMessage()
     {
-        ws.OnMessage -= OnMessage;
-        ws.OnError -= OnError;
-        ws.OnClose -= OnClose;
-        ws.OnOpen += OnOpen;
+        if (ws != null)
+        {
+            ws.OnMessage -= OnMessage;
+            ws.OnError -= OnError;
+            ws.OnClose -= OnClose;
+            ws.OnOpen += OnOpen;
+        }
     }
 
     private void OnClose(WebSocketCloseCode closeCode)
@@ -88,7 +91,7 @@ public class WebSocketClient : SocketClientBase, ISocketClient
         cts = default;
         GameObject.Destroy(gameObject);
         UnSubscribeMessage();
-        await ws.Close();
+        if (ws != null) await ws.Close();
         ws = default;
     }
 }

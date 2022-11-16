@@ -201,6 +201,11 @@ MonoBehaviour:
         m_PersistentCalls:
           m_Calls: []
       isInteractable: 1
+    importBtn:
+      onClickEvent:
+        m_PersistentCalls:
+          m_Calls: []
+      isInteractable: 1
 --- !u!4 &696389806
 Transform:
   m_ObjectHideFlags: 0
@@ -617,7 +622,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 806954969, guid: 73c7c5fa6fe297c47bb7f945101c569c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1170.8998
+      value: -1170.8999
       objectReference: {fileID: 0}
     - target: {fileID: 831364155, guid: 73c7c5fa6fe297c47bb7f945101c569c, type: 3}
       propertyPath: m_AnchorMax.y
