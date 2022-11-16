@@ -19,13 +19,17 @@ public class ProtobufMessageParser : IMessageParser
         
         AddToSerializeLookUpTable<LoginRequest>(x => new LoginMessage(x));
         AddToParseLookUpTable<LoginMessage, LoginMessageType>(LoginMessageType.LoginResponse, x => x.LoginResponse);
+
+        AddToSerializeLookUpTable<EmailCodeRequest>(x => new LoginMessage(x));
+        AddToParseLookUpTable<LoginMessage, LoginMessageType>(LoginMessageType.EmailCodeResponse, x => x.EmailCodeResponse);
     }
     
     private void AddToParseLookUpTable<TSubMessage, TEnum>(TEnum enumMessage, Func<TSubMessage, IMessage> resultFactory) where TEnum : System.Enum
                                                                                                                          where TSubMessage : ISubMessage, IMessage, ISubMessage<TEnum>, new()
     {
         TSubMessage message = new TSubMessage();
-        lookUpToISubMessageFunc.Add(message.Descriptor.FullName, x => x.Unpack<TSubMessage>());
+        if(!lookUpToISubMessageFunc.ContainsKey(message.Descriptor.FullName))
+            lookUpToISubMessageFunc.Add(message.Descriptor.FullName, x => x.Unpack<TSubMessage>());
         lookUpToMessageFunc.Add(enumMessage, x => resultFactory((TSubMessage)x));
     }
     

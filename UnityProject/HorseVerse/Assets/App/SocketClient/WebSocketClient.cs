@@ -53,7 +53,7 @@ public class WebSocketClient : SocketClientBase, ISocketClient
 
     public override async UniTask Send<T>(T message)
     {
-        if (ws.State == WebSocketState.Open)
+        if (ws != null && ws.State == WebSocketState.Open)
         {
             await ws.Send(messageParser.ToByteArray(message));
         }
@@ -78,6 +78,7 @@ public class WebSocketClient : SocketClientBase, ISocketClient
         {
             ws.DispatchMessageQueue();
         }
+
 #endif
     }
 

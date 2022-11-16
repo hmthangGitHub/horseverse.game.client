@@ -24,27 +24,26 @@ namespace io.hverse.game.protogen {
     static PlayerReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgxwbGF5ZXIucHJvdG8aCmRhdGEucHJvdG8ijwEKClBsYXllckluZm8SDgoG",
-            "dXNlcklkGAEgASgFEhAKCHVzZXJuYW1lGAIgASgJEiEKC2FjY291bnRUeXBl",
-            "GAMgASgOMgwuQWNjb3VudFR5cGUSEAoIZGV2aWNlSWQYBCABKAkSFQoNcHVi",
-            "bGljQWRkcmVzcxgFIAEoCRITCgthY2Nlc3NUb2tlbhgGIAEoCSIwCg9QbGF5",
-            "ZXJJbnZlbnRvcnkSHQoJaG9yc2VMaXN0GAEgAygLMgouSG9yc2VJbmZvIhgK",
-            "FlBsYXllckludmVudG9yeVJlcXVlc3QiRAoXUGxheWVySW52ZW50b3J5UmVz",
-            "cG9uc2USKQoPcGxheWVySW52ZW50b3J5GAEgASgLMhAuUGxheWVySW52ZW50",
-            "b3J5IqgBCg1QbGF5ZXJNZXNzYWdlEiMKB21zZ1R5cGUYASABKA4yEi5QbGF5",
-            "ZXJNZXNzYWdlVHlwZRI3ChZwbGF5ZXJJbnZlbnRvcnlSZXF1ZXN0GAIgASgL",
-            "MhcuUGxheWVySW52ZW50b3J5UmVxdWVzdBI5ChdwbGF5ZXJJbnZlbnRvcnlS",
-            "ZXNwb25zZRgDIAEoCzIYLlBsYXllckludmVudG9yeVJlc3BvbnNlKlAKEVBs",
-            "YXllck1lc3NhZ2VUeXBlEhwKGFBMQVlFUl9JTlZFTlRPUllfUkVRVUVTVBAA",
-            "Eh0KGVBMQVlFUl9JTlZFTlRPUllfUkVTUE9OU0UQASpBCgtBY2NvdW50VHlw",
-            "ZRIWChJBQ0NPVU5UX1RZUEVfR1VFU1QQABIaChZBQ0NPVU5UX1RZUEVfTUVU",
-            "QV9NQVNLEAFCSQoXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5CFFBsYXllck1l",
-            "c3NhZ2VGYWN0b3J5qgIXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5iBnByb3Rv",
-            "Mw=="));
+            "CgxwbGF5ZXIucHJvdG8aCmRhdGEucHJvdG8idQoKUGxheWVySW5mbxIKCgJp",
+            "ZBgBIAEoBRIMCgRuYW1lGAIgASgJEiEKC2FjY291bnRUeXBlGAMgASgOMgwu",
+            "QWNjb3VudFR5cGUSFQoNcHVibGljQWRkcmVzcxgEIAEoCRITCgthY2Nlc3NU",
+            "b2tlbhgFIAEoCSIwCg9QbGF5ZXJJbnZlbnRvcnkSHQoJaG9yc2VMaXN0GAEg",
+            "AygLMgouSG9yc2VJbmZvIhgKFlBsYXllckludmVudG9yeVJlcXVlc3QiRAoX",
+            "UGxheWVySW52ZW50b3J5UmVzcG9uc2USKQoPcGxheWVySW52ZW50b3J5GAEg",
+            "ASgLMhAuUGxheWVySW52ZW50b3J5IqgBCg1QbGF5ZXJNZXNzYWdlEiMKB21z",
+            "Z1R5cGUYASABKA4yEi5QbGF5ZXJNZXNzYWdlVHlwZRI3ChZwbGF5ZXJJbnZl",
+            "bnRvcnlSZXF1ZXN0GAIgASgLMhcuUGxheWVySW52ZW50b3J5UmVxdWVzdBI5",
+            "ChdwbGF5ZXJJbnZlbnRvcnlSZXNwb25zZRgDIAEoCzIYLlBsYXllckludmVu",
+            "dG9yeVJlc3BvbnNlKlAKEVBsYXllck1lc3NhZ2VUeXBlEhwKGFBMQVlFUl9J",
+            "TlZFTlRPUllfUkVRVUVTVBAAEh0KGVBMQVlFUl9JTlZFTlRPUllfUkVTUE9O",
+            "U0UQASo+CgtBY2NvdW50VHlwZRIWChJBQ0NPVU5UX1RZUEVfR1VFU1QQABIX",
+            "ChNBQ0NPVU5UX1RZUEVfTk9STUFMEAFCSQoXaW8uaHZlcnNlLmdhbWUucHJv",
+            "dG9nZW5CFFBsYXllck1lc3NhZ2VGYWN0b3J5qgIXaW8uaHZlcnNlLmdhbWUu",
+            "cHJvdG9nZW5iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::io.hverse.game.protogen.DataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.PlayerMessageType), typeof(global::io.hverse.game.protogen.AccountType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInfo), global::io.hverse.game.protogen.PlayerInfo.Parser, new[]{ "UserId", "Username", "AccountType", "DeviceId", "PublicAddress", "AccessToken" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInfo), global::io.hverse.game.protogen.PlayerInfo.Parser, new[]{ "Id", "Name", "AccountType", "PublicAddress", "AccessToken" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInventory), global::io.hverse.game.protogen.PlayerInventory.Parser, new[]{ "HorseList" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInventoryRequest), global::io.hverse.game.protogen.PlayerInventoryRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInventoryResponse), global::io.hverse.game.protogen.PlayerInventoryResponse.Parser, new[]{ "PlayerInventory" }, null, null, null, null),
@@ -62,7 +61,7 @@ namespace io.hverse.game.protogen {
 
   public enum AccountType {
     [pbr::OriginalName("ACCOUNT_TYPE_GUEST")] Guest = 0,
-    [pbr::OriginalName("ACCOUNT_TYPE_META_MASK")] MetaMask = 1,
+    [pbr::OriginalName("ACCOUNT_TYPE_NORMAL")] Normal = 1,
   }
 
   #endregion
@@ -102,10 +101,9 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public PlayerInfo(PlayerInfo other) : this() {
-      userId_ = other.userId_;
-      username_ = other.username_;
+      id_ = other.id_;
+      name_ = other.name_;
       accountType_ = other.accountType_;
-      deviceId_ = other.deviceId_;
       publicAddress_ = other.publicAddress_;
       accessToken_ = other.accessToken_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -117,27 +115,27 @@ namespace io.hverse.game.protogen {
       return new PlayerInfo(this);
     }
 
-    /// <summary>Field number for the "userId" field.</summary>
-    public const int UserIdFieldNumber = 1;
-    private int userId_;
+    /// <summary>Field number for the "id" field.</summary>
+    public const int IdFieldNumber = 1;
+    private int id_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int UserId {
-      get { return userId_; }
+    public int Id {
+      get { return id_; }
       set {
-        userId_ = value;
+        id_ = value;
       }
     }
 
-    /// <summary>Field number for the "username" field.</summary>
-    public const int UsernameFieldNumber = 2;
-    private string username_ = "";
+    /// <summary>Field number for the "name" field.</summary>
+    public const int NameFieldNumber = 2;
+    private string name_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Username {
-      get { return username_; }
+    public string Name {
+      get { return name_; }
       set {
-        username_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -153,20 +151,8 @@ namespace io.hverse.game.protogen {
       }
     }
 
-    /// <summary>Field number for the "deviceId" field.</summary>
-    public const int DeviceIdFieldNumber = 4;
-    private string deviceId_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string DeviceId {
-      get { return deviceId_; }
-      set {
-        deviceId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
     /// <summary>Field number for the "publicAddress" field.</summary>
-    public const int PublicAddressFieldNumber = 5;
+    public const int PublicAddressFieldNumber = 4;
     private string publicAddress_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -178,7 +164,7 @@ namespace io.hverse.game.protogen {
     }
 
     /// <summary>Field number for the "accessToken" field.</summary>
-    public const int AccessTokenFieldNumber = 6;
+    public const int AccessTokenFieldNumber = 5;
     private string accessToken_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -204,10 +190,9 @@ namespace io.hverse.game.protogen {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (UserId != other.UserId) return false;
-      if (Username != other.Username) return false;
+      if (Id != other.Id) return false;
+      if (Name != other.Name) return false;
       if (AccountType != other.AccountType) return false;
-      if (DeviceId != other.DeviceId) return false;
       if (PublicAddress != other.PublicAddress) return false;
       if (AccessToken != other.AccessToken) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -217,10 +202,9 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (UserId != 0) hash ^= UserId.GetHashCode();
-      if (Username.Length != 0) hash ^= Username.GetHashCode();
+      if (Id != 0) hash ^= Id.GetHashCode();
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (AccountType != global::io.hverse.game.protogen.AccountType.Guest) hash ^= AccountType.GetHashCode();
-      if (DeviceId.Length != 0) hash ^= DeviceId.GetHashCode();
       if (PublicAddress.Length != 0) hash ^= PublicAddress.GetHashCode();
       if (AccessToken.Length != 0) hash ^= AccessToken.GetHashCode();
       if (_unknownFields != null) {
@@ -241,28 +225,24 @@ namespace io.hverse.game.protogen {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (UserId != 0) {
+      if (Id != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(UserId);
+        output.WriteInt32(Id);
       }
-      if (Username.Length != 0) {
+      if (Name.Length != 0) {
         output.WriteRawTag(18);
-        output.WriteString(Username);
+        output.WriteString(Name);
       }
       if (AccountType != global::io.hverse.game.protogen.AccountType.Guest) {
         output.WriteRawTag(24);
         output.WriteEnum((int) AccountType);
       }
-      if (DeviceId.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(DeviceId);
-      }
       if (PublicAddress.Length != 0) {
-        output.WriteRawTag(42);
+        output.WriteRawTag(34);
         output.WriteString(PublicAddress);
       }
       if (AccessToken.Length != 0) {
-        output.WriteRawTag(50);
+        output.WriteRawTag(42);
         output.WriteString(AccessToken);
       }
       if (_unknownFields != null) {
@@ -275,28 +255,24 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (UserId != 0) {
+      if (Id != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(UserId);
+        output.WriteInt32(Id);
       }
-      if (Username.Length != 0) {
+      if (Name.Length != 0) {
         output.WriteRawTag(18);
-        output.WriteString(Username);
+        output.WriteString(Name);
       }
       if (AccountType != global::io.hverse.game.protogen.AccountType.Guest) {
         output.WriteRawTag(24);
         output.WriteEnum((int) AccountType);
       }
-      if (DeviceId.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(DeviceId);
-      }
       if (PublicAddress.Length != 0) {
-        output.WriteRawTag(42);
+        output.WriteRawTag(34);
         output.WriteString(PublicAddress);
       }
       if (AccessToken.Length != 0) {
-        output.WriteRawTag(50);
+        output.WriteRawTag(42);
         output.WriteString(AccessToken);
       }
       if (_unknownFields != null) {
@@ -309,17 +285,14 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (UserId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(UserId);
+      if (Id != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
       }
-      if (Username.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Username);
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
       }
       if (AccountType != global::io.hverse.game.protogen.AccountType.Guest) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) AccountType);
-      }
-      if (DeviceId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(DeviceId);
       }
       if (PublicAddress.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(PublicAddress);
@@ -339,17 +312,14 @@ namespace io.hverse.game.protogen {
       if (other == null) {
         return;
       }
-      if (other.UserId != 0) {
-        UserId = other.UserId;
+      if (other.Id != 0) {
+        Id = other.Id;
       }
-      if (other.Username.Length != 0) {
-        Username = other.Username;
+      if (other.Name.Length != 0) {
+        Name = other.Name;
       }
       if (other.AccountType != global::io.hverse.game.protogen.AccountType.Guest) {
         AccountType = other.AccountType;
-      }
-      if (other.DeviceId.Length != 0) {
-        DeviceId = other.DeviceId;
       }
       if (other.PublicAddress.Length != 0) {
         PublicAddress = other.PublicAddress;
@@ -373,11 +343,11 @@ namespace io.hverse.game.protogen {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            UserId = input.ReadInt32();
+            Id = input.ReadInt32();
             break;
           }
           case 18: {
-            Username = input.ReadString();
+            Name = input.ReadString();
             break;
           }
           case 24: {
@@ -385,14 +355,10 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 34: {
-            DeviceId = input.ReadString();
-            break;
-          }
-          case 42: {
             PublicAddress = input.ReadString();
             break;
           }
-          case 50: {
+          case 42: {
             AccessToken = input.ReadString();
             break;
           }
@@ -412,11 +378,11 @@ namespace io.hverse.game.protogen {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            UserId = input.ReadInt32();
+            Id = input.ReadInt32();
             break;
           }
           case 18: {
-            Username = input.ReadString();
+            Name = input.ReadString();
             break;
           }
           case 24: {
@@ -424,14 +390,10 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 34: {
-            DeviceId = input.ReadString();
-            break;
-          }
-          case 42: {
             PublicAddress = input.ReadString();
             break;
           }
-          case 50: {
+          case 42: {
             AccessToken = input.ReadString();
             break;
           }

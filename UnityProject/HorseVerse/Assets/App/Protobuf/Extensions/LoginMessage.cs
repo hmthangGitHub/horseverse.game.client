@@ -15,5 +15,11 @@ namespace io.hverse.game.protogen
             this.msgType_ = LoginMessageType.LoginRequest;
             loginRequest_ = request;
         }
+
+        public LoginMessage(EmailCodeRequest request)
+        {
+            this.msgType_ = LoginMessageType.EmailCodeRequest;
+            emailCodeRequest_ = request;
+        }
     }
 }
