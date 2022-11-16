@@ -59,7 +59,6 @@ internal class BetModeRaceResultPresenter : IDisposable
                 {
                     horseName = MasterHorseContainer.MasterHorseIndexer[x.masterHorseId].Name,
                     no = tops[i] + 1,
-                    time = x.time,
                 }).ToArray()
             },
             nextBtn = new ButtonComponent.Entity(() =>

@@ -29,7 +29,10 @@ public class QuickRaceDomainServiceBase
 public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDomainService
 {
     private ISocketClient socketClient;
+    private MasterHorseContainer masterHorseContainer;
+    private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= Container.Inject<MasterHorseContainer>();
     private ISocketClient SocketClient => socketClient ??= Container.Inject<ISocketClient>();
+
 
     public QuickRaceDomainService(IDIContainer container) : base(container){}
 
@@ -61,7 +64,32 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
     {
         await UniTask.Delay(1000);
         var response = await SocketClient.Send<RaceScriptRequest, RaceScriptResponse>(new RaceScriptRequest());
-        return default;
+        
+        HorseRaceTime[] GetHorseRaceTimes()
+        {
+            return response.RaceScript.Phases.SelectMany(x =>
+                    x.HorseStats.Select((stat, i) => (stat: stat, horseIndex: i, start: x.Start, end: x.End)))
+                .GroupBy(x => x.horseIndex)
+                .Select(x => new HorseRaceTime()
+                {
+                    delayTime = x.First().stat.DelayTime,
+                    raceSegments = x.Select(info => new RaceSegment()
+                    {
+                        currentLane = info.stat.LaneStart,
+                        toLane = info.stat.LaneEnd,
+                        time = info.stat.Time,
+                        percentage = (float)(info.end) / response.RaceScript.TotalLength
+                    }).ToArray(),
+                    masterHorseId = MasterHorseContainer.MasterHorseIndexer.Keys.First()
+                }).ToArray();
+        }
+
+        return new RaceMatchData()
+        {
+            horseRaceTimes = GetHorseRaceTimes(),
+            masterMapId = 10001002,
+            mode = RaceMode.QuickMode
+        };
     }
 }
 
@@ -105,7 +133,6 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
                             .Select(x => new HorseRaceTime()
                             {
                                 masterHorseId = x,
-                                time = 15 + UnityEngine.Random.Range(-1.0f, 1.0f),
                                 raceSegments = GenerateRandomSegment()
                             })
                             .ToArray();
@@ -129,18 +156,18 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
 
     private RaceSegment GenerateRandomSegment(int id, float averageTime)
     {
-        int numberSegment = 10;
+        // int numberSegment = 10;
         return new RaceSegment()
         {
-            id = id,
-            currentLane = UnityEngine.Random.Range(0, 8),
-            toLane = UnityEngine.Random.Range(0, 8),
-            waypoints = Enumerable.Range(1, numberSegment)
-            .Select(x => new WayPoints()
-            {
-                percentage = x * 0.1f,
-                time = averageTime + UnityEngine.Random.Range(-0.25f, 0.25f),
-            }).ToArray(),
+            // id = id,
+            // currentLane = UnityEngine.Random.Range(0, 8),
+            // toLane = UnityEngine.Random.Range(0, 8),
+            // waypoints = Enumerable.Range(1, numberSegment)
+            // .Select(x => new WayPoints()
+            // {
+            //     percentage = x * 0.1f,
+            //     time = averageTime + UnityEngine.Random.Range(-0.25f, 0.25f),
+            // }).ToArray(),
         };
     }
 }

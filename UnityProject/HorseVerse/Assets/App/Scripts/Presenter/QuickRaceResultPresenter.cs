@@ -94,16 +94,18 @@ public class QuickRaceResultPresenter : IDisposable
 
     private UIComponentHorseResult.Entity[] GetResultList()
     {
-        var top = RaceMatchData.horseRaceTimes.Select(x => x.time).ToArray().GetTopByTimes();
-        return RaceMatchData.horseRaceTimes.Select((x , i) => new UIComponentHorseResult.Entity()
-        {
-            isPlayer = x.masterHorseId == UserDataRepository.Current.MasterHorseId,
-            lane = i + 1,
-            top = top[i],
-            name = MasterHorseContainer.MasterHorseIndexer[x.masterHorseId].Name,
-            time = x.time
-        }).OrderBy(x => x.top)
-          .ToArray();
+        return RaceMatchData.horseRaceTimes.Select(x =>
+                (horseRaceTime: x, totalRaceTime: x.raceSegments.Sum(raceSegment => raceSegment.time)))
+            .OrderBy(x => x.totalRaceTime)
+            .Select((x, i) => new UIComponentHorseResult.Entity()
+            {
+                isPlayer = x.horseRaceTime.masterHorseId == UserDataRepository.Current.MasterHorseId,
+                lane = i + 1,
+                top = i + 1,
+                name = MasterHorseContainer.MasterHorseIndexer[x.horseRaceTime.masterHorseId].Name,
+                time = x.totalRaceTime
+            })
+            .ToArray();
     }
 
     public void Dispose()

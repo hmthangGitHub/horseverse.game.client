@@ -7,23 +7,17 @@ public class RaceMatchData
 
 public class HorseRaceTime
 {
+    public float delayTime; 
     public long masterHorseId;
-    public float time;
     public RaceSegment[] raceSegments;
-}
-
-public class WayPoints
-{
-    public float time;
-    public float percentage;
 }
 
 public class RaceSegment
 {
-    public int id;
     public int currentLane;
     public int toLane;
-    public WayPoints[] waypoints;
+    public float time;
+    public float percentage;
 }    
 
 public enum RaceMode

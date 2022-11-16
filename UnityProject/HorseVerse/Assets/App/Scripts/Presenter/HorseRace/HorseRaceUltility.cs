@@ -15,6 +15,6 @@ public static class HorseRaceUltility
 
     public static int[] GetTops(this RaceMatchData raceMatchData)
     {
-        return raceMatchData.horseRaceTimes.Select(x => x.time).ToArray().GetTopByTimes();
+        return raceMatchData.horseRaceTimes.Select(x => x.raceSegments.Sum(segment => segment.time)).ToArray().GetTopByTimes();
     }
 }
