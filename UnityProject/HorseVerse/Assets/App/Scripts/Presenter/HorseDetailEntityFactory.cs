@@ -16,8 +16,9 @@ public class HorseDetailEntityFactory
 
     public UIComponentHorseDetail.Entity InstantiateHorseDetailEntity(long masterHorseId)
     {
-        var userHorse = HorseRepository.Models[masterHorseId];
-        var masterHorse = MasterHorseContainer.MasterHorseIndexer[masterHorseId];
+        Debug.Log("Get Horse " + masterHorseId);
+        var userHorse = HorseRepository.Get(masterHorseId); if (userHorse == null) return default;
+        var masterHorse = MasterHorseContainer.MasterHorseIndexer[userHorse.MasterHorseResource];
         return new UIComponentHorseDetail.Entity()
         {
             earning = userHorse.Earning,

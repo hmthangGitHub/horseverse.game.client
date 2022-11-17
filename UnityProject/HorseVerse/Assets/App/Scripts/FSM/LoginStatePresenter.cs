@@ -18,6 +18,9 @@ public class LoginStatePresenter : IDisposable
     private UILoadingPresenter uiLoadingPresenter;
     private UILoadingPresenter UILoadingPresenter => uiLoadingPresenter ??=container.Inject<UILoadingPresenter>();
 
+    private UserDataRepository userDataRepository;
+    private UserDataRepository UserDataRepository => userDataRepository ??= container.Inject<UserDataRepository>();
+
     public LoginStatePresenter(IDIContainer container)
     {
         this.container = container;
@@ -262,7 +265,7 @@ public class LoginStatePresenter : IDisposable
             {
                 Coin = res.PlayerInfo.Chip,
                 Energy = res.PlayerInfo.Energy,
-                MasterHorseId = 10000001,
+                MasterHorseId = res.PlayerInfo.CurrentHorse != null ? res.PlayerInfo.CurrentHorse.NftId : 0,
                 MaxEnergy = 100,
                 UserId = "" + res.PlayerInfo.Id,
                 UserName = res.PlayerInfo.Name,
@@ -271,9 +274,14 @@ public class LoginStatePresenter : IDisposable
                 NextLevelExp = 1,
                 TraningTimeStamp = 0,
             };
-            var data = container.Inject<UserDataRepository>();
-            await data.UpdateDataAsync(new UserDataModel[] { model });
+            await UserDataRepository.UpdateDataAsync(new UserDataModel[] { model });
+            UserDataRepository.SetCurrentUserDataModelId(model.UserId);
             PlayerPrefs.SetString("USER_LOGIN_ACCESS_TOKEN", res.PlayerInfo.AccessToken);
+            await UniTask.Delay(1000);
+            foreach (var item in UserDataRepository.Models)
+            {
+                Debug.Log("Ke " + item.Key + " -- " + item.Value);
+            }
         }
     }
 }

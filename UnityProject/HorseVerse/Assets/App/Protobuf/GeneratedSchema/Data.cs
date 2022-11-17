@@ -29,28 +29,28 @@ namespace io.hverse.game.protogen {
             "MhIuTWFzdGVyRGF0YVJlcXVlc3QSLwoSbWFzdGVyRGF0YVJlc3BvbnNlGAMg",
             "ASgLMhMuTWFzdGVyRGF0YVJlc3BvbnNlIhMKEU1hc3RlckRhdGFSZXF1ZXN0",
             "Ii0KEk1hc3RlckRhdGFSZXNwb25zZRIXCg9tYXhFbmVyZ3lOdW1iZXIYASAB",
-            "KAUi8AEKCUhvcnNlSW5mbxINCgVuZnRJZBgBIAEoBRILCgNibXMYAiABKAIS",
+            "KAUigQIKCUhvcnNlSW5mbxINCgVuZnRJZBgBIAEoAxILCgNibXMYAiABKAIS",
             "CwoDbW1zGAMgASgCEhQKDGFjY2VsZXJhdGlvbhgEIAEoAhIPCgdzdGFtaW5h",
             "GAUgASgCEh0KCWhvcnNlVHlwZRgGIAEoDjIKLkhvcnNlVHlwZRIXCgZyYXJp",
             "dHkYByABKA4yBy5SYXJpdHkSDAoEbHVjaxgIIAEoBRINCgVsZXZlbBgJIAEo",
             "BRIOCgZjb2xvcjEYCiABKAkSDgoGY29sb3IyGAsgASgJEg4KBmNvbG9yMxgM",
-            "IAEoCRIOCgZjb2xvcjQYDSABKAkqRAoPRGF0YU1lc3NhZ2VUeXBlEhcKE01B",
-            "U1RFUl9EQVRBX1JFUVVFU1QQABIYChRNQVNURVJfREFUQV9SRVNQT05TRRAB",
-            "KnkKBlJhcml0eRISCg5SQVJJVFlfVU5LTk9XThAAEhEKDVJBUklUWV9DT01N",
-            "T04QARITCg9SQVJJVFlfVU5DT01NT04QAhIPCgtSQVJJVFlfUkFSRRADEg8K",
-            "C1JBUklUWV9FUElDEAQSEQoNUkFSSVRZX0xFR0VORBAFKmcKCUhvcnNlVHlw",
-            "ZRIWChJIT1JTRV9UWVBFX1VOS05PV04QABIUChBIT1JTRV9UWVBFX0JMQVpF",
-            "EAESFgoSSE9SU0VfVFlQRV9USFVOREVSEAISFAoQSE9SU0VfVFlQRV9ISURS",
-            "TxADKiAKBExhbmUSBgoCSU4QABIHCgNNSUQQARIHCgNPVVQQAkJHChdpby5o",
-            "dmVyc2UuZ2FtZS5wcm90b2dlbkISRGF0YU1lc3NhZ2VGYWN0b3J5qgIXaW8u",
-            "aHZlcnNlLmdhbWUucHJvdG9nZW5iBnByb3RvMw=="));
+            "IAEoCRIOCgZjb2xvcjQYDSABKAkSDwoHd2luUmF0ZRgOIAEoAipECg9EYXRh",
+            "TWVzc2FnZVR5cGUSFwoTTUFTVEVSX0RBVEFfUkVRVUVTVBAAEhgKFE1BU1RF",
+            "Ul9EQVRBX1JFU1BPTlNFEAEqeQoGUmFyaXR5EhIKDlJBUklUWV9VTktOT1dO",
+            "EAASEQoNUkFSSVRZX0NPTU1PThABEhMKD1JBUklUWV9VTkNPTU1PThACEg8K",
+            "C1JBUklUWV9SQVJFEAMSDwoLUkFSSVRZX0VQSUMQBBIRCg1SQVJJVFlfTEVH",
+            "RU5EEAUqZwoJSG9yc2VUeXBlEhYKEkhPUlNFX1RZUEVfVU5LTk9XThAAEhQK",
+            "EEhPUlNFX1RZUEVfQkxBWkUQARIWChJIT1JTRV9UWVBFX1RIVU5ERVIQAhIU",
+            "ChBIT1JTRV9UWVBFX0hJRFJPEAMqIAoETGFuZRIGCgJJThAAEgcKA01JRBAB",
+            "EgcKA09VVBACQkcKF2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuQhJEYXRhTWVz",
+            "c2FnZUZhY3RvcnmqAhdpby5odmVyc2UuZ2FtZS5wcm90b2dlbmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.DataMessageType), typeof(global::io.hverse.game.protogen.Rarity), typeof(global::io.hverse.game.protogen.HorseType), typeof(global::io.hverse.game.protogen.Lane), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.DataMessage), global::io.hverse.game.protogen.DataMessage.Parser, new[]{ "MsgType", "MasterDataRequest", "MasterDataResponse" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataRequest), global::io.hverse.game.protogen.MasterDataRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataResponse), global::io.hverse.game.protogen.MasterDataResponse.Parser, new[]{ "MaxEnergyNumber" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "Bms", "Mms", "Acceleration", "Stamina", "HorseType", "Rarity", "Luck", "Level", "Color1", "Color2", "Color3", "Color4" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "Bms", "Mms", "Acceleration", "Stamina", "HorseType", "Rarity", "Luck", "Level", "Color1", "Color2", "Color3", "Color4", "WinRate" }, null, null, null, null)
           }));
     }
     #endregion
@@ -756,6 +756,7 @@ namespace io.hverse.game.protogen {
       color2_ = other.color2_;
       color3_ = other.color3_;
       color4_ = other.color4_;
+      winRate_ = other.winRate_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -767,10 +768,10 @@ namespace io.hverse.game.protogen {
 
     /// <summary>Field number for the "nftId" field.</summary>
     public const int NftIdFieldNumber = 1;
-    private int nftId_;
+    private long nftId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int NftId {
+    public long NftId {
       get { return nftId_; }
       set {
         nftId_ = value;
@@ -933,6 +934,18 @@ namespace io.hverse.game.protogen {
       }
     }
 
+    /// <summary>Field number for the "winRate" field.</summary>
+    public const int WinRateFieldNumber = 14;
+    private float winRate_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float WinRate {
+      get { return winRate_; }
+      set {
+        winRate_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -961,6 +974,7 @@ namespace io.hverse.game.protogen {
       if (Color2 != other.Color2) return false;
       if (Color3 != other.Color3) return false;
       if (Color4 != other.Color4) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(WinRate, other.WinRate)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -968,7 +982,7 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (NftId != 0) hash ^= NftId.GetHashCode();
+      if (NftId != 0L) hash ^= NftId.GetHashCode();
       if (Bms != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Bms);
       if (Mms != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Mms);
       if (Acceleration != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Acceleration);
@@ -981,6 +995,7 @@ namespace io.hverse.game.protogen {
       if (Color2.Length != 0) hash ^= Color2.GetHashCode();
       if (Color3.Length != 0) hash ^= Color3.GetHashCode();
       if (Color4.Length != 0) hash ^= Color4.GetHashCode();
+      if (WinRate != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(WinRate);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -999,9 +1014,9 @@ namespace io.hverse.game.protogen {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (NftId != 0) {
+      if (NftId != 0L) {
         output.WriteRawTag(8);
-        output.WriteInt32(NftId);
+        output.WriteInt64(NftId);
       }
       if (Bms != 0F) {
         output.WriteRawTag(21);
@@ -1050,6 +1065,10 @@ namespace io.hverse.game.protogen {
       if (Color4.Length != 0) {
         output.WriteRawTag(106);
         output.WriteString(Color4);
+      }
+      if (WinRate != 0F) {
+        output.WriteRawTag(117);
+        output.WriteFloat(WinRate);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1061,9 +1080,9 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (NftId != 0) {
+      if (NftId != 0L) {
         output.WriteRawTag(8);
-        output.WriteInt32(NftId);
+        output.WriteInt64(NftId);
       }
       if (Bms != 0F) {
         output.WriteRawTag(21);
@@ -1113,6 +1132,10 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(106);
         output.WriteString(Color4);
       }
+      if (WinRate != 0F) {
+        output.WriteRawTag(117);
+        output.WriteFloat(WinRate);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1123,8 +1146,8 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (NftId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(NftId);
+      if (NftId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(NftId);
       }
       if (Bms != 0F) {
         size += 1 + 4;
@@ -1162,6 +1185,9 @@ namespace io.hverse.game.protogen {
       if (Color4.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Color4);
       }
+      if (WinRate != 0F) {
+        size += 1 + 4;
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1174,7 +1200,7 @@ namespace io.hverse.game.protogen {
       if (other == null) {
         return;
       }
-      if (other.NftId != 0) {
+      if (other.NftId != 0L) {
         NftId = other.NftId;
       }
       if (other.Bms != 0F) {
@@ -1213,6 +1239,9 @@ namespace io.hverse.game.protogen {
       if (other.Color4.Length != 0) {
         Color4 = other.Color4;
       }
+      if (other.WinRate != 0F) {
+        WinRate = other.WinRate;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -1229,7 +1258,7 @@ namespace io.hverse.game.protogen {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            NftId = input.ReadInt32();
+            NftId = input.ReadInt64();
             break;
           }
           case 21: {
@@ -1278,6 +1307,10 @@ namespace io.hverse.game.protogen {
           }
           case 106: {
             Color4 = input.ReadString();
+            break;
+          }
+          case 117: {
+            WinRate = input.ReadFloat();
             break;
           }
         }
@@ -1296,7 +1329,7 @@ namespace io.hverse.game.protogen {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            NftId = input.ReadInt32();
+            NftId = input.ReadInt64();
             break;
           }
           case 21: {
@@ -1345,6 +1378,10 @@ namespace io.hverse.game.protogen {
           }
           case 106: {
             Color4 = input.ReadString();
+            break;
+          }
+          case 117: {
+            WinRate = input.ReadFloat();
             break;
           }
         }

@@ -48,24 +48,54 @@ public class HorseRepository : Repository<long, HorseDataModel, HorseDataModel>,
             List<HorseDataModel> models = new List<HorseDataModel>();
             foreach(var horseInfo in horseInfos)
             {
+                Debug.Log("Add Item " + horseInfo.NftId);
                 var h = new HorseDataModel()
                 {
-                    MasterHorseId = (10000000 + (int)horseInfo.HorseType + ((int)horseInfo.Rarity * 10)),
+                    MasterHorseId = horseInfo.NftId,
                     Earning = UnityEngine.Random.Range(100, 10000),
                     PowerBonus = UnityEngine.Random.Range(0.0001f, 0.5f),
                     PowerRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
                     SpeedBonus = UnityEngine.Random.Range(0.0001f, 0.5f),
                     SpeedRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
                     TechnicallyBonus = UnityEngine.Random.Range(0.0001f, 0.5f),
-                    TechnicallyRatio = UnityEngine.Random.Range(0.0001f, 0.5f)
-                };
+                    TechnicallyRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
+                    Rarity = (int)horseInfo.Rarity,
+                    Type = (int)horseInfo.HorseType,
+                    Level = horseInfo.Level,
+                    Color1 = getColorFromHexCode(horseInfo.Color1),
+                    Color2 = getColorFromHexCode(horseInfo.Color2),
+                    Color3 = getColorFromHexCode(horseInfo.Color3),
+                    Color4 = getColorFromHexCode(horseInfo.Color4),
+            };
                 models.Add(h);
             }
             return models;
         }
         return default;
     }
+
+    static Color getColorFromHexCode(string value)
+    {
+        var color = Color.white;
+        ColorUtility.TryParseHtmlString(value, out color);
+        return color;
+    }
+
+    public HorseDataModel Get(long id)
+    {
+        HorseDataModel horse = default;
+        foreach(var item in Models)
+        {
+            Debug.Log("HH " + item.Value.MasterHorseId);
+        }
+        Models.TryGetValue(id, out horse);
+        return horse;
+    }
 }
 
-public interface IReadOnlyHorseRepository : IReadOnlyRepository<long, HorseDataModel> { }
-public interface IHorseRepository : IRepository<long, HorseDataModel, HorseDataModel> { }
+public interface IReadOnlyHorseRepository : IReadOnlyRepository<long, HorseDataModel> {
+    public HorseDataModel Get(long id);
+}
+public interface IHorseRepository : IRepository<long, HorseDataModel, HorseDataModel> { 
+    public HorseDataModel Get(long id); 
+}

@@ -37,6 +37,12 @@ public class UIMainMenuPresenter : IDisposable
         await UserDataRepository.LoadRepositoryIfNeedAsync();
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
+        Debug.Log("X " + UserDataRepository.CurrentModelId);
+        foreach(var item in UserDataRepository.Models)
+        {
+            Debug.Log("Ke " + item.Key + " -- " + item.Value);
+        }
+        await UniTask.WaitUntil(() => UserDataRepository.Current != default);
         uiMainMenu ??= await UILoader.Instantiate<UIMainMenu>(token: cts.Token);
         uiMainMenu.SetEntity(new UIMainMenu.Entity()
         {

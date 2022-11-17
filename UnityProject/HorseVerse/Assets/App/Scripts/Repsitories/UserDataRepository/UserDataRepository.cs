@@ -12,7 +12,14 @@ public class UserDataRepository : Repository<string, UserDataModel, UserDataMode
     {
     }
 
-    public UserDataModel Current => Models.First().Value;
+    private string currentModelId = "0";
+    public string CurrentModelId => currentModelId;
+    public UserDataModel Current => Models.ContainsKey(currentModelId) ? Models[currentModelId] : default;
+    
+    public void SetCurrentUserDataModelId(string _id)
+    {
+        currentModelId = _id;
+    }
 
     private static async UniTask<IEnumerable<UserDataModel>> GetUserDataModels()
     {
@@ -20,26 +27,31 @@ public class UserDataRepository : Repository<string, UserDataModel, UserDataMode
         await UniTask.CompletedTask;
         return new UserDataModel[] { new UserDataModel()
         {
-            UserId = System.Guid.NewGuid().ToString(),
-            Coin = UnityEngine.Random.Range(100, 1000),
-            Energy = UnityEngine.Random.Range(100, 1000),
-            MaxEnergy = UnityEngine.Random.Range(100,1000),
-            UserName = $"HorseVerse {UnityEngine.Random.Range(1, 1000)}",
-            MasterHorseId = 10000001,
-            Level = 10,
-            Exp = 10,
-            NextLevelExp = 20
-        } }; 
+            UserId = "0",
+            Coin = 0,
+            Energy = 0,
+            MaxEnergy = 0,
+            UserName = $"HorseVerse",
+            MasterHorseId = 0,
+            Level = 1,
+            Exp = 0,
+            NextLevelExp = 100
+        } };
 #endif
+        return default;
     }
 }
 
 public interface IReadOnlyUserDataRepository : IReadOnlyRepository<string, UserDataModel>
 {
     UserDataModel Current { get; }
+    string CurrentModelId { get; }
+    public void SetCurrentUserDataModelId(string _id);
 }
 
 public interface IUserDataRepository : IRepository<string, UserDataModel, UserDataModel> 
 {
     UserDataModel Current { get; }
+    string CurrentModelId { get; }
+    public void SetCurrentUserDataModelId(string _id);
 }

@@ -10,6 +10,9 @@ public class UIHorse3DViewPresenter : IDisposable
     private IDIContainer container = default;
     private IReadOnlyUserDataRepository userDataRepository = null;
     public IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
+    private IReadOnlyHorseRepository horseRepository = null;
+    public IReadOnlyHorseRepository HorseRepository => horseRepository ??= container.Inject<IReadOnlyHorseRepository>();
+
     private UIHorse3DView uiHorse3DView = default;
     private string currentHorsemodelPath;
     private CancellationTokenSource cts = default;
@@ -27,7 +30,10 @@ public class UIHorse3DViewPresenter : IDisposable
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         await UserDataRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
+        await HorseRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
+
         uiHorse3DView ??= await UILoader.Instantiate<UIHorse3DView>(token : cts.Token);
+        await UniTask.WaitUntil (()=>UserDataRepository.Current != default);
         if (!isIn)
         {
             uiHorse3DView.SetEntity(new UIHorse3DView.Entity()
@@ -62,9 +68,11 @@ public class UIHorse3DViewPresenter : IDisposable
     {
         if (model.before == null || model.after.MasterHorseId != model.before.MasterHorseId)
         {
+            var horse = HorseRepository.Get(UserDataRepository.Current.MasterHorseId);
+            if (horse == null) return;
             uiHorse3DView.entity.horseLoader = new HorseLoader.Entity()
             {
-                horse = MasterHorseContainer.MasterHorseIndexer[UserDataRepository.Current.MasterHorseId].ModelPath
+                horse = MasterHorseContainer.MasterHorseIndexer[horse.MasterHorseResource].ModelPath
             };
             uiHorse3DView.horseLoader.SetEntity(uiHorse3DView.entity.horseLoader);
             uiHorse3DView.In().Forget();
