@@ -30,8 +30,8 @@ public partial class UIDebugMenuPresenter
         {
             await uiDebugMenu.Out();
             using var presenter = new MasterRuntimeEditorPresenter();
-            await presenter.PerformMasterEditAsync(type);
-            await uiDebugMenu.In();
+            await presenter.PerformMasterEditAsync(type).AttachExternalCancellation(cts.Token); 
+            await uiDebugMenu.In().AttachExternalCancellation(cts.Token);
         }));
     }
 }

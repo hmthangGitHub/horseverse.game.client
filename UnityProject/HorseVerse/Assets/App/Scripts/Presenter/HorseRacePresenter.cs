@@ -89,7 +89,7 @@ public class HorseRacePresenter : IDisposable
                                                masterMap.MapSettings,
                                                masterMap.MapPath,
                                                playerHorseIndex,
-                                               RaceMatchData.horseRaceTimes.Select(x => x.time).ToArray(),
+                                               RaceMatchData.horseRaceTimes.Select(x => x.raceSegments.Sum(segment => segment.time)).ToArray(),
                                                1,
                                                RaceMatchData.horseRaceTimes,
                                                default);
@@ -261,5 +261,8 @@ public class HorseRacePresenter : IDisposable
 
         cachePositions = default;
         masterHorseContainer = default;
+        
+        raceModeHorseIntroPresenter?.Dispose();
+        raceModeHorseIntroPresenter = default;
     }
 }

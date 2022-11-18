@@ -43,9 +43,9 @@ public class UIHorseRaceStatus : PopupEntity<UIHorseRaceStatus.Entity>
     {
         if (this.entity != null)
         {
+            currentTimer += Time.deltaTime;
             if (currentTimer <= this.entity.finishTime)
             {
-                currentTimer += Time.deltaTime;
                 timeLine.fillAmount = currentTimer / this.entity.finishTime;
                 this.playerList.UpdatePosition(timeLine.fillAmount);
             }

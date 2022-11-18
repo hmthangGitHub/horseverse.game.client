@@ -32,7 +32,6 @@ public class HorseRacePresenterTest : MonoBehaviour
                             .Select(x => new HorseRaceTime()
                             {
                                 masterHorseId = x,
-                                time = 15 + UnityEngine.Random.Range(-1.0f, 1.0f)
                             })
                             .ToArray();
         }

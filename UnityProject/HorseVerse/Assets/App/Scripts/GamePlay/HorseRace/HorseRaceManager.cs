@@ -213,26 +213,28 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
 
     private void SetHorseControllerStat(int[] topInRaceMatch, HorseRaceTime[] horseRaceTimes)
     {
-        for (int i = 0; i < horseControllers.Length; i++)
-        {
-            var index = i;
-            HorseController horseController = horseControllers[i];
-            horseController.SetHorseData(new HorseInGameData()
+        
+        horseRaceTimes.OrderBy(x => x.raceSegments.First().toLane)
+            .ForEach((x, i) =>
             {
-                TargetGenerator = targetGenerator,
-                CurrentOffset = offSet + i * offsetPerLane,
-                TopInRaceMatch = topInRaceMatch[i],
-                IsPlayer = playerHorseIndex == i,
-                InitialLane = i,
-                OnFinishTrack = () => OnFinishTrack(topInRaceMatch[index]),
-                PredefineTargets = CalculatePredefineTarget(horseRaceTimes[i])
+                var index = i;
+                HorseController horseController = horseControllers[i];
+                horseController.SetHorseData(new HorseInGameData()
+                {
+                    TargetGenerator = targetGenerator,
+                    CurrentOffset = offSet + i * offsetPerLane,
+                    TopInRaceMatch = topInRaceMatch[i],
+                    IsPlayer = playerHorseIndex == i,
+                    InitialLane = i,
+                    OnFinishTrack = () => OnFinishTrack(topInRaceMatch[index]),
+                    PredefineTargets = CalculatePredefineTarget(horseRaceTimes[i])
+                });
             });
-        }
     }
 
     private float GetMinimumRaceTime(HorseRaceTime[] horseRaceTimes)
     {
-        return horseRaceTimes.Min(x => x.raceSegments.Sum(raceSegment => raceSegment.waypoints.Sum(y => y.time)));
+        return horseRaceTimes.Min(x => x.raceSegments.Sum(raceSegment => raceSegment.time));
     }
 
     private ((Vector3 , float)[], int finishIndex) CalculatePredefineTarget(HorseRaceTime horseRaceTime)

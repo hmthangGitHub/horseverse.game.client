@@ -13,6 +13,7 @@ public class UIDebugMasterEditor : PopupEntity<UIDebugMasterEditor.Entity>
 	    public ButtonComponent.Entity resetBtn;
 	    public ButtonComponent.Entity saveBtn;
 	    public ButtonComponent.Entity exportBtn;
+	    public ButtonComponent.Entity importBtn;
     }
 
     public UIDebugMasterColumnList masterColumnList;
@@ -21,6 +22,7 @@ public class UIDebugMasterEditor : PopupEntity<UIDebugMasterEditor.Entity>
     public ButtonComponent resetBtn;
     public ButtonComponent saveBtn;
     public ButtonComponent exportBtn;
+    public ButtonComponent importBtn;
     
     protected override void OnSetEntity()
     {
@@ -30,5 +32,6 @@ public class UIDebugMasterEditor : PopupEntity<UIDebugMasterEditor.Entity>
 		resetBtn.SetEntity(this.entity.resetBtn);
 		saveBtn.SetEntity(this.entity.saveBtn);
 		exportBtn.SetEntity(this.entity.exportBtn);
+		importBtn.SetEntity(this.entity.importBtn);
     }
 }	
