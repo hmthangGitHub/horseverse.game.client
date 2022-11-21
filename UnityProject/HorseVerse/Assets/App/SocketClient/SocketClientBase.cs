@@ -17,7 +17,6 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
     protected void OnMessage(byte[] data)
     {
         var message = messageParser.Parse(data);
-        Debug.Log("Received Response" + message);
         messageBroker.Publish(message);
     }
 

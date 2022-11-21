@@ -9,12 +9,11 @@ public class UIHorse3DViewPresenter : IDisposable
 {
     private IDIContainer container = default;
     private IReadOnlyUserDataRepository userDataRepository = null;
-    public IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
+    private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
     private IReadOnlyHorseRepository horseRepository = null;
-    public IReadOnlyHorseRepository HorseRepository => horseRepository ??= container.Inject<IReadOnlyHorseRepository>();
+    private IReadOnlyHorseRepository HorseRepository => horseRepository ??= container.Inject<IReadOnlyHorseRepository>();
 
     private UIHorse3DView uiHorse3DView = default;
-    private string currentHorsemodelPath;
     private CancellationTokenSource cts = default;
 
     private MasterHorseContainer masterHorseContainer = default;
@@ -33,14 +32,13 @@ public class UIHorse3DViewPresenter : IDisposable
         await HorseRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
 
         uiHorse3DView ??= await UILoader.Instantiate<UIHorse3DView>(token : cts.Token);
-        await UniTask.WaitUntil (()=>UserDataRepository.Current != default);
         if (!isIn)
         {
             uiHorse3DView.SetEntity(new UIHorse3DView.Entity()
             {
                 horseLoader = new HorseLoader.Entity()
                 {
-                    horse = MasterHorseContainer.MasterHorseIndexer[UserDataRepository.Current.MasterHorseId].ModelPath
+                    horse = MasterHorseContainer.MasterHorseIndexer[HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].MasterHorseId].ModelPath
                 }
             });
             uiHorse3DView.transform.SetAsFirstSibling();
@@ -66,13 +64,11 @@ public class UIHorse3DViewPresenter : IDisposable
 
     private void UserDataRepositoryOnModelUpdate((UserDataModel before, UserDataModel after) model)
     {
-        if (model.before == null || model.after.MasterHorseId != model.before.MasterHorseId)
+        if (model.after.CurrentHorseNftId != model.before.CurrentHorseNftId)
         {
-            var horse = HorseRepository.Get(UserDataRepository.Current.MasterHorseId);
-            if (horse == null) return;
             uiHorse3DView.entity.horseLoader = new HorseLoader.Entity()
             {
-                horse = MasterHorseContainer.MasterHorseIndexer[horse.MasterHorseResource].ModelPath
+                horse = MasterHorseContainer.MasterHorseIndexer[HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].MasterHorseId].ModelPath
             };
             uiHorse3DView.horseLoader.SetEntity(uiHorse3DView.entity.horseLoader);
             uiHorse3DView.In().Forget();

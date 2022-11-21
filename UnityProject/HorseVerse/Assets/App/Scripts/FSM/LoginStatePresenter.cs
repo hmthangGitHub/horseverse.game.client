@@ -93,8 +93,8 @@ public class LoginStatePresenter : IDisposable
                 Model = SystemInfo.deviceModel,
                 Version = Application.version,
             }
-        }, 10.0f);
-        await HandleLoginRespons(res);
+        });
+        await HandleLoginResponse(res);
     }
 
     private io.hverse.game.protogen.Platform GetCurrentPlatform()
@@ -137,8 +137,8 @@ public class LoginStatePresenter : IDisposable
                     Model = SystemInfo.deviceModel,
                     Version = Application.version,
                 }
-            }, 10.0f);
-            await HandleLoginRespons(res);
+            });
+            await HandleLoginResponse(res);
             if(res.ResultCode == 100)
                 return true;
         }
@@ -219,8 +219,8 @@ public class LoginStatePresenter : IDisposable
                 Model = SystemInfo.deviceModel,
                 Version = Application.version,
             }
-        }, 10.0f);
-        await HandleLoginRespons(res);
+        });
+        await HandleLoginResponse(res);
     }
 
     private async UniTask GetCodeOTPAsync()
@@ -239,7 +239,7 @@ public class LoginStatePresenter : IDisposable
                 Model = SystemInfo.deviceModel,
                 Version = Application.version,
             }
-        }, 10.0f);
+        });
         if (res != null && res.ResultCode == 100)
         {
             var uiConfirm = await UILoader.Instantiate<UIPopupMessage>(token: cts.Token);
@@ -257,17 +257,17 @@ public class LoginStatePresenter : IDisposable
         }
     }
 
-    private async UniTask HandleLoginRespons(LoginResponse res)
+    private async UniTask HandleLoginResponse(LoginResponse res)
     {
-        if (res != null && res.ResultCode == 100)
+        if (res?.ResultCode == 100)
         {
             var model = new UserDataModel()
             {
                 Coin = res.PlayerInfo.Chip,
                 Energy = res.PlayerInfo.Energy,
-                MasterHorseId = res.PlayerInfo.CurrentHorse != null ? res.PlayerInfo.CurrentHorse.NftId : 0,
+                CurrentHorseNftId = res.PlayerInfo.CurrentHorse.NftId,
                 MaxEnergy = 100,
-                UserId = "" + res.PlayerInfo.Id,
+                UserId = res.PlayerInfo.Id,
                 UserName = res.PlayerInfo.Name,
                 Exp = 0,
                 Level = 1,
@@ -275,13 +275,11 @@ public class LoginStatePresenter : IDisposable
                 TraningTimeStamp = 0,
             };
             await UserDataRepository.UpdateDataAsync(new UserDataModel[] { model });
-            UserDataRepository.SetCurrentUserDataModelId(model.UserId);
             PlayerPrefs.SetString("USER_LOGIN_ACCESS_TOKEN", res.PlayerInfo.AccessToken);
-            await UniTask.Delay(1000);
-            foreach (var item in UserDataRepository.Models)
-            {
-                Debug.Log("Ke " + item.Key + " -- " + item.Value);
-            }
+        }
+        else
+        {
+            throw new Exception("Login Failed");
         }
     }
 }

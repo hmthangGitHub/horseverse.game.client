@@ -7,7 +7,7 @@ public class BetModeUIState : InjectedBState
     private UIBetModePresenter uiBetModePresenter;
     private UIHeaderPresenter uiHeaderPresenter;
     private UILoadingPresenter uiLoadingPresenter;
-    private UILoadingPresenter UILoadingPresenter => uiLoadingPresenter ?? Container.Inject<UILoadingPresenter>();
+    private UILoadingPresenter UILoadingPresenter => uiLoadingPresenter ??= Container.Inject<UILoadingPresenter>();
     private UIHeaderPresenter UIHeaderPresenter => uiHeaderPresenter ??= Container.Inject<UIHeaderPresenter>();
 
     public override void Enter()

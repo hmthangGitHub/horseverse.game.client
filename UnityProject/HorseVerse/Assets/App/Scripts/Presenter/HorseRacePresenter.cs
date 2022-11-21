@@ -84,7 +84,7 @@ public class HorseRacePresenter : IDisposable
     private async UniTask InitHorseRaceAsync()
     {
         horseRaceManager ??= Object.Instantiate((await Resources.LoadAsync<HorseRaceManager>("GamePlay/HorseRaceManager") as HorseRaceManager));
-        playerHorseIndex = RaceMatchData.horseRaceTimes.ToList().FindIndex(x => x.masterHorseId == UserDataRepository.Current.MasterHorseId);
+        playerHorseIndex = RaceMatchData.horseRaceTimes.ToList().FindIndex(x => x.masterHorseId == UserDataRepository.Current.CurrentHorseNftId);
         await horseRaceManager.InitializeAsync(RaceMatchData.horseRaceTimes.Select(x => MasterHorseContainer.MasterHorseIndexer[x.masterHorseId].RaceModeModelPath).ToArray(),
                                                masterMap.MapSettings,
                                                masterMap.MapPath,

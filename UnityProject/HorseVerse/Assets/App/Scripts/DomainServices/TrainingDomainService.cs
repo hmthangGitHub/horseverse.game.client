@@ -47,7 +47,7 @@ public class LocalTraningDomainService : TrainingDomainServiceBase, ITrainingDom
         {
             Coin = UserDataRepository.Current.Coin,
             Energy = UserDataRepository.Current.Energy,
-            MasterHorseId = masterHorseId,
+            CurrentHorseNftId = masterHorseId,
             MaxEnergy = UserDataRepository.Current.MaxEnergy,
             UserId = UserDataRepository.Current.UserId,
             UserName = UserDataRepository.Current.UserName,
@@ -63,7 +63,7 @@ public class LocalTraningDomainService : TrainingDomainServiceBase, ITrainingDom
         {
             Coin = UserDataRepository.Current.Coin,
             Energy = UserDataRepository.Current.Energy,
-            MasterHorseId = masterHorseId,
+            CurrentHorseNftId = masterHorseId,
             MaxEnergy = UserDataRepository.Current.MaxEnergy,
             UserId = UserDataRepository.Current.UserId,
             UserName = UserDataRepository.Current.UserName,

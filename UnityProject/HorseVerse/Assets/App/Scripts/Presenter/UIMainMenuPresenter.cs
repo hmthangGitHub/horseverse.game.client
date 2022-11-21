@@ -33,16 +33,12 @@ public class UIMainMenuPresenter : IDisposable
 
     public async UniTaskVoid ShowMainMenuAsync()
     {
+    	cts.SafeCancelAndDispose();
+        cts = new CancellationTokenSource();
+        
         await HorseRepository.LoadRepositoryIfNeedAsync();
         await UserDataRepository.LoadRepositoryIfNeedAsync();
-        cts.SafeCancelAndDispose();
-        cts = new CancellationTokenSource();
-        Debug.Log("X " + UserDataRepository.CurrentModelId);
-        foreach(var item in UserDataRepository.Models)
-        {
-            Debug.Log("Ke " + item.Key + " -- " + item.Value);
-        }
-        await UniTask.WaitUntil(() => UserDataRepository.Current != default);
+        
         uiMainMenu ??= await UILoader.Instantiate<UIMainMenu>(token: cts.Token);
         uiMainMenu.SetEntity(new UIMainMenu.Entity()
         {
@@ -76,7 +72,7 @@ public class UIMainMenuPresenter : IDisposable
                         }
                     }
                 },
-                horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.MasterHorseId),
+                horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.CurrentHorseNftId),
             },
             userInfo = new UIComponentMainMenuUserInfo.Entity()
             {

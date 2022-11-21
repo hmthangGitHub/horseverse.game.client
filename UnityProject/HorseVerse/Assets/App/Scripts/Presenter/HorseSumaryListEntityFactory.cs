@@ -25,14 +25,14 @@ public class HorseSumaryListEntityFactory
         {
             entities = HorseRepository.Models.Select(x => new UIComponentTraningHorseSelectSumary.Entity()
             {
-                horseName = MasterHorseContainer.MasterHorseIndexer[x.Key].Name,
+                horseName = MasterHorseContainer.MasterHorseIndexer[x.Value.MasterHorseId].Name,
                 selectBtn = new ButtonComponent.Entity(() => OnSelectHorse(x.Key))
             }).ToArray()
         };
     }
 
-    private void OnSelectHorse(long masterHorseId)
+    private void OnSelectHorse(long horseNtfId)
     {
-        QuickRaceDomainService.ChangeHorse(masterHorseId).Forget();
+        QuickRaceDomainService.ChangeHorse(horseNtfId).Forget();
     }
 }

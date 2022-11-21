@@ -9,7 +9,7 @@ using io.hverse.game.protogen;
 
 public interface IQuickRaceDomainService
 {
-    UniTask ChangeHorse(long masterHorseId);
+    UniTask ChangeHorse(long horseNtfId);
     UniTask<RaceMatchData> FindMatch();
     UniTask CancelFindMatch();
 }
@@ -41,14 +41,14 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
         return UniTask.CompletedTask;
     }
 
-    public async UniTask ChangeHorse(long masterHorseId)
+    public async UniTask ChangeHorse(long horseNtfId)
     {
         await UniTask.Delay(500);
         var model = new UserDataModel()
         {
             Coin = UserDataRepository.Current.Coin,
             Energy = UserDataRepository.Current.Energy,
-            MasterHorseId = masterHorseId,
+            CurrentHorseNftId = horseNtfId,
             MaxEnergy = UserDataRepository.Current.MaxEnergy,
             UserId = UserDataRepository.Current.UserId,
             UserName = UserDataRepository.Current.UserName,
@@ -102,14 +102,14 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
         await UniTask.CompletedTask;
     }
 
-    public async UniTask ChangeHorse(long masterHorseId)
+    public async UniTask ChangeHorse(long horseNtfId)
     {
         await UniTask.Delay(500);
         var model = new UserDataModel()
         {
             Coin = UserDataRepository.Current.Coin,
             Energy = UserDataRepository.Current.Energy,
-            MasterHorseId = masterHorseId,
+            CurrentHorseNftId = horseNtfId,
             MaxEnergy = UserDataRepository.Current.MaxEnergy,
             UserId = UserDataRepository.Current.UserId,
             UserName = UserDataRepository.Current.UserName,
@@ -127,7 +127,7 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
         {
             return Container.Inject<MasterHorseContainer>().MasterHorseIndexer.Keys
                             .Shuffle()
-                            .Append(UserDataRepository.Current.MasterHorseId)
+                            .Append(UserDataRepository.Current.CurrentHorseNftId)
                             .Shuffle()
                             .Take(8)
                             .Select(x => new HorseRaceTime()

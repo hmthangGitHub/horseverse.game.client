@@ -66,6 +66,7 @@ public class Repository<TKey, TData, TModel> : IRepository<TKey, TData, TModel>
 
     public async UniTask UpdateDataAsync(IEnumerable<TData> data)
     {
+        await LoadRepositoryIfNeedAsync();
         var beforeModels = models.ToDictionary(x => x.Key, x => x.Value);
         data.Select(modelPredicator)
             .ToList()

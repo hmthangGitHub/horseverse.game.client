@@ -14,11 +14,10 @@ public class HorseDetailEntityFactory
         this.container = container;
     }
 
-    public UIComponentHorseDetail.Entity InstantiateHorseDetailEntity(long masterHorseId)
+    public UIComponentHorseDetail.Entity InstantiateHorseDetailEntity(long horseNtfId)
     {
-        Debug.Log("Get Horse " + masterHorseId);
-        var userHorse = HorseRepository.Get(masterHorseId); if (userHorse == null) return default;
-        var masterHorse = MasterHorseContainer.MasterHorseIndexer[userHorse.MasterHorseResource];
+        var userHorse = HorseRepository.Models[horseNtfId];
+        var masterHorse = MasterHorseContainer.MasterHorseIndexer[userHorse.MasterHorseId];
         return new UIComponentHorseDetail.Entity()
         {
             earning = userHorse.Earning,

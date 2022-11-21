@@ -2,7 +2,7 @@
 
 public class HorseDataModel
 {
-    public long MasterHorseId { get; set; }
+    public long HorseNtfId { get; set; }
     public int Earning { get; set; }
     public float PowerBonus { get; set; }
     public float PowerRatio { get; set; }
@@ -19,5 +19,6 @@ public class HorseDataModel
     public Color Color2 { get; set; }
     public Color Color3 { get; set; }
     public Color Color4 { get; set; }
-    public long MasterHorseResource { get { return 10000000 + Rarity * 10 + Type; } }
+
+    public long MasterHorseId => 10000001;
 }

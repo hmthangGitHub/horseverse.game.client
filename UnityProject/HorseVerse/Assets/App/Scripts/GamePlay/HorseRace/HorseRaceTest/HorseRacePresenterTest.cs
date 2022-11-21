@@ -26,7 +26,7 @@ public class HorseRacePresenterTest : MonoBehaviour
         {
             return container.Inject<MasterHorseContainer>().MasterHorseIndexer.Keys
                             .Shuffle()
-                            .Append(container.Inject<UserDataRepository>().Current.MasterHorseId)
+                            .Append(container.Inject<UserDataRepository>().Current.CurrentHorseNftId)
                             .Shuffle()
                             .Take(8)
                             .Select(x => new HorseRaceTime()
