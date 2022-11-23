@@ -289,7 +289,7 @@ public class LoginStatePresenter : IDisposable
         }
         else
         {
-            throw new Exception("Login Failed");
+            //throw new Exception("Login Failed");
         }
     }
 }

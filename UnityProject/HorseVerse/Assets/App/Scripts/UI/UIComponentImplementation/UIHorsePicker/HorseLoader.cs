@@ -22,6 +22,8 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
     private GameObject horse;
     private string oldHorse = string.Empty;
 
+    public GameObject Horse => horse;
+
     protected override void OnSetEntity()
     {
         LoadHorseAsync().Forget();
@@ -62,7 +64,7 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
         horse = Instantiate<GameObject>(horsePrefab, Vector3.zero, Quaternion.identity, horsePosition.transform);
         horse.transform.localScale = Vector3.one;
         horse.transform.localPosition = Vector3.zero;
-
+        
         SetLayerRecursively(horse, LayerMask.NameToLayer("RenderTexture"));
     }
 
@@ -74,6 +76,7 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
             PrimitiveAssetLoader.UnloadAssetAtPath(oldHorse);
         }
     }
+
 
     private void DetachHorseContainer()
     {
@@ -112,4 +115,6 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
             GameObject.Destroy(this.horseContainer.gameObject);    
         }
     }
+
+    
 }
