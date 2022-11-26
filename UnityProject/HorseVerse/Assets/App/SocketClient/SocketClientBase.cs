@@ -37,8 +37,8 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
         var ucs = new UniTaskCompletionSource<TResponse>();
         void OnResponse(TResponse response)
         {
-            ucs.TrySetResult(response);
             Debug.Log("Received response " + response);
+            ucs.TrySetResult(response);
         }
         messageBroker.Subscribe<TResponse>(OnResponse);
         await Send<TRequest>(request);

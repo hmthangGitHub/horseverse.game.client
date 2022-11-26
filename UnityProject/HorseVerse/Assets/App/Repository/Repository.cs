@@ -75,6 +75,15 @@ public class Repository<TKey, TData, TModel> : IRepository<TKey, TData, TModel>
         await UniTask.CompletedTask;
     }
 
+    public async UniTask UpdateModelAsync(IEnumerable<TModel> model)
+    {
+        await LoadRepositoryIfNeedAsync();
+        var beforeModels = this.models.ToDictionary(x => x.Key, x => x.Value);
+        model.ForEach(UpdateModel);
+        OnModelsUpdate((beforeModels, models));
+        await UniTask.CompletedTask;
+    }
+
     private void UpdateModel(TModel model)
     {
         var key = keyPredicator(model);

@@ -12,7 +12,7 @@ public class UIComponentBetSlot : UIComponent<UIComponentBetSlot.Entity>
         public int secondHorseNumber;
         public UIComponentBetSlotType.BetType betType;
         public float betRatio;
-        public float totalBet;
+        public int totalBet;
         public ButtonComponent.Entity betBtn;
     }
 

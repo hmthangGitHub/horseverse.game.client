@@ -1,6 +1,6 @@
 ﻿public class UserDataModel
 {
-    public int UserId { get; set; }
+    public long UserId { get; set; }
     public long Coin { get; set; }
     public string UserName { get; set; }
     public int AccountType { get; set; }
@@ -11,4 +11,9 @@
     public int Level { get; set; }
     public int Exp { get; set; }
     public int NextLevelExp { get; set; }
+
+    public UserDataModel Clone()
+    {
+        return (UserDataModel)this.MemberwiseClone();
+    }
 }

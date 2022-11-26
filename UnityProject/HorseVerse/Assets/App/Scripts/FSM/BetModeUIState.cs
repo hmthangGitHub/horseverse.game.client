@@ -13,9 +13,6 @@ public class BetModeUIState : InjectedBState
     public override void Enter()
     {
         base.Enter();
-        
-        Container.Bind(new LocalBetModeDomainService(Container));
-        Container.Bind(new BetMatchRepository());
         OnEnterStateAsync().Forget();
     }
 
@@ -45,8 +42,6 @@ public class BetModeUIState : InjectedBState
     public override void Exit()
     {
         base.Exit();
-        Container.RemoveAndDisposeIfNeed<BetMatchRepository>();
-        Container.RemoveAndDisposeIfNeed<LocalBetModeDomainService>();
         uiBetModePresenter.OnBack -= OnBackToMainMenu;
         uiBetModePresenter.OnToRaceMode -= OnToRaceMode;
         uiBetModePresenter?.Dispose();

@@ -138,9 +138,19 @@ public class LoginStatePresenter : IDisposable
                     Version = Application.version,
                 }
             });
-            await HandleLoginResponse(res);
-            if(res.ResultCode == 100)
+            if (res.ResultCode == 100)
+            {
+                await HandleLoginResponse(res);
                 return true;
+            }
+            else if (res.ResultCode == 203)
+            {
+                return false;
+            }
+            else
+            {
+                throw new Exception("Login Failed");
+            }
         }
         return false;
     }

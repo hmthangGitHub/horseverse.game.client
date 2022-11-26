@@ -6,9 +6,6 @@ using UnityEngine;
 
 public class BetModeState : InjectedBHState
 {
-    private UIHorse3DViewPresenter uiHorse3DViewPresenter;
-    private UIHorse3DViewPresenter UIHorse3DViewPresenter => uiHorse3DViewPresenter ??= this.Container.Inject<UIHorse3DViewPresenter>();
-    
     public override void AddStates()
     {
         base.AddStates();
@@ -16,25 +13,21 @@ public class BetModeState : InjectedBHState
         AddState<BetModeInProgressState>();
         AddState<HorseRaceState>();
         AddState<EmptyState>();
-        SetInitialState<EmptyState>();
+        AddState<BetModeInitialState>();
+        SetInitialState<BetModeInitialState>();
     }
 
     public override void Enter()
     {
         base.Enter();
-        OnEnterAsync().Forget();
+        Container.Bind(new BetModeDomainService(Container));
+        Container.Bind(new BetMatchRepository(Container));
     }
 
-    private async UniTaskVoid OnEnterAsync()
+    public override void Exit()
     {
-        await UIHorse3DViewPresenter.HideHorse3DViewAsync();
-        if (UnityEngine.Random.Range(0, 5) == 1)
-        {
-            ChangeState<BetModeInProgressState>();
-        }
-        else
-        {
-            ChangeState<BetModeUIState>();
-        }
+        base.Exit();
+        Container.RemoveAndDisposeIfNeed<BetMatchRepository>();
+        Container.RemoveAndDisposeIfNeed<BetModeDomainService>();
     }
 }

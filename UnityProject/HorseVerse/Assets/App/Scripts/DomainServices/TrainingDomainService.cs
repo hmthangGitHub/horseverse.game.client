@@ -53,7 +53,7 @@ public class LocalTraningDomainService : TrainingDomainServiceBase, ITrainingDom
             UserName = UserDataRepository.Current.UserName,
             TraningTimeStamp = 0,
         };
-        await UserDataRepository.UpdateDataAsync(new UserDataModel[] { model });
+        await UserDataRepository.UpdateModelAsync(new UserDataModel[] { model });
     }
 
     public async UniTask SendHorseToTraining(long masterHorseId)
@@ -69,6 +69,6 @@ public class LocalTraningDomainService : TrainingDomainServiceBase, ITrainingDom
             UserName = UserDataRepository.Current.UserName,
             TraningTimeStamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds() + 10,
         };
-        await UserDataRepository.UpdateDataAsync(new UserDataModel[] { model });
+        await UserDataRepository.UpdateModelAsync(new UserDataModel[] { model });
     }
 }

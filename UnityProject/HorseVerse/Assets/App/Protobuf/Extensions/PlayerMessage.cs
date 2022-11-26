@@ -9,7 +9,7 @@ namespace io.hverse.game.protogen
     public sealed partial class PlayerMessage : ISubMessage<PlayerMessageType>
     {
         Enum ISubMessage.MsgType => this.MsgType;
-        public GameMessageType gameMessageType => GameMessageType.PlayerMessage;
+        public GameMessageType GameMessageType => GameMessageType.PlayerMessage;
 
         public PlayerMessage(PlayerInventoryRequest request)
         {

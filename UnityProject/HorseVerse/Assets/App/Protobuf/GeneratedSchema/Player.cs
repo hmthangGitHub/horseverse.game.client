@@ -34,7 +34,7 @@ namespace io.hverse.game.protogen {
             "NQoSUGxheWVySW5mb1Jlc3BvbnNlEh8KCnBsYXllckluZm8YASABKAsyCy5Q",
             "bGF5ZXJJbmZvIhgKFlBsYXllckludmVudG9yeVJlcXVlc3QiRAoXUGxheWVy",
             "SW52ZW50b3J5UmVzcG9uc2USKQoPcGxheWVySW52ZW50b3J5GAEgASgLMhAu",
-            "UGxheWVySW52ZW50b3J5IrUBCgpQbGF5ZXJJbmZvEgoKAmlkGAEgASgFEgwK",
+            "UGxheWVySW52ZW50b3J5IrUBCgpQbGF5ZXJJbmZvEgoKAmlkGAEgASgDEgwK",
             "BG5hbWUYAiABKAkSIQoLYWNjb3VudFR5cGUYAyABKA4yDC5BY2NvdW50VHlw",
             "ZRIVCg1wdWJsaWNBZGRyZXNzGAQgASgJEhMKC2FjY2Vzc1Rva2VuGAUgASgJ",
             "EgwKBGNoaXAYBiABKAMSDgoGZW5lcmd5GAcgASgFEiAKDGN1cnJlbnRIb3Jz",
@@ -1203,10 +1203,10 @@ namespace io.hverse.game.protogen {
 
     /// <summary>Field number for the "id" field.</summary>
     public const int IdFieldNumber = 1;
-    private int id_;
+    private long id_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int Id {
+    public long Id {
       get { return id_; }
       set {
         id_ = value;
@@ -1327,7 +1327,7 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Id != 0) hash ^= Id.GetHashCode();
+      if (Id != 0L) hash ^= Id.GetHashCode();
       if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (AccountType != global::io.hverse.game.protogen.AccountType.Guest) hash ^= AccountType.GetHashCode();
       if (PublicAddress.Length != 0) hash ^= PublicAddress.GetHashCode();
@@ -1353,9 +1353,9 @@ namespace io.hverse.game.protogen {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Id != 0) {
+      if (Id != 0L) {
         output.WriteRawTag(8);
-        output.WriteInt32(Id);
+        output.WriteInt64(Id);
       }
       if (Name.Length != 0) {
         output.WriteRawTag(18);
@@ -1395,9 +1395,9 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Id != 0) {
+      if (Id != 0L) {
         output.WriteRawTag(8);
-        output.WriteInt32(Id);
+        output.WriteInt64(Id);
       }
       if (Name.Length != 0) {
         output.WriteRawTag(18);
@@ -1437,8 +1437,8 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Id != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
+      if (Id != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Id);
       }
       if (Name.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
@@ -1473,7 +1473,7 @@ namespace io.hverse.game.protogen {
       if (other == null) {
         return;
       }
-      if (other.Id != 0) {
+      if (other.Id != 0L) {
         Id = other.Id;
       }
       if (other.Name.Length != 0) {
@@ -1516,7 +1516,7 @@ namespace io.hverse.game.protogen {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Id = input.ReadInt32();
+            Id = input.ReadInt64();
             break;
           }
           case 18: {
@@ -1566,7 +1566,7 @@ namespace io.hverse.game.protogen {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            Id = input.ReadInt32();
+            Id = input.ReadInt64();
             break;
           }
           case 18: {

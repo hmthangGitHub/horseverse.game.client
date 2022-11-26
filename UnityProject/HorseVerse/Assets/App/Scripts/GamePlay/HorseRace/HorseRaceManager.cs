@@ -263,13 +263,13 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
             mapScene = default;
         }
         var needFadingBlendingCameras = GetNeedFadingBlendingCameras();
-        raceCamera.GetComponentsInChildren<ActivateCamera>(true).Where(x => needFadingBlendingCameras.Contains(x.activateCamera.name))
+        raceCamera?.GetComponentsInChildren<ActivateCamera>(true).Where(x => needFadingBlendingCameras.Contains(x.activateCamera.name))
             .ForEach(x => 
             {
                 x.OnBeginActivateCameraEvent -= cameraBlendingAnimation.FadeInAnimationAsync;
                 x.OnActivateCameraEvent -= cameraBlendingAnimation.FadeOutAnimationAsync; 
             });
-        this.horseControllerModelPaths.ToList().ForEach(PrimitiveAssetLoader.UnloadAssetAtPath);
+        this.horseControllerModelPaths?.ToList().ForEach(PrimitiveAssetLoader.UnloadAssetAtPath);
         PrimitiveAssetLoader.UnloadAssetAtPath(mapSettingsPath);
         Time.timeScale = 1;
         racingTrackController = default;

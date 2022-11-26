@@ -18,6 +18,15 @@ public class UIHeaderPresenter : IDisposable
     public UIHeaderPresenter(IDIContainer container)
     {
         this.container = container;
+        UserDataRepository.OnModelUpdate += OnModelUpdate;
+    }
+
+    private void OnModelUpdate((UserDataModel before, UserDataModel after) model)
+    {
+        if (model.after.Coin != model.before?.Coin)
+        {
+            uiHeader?.coin.SetEntity(model.after.Coin);
+        }
     }
 
     public async UniTask ShowHeaderAsync(bool showBackBtn = true)
@@ -62,6 +71,7 @@ public class UIHeaderPresenter : IDisposable
     {
         cts.SafeCancelAndDispose();
         cts = default;
+        UserDataRepository.OnModelUpdate -= OnModelUpdate;
         UILoader.SafeRelease(ref uiHeader);
     }
 }
