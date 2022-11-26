@@ -41,13 +41,13 @@ public class UIHorseTrainingPresenter : IDisposable
                                                                                                                     : UIComponentTraningState.TraningState.Processing;
         if (currentState == UIComponentTraningState.TraningState.Prepare && UserDataRepository.Current.TraningTimeStamp != 0)
         {
-            await TrainingDomainService.OnDoneTraningPeriod(UserDataRepository.Current.MasterHorseId);
+            await TrainingDomainService.OnDoneTraningPeriod(UserDataRepository.Current.CurrentHorseNftId);
         }
         UserDataRepository.OnModelUpdate += UserDataRepositoryOnModelUpdate;
 
         uiHorseTraining.SetEntity(new UIHorseTraining.Entity()
         {
-            horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.MasterHorseId),
+            horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.CurrentHorseNftId),
             horseSelectSumaryList = HorseSumaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(),
             prepareState = new UIComponentTrainingPrepareState.Entity()
             {
@@ -89,9 +89,9 @@ public class UIHorseTrainingPresenter : IDisposable
 
     private void UserDataRepositoryOnModelUpdate((UserDataModel before, UserDataModel after) model)
     {
-        if (model.before.MasterHorseId != model.after.MasterHorseId)
+        if (model.before.CurrentHorseNftId != model.after.CurrentHorseNftId)
         {
-            uiHorseTraining.SetHorseDetailEntity(HorseDetailEntityFactory.InstantiateHorseDetailEntity(model.after.MasterHorseId));
+            uiHorseTraining.SetHorseDetailEntity(HorseDetailEntityFactory.InstantiateHorseDetailEntity(model.after.CurrentHorseNftId));
         }
 
         if (model.before.TraningTimeStamp == 0 && model.after.TraningTimeStamp != 0)
@@ -116,7 +116,7 @@ public class UIHorseTrainingPresenter : IDisposable
 
     private async UniTaskVoid OnOutDateAsync()
     {
-        await TrainingDomainService.OnDoneTraningPeriod(UserDataRepository.Current.MasterHorseId);
+        await TrainingDomainService.OnDoneTraningPeriod(UserDataRepository.Current.CurrentHorseNftId);
     }
 
     public void Dispose()

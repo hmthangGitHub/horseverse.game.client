@@ -1,51 +1,44 @@
-#define MOCK_DATA
 using Cysharp.Threading.Tasks;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
+using io.hverse.game.protogen;
 
-public class BetRateRepository : Repository<(int first, int second), BetRateModel, BetRateModel>, IBetRateRepository
+public class BetRateRepository : Repository<(int first, int second), WinRate, BetRateModel>, IBetRateRepository
 {
-    public BetRateRepository() : base(x => (x.First, x.Second), x => x, GetBetRateModel)
+
+    public BetRateRepository() : base(x => (x.First, x.Second), x =>
+    {
+        var horseIndices = x.IndexOfHorse.ToKey();
+        return new BetRateModel()
+        {
+            First = horseIndices.first,
+            Second = horseIndices.second,
+            TotalBet = x.TotalAmountOfBet,
+            Rate = x.Rate,
+        };
+    }, GetBetRateData)
     {
     }
 
     public float TotalBetAmouth => Models.Sum(x => x.Value.TotalBet);
 
-    private static async UniTask<IEnumerable<BetRateModel>> GetBetRateModel()
+    private static UniTask<IEnumerable<WinRate>> GetBetRateData()
     {
-#if MOCK_DATA
-        await UniTask.CompletedTask;
         var horseNumber = 8;
-        var betRateModels = new List<BetRateModel>();
-        for (int i = 0; i < horseNumber; i++)
-        {
-            betRateModels.Add(new BetRateModel()
-            {
-                First = i + 1,
-                Second = 0,
-                Rate = UnityEngine.Random.Range(1.0f, 4.0f),
-                TotalBet = UnityEngine.Random.Range(0, 2000)
-            });
-        }
-
+        var betRateModels = new List<WinRate>();
+        
         for (int i = 0; i < horseNumber; i++)
         {
             for (int j = 0; j < horseNumber; j++)
             {
-                betRateModels.Add(new BetRateModel()
+                betRateModels.Add(new WinRate()
                 {
-                    First = i + 1,
-                    Second = j + 1,
-                    Rate = UnityEngine.Random.Range(1.0f, 4.0f),
-                    TotalBet = UnityEngine.Random.Range(0, 2000)
+                    IndexOfHorse = (i + 1, j + 1).ToIndexOfHorse(),
                 });
             }
         }
-        return betRateModels; 
-#endif
+        return UniTask.FromResult(Enumerable.Empty<WinRate>()
+                                .Concat(betRateModels));
     }
 }
 
@@ -53,4 +46,22 @@ public interface IReadOnlyBetRateRepository : IReadOnlyRepository<(int first, in
 {
     float TotalBetAmouth { get; }
 }
-public interface IBetRateRepository : IRepository<(int first, int second), BetRateModel, BetRateModel>, IReadOnlyBetRateRepository { }
+public interface IBetRateRepository : IRepository<(int first, int second), WinRate, BetRateModel>, IReadOnlyBetRateRepository { }
+
+public static class BetRateRepositoryUtility
+{
+    private static char HorseBetIndexSeparatorCharacter = '-';
+
+    public static (int first, int second) ToKey(this string indexOfHorse)
+    {
+        var horseIndices = indexOfHorse.Split(HorseBetIndexSeparatorCharacter);
+        return (int.Parse(horseIndices[0]), horseIndices.Length > 1 ? int.Parse(horseIndices[1]) : 0);
+    }
+    
+    public static string ToIndexOfHorse(this (int first, int second) key)
+    {
+        return key.second == default
+            ? key.first.ToString()
+            : $"{key.first}{HorseBetIndexSeparatorCharacter}{key.second}"; 
+    }
+}

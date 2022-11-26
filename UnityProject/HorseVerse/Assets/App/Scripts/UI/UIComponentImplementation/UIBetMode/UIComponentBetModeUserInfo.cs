@@ -8,7 +8,7 @@ public class UIComponentBetModeUserInfo : UIComponent<UIComponentBetModeUserInfo
     public class Entity
     {
         public string userName;
-        public int coin;
+        public long coin;
     }
 
     public FormattedTextComponent userName;

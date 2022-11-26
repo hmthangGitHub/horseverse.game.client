@@ -24,39 +24,58 @@ namespace io.hverse.game.protogen {
     static DataReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgpkYXRhLnByb3RvIlkKCUhvcnNlSW5mbxINCgVuZnRJZBgBIAEoBRIeCghy",
-            "YW5rVHlwZRgCIAEoDjIMLk5mdFJhbmtUeXBlEh0KCWhvcnNlVHlwZRgDIAEo",
-            "DjIKLkhvcnNlVHlwZSpYCgtOZnRSYW5rVHlwZRIVChFSQU5LX1RZUEVfVU5L",
-            "Tk9XThAAEgUKAUQQARIFCgFDEAISBQoBQhADEgUKAUEQBBIFCgFTEAUSBgoC",
-            "U1MQBhIHCgNTU1MQByotCglIb3JzZVR5cGUSCQoFTElHSFQQABILCgdUSFVO",
-            "REVSEAESCAoEREFSSxACKiAKBExhbmUSBgoCSU4QABIHCgNNSUQQARIHCgNP",
-            "VVQQAkJHChdpby5odmVyc2UuZ2FtZS5wcm90b2dlbkISRGF0YU1lc3NhZ2VG",
-            "YWN0b3J5qgIXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5iBnByb3RvMw=="));
+            "CgpkYXRhLnByb3RvIpABCgtEYXRhTWVzc2FnZRIhCgdtc2dUeXBlGAEgASgO",
+            "MhAuRGF0YU1lc3NhZ2VUeXBlEi0KEW1hc3RlckRhdGFSZXF1ZXN0GAIgASgL",
+            "MhIuTWFzdGVyRGF0YVJlcXVlc3QSLwoSbWFzdGVyRGF0YVJlc3BvbnNlGAMg",
+            "ASgLMhMuTWFzdGVyRGF0YVJlc3BvbnNlIhMKEU1hc3RlckRhdGFSZXF1ZXN0",
+            "Ii0KEk1hc3RlckRhdGFSZXNwb25zZRIXCg9tYXhFbmVyZ3lOdW1iZXIYASAB",
+            "KAUigQIKCUhvcnNlSW5mbxINCgVuZnRJZBgBIAEoAxILCgNibXMYAiABKAIS",
+            "CwoDbW1zGAMgASgCEhQKDGFjY2VsZXJhdGlvbhgEIAEoAhIPCgdzdGFtaW5h",
+            "GAUgASgCEh0KCWhvcnNlVHlwZRgGIAEoDjIKLkhvcnNlVHlwZRIXCgZyYXJp",
+            "dHkYByABKA4yBy5SYXJpdHkSDAoEbHVjaxgIIAEoBRINCgVsZXZlbBgJIAEo",
+            "BRIOCgZjb2xvcjEYCiABKAkSDgoGY29sb3IyGAsgASgJEg4KBmNvbG9yMxgM",
+            "IAEoCRIOCgZjb2xvcjQYDSABKAkSDwoHd2luUmF0ZRgOIAEoAipECg9EYXRh",
+            "TWVzc2FnZVR5cGUSFwoTTUFTVEVSX0RBVEFfUkVRVUVTVBAAEhgKFE1BU1RF",
+            "Ul9EQVRBX1JFU1BPTlNFEAEqeQoGUmFyaXR5EhIKDlJBUklUWV9VTktOT1dO",
+            "EAASEQoNUkFSSVRZX0NPTU1PThABEhMKD1JBUklUWV9VTkNPTU1PThACEg8K",
+            "C1JBUklUWV9SQVJFEAMSDwoLUkFSSVRZX0VQSUMQBBIRCg1SQVJJVFlfTEVH",
+            "RU5EEAUqZwoJSG9yc2VUeXBlEhYKEkhPUlNFX1RZUEVfVU5LTk9XThAAEhQK",
+            "EEhPUlNFX1RZUEVfQkxBWkUQARIWChJIT1JTRV9UWVBFX1RIVU5ERVIQAhIU",
+            "ChBIT1JTRV9UWVBFX0hJRFJPEAMqIAoETGFuZRIGCgJJThAAEgcKA01JRBAB",
+            "EgcKA09VVBACQkcKF2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuQhJEYXRhTWVz",
+            "c2FnZUZhY3RvcnmqAhdpby5odmVyc2UuZ2FtZS5wcm90b2dlbmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.NftRankType), typeof(global::io.hverse.game.protogen.HorseType), typeof(global::io.hverse.game.protogen.Lane), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "RankType", "HorseType" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.DataMessageType), typeof(global::io.hverse.game.protogen.Rarity), typeof(global::io.hverse.game.protogen.HorseType), typeof(global::io.hverse.game.protogen.Lane), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.DataMessage), global::io.hverse.game.protogen.DataMessage.Parser, new[]{ "MsgType", "MasterDataRequest", "MasterDataResponse" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataRequest), global::io.hverse.game.protogen.MasterDataRequest.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataResponse), global::io.hverse.game.protogen.MasterDataResponse.Parser, new[]{ "MaxEnergyNumber" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "Bms", "Mms", "Acceleration", "Stamina", "HorseType", "Rarity", "Luck", "Level", "Color1", "Color2", "Color3", "Color4", "WinRate" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Enums
-  public enum NftRankType {
-    [pbr::OriginalName("RANK_TYPE_UNKNOWN")] RankTypeUnknown = 0,
-    [pbr::OriginalName("D")] D = 1,
-    [pbr::OriginalName("C")] C = 2,
-    [pbr::OriginalName("B")] B = 3,
-    [pbr::OriginalName("A")] A = 4,
-    [pbr::OriginalName("S")] S = 5,
-    [pbr::OriginalName("SS")] Ss = 6,
-    [pbr::OriginalName("SSS")] Sss = 7,
+  public enum DataMessageType {
+    [pbr::OriginalName("MASTER_DATA_REQUEST")] MasterDataRequest = 0,
+    [pbr::OriginalName("MASTER_DATA_RESPONSE")] MasterDataResponse = 1,
+  }
+
+  public enum Rarity {
+    [pbr::OriginalName("RARITY_UNKNOWN")] Unknown = 0,
+    [pbr::OriginalName("RARITY_COMMON")] Common = 1,
+    [pbr::OriginalName("RARITY_UNCOMMON")] Uncommon = 2,
+    [pbr::OriginalName("RARITY_RARE")] Rare = 3,
+    [pbr::OriginalName("RARITY_EPIC")] Epic = 4,
+    [pbr::OriginalName("RARITY_LEGEND")] Legend = 5,
   }
 
   public enum HorseType {
-    [pbr::OriginalName("LIGHT")] Light = 0,
-    [pbr::OriginalName("THUNDER")] Thunder = 1,
-    [pbr::OriginalName("DARK")] Dark = 2,
+    [pbr::OriginalName("HORSE_TYPE_UNKNOWN")] Unknown = 0,
+    [pbr::OriginalName("HORSE_TYPE_BLAZE")] Blaze = 1,
+    [pbr::OriginalName("HORSE_TYPE_THUNDER")] Thunder = 2,
+    [pbr::OriginalName("HORSE_TYPE_HIDRO")] Hidro = 3,
   }
 
   public enum Lane {
@@ -68,6 +87,628 @@ namespace io.hverse.game.protogen {
   #endregion
 
   #region Messages
+  public sealed partial class DataMessage : pb::IMessage<DataMessage>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<DataMessage> _parser = new pb::MessageParser<DataMessage>(() => new DataMessage());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<DataMessage> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[0]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DataMessage() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DataMessage(DataMessage other) : this() {
+      msgType_ = other.msgType_;
+      masterDataRequest_ = other.masterDataRequest_ != null ? other.masterDataRequest_.Clone() : null;
+      masterDataResponse_ = other.masterDataResponse_ != null ? other.masterDataResponse_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DataMessage Clone() {
+      return new DataMessage(this);
+    }
+
+    /// <summary>Field number for the "msgType" field.</summary>
+    public const int MsgTypeFieldNumber = 1;
+    private global::io.hverse.game.protogen.DataMessageType msgType_ = global::io.hverse.game.protogen.DataMessageType.MasterDataRequest;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.DataMessageType MsgType {
+      get { return msgType_; }
+      set {
+        msgType_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "masterDataRequest" field.</summary>
+    public const int MasterDataRequestFieldNumber = 2;
+    private global::io.hverse.game.protogen.MasterDataRequest masterDataRequest_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.MasterDataRequest MasterDataRequest {
+      get { return masterDataRequest_; }
+      set {
+        masterDataRequest_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "masterDataResponse" field.</summary>
+    public const int MasterDataResponseFieldNumber = 3;
+    private global::io.hverse.game.protogen.MasterDataResponse masterDataResponse_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.MasterDataResponse MasterDataResponse {
+      get { return masterDataResponse_; }
+      set {
+        masterDataResponse_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as DataMessage);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(DataMessage other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (MsgType != other.MsgType) return false;
+      if (!object.Equals(MasterDataRequest, other.MasterDataRequest)) return false;
+      if (!object.Equals(MasterDataResponse, other.MasterDataResponse)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (MsgType != global::io.hverse.game.protogen.DataMessageType.MasterDataRequest) hash ^= MsgType.GetHashCode();
+      if (masterDataRequest_ != null) hash ^= MasterDataRequest.GetHashCode();
+      if (masterDataResponse_ != null) hash ^= MasterDataResponse.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (MsgType != global::io.hverse.game.protogen.DataMessageType.MasterDataRequest) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) MsgType);
+      }
+      if (masterDataRequest_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(MasterDataRequest);
+      }
+      if (masterDataResponse_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(MasterDataResponse);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (MsgType != global::io.hverse.game.protogen.DataMessageType.MasterDataRequest) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) MsgType);
+      }
+      if (masterDataRequest_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(MasterDataRequest);
+      }
+      if (masterDataResponse_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(MasterDataResponse);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (MsgType != global::io.hverse.game.protogen.DataMessageType.MasterDataRequest) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) MsgType);
+      }
+      if (masterDataRequest_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MasterDataRequest);
+      }
+      if (masterDataResponse_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MasterDataResponse);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(DataMessage other) {
+      if (other == null) {
+        return;
+      }
+      if (other.MsgType != global::io.hverse.game.protogen.DataMessageType.MasterDataRequest) {
+        MsgType = other.MsgType;
+      }
+      if (other.masterDataRequest_ != null) {
+        if (masterDataRequest_ == null) {
+          MasterDataRequest = new global::io.hverse.game.protogen.MasterDataRequest();
+        }
+        MasterDataRequest.MergeFrom(other.MasterDataRequest);
+      }
+      if (other.masterDataResponse_ != null) {
+        if (masterDataResponse_ == null) {
+          MasterDataResponse = new global::io.hverse.game.protogen.MasterDataResponse();
+        }
+        MasterDataResponse.MergeFrom(other.MasterDataResponse);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            MsgType = (global::io.hverse.game.protogen.DataMessageType) input.ReadEnum();
+            break;
+          }
+          case 18: {
+            if (masterDataRequest_ == null) {
+              MasterDataRequest = new global::io.hverse.game.protogen.MasterDataRequest();
+            }
+            input.ReadMessage(MasterDataRequest);
+            break;
+          }
+          case 26: {
+            if (masterDataResponse_ == null) {
+              MasterDataResponse = new global::io.hverse.game.protogen.MasterDataResponse();
+            }
+            input.ReadMessage(MasterDataResponse);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            MsgType = (global::io.hverse.game.protogen.DataMessageType) input.ReadEnum();
+            break;
+          }
+          case 18: {
+            if (masterDataRequest_ == null) {
+              MasterDataRequest = new global::io.hverse.game.protogen.MasterDataRequest();
+            }
+            input.ReadMessage(MasterDataRequest);
+            break;
+          }
+          case 26: {
+            if (masterDataResponse_ == null) {
+              MasterDataResponse = new global::io.hverse.game.protogen.MasterDataResponse();
+            }
+            input.ReadMessage(MasterDataResponse);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class MasterDataRequest : pb::IMessage<MasterDataRequest>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<MasterDataRequest> _parser = new pb::MessageParser<MasterDataRequest>(() => new MasterDataRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<MasterDataRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public MasterDataRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public MasterDataRequest(MasterDataRequest other) : this() {
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public MasterDataRequest Clone() {
+      return new MasterDataRequest(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as MasterDataRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(MasterDataRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(MasterDataRequest other) {
+      if (other == null) {
+        return;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class MasterDataResponse : pb::IMessage<MasterDataResponse>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<MasterDataResponse> _parser = new pb::MessageParser<MasterDataResponse>(() => new MasterDataResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<MasterDataResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public MasterDataResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public MasterDataResponse(MasterDataResponse other) : this() {
+      maxEnergyNumber_ = other.maxEnergyNumber_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public MasterDataResponse Clone() {
+      return new MasterDataResponse(this);
+    }
+
+    /// <summary>Field number for the "maxEnergyNumber" field.</summary>
+    public const int MaxEnergyNumberFieldNumber = 1;
+    private int maxEnergyNumber_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int MaxEnergyNumber {
+      get { return maxEnergyNumber_; }
+      set {
+        maxEnergyNumber_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as MasterDataResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(MasterDataResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (MaxEnergyNumber != other.MaxEnergyNumber) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (MaxEnergyNumber != 0) hash ^= MaxEnergyNumber.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (MaxEnergyNumber != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(MaxEnergyNumber);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (MaxEnergyNumber != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(MaxEnergyNumber);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (MaxEnergyNumber != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MaxEnergyNumber);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(MasterDataResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.MaxEnergyNumber != 0) {
+        MaxEnergyNumber = other.MaxEnergyNumber;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            MaxEnergyNumber = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            MaxEnergyNumber = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
   public sealed partial class HorseInfo : pb::IMessage<HorseInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -82,7 +723,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[0]; }
+      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -103,8 +744,19 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public HorseInfo(HorseInfo other) : this() {
       nftId_ = other.nftId_;
-      rankType_ = other.rankType_;
+      bms_ = other.bms_;
+      mms_ = other.mms_;
+      acceleration_ = other.acceleration_;
+      stamina_ = other.stamina_;
       horseType_ = other.horseType_;
+      rarity_ = other.rarity_;
+      luck_ = other.luck_;
+      level_ = other.level_;
+      color1_ = other.color1_;
+      color2_ = other.color2_;
+      color3_ = other.color3_;
+      color4_ = other.color4_;
+      winRate_ = other.winRate_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -116,37 +768,181 @@ namespace io.hverse.game.protogen {
 
     /// <summary>Field number for the "nftId" field.</summary>
     public const int NftIdFieldNumber = 1;
-    private int nftId_;
+    private long nftId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int NftId {
+    public long NftId {
       get { return nftId_; }
       set {
         nftId_ = value;
       }
     }
 
-    /// <summary>Field number for the "rankType" field.</summary>
-    public const int RankTypeFieldNumber = 2;
-    private global::io.hverse.game.protogen.NftRankType rankType_ = global::io.hverse.game.protogen.NftRankType.RankTypeUnknown;
+    /// <summary>Field number for the "bms" field.</summary>
+    public const int BmsFieldNumber = 2;
+    private float bms_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.NftRankType RankType {
-      get { return rankType_; }
+    public float Bms {
+      get { return bms_; }
       set {
-        rankType_ = value;
+        bms_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "mms" field.</summary>
+    public const int MmsFieldNumber = 3;
+    private float mms_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float Mms {
+      get { return mms_; }
+      set {
+        mms_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "acceleration" field.</summary>
+    public const int AccelerationFieldNumber = 4;
+    private float acceleration_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float Acceleration {
+      get { return acceleration_; }
+      set {
+        acceleration_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "stamina" field.</summary>
+    public const int StaminaFieldNumber = 5;
+    private float stamina_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float Stamina {
+      get { return stamina_; }
+      set {
+        stamina_ = value;
       }
     }
 
     /// <summary>Field number for the "horseType" field.</summary>
-    public const int HorseTypeFieldNumber = 3;
-    private global::io.hverse.game.protogen.HorseType horseType_ = global::io.hverse.game.protogen.HorseType.Light;
+    public const int HorseTypeFieldNumber = 6;
+    private global::io.hverse.game.protogen.HorseType horseType_ = global::io.hverse.game.protogen.HorseType.Unknown;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::io.hverse.game.protogen.HorseType HorseType {
       get { return horseType_; }
       set {
         horseType_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "rarity" field.</summary>
+    public const int RarityFieldNumber = 7;
+    private global::io.hverse.game.protogen.Rarity rarity_ = global::io.hverse.game.protogen.Rarity.Unknown;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.Rarity Rarity {
+      get { return rarity_; }
+      set {
+        rarity_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "luck" field.</summary>
+    public const int LuckFieldNumber = 8;
+    private int luck_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Luck {
+      get { return luck_; }
+      set {
+        luck_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "level" field.</summary>
+    public const int LevelFieldNumber = 9;
+    private int level_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Level {
+      get { return level_; }
+      set {
+        level_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "color1" field.</summary>
+    public const int Color1FieldNumber = 10;
+    private string color1_ = "";
+    /// <summary>
+    /// skin
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Color1 {
+      get { return color1_; }
+      set {
+        color1_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "color2" field.</summary>
+    public const int Color2FieldNumber = 11;
+    private string color2_ = "";
+    /// <summary>
+    /// fur
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Color2 {
+      get { return color2_; }
+      set {
+        color2_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "color3" field.</summary>
+    public const int Color3FieldNumber = 12;
+    private string color3_ = "";
+    /// <summary>
+    /// border
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Color3 {
+      get { return color3_; }
+      set {
+        color3_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "color4" field.</summary>
+    public const int Color4FieldNumber = 13;
+    private string color4_ = "";
+    /// <summary>
+    /// armor
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Color4 {
+      get { return color4_; }
+      set {
+        color4_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "winRate" field.</summary>
+    public const int WinRateFieldNumber = 14;
+    private float winRate_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float WinRate {
+      get { return winRate_; }
+      set {
+        winRate_ = value;
       }
     }
 
@@ -166,8 +962,19 @@ namespace io.hverse.game.protogen {
         return true;
       }
       if (NftId != other.NftId) return false;
-      if (RankType != other.RankType) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Bms, other.Bms)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Mms, other.Mms)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Acceleration, other.Acceleration)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Stamina, other.Stamina)) return false;
       if (HorseType != other.HorseType) return false;
+      if (Rarity != other.Rarity) return false;
+      if (Luck != other.Luck) return false;
+      if (Level != other.Level) return false;
+      if (Color1 != other.Color1) return false;
+      if (Color2 != other.Color2) return false;
+      if (Color3 != other.Color3) return false;
+      if (Color4 != other.Color4) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(WinRate, other.WinRate)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -175,9 +982,20 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (NftId != 0) hash ^= NftId.GetHashCode();
-      if (RankType != global::io.hverse.game.protogen.NftRankType.RankTypeUnknown) hash ^= RankType.GetHashCode();
-      if (HorseType != global::io.hverse.game.protogen.HorseType.Light) hash ^= HorseType.GetHashCode();
+      if (NftId != 0L) hash ^= NftId.GetHashCode();
+      if (Bms != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Bms);
+      if (Mms != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Mms);
+      if (Acceleration != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Acceleration);
+      if (Stamina != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Stamina);
+      if (HorseType != global::io.hverse.game.protogen.HorseType.Unknown) hash ^= HorseType.GetHashCode();
+      if (Rarity != global::io.hverse.game.protogen.Rarity.Unknown) hash ^= Rarity.GetHashCode();
+      if (Luck != 0) hash ^= Luck.GetHashCode();
+      if (Level != 0) hash ^= Level.GetHashCode();
+      if (Color1.Length != 0) hash ^= Color1.GetHashCode();
+      if (Color2.Length != 0) hash ^= Color2.GetHashCode();
+      if (Color3.Length != 0) hash ^= Color3.GetHashCode();
+      if (Color4.Length != 0) hash ^= Color4.GetHashCode();
+      if (WinRate != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(WinRate);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -196,17 +1014,61 @@ namespace io.hverse.game.protogen {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (NftId != 0) {
+      if (NftId != 0L) {
         output.WriteRawTag(8);
-        output.WriteInt32(NftId);
+        output.WriteInt64(NftId);
       }
-      if (RankType != global::io.hverse.game.protogen.NftRankType.RankTypeUnknown) {
-        output.WriteRawTag(16);
-        output.WriteEnum((int) RankType);
+      if (Bms != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Bms);
       }
-      if (HorseType != global::io.hverse.game.protogen.HorseType.Light) {
-        output.WriteRawTag(24);
+      if (Mms != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(Mms);
+      }
+      if (Acceleration != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(Acceleration);
+      }
+      if (Stamina != 0F) {
+        output.WriteRawTag(45);
+        output.WriteFloat(Stamina);
+      }
+      if (HorseType != global::io.hverse.game.protogen.HorseType.Unknown) {
+        output.WriteRawTag(48);
         output.WriteEnum((int) HorseType);
+      }
+      if (Rarity != global::io.hverse.game.protogen.Rarity.Unknown) {
+        output.WriteRawTag(56);
+        output.WriteEnum((int) Rarity);
+      }
+      if (Luck != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(Luck);
+      }
+      if (Level != 0) {
+        output.WriteRawTag(72);
+        output.WriteInt32(Level);
+      }
+      if (Color1.Length != 0) {
+        output.WriteRawTag(82);
+        output.WriteString(Color1);
+      }
+      if (Color2.Length != 0) {
+        output.WriteRawTag(90);
+        output.WriteString(Color2);
+      }
+      if (Color3.Length != 0) {
+        output.WriteRawTag(98);
+        output.WriteString(Color3);
+      }
+      if (Color4.Length != 0) {
+        output.WriteRawTag(106);
+        output.WriteString(Color4);
+      }
+      if (WinRate != 0F) {
+        output.WriteRawTag(117);
+        output.WriteFloat(WinRate);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -218,17 +1080,61 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (NftId != 0) {
+      if (NftId != 0L) {
         output.WriteRawTag(8);
-        output.WriteInt32(NftId);
+        output.WriteInt64(NftId);
       }
-      if (RankType != global::io.hverse.game.protogen.NftRankType.RankTypeUnknown) {
-        output.WriteRawTag(16);
-        output.WriteEnum((int) RankType);
+      if (Bms != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Bms);
       }
-      if (HorseType != global::io.hverse.game.protogen.HorseType.Light) {
-        output.WriteRawTag(24);
+      if (Mms != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(Mms);
+      }
+      if (Acceleration != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(Acceleration);
+      }
+      if (Stamina != 0F) {
+        output.WriteRawTag(45);
+        output.WriteFloat(Stamina);
+      }
+      if (HorseType != global::io.hverse.game.protogen.HorseType.Unknown) {
+        output.WriteRawTag(48);
         output.WriteEnum((int) HorseType);
+      }
+      if (Rarity != global::io.hverse.game.protogen.Rarity.Unknown) {
+        output.WriteRawTag(56);
+        output.WriteEnum((int) Rarity);
+      }
+      if (Luck != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(Luck);
+      }
+      if (Level != 0) {
+        output.WriteRawTag(72);
+        output.WriteInt32(Level);
+      }
+      if (Color1.Length != 0) {
+        output.WriteRawTag(82);
+        output.WriteString(Color1);
+      }
+      if (Color2.Length != 0) {
+        output.WriteRawTag(90);
+        output.WriteString(Color2);
+      }
+      if (Color3.Length != 0) {
+        output.WriteRawTag(98);
+        output.WriteString(Color3);
+      }
+      if (Color4.Length != 0) {
+        output.WriteRawTag(106);
+        output.WriteString(Color4);
+      }
+      if (WinRate != 0F) {
+        output.WriteRawTag(117);
+        output.WriteFloat(WinRate);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -240,14 +1146,47 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (NftId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(NftId);
+      if (NftId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(NftId);
       }
-      if (RankType != global::io.hverse.game.protogen.NftRankType.RankTypeUnknown) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) RankType);
+      if (Bms != 0F) {
+        size += 1 + 4;
       }
-      if (HorseType != global::io.hverse.game.protogen.HorseType.Light) {
+      if (Mms != 0F) {
+        size += 1 + 4;
+      }
+      if (Acceleration != 0F) {
+        size += 1 + 4;
+      }
+      if (Stamina != 0F) {
+        size += 1 + 4;
+      }
+      if (HorseType != global::io.hverse.game.protogen.HorseType.Unknown) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) HorseType);
+      }
+      if (Rarity != global::io.hverse.game.protogen.Rarity.Unknown) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Rarity);
+      }
+      if (Luck != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Luck);
+      }
+      if (Level != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Level);
+      }
+      if (Color1.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Color1);
+      }
+      if (Color2.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Color2);
+      }
+      if (Color3.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Color3);
+      }
+      if (Color4.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Color4);
+      }
+      if (WinRate != 0F) {
+        size += 1 + 4;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -261,14 +1200,47 @@ namespace io.hverse.game.protogen {
       if (other == null) {
         return;
       }
-      if (other.NftId != 0) {
+      if (other.NftId != 0L) {
         NftId = other.NftId;
       }
-      if (other.RankType != global::io.hverse.game.protogen.NftRankType.RankTypeUnknown) {
-        RankType = other.RankType;
+      if (other.Bms != 0F) {
+        Bms = other.Bms;
       }
-      if (other.HorseType != global::io.hverse.game.protogen.HorseType.Light) {
+      if (other.Mms != 0F) {
+        Mms = other.Mms;
+      }
+      if (other.Acceleration != 0F) {
+        Acceleration = other.Acceleration;
+      }
+      if (other.Stamina != 0F) {
+        Stamina = other.Stamina;
+      }
+      if (other.HorseType != global::io.hverse.game.protogen.HorseType.Unknown) {
         HorseType = other.HorseType;
+      }
+      if (other.Rarity != global::io.hverse.game.protogen.Rarity.Unknown) {
+        Rarity = other.Rarity;
+      }
+      if (other.Luck != 0) {
+        Luck = other.Luck;
+      }
+      if (other.Level != 0) {
+        Level = other.Level;
+      }
+      if (other.Color1.Length != 0) {
+        Color1 = other.Color1;
+      }
+      if (other.Color2.Length != 0) {
+        Color2 = other.Color2;
+      }
+      if (other.Color3.Length != 0) {
+        Color3 = other.Color3;
+      }
+      if (other.Color4.Length != 0) {
+        Color4 = other.Color4;
+      }
+      if (other.WinRate != 0F) {
+        WinRate = other.WinRate;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -286,15 +1258,59 @@ namespace io.hverse.game.protogen {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            NftId = input.ReadInt32();
+            NftId = input.ReadInt64();
             break;
           }
-          case 16: {
-            RankType = (global::io.hverse.game.protogen.NftRankType) input.ReadEnum();
+          case 21: {
+            Bms = input.ReadFloat();
             break;
           }
-          case 24: {
+          case 29: {
+            Mms = input.ReadFloat();
+            break;
+          }
+          case 37: {
+            Acceleration = input.ReadFloat();
+            break;
+          }
+          case 45: {
+            Stamina = input.ReadFloat();
+            break;
+          }
+          case 48: {
             HorseType = (global::io.hverse.game.protogen.HorseType) input.ReadEnum();
+            break;
+          }
+          case 56: {
+            Rarity = (global::io.hverse.game.protogen.Rarity) input.ReadEnum();
+            break;
+          }
+          case 64: {
+            Luck = input.ReadInt32();
+            break;
+          }
+          case 72: {
+            Level = input.ReadInt32();
+            break;
+          }
+          case 82: {
+            Color1 = input.ReadString();
+            break;
+          }
+          case 90: {
+            Color2 = input.ReadString();
+            break;
+          }
+          case 98: {
+            Color3 = input.ReadString();
+            break;
+          }
+          case 106: {
+            Color4 = input.ReadString();
+            break;
+          }
+          case 117: {
+            WinRate = input.ReadFloat();
             break;
           }
         }
@@ -313,15 +1329,59 @@ namespace io.hverse.game.protogen {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            NftId = input.ReadInt32();
+            NftId = input.ReadInt64();
             break;
           }
-          case 16: {
-            RankType = (global::io.hverse.game.protogen.NftRankType) input.ReadEnum();
+          case 21: {
+            Bms = input.ReadFloat();
             break;
           }
-          case 24: {
+          case 29: {
+            Mms = input.ReadFloat();
+            break;
+          }
+          case 37: {
+            Acceleration = input.ReadFloat();
+            break;
+          }
+          case 45: {
+            Stamina = input.ReadFloat();
+            break;
+          }
+          case 48: {
             HorseType = (global::io.hverse.game.protogen.HorseType) input.ReadEnum();
+            break;
+          }
+          case 56: {
+            Rarity = (global::io.hverse.game.protogen.Rarity) input.ReadEnum();
+            break;
+          }
+          case 64: {
+            Luck = input.ReadInt32();
+            break;
+          }
+          case 72: {
+            Level = input.ReadInt32();
+            break;
+          }
+          case 82: {
+            Color1 = input.ReadString();
+            break;
+          }
+          case 90: {
+            Color2 = input.ReadString();
+            break;
+          }
+          case 98: {
+            Color3 = input.ReadString();
+            break;
+          }
+          case 106: {
+            Color4 = input.ReadString();
+            break;
+          }
+          case 117: {
+            WinRate = input.ReadFloat();
             break;
           }
         }

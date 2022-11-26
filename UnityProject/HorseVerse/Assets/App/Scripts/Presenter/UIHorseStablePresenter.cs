@@ -36,7 +36,7 @@ public class UIHorseStablePresenter : IDisposable
             {
                 entities = HorseRepository.Models.Values.Select(x => new UIComponentHorseStableAvatar.Entity()
                 {
-                    selectBtn = new ButtonComponent.Entity(() => OnSelectHorseAsync(x.MasterHorseId).Forget())
+                    selectBtn = new ButtonComponent.Entity(() => OnSelectHorseAsync(x.HorseNtfId).Forget())
                 }).ToArray()
             }
         });

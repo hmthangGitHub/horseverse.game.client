@@ -8,10 +8,9 @@ using UnityEngine;
 public interface ISubMessage : IMessage
 {
     System.Enum MsgType { get; }
-    GameMessageType gameMessageType { get; }
+    GameMessageType GameMessageType { get; }
 }
 
 public interface ISubMessage<out T> : ISubMessage where T : System.Enum
 {
-    T MsgType { get; }
 }

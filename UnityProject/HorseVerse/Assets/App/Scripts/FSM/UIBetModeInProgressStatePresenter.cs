@@ -8,6 +8,11 @@ internal class UIBetModeInProgressStatePresenter : IDisposable
     private CancellationTokenSource cts;
     private UIBetInProgressPopUp uiBetInProgressPopUp;
     public event Action OnBack = ActionUtility.EmptyAction.Instance; 
+    public event Action OnTimeOut = ActionUtility.EmptyAction.Instance;
+    
+    private IReadOnlyBetMatchRepository betMatchRepository;
+    private IReadOnlyBetMatchRepository BetMatchRepository => betMatchRepository ??= Container.Inject<IReadOnlyBetMatchRepository>();
+    
     public UIBetModeInProgressStatePresenter(IDIContainer container)
     {
         Container = container;
@@ -20,7 +25,12 @@ internal class UIBetModeInProgressStatePresenter : IDisposable
         uiBetInProgressPopUp = await UILoader.Instantiate<UIBetInProgressPopUp>(token : cts.Token);
         uiBetInProgressPopUp.SetEntity(new UIBetInProgressPopUp.Entity()
         {
-            outerBtn = new ButtonComponent.Entity(() => OnBack())
+            outerBtn = new ButtonComponent.Entity(() => OnBack()),
+            timer = new UIComponentCountDownTimer.Entity()
+            {
+                outDatedEvent = () => OnTimeOut(),
+                utcEndTimeStamp = (int)BetMatchRepository.Current.TimeToNextMatch,
+            }
         });
         await uiBetInProgressPopUp.In();
     }

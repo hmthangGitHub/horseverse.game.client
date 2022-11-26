@@ -62,7 +62,7 @@ public partial class UIQuickRacePresenter : IDisposable
             },
             findMatchTimer = new UIComponentDuration.Entity(),
             findMatchEnergyCost = findMatchEnergyCost,
-            horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.MasterHorseId),
+            horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.CurrentHorseNftId),
             horseSelectSumaryList = HorseSumaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(),
         });
         uiQuickMode.In().Forget();
@@ -70,9 +70,9 @@ public partial class UIQuickRacePresenter : IDisposable
 
     private void UserDataRepositoryOnModelUpdate((UserDataModel before, UserDataModel after) model)
     {
-        if (model.before.MasterHorseId != model.after.MasterHorseId)
+        if (model.before.CurrentHorseNftId != model.after.CurrentHorseNftId)
         {
-            uiQuickMode.SetHorseDetailEntity(HorseDetailEntityFactory.InstantiateHorseDetailEntity(model.after.MasterHorseId));
+            uiQuickMode.SetHorseDetailEntity(HorseDetailEntityFactory.InstantiateHorseDetailEntity(model.after.CurrentHorseNftId));
 
         }
     }

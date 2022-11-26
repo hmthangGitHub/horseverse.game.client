@@ -1,4 +1,4 @@
-#define MOCK_DATA
+
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
@@ -6,31 +6,24 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BetMatchRepository : Repository<long, BetMatchModel, BetMatchModel>, IReadOnlyBetMatchRepository
+public class BetMatchRepository : Repository<long, BetMatchModel, BetMatchModel>, IReadOnlyBetMatchRepository, IBetMatchRepository
 {
-    public BetMatchRepository() : base(x => x.BetMatchId, x => x, GetBetMatchModel)
+    private readonly IDIContainer container;
+
+    public BetMatchRepository(IDIContainer container) : base(x => x.BetMatchId, x => x, () => UniTask.FromResult(Enumerable.Empty<BetMatchModel>()))
     {
+        this.container = container;
     }
 
     public BetMatchModel Current => Models.Values.First();
-
-    private static async UniTask<IEnumerable<BetMatchModel>> GetBetMatchModel()
-    {
-#if MOCK_DATA
-        await UniTask.CompletedTask;
-        return new BetMatchModel[]
-        {
-            new BetMatchModel()
-            {
-                BetMatchId = UnityEngine.Random.Range(1, 100),
-                BetMatchTimeStamp = (DateTimeOffset.Now.ToUniversalTime().ToUnixTimeSeconds() + 20),
-            }
-        }; 
-#endif
-    }
 }
 
 public interface IReadOnlyBetMatchRepository : IReadOnlyRepository<long, BetMatchModel>
+{
+    BetMatchModel Current { get; }
+}
+
+public interface IBetMatchRepository : IRepository<long, BetMatchModel, BetMatchModel>
 {
     BetMatchModel Current { get; }
 }

@@ -14,20 +14,22 @@ public class UIBetModePresenter : IDisposable
     private UIBetMode uiBetMode = default;
     private UIBetConfirmation uiBetConfirmation = default;
     private CancellationTokenSource cts = default;
-    private IDIContainer container = default;
+    private readonly IDIContainer container = default;
+    
     public event Action OnBack = ActionUtility.EmptyAction.Instance;
     public event Action OnToRaceMode = ActionUtility.EmptyAction.Instance;
+    
     private IBetRateRepository betRateRepository = default;
-    public IBetRateRepository BetRateRepository => betRateRepository ??= container.Inject<IBetRateRepository>();
-
     private IBetModeDomainService betModeDomainService = default;
-    private IBetModeDomainService BetModeDomainService => betModeDomainService ??= container.Inject<IBetModeDomainService>();
-
     private IReadOnlyUserDataRepository userDataRepository = default;
-    private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
-
     private IReadOnlyBetMatchRepository betMatchRepository = default;
+    private UIHorse3DViewPresenter uiHorse3DViewPresenter;
+    
+    public IBetRateRepository BetRateRepository => betRateRepository ??= container.Inject<IBetRateRepository>();
+    private IBetModeDomainService BetModeDomainService => betModeDomainService ??= container.Inject<IBetModeDomainService>();
+    private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
     private IReadOnlyBetMatchRepository BetMatchRepository => betMatchRepository ??= container.Inject<IReadOnlyBetMatchRepository>();
+    private UIHorse3DViewPresenter UiHorse3DViewPresenter => uiHorse3DViewPresenter ??= container.Inject<UIHorse3DViewPresenter>();
 
     private int currentBettingAmouth = 0;
 
@@ -40,12 +42,10 @@ public class UIBetModePresenter : IDisposable
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
-
-        await BetRateRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
-        await BetMatchRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
-
+        
         BetRateRepository.OnModelUpdate += BetRateRepositoryOnModelUpdate;
         BetRateRepository.OnModelsUpdate += BetRateRepositoryOnModelsUpdate;
+        UserDataRepository.OnModelUpdate += OnModelUpdate;
         
         uiBetMode ??= await UILoader.Instantiate<UIBetMode>(token: cts.Token);
         uiBetConfirmation ??= await UILoader.Instantiate<UIBetConfirmation>(token: cts.Token);
@@ -100,6 +100,7 @@ public class UIBetModePresenter : IDisposable
                 {
                     outDatedEvent = () => OnChangeToRaceModeAsync().Forget(),
                     utcEndTimeStamp = (int)BetMatchRepository.Current.BetMatchTimeStamp
+                    // utcEndTimeStamp = 1671611174
                 },
                 userInfo = new UIComponentBetModeUserInfo.Entity()
                 {
@@ -116,10 +117,19 @@ public class UIBetModePresenter : IDisposable
         await uiBetMode.In();
     }
 
+    private void OnModelUpdate((UserDataModel before, UserDataModel after) model)
+    {
+        if (model.after.Coin != model.before?.Coin)
+        {
+            uiBetMode?.header.userInfo.coin.SetEntity(model.after.Coin);
+        }
+    }
+
     private async UniTaskVoid OnChangeToRaceModeAsync()
     {
         var raceMatchData = await BetModeDomainService.GetCurrentBetModeRaceMatchData();
         container.Bind(raceMatchData);
+        UiHorse3DViewPresenter.Dispose();
         TransitionAsync(OnToRaceMode).Forget();
     }
 
@@ -205,27 +215,27 @@ public class UIBetModePresenter : IDisposable
         {
             new UIComponentBetAmouth.Entity()
             {
-                betAmouth = 1000,
+                betAmouth = 10,
             },
             new UIComponentBetAmouth.Entity()
             {
-                betAmouth = 2000,
+                betAmouth = 20,
             },
             new UIComponentBetAmouth.Entity()
             {
-                betAmouth = 3000,
+                betAmouth = 30,
             },
             new UIComponentBetAmouth.Entity()
             {
-                betAmouth = 4000,
+                betAmouth = 40
             },
             new UIComponentBetAmouth.Entity()
             {
-                betAmouth = 5000,
+                betAmouth = 50,
             },
             new UIComponentBetAmouth.Entity()
             {
-                betAmouth = 6000,
+                betAmouth = 60,
             }
         };
 #endif
@@ -257,5 +267,12 @@ public class UIBetModePresenter : IDisposable
         UILoader.SafeRelease(ref uiBetConfirmation);
         BetRateRepository.OnModelUpdate -= BetRateRepositoryOnModelUpdate;
         BetRateRepository.OnModelsUpdate -= BetRateRepositoryOnModelsUpdate;
+
+        userDataRepository = default;
+        betRateRepository = default;
+        betMatchRepository = default;
+        betModeDomainService = default;
+        currentBettingAmouth = default;
+        uiHorse3DViewPresenter = default;
     }
 }
