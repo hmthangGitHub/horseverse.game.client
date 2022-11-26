@@ -1,13 +1,17 @@
+using io.hverse.game.protogen;
+
 public class RaceMatchData
 {
-    public HorseRaceTime[] horseRaceTimes;
-    public long masterMapId;
-    public RaceMode mode;
+    public HorseRaceTime[] HorseRaceTimes { get; set; }
+    public long MasterMapId { get; set; }
+    public RaceMode Mode { get; set; }
+    public long BetMatchId { get; set; }
+    public BettingMatch TotalBetWin { get; set; }
 }
 
 public class HorseRaceTime
 {
-    public float delayTime; 
+    public float delayTime;
     public long masterHorseId;
     public RaceSegment[] raceSegments;
 }

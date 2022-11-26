@@ -116,5 +116,6 @@ public class ErrorHandler : IDisposable
     {
         UnsubcribeEvents();
         OnError = ActionUtility.EmptyAction.Instance;
+        errorList.Clear();
     }
 }

@@ -22,6 +22,27 @@ public class ProtobufMessageParser : IMessageParser
 
         AddToSerializeLookUpTable<EmailCodeRequest>(x => new LoginMessage(x));
         AddToParseLookUpTable<LoginMessage, LoginMessageType>(LoginMessageType.EmailCodeResponse, x => x.EmailCodeResponse);
+
+        AddToSerializeLookUpTable<PlayerInventoryRequest>(x => new PlayerMessage(x));
+        AddToParseLookUpTable<PlayerMessage, PlayerMessageType>(PlayerMessageType.PlayerInventoryResponse, x => x.PlayerInventoryResponse);
+        
+        AddToSerializeLookUpTable<GetInfoBettingRequest>(x => new BettingMessage(x));
+        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.GetInfoBettingResponse, x => x.GetInfoBettingResponse);
+        
+        AddToSerializeLookUpTable<GetTheMatchRequest>(x => new BettingMessage(x));
+        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.GetTheMatchResponse, x => x.GetTheMatchResponse);
+        
+        AddToSerializeLookUpTable<SendBettingInfoRequest>(x => new BettingMessage(x));
+        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.SendBettingInfoResponse, x => x.SendBettingInfoResponse);
+        
+        AddToSerializeLookUpTable<CancelBettingRequest>(x => new BettingMessage(x));
+        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.CancelBettingResponse, x => x.CancelBettingResponse);
+        
+        AddToSerializeLookUpTable<GetBettingMatchDetailRequest>(x => new BettingMessage(x));
+        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.GetBettingMatchDetailResponse, x => x.GetBettingMatchDetailResponse);
+        
+        AddToSerializeLookUpTable<GetBettingMatchRequest>(x => new BettingMessage(x));
+        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.GetBettingMatchResponse, x => x.GetBettingMatchResponse);
     }
     
     private void AddToParseLookUpTable<TSubMessage, TEnum>(TEnum enumMessage, Func<TSubMessage, IMessage> resultFactory) where TEnum : System.Enum
@@ -40,7 +61,7 @@ public class ProtobufMessageParser : IMessageParser
             var subMessage = serializeFunc((T)x);
             return new GameMessage()
             {
-                MsgType = subMessage.gameMessageType,
+                MsgType = subMessage.GameMessageType,
                 MsgData = Any.Pack(subMessage)
             }.ToByteArray();
         });

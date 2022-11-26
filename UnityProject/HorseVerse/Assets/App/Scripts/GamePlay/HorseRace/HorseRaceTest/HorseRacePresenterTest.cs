@@ -26,7 +26,7 @@ public class HorseRacePresenterTest : MonoBehaviour
         {
             return container.Inject<MasterHorseContainer>().MasterHorseIndexer.Keys
                             .Shuffle()
-                            .Append(container.Inject<UserDataRepository>().Current.MasterHorseId)
+                            .Append(container.Inject<UserDataRepository>().Current.CurrentHorseNftId)
                             .Shuffle()
                             .Take(8)
                             .Select(x => new HorseRaceTime()
@@ -38,9 +38,9 @@ public class HorseRacePresenterTest : MonoBehaviour
 
         return new RaceMatchData()
         {
-            horseRaceTimes = GetAllMasterHorseIds(),
-            masterMapId = 10001002,
-            mode = RaceMode.QuickMode
+            HorseRaceTimes = GetAllMasterHorseIds(),
+            MasterMapId = 10001002,
+            Mode = RaceMode.QuickMode
         };
     }
 }

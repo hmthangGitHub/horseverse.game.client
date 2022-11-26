@@ -24,22 +24,22 @@ namespace io.hverse.game.protogen {
     static LoginReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cgtsb2dpbi5wcm90bxoMcGxheWVyLnByb3RvIrYBCgpDbGllbnRJbmZvEhAK",
-            "CHFyQ29kZUlkGAEgASgJEhMKC2FjY2Vzc1Rva2VuGAIgASgJEg0KBWVtYWls",
-            "GAMgASgJEhAKCHBhc3N3b3JkGAQgASgJEg8KB3ZlcnNpb24YBSABKAkSEAoI",
-            "ZGV2aWNlSWQYBiABKAkSGwoIcGxhdGZvcm0YByABKA4yCS5QbGF0Zm9ybRIN",
-            "CgVtb2RlbBgIIAEoCRIRCgllbWFpbENvZGUYCSABKAkiTgoMTG9naW5SZXF1",
-            "ZXN0Eh8KCmNsaWVudEluZm8YASABKAsyCy5DbGllbnRJbmZvEh0KCWxvZ2lu",
-            "VHlwZRgCIAEoDjIKLkxvZ2luVHlwZSJECg1Mb2dpblJlc3BvbnNlEhIKCnJl",
-            "c3VsdENvZGUYASABKAUSHwoKcGxheWVySW5mbxgCIAEoCzILLlBsYXllcklu",
-            "Zm8iQgoQRW1haWxDb2RlUmVxdWVzdBINCgVlbWFpbBgBIAEoCRIfCgpjbGll",
-            "bnRJbmZvGAIgASgLMgsuQ2xpZW50SW5mbyInChFFbWFpbENvZGVSZXNwb25z",
-            "ZRISCgpyZXN1bHRDb2RlGAEgASgFItoBCgxMb2dpbk1lc3NhZ2USIgoHbXNn",
-            "VHlwZRgBIAEoDjIRLkxvZ2luTWVzc2FnZVR5cGUSIwoMbG9naW5SZXF1ZXN0",
-            "GAIgASgLMg0uTG9naW5SZXF1ZXN0EiUKDWxvZ2luUmVzcG9uc2UYAyABKAsy",
-            "Di5Mb2dpblJlc3BvbnNlEisKEGVtYWlsQ29kZVJlcXVlc3QYBCABKAsyES5F",
-            "bWFpbENvZGVSZXF1ZXN0Ei0KEWVtYWlsQ29kZVJlc3BvbnNlGAUgASgLMhIu",
-            "RW1haWxDb2RlUmVzcG9uc2UqagoQTG9naW5NZXNzYWdlVHlwZRIRCg1MT0dJ",
+            "Cgtsb2dpbi5wcm90bxoMcGxheWVyLnByb3RvItoBCgxMb2dpbk1lc3NhZ2US",
+            "IgoHbXNnVHlwZRgBIAEoDjIRLkxvZ2luTWVzc2FnZVR5cGUSIwoMbG9naW5S",
+            "ZXF1ZXN0GAIgASgLMg0uTG9naW5SZXF1ZXN0EiUKDWxvZ2luUmVzcG9uc2UY",
+            "AyABKAsyDi5Mb2dpblJlc3BvbnNlEisKEGVtYWlsQ29kZVJlcXVlc3QYBCAB",
+            "KAsyES5FbWFpbENvZGVSZXF1ZXN0Ei0KEWVtYWlsQ29kZVJlc3BvbnNlGAUg",
+            "ASgLMhIuRW1haWxDb2RlUmVzcG9uc2UitgEKCkNsaWVudEluZm8SEAoIcXJD",
+            "b2RlSWQYASABKAkSEwoLYWNjZXNzVG9rZW4YAiABKAkSDQoFZW1haWwYAyAB",
+            "KAkSEAoIcGFzc3dvcmQYBCABKAkSDwoHdmVyc2lvbhgFIAEoCRIQCghkZXZp",
+            "Y2VJZBgGIAEoCRIbCghwbGF0Zm9ybRgHIAEoDjIJLlBsYXRmb3JtEg0KBW1v",
+            "ZGVsGAggASgJEhEKCWVtYWlsQ29kZRgJIAEoCSJOCgxMb2dpblJlcXVlc3QS",
+            "HwoKY2xpZW50SW5mbxgBIAEoCzILLkNsaWVudEluZm8SHQoJbG9naW5UeXBl",
+            "GAIgASgOMgouTG9naW5UeXBlIkQKDUxvZ2luUmVzcG9uc2USEgoKcmVzdWx0",
+            "Q29kZRgBIAEoBRIfCgpwbGF5ZXJJbmZvGAIgASgLMgsuUGxheWVySW5mbyJC",
+            "ChBFbWFpbENvZGVSZXF1ZXN0Eg0KBWVtYWlsGAEgASgJEh8KCmNsaWVudElu",
+            "Zm8YAiABKAsyCy5DbGllbnRJbmZvIicKEUVtYWlsQ29kZVJlc3BvbnNlEhIK",
+            "CnJlc3VsdENvZGUYASABKAUqagoQTG9naW5NZXNzYWdlVHlwZRIRCg1MT0dJ",
             "Tl9SRVFVRVNUEAASEgoOTE9HSU5fUkVTUE9OU0UQARIWChJFTUFJTF9DT0RF",
             "X1JFUVVFU1QQAhIXChNFTUFJTF9DT0RFX1JFU1BPTlNFEAMqawoJTG9naW5U",
             "eXBlEhQKEExPR0lOX1RZUEVfRU1BSUwQABIVChFMT0dJTl9UWVBFX1FSQ09E",
@@ -50,12 +50,12 @@ namespace io.hverse.game.protogen {
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::io.hverse.game.protogen.PlayerReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.LoginMessageType), typeof(global::io.hverse.game.protogen.LoginType), typeof(global::io.hverse.game.protogen.Platform), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginMessage), global::io.hverse.game.protogen.LoginMessage.Parser, new[]{ "MsgType", "LoginRequest", "LoginResponse", "EmailCodeRequest", "EmailCodeResponse" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ClientInfo), global::io.hverse.game.protogen.ClientInfo.Parser, new[]{ "QrCodeId", "AccessToken", "Email", "Password", "Version", "DeviceId", "Platform", "Model", "EmailCode" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginRequest), global::io.hverse.game.protogen.LoginRequest.Parser, new[]{ "ClientInfo", "LoginType" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginResponse), global::io.hverse.game.protogen.LoginResponse.Parser, new[]{ "ResultCode", "PlayerInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.EmailCodeRequest), global::io.hverse.game.protogen.EmailCodeRequest.Parser, new[]{ "Email", "ClientInfo" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.EmailCodeResponse), global::io.hverse.game.protogen.EmailCodeResponse.Parser, new[]{ "ResultCode" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginMessage), global::io.hverse.game.protogen.LoginMessage.Parser, new[]{ "MsgType", "LoginRequest", "LoginResponse", "EmailCodeRequest", "EmailCodeResponse" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.EmailCodeResponse), global::io.hverse.game.protogen.EmailCodeResponse.Parser, new[]{ "ResultCode" }, null, null, null, null)
           }));
     }
     #endregion
@@ -85,6 +85,379 @@ namespace io.hverse.game.protogen {
   #endregion
 
   #region Messages
+  public sealed partial class LoginMessage : pb::IMessage<LoginMessage>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<LoginMessage> _parser = new pb::MessageParser<LoginMessage>(() => new LoginMessage());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<LoginMessage> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::io.hverse.game.protogen.LoginReflection.Descriptor.MessageTypes[0]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public LoginMessage() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public LoginMessage(LoginMessage other) : this() {
+      msgType_ = other.msgType_;
+      loginRequest_ = other.loginRequest_ != null ? other.loginRequest_.Clone() : null;
+      loginResponse_ = other.loginResponse_ != null ? other.loginResponse_.Clone() : null;
+      emailCodeRequest_ = other.emailCodeRequest_ != null ? other.emailCodeRequest_.Clone() : null;
+      emailCodeResponse_ = other.emailCodeResponse_ != null ? other.emailCodeResponse_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public LoginMessage Clone() {
+      return new LoginMessage(this);
+    }
+
+    /// <summary>Field number for the "msgType" field.</summary>
+    public const int MsgTypeFieldNumber = 1;
+    private global::io.hverse.game.protogen.LoginMessageType msgType_ = global::io.hverse.game.protogen.LoginMessageType.LoginRequest;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.LoginMessageType MsgType {
+      get { return msgType_; }
+      set {
+        msgType_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "loginRequest" field.</summary>
+    public const int LoginRequestFieldNumber = 2;
+    private global::io.hverse.game.protogen.LoginRequest loginRequest_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.LoginRequest LoginRequest {
+      get { return loginRequest_; }
+      set {
+        loginRequest_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "loginResponse" field.</summary>
+    public const int LoginResponseFieldNumber = 3;
+    private global::io.hverse.game.protogen.LoginResponse loginResponse_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.LoginResponse LoginResponse {
+      get { return loginResponse_; }
+      set {
+        loginResponse_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "emailCodeRequest" field.</summary>
+    public const int EmailCodeRequestFieldNumber = 4;
+    private global::io.hverse.game.protogen.EmailCodeRequest emailCodeRequest_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.EmailCodeRequest EmailCodeRequest {
+      get { return emailCodeRequest_; }
+      set {
+        emailCodeRequest_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "emailCodeResponse" field.</summary>
+    public const int EmailCodeResponseFieldNumber = 5;
+    private global::io.hverse.game.protogen.EmailCodeResponse emailCodeResponse_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.EmailCodeResponse EmailCodeResponse {
+      get { return emailCodeResponse_; }
+      set {
+        emailCodeResponse_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as LoginMessage);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(LoginMessage other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (MsgType != other.MsgType) return false;
+      if (!object.Equals(LoginRequest, other.LoginRequest)) return false;
+      if (!object.Equals(LoginResponse, other.LoginResponse)) return false;
+      if (!object.Equals(EmailCodeRequest, other.EmailCodeRequest)) return false;
+      if (!object.Equals(EmailCodeResponse, other.EmailCodeResponse)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (MsgType != global::io.hverse.game.protogen.LoginMessageType.LoginRequest) hash ^= MsgType.GetHashCode();
+      if (loginRequest_ != null) hash ^= LoginRequest.GetHashCode();
+      if (loginResponse_ != null) hash ^= LoginResponse.GetHashCode();
+      if (emailCodeRequest_ != null) hash ^= EmailCodeRequest.GetHashCode();
+      if (emailCodeResponse_ != null) hash ^= EmailCodeResponse.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (MsgType != global::io.hverse.game.protogen.LoginMessageType.LoginRequest) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) MsgType);
+      }
+      if (loginRequest_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(LoginRequest);
+      }
+      if (loginResponse_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(LoginResponse);
+      }
+      if (emailCodeRequest_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(EmailCodeRequest);
+      }
+      if (emailCodeResponse_ != null) {
+        output.WriteRawTag(42);
+        output.WriteMessage(EmailCodeResponse);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (MsgType != global::io.hverse.game.protogen.LoginMessageType.LoginRequest) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) MsgType);
+      }
+      if (loginRequest_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(LoginRequest);
+      }
+      if (loginResponse_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(LoginResponse);
+      }
+      if (emailCodeRequest_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(EmailCodeRequest);
+      }
+      if (emailCodeResponse_ != null) {
+        output.WriteRawTag(42);
+        output.WriteMessage(EmailCodeResponse);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (MsgType != global::io.hverse.game.protogen.LoginMessageType.LoginRequest) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) MsgType);
+      }
+      if (loginRequest_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(LoginRequest);
+      }
+      if (loginResponse_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(LoginResponse);
+      }
+      if (emailCodeRequest_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(EmailCodeRequest);
+      }
+      if (emailCodeResponse_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(EmailCodeResponse);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(LoginMessage other) {
+      if (other == null) {
+        return;
+      }
+      if (other.MsgType != global::io.hverse.game.protogen.LoginMessageType.LoginRequest) {
+        MsgType = other.MsgType;
+      }
+      if (other.loginRequest_ != null) {
+        if (loginRequest_ == null) {
+          LoginRequest = new global::io.hverse.game.protogen.LoginRequest();
+        }
+        LoginRequest.MergeFrom(other.LoginRequest);
+      }
+      if (other.loginResponse_ != null) {
+        if (loginResponse_ == null) {
+          LoginResponse = new global::io.hverse.game.protogen.LoginResponse();
+        }
+        LoginResponse.MergeFrom(other.LoginResponse);
+      }
+      if (other.emailCodeRequest_ != null) {
+        if (emailCodeRequest_ == null) {
+          EmailCodeRequest = new global::io.hverse.game.protogen.EmailCodeRequest();
+        }
+        EmailCodeRequest.MergeFrom(other.EmailCodeRequest);
+      }
+      if (other.emailCodeResponse_ != null) {
+        if (emailCodeResponse_ == null) {
+          EmailCodeResponse = new global::io.hverse.game.protogen.EmailCodeResponse();
+        }
+        EmailCodeResponse.MergeFrom(other.EmailCodeResponse);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            MsgType = (global::io.hverse.game.protogen.LoginMessageType) input.ReadEnum();
+            break;
+          }
+          case 18: {
+            if (loginRequest_ == null) {
+              LoginRequest = new global::io.hverse.game.protogen.LoginRequest();
+            }
+            input.ReadMessage(LoginRequest);
+            break;
+          }
+          case 26: {
+            if (loginResponse_ == null) {
+              LoginResponse = new global::io.hverse.game.protogen.LoginResponse();
+            }
+            input.ReadMessage(LoginResponse);
+            break;
+          }
+          case 34: {
+            if (emailCodeRequest_ == null) {
+              EmailCodeRequest = new global::io.hverse.game.protogen.EmailCodeRequest();
+            }
+            input.ReadMessage(EmailCodeRequest);
+            break;
+          }
+          case 42: {
+            if (emailCodeResponse_ == null) {
+              EmailCodeResponse = new global::io.hverse.game.protogen.EmailCodeResponse();
+            }
+            input.ReadMessage(EmailCodeResponse);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            MsgType = (global::io.hverse.game.protogen.LoginMessageType) input.ReadEnum();
+            break;
+          }
+          case 18: {
+            if (loginRequest_ == null) {
+              LoginRequest = new global::io.hverse.game.protogen.LoginRequest();
+            }
+            input.ReadMessage(LoginRequest);
+            break;
+          }
+          case 26: {
+            if (loginResponse_ == null) {
+              LoginResponse = new global::io.hverse.game.protogen.LoginResponse();
+            }
+            input.ReadMessage(LoginResponse);
+            break;
+          }
+          case 34: {
+            if (emailCodeRequest_ == null) {
+              EmailCodeRequest = new global::io.hverse.game.protogen.EmailCodeRequest();
+            }
+            input.ReadMessage(EmailCodeRequest);
+            break;
+          }
+          case 42: {
+            if (emailCodeResponse_ == null) {
+              EmailCodeResponse = new global::io.hverse.game.protogen.EmailCodeResponse();
+            }
+            input.ReadMessage(EmailCodeResponse);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
   public sealed partial class ClientInfo : pb::IMessage<ClientInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -99,7 +472,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.LoginReflection.Descriptor.MessageTypes[0]; }
+      get { return global::io.hverse.game.protogen.LoginReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -584,7 +957,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.LoginReflection.Descriptor.MessageTypes[1]; }
+      get { return global::io.hverse.game.protogen.LoginReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -819,7 +1192,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.LoginReflection.Descriptor.MessageTypes[2]; }
+      get { return global::io.hverse.game.protogen.LoginReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1054,7 +1427,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.LoginReflection.Descriptor.MessageTypes[3]; }
+      get { return global::io.hverse.game.protogen.LoginReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1289,7 +1662,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.LoginReflection.Descriptor.MessageTypes[4]; }
+      get { return global::io.hverse.game.protogen.LoginReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1455,379 +1828,6 @@ namespace io.hverse.game.protogen {
             break;
           case 8: {
             ResultCode = input.ReadInt32();
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  public sealed partial class LoginMessage : pb::IMessage<LoginMessage>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<LoginMessage> _parser = new pb::MessageParser<LoginMessage>(() => new LoginMessage());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<LoginMessage> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.LoginReflection.Descriptor.MessageTypes[5]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public LoginMessage() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public LoginMessage(LoginMessage other) : this() {
-      msgType_ = other.msgType_;
-      loginRequest_ = other.loginRequest_ != null ? other.loginRequest_.Clone() : null;
-      loginResponse_ = other.loginResponse_ != null ? other.loginResponse_.Clone() : null;
-      emailCodeRequest_ = other.emailCodeRequest_ != null ? other.emailCodeRequest_.Clone() : null;
-      emailCodeResponse_ = other.emailCodeResponse_ != null ? other.emailCodeResponse_.Clone() : null;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public LoginMessage Clone() {
-      return new LoginMessage(this);
-    }
-
-    /// <summary>Field number for the "msgType" field.</summary>
-    public const int MsgTypeFieldNumber = 1;
-    private global::io.hverse.game.protogen.LoginMessageType msgType_ = global::io.hverse.game.protogen.LoginMessageType.LoginRequest;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.LoginMessageType MsgType {
-      get { return msgType_; }
-      set {
-        msgType_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "loginRequest" field.</summary>
-    public const int LoginRequestFieldNumber = 2;
-    private global::io.hverse.game.protogen.LoginRequest loginRequest_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.LoginRequest LoginRequest {
-      get { return loginRequest_; }
-      set {
-        loginRequest_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "loginResponse" field.</summary>
-    public const int LoginResponseFieldNumber = 3;
-    private global::io.hverse.game.protogen.LoginResponse loginResponse_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.LoginResponse LoginResponse {
-      get { return loginResponse_; }
-      set {
-        loginResponse_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "emailCodeRequest" field.</summary>
-    public const int EmailCodeRequestFieldNumber = 4;
-    private global::io.hverse.game.protogen.EmailCodeRequest emailCodeRequest_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.EmailCodeRequest EmailCodeRequest {
-      get { return emailCodeRequest_; }
-      set {
-        emailCodeRequest_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "emailCodeResponse" field.</summary>
-    public const int EmailCodeResponseFieldNumber = 5;
-    private global::io.hverse.game.protogen.EmailCodeResponse emailCodeResponse_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.EmailCodeResponse EmailCodeResponse {
-      get { return emailCodeResponse_; }
-      set {
-        emailCodeResponse_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as LoginMessage);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(LoginMessage other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (MsgType != other.MsgType) return false;
-      if (!object.Equals(LoginRequest, other.LoginRequest)) return false;
-      if (!object.Equals(LoginResponse, other.LoginResponse)) return false;
-      if (!object.Equals(EmailCodeRequest, other.EmailCodeRequest)) return false;
-      if (!object.Equals(EmailCodeResponse, other.EmailCodeResponse)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (MsgType != global::io.hverse.game.protogen.LoginMessageType.LoginRequest) hash ^= MsgType.GetHashCode();
-      if (loginRequest_ != null) hash ^= LoginRequest.GetHashCode();
-      if (loginResponse_ != null) hash ^= LoginResponse.GetHashCode();
-      if (emailCodeRequest_ != null) hash ^= EmailCodeRequest.GetHashCode();
-      if (emailCodeResponse_ != null) hash ^= EmailCodeResponse.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (MsgType != global::io.hverse.game.protogen.LoginMessageType.LoginRequest) {
-        output.WriteRawTag(8);
-        output.WriteEnum((int) MsgType);
-      }
-      if (loginRequest_ != null) {
-        output.WriteRawTag(18);
-        output.WriteMessage(LoginRequest);
-      }
-      if (loginResponse_ != null) {
-        output.WriteRawTag(26);
-        output.WriteMessage(LoginResponse);
-      }
-      if (emailCodeRequest_ != null) {
-        output.WriteRawTag(34);
-        output.WriteMessage(EmailCodeRequest);
-      }
-      if (emailCodeResponse_ != null) {
-        output.WriteRawTag(42);
-        output.WriteMessage(EmailCodeResponse);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (MsgType != global::io.hverse.game.protogen.LoginMessageType.LoginRequest) {
-        output.WriteRawTag(8);
-        output.WriteEnum((int) MsgType);
-      }
-      if (loginRequest_ != null) {
-        output.WriteRawTag(18);
-        output.WriteMessage(LoginRequest);
-      }
-      if (loginResponse_ != null) {
-        output.WriteRawTag(26);
-        output.WriteMessage(LoginResponse);
-      }
-      if (emailCodeRequest_ != null) {
-        output.WriteRawTag(34);
-        output.WriteMessage(EmailCodeRequest);
-      }
-      if (emailCodeResponse_ != null) {
-        output.WriteRawTag(42);
-        output.WriteMessage(EmailCodeResponse);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (MsgType != global::io.hverse.game.protogen.LoginMessageType.LoginRequest) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) MsgType);
-      }
-      if (loginRequest_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(LoginRequest);
-      }
-      if (loginResponse_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(LoginResponse);
-      }
-      if (emailCodeRequest_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(EmailCodeRequest);
-      }
-      if (emailCodeResponse_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(EmailCodeResponse);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(LoginMessage other) {
-      if (other == null) {
-        return;
-      }
-      if (other.MsgType != global::io.hverse.game.protogen.LoginMessageType.LoginRequest) {
-        MsgType = other.MsgType;
-      }
-      if (other.loginRequest_ != null) {
-        if (loginRequest_ == null) {
-          LoginRequest = new global::io.hverse.game.protogen.LoginRequest();
-        }
-        LoginRequest.MergeFrom(other.LoginRequest);
-      }
-      if (other.loginResponse_ != null) {
-        if (loginResponse_ == null) {
-          LoginResponse = new global::io.hverse.game.protogen.LoginResponse();
-        }
-        LoginResponse.MergeFrom(other.LoginResponse);
-      }
-      if (other.emailCodeRequest_ != null) {
-        if (emailCodeRequest_ == null) {
-          EmailCodeRequest = new global::io.hverse.game.protogen.EmailCodeRequest();
-        }
-        EmailCodeRequest.MergeFrom(other.EmailCodeRequest);
-      }
-      if (other.emailCodeResponse_ != null) {
-        if (emailCodeResponse_ == null) {
-          EmailCodeResponse = new global::io.hverse.game.protogen.EmailCodeResponse();
-        }
-        EmailCodeResponse.MergeFrom(other.EmailCodeResponse);
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 8: {
-            MsgType = (global::io.hverse.game.protogen.LoginMessageType) input.ReadEnum();
-            break;
-          }
-          case 18: {
-            if (loginRequest_ == null) {
-              LoginRequest = new global::io.hverse.game.protogen.LoginRequest();
-            }
-            input.ReadMessage(LoginRequest);
-            break;
-          }
-          case 26: {
-            if (loginResponse_ == null) {
-              LoginResponse = new global::io.hverse.game.protogen.LoginResponse();
-            }
-            input.ReadMessage(LoginResponse);
-            break;
-          }
-          case 34: {
-            if (emailCodeRequest_ == null) {
-              EmailCodeRequest = new global::io.hverse.game.protogen.EmailCodeRequest();
-            }
-            input.ReadMessage(EmailCodeRequest);
-            break;
-          }
-          case 42: {
-            if (emailCodeResponse_ == null) {
-              EmailCodeResponse = new global::io.hverse.game.protogen.EmailCodeResponse();
-            }
-            input.ReadMessage(EmailCodeResponse);
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 8: {
-            MsgType = (global::io.hverse.game.protogen.LoginMessageType) input.ReadEnum();
-            break;
-          }
-          case 18: {
-            if (loginRequest_ == null) {
-              LoginRequest = new global::io.hverse.game.protogen.LoginRequest();
-            }
-            input.ReadMessage(LoginRequest);
-            break;
-          }
-          case 26: {
-            if (loginResponse_ == null) {
-              LoginResponse = new global::io.hverse.game.protogen.LoginResponse();
-            }
-            input.ReadMessage(LoginResponse);
-            break;
-          }
-          case 34: {
-            if (emailCodeRequest_ == null) {
-              EmailCodeRequest = new global::io.hverse.game.protogen.EmailCodeRequest();
-            }
-            input.ReadMessage(EmailCodeRequest);
-            break;
-          }
-          case 42: {
-            if (emailCodeResponse_ == null) {
-              EmailCodeResponse = new global::io.hverse.game.protogen.EmailCodeResponse();
-            }
-            input.ReadMessage(EmailCodeResponse);
             break;
           }
         }

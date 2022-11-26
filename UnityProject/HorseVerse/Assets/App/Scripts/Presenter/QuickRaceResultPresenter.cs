@@ -28,7 +28,6 @@ public class QuickRaceResultPresenter : IDisposable
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
-        await ShowRaceResultSelf();
         await ShowResultList();
         await ShowReward();
     }
@@ -39,7 +38,7 @@ public class QuickRaceResultPresenter : IDisposable
         uiHorseQuickRaceResultList ??= await UILoader.Instantiate<UIHorseQuickRaceResultList>();
         uiHorseQuickRaceResultList.SetEntity(new UIHorseQuickRaceResultList.Entity()
         {
-            horseNames = RaceMatchData.horseRaceTimes.Select(x => MasterHorseContainer.MasterHorseIndexer[x.masterHorseId].Name).ToArray(),
+            horseNames = RaceMatchData.HorseRaceTimes.Select(x => MasterHorseContainer.MasterHorseIndexer[x.masterHorseId].Name).ToArray(),
             outerBtn = new ButtonComponent.Entity(UniTask.Action(async () =>
             {
                 await uiHorseQuickRaceResultList.Out();
@@ -70,36 +69,14 @@ public class QuickRaceResultPresenter : IDisposable
         await ucs.Task;
     }
 
-    private async UniTask ShowRaceResultSelf()
-    {
-        var ucs = new UniTaskCompletionSource();
-        uiRaceResultSelf ??= await UILoader.Instantiate<UIRaceResultSelf>();
-        RaceMatchData.GetTops();
-        var playerIndex = RaceMatchData.horseRaceTimes.ToList().FindIndex(x => x.masterHorseId == UserDataRepository.Current.MasterHorseId);
-        var playerTop = RaceMatchData.GetTops()[playerIndex];
-        uiRaceResultSelf.SetEntity(new UIRaceResultSelf.Entity()
-        {
-            name = "My name",
-            speech = "The plates will still shift and the clouds will still spew. The sun will slowly rise and the moon will follow too.",
-            btnTapAnyWhere = new ButtonComponent.Entity(UniTask.Action(async () =>
-            {
-                await uiRaceResultSelf.Out();
-                ucs.TrySetResult();
-            })),
-            top = playerTop
-        });
-        uiRaceResultSelf.In().Forget();
-        await ucs.Task.AttachExternalCancellation(cts.Token);
-    }
-
     private UIComponentHorseResult.Entity[] GetResultList()
     {
-        return RaceMatchData.horseRaceTimes.Select(x =>
+        return RaceMatchData.HorseRaceTimes.Select(x =>
                 (horseRaceTime: x, totalRaceTime: x.raceSegments.Sum(raceSegment => raceSegment.time)))
             .OrderBy(x => x.totalRaceTime)
             .Select((x, i) => new UIComponentHorseResult.Entity()
             {
-                isPlayer = x.horseRaceTime.masterHorseId == UserDataRepository.Current.MasterHorseId,
+                isPlayer = x.horseRaceTime.masterHorseId == UserDataRepository.Current.CurrentHorseNftId,
                 lane = i + 1,
                 top = i + 1,
                 name = MasterHorseContainer.MasterHorseIndexer[x.horseRaceTime.masterHorseId].Name,

@@ -26,13 +26,13 @@ namespace io.hverse.game.protogen {
           string.Concat(
             "CgxodmVyc2UucHJvdG8aGWdvb2dsZS9wcm90b2J1Zi9hbnkucHJvdG8iVwoL",
             "R2FtZU1lc3NhZ2USIQoHbXNnVHlwZRgBIAEoDjIQLkdhbWVNZXNzYWdlVHlw",
-            "ZRIlCgdtc2dEYXRhGAIgASgLMhQuZ29vZ2xlLnByb3RvYnVmLkFueSqeAQoP",
+            "ZRIlCgdtc2dEYXRhGAIgASgLMhQuZ29vZ2xlLnByb3RvYnVmLkFueSqpAQoP",
             "R2FtZU1lc3NhZ2VUeXBlEhIKDlNZU1RFTV9NRVNTQUdFEAASEAoMUElOR19N",
-            "RVNTQUdFEAESFwoTTUFTVEVSX0RBVEFfTUVTU0FHRRACEhEKDUxPR0lOX01F",
-            "U1NBR0UQAxISCg5QTEFZRVJfTUVTU0FHRRAEEhAKDFJBQ0VfTUVTU0FHRRAF",
-            "EhMKD0JFVFRJTkdfTUVTU0FHRRAGQkkKF2lvLmh2ZXJzZS5nYW1lLnByb3Rv",
-            "Z2VuQhRIdmVyc2VNZXNzYWdlRmFjdG9yeaoCF2lvLmh2ZXJzZS5nYW1lLnBy",
-            "b3RvZ2VuYgZwcm90bzM="));
+            "RVNTQUdFEAESEAoMREFUQV9NRVNTQUdFEAISEQoNTE9HSU5fTUVTU0FHRRAD",
+            "EhIKDlBMQVlFUl9NRVNTQUdFEAQSEAoMUkFDRV9NRVNTQUdFEAUSEwoPQkVU",
+            "VElOR19NRVNTQUdFEAYSEAoMQ0hBVF9NRVNTQUdFEAdCSQoXaW8uaHZlcnNl",
+            "LmdhbWUucHJvdG9nZW5CFEh2ZXJzZU1lc3NhZ2VGYWN0b3J5qgIXaW8uaHZl",
+            "cnNlLmdhbWUucHJvdG9nZW5iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.AnyReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.GameMessageType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -46,11 +46,12 @@ namespace io.hverse.game.protogen {
   public enum GameMessageType {
     [pbr::OriginalName("SYSTEM_MESSAGE")] SystemMessage = 0,
     [pbr::OriginalName("PING_MESSAGE")] PingMessage = 1,
-    [pbr::OriginalName("MASTER_DATA_MESSAGE")] MasterDataMessage = 2,
+    [pbr::OriginalName("DATA_MESSAGE")] DataMessage = 2,
     [pbr::OriginalName("LOGIN_MESSAGE")] LoginMessage = 3,
     [pbr::OriginalName("PLAYER_MESSAGE")] PlayerMessage = 4,
     [pbr::OriginalName("RACE_MESSAGE")] RaceMessage = 5,
     [pbr::OriginalName("BETTING_MESSAGE")] BettingMessage = 6,
+    [pbr::OriginalName("CHAT_MESSAGE")] ChatMessage = 7,
   }
 
   #endregion

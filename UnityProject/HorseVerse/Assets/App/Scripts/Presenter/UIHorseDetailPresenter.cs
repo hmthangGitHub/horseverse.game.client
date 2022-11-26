@@ -30,7 +30,7 @@ public class UIHorseDetailPresenter : IDisposable
         HorseRepository.OnModelUpdate += HorseRepositoryOnModelUpdate;
         uiHorseDetail.SetEntity(new UIHorseDetail.Entity()
         {
-            horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.MasterHorseId),
+            horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.CurrentHorseNftId),
             levelUpBtn = new ButtonComponent.Entity(() => OnLevelUpAsync().Forget())
         });
         await uiHorseDetail.In();
@@ -43,13 +43,13 @@ public class UIHorseDetailPresenter : IDisposable
 
     private void HorseRepositoryOnModelUpdate((HorseDataModel before, HorseDataModel after) model)
     {
-        uiHorseDetail.entity.horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.MasterHorseId);
+        uiHorseDetail.entity.horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.CurrentHorseNftId);
         uiHorseDetail.horseDetail.SetEntity(uiHorseDetail.entity.horseDetail);
     }
 
     private async UniTaskVoid OnLevelUpAsync()
     {
-        await HorseDetailDomainService.LevelUp(UserDataRepository.Current.MasterHorseId);
+        await HorseDetailDomainService.LevelUp(UserDataRepository.Current.CurrentHorseNftId);
     }
 
     public void Dispose()

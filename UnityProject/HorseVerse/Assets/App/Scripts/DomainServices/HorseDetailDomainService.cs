@@ -5,7 +5,7 @@ using UnityEngine;
 
 public interface IHorseDetailDomainService
 {
-    UniTask LevelUp(long masterHorseId);
+    UniTask LevelUp(long nftId);
 }
 
 public class HorseDetailDomainServiceBase
@@ -22,7 +22,7 @@ public class HorseDetailDomainServiceBase
 public class HorseDetailDomainService : HorseDetailDomainServiceBase, IHorseDetailDomainService
 {
     public HorseDetailDomainService(IDIContainer container) : base(container) { }
-    public UniTask LevelUp(long masterHorseId)
+    public UniTask LevelUp(long nftId)
     {
         throw new System.NotImplementedException();
     }
@@ -31,16 +31,16 @@ public class HorseDetailDomainService : HorseDetailDomainServiceBase, IHorseDeta
 public class LocalHorseDetailDomainService : HorseDetailDomainServiceBase, IHorseDetailDomainService
 {
     public LocalHorseDetailDomainService(IDIContainer container) : base(container) { }
-    public async UniTask LevelUp(long masterHorseId)
+    public async UniTask LevelUp(long nftId)
     {
         await UniTask.Delay(500);
-        var oldModel = HorseRepository.Models[masterHorseId];
+        var oldModel = HorseRepository.Models[nftId];
         await HorseRepository.UpdateDataAsync(new HorseDataModel[]
         {
             new HorseDataModel()
             {
                 Earning = oldModel.Earning,
-                MasterHorseId = masterHorseId,
+                HorseNtfId = nftId,
                 PowerBonus = oldModel.PowerBonus + 0.015f,
                 PowerRatio = oldModel.PowerRatio + 0.015f,
                 SpeedBonus = oldModel.SpeedBonus + 0.015f,

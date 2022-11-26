@@ -9,7 +9,7 @@ using io.hverse.game.protogen;
 
 public interface IQuickRaceDomainService
 {
-    UniTask ChangeHorse(long masterHorseId);
+    UniTask ChangeHorse(long horseNtfId);
     UniTask<RaceMatchData> FindMatch();
     UniTask CancelFindMatch();
 }
@@ -33,7 +33,6 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
     private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= Container.Inject<MasterHorseContainer>();
     private ISocketClient SocketClient => socketClient ??= Container.Inject<ISocketClient>();
 
-
     public QuickRaceDomainService(IDIContainer container) : base(container){}
 
     public UniTask CancelFindMatch()
@@ -41,14 +40,14 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
         return UniTask.CompletedTask;
     }
 
-    public async UniTask ChangeHorse(long masterHorseId)
+    public async UniTask ChangeHorse(long horseNtfId)
     {
         await UniTask.Delay(500);
         var model = new UserDataModel()
         {
             Coin = UserDataRepository.Current.Coin,
             Energy = UserDataRepository.Current.Energy,
-            MasterHorseId = masterHorseId,
+            CurrentHorseNftId = horseNtfId,
             MaxEnergy = UserDataRepository.Current.MaxEnergy,
             UserId = UserDataRepository.Current.UserId,
             UserName = UserDataRepository.Current.UserName,
@@ -57,39 +56,37 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
             NextLevelExp = UserDataRepository.Current.NextLevelExp,
             TraningTimeStamp = UserDataRepository.Current.TraningTimeStamp,
         };
-        await UserDataRepository.UpdateDataAsync(new UserDataModel[] { model });
+        await UserDataRepository.UpdateModelAsync(new[] { model });
     }
 
     public async UniTask<RaceMatchData> FindMatch()
     {
-        await UniTask.Delay(1000);
         var response = await SocketClient.Send<RaceScriptRequest, RaceScriptResponse>(new RaceScriptRequest());
-        
-        HorseRaceTime[] GetHorseRaceTimes()
-        {
-            return response.RaceScript.Phases.SelectMany(x =>
-                    x.HorseStats.Select((stat, i) => (stat: stat, horseIndex: i, start: x.Start, end: x.End)))
-                .GroupBy(x => x.horseIndex)
-                .Select(x => new HorseRaceTime()
-                {
-                    delayTime = x.First().stat.DelayTime,
-                    raceSegments = x.Select(info => new RaceSegment()
-                    {
-                        currentLane = info.stat.LaneStart,
-                        toLane = info.stat.LaneEnd,
-                        time = info.stat.Time,
-                        percentage = (float)(info.end) / response.RaceScript.TotalLength
-                    }).ToArray(),
-                    masterHorseId = MasterHorseContainer.MasterHorseIndexer.Keys.First()
-                }).ToArray();
-        }
-
         return new RaceMatchData()
         {
-            horseRaceTimes = GetHorseRaceTimes(),
-            masterMapId = 10001002,
-            mode = RaceMode.QuickMode
+            HorseRaceTimes = GetHorseRaceTimes(response.RaceScript, MasterHorseContainer),
+            MasterMapId = 10001002,
+            Mode = RaceMode.QuickMode
         };
+    }
+
+    public static HorseRaceTime[] GetHorseRaceTimes(RaceScript responseRaceScript, MasterHorseContainer masterHorseContainer)
+    {
+        return responseRaceScript.Phases.SelectMany(x =>
+                x.HorseStats.Select((stat, i) => (stat: stat, horseIndex: i, start: x.Start, end: x.End)))
+            .GroupBy(x => x.horseIndex)
+            .Select(x => new HorseRaceTime()
+            {
+                delayTime = x.First().stat.DelayTime,
+                raceSegments = x.Select(info => new RaceSegment()
+                {
+                    currentLane = info.stat.LaneStart,
+                    toLane = info.stat.LaneEnd,
+                    time = info.stat.Time,
+                    percentage = (float)(info.end) / responseRaceScript.TotalLength
+                }).ToArray(),
+                masterHorseId = masterHorseContainer.MasterHorseIndexer.Keys.First()
+            }).ToArray();
     }
 }
 
@@ -102,14 +99,14 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
         await UniTask.CompletedTask;
     }
 
-    public async UniTask ChangeHorse(long masterHorseId)
+    public async UniTask ChangeHorse(long horseNtfId)
     {
         await UniTask.Delay(500);
         var model = new UserDataModel()
         {
             Coin = UserDataRepository.Current.Coin,
             Energy = UserDataRepository.Current.Energy,
-            MasterHorseId = masterHorseId,
+            CurrentHorseNftId = horseNtfId,
             MaxEnergy = UserDataRepository.Current.MaxEnergy,
             UserId = UserDataRepository.Current.UserId,
             UserName = UserDataRepository.Current.UserName,
@@ -118,7 +115,7 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
             NextLevelExp = UserDataRepository.Current.NextLevelExp,
             TraningTimeStamp = UserDataRepository.Current.TraningTimeStamp,
         };
-        await UserDataRepository.UpdateDataAsync(new UserDataModel[] { model });
+        await UserDataRepository.UpdateModelAsync(new UserDataModel[] { model });
     }
 
     public async UniTask<RaceMatchData> FindMatch()
@@ -127,7 +124,7 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
         {
             return Container.Inject<MasterHorseContainer>().MasterHorseIndexer.Keys
                             .Shuffle()
-                            .Append(UserDataRepository.Current.MasterHorseId)
+                            .Append(UserDataRepository.Current.CurrentHorseNftId)
                             .Shuffle()
                             .Take(8)
                             .Select(x => new HorseRaceTime()
@@ -138,12 +135,11 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
                             .ToArray();
         }
 
-        await UniTask.Delay(1000);
         return new RaceMatchData()
         {
-            horseRaceTimes = GetAllMasterHorseIds(),
-            masterMapId = 10001002,
-            mode = RaceMode.QuickMode
+            HorseRaceTimes = GetAllMasterHorseIds(),
+            MasterMapId = 10001002,
+            Mode = RaceMode.QuickMode
         };
     }
 

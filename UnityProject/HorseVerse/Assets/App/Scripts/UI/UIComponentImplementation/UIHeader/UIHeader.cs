@@ -10,7 +10,7 @@ public class UIHeader : PopupEntity<UIHeader.Entity>
     public class Entity
     {
         public string userName;
-        public int coin;
+        public long coin;
         public int maxEnergy;
         public int energy;
         public bool backBtnVisible;
