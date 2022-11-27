@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class HorseLoader : UIComponent<HorseLoader.Entity>
 {
@@ -13,6 +14,10 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
     public class Entity
     {
         public string horse;
+        public Color color1;
+        public Color color2;
+        public Color color3;
+        public Color color4;
     }
 
     public Transform horseContainer;
@@ -21,8 +26,6 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
     private CancellationTokenSource cts;
     private GameObject horse;
     private string oldHorse = string.Empty;
-
-    public GameObject Horse => horse;
 
     protected override void OnSetEntity()
     {
@@ -58,10 +61,13 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
 
     private async UniTask LoadNewHorse()
     {
-        var horsePrefab = await PrimitiveAssetLoader.LoadAssetAsync<GameObject>(this.entity.horse, cts.Token);
         oldHorse = this.entity.horse;
+        horse = await HorseMeshAssetLoader.InstantiateHorse(this.entity.horse, this.entity.color1, 
+            this.entity.color2, 
+            this.entity.color3, 
+            this.entity.color4, cts.Token);
 
-        horse = Instantiate<GameObject>(horsePrefab, Vector3.zero, Quaternion.identity, horsePosition.transform);
+        horse.transform.parent = horsePosition;
         horse.transform.localScale = Vector3.one;
         horse.transform.localPosition = Vector3.zero;
         
@@ -105,6 +111,7 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
     private void OnDestroy()
     {
         cts.SafeCancelAndDispose();
+        cts = default;
         if (horse != null)
         {
             PrimitiveAssetLoader.UnloadAssetAtPath(oldHorse);
@@ -112,9 +119,7 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
 
         if (this.horseContainer != default)
         {
-            GameObject.Destroy(this.horseContainer.gameObject);    
+            Object.Destroy(this.horseContainer.gameObject);    
         }
     }
-
-    
 }

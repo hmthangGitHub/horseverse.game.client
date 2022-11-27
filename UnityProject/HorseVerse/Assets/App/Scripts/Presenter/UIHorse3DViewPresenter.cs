@@ -24,7 +24,7 @@ public class UIHorse3DViewPresenter : IDisposable
         this.container = container;    
     }
 
-    public async UniTaskVoid ShowHorse3DViewAsync()
+    public async UniTask ShowHorse3DViewAsync()
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
@@ -45,14 +45,6 @@ public class UIHorse3DViewPresenter : IDisposable
             uiHorse3DView.In().Forget();
             isIn = true;
             UserDataRepository.OnModelUpdate += UserDataRepositoryOnModelUpdate;
-
-            await UniTask.WaitUntil(() => uiHorse3DView.horseLoader.Horse != null);
-            if (uiHorse3DView.horseLoader.Horse != null)
-            {
-                Debug.Log("SET COLOR");
-                var uHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
-                setColor(uiHorse3DView.horseLoader.Horse, uHorse.Color1, uHorse.Color2, uHorse.Color3, uHorse.Color4);
-            }
         }
     }
 
@@ -74,26 +66,24 @@ public class UIHorse3DViewPresenter : IDisposable
     {
         if (model.after.CurrentHorseNftId != model.before.CurrentHorseNftId)
         {
-            Debug.Log("UPDATE MODEL");
             UpdateMode().Forget();
         }
     }
 
     private async UniTask UpdateMode()
     {
+        var userHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
+        var masterHorse = MasterHorseContainer.MasterHorseIndexer[userHorse.MasterHorseId];
         uiHorse3DView.entity.horseLoader = new HorseLoader.Entity()
         {
-            horse = MasterHorseContainer.MasterHorseIndexer[HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].MasterHorseId].ModelPath
+            horse = masterHorse.ModelPath,
+            color1 = userHorse.Color1,
+            color2 = userHorse.Color2,
+            color3 = userHorse.Color3,
+            color4 = userHorse.Color4,
         };
         uiHorse3DView.horseLoader.SetEntity(uiHorse3DView.entity.horseLoader);
         await uiHorse3DView.In();
-        await UniTask.WaitUntil(() => uiHorse3DView.horseLoader.Horse != null);
-        if(uiHorse3DView.horseLoader.Horse != null)
-        {
-            Debug.Log("SET COLOR");
-            var uHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
-            setColor(uiHorse3DView.horseLoader.Horse, uHorse.Color1, uHorse.Color2, uHorse.Color3, uHorse.Color4);
-        }
     }
 
     public void Dispose()

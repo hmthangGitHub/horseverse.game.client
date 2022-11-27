@@ -6,7 +6,7 @@ public class RaceMatchData
     public long MasterMapId { get; set; }
     public RaceMode Mode { get; set; }
     public long BetMatchId { get; set; }
-    public BettingMatch TotalBetWin { get; set; }
+    public int TotalBetWin { get; set; }
 }
 
 public class HorseRaceTime

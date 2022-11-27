@@ -5,7 +5,7 @@ using Cysharp.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
-public class HorseTrainingManager : MonoBehaviour
+public class HorseTrainingManager : MonoBehaviour, IDisposable
 {
     [SerializeField] private MapGenerator mapGenerator; // TODO load
     [SerializeField] private HorseTrainingControllerV2 horseTrainingController; // TODO load
@@ -13,20 +13,25 @@ public class HorseTrainingManager : MonoBehaviour
 
     public PlatformGenerator PlatformGenerator => platformGenerator;
 
-    public async UniTask Initialize(string horseTrainingPath, string mapPath, Action onTakeCoin, Action onTouchObstacle, 
-        MasterHorseTrainingProperty masterHorseTrainingProperty , 
+    public async UniTask Initialize(string mapPath, Action onTakeCoin, Action onTouchObstacle,
+        MasterHorseTrainingProperty masterHorseTrainingProperty,
         MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer,
-        MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer)
+        MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer,
+        HorseMeshAssetLoader.HorseMeshInformation horseMeshInformation)
     {
-        await UniTask.CompletedTask;
+        await horseTrainingController.Initialize(masterHorseTrainingProperty, horseMeshInformation);
         horseTrainingController.OnTakeCoin += onTakeCoin;
         horseTrainingController.OnDeadEvent += onTouchObstacle;
-        horseTrainingController.SetMasterHorseTrainingProperty(masterHorseTrainingProperty);
         PlatformGenerator.SetMasterHorseTrainingProperty(masterHorseTrainingProperty, masterHorseTrainingBlockContainer, masterHorseTrainingBlockComboContainer);
     }
 
     public void StartGame()
     {
         horseTrainingController.IsStart = true;
+    }
+
+    public void Dispose()
+    {
+        DisposeUtility.SafeDispose(ref horseTrainingController);
     }
 }

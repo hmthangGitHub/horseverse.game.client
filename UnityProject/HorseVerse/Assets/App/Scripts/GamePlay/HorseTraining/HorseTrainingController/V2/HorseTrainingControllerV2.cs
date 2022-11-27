@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
+using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Linq;
 using DG.Tweening;
 using Lean.Touch;
 using UnityEngine;
 
-public class HorseTrainingControllerV2 : MonoBehaviour
+public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 {
     private const string Obstacle = "Obstacle";
     private const string Coin = "Coin";
@@ -17,16 +19,15 @@ public class HorseTrainingControllerV2 : MonoBehaviour
     [SerializeField] private GameObject trailVFX;
     [SerializeField] private LeanFingerUp touchUp;
     [SerializeField] private LeanFingerDown touchDown;
-    [SerializeField] private LeanFingerTap doubleTap;
     
     [SerializeField] private float currentForwardVelocity;
     [SerializeField] private float currentHorizontalVelocity;
     [SerializeField] private float defaultGravity;
-    [SerializeField] Vector2 airTime;
     
     [SerializeField] private GameObject cam1;
     [SerializeField] private GameObject cam2;
     [SerializeField] private GameObject cam3;
+    [SerializeField] private Transform horsePosition;
     
     [SerializeField] private Vector3 groundVelocity;
 
@@ -50,6 +51,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour
     public float lastTapTimeStamp = 0;
     public int index = 0;
     private MasterHorseTrainingProperty masterHorseTrainingProperty;
+    private string horseModelPath;
     private enum LastTap
     {
         None,
@@ -112,11 +114,15 @@ public class HorseTrainingControllerV2 : MonoBehaviour
         lastTap = currentTouch;
     }
 
-    public void SetMasterHorseTrainingProperty(MasterHorseTrainingProperty masterHorseTrainingProperty)
+    public async UniTask Initialize(MasterHorseTrainingProperty masterHorseTrainingProperty, HorseMeshAssetLoader.HorseMeshInformation horseMeshInformation)
     {
         this.masterHorseTrainingProperty = masterHorseTrainingProperty;
         SetCameraYaw(masterHorseTrainingProperty.RunCameraRotation, cam1.transform);
         SetCameraYaw(masterHorseTrainingProperty.FallCameraRotation, cam2.transform);
+        horseModelPath = horseMeshInformation.horseModelPath;
+        var horse = await HorseMeshAssetLoader.InstantiateHorse(horseMeshInformation);
+        horse.transform.parent = horsePosition;
+        horse.transform.localPosition = Vector3.zero;
     }
 
     private void SetCameraYaw(float rotation, Transform cameraTransform)
@@ -254,21 +260,6 @@ public class HorseTrainingControllerV2 : MonoBehaviour
         }
     }
 
-    public Vector3 PredictHighestPoint()
-    {
-        var jumpVel = new Vector3(0, JumpVelocity, currentForwardVelocity); 
-        var v0 = jumpVel.magnitude;
-
-        var angle = Mathf.Deg2Rad * Vector3.Angle(jumpVel, Vector3.forward);
-        var maxZ = v0 * v0 * Mathf.Sin(2 * angle) / (-DefaultGravity * 2); 
-        var maxY = (JumpVelocity * JumpVelocity) / (2 * -DefaultGravity);
-        var sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        sphere.transform.position = new Vector3(0, maxY, maxZ) + pivotPoint.position;
-        sphere.transform.localScale = Vector3.one * 0.1f;
-        sphere.GetComponent<Collider>().enabled = false;
-        return new Vector3(0, maxY, maxZ) + pivotPoint.position;
-    }
-
     private void CheckIfGrounded()
     {
         IsGrounded = Physics.RaycastAll(transform.position, -Vector3.up, pivotPoint.transform.localPosition.magnitude + 0.1f)
@@ -313,9 +304,6 @@ public class HorseTrainingControllerV2 : MonoBehaviour
         {
             cam1.SetActive(false);
             cam2.SetActive(true);
-            
-            // trailVFX.SetActive(true);
-            // Jump(false);
         }
         
         if (other.CompareTag(Obstacle) && !isDead)
@@ -337,5 +325,10 @@ public class HorseTrainingControllerV2 : MonoBehaviour
         currentForwardVelocity = 0.0f;
         currentHorizontalVelocity = 0.0f;
         OnDeadEvent.Invoke();
+    }
+
+    public void Dispose()
+    {
+        PrimitiveAssetLoader.UnloadAssetAtPath(horseModelPath);
     }
 }
