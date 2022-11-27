@@ -8,30 +8,32 @@ using UnityEngine;
 
 public class UIHorseTrainingPresenter : IDisposable
 {
-    public UIHorseTraining uiHorseTraining = default;
+    private readonly IDIContainer container;
+    private UIHorseTraining uiHorseTraining;
     private CancellationTokenSource cts;
     private HorseDetailEntityFactory horseDetailEntityFactory;
-    private HorseDetailEntityFactory HorseDetailEntityFactory => horseDetailEntityFactory ??= container.Inject<HorseDetailEntityFactory>();
-    private HorseSumaryListEntityFactory horseSumaryListEntityFactory;
-    private HorseSumaryListEntityFactory HorseSumaryListEntityFactory => horseSumaryListEntityFactory ??= container.Inject<HorseSumaryListEntityFactory>();
     private IReadOnlyUserDataRepository userDataRepository;
-    private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
-    private IDIContainer container;
-
+    private HorseSumaryListEntityFactory horseSumaryListEntityFactory;
     private ITrainingDomainService trainingDomainService;
-    private ITrainingDomainService TrainingDomainService => trainingDomainService ??= container.Inject<ITrainingDomainService>();
     private IReadOnlyHorseRepository horseRepository;
+    private MasterHorseContainer masterHorseContainer;
+    private const int trainingCost = 100;
+    public event Action ToTrainingActionState = ActionUtility.EmptyAction.Instance;
+    
+    private HorseDetailEntityFactory HorseDetailEntityFactory => horseDetailEntityFactory ??= container.Inject<HorseDetailEntityFactory>();
+    private HorseSumaryListEntityFactory HorseSummaryListEntityFactory => horseSumaryListEntityFactory ??= container.Inject<HorseSumaryListEntityFactory>();
+    private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
+    private ITrainingDomainService TrainingDomainService => trainingDomainService ??= container.Inject<ITrainingDomainService>();
     private IReadOnlyHorseRepository HorseRepository => horseRepository ??= container.Inject<IReadOnlyHorseRepository>();
+    private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= container.Inject<MasterHorseContainer>();
 
-    private const int traningCost = 100;
-    public event Action ToTraningActionState = ActionUtility.EmptyAction.Instance;
 
     public UIHorseTrainingPresenter(IDIContainer container)
     {
         this.container = container;
     }
 
-    public async UniTask ShowUIHorseTraningAsync()
+    public async UniTask ShowUIHorseTrainingAsync()
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
@@ -48,7 +50,7 @@ public class UIHorseTrainingPresenter : IDisposable
         uiHorseTraining.SetEntity(new UIHorseTraining.Entity()
         {
             horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.CurrentHorseNftId),
-            horseSelectSumaryList = HorseSumaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(),
+            horseSelectSumaryList = HorseSummaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(),
             prepareState = new UIComponentTrainingPrepareState.Entity()
             {
                 mapSelection = new UIComponentHorseTraningMapSelection.Entity()
@@ -57,8 +59,8 @@ public class UIHorseTrainingPresenter : IDisposable
                     {
                     },
                 },
-                toTraningBtn = new ButtonComponent.Entity(() => ToTraningAsycn().Forget()),
-                traningCost = traningCost,
+                toTraningBtn = new ButtonComponent.Entity(() => ToTrainingAsync().Forget()),
+                traningCost = trainingCost,
             },
             processingState = currentState == UIComponentTraningState.TraningState.Processing ? new UIComponentTraningProcessingState.Entity()
             {
@@ -76,13 +78,23 @@ public class UIHorseTrainingPresenter : IDisposable
         uiHorseTraining.In().Forget();
     }
 
-    private async UniTask ToTraningAsycn()
+    private async UniTask ToTrainingAsync()
     {
-        ToTraningActionState.Invoke();
+        ToTrainingActionState.Invoke();
+        
+        var userHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
+        
         container.Bind(new HorseTrainingDataContext()
         {
-            masterHorseId = 10000001,
-            masterMapId = 10001003,
+            horseMeshInformation = new HorseMeshAssetLoader.HorseMeshInformation()
+            {
+                horseModelPath = MasterHorseContainer.MasterHorseIndexer[userHorse.MasterHorseId].ModelPath,
+                color1 = userHorse.Color1,
+                color2 = userHorse.Color2,
+                color3 = userHorse.Color3,
+                color4 = userHorse.Color4,
+            },
+            MasterMapId = 10001003,
         });
         //await TrainingDomainService.SendHorseToTraining(UserDataRepository.Current.MasterHorseId);
     }

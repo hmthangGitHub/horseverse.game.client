@@ -30,8 +30,9 @@ public class HorseTrainingManagerTest : MonoBehaviour
         var masterHorseTrainingBlockComboContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>();
         
         await UniTask.DelayFrame(2);
-        await horseTrainingManager.Initialize("", "", default, default, masterHorseTrainingPropertyContainer.DataList.First(), 
+        await horseTrainingManager.Initialize("", default, default, masterHorseTrainingPropertyContainer.DataList.First(), 
             masterHorseTrainingBlockContainer ,
-            masterHorseTrainingBlockComboContainer);
+            masterHorseTrainingBlockComboContainer,
+            default);
     }
 }

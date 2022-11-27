@@ -24,7 +24,7 @@ public class UIHorse3DViewPresenter : IDisposable
         this.container = container;    
     }
 
-    public async UniTaskVoid ShowHorse3DViewAsync()
+    public async UniTask ShowHorse3DViewAsync()
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
@@ -66,18 +66,41 @@ public class UIHorse3DViewPresenter : IDisposable
     {
         if (model.after.CurrentHorseNftId != model.before.CurrentHorseNftId)
         {
-            uiHorse3DView.entity.horseLoader = new HorseLoader.Entity()
-            {
-                horse = MasterHorseContainer.MasterHorseIndexer[HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].MasterHorseId].ModelPath
-            };
-            uiHorse3DView.horseLoader.SetEntity(uiHorse3DView.entity.horseLoader);
-            uiHorse3DView.In().Forget();
+            UpdateMode().Forget();
         }
+    }
+
+    private async UniTask UpdateMode()
+    {
+        var userHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
+        var masterHorse = MasterHorseContainer.MasterHorseIndexer[userHorse.MasterHorseId];
+        uiHorse3DView.entity.horseLoader = new HorseLoader.Entity()
+        {
+            horse = masterHorse.ModelPath,
+            color1 = userHorse.Color1,
+            color2 = userHorse.Color2,
+            color3 = userHorse.Color3,
+            color4 = userHorse.Color4,
+        };
+        uiHorse3DView.horseLoader.SetEntity(uiHorse3DView.entity.horseLoader);
+        await uiHorse3DView.In();
     }
 
     public void Dispose()
     {
         HideHorse3DViewAsync().Forget();
         UILoader.SafeRelease(ref uiHorse3DView);
+    }
+
+    private void setColor(GameObject horse, Color c1, Color c2, Color c3, Color c4)
+    {
+        if (horse != null)
+        {
+            HorseObjectData data = horse.GetComponent<HorseObjectData>();
+            if (data != null)
+            {
+                HorseObjectPresenter.SetColor(data, c1, c2, c3, c4);
+            }
+        }
     }
 }

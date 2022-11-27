@@ -61,7 +61,7 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
         {
         });
 
-        var totalWin = bettingDetailResponse.Records.First(x => x.MatchId == BetMatchRepository.Current.BetMatchId);
+        var betMatch = bettingDetailResponse.Records.First(x => x.MatchId == BetMatchRepository.Current.BetMatchId);
         
         return new RaceMatchData()
         {
@@ -69,7 +69,7 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
             MasterMapId = 10001002,
             Mode = RaceMode.BetMode,
             BetMatchId = BetMatchRepository.Current.BetMatchId,
-            TotalBetWin = totalWin
+            TotalBetWin = betMatch.TotalAmountWin
         };
     }
 

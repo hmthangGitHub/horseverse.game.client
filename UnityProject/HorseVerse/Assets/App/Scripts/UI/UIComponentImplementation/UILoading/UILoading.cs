@@ -11,6 +11,12 @@ public class UILoading : PopupEntity<UILoading.Entity>
     {
         await this.canvasGroup.DOFade(0.0f, 0.5f).AsyncWaitForCompletion();
     }
+    
+    protected override async UniTask AnimationIn()
+    {
+        canvasGroup.alpha = 0.0f;
+        await this.canvasGroup.DOFade(1.0f, 0.5f).AsyncWaitForCompletion();
+    }
 
     protected override void OnSetEntity()
     {

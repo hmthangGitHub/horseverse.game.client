@@ -25,7 +25,7 @@ public class HorseTrainingPresenter : IDisposable
     private Scene mapSceneAsset;
     private int numberOfCoinTaken = 0;
     private UniTaskCompletionSource ucs = new UniTaskCompletionSource();
-    
+
     private HorseTrainingDataContext HorseTrainingDataContext => horseTrainingDataContext ??= Container.Inject<HorseTrainingDataContext>();
 
     public HorseTrainingPresenter(IDIContainer container)
@@ -44,19 +44,19 @@ public class HorseTrainingPresenter : IDisposable
         masterHorseTrainingBlockContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(token: cts.Token);
         masterHorseTrainingBlockComboContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>(token: cts.Token);
         
-        mapSceneAsset = await SceneAssetLoader.LoadSceneAsync(masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.masterMapId]
+        mapSceneAsset = await SceneAssetLoader.LoadSceneAsync(masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.MasterMapId]
             .MapPath, true, token: cts.Token);
 
         uiTrainingCoinCounting = await UILoader.Instantiate<UITrainingCoinCounting>(token: cts.Token);
         uiTrainingPressAnyKey = await UILoader.Instantiate<UITrainingPressAnyKey>(token: cts.Token);
+        
         await horseTrainingManager.Initialize(
-            masterHorseContainer.MasterHorseIndexer[HorseTrainingDataContext.masterHorseId].ModelPath,
-            masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.masterMapId].MapPath,
+            masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.MasterMapId].MapPath,
             OnTakeCoin,
             () => OnTouchObstacleAsync().Forget(), 
             masterHorseTrainingPropertyContainer.DataList.First(),
             masterHorseTrainingBlockContainer, 
-            masterHorseTrainingBlockComboContainer);
+            masterHorseTrainingBlockComboContainer, horseTrainingDataContext.horseMeshInformation);
         
         uiTrainingPressAnyKey.SetEntity(new UITrainingPressAnyKey.Entity()
         {
@@ -95,8 +95,8 @@ public class HorseTrainingPresenter : IDisposable
 
     private async UniTaskVoid OnTouchObstacleAsync()
     {
-        await uiTrainingCoinCounting.Out();
         ucs.TrySetResult();
+        await UniTask.CompletedTask;
     }
 
     public void Dispose()
@@ -106,7 +106,7 @@ public class HorseTrainingPresenter : IDisposable
         
         if (mapSceneAsset != default)
         {
-            SceneAssetLoader.UnloadAssetAtPath(masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.masterMapId].MapPath);
+            SceneAssetLoader.UnloadAssetAtPath(masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.MasterMapId].MapPath);
             mapSceneAsset = default;
         }
         UILoader.SafeRelease(ref uiTrainingCoinCounting);
@@ -116,10 +116,7 @@ public class HorseTrainingPresenter : IDisposable
         MasterLoader.SafeRelease(ref masterHorseTrainingPropertyContainer);
         MasterLoader.SafeRelease(ref masterHorseTrainingBlockContainer);
         MasterLoader.SafeRelease(ref masterHorseTrainingBlockComboContainer);
-        
-        Object.Destroy(horseTrainingManager?.gameObject);
-        
-        horseTrainingManager = default;
         horseTrainingDataContext = default;
+        DisposeUtility.SafeDispose(ref horseTrainingManager);
     }
 }

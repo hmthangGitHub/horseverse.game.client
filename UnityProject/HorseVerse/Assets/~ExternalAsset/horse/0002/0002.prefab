@@ -1977,6 +1977,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8880241895217065144}
   - component: {fileID: 3304753861864568514}
+  - component: {fileID: 2487346523133483256}
   m_Layer: 0
   m_Name: 0002
   m_TagString: Untagged
@@ -2019,6 +2020,58 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2487346523133483256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8103986018497345026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d9ae077a3384944eada020fbe82aa95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Color_1:
+  - MaterialIndex: 1
+    RefRenderer: {fileID: 7538422102478557678}
+  m_Color_2:
+  - MaterialIndex: 1
+    RefRenderer: {fileID: 3767221827025523211}
+  - MaterialIndex: 2
+    RefRenderer: {fileID: 1916127786596825981}
+  - MaterialIndex: 0
+    RefRenderer: {fileID: 8807233118291415253}
+  - MaterialIndex: 1
+    RefRenderer: {fileID: 6396649723721075774}
+  - MaterialIndex: 0
+    RefRenderer: {fileID: 4216323222344932460}
+  - MaterialIndex: 1
+    RefRenderer: {fileID: 1431661131754653685}
+  m_Color_3:
+  - MaterialIndex: 0
+    RefRenderer: {fileID: 3767221827025523211}
+  - MaterialIndex: 1
+    RefRenderer: {fileID: 1916127786596825981}
+  - MaterialIndex: 1
+    RefRenderer: {fileID: 8807233118291415253}
+  - MaterialIndex: 0
+    RefRenderer: {fileID: 6396649723721075774}
+  - MaterialIndex: 1
+    RefRenderer: {fileID: 4216323222344932460}
+  - MaterialIndex: 0
+    RefRenderer: {fileID: 1431661131754653685}
+  - MaterialIndex: 0
+    RefRenderer: {fileID: 3511956611901140468}
+  m_Color_4:
+  - MaterialIndex: 0
+    RefRenderer: {fileID: 1916127786596825981}
+  - MaterialIndex: 0
+    RefRenderer: {fileID: 6396649723721075774}
+  - MaterialIndex: 0
+    RefRenderer: {fileID: 7538422102478557678}
+  - MaterialIndex: 0
+    RefRenderer: {fileID: 3511956611901140468}
 --- !u!1 &8108689861390845557
 GameObject:
   m_ObjectHideFlags: 0
