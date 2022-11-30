@@ -11,6 +11,10 @@ public interface ISocketClient : IDisposable
         where TResponse : IMessage;
     UniTask<TResponse> Send<TRequest, TResponse>(TRequest request, float TimeOut,CancellationToken token = default(CancellationToken)) where TRequest : IMessage
         where TResponse : IMessage;
+
+    event Action OnStartRequest;
+    event Action OnEndRequest;
+    
     void Subscribe<T>(Action<T> callback) where T : IMessage;
     void UnSubscribe<T>(Action<T> callback) where T : IMessage;
 }

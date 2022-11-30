@@ -1,4 +1,6 @@
-﻿public class BetModeInProgressState : InjectedBState
+﻿using UnityEngine;
+
+public class BetModeInProgressState : InjectedBState
 {
     private UIBetModeInProgressStatePresenter presenter; 
     
@@ -9,6 +11,12 @@
         presenter = new UIBetModeInProgressStatePresenter(Container);
         presenter.ShowInProgressAsync().Forget();
         presenter.OnBack += OnBack;
+        presenter.OnTimeOut += OnTimeOut;
+    }
+
+    private void OnTimeOut()
+    {
+        ((RootFSM)SuperMachine).ChangeToChildStateRecursive<BetModeState>();
     }
 
     private void OnBack()
@@ -19,6 +27,8 @@
     public override void Exit()
     {
         base.Exit();
-        presenter.Dispose();
+        presenter.OnBack -= OnBack;
+        presenter.OnTimeOut -= OnTimeOut;
+        DisposeUtility.SafeDispose(ref presenter);
     }
 }

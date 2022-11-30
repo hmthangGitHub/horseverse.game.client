@@ -52,26 +52,20 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
 
     public async UniTask<RaceMatchData> GetCurrentBetModeRaceMatchData()
     {
-        var matchRequest = await SocketClient.Send<GetCurrentRaceScriptRequest, GetCurrentRaceScriptResponse>(new GetCurrentRaceScriptRequest()
+        var raceScriptRequest = await SocketClient.Send<GetCurrentRaceScriptRequest, GetCurrentRaceScriptResponse>(new GetCurrentRaceScriptRequest()
         {
             MatchId = BetMatchRepository.Current.BetMatchId
         }, 5.0f);
 
-        await UniTask.Delay(1000);
+        var bettingDetailResponse = await SocketClient.Send<GetBetHistoryRequest, GetBetHistoryResponse>(new GetBetHistoryRequest()
+        {
+        }, 5.0f);
 
-        //var bettingDetailResponse = await SocketClient.Send<GetBetHistoryRequest, GetBetHistoryResponse>(new GetBetHistoryRequest()
-        //{
-        //}, 5.0f);
-
-        var totalWin = 0;
-        //if (bettingDetailResponse != null)
-        //{
-        //    var betMatch = bettingDetailResponse.Records.First(x => x.MatchId == BetMatchRepository.Current.BetMatchId);
-        //    totalWin = betMatch.TotalAmountWin;
-        //}
+        var betMatch = bettingDetailResponse.Records.First(x => x.MatchId == BetMatchRepository.Current.BetMatchId);
+        var totalWin = betMatch.TotalAmountWin;
         return new RaceMatchData()
         {
-            HorseRaceTimes = QuickRaceDomainService.GetHorseRaceTimes(matchRequest.RaceScript, MasterHorseContainer),
+            HorseRaceTimes = QuickRaceDomainService.GetHorseRaceTimes(raceScriptRequest.RaceScript, MasterHorseContainer),
             MasterMapId = 10001002,
             Mode = RaceMode.BetMode,
             BetMatchId = BetMatchRepository.Current.BetMatchId,
