@@ -77,6 +77,7 @@ public class LoginStatePresenter : IDisposable
                     res = await doLoginWithEmail();
             }
         }
+        await UniTask.Delay(1000);
     }
 
     private async UniTask LoginAsync()
@@ -143,7 +144,7 @@ public class LoginStatePresenter : IDisposable
                 await HandleLoginResponse(res);
                 return true;
             }
-            else if (res.ResultCode == 203)
+            else if (res.ResultCode == 203 || res.ResultCode == 202 || res.ResultCode == 204)
             {
                 return false;
             }

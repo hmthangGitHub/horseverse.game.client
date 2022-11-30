@@ -38,7 +38,11 @@ public class UIHorse3DViewPresenter : IDisposable
             {
                 horseLoader = new HorseLoader.Entity()
                 {
-                    horse = MasterHorseContainer.MasterHorseIndexer[HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].MasterHorseId].ModelPath
+                    horse = MasterHorseContainer.MasterHorseIndexer[HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].MasterHorseId].ModelPath,
+                    color1 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color1,
+                    color2 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color2,
+                    color3 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color3,
+                    color4 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color4,
                 }
             });
             uiHorse3DView.transform.SetAsFirstSibling();
@@ -74,6 +78,7 @@ public class UIHorse3DViewPresenter : IDisposable
     {
         var userHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
         var masterHorse = MasterHorseContainer.MasterHorseIndexer[userHorse.MasterHorseId];
+        Debug.Log("Horse Color " + userHorse.Color1 + " -- " + userHorse.Color2);
         uiHorse3DView.entity.horseLoader = new HorseLoader.Entity()
         {
             horse = masterHorse.ModelPath,

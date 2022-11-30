@@ -34,12 +34,13 @@ public class HorseObjectData : MonoBehaviour
     {
         if(materials != null && materials.Count > 0)
         {
+            Debug.Log("SET COLOR " + color);
             for (int i = 0; i < materials.Count; i++)
             {
                 var mat = materials[i].RefRenderer.materials[materials[i].MaterialIndex];
                 if(mat != null)
                 {
-                    mat.SetColor("_Color", color);
+                    mat.SetColor("_BaseColor", color);
                 }
             }
         }

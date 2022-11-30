@@ -21,7 +21,7 @@ public class HorseRepository : Repository<long, HorseDataModel, HorseDataModel>,
     private static async UniTask<IEnumerable<HorseDataModel>> GetHorseDatas(IDIContainer container)
     {
         var socketClient = container.Inject<ISocketClient>();
-        var response = await socketClient.Send<PlayerInventoryRequest, PlayerInventoryResponse>(new PlayerInventoryRequest());
+        var response = await socketClient.Send<PlayerInventoryRequest, PlayerInventoryResponse>(new PlayerInventoryRequest(), 10.0f);
         return response.PlayerInventory.HorseList.Select(horseInfo => new HorseDataModel()
             {
                 HorseNtfId = horseInfo.NftId,
@@ -48,6 +48,7 @@ public class HorseRepository : Repository<long, HorseDataModel, HorseDataModel>,
     {
         var color = Color.white;
         ColorUtility.TryParseHtmlString(value, out color);
+        Debug.Log("PARSE COLOR " + value + " to " + color.ToString());
         return color;
     }
 
