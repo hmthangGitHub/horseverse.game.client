@@ -29,46 +29,47 @@ namespace io.hverse.game.protogen {
             "MhIuTWFzdGVyRGF0YVJlcXVlc3QSLwoSbWFzdGVyRGF0YVJlc3BvbnNlGAMg",
             "ASgLMhMuTWFzdGVyRGF0YVJlc3BvbnNlIhMKEU1hc3RlckRhdGFSZXF1ZXN0",
             "Ii0KEk1hc3RlckRhdGFSZXNwb25zZRIXCg9tYXhFbmVyZ3lOdW1iZXIYASAB",
-            "KAUigQIKCUhvcnNlSW5mbxINCgVuZnRJZBgBIAEoAxILCgNibXMYAiABKAIS",
+            "KAUijwIKCUhvcnNlSW5mbxINCgVuZnRJZBgBIAEoAxILCgNibXMYAiABKAIS",
             "CwoDbW1zGAMgASgCEhQKDGFjY2VsZXJhdGlvbhgEIAEoAhIPCgdzdGFtaW5h",
             "GAUgASgCEh0KCWhvcnNlVHlwZRgGIAEoDjIKLkhvcnNlVHlwZRIXCgZyYXJp",
             "dHkYByABKA4yBy5SYXJpdHkSDAoEbHVjaxgIIAEoBRINCgVsZXZlbBgJIAEo",
             "BRIOCgZjb2xvcjEYCiABKAkSDgoGY29sb3IyGAsgASgJEg4KBmNvbG9yMxgM",
-            "IAEoCRIOCgZjb2xvcjQYDSABKAkSDwoHd2luUmF0ZRgOIAEoAiI3CgpSZXdh",
-            "cmRJbmZvEhkKBHR5cGUYASABKA4yCy5SZXdhcmRUeXBlEg4KBmFtb3VudBgC",
-            "IAEoAyKGAQoISXRlbUluZm8SFwoEdHlwZRgBIAEoDjIJLkl0ZW1UeXBlEiMK",
-            "DGNoZXN0S2V5SW5mbxgCIAEoCzINLkNoZXN0S2V5SW5mbxIdCgljaGVzdElu",
-            "Zm8YAyABKAsyCi5DaGVzdEluZm8SHQoJcGllY2VJbmZvGAQgASgLMgouUGll",
-            "Y2VJbmZvIkkKDENoZXN0S2V5SW5mbxIMCgRuYW1lGAEgASgJEhsKBHR5cGUY",
-            "AiABKA4yDS5DaGVzdEtleVR5cGUSDgoGYW1vdW50GAMgASgFIkMKCUNoZXN0",
-            "SW5mbxIMCgRuYW1lGAEgASgJEhgKBHR5cGUYAiABKA4yCi5DaGVzdFR5cGUS",
-            "DgoGYW1vdW50GAMgASgFIloKCVBpZWNlSW5mbxIMCgRuYW1lGAEgASgJEhgK",
-            "BHR5cGUYAiABKA4yCi5QaWVjZVR5cGUSFQoNY29tYmluZU51bWJlchgDIAEo",
-            "BRIOCgZhbW91bnQYBCABKAUqRAoPRGF0YU1lc3NhZ2VUeXBlEhcKE01BU1RF",
-            "Ul9EQVRBX1JFUVVFU1QQABIYChRNQVNURVJfREFUQV9SRVNQT05TRRABKnkK",
-            "BlJhcml0eRISCg5SQVJJVFlfVU5LTk9XThAAEhEKDVJBUklUWV9DT01NT04Q",
-            "ARITCg9SQVJJVFlfVU5DT01NT04QAhIPCgtSQVJJVFlfUkFSRRADEg8KC1JB",
-            "UklUWV9FUElDEAQSEQoNUkFSSVRZX0xFR0VORBAFKmcKCUhvcnNlVHlwZRIW",
-            "ChJIT1JTRV9UWVBFX1VOS05PV04QABIUChBIT1JTRV9UWVBFX0JMQVpFEAES",
-            "FgoSSE9SU0VfVFlQRV9USFVOREVSEAISFAoQSE9SU0VfVFlQRV9ISURSTxAD",
-            "KiAKBExhbmUSBgoCSU4QABIHCgNNSUQQARIHCgNPVVQQAipGCgxSZXdhcmRT",
-            "dGF0dXMSGwoXUkVXQVJEX1NUQVRVU19VTkNMQUlNRUQQABIZChVSRVdBUkRf",
-            "U1RBVFVTX0NMQUlNRUQQASpPCgpSZXdhcmRUeXBlEhQKEFJFV0FSRF9UWVBF",
-            "X05PTkUQABIUChBSRVdBUkRfVFlQRV9DSElQEAESFQoRUkVXQVJEX1RZUEVf",
-            "Q0hFU1QQAipNCghJdGVtVHlwZRIXChNJVEVNX1RZUEVfQ0hFU1RfS0VZEAAS",
-            "EwoPSVRFTV9UWVBFX0NIRVNUEAESEwoPSVRFTV9UWVBFX1BJRUNFEAIqKQoM",
-            "Q2hlc3RLZXlUeXBlEhkKFUNIRVNUX0tFWV9UWVBFX0NPTU1PThAAKjcKCUNo",
-            "ZXN0VHlwZRIVChFDSEVTVF9UWVBFX0NPTU1PThAAEhMKD0NIRVNUX1RZUEVf",
-            "UkFSRRABKiEKCVBpZWNlVHlwZRIUChBQSUVDRV9UWVBFX0NIRVNUEABCRwoX",
-            "aW8uaHZlcnNlLmdhbWUucHJvdG9nZW5CEkRhdGFNZXNzYWdlRmFjdG9yeaoC",
-            "F2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuYgZwcm90bzM="));
+            "IAEoCRIOCgZjb2xvcjQYDSABKAkSDwoHd2luUmF0ZRgOIAEoAhIMCgRuYW1l",
+            "GA8gASgJIjcKClJld2FyZEluZm8SGQoEdHlwZRgBIAEoDjILLlJld2FyZFR5",
+            "cGUSDgoGYW1vdW50GAIgASgDIoYBCghJdGVtSW5mbxIXCgR0eXBlGAEgASgO",
+            "MgkuSXRlbVR5cGUSIwoMY2hlc3RLZXlJbmZvGAIgASgLMg0uQ2hlc3RLZXlJ",
+            "bmZvEh0KCWNoZXN0SW5mbxgDIAEoCzIKLkNoZXN0SW5mbxIdCglwaWVjZUlu",
+            "Zm8YBCABKAsyCi5QaWVjZUluZm8iSQoMQ2hlc3RLZXlJbmZvEgwKBG5hbWUY",
+            "ASABKAkSGwoEdHlwZRgCIAEoDjINLkNoZXN0S2V5VHlwZRIOCgZhbW91bnQY",
+            "AyABKAUiQwoJQ2hlc3RJbmZvEgwKBG5hbWUYASABKAkSGAoEdHlwZRgCIAEo",
+            "DjIKLkNoZXN0VHlwZRIOCgZhbW91bnQYAyABKAUiWgoJUGllY2VJbmZvEgwK",
+            "BG5hbWUYASABKAkSGAoEdHlwZRgCIAEoDjIKLlBpZWNlVHlwZRIVCg1jb21i",
+            "aW5lTnVtYmVyGAMgASgFEg4KBmFtb3VudBgEIAEoBSpECg9EYXRhTWVzc2Fn",
+            "ZVR5cGUSFwoTTUFTVEVSX0RBVEFfUkVRVUVTVBAAEhgKFE1BU1RFUl9EQVRB",
+            "X1JFU1BPTlNFEAEqeQoGUmFyaXR5EhIKDlJBUklUWV9VTktOT1dOEAASEQoN",
+            "UkFSSVRZX0NPTU1PThABEhMKD1JBUklUWV9VTkNPTU1PThACEg8KC1JBUklU",
+            "WV9SQVJFEAMSDwoLUkFSSVRZX0VQSUMQBBIRCg1SQVJJVFlfTEVHRU5EEAUq",
+            "ZwoJSG9yc2VUeXBlEhYKEkhPUlNFX1RZUEVfVU5LTk9XThAAEhQKEEhPUlNF",
+            "X1RZUEVfQkxBWkUQARIWChJIT1JTRV9UWVBFX1RIVU5ERVIQAhIUChBIT1JT",
+            "RV9UWVBFX0hJRFJPEAMqIAoETGFuZRIGCgJJThAAEgcKA01JRBABEgcKA09V",
+            "VBACKkYKDFJld2FyZFN0YXR1cxIbChdSRVdBUkRfU1RBVFVTX1VOQ0xBSU1F",
+            "RBAAEhkKFVJFV0FSRF9TVEFUVVNfQ0xBSU1FRBABKk8KClJld2FyZFR5cGUS",
+            "FAoQUkVXQVJEX1RZUEVfTk9ORRAAEhQKEFJFV0FSRF9UWVBFX0NISVAQARIV",
+            "ChFSRVdBUkRfVFlQRV9DSEVTVBACKk0KCEl0ZW1UeXBlEhcKE0lURU1fVFlQ",
+            "RV9DSEVTVF9LRVkQABITCg9JVEVNX1RZUEVfQ0hFU1QQARITCg9JVEVNX1RZ",
+            "UEVfUElFQ0UQAiopCgxDaGVzdEtleVR5cGUSGQoVQ0hFU1RfS0VZX1RZUEVf",
+            "Q09NTU9OEAAqNwoJQ2hlc3RUeXBlEhUKEUNIRVNUX1RZUEVfQ09NTU9OEAAS",
+            "EwoPQ0hFU1RfVFlQRV9SQVJFEAEqIQoJUGllY2VUeXBlEhQKEFBJRUNFX1RZ",
+            "UEVfQ0hFU1QQAEJHChdpby5odmVyc2UuZ2FtZS5wcm90b2dlbkISRGF0YU1l",
+            "c3NhZ2VGYWN0b3J5qgIXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5iBnByb3Rv",
+            "Mw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.DataMessageType), typeof(global::io.hverse.game.protogen.Rarity), typeof(global::io.hverse.game.protogen.HorseType), typeof(global::io.hverse.game.protogen.Lane), typeof(global::io.hverse.game.protogen.RewardStatus), typeof(global::io.hverse.game.protogen.RewardType), typeof(global::io.hverse.game.protogen.ItemType), typeof(global::io.hverse.game.protogen.ChestKeyType), typeof(global::io.hverse.game.protogen.ChestType), typeof(global::io.hverse.game.protogen.PieceType), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.DataMessage), global::io.hverse.game.protogen.DataMessage.Parser, new[]{ "MsgType", "MasterDataRequest", "MasterDataResponse" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataRequest), global::io.hverse.game.protogen.MasterDataRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataResponse), global::io.hverse.game.protogen.MasterDataResponse.Parser, new[]{ "MaxEnergyNumber" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "Bms", "Mms", "Acceleration", "Stamina", "HorseType", "Rarity", "Luck", "Level", "Color1", "Color2", "Color3", "Color4", "WinRate" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "Bms", "Mms", "Acceleration", "Stamina", "HorseType", "Rarity", "Luck", "Level", "Color1", "Color2", "Color3", "Color4", "WinRate", "Name" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RewardInfo), global::io.hverse.game.protogen.RewardInfo.Parser, new[]{ "Type", "Amount" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ItemInfo), global::io.hverse.game.protogen.ItemInfo.Parser, new[]{ "Type", "ChestKeyInfo", "ChestInfo", "PieceInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ChestKeyInfo), global::io.hverse.game.protogen.ChestKeyInfo.Parser, new[]{ "Name", "Type", "Amount" }, null, null, null, null),
@@ -810,6 +811,7 @@ namespace io.hverse.game.protogen {
       color3_ = other.color3_;
       color4_ = other.color4_;
       winRate_ = other.winRate_;
+      name_ = other.name_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -999,6 +1001,18 @@ namespace io.hverse.game.protogen {
       }
     }
 
+    /// <summary>Field number for the "name" field.</summary>
+    public const int NameFieldNumber = 15;
+    private string name_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Name {
+      get { return name_; }
+      set {
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1028,6 +1042,7 @@ namespace io.hverse.game.protogen {
       if (Color3 != other.Color3) return false;
       if (Color4 != other.Color4) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(WinRate, other.WinRate)) return false;
+      if (Name != other.Name) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1049,6 +1064,7 @@ namespace io.hverse.game.protogen {
       if (Color3.Length != 0) hash ^= Color3.GetHashCode();
       if (Color4.Length != 0) hash ^= Color4.GetHashCode();
       if (WinRate != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(WinRate);
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1123,6 +1139,10 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(117);
         output.WriteFloat(WinRate);
       }
+      if (Name.Length != 0) {
+        output.WriteRawTag(122);
+        output.WriteString(Name);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1189,6 +1209,10 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(117);
         output.WriteFloat(WinRate);
       }
+      if (Name.Length != 0) {
+        output.WriteRawTag(122);
+        output.WriteString(Name);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1240,6 +1264,9 @@ namespace io.hverse.game.protogen {
       }
       if (WinRate != 0F) {
         size += 1 + 4;
+      }
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1294,6 +1321,9 @@ namespace io.hverse.game.protogen {
       }
       if (other.WinRate != 0F) {
         WinRate = other.WinRate;
+      }
+      if (other.Name.Length != 0) {
+        Name = other.Name;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1366,6 +1396,10 @@ namespace io.hverse.game.protogen {
             WinRate = input.ReadFloat();
             break;
           }
+          case 122: {
+            Name = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -1435,6 +1469,10 @@ namespace io.hverse.game.protogen {
           }
           case 117: {
             WinRate = input.ReadFloat();
+            break;
+          }
+          case 122: {
+            Name = input.ReadString();
             break;
           }
         }
