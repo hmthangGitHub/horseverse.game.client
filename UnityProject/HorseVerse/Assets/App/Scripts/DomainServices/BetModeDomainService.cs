@@ -52,24 +52,30 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
 
     public async UniTask<RaceMatchData> GetCurrentBetModeRaceMatchData()
     {
-        var matchRequest = await SocketClient.Send<GetTheMatchRequest, GetTheMatchResponse>(new GetTheMatchRequest()
+        var matchRequest = await SocketClient.Send<GetCurrentRaceScriptRequest, GetCurrentRaceScriptResponse>(new GetCurrentRaceScriptRequest()
         {
             MatchId = BetMatchRepository.Current.BetMatchId
-        });
+        }, 5.0f);
 
-        var bettingDetailResponse = await SocketClient.Send<GetBettingMatchRequest, GetBettingMatchResponse>(new GetBettingMatchRequest()
-        {
-        });
+        await UniTask.Delay(1000);
 
-        var betMatch = bettingDetailResponse.Records.First(x => x.MatchId == BetMatchRepository.Current.BetMatchId);
-        
+        //var bettingDetailResponse = await SocketClient.Send<GetBetHistoryRequest, GetBetHistoryResponse>(new GetBetHistoryRequest()
+        //{
+        //}, 5.0f);
+
+        var totalWin = 0;
+        //if (bettingDetailResponse != null)
+        //{
+        //    var betMatch = bettingDetailResponse.Records.First(x => x.MatchId == BetMatchRepository.Current.BetMatchId);
+        //    totalWin = betMatch.TotalAmountWin;
+        //}
         return new RaceMatchData()
         {
             HorseRaceTimes = QuickRaceDomainService.GetHorseRaceTimes(matchRequest.RaceScript, MasterHorseContainer),
             MasterMapId = 10001002,
             Mode = RaceMode.BetMode,
             BetMatchId = BetMatchRepository.Current.BetMatchId,
-            TotalBetWin = betMatch.TotalAmountWin
+            TotalBetWin = totalWin
         };
     }
 
@@ -98,8 +104,8 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
 
     public async UniTask RequestBetData()
     {
-        var response = await SocketClient.Send<GetInfoBettingRequest, GetInfoBettingResponse>(
-            new GetInfoBettingRequest()
+        var response = await SocketClient.Send<GetCurrentBetMatchRequest, GetCurrentBetMatchResponse>(
+            new GetCurrentBetMatchRequest()
             {
             });
 

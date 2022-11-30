@@ -7,16 +7,16 @@ namespace io.hverse.game.protogen
     {
         Enum ISubMessage.MsgType => this.MsgType;
         public GameMessageType GameMessageType => GameMessageType.BettingMessage;
-        public BettingMessage(GetInfoBettingRequest x)
+        public BettingMessage(GetCurrentBetMatchRequest x)
         {
-            MsgType = BettingMessageType.GetInfoBettingRequest;
-            GetInfoBettingRequest = x;
+            MsgType = BettingMessageType.GetCurrentBetMatchRequest;
+            GetCurrentBetMatchRequest = x;
         }
 
-        public BettingMessage(GetTheMatchRequest x)
+        public BettingMessage(GetCurrentRaceScriptRequest x)
         {
-            MsgType = BettingMessageType.GetTheMatchRequest;
-            GetTheMatchRequest = x;
+            MsgType = BettingMessageType.GetCurrentRaceScriptRequest;
+            GetCurrentRaceScriptRequest = x;
         }
 
         public BettingMessage(SendBettingInfoRequest x)
@@ -31,16 +31,16 @@ namespace io.hverse.game.protogen
             CancelBettingRequest = x;
         }
         
-        public BettingMessage(GetBettingMatchDetailRequest x)
+        public BettingMessage(GetBetHistoryDetailRequest x)
         {
-            MsgType = BettingMessageType.GetBettingMatchDetailRequest;
-            GetBettingMatchDetailRequest = x;
+            MsgType = BettingMessageType.GetBettingHistoryDetailRequest;
+            GetBetHistoryDetailRequest = x;
         }
         
-        public BettingMessage(GetBettingMatchRequest x)
+        public BettingMessage(GetBetHistoryRequest x)
         {
-            MsgType = BettingMessageType.GetBettingMatchRequest;
-            GetBettingMatchRequest = x;
+            MsgType = BettingMessageType.GetBetHistoryRequest;
+            GetBetHistoryRequest = x;
         }
     }    
 }

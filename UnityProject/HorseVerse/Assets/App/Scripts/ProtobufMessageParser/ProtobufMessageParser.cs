@@ -26,11 +26,11 @@ public class ProtobufMessageParser : IMessageParser
         AddToSerializeLookUpTable<PlayerInventoryRequest>(x => new PlayerMessage(x));
         AddToParseLookUpTable<PlayerMessage, PlayerMessageType>(PlayerMessageType.PlayerInventoryResponse, x => x.PlayerInventoryResponse);
         
-        AddToSerializeLookUpTable<GetInfoBettingRequest>(x => new BettingMessage(x));
-        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.GetInfoBettingResponse, x => x.GetInfoBettingResponse);
+        AddToSerializeLookUpTable<GetCurrentBetMatchRequest>(x => new BettingMessage(x));
+        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.GetCurrentBetMatchResponse, x => x.GetCurrentBetMatchResponse);
         
-        AddToSerializeLookUpTable<GetTheMatchRequest>(x => new BettingMessage(x));
-        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.GetTheMatchResponse, x => x.GetTheMatchResponse);
+        AddToSerializeLookUpTable<GetCurrentRaceScriptRequest>(x => new BettingMessage(x));
+        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.GetCurrentRaceScriptResponse, x => x.GetCurrentRaceScriptResponse);
         
         AddToSerializeLookUpTable<SendBettingInfoRequest>(x => new BettingMessage(x));
         AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.SendBettingInfoResponse, x => x.SendBettingInfoResponse);
@@ -38,11 +38,11 @@ public class ProtobufMessageParser : IMessageParser
         AddToSerializeLookUpTable<CancelBettingRequest>(x => new BettingMessage(x));
         AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.CancelBettingResponse, x => x.CancelBettingResponse);
         
-        AddToSerializeLookUpTable<GetBettingMatchDetailRequest>(x => new BettingMessage(x));
-        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.GetBettingMatchDetailResponse, x => x.GetBettingMatchDetailResponse);
+        AddToSerializeLookUpTable<GetBetHistoryDetailRequest>(x => new BettingMessage(x));
+        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.GetBettingHistoryDetailResponse, x => x.GetBetHistoryDetailResponse);
         
-        AddToSerializeLookUpTable<GetBettingMatchRequest>(x => new BettingMessage(x));
-        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.GetBettingMatchResponse, x => x.GetBettingMatchResponse);
+        AddToSerializeLookUpTable<GetBetHistoryRequest>(x => new BettingMessage(x));
+        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.GetBetHistoryResponse, x => x.GetBetHistoryResponse);
     }
     
     private void AddToParseLookUpTable<TSubMessage, TEnum>(TEnum enumMessage, Func<TSubMessage, IMessage> resultFactory) where TEnum : System.Enum

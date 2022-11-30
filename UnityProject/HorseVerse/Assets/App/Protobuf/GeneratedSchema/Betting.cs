@@ -24,87 +24,88 @@ namespace io.hverse.game.protogen {
     static BettingReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cg1iZXR0aW5nLnByb3RvGgpyYWNlLnByb3RvIuoFCg5CZXR0aW5nTWVzc2Fn",
-            "ZRIkCgdtc2dUeXBlGAEgASgOMhMuQmV0dGluZ01lc3NhZ2VUeXBlEjUKFWdl",
-            "dEluZm9CZXR0aW5nUmVxdWVzdBgCIAEoCzIWLkdldEluZm9CZXR0aW5nUmVx",
-            "dWVzdBI3ChZnZXRJbmZvQmV0dGluZ1Jlc3BvbnNlGAMgASgLMhcuR2V0SW5m",
-            "b0JldHRpbmdSZXNwb25zZRIvChJnZXRUaGVNYXRjaFJlcXVlc3QYBCABKAsy",
-            "Ey5HZXRUaGVNYXRjaFJlcXVlc3QSMQoTZ2V0VGhlTWF0Y2hSZXNwb25zZRgF",
-            "IAEoCzIULkdldFRoZU1hdGNoUmVzcG9uc2USNwoWc2VuZEJldHRpbmdJbmZv",
-            "UmVxdWVzdBgGIAEoCzIXLlNlbmRCZXR0aW5nSW5mb1JlcXVlc3QSOQoXc2Vu",
-            "ZEJldHRpbmdJbmZvUmVzcG9uc2UYByABKAsyGC5TZW5kQmV0dGluZ0luZm9S",
-            "ZXNwb25zZRIzChRjYW5jZWxCZXR0aW5nUmVxdWVzdBgIIAEoCzIVLkNhbmNl",
-            "bEJldHRpbmdSZXF1ZXN0EjUKFWNhbmNlbEJldHRpbmdSZXNwb25zZRgJIAEo",
-            "CzIWLkNhbmNlbEJldHRpbmdSZXNwb25zZRI3ChZnZXRCZXR0aW5nTWF0Y2hS",
-            "ZXF1ZXN0GAogASgLMhcuR2V0QmV0dGluZ01hdGNoUmVxdWVzdBI5ChdnZXRC",
-            "ZXR0aW5nTWF0Y2hSZXNwb25zZRgLIAEoCzIYLkdldEJldHRpbmdNYXRjaFJl",
-            "c3BvbnNlEkMKHGdldEJldHRpbmdNYXRjaERldGFpbFJlcXVlc3QYDCABKAsy",
-            "HS5HZXRCZXR0aW5nTWF0Y2hEZXRhaWxSZXF1ZXN0EkUKHWdldEJldHRpbmdN",
-            "YXRjaERldGFpbFJlc3BvbnNlGA0gASgLMh4uR2V0QmV0dGluZ01hdGNoRGV0",
-            "YWlsUmVzcG9uc2UiegoHV2luUmF0ZRIhCgtiZXR0aW5nVHlwZRgBIAEoDjIM",
-            "LkJldHRpbmdUeXBlEhQKDGluZGV4T2ZIb3JzZRgCIAEoCRIMCgRyYXRlGAMg",
-            "ASgCEg4KBnVzZXJJZBgEIAEoAxIYChB0b3RhbEFtb3VudE9mQmV0GAUgASgF",
-            "IhcKFUdldEluZm9CZXR0aW5nUmVxdWVzdCKZAQoWR2V0SW5mb0JldHRpbmdS",
-            "ZXNwb25zZRIPCgdtYXRjaElkGAEgASgDEiEKC21hdGNoU3RhdHVzGAIgASgO",
-            "MgwuTWF0Y2hTdGF0dXMSEwoLdGltZVRvU3RhcnQYAyABKAMSHQoLd2luUmF0",
-            "ZUxpc3QYBCADKAsyCC5XaW5SYXRlEhcKD3RpbWVUb05leHRNYXRjaBgFIAEo",
-            "AyIlChJHZXRUaGVNYXRjaFJlcXVlc3QSDwoHbWF0Y2hJZBgBIAEoAyJTChNH",
-            "ZXRUaGVNYXRjaFJlc3BvbnNlEhsKBnJlc3VsdBgBIAEoDjILLlJlc3VsdENv",
-            "ZGUSHwoKcmFjZVNjcmlwdBgCIAEoCzILLlJhY2VTY3JpcHQidwoWU2VuZEJl",
-            "dHRpbmdJbmZvUmVxdWVzdBIPCgdtYXRjaElkGAEgASgDEhMKC2Ftb3VudE9m",
-            "QmV0GAIgASgFEhQKDGluZGV4T2ZIb3VzZRgDIAEoCRIhCgtiZXR0aW5nVHlw",
-            "ZRgEIAEoDjIMLkJldHRpbmdUeXBlIpIBChdTZW5kQmV0dGluZ0luZm9SZXNw",
-            "b25zZRIPCgdtYXRjaElkGAEgASgDEhQKDGluZGV4T2ZIb3VzZRgCIAEoCRIY",
-            "ChB0b3RhbEFtb3VudE9mQmV0GAMgASgFEhkKEXBsYXllclByZXNlbnRDaGlw",
-            "GAQgASgFEhsKBnJlc3VsdBgFIAEoDjILLlJlc3VsdENvZGUiUgoUQ2FuY2Vs",
-            "QmV0dGluZ1JlcXVlc3QSDwoHbWF0Y2hJZBgBIAEoAxIUCgxpbmRleE9mSG9y",
-            "c2UYAiADKAkSEwoLaXNDYW5jZWxBbGwYAyABKAgiZAoVQ2FuY2VsQmV0dGlu",
-            "Z1Jlc3BvbnNlEhsKBnJlc3VsdBgBIAEoDjILLlJlc3VsdENvZGUSFAoMZXJy",
-            "b3JNZXNzYWdlGAIgASgJEhgKEHRvdGFsUHJlc2VudENoaXAYAyABKAUimQEK",
-            "DEJldHRpbmdNYXRjaBIPCgdtYXRjaElkGAEgASgDEhMKC3RpbWVUb1N0YXJ0",
-            "GAIgASgDEhoKEnRvdGFsQW1vdW50QmV0dGluZxgDIAEoBRIOCgZyZXN1bHQY",
-            "BCABKAkSFgoOdG90YWxBbW91bnRXaW4YBSABKAUSHwoKcmFjZVNjcmlwdBgG",
-            "IAEoCzILLlJhY2VTY3JpcHQiGAoWR2V0QmV0dGluZ01hdGNoUmVxdWVzdCJW",
-            "ChdHZXRCZXR0aW5nTWF0Y2hSZXNwb25zZRIbCgZyZXN1bHQYASABKA4yCy5S",
-            "ZXN1bHRDb2RlEh4KB3JlY29yZHMYAiADKAsyDS5CZXR0aW5nTWF0Y2gibgoS",
-            "QmV0dGluZ01hdGNoRGV0YWlsEgwKBHBvb2wYASABKAkSEQoJaG9yc2VOYW1l",
-            "GAIgASgJEg8KB3dpblJhdGUYAyABKAISFAoMYmV0dGluZ01vbmV5GAQgASgF",
-            "EhAKCHdpbk1vbmV5GAUgASgFIi8KHEdldEJldHRpbmdNYXRjaERldGFpbFJl",
-            "cXVlc3QSDwoHbWF0Y2hJZBgBIAEoAyJiCh1HZXRCZXR0aW5nTWF0Y2hEZXRh",
-            "aWxSZXNwb25zZRIbCgZyZXN1bHQYASABKA4yCy5SZXN1bHRDb2RlEiQKB3Jl",
-            "Y29yZHMYAiADKAsyEy5CZXR0aW5nTWF0Y2hEZXRhaWwqjAMKEkJldHRpbmdN",
-            "ZXNzYWdlVHlwZRIcChhHRVRfSU5GT19CRVRUSU5HX1JFUVVFU1QQABIdChlH",
-            "RVRfSU5GT19CRVRUSU5HX1JFU1BPTlNFEAESGQoVR0VUX1RIRV9NQVRDSF9S",
-            "RVFVRVNUEAISGgoWR0VUX1RIRV9NQVRDSF9SRVNQT05TRRADEh0KGVNFTkRf",
-            "QkVUVElOR19JTkZPX1JFUVVFU1QQBBIeChpTRU5EX0JFVFRJTkdfSU5GT19S",
-            "RVNQT05TRRAFEhoKFkNBTkNFTF9CRVRUSU5HX1JFUVVFU1QQBhIbChdDQU5D",
-            "RUxfQkVUVElOR19SRVNQT05TRRAHEh0KGUdFVF9CRVRUSU5HX01BVENIX1JF",
-            "UVVFU1QQCBIeChpHRVRfQkVUVElOR19NQVRDSF9SRVNQT05TRRAJEiQKIEdF",
-            "VF9CRVRUSU5HX01BVENIX0RFVEFJTF9SRVFVRVNUEAoSJQohR0VUX0JFVFRJ",
-            "TkdfTUFUQ0hfREVUQUlMX1JFU1BPTlNFEAsqKAoLTWF0Y2hTdGF0dXMSDQoJ",
-            "UFJFUEFSSU5HEAASCgoGQUNUSU5HEAEqJQoLQmV0dGluZ1R5cGUSCgoGU0lO",
-            "R0xFEAASCgoGRE9VQkxFEAFCQwoXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5C",
-            "DkJldHRpbmdGYWN0b3J5qgIXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5iBnBy",
-            "b3RvMw=="));
+            "Cg1iZXR0aW5nLnByb3RvGgpyYWNlLnByb3RvIo4GCg5CZXR0aW5nTWVzc2Fn",
+            "ZRIkCgdtc2dUeXBlGAEgASgOMhMuQmV0dGluZ01lc3NhZ2VUeXBlEj0KGWdl",
+            "dEN1cnJlbnRCZXRNYXRjaFJlcXVlc3QYAiABKAsyGi5HZXRDdXJyZW50QmV0",
+            "TWF0Y2hSZXF1ZXN0Ej8KGmdldEN1cnJlbnRCZXRNYXRjaFJlc3BvbnNlGAMg",
+            "ASgLMhsuR2V0Q3VycmVudEJldE1hdGNoUmVzcG9uc2USQQobZ2V0Q3VycmVu",
+            "dFJhY2VTY3JpcHRSZXF1ZXN0GAQgASgLMhwuR2V0Q3VycmVudFJhY2VTY3Jp",
+            "cHRSZXF1ZXN0EkMKHGdldEN1cnJlbnRSYWNlU2NyaXB0UmVzcG9uc2UYBSAB",
+            "KAsyHS5HZXRDdXJyZW50UmFjZVNjcmlwdFJlc3BvbnNlEjcKFnNlbmRCZXR0",
+            "aW5nSW5mb1JlcXVlc3QYBiABKAsyFy5TZW5kQmV0dGluZ0luZm9SZXF1ZXN0",
+            "EjkKF3NlbmRCZXR0aW5nSW5mb1Jlc3BvbnNlGAcgASgLMhguU2VuZEJldHRp",
+            "bmdJbmZvUmVzcG9uc2USMwoUY2FuY2VsQmV0dGluZ1JlcXVlc3QYCCABKAsy",
+            "FS5DYW5jZWxCZXR0aW5nUmVxdWVzdBI1ChVjYW5jZWxCZXR0aW5nUmVzcG9u",
+            "c2UYCSABKAsyFi5DYW5jZWxCZXR0aW5nUmVzcG9uc2USMwoUZ2V0QmV0SGlz",
+            "dG9yeVJlcXVlc3QYCiABKAsyFS5HZXRCZXRIaXN0b3J5UmVxdWVzdBI1ChVn",
+            "ZXRCZXRIaXN0b3J5UmVzcG9uc2UYCyABKAsyFi5HZXRCZXRIaXN0b3J5UmVz",
+            "cG9uc2USPwoaZ2V0QmV0SGlzdG9yeURldGFpbFJlcXVlc3QYDCABKAsyGy5H",
+            "ZXRCZXRIaXN0b3J5RGV0YWlsUmVxdWVzdBJBChtnZXRCZXRIaXN0b3J5RGV0",
+            "YWlsUmVzcG9uc2UYDSABKAsyHC5HZXRCZXRIaXN0b3J5RGV0YWlsUmVzcG9u",
+            "c2UiegoHV2luUmF0ZRIhCgtiZXR0aW5nVHlwZRgBIAEoDjIMLkJldHRpbmdU",
+            "eXBlEhQKDGluZGV4T2ZIb3JzZRgCIAEoCRIMCgRyYXRlGAMgASgCEg4KBnVz",
+            "ZXJJZBgEIAEoAxIYChB0b3RhbEFtb3VudE9mQmV0GAUgASgFIhsKGUdldEN1",
+            "cnJlbnRCZXRNYXRjaFJlcXVlc3QinQEKGkdldEN1cnJlbnRCZXRNYXRjaFJl",
+            "c3BvbnNlEg8KB21hdGNoSWQYASABKAMSIQoLbWF0Y2hTdGF0dXMYAiABKA4y",
+            "DC5NYXRjaFN0YXR1cxITCgt0aW1lVG9TdGFydBgDIAEoAxIdCgt3aW5SYXRl",
+            "TGlzdBgEIAMoCzIILldpblJhdGUSFwoPdGltZVRvTmV4dE1hdGNoGAUgASgD",
+            "Ii4KG0dldEN1cnJlbnRSYWNlU2NyaXB0UmVxdWVzdBIPCgdtYXRjaElkGAEg",
+            "ASgDIlwKHEdldEN1cnJlbnRSYWNlU2NyaXB0UmVzcG9uc2USGwoGcmVzdWx0",
+            "GAEgASgOMgsuUmVzdWx0Q29kZRIfCgpyYWNlU2NyaXB0GAIgASgLMgsuUmFj",
+            "ZVNjcmlwdCJ3ChZTZW5kQmV0dGluZ0luZm9SZXF1ZXN0Eg8KB21hdGNoSWQY",
+            "ASABKAMSEwoLYW1vdW50T2ZCZXQYAiABKAUSFAoMaW5kZXhPZkhvdXNlGAMg",
+            "ASgJEiEKC2JldHRpbmdUeXBlGAQgASgOMgwuQmV0dGluZ1R5cGUikgEKF1Nl",
+            "bmRCZXR0aW5nSW5mb1Jlc3BvbnNlEg8KB21hdGNoSWQYASABKAMSFAoMaW5k",
+            "ZXhPZkhvdXNlGAIgASgJEhgKEHRvdGFsQW1vdW50T2ZCZXQYAyABKAUSGQoR",
+            "cGxheWVyUHJlc2VudENoaXAYBCABKAUSGwoGcmVzdWx0GAUgASgOMgsuUmVz",
+            "dWx0Q29kZSJSChRDYW5jZWxCZXR0aW5nUmVxdWVzdBIPCgdtYXRjaElkGAEg",
+            "ASgDEhQKDGluZGV4T2ZIb3JzZRgCIAMoCRITCgtpc0NhbmNlbEFsbBgDIAEo",
+            "CCJkChVDYW5jZWxCZXR0aW5nUmVzcG9uc2USGwoGcmVzdWx0GAEgASgOMgsu",
+            "UmVzdWx0Q29kZRIUCgxlcnJvck1lc3NhZ2UYAiABKAkSGAoQdG90YWxQcmVz",
+            "ZW50Q2hpcBgDIAEoBSKZAQoMQmV0dGluZ01hdGNoEg8KB21hdGNoSWQYASAB",
+            "KAMSEwoLdGltZVRvU3RhcnQYAiABKAMSGgoSdG90YWxBbW91bnRCZXR0aW5n",
+            "GAMgASgFEg4KBnJlc3VsdBgEIAEoCRIWCg50b3RhbEFtb3VudFdpbhgFIAEo",
+            "BRIfCgpyYWNlU2NyaXB0GAYgASgLMgsuUmFjZVNjcmlwdCIWChRHZXRCZXRI",
+            "aXN0b3J5UmVxdWVzdCJUChVHZXRCZXRIaXN0b3J5UmVzcG9uc2USGwoGcmVz",
+            "dWx0GAEgASgOMgsuUmVzdWx0Q29kZRIeCgdyZWNvcmRzGAIgAygLMg0uQmV0",
+            "dGluZ01hdGNoIm4KEkJldHRpbmdNYXRjaERldGFpbBIMCgRwb29sGAEgASgJ",
+            "EhEKCWhvcnNlTmFtZRgCIAEoCRIPCgd3aW5SYXRlGAMgASgCEhQKDGJldHRp",
+            "bmdNb25leRgEIAEoBRIQCgh3aW5Nb25leRgFIAEoBSItChpHZXRCZXRIaXN0",
+            "b3J5RGV0YWlsUmVxdWVzdBIPCgdtYXRjaElkGAEgASgDImAKG0dldEJldEhp",
+            "c3RvcnlEZXRhaWxSZXNwb25zZRIbCgZyZXN1bHQYASABKA4yCy5SZXN1bHRD",
+            "b2RlEiQKB3JlY29yZHMYAiADKAsyEy5CZXR0aW5nTWF0Y2hEZXRhaWwqqgMK",
+            "EkJldHRpbmdNZXNzYWdlVHlwZRIhCh1HRVRfQ1VSUkVOVF9CRVRfTUFUQ0hf",
+            "UkVRVUVTVBAAEiIKHkdFVF9DVVJSRU5UX0JFVF9NQVRDSF9SRVNQT05TRRAB",
+            "EiMKH0dFVF9DVVJSRU5UX1JBQ0VfU0NSSVBUX1JFUVVFU1QQAhIkCiBHRVRf",
+            "Q1VSUkVOVF9SQUNFX1NDUklQVF9SRVNQT05TRRADEh0KGVNFTkRfQkVUVElO",
+            "R19JTkZPX1JFUVVFU1QQBBIeChpTRU5EX0JFVFRJTkdfSU5GT19SRVNQT05T",
+            "RRAFEhoKFkNBTkNFTF9CRVRUSU5HX1JFUVVFU1QQBhIbChdDQU5DRUxfQkVU",
+            "VElOR19SRVNQT05TRRAHEhsKF0dFVF9CRVRfSElTVE9SWV9SRVFVRVNUEAgS",
+            "HAoYR0VUX0JFVF9ISVNUT1JZX1JFU1BPTlNFEAkSJgoiR0VUX0JFVFRJTkdf",
+            "SElTVE9SWV9ERVRBSUxfUkVRVUVTVBAKEicKI0dFVF9CRVRUSU5HX0hJU1RP",
+            "UllfREVUQUlMX1JFU1BPTlNFEAsqKAoLTWF0Y2hTdGF0dXMSDQoJUFJFUEFS",
+            "SU5HEAASCgoGQUNUSU5HEAEqJQoLQmV0dGluZ1R5cGUSCgoGU0lOR0xFEAAS",
+            "CgoGRE9VQkxFEAFCQwoXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5CDkJldHRp",
+            "bmdGYWN0b3J5qgIXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::io.hverse.game.protogen.RaceReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.BettingMessageType), typeof(global::io.hverse.game.protogen.MatchStatus), typeof(global::io.hverse.game.protogen.BettingType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.BettingMessage), global::io.hverse.game.protogen.BettingMessage.Parser, new[]{ "MsgType", "GetInfoBettingRequest", "GetInfoBettingResponse", "GetTheMatchRequest", "GetTheMatchResponse", "SendBettingInfoRequest", "SendBettingInfoResponse", "CancelBettingRequest", "CancelBettingResponse", "GetBettingMatchRequest", "GetBettingMatchResponse", "GetBettingMatchDetailRequest", "GetBettingMatchDetailResponse" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.BettingMessage), global::io.hverse.game.protogen.BettingMessage.Parser, new[]{ "MsgType", "GetCurrentBetMatchRequest", "GetCurrentBetMatchResponse", "GetCurrentRaceScriptRequest", "GetCurrentRaceScriptResponse", "SendBettingInfoRequest", "SendBettingInfoResponse", "CancelBettingRequest", "CancelBettingResponse", "GetBetHistoryRequest", "GetBetHistoryResponse", "GetBetHistoryDetailRequest", "GetBetHistoryDetailResponse" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.WinRate), global::io.hverse.game.protogen.WinRate.Parser, new[]{ "BettingType", "IndexOfHorse", "Rate", "UserId", "TotalAmountOfBet" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetInfoBettingRequest), global::io.hverse.game.protogen.GetInfoBettingRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetInfoBettingResponse), global::io.hverse.game.protogen.GetInfoBettingResponse.Parser, new[]{ "MatchId", "MatchStatus", "TimeToStart", "WinRateList", "TimeToNextMatch" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetTheMatchRequest), global::io.hverse.game.protogen.GetTheMatchRequest.Parser, new[]{ "MatchId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetTheMatchResponse), global::io.hverse.game.protogen.GetTheMatchResponse.Parser, new[]{ "Result", "RaceScript" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetCurrentBetMatchRequest), global::io.hverse.game.protogen.GetCurrentBetMatchRequest.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetCurrentBetMatchResponse), global::io.hverse.game.protogen.GetCurrentBetMatchResponse.Parser, new[]{ "MatchId", "MatchStatus", "TimeToStart", "WinRateList", "TimeToNextMatch" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetCurrentRaceScriptRequest), global::io.hverse.game.protogen.GetCurrentRaceScriptRequest.Parser, new[]{ "MatchId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetCurrentRaceScriptResponse), global::io.hverse.game.protogen.GetCurrentRaceScriptResponse.Parser, new[]{ "Result", "RaceScript" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.SendBettingInfoRequest), global::io.hverse.game.protogen.SendBettingInfoRequest.Parser, new[]{ "MatchId", "AmountOfBet", "IndexOfHouse", "BettingType" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.SendBettingInfoResponse), global::io.hverse.game.protogen.SendBettingInfoResponse.Parser, new[]{ "MatchId", "IndexOfHouse", "TotalAmountOfBet", "PlayerPresentChip", "Result" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.CancelBettingRequest), global::io.hverse.game.protogen.CancelBettingRequest.Parser, new[]{ "MatchId", "IndexOfHorse", "IsCancelAll" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.CancelBettingResponse), global::io.hverse.game.protogen.CancelBettingResponse.Parser, new[]{ "Result", "ErrorMessage", "TotalPresentChip" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.BettingMatch), global::io.hverse.game.protogen.BettingMatch.Parser, new[]{ "MatchId", "TimeToStart", "TotalAmountBetting", "Result", "TotalAmountWin", "RaceScript" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetBettingMatchRequest), global::io.hverse.game.protogen.GetBettingMatchRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetBettingMatchResponse), global::io.hverse.game.protogen.GetBettingMatchResponse.Parser, new[]{ "Result", "Records" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetBetHistoryRequest), global::io.hverse.game.protogen.GetBetHistoryRequest.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetBetHistoryResponse), global::io.hverse.game.protogen.GetBetHistoryResponse.Parser, new[]{ "Result", "Records" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.BettingMatchDetail), global::io.hverse.game.protogen.BettingMatchDetail.Parser, new[]{ "Pool", "HorseName", "WinRate", "BettingMoney", "WinMoney" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetBettingMatchDetailRequest), global::io.hverse.game.protogen.GetBettingMatchDetailRequest.Parser, new[]{ "MatchId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetBettingMatchDetailResponse), global::io.hverse.game.protogen.GetBettingMatchDetailResponse.Parser, new[]{ "Result", "Records" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetBetHistoryDetailRequest), global::io.hverse.game.protogen.GetBetHistoryDetailRequest.Parser, new[]{ "MatchId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetBetHistoryDetailResponse), global::io.hverse.game.protogen.GetBetHistoryDetailResponse.Parser, new[]{ "Result", "Records" }, null, null, null, null)
           }));
     }
     #endregion
@@ -115,13 +116,13 @@ namespace io.hverse.game.protogen {
     /// <summary>
     /// Get Information of betting (Including time countdown, the win rate, etc.)
     /// </summary>
-    [pbr::OriginalName("GET_INFO_BETTING_REQUEST")] GetInfoBettingRequest = 0,
-    [pbr::OriginalName("GET_INFO_BETTING_RESPONSE")] GetInfoBettingResponse = 1,
+    [pbr::OriginalName("GET_CURRENT_BET_MATCH_REQUEST")] GetCurrentBetMatchRequest = 0,
+    [pbr::OriginalName("GET_CURRENT_BET_MATCH_RESPONSE")] GetCurrentBetMatchResponse = 1,
     /// <summary>
     /// Get the detailed match
     /// </summary>
-    [pbr::OriginalName("GET_THE_MATCH_REQUEST")] GetTheMatchRequest = 2,
-    [pbr::OriginalName("GET_THE_MATCH_RESPONSE")] GetTheMatchResponse = 3,
+    [pbr::OriginalName("GET_CURRENT_RACE_SCRIPT_REQUEST")] GetCurrentRaceScriptRequest = 2,
+    [pbr::OriginalName("GET_CURRENT_RACE_SCRIPT_RESPONSE")] GetCurrentRaceScriptResponse = 3,
     /// <summary>
     /// Send betting info for each user
     /// </summary>
@@ -135,13 +136,13 @@ namespace io.hverse.game.protogen {
     /// <summary>
     /// Get betting match history
     /// </summary>
-    [pbr::OriginalName("GET_BETTING_MATCH_REQUEST")] GetBettingMatchRequest = 8,
-    [pbr::OriginalName("GET_BETTING_MATCH_RESPONSE")] GetBettingMatchResponse = 9,
+    [pbr::OriginalName("GET_BET_HISTORY_REQUEST")] GetBetHistoryRequest = 8,
+    [pbr::OriginalName("GET_BET_HISTORY_RESPONSE")] GetBetHistoryResponse = 9,
     /// <summary>
     /// Get betting match detail
     /// </summary>
-    [pbr::OriginalName("GET_BETTING_MATCH_DETAIL_REQUEST")] GetBettingMatchDetailRequest = 10,
-    [pbr::OriginalName("GET_BETTING_MATCH_DETAIL_RESPONSE")] GetBettingMatchDetailResponse = 11,
+    [pbr::OriginalName("GET_BETTING_HISTORY_DETAIL_REQUEST")] GetBettingHistoryDetailRequest = 10,
+    [pbr::OriginalName("GET_BETTING_HISTORY_DETAIL_RESPONSE")] GetBettingHistoryDetailResponse = 11,
   }
 
   public enum MatchStatus {
@@ -192,18 +193,18 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public BettingMessage(BettingMessage other) : this() {
       msgType_ = other.msgType_;
-      getInfoBettingRequest_ = other.getInfoBettingRequest_ != null ? other.getInfoBettingRequest_.Clone() : null;
-      getInfoBettingResponse_ = other.getInfoBettingResponse_ != null ? other.getInfoBettingResponse_.Clone() : null;
-      getTheMatchRequest_ = other.getTheMatchRequest_ != null ? other.getTheMatchRequest_.Clone() : null;
-      getTheMatchResponse_ = other.getTheMatchResponse_ != null ? other.getTheMatchResponse_.Clone() : null;
+      getCurrentBetMatchRequest_ = other.getCurrentBetMatchRequest_ != null ? other.getCurrentBetMatchRequest_.Clone() : null;
+      getCurrentBetMatchResponse_ = other.getCurrentBetMatchResponse_ != null ? other.getCurrentBetMatchResponse_.Clone() : null;
+      getCurrentRaceScriptRequest_ = other.getCurrentRaceScriptRequest_ != null ? other.getCurrentRaceScriptRequest_.Clone() : null;
+      getCurrentRaceScriptResponse_ = other.getCurrentRaceScriptResponse_ != null ? other.getCurrentRaceScriptResponse_.Clone() : null;
       sendBettingInfoRequest_ = other.sendBettingInfoRequest_ != null ? other.sendBettingInfoRequest_.Clone() : null;
       sendBettingInfoResponse_ = other.sendBettingInfoResponse_ != null ? other.sendBettingInfoResponse_.Clone() : null;
       cancelBettingRequest_ = other.cancelBettingRequest_ != null ? other.cancelBettingRequest_.Clone() : null;
       cancelBettingResponse_ = other.cancelBettingResponse_ != null ? other.cancelBettingResponse_.Clone() : null;
-      getBettingMatchRequest_ = other.getBettingMatchRequest_ != null ? other.getBettingMatchRequest_.Clone() : null;
-      getBettingMatchResponse_ = other.getBettingMatchResponse_ != null ? other.getBettingMatchResponse_.Clone() : null;
-      getBettingMatchDetailRequest_ = other.getBettingMatchDetailRequest_ != null ? other.getBettingMatchDetailRequest_.Clone() : null;
-      getBettingMatchDetailResponse_ = other.getBettingMatchDetailResponse_ != null ? other.getBettingMatchDetailResponse_.Clone() : null;
+      getBetHistoryRequest_ = other.getBetHistoryRequest_ != null ? other.getBetHistoryRequest_.Clone() : null;
+      getBetHistoryResponse_ = other.getBetHistoryResponse_ != null ? other.getBetHistoryResponse_.Clone() : null;
+      getBetHistoryDetailRequest_ = other.getBetHistoryDetailRequest_ != null ? other.getBetHistoryDetailRequest_.Clone() : null;
+      getBetHistoryDetailResponse_ = other.getBetHistoryDetailResponse_ != null ? other.getBetHistoryDetailResponse_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -215,7 +216,7 @@ namespace io.hverse.game.protogen {
 
     /// <summary>Field number for the "msgType" field.</summary>
     public const int MsgTypeFieldNumber = 1;
-    private global::io.hverse.game.protogen.BettingMessageType msgType_ = global::io.hverse.game.protogen.BettingMessageType.GetInfoBettingRequest;
+    private global::io.hverse.game.protogen.BettingMessageType msgType_ = global::io.hverse.game.protogen.BettingMessageType.GetCurrentBetMatchRequest;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::io.hverse.game.protogen.BettingMessageType MsgType {
@@ -225,51 +226,51 @@ namespace io.hverse.game.protogen {
       }
     }
 
-    /// <summary>Field number for the "getInfoBettingRequest" field.</summary>
-    public const int GetInfoBettingRequestFieldNumber = 2;
-    private global::io.hverse.game.protogen.GetInfoBettingRequest getInfoBettingRequest_;
+    /// <summary>Field number for the "getCurrentBetMatchRequest" field.</summary>
+    public const int GetCurrentBetMatchRequestFieldNumber = 2;
+    private global::io.hverse.game.protogen.GetCurrentBetMatchRequest getCurrentBetMatchRequest_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.GetInfoBettingRequest GetInfoBettingRequest {
-      get { return getInfoBettingRequest_; }
+    public global::io.hverse.game.protogen.GetCurrentBetMatchRequest GetCurrentBetMatchRequest {
+      get { return getCurrentBetMatchRequest_; }
       set {
-        getInfoBettingRequest_ = value;
+        getCurrentBetMatchRequest_ = value;
       }
     }
 
-    /// <summary>Field number for the "getInfoBettingResponse" field.</summary>
-    public const int GetInfoBettingResponseFieldNumber = 3;
-    private global::io.hverse.game.protogen.GetInfoBettingResponse getInfoBettingResponse_;
+    /// <summary>Field number for the "getCurrentBetMatchResponse" field.</summary>
+    public const int GetCurrentBetMatchResponseFieldNumber = 3;
+    private global::io.hverse.game.protogen.GetCurrentBetMatchResponse getCurrentBetMatchResponse_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.GetInfoBettingResponse GetInfoBettingResponse {
-      get { return getInfoBettingResponse_; }
+    public global::io.hverse.game.protogen.GetCurrentBetMatchResponse GetCurrentBetMatchResponse {
+      get { return getCurrentBetMatchResponse_; }
       set {
-        getInfoBettingResponse_ = value;
+        getCurrentBetMatchResponse_ = value;
       }
     }
 
-    /// <summary>Field number for the "getTheMatchRequest" field.</summary>
-    public const int GetTheMatchRequestFieldNumber = 4;
-    private global::io.hverse.game.protogen.GetTheMatchRequest getTheMatchRequest_;
+    /// <summary>Field number for the "getCurrentRaceScriptRequest" field.</summary>
+    public const int GetCurrentRaceScriptRequestFieldNumber = 4;
+    private global::io.hverse.game.protogen.GetCurrentRaceScriptRequest getCurrentRaceScriptRequest_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.GetTheMatchRequest GetTheMatchRequest {
-      get { return getTheMatchRequest_; }
+    public global::io.hverse.game.protogen.GetCurrentRaceScriptRequest GetCurrentRaceScriptRequest {
+      get { return getCurrentRaceScriptRequest_; }
       set {
-        getTheMatchRequest_ = value;
+        getCurrentRaceScriptRequest_ = value;
       }
     }
 
-    /// <summary>Field number for the "getTheMatchResponse" field.</summary>
-    public const int GetTheMatchResponseFieldNumber = 5;
-    private global::io.hverse.game.protogen.GetTheMatchResponse getTheMatchResponse_;
+    /// <summary>Field number for the "getCurrentRaceScriptResponse" field.</summary>
+    public const int GetCurrentRaceScriptResponseFieldNumber = 5;
+    private global::io.hverse.game.protogen.GetCurrentRaceScriptResponse getCurrentRaceScriptResponse_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.GetTheMatchResponse GetTheMatchResponse {
-      get { return getTheMatchResponse_; }
+    public global::io.hverse.game.protogen.GetCurrentRaceScriptResponse GetCurrentRaceScriptResponse {
+      get { return getCurrentRaceScriptResponse_; }
       set {
-        getTheMatchResponse_ = value;
+        getCurrentRaceScriptResponse_ = value;
       }
     }
 
@@ -321,51 +322,51 @@ namespace io.hverse.game.protogen {
       }
     }
 
-    /// <summary>Field number for the "getBettingMatchRequest" field.</summary>
-    public const int GetBettingMatchRequestFieldNumber = 10;
-    private global::io.hverse.game.protogen.GetBettingMatchRequest getBettingMatchRequest_;
+    /// <summary>Field number for the "getBetHistoryRequest" field.</summary>
+    public const int GetBetHistoryRequestFieldNumber = 10;
+    private global::io.hverse.game.protogen.GetBetHistoryRequest getBetHistoryRequest_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.GetBettingMatchRequest GetBettingMatchRequest {
-      get { return getBettingMatchRequest_; }
+    public global::io.hverse.game.protogen.GetBetHistoryRequest GetBetHistoryRequest {
+      get { return getBetHistoryRequest_; }
       set {
-        getBettingMatchRequest_ = value;
+        getBetHistoryRequest_ = value;
       }
     }
 
-    /// <summary>Field number for the "getBettingMatchResponse" field.</summary>
-    public const int GetBettingMatchResponseFieldNumber = 11;
-    private global::io.hverse.game.protogen.GetBettingMatchResponse getBettingMatchResponse_;
+    /// <summary>Field number for the "getBetHistoryResponse" field.</summary>
+    public const int GetBetHistoryResponseFieldNumber = 11;
+    private global::io.hverse.game.protogen.GetBetHistoryResponse getBetHistoryResponse_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.GetBettingMatchResponse GetBettingMatchResponse {
-      get { return getBettingMatchResponse_; }
+    public global::io.hverse.game.protogen.GetBetHistoryResponse GetBetHistoryResponse {
+      get { return getBetHistoryResponse_; }
       set {
-        getBettingMatchResponse_ = value;
+        getBetHistoryResponse_ = value;
       }
     }
 
-    /// <summary>Field number for the "getBettingMatchDetailRequest" field.</summary>
-    public const int GetBettingMatchDetailRequestFieldNumber = 12;
-    private global::io.hverse.game.protogen.GetBettingMatchDetailRequest getBettingMatchDetailRequest_;
+    /// <summary>Field number for the "getBetHistoryDetailRequest" field.</summary>
+    public const int GetBetHistoryDetailRequestFieldNumber = 12;
+    private global::io.hverse.game.protogen.GetBetHistoryDetailRequest getBetHistoryDetailRequest_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.GetBettingMatchDetailRequest GetBettingMatchDetailRequest {
-      get { return getBettingMatchDetailRequest_; }
+    public global::io.hverse.game.protogen.GetBetHistoryDetailRequest GetBetHistoryDetailRequest {
+      get { return getBetHistoryDetailRequest_; }
       set {
-        getBettingMatchDetailRequest_ = value;
+        getBetHistoryDetailRequest_ = value;
       }
     }
 
-    /// <summary>Field number for the "getBettingMatchDetailResponse" field.</summary>
-    public const int GetBettingMatchDetailResponseFieldNumber = 13;
-    private global::io.hverse.game.protogen.GetBettingMatchDetailResponse getBettingMatchDetailResponse_;
+    /// <summary>Field number for the "getBetHistoryDetailResponse" field.</summary>
+    public const int GetBetHistoryDetailResponseFieldNumber = 13;
+    private global::io.hverse.game.protogen.GetBetHistoryDetailResponse getBetHistoryDetailResponse_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.GetBettingMatchDetailResponse GetBettingMatchDetailResponse {
-      get { return getBettingMatchDetailResponse_; }
+    public global::io.hverse.game.protogen.GetBetHistoryDetailResponse GetBetHistoryDetailResponse {
+      get { return getBetHistoryDetailResponse_; }
       set {
-        getBettingMatchDetailResponse_ = value;
+        getBetHistoryDetailResponse_ = value;
       }
     }
 
@@ -385,18 +386,18 @@ namespace io.hverse.game.protogen {
         return true;
       }
       if (MsgType != other.MsgType) return false;
-      if (!object.Equals(GetInfoBettingRequest, other.GetInfoBettingRequest)) return false;
-      if (!object.Equals(GetInfoBettingResponse, other.GetInfoBettingResponse)) return false;
-      if (!object.Equals(GetTheMatchRequest, other.GetTheMatchRequest)) return false;
-      if (!object.Equals(GetTheMatchResponse, other.GetTheMatchResponse)) return false;
+      if (!object.Equals(GetCurrentBetMatchRequest, other.GetCurrentBetMatchRequest)) return false;
+      if (!object.Equals(GetCurrentBetMatchResponse, other.GetCurrentBetMatchResponse)) return false;
+      if (!object.Equals(GetCurrentRaceScriptRequest, other.GetCurrentRaceScriptRequest)) return false;
+      if (!object.Equals(GetCurrentRaceScriptResponse, other.GetCurrentRaceScriptResponse)) return false;
       if (!object.Equals(SendBettingInfoRequest, other.SendBettingInfoRequest)) return false;
       if (!object.Equals(SendBettingInfoResponse, other.SendBettingInfoResponse)) return false;
       if (!object.Equals(CancelBettingRequest, other.CancelBettingRequest)) return false;
       if (!object.Equals(CancelBettingResponse, other.CancelBettingResponse)) return false;
-      if (!object.Equals(GetBettingMatchRequest, other.GetBettingMatchRequest)) return false;
-      if (!object.Equals(GetBettingMatchResponse, other.GetBettingMatchResponse)) return false;
-      if (!object.Equals(GetBettingMatchDetailRequest, other.GetBettingMatchDetailRequest)) return false;
-      if (!object.Equals(GetBettingMatchDetailResponse, other.GetBettingMatchDetailResponse)) return false;
+      if (!object.Equals(GetBetHistoryRequest, other.GetBetHistoryRequest)) return false;
+      if (!object.Equals(GetBetHistoryResponse, other.GetBetHistoryResponse)) return false;
+      if (!object.Equals(GetBetHistoryDetailRequest, other.GetBetHistoryDetailRequest)) return false;
+      if (!object.Equals(GetBetHistoryDetailResponse, other.GetBetHistoryDetailResponse)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -404,19 +405,19 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (MsgType != global::io.hverse.game.protogen.BettingMessageType.GetInfoBettingRequest) hash ^= MsgType.GetHashCode();
-      if (getInfoBettingRequest_ != null) hash ^= GetInfoBettingRequest.GetHashCode();
-      if (getInfoBettingResponse_ != null) hash ^= GetInfoBettingResponse.GetHashCode();
-      if (getTheMatchRequest_ != null) hash ^= GetTheMatchRequest.GetHashCode();
-      if (getTheMatchResponse_ != null) hash ^= GetTheMatchResponse.GetHashCode();
+      if (MsgType != global::io.hverse.game.protogen.BettingMessageType.GetCurrentBetMatchRequest) hash ^= MsgType.GetHashCode();
+      if (getCurrentBetMatchRequest_ != null) hash ^= GetCurrentBetMatchRequest.GetHashCode();
+      if (getCurrentBetMatchResponse_ != null) hash ^= GetCurrentBetMatchResponse.GetHashCode();
+      if (getCurrentRaceScriptRequest_ != null) hash ^= GetCurrentRaceScriptRequest.GetHashCode();
+      if (getCurrentRaceScriptResponse_ != null) hash ^= GetCurrentRaceScriptResponse.GetHashCode();
       if (sendBettingInfoRequest_ != null) hash ^= SendBettingInfoRequest.GetHashCode();
       if (sendBettingInfoResponse_ != null) hash ^= SendBettingInfoResponse.GetHashCode();
       if (cancelBettingRequest_ != null) hash ^= CancelBettingRequest.GetHashCode();
       if (cancelBettingResponse_ != null) hash ^= CancelBettingResponse.GetHashCode();
-      if (getBettingMatchRequest_ != null) hash ^= GetBettingMatchRequest.GetHashCode();
-      if (getBettingMatchResponse_ != null) hash ^= GetBettingMatchResponse.GetHashCode();
-      if (getBettingMatchDetailRequest_ != null) hash ^= GetBettingMatchDetailRequest.GetHashCode();
-      if (getBettingMatchDetailResponse_ != null) hash ^= GetBettingMatchDetailResponse.GetHashCode();
+      if (getBetHistoryRequest_ != null) hash ^= GetBetHistoryRequest.GetHashCode();
+      if (getBetHistoryResponse_ != null) hash ^= GetBetHistoryResponse.GetHashCode();
+      if (getBetHistoryDetailRequest_ != null) hash ^= GetBetHistoryDetailRequest.GetHashCode();
+      if (getBetHistoryDetailResponse_ != null) hash ^= GetBetHistoryDetailResponse.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -435,25 +436,25 @@ namespace io.hverse.game.protogen {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (MsgType != global::io.hverse.game.protogen.BettingMessageType.GetInfoBettingRequest) {
+      if (MsgType != global::io.hverse.game.protogen.BettingMessageType.GetCurrentBetMatchRequest) {
         output.WriteRawTag(8);
         output.WriteEnum((int) MsgType);
       }
-      if (getInfoBettingRequest_ != null) {
+      if (getCurrentBetMatchRequest_ != null) {
         output.WriteRawTag(18);
-        output.WriteMessage(GetInfoBettingRequest);
+        output.WriteMessage(GetCurrentBetMatchRequest);
       }
-      if (getInfoBettingResponse_ != null) {
+      if (getCurrentBetMatchResponse_ != null) {
         output.WriteRawTag(26);
-        output.WriteMessage(GetInfoBettingResponse);
+        output.WriteMessage(GetCurrentBetMatchResponse);
       }
-      if (getTheMatchRequest_ != null) {
+      if (getCurrentRaceScriptRequest_ != null) {
         output.WriteRawTag(34);
-        output.WriteMessage(GetTheMatchRequest);
+        output.WriteMessage(GetCurrentRaceScriptRequest);
       }
-      if (getTheMatchResponse_ != null) {
+      if (getCurrentRaceScriptResponse_ != null) {
         output.WriteRawTag(42);
-        output.WriteMessage(GetTheMatchResponse);
+        output.WriteMessage(GetCurrentRaceScriptResponse);
       }
       if (sendBettingInfoRequest_ != null) {
         output.WriteRawTag(50);
@@ -471,21 +472,21 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(74);
         output.WriteMessage(CancelBettingResponse);
       }
-      if (getBettingMatchRequest_ != null) {
+      if (getBetHistoryRequest_ != null) {
         output.WriteRawTag(82);
-        output.WriteMessage(GetBettingMatchRequest);
+        output.WriteMessage(GetBetHistoryRequest);
       }
-      if (getBettingMatchResponse_ != null) {
+      if (getBetHistoryResponse_ != null) {
         output.WriteRawTag(90);
-        output.WriteMessage(GetBettingMatchResponse);
+        output.WriteMessage(GetBetHistoryResponse);
       }
-      if (getBettingMatchDetailRequest_ != null) {
+      if (getBetHistoryDetailRequest_ != null) {
         output.WriteRawTag(98);
-        output.WriteMessage(GetBettingMatchDetailRequest);
+        output.WriteMessage(GetBetHistoryDetailRequest);
       }
-      if (getBettingMatchDetailResponse_ != null) {
+      if (getBetHistoryDetailResponse_ != null) {
         output.WriteRawTag(106);
-        output.WriteMessage(GetBettingMatchDetailResponse);
+        output.WriteMessage(GetBetHistoryDetailResponse);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -497,25 +498,25 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (MsgType != global::io.hverse.game.protogen.BettingMessageType.GetInfoBettingRequest) {
+      if (MsgType != global::io.hverse.game.protogen.BettingMessageType.GetCurrentBetMatchRequest) {
         output.WriteRawTag(8);
         output.WriteEnum((int) MsgType);
       }
-      if (getInfoBettingRequest_ != null) {
+      if (getCurrentBetMatchRequest_ != null) {
         output.WriteRawTag(18);
-        output.WriteMessage(GetInfoBettingRequest);
+        output.WriteMessage(GetCurrentBetMatchRequest);
       }
-      if (getInfoBettingResponse_ != null) {
+      if (getCurrentBetMatchResponse_ != null) {
         output.WriteRawTag(26);
-        output.WriteMessage(GetInfoBettingResponse);
+        output.WriteMessage(GetCurrentBetMatchResponse);
       }
-      if (getTheMatchRequest_ != null) {
+      if (getCurrentRaceScriptRequest_ != null) {
         output.WriteRawTag(34);
-        output.WriteMessage(GetTheMatchRequest);
+        output.WriteMessage(GetCurrentRaceScriptRequest);
       }
-      if (getTheMatchResponse_ != null) {
+      if (getCurrentRaceScriptResponse_ != null) {
         output.WriteRawTag(42);
-        output.WriteMessage(GetTheMatchResponse);
+        output.WriteMessage(GetCurrentRaceScriptResponse);
       }
       if (sendBettingInfoRequest_ != null) {
         output.WriteRawTag(50);
@@ -533,21 +534,21 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(74);
         output.WriteMessage(CancelBettingResponse);
       }
-      if (getBettingMatchRequest_ != null) {
+      if (getBetHistoryRequest_ != null) {
         output.WriteRawTag(82);
-        output.WriteMessage(GetBettingMatchRequest);
+        output.WriteMessage(GetBetHistoryRequest);
       }
-      if (getBettingMatchResponse_ != null) {
+      if (getBetHistoryResponse_ != null) {
         output.WriteRawTag(90);
-        output.WriteMessage(GetBettingMatchResponse);
+        output.WriteMessage(GetBetHistoryResponse);
       }
-      if (getBettingMatchDetailRequest_ != null) {
+      if (getBetHistoryDetailRequest_ != null) {
         output.WriteRawTag(98);
-        output.WriteMessage(GetBettingMatchDetailRequest);
+        output.WriteMessage(GetBetHistoryDetailRequest);
       }
-      if (getBettingMatchDetailResponse_ != null) {
+      if (getBetHistoryDetailResponse_ != null) {
         output.WriteRawTag(106);
-        output.WriteMessage(GetBettingMatchDetailResponse);
+        output.WriteMessage(GetBetHistoryDetailResponse);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -559,20 +560,20 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (MsgType != global::io.hverse.game.protogen.BettingMessageType.GetInfoBettingRequest) {
+      if (MsgType != global::io.hverse.game.protogen.BettingMessageType.GetCurrentBetMatchRequest) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) MsgType);
       }
-      if (getInfoBettingRequest_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetInfoBettingRequest);
+      if (getCurrentBetMatchRequest_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetCurrentBetMatchRequest);
       }
-      if (getInfoBettingResponse_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetInfoBettingResponse);
+      if (getCurrentBetMatchResponse_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetCurrentBetMatchResponse);
       }
-      if (getTheMatchRequest_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetTheMatchRequest);
+      if (getCurrentRaceScriptRequest_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetCurrentRaceScriptRequest);
       }
-      if (getTheMatchResponse_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetTheMatchResponse);
+      if (getCurrentRaceScriptResponse_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetCurrentRaceScriptResponse);
       }
       if (sendBettingInfoRequest_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(SendBettingInfoRequest);
@@ -586,17 +587,17 @@ namespace io.hverse.game.protogen {
       if (cancelBettingResponse_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(CancelBettingResponse);
       }
-      if (getBettingMatchRequest_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetBettingMatchRequest);
+      if (getBetHistoryRequest_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetBetHistoryRequest);
       }
-      if (getBettingMatchResponse_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetBettingMatchResponse);
+      if (getBetHistoryResponse_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetBetHistoryResponse);
       }
-      if (getBettingMatchDetailRequest_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetBettingMatchDetailRequest);
+      if (getBetHistoryDetailRequest_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetBetHistoryDetailRequest);
       }
-      if (getBettingMatchDetailResponse_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetBettingMatchDetailResponse);
+      if (getBetHistoryDetailResponse_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetBetHistoryDetailResponse);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -610,32 +611,32 @@ namespace io.hverse.game.protogen {
       if (other == null) {
         return;
       }
-      if (other.MsgType != global::io.hverse.game.protogen.BettingMessageType.GetInfoBettingRequest) {
+      if (other.MsgType != global::io.hverse.game.protogen.BettingMessageType.GetCurrentBetMatchRequest) {
         MsgType = other.MsgType;
       }
-      if (other.getInfoBettingRequest_ != null) {
-        if (getInfoBettingRequest_ == null) {
-          GetInfoBettingRequest = new global::io.hverse.game.protogen.GetInfoBettingRequest();
+      if (other.getCurrentBetMatchRequest_ != null) {
+        if (getCurrentBetMatchRequest_ == null) {
+          GetCurrentBetMatchRequest = new global::io.hverse.game.protogen.GetCurrentBetMatchRequest();
         }
-        GetInfoBettingRequest.MergeFrom(other.GetInfoBettingRequest);
+        GetCurrentBetMatchRequest.MergeFrom(other.GetCurrentBetMatchRequest);
       }
-      if (other.getInfoBettingResponse_ != null) {
-        if (getInfoBettingResponse_ == null) {
-          GetInfoBettingResponse = new global::io.hverse.game.protogen.GetInfoBettingResponse();
+      if (other.getCurrentBetMatchResponse_ != null) {
+        if (getCurrentBetMatchResponse_ == null) {
+          GetCurrentBetMatchResponse = new global::io.hverse.game.protogen.GetCurrentBetMatchResponse();
         }
-        GetInfoBettingResponse.MergeFrom(other.GetInfoBettingResponse);
+        GetCurrentBetMatchResponse.MergeFrom(other.GetCurrentBetMatchResponse);
       }
-      if (other.getTheMatchRequest_ != null) {
-        if (getTheMatchRequest_ == null) {
-          GetTheMatchRequest = new global::io.hverse.game.protogen.GetTheMatchRequest();
+      if (other.getCurrentRaceScriptRequest_ != null) {
+        if (getCurrentRaceScriptRequest_ == null) {
+          GetCurrentRaceScriptRequest = new global::io.hverse.game.protogen.GetCurrentRaceScriptRequest();
         }
-        GetTheMatchRequest.MergeFrom(other.GetTheMatchRequest);
+        GetCurrentRaceScriptRequest.MergeFrom(other.GetCurrentRaceScriptRequest);
       }
-      if (other.getTheMatchResponse_ != null) {
-        if (getTheMatchResponse_ == null) {
-          GetTheMatchResponse = new global::io.hverse.game.protogen.GetTheMatchResponse();
+      if (other.getCurrentRaceScriptResponse_ != null) {
+        if (getCurrentRaceScriptResponse_ == null) {
+          GetCurrentRaceScriptResponse = new global::io.hverse.game.protogen.GetCurrentRaceScriptResponse();
         }
-        GetTheMatchResponse.MergeFrom(other.GetTheMatchResponse);
+        GetCurrentRaceScriptResponse.MergeFrom(other.GetCurrentRaceScriptResponse);
       }
       if (other.sendBettingInfoRequest_ != null) {
         if (sendBettingInfoRequest_ == null) {
@@ -661,29 +662,29 @@ namespace io.hverse.game.protogen {
         }
         CancelBettingResponse.MergeFrom(other.CancelBettingResponse);
       }
-      if (other.getBettingMatchRequest_ != null) {
-        if (getBettingMatchRequest_ == null) {
-          GetBettingMatchRequest = new global::io.hverse.game.protogen.GetBettingMatchRequest();
+      if (other.getBetHistoryRequest_ != null) {
+        if (getBetHistoryRequest_ == null) {
+          GetBetHistoryRequest = new global::io.hverse.game.protogen.GetBetHistoryRequest();
         }
-        GetBettingMatchRequest.MergeFrom(other.GetBettingMatchRequest);
+        GetBetHistoryRequest.MergeFrom(other.GetBetHistoryRequest);
       }
-      if (other.getBettingMatchResponse_ != null) {
-        if (getBettingMatchResponse_ == null) {
-          GetBettingMatchResponse = new global::io.hverse.game.protogen.GetBettingMatchResponse();
+      if (other.getBetHistoryResponse_ != null) {
+        if (getBetHistoryResponse_ == null) {
+          GetBetHistoryResponse = new global::io.hverse.game.protogen.GetBetHistoryResponse();
         }
-        GetBettingMatchResponse.MergeFrom(other.GetBettingMatchResponse);
+        GetBetHistoryResponse.MergeFrom(other.GetBetHistoryResponse);
       }
-      if (other.getBettingMatchDetailRequest_ != null) {
-        if (getBettingMatchDetailRequest_ == null) {
-          GetBettingMatchDetailRequest = new global::io.hverse.game.protogen.GetBettingMatchDetailRequest();
+      if (other.getBetHistoryDetailRequest_ != null) {
+        if (getBetHistoryDetailRequest_ == null) {
+          GetBetHistoryDetailRequest = new global::io.hverse.game.protogen.GetBetHistoryDetailRequest();
         }
-        GetBettingMatchDetailRequest.MergeFrom(other.GetBettingMatchDetailRequest);
+        GetBetHistoryDetailRequest.MergeFrom(other.GetBetHistoryDetailRequest);
       }
-      if (other.getBettingMatchDetailResponse_ != null) {
-        if (getBettingMatchDetailResponse_ == null) {
-          GetBettingMatchDetailResponse = new global::io.hverse.game.protogen.GetBettingMatchDetailResponse();
+      if (other.getBetHistoryDetailResponse_ != null) {
+        if (getBetHistoryDetailResponse_ == null) {
+          GetBetHistoryDetailResponse = new global::io.hverse.game.protogen.GetBetHistoryDetailResponse();
         }
-        GetBettingMatchDetailResponse.MergeFrom(other.GetBettingMatchDetailResponse);
+        GetBetHistoryDetailResponse.MergeFrom(other.GetBetHistoryDetailResponse);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -705,31 +706,31 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 18: {
-            if (getInfoBettingRequest_ == null) {
-              GetInfoBettingRequest = new global::io.hverse.game.protogen.GetInfoBettingRequest();
+            if (getCurrentBetMatchRequest_ == null) {
+              GetCurrentBetMatchRequest = new global::io.hverse.game.protogen.GetCurrentBetMatchRequest();
             }
-            input.ReadMessage(GetInfoBettingRequest);
+            input.ReadMessage(GetCurrentBetMatchRequest);
             break;
           }
           case 26: {
-            if (getInfoBettingResponse_ == null) {
-              GetInfoBettingResponse = new global::io.hverse.game.protogen.GetInfoBettingResponse();
+            if (getCurrentBetMatchResponse_ == null) {
+              GetCurrentBetMatchResponse = new global::io.hverse.game.protogen.GetCurrentBetMatchResponse();
             }
-            input.ReadMessage(GetInfoBettingResponse);
+            input.ReadMessage(GetCurrentBetMatchResponse);
             break;
           }
           case 34: {
-            if (getTheMatchRequest_ == null) {
-              GetTheMatchRequest = new global::io.hverse.game.protogen.GetTheMatchRequest();
+            if (getCurrentRaceScriptRequest_ == null) {
+              GetCurrentRaceScriptRequest = new global::io.hverse.game.protogen.GetCurrentRaceScriptRequest();
             }
-            input.ReadMessage(GetTheMatchRequest);
+            input.ReadMessage(GetCurrentRaceScriptRequest);
             break;
           }
           case 42: {
-            if (getTheMatchResponse_ == null) {
-              GetTheMatchResponse = new global::io.hverse.game.protogen.GetTheMatchResponse();
+            if (getCurrentRaceScriptResponse_ == null) {
+              GetCurrentRaceScriptResponse = new global::io.hverse.game.protogen.GetCurrentRaceScriptResponse();
             }
-            input.ReadMessage(GetTheMatchResponse);
+            input.ReadMessage(GetCurrentRaceScriptResponse);
             break;
           }
           case 50: {
@@ -761,31 +762,31 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 82: {
-            if (getBettingMatchRequest_ == null) {
-              GetBettingMatchRequest = new global::io.hverse.game.protogen.GetBettingMatchRequest();
+            if (getBetHistoryRequest_ == null) {
+              GetBetHistoryRequest = new global::io.hverse.game.protogen.GetBetHistoryRequest();
             }
-            input.ReadMessage(GetBettingMatchRequest);
+            input.ReadMessage(GetBetHistoryRequest);
             break;
           }
           case 90: {
-            if (getBettingMatchResponse_ == null) {
-              GetBettingMatchResponse = new global::io.hverse.game.protogen.GetBettingMatchResponse();
+            if (getBetHistoryResponse_ == null) {
+              GetBetHistoryResponse = new global::io.hverse.game.protogen.GetBetHistoryResponse();
             }
-            input.ReadMessage(GetBettingMatchResponse);
+            input.ReadMessage(GetBetHistoryResponse);
             break;
           }
           case 98: {
-            if (getBettingMatchDetailRequest_ == null) {
-              GetBettingMatchDetailRequest = new global::io.hverse.game.protogen.GetBettingMatchDetailRequest();
+            if (getBetHistoryDetailRequest_ == null) {
+              GetBetHistoryDetailRequest = new global::io.hverse.game.protogen.GetBetHistoryDetailRequest();
             }
-            input.ReadMessage(GetBettingMatchDetailRequest);
+            input.ReadMessage(GetBetHistoryDetailRequest);
             break;
           }
           case 106: {
-            if (getBettingMatchDetailResponse_ == null) {
-              GetBettingMatchDetailResponse = new global::io.hverse.game.protogen.GetBettingMatchDetailResponse();
+            if (getBetHistoryDetailResponse_ == null) {
+              GetBetHistoryDetailResponse = new global::io.hverse.game.protogen.GetBetHistoryDetailResponse();
             }
-            input.ReadMessage(GetBettingMatchDetailResponse);
+            input.ReadMessage(GetBetHistoryDetailResponse);
             break;
           }
         }
@@ -808,31 +809,31 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 18: {
-            if (getInfoBettingRequest_ == null) {
-              GetInfoBettingRequest = new global::io.hverse.game.protogen.GetInfoBettingRequest();
+            if (getCurrentBetMatchRequest_ == null) {
+              GetCurrentBetMatchRequest = new global::io.hverse.game.protogen.GetCurrentBetMatchRequest();
             }
-            input.ReadMessage(GetInfoBettingRequest);
+            input.ReadMessage(GetCurrentBetMatchRequest);
             break;
           }
           case 26: {
-            if (getInfoBettingResponse_ == null) {
-              GetInfoBettingResponse = new global::io.hverse.game.protogen.GetInfoBettingResponse();
+            if (getCurrentBetMatchResponse_ == null) {
+              GetCurrentBetMatchResponse = new global::io.hverse.game.protogen.GetCurrentBetMatchResponse();
             }
-            input.ReadMessage(GetInfoBettingResponse);
+            input.ReadMessage(GetCurrentBetMatchResponse);
             break;
           }
           case 34: {
-            if (getTheMatchRequest_ == null) {
-              GetTheMatchRequest = new global::io.hverse.game.protogen.GetTheMatchRequest();
+            if (getCurrentRaceScriptRequest_ == null) {
+              GetCurrentRaceScriptRequest = new global::io.hverse.game.protogen.GetCurrentRaceScriptRequest();
             }
-            input.ReadMessage(GetTheMatchRequest);
+            input.ReadMessage(GetCurrentRaceScriptRequest);
             break;
           }
           case 42: {
-            if (getTheMatchResponse_ == null) {
-              GetTheMatchResponse = new global::io.hverse.game.protogen.GetTheMatchResponse();
+            if (getCurrentRaceScriptResponse_ == null) {
+              GetCurrentRaceScriptResponse = new global::io.hverse.game.protogen.GetCurrentRaceScriptResponse();
             }
-            input.ReadMessage(GetTheMatchResponse);
+            input.ReadMessage(GetCurrentRaceScriptResponse);
             break;
           }
           case 50: {
@@ -864,31 +865,31 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 82: {
-            if (getBettingMatchRequest_ == null) {
-              GetBettingMatchRequest = new global::io.hverse.game.protogen.GetBettingMatchRequest();
+            if (getBetHistoryRequest_ == null) {
+              GetBetHistoryRequest = new global::io.hverse.game.protogen.GetBetHistoryRequest();
             }
-            input.ReadMessage(GetBettingMatchRequest);
+            input.ReadMessage(GetBetHistoryRequest);
             break;
           }
           case 90: {
-            if (getBettingMatchResponse_ == null) {
-              GetBettingMatchResponse = new global::io.hverse.game.protogen.GetBettingMatchResponse();
+            if (getBetHistoryResponse_ == null) {
+              GetBetHistoryResponse = new global::io.hverse.game.protogen.GetBetHistoryResponse();
             }
-            input.ReadMessage(GetBettingMatchResponse);
+            input.ReadMessage(GetBetHistoryResponse);
             break;
           }
           case 98: {
-            if (getBettingMatchDetailRequest_ == null) {
-              GetBettingMatchDetailRequest = new global::io.hverse.game.protogen.GetBettingMatchDetailRequest();
+            if (getBetHistoryDetailRequest_ == null) {
+              GetBetHistoryDetailRequest = new global::io.hverse.game.protogen.GetBetHistoryDetailRequest();
             }
-            input.ReadMessage(GetBettingMatchDetailRequest);
+            input.ReadMessage(GetBetHistoryDetailRequest);
             break;
           }
           case 106: {
-            if (getBettingMatchDetailResponse_ == null) {
-              GetBettingMatchDetailResponse = new global::io.hverse.game.protogen.GetBettingMatchDetailResponse();
+            if (getBetHistoryDetailResponse_ == null) {
+              GetBetHistoryDetailResponse = new global::io.hverse.game.protogen.GetBetHistoryDetailResponse();
             }
-            input.ReadMessage(GetBettingMatchDetailResponse);
+            input.ReadMessage(GetBetHistoryDetailResponse);
             break;
           }
         }
@@ -1244,16 +1245,16 @@ namespace io.hverse.game.protogen {
 
   }
 
-  public sealed partial class GetInfoBettingRequest : pb::IMessage<GetInfoBettingRequest>
+  public sealed partial class GetCurrentBetMatchRequest : pb::IMessage<GetCurrentBetMatchRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<GetInfoBettingRequest> _parser = new pb::MessageParser<GetInfoBettingRequest>(() => new GetInfoBettingRequest());
+    private static readonly pb::MessageParser<GetCurrentBetMatchRequest> _parser = new pb::MessageParser<GetCurrentBetMatchRequest>(() => new GetCurrentBetMatchRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GetInfoBettingRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<GetCurrentBetMatchRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1269,7 +1270,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetInfoBettingRequest() {
+    public GetCurrentBetMatchRequest() {
       OnConstruction();
     }
 
@@ -1277,25 +1278,25 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetInfoBettingRequest(GetInfoBettingRequest other) : this() {
+    public GetCurrentBetMatchRequest(GetCurrentBetMatchRequest other) : this() {
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetInfoBettingRequest Clone() {
-      return new GetInfoBettingRequest(this);
+    public GetCurrentBetMatchRequest Clone() {
+      return new GetCurrentBetMatchRequest(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as GetInfoBettingRequest);
+      return Equals(other as GetCurrentBetMatchRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GetInfoBettingRequest other) {
+    public bool Equals(GetCurrentBetMatchRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -1355,7 +1356,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GetInfoBettingRequest other) {
+    public void MergeFrom(GetCurrentBetMatchRequest other) {
       if (other == null) {
         return;
       }
@@ -1396,16 +1397,16 @@ namespace io.hverse.game.protogen {
 
   }
 
-  public sealed partial class GetInfoBettingResponse : pb::IMessage<GetInfoBettingResponse>
+  public sealed partial class GetCurrentBetMatchResponse : pb::IMessage<GetCurrentBetMatchResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<GetInfoBettingResponse> _parser = new pb::MessageParser<GetInfoBettingResponse>(() => new GetInfoBettingResponse());
+    private static readonly pb::MessageParser<GetCurrentBetMatchResponse> _parser = new pb::MessageParser<GetCurrentBetMatchResponse>(() => new GetCurrentBetMatchResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GetInfoBettingResponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<GetCurrentBetMatchResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1421,7 +1422,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetInfoBettingResponse() {
+    public GetCurrentBetMatchResponse() {
       OnConstruction();
     }
 
@@ -1429,7 +1430,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetInfoBettingResponse(GetInfoBettingResponse other) : this() {
+    public GetCurrentBetMatchResponse(GetCurrentBetMatchResponse other) : this() {
       matchId_ = other.matchId_;
       matchStatus_ = other.matchStatus_;
       timeToStart_ = other.timeToStart_;
@@ -1440,8 +1441,8 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetInfoBettingResponse Clone() {
-      return new GetInfoBettingResponse(this);
+    public GetCurrentBetMatchResponse Clone() {
+      return new GetCurrentBetMatchResponse(this);
     }
 
     /// <summary>Field number for the "matchId" field.</summary>
@@ -1506,12 +1507,12 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as GetInfoBettingResponse);
+      return Equals(other as GetCurrentBetMatchResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GetInfoBettingResponse other) {
+    public bool Equals(GetCurrentBetMatchResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -1628,7 +1629,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GetInfoBettingResponse other) {
+    public void MergeFrom(GetCurrentBetMatchResponse other) {
       if (other == null) {
         return;
       }
@@ -1722,16 +1723,16 @@ namespace io.hverse.game.protogen {
 
   }
 
-  public sealed partial class GetTheMatchRequest : pb::IMessage<GetTheMatchRequest>
+  public sealed partial class GetCurrentRaceScriptRequest : pb::IMessage<GetCurrentRaceScriptRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<GetTheMatchRequest> _parser = new pb::MessageParser<GetTheMatchRequest>(() => new GetTheMatchRequest());
+    private static readonly pb::MessageParser<GetCurrentRaceScriptRequest> _parser = new pb::MessageParser<GetCurrentRaceScriptRequest>(() => new GetCurrentRaceScriptRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GetTheMatchRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<GetCurrentRaceScriptRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1747,7 +1748,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetTheMatchRequest() {
+    public GetCurrentRaceScriptRequest() {
       OnConstruction();
     }
 
@@ -1755,15 +1756,15 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetTheMatchRequest(GetTheMatchRequest other) : this() {
+    public GetCurrentRaceScriptRequest(GetCurrentRaceScriptRequest other) : this() {
       matchId_ = other.matchId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetTheMatchRequest Clone() {
-      return new GetTheMatchRequest(this);
+    public GetCurrentRaceScriptRequest Clone() {
+      return new GetCurrentRaceScriptRequest(this);
     }
 
     /// <summary>Field number for the "matchId" field.</summary>
@@ -1781,12 +1782,12 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as GetTheMatchRequest);
+      return Equals(other as GetCurrentRaceScriptRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GetTheMatchRequest other) {
+    public bool Equals(GetCurrentRaceScriptRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -1859,7 +1860,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GetTheMatchRequest other) {
+    public void MergeFrom(GetCurrentRaceScriptRequest other) {
       if (other == null) {
         return;
       }
@@ -1911,16 +1912,16 @@ namespace io.hverse.game.protogen {
 
   }
 
-  public sealed partial class GetTheMatchResponse : pb::IMessage<GetTheMatchResponse>
+  public sealed partial class GetCurrentRaceScriptResponse : pb::IMessage<GetCurrentRaceScriptResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<GetTheMatchResponse> _parser = new pb::MessageParser<GetTheMatchResponse>(() => new GetTheMatchResponse());
+    private static readonly pb::MessageParser<GetCurrentRaceScriptResponse> _parser = new pb::MessageParser<GetCurrentRaceScriptResponse>(() => new GetCurrentRaceScriptResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GetTheMatchResponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<GetCurrentRaceScriptResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1936,7 +1937,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetTheMatchResponse() {
+    public GetCurrentRaceScriptResponse() {
       OnConstruction();
     }
 
@@ -1944,7 +1945,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetTheMatchResponse(GetTheMatchResponse other) : this() {
+    public GetCurrentRaceScriptResponse(GetCurrentRaceScriptResponse other) : this() {
       result_ = other.result_;
       raceScript_ = other.raceScript_ != null ? other.raceScript_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -1952,8 +1953,8 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetTheMatchResponse Clone() {
-      return new GetTheMatchResponse(this);
+    public GetCurrentRaceScriptResponse Clone() {
+      return new GetCurrentRaceScriptResponse(this);
     }
 
     /// <summary>Field number for the "result" field.</summary>
@@ -1983,12 +1984,12 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as GetTheMatchResponse);
+      return Equals(other as GetCurrentRaceScriptResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GetTheMatchResponse other) {
+    public bool Equals(GetCurrentRaceScriptResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -2074,7 +2075,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GetTheMatchResponse other) {
+    public void MergeFrom(GetCurrentRaceScriptResponse other) {
       if (other == null) {
         return;
       }
@@ -3681,16 +3682,16 @@ namespace io.hverse.game.protogen {
 
   }
 
-  public sealed partial class GetBettingMatchRequest : pb::IMessage<GetBettingMatchRequest>
+  public sealed partial class GetBetHistoryRequest : pb::IMessage<GetBetHistoryRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<GetBettingMatchRequest> _parser = new pb::MessageParser<GetBettingMatchRequest>(() => new GetBettingMatchRequest());
+    private static readonly pb::MessageParser<GetBetHistoryRequest> _parser = new pb::MessageParser<GetBetHistoryRequest>(() => new GetBetHistoryRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GetBettingMatchRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<GetBetHistoryRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3706,7 +3707,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetBettingMatchRequest() {
+    public GetBetHistoryRequest() {
       OnConstruction();
     }
 
@@ -3714,25 +3715,25 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetBettingMatchRequest(GetBettingMatchRequest other) : this() {
+    public GetBetHistoryRequest(GetBetHistoryRequest other) : this() {
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetBettingMatchRequest Clone() {
-      return new GetBettingMatchRequest(this);
+    public GetBetHistoryRequest Clone() {
+      return new GetBetHistoryRequest(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as GetBettingMatchRequest);
+      return Equals(other as GetBetHistoryRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GetBettingMatchRequest other) {
+    public bool Equals(GetBetHistoryRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -3792,7 +3793,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GetBettingMatchRequest other) {
+    public void MergeFrom(GetBetHistoryRequest other) {
       if (other == null) {
         return;
       }
@@ -3833,16 +3834,16 @@ namespace io.hverse.game.protogen {
 
   }
 
-  public sealed partial class GetBettingMatchResponse : pb::IMessage<GetBettingMatchResponse>
+  public sealed partial class GetBetHistoryResponse : pb::IMessage<GetBetHistoryResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<GetBettingMatchResponse> _parser = new pb::MessageParser<GetBettingMatchResponse>(() => new GetBettingMatchResponse());
+    private static readonly pb::MessageParser<GetBetHistoryResponse> _parser = new pb::MessageParser<GetBetHistoryResponse>(() => new GetBetHistoryResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GetBettingMatchResponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<GetBetHistoryResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3858,7 +3859,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetBettingMatchResponse() {
+    public GetBetHistoryResponse() {
       OnConstruction();
     }
 
@@ -3866,7 +3867,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetBettingMatchResponse(GetBettingMatchResponse other) : this() {
+    public GetBetHistoryResponse(GetBetHistoryResponse other) : this() {
       result_ = other.result_;
       records_ = other.records_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -3874,8 +3875,8 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetBettingMatchResponse Clone() {
-      return new GetBettingMatchResponse(this);
+    public GetBetHistoryResponse Clone() {
+      return new GetBetHistoryResponse(this);
     }
 
     /// <summary>Field number for the "result" field.</summary>
@@ -3904,12 +3905,12 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as GetBettingMatchResponse);
+      return Equals(other as GetBetHistoryResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GetBettingMatchResponse other) {
+    public bool Equals(GetBetHistoryResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -3987,7 +3988,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GetBettingMatchResponse other) {
+    public void MergeFrom(GetBetHistoryResponse other) {
       if (other == null) {
         return;
       }
@@ -4391,16 +4392,16 @@ namespace io.hverse.game.protogen {
 
   }
 
-  public sealed partial class GetBettingMatchDetailRequest : pb::IMessage<GetBettingMatchDetailRequest>
+  public sealed partial class GetBetHistoryDetailRequest : pb::IMessage<GetBetHistoryDetailRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<GetBettingMatchDetailRequest> _parser = new pb::MessageParser<GetBettingMatchDetailRequest>(() => new GetBettingMatchDetailRequest());
+    private static readonly pb::MessageParser<GetBetHistoryDetailRequest> _parser = new pb::MessageParser<GetBetHistoryDetailRequest>(() => new GetBetHistoryDetailRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GetBettingMatchDetailRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<GetBetHistoryDetailRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -4416,7 +4417,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetBettingMatchDetailRequest() {
+    public GetBetHistoryDetailRequest() {
       OnConstruction();
     }
 
@@ -4424,15 +4425,15 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetBettingMatchDetailRequest(GetBettingMatchDetailRequest other) : this() {
+    public GetBetHistoryDetailRequest(GetBetHistoryDetailRequest other) : this() {
       matchId_ = other.matchId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetBettingMatchDetailRequest Clone() {
-      return new GetBettingMatchDetailRequest(this);
+    public GetBetHistoryDetailRequest Clone() {
+      return new GetBetHistoryDetailRequest(this);
     }
 
     /// <summary>Field number for the "matchId" field.</summary>
@@ -4450,12 +4451,12 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as GetBettingMatchDetailRequest);
+      return Equals(other as GetBetHistoryDetailRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GetBettingMatchDetailRequest other) {
+    public bool Equals(GetBetHistoryDetailRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -4528,7 +4529,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GetBettingMatchDetailRequest other) {
+    public void MergeFrom(GetBetHistoryDetailRequest other) {
       if (other == null) {
         return;
       }
@@ -4580,16 +4581,16 @@ namespace io.hverse.game.protogen {
 
   }
 
-  public sealed partial class GetBettingMatchDetailResponse : pb::IMessage<GetBettingMatchDetailResponse>
+  public sealed partial class GetBetHistoryDetailResponse : pb::IMessage<GetBetHistoryDetailResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<GetBettingMatchDetailResponse> _parser = new pb::MessageParser<GetBettingMatchDetailResponse>(() => new GetBettingMatchDetailResponse());
+    private static readonly pb::MessageParser<GetBetHistoryDetailResponse> _parser = new pb::MessageParser<GetBetHistoryDetailResponse>(() => new GetBetHistoryDetailResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GetBettingMatchDetailResponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<GetBetHistoryDetailResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -4605,7 +4606,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetBettingMatchDetailResponse() {
+    public GetBetHistoryDetailResponse() {
       OnConstruction();
     }
 
@@ -4613,7 +4614,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetBettingMatchDetailResponse(GetBettingMatchDetailResponse other) : this() {
+    public GetBetHistoryDetailResponse(GetBetHistoryDetailResponse other) : this() {
       result_ = other.result_;
       records_ = other.records_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -4621,8 +4622,8 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetBettingMatchDetailResponse Clone() {
-      return new GetBettingMatchDetailResponse(this);
+    public GetBetHistoryDetailResponse Clone() {
+      return new GetBetHistoryDetailResponse(this);
     }
 
     /// <summary>Field number for the "result" field.</summary>
@@ -4651,12 +4652,12 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as GetBettingMatchDetailResponse);
+      return Equals(other as GetBetHistoryDetailResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GetBettingMatchDetailResponse other) {
+    public bool Equals(GetBetHistoryDetailResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -4734,7 +4735,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GetBettingMatchDetailResponse other) {
+    public void MergeFrom(GetBetHistoryDetailResponse other) {
       if (other == null) {
         return;
       }

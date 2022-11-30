@@ -34,23 +34,46 @@ namespace io.hverse.game.protogen {
             "GAUgASgCEh0KCWhvcnNlVHlwZRgGIAEoDjIKLkhvcnNlVHlwZRIXCgZyYXJp",
             "dHkYByABKA4yBy5SYXJpdHkSDAoEbHVjaxgIIAEoBRINCgVsZXZlbBgJIAEo",
             "BRIOCgZjb2xvcjEYCiABKAkSDgoGY29sb3IyGAsgASgJEg4KBmNvbG9yMxgM",
-            "IAEoCRIOCgZjb2xvcjQYDSABKAkSDwoHd2luUmF0ZRgOIAEoAipECg9EYXRh",
-            "TWVzc2FnZVR5cGUSFwoTTUFTVEVSX0RBVEFfUkVRVUVTVBAAEhgKFE1BU1RF",
-            "Ul9EQVRBX1JFU1BPTlNFEAEqeQoGUmFyaXR5EhIKDlJBUklUWV9VTktOT1dO",
-            "EAASEQoNUkFSSVRZX0NPTU1PThABEhMKD1JBUklUWV9VTkNPTU1PThACEg8K",
-            "C1JBUklUWV9SQVJFEAMSDwoLUkFSSVRZX0VQSUMQBBIRCg1SQVJJVFlfTEVH",
-            "RU5EEAUqZwoJSG9yc2VUeXBlEhYKEkhPUlNFX1RZUEVfVU5LTk9XThAAEhQK",
-            "EEhPUlNFX1RZUEVfQkxBWkUQARIWChJIT1JTRV9UWVBFX1RIVU5ERVIQAhIU",
-            "ChBIT1JTRV9UWVBFX0hJRFJPEAMqIAoETGFuZRIGCgJJThAAEgcKA01JRBAB",
-            "EgcKA09VVBACQkcKF2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuQhJEYXRhTWVz",
-            "c2FnZUZhY3RvcnmqAhdpby5odmVyc2UuZ2FtZS5wcm90b2dlbmIGcHJvdG8z"));
+            "IAEoCRIOCgZjb2xvcjQYDSABKAkSDwoHd2luUmF0ZRgOIAEoAiI3CgpSZXdh",
+            "cmRJbmZvEhkKBHR5cGUYASABKA4yCy5SZXdhcmRUeXBlEg4KBmFtb3VudBgC",
+            "IAEoAyKGAQoISXRlbUluZm8SFwoEdHlwZRgBIAEoDjIJLkl0ZW1UeXBlEiMK",
+            "DGNoZXN0S2V5SW5mbxgCIAEoCzINLkNoZXN0S2V5SW5mbxIdCgljaGVzdElu",
+            "Zm8YAyABKAsyCi5DaGVzdEluZm8SHQoJcGllY2VJbmZvGAQgASgLMgouUGll",
+            "Y2VJbmZvIkkKDENoZXN0S2V5SW5mbxIMCgRuYW1lGAEgASgJEhsKBHR5cGUY",
+            "AiABKA4yDS5DaGVzdEtleVR5cGUSDgoGYW1vdW50GAMgASgFIkMKCUNoZXN0",
+            "SW5mbxIMCgRuYW1lGAEgASgJEhgKBHR5cGUYAiABKA4yCi5DaGVzdFR5cGUS",
+            "DgoGYW1vdW50GAMgASgFIloKCVBpZWNlSW5mbxIMCgRuYW1lGAEgASgJEhgK",
+            "BHR5cGUYAiABKA4yCi5QaWVjZVR5cGUSFQoNY29tYmluZU51bWJlchgDIAEo",
+            "BRIOCgZhbW91bnQYBCABKAUqRAoPRGF0YU1lc3NhZ2VUeXBlEhcKE01BU1RF",
+            "Ul9EQVRBX1JFUVVFU1QQABIYChRNQVNURVJfREFUQV9SRVNQT05TRRABKnkK",
+            "BlJhcml0eRISCg5SQVJJVFlfVU5LTk9XThAAEhEKDVJBUklUWV9DT01NT04Q",
+            "ARITCg9SQVJJVFlfVU5DT01NT04QAhIPCgtSQVJJVFlfUkFSRRADEg8KC1JB",
+            "UklUWV9FUElDEAQSEQoNUkFSSVRZX0xFR0VORBAFKmcKCUhvcnNlVHlwZRIW",
+            "ChJIT1JTRV9UWVBFX1VOS05PV04QABIUChBIT1JTRV9UWVBFX0JMQVpFEAES",
+            "FgoSSE9SU0VfVFlQRV9USFVOREVSEAISFAoQSE9SU0VfVFlQRV9ISURSTxAD",
+            "KiAKBExhbmUSBgoCSU4QABIHCgNNSUQQARIHCgNPVVQQAipGCgxSZXdhcmRT",
+            "dGF0dXMSGwoXUkVXQVJEX1NUQVRVU19VTkNMQUlNRUQQABIZChVSRVdBUkRf",
+            "U1RBVFVTX0NMQUlNRUQQASpPCgpSZXdhcmRUeXBlEhQKEFJFV0FSRF9UWVBF",
+            "X05PTkUQABIUChBSRVdBUkRfVFlQRV9DSElQEAESFQoRUkVXQVJEX1RZUEVf",
+            "Q0hFU1QQAipNCghJdGVtVHlwZRIXChNJVEVNX1RZUEVfQ0hFU1RfS0VZEAAS",
+            "EwoPSVRFTV9UWVBFX0NIRVNUEAESEwoPSVRFTV9UWVBFX1BJRUNFEAIqKQoM",
+            "Q2hlc3RLZXlUeXBlEhkKFUNIRVNUX0tFWV9UWVBFX0NPTU1PThAAKjcKCUNo",
+            "ZXN0VHlwZRIVChFDSEVTVF9UWVBFX0NPTU1PThAAEhMKD0NIRVNUX1RZUEVf",
+            "UkFSRRABKiEKCVBpZWNlVHlwZRIUChBQSUVDRV9UWVBFX0NIRVNUEABCRwoX",
+            "aW8uaHZlcnNlLmdhbWUucHJvdG9nZW5CEkRhdGFNZXNzYWdlRmFjdG9yeaoC",
+            "F2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.DataMessageType), typeof(global::io.hverse.game.protogen.Rarity), typeof(global::io.hverse.game.protogen.HorseType), typeof(global::io.hverse.game.protogen.Lane), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.DataMessageType), typeof(global::io.hverse.game.protogen.Rarity), typeof(global::io.hverse.game.protogen.HorseType), typeof(global::io.hverse.game.protogen.Lane), typeof(global::io.hverse.game.protogen.RewardStatus), typeof(global::io.hverse.game.protogen.RewardType), typeof(global::io.hverse.game.protogen.ItemType), typeof(global::io.hverse.game.protogen.ChestKeyType), typeof(global::io.hverse.game.protogen.ChestType), typeof(global::io.hverse.game.protogen.PieceType), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.DataMessage), global::io.hverse.game.protogen.DataMessage.Parser, new[]{ "MsgType", "MasterDataRequest", "MasterDataResponse" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataRequest), global::io.hverse.game.protogen.MasterDataRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataResponse), global::io.hverse.game.protogen.MasterDataResponse.Parser, new[]{ "MaxEnergyNumber" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "Bms", "Mms", "Acceleration", "Stamina", "HorseType", "Rarity", "Luck", "Level", "Color1", "Color2", "Color3", "Color4", "WinRate" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "Bms", "Mms", "Acceleration", "Stamina", "HorseType", "Rarity", "Luck", "Level", "Color1", "Color2", "Color3", "Color4", "WinRate" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RewardInfo), global::io.hverse.game.protogen.RewardInfo.Parser, new[]{ "Type", "Amount" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ItemInfo), global::io.hverse.game.protogen.ItemInfo.Parser, new[]{ "Type", "ChestKeyInfo", "ChestInfo", "PieceInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ChestKeyInfo), global::io.hverse.game.protogen.ChestKeyInfo.Parser, new[]{ "Name", "Type", "Amount" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ChestInfo), global::io.hverse.game.protogen.ChestInfo.Parser, new[]{ "Name", "Type", "Amount" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PieceInfo), global::io.hverse.game.protogen.PieceInfo.Parser, new[]{ "Name", "Type", "CombineNumber", "Amount" }, null, null, null, null)
           }));
     }
     #endregion
@@ -82,6 +105,36 @@ namespace io.hverse.game.protogen {
     [pbr::OriginalName("IN")] In = 0,
     [pbr::OriginalName("MID")] Mid = 1,
     [pbr::OriginalName("OUT")] Out = 2,
+  }
+
+  public enum RewardStatus {
+    [pbr::OriginalName("REWARD_STATUS_UNCLAIMED")] Unclaimed = 0,
+    [pbr::OriginalName("REWARD_STATUS_CLAIMED")] Claimed = 1,
+  }
+
+  public enum RewardType {
+    [pbr::OriginalName("REWARD_TYPE_NONE")] None = 0,
+    [pbr::OriginalName("REWARD_TYPE_CHIP")] Chip = 1,
+    [pbr::OriginalName("REWARD_TYPE_CHEST")] Chest = 2,
+  }
+
+  public enum ItemType {
+    [pbr::OriginalName("ITEM_TYPE_CHEST_KEY")] ChestKey = 0,
+    [pbr::OriginalName("ITEM_TYPE_CHEST")] Chest = 1,
+    [pbr::OriginalName("ITEM_TYPE_PIECE")] Piece = 2,
+  }
+
+  public enum ChestKeyType {
+    [pbr::OriginalName("CHEST_KEY_TYPE_COMMON")] Common = 0,
+  }
+
+  public enum ChestType {
+    [pbr::OriginalName("CHEST_TYPE_COMMON")] Common = 0,
+    [pbr::OriginalName("CHEST_TYPE_RARE")] Rare = 1,
+  }
+
+  public enum PieceType {
+    [pbr::OriginalName("PIECE_TYPE_CHEST")] Chest = 0,
   }
 
   #endregion
@@ -1382,6 +1435,1385 @@ namespace io.hverse.game.protogen {
           }
           case 117: {
             WinRate = input.ReadFloat();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class RewardInfo : pb::IMessage<RewardInfo>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<RewardInfo> _parser = new pb::MessageParser<RewardInfo>(() => new RewardInfo());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<RewardInfo> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[4]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public RewardInfo() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public RewardInfo(RewardInfo other) : this() {
+      type_ = other.type_;
+      amount_ = other.amount_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public RewardInfo Clone() {
+      return new RewardInfo(this);
+    }
+
+    /// <summary>Field number for the "type" field.</summary>
+    public const int TypeFieldNumber = 1;
+    private global::io.hverse.game.protogen.RewardType type_ = global::io.hverse.game.protogen.RewardType.None;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.RewardType Type {
+      get { return type_; }
+      set {
+        type_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "amount" field.</summary>
+    public const int AmountFieldNumber = 2;
+    private long amount_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public long Amount {
+      get { return amount_; }
+      set {
+        amount_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as RewardInfo);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(RewardInfo other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Type != other.Type) return false;
+      if (Amount != other.Amount) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Type != global::io.hverse.game.protogen.RewardType.None) hash ^= Type.GetHashCode();
+      if (Amount != 0L) hash ^= Amount.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Type != global::io.hverse.game.protogen.RewardType.None) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) Type);
+      }
+      if (Amount != 0L) {
+        output.WriteRawTag(16);
+        output.WriteInt64(Amount);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Type != global::io.hverse.game.protogen.RewardType.None) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) Type);
+      }
+      if (Amount != 0L) {
+        output.WriteRawTag(16);
+        output.WriteInt64(Amount);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Type != global::io.hverse.game.protogen.RewardType.None) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
+      }
+      if (Amount != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Amount);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(RewardInfo other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Type != global::io.hverse.game.protogen.RewardType.None) {
+        Type = other.Type;
+      }
+      if (other.Amount != 0L) {
+        Amount = other.Amount;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Type = (global::io.hverse.game.protogen.RewardType) input.ReadEnum();
+            break;
+          }
+          case 16: {
+            Amount = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            Type = (global::io.hverse.game.protogen.RewardType) input.ReadEnum();
+            break;
+          }
+          case 16: {
+            Amount = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class ItemInfo : pb::IMessage<ItemInfo>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<ItemInfo> _parser = new pb::MessageParser<ItemInfo>(() => new ItemInfo());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<ItemInfo> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[5]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ItemInfo() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ItemInfo(ItemInfo other) : this() {
+      type_ = other.type_;
+      chestKeyInfo_ = other.chestKeyInfo_ != null ? other.chestKeyInfo_.Clone() : null;
+      chestInfo_ = other.chestInfo_ != null ? other.chestInfo_.Clone() : null;
+      pieceInfo_ = other.pieceInfo_ != null ? other.pieceInfo_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ItemInfo Clone() {
+      return new ItemInfo(this);
+    }
+
+    /// <summary>Field number for the "type" field.</summary>
+    public const int TypeFieldNumber = 1;
+    private global::io.hverse.game.protogen.ItemType type_ = global::io.hverse.game.protogen.ItemType.ChestKey;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.ItemType Type {
+      get { return type_; }
+      set {
+        type_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "chestKeyInfo" field.</summary>
+    public const int ChestKeyInfoFieldNumber = 2;
+    private global::io.hverse.game.protogen.ChestKeyInfo chestKeyInfo_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.ChestKeyInfo ChestKeyInfo {
+      get { return chestKeyInfo_; }
+      set {
+        chestKeyInfo_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "chestInfo" field.</summary>
+    public const int ChestInfoFieldNumber = 3;
+    private global::io.hverse.game.protogen.ChestInfo chestInfo_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.ChestInfo ChestInfo {
+      get { return chestInfo_; }
+      set {
+        chestInfo_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "pieceInfo" field.</summary>
+    public const int PieceInfoFieldNumber = 4;
+    private global::io.hverse.game.protogen.PieceInfo pieceInfo_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.PieceInfo PieceInfo {
+      get { return pieceInfo_; }
+      set {
+        pieceInfo_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as ItemInfo);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(ItemInfo other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Type != other.Type) return false;
+      if (!object.Equals(ChestKeyInfo, other.ChestKeyInfo)) return false;
+      if (!object.Equals(ChestInfo, other.ChestInfo)) return false;
+      if (!object.Equals(PieceInfo, other.PieceInfo)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Type != global::io.hverse.game.protogen.ItemType.ChestKey) hash ^= Type.GetHashCode();
+      if (chestKeyInfo_ != null) hash ^= ChestKeyInfo.GetHashCode();
+      if (chestInfo_ != null) hash ^= ChestInfo.GetHashCode();
+      if (pieceInfo_ != null) hash ^= PieceInfo.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Type != global::io.hverse.game.protogen.ItemType.ChestKey) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) Type);
+      }
+      if (chestKeyInfo_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(ChestKeyInfo);
+      }
+      if (chestInfo_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(ChestInfo);
+      }
+      if (pieceInfo_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(PieceInfo);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Type != global::io.hverse.game.protogen.ItemType.ChestKey) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) Type);
+      }
+      if (chestKeyInfo_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(ChestKeyInfo);
+      }
+      if (chestInfo_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(ChestInfo);
+      }
+      if (pieceInfo_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(PieceInfo);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Type != global::io.hverse.game.protogen.ItemType.ChestKey) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
+      }
+      if (chestKeyInfo_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(ChestKeyInfo);
+      }
+      if (chestInfo_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(ChestInfo);
+      }
+      if (pieceInfo_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(PieceInfo);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(ItemInfo other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Type != global::io.hverse.game.protogen.ItemType.ChestKey) {
+        Type = other.Type;
+      }
+      if (other.chestKeyInfo_ != null) {
+        if (chestKeyInfo_ == null) {
+          ChestKeyInfo = new global::io.hverse.game.protogen.ChestKeyInfo();
+        }
+        ChestKeyInfo.MergeFrom(other.ChestKeyInfo);
+      }
+      if (other.chestInfo_ != null) {
+        if (chestInfo_ == null) {
+          ChestInfo = new global::io.hverse.game.protogen.ChestInfo();
+        }
+        ChestInfo.MergeFrom(other.ChestInfo);
+      }
+      if (other.pieceInfo_ != null) {
+        if (pieceInfo_ == null) {
+          PieceInfo = new global::io.hverse.game.protogen.PieceInfo();
+        }
+        PieceInfo.MergeFrom(other.PieceInfo);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Type = (global::io.hverse.game.protogen.ItemType) input.ReadEnum();
+            break;
+          }
+          case 18: {
+            if (chestKeyInfo_ == null) {
+              ChestKeyInfo = new global::io.hverse.game.protogen.ChestKeyInfo();
+            }
+            input.ReadMessage(ChestKeyInfo);
+            break;
+          }
+          case 26: {
+            if (chestInfo_ == null) {
+              ChestInfo = new global::io.hverse.game.protogen.ChestInfo();
+            }
+            input.ReadMessage(ChestInfo);
+            break;
+          }
+          case 34: {
+            if (pieceInfo_ == null) {
+              PieceInfo = new global::io.hverse.game.protogen.PieceInfo();
+            }
+            input.ReadMessage(PieceInfo);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            Type = (global::io.hverse.game.protogen.ItemType) input.ReadEnum();
+            break;
+          }
+          case 18: {
+            if (chestKeyInfo_ == null) {
+              ChestKeyInfo = new global::io.hverse.game.protogen.ChestKeyInfo();
+            }
+            input.ReadMessage(ChestKeyInfo);
+            break;
+          }
+          case 26: {
+            if (chestInfo_ == null) {
+              ChestInfo = new global::io.hverse.game.protogen.ChestInfo();
+            }
+            input.ReadMessage(ChestInfo);
+            break;
+          }
+          case 34: {
+            if (pieceInfo_ == null) {
+              PieceInfo = new global::io.hverse.game.protogen.PieceInfo();
+            }
+            input.ReadMessage(PieceInfo);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class ChestKeyInfo : pb::IMessage<ChestKeyInfo>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<ChestKeyInfo> _parser = new pb::MessageParser<ChestKeyInfo>(() => new ChestKeyInfo());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<ChestKeyInfo> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[6]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChestKeyInfo() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChestKeyInfo(ChestKeyInfo other) : this() {
+      name_ = other.name_;
+      type_ = other.type_;
+      amount_ = other.amount_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChestKeyInfo Clone() {
+      return new ChestKeyInfo(this);
+    }
+
+    /// <summary>Field number for the "name" field.</summary>
+    public const int NameFieldNumber = 1;
+    private string name_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Name {
+      get { return name_; }
+      set {
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "type" field.</summary>
+    public const int TypeFieldNumber = 2;
+    private global::io.hverse.game.protogen.ChestKeyType type_ = global::io.hverse.game.protogen.ChestKeyType.Common;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.ChestKeyType Type {
+      get { return type_; }
+      set {
+        type_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "amount" field.</summary>
+    public const int AmountFieldNumber = 3;
+    private int amount_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Amount {
+      get { return amount_; }
+      set {
+        amount_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as ChestKeyInfo);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(ChestKeyInfo other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Name != other.Name) return false;
+      if (Type != other.Type) return false;
+      if (Amount != other.Amount) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
+      if (Type != global::io.hverse.game.protogen.ChestKeyType.Common) hash ^= Type.GetHashCode();
+      if (Amount != 0) hash ^= Amount.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Name.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Name);
+      }
+      if (Type != global::io.hverse.game.protogen.ChestKeyType.Common) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) Type);
+      }
+      if (Amount != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Amount);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Name.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Name);
+      }
+      if (Type != global::io.hverse.game.protogen.ChestKeyType.Common) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) Type);
+      }
+      if (Amount != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Amount);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
+      }
+      if (Type != global::io.hverse.game.protogen.ChestKeyType.Common) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
+      }
+      if (Amount != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Amount);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(ChestKeyInfo other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Name.Length != 0) {
+        Name = other.Name;
+      }
+      if (other.Type != global::io.hverse.game.protogen.ChestKeyType.Common) {
+        Type = other.Type;
+      }
+      if (other.Amount != 0) {
+        Amount = other.Amount;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            Name = input.ReadString();
+            break;
+          }
+          case 16: {
+            Type = (global::io.hverse.game.protogen.ChestKeyType) input.ReadEnum();
+            break;
+          }
+          case 24: {
+            Amount = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            Name = input.ReadString();
+            break;
+          }
+          case 16: {
+            Type = (global::io.hverse.game.protogen.ChestKeyType) input.ReadEnum();
+            break;
+          }
+          case 24: {
+            Amount = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class ChestInfo : pb::IMessage<ChestInfo>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<ChestInfo> _parser = new pb::MessageParser<ChestInfo>(() => new ChestInfo());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<ChestInfo> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[7]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChestInfo() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChestInfo(ChestInfo other) : this() {
+      name_ = other.name_;
+      type_ = other.type_;
+      amount_ = other.amount_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChestInfo Clone() {
+      return new ChestInfo(this);
+    }
+
+    /// <summary>Field number for the "name" field.</summary>
+    public const int NameFieldNumber = 1;
+    private string name_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Name {
+      get { return name_; }
+      set {
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "type" field.</summary>
+    public const int TypeFieldNumber = 2;
+    private global::io.hverse.game.protogen.ChestType type_ = global::io.hverse.game.protogen.ChestType.Common;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.ChestType Type {
+      get { return type_; }
+      set {
+        type_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "amount" field.</summary>
+    public const int AmountFieldNumber = 3;
+    private int amount_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Amount {
+      get { return amount_; }
+      set {
+        amount_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as ChestInfo);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(ChestInfo other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Name != other.Name) return false;
+      if (Type != other.Type) return false;
+      if (Amount != other.Amount) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
+      if (Type != global::io.hverse.game.protogen.ChestType.Common) hash ^= Type.GetHashCode();
+      if (Amount != 0) hash ^= Amount.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Name.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Name);
+      }
+      if (Type != global::io.hverse.game.protogen.ChestType.Common) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) Type);
+      }
+      if (Amount != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Amount);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Name.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Name);
+      }
+      if (Type != global::io.hverse.game.protogen.ChestType.Common) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) Type);
+      }
+      if (Amount != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Amount);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
+      }
+      if (Type != global::io.hverse.game.protogen.ChestType.Common) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
+      }
+      if (Amount != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Amount);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(ChestInfo other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Name.Length != 0) {
+        Name = other.Name;
+      }
+      if (other.Type != global::io.hverse.game.protogen.ChestType.Common) {
+        Type = other.Type;
+      }
+      if (other.Amount != 0) {
+        Amount = other.Amount;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            Name = input.ReadString();
+            break;
+          }
+          case 16: {
+            Type = (global::io.hverse.game.protogen.ChestType) input.ReadEnum();
+            break;
+          }
+          case 24: {
+            Amount = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            Name = input.ReadString();
+            break;
+          }
+          case 16: {
+            Type = (global::io.hverse.game.protogen.ChestType) input.ReadEnum();
+            break;
+          }
+          case 24: {
+            Amount = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class PieceInfo : pb::IMessage<PieceInfo>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<PieceInfo> _parser = new pb::MessageParser<PieceInfo>(() => new PieceInfo());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<PieceInfo> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[8]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PieceInfo() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PieceInfo(PieceInfo other) : this() {
+      name_ = other.name_;
+      type_ = other.type_;
+      combineNumber_ = other.combineNumber_;
+      amount_ = other.amount_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public PieceInfo Clone() {
+      return new PieceInfo(this);
+    }
+
+    /// <summary>Field number for the "name" field.</summary>
+    public const int NameFieldNumber = 1;
+    private string name_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Name {
+      get { return name_; }
+      set {
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "type" field.</summary>
+    public const int TypeFieldNumber = 2;
+    private global::io.hverse.game.protogen.PieceType type_ = global::io.hverse.game.protogen.PieceType.Chest;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.PieceType Type {
+      get { return type_; }
+      set {
+        type_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "combineNumber" field.</summary>
+    public const int CombineNumberFieldNumber = 3;
+    private int combineNumber_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CombineNumber {
+      get { return combineNumber_; }
+      set {
+        combineNumber_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "amount" field.</summary>
+    public const int AmountFieldNumber = 4;
+    private int amount_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Amount {
+      get { return amount_; }
+      set {
+        amount_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as PieceInfo);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(PieceInfo other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Name != other.Name) return false;
+      if (Type != other.Type) return false;
+      if (CombineNumber != other.CombineNumber) return false;
+      if (Amount != other.Amount) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
+      if (Type != global::io.hverse.game.protogen.PieceType.Chest) hash ^= Type.GetHashCode();
+      if (CombineNumber != 0) hash ^= CombineNumber.GetHashCode();
+      if (Amount != 0) hash ^= Amount.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Name.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Name);
+      }
+      if (Type != global::io.hverse.game.protogen.PieceType.Chest) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) Type);
+      }
+      if (CombineNumber != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(CombineNumber);
+      }
+      if (Amount != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(Amount);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Name.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Name);
+      }
+      if (Type != global::io.hverse.game.protogen.PieceType.Chest) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) Type);
+      }
+      if (CombineNumber != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(CombineNumber);
+      }
+      if (Amount != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(Amount);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
+      }
+      if (Type != global::io.hverse.game.protogen.PieceType.Chest) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
+      }
+      if (CombineNumber != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CombineNumber);
+      }
+      if (Amount != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Amount);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(PieceInfo other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Name.Length != 0) {
+        Name = other.Name;
+      }
+      if (other.Type != global::io.hverse.game.protogen.PieceType.Chest) {
+        Type = other.Type;
+      }
+      if (other.CombineNumber != 0) {
+        CombineNumber = other.CombineNumber;
+      }
+      if (other.Amount != 0) {
+        Amount = other.Amount;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            Name = input.ReadString();
+            break;
+          }
+          case 16: {
+            Type = (global::io.hverse.game.protogen.PieceType) input.ReadEnum();
+            break;
+          }
+          case 24: {
+            CombineNumber = input.ReadInt32();
+            break;
+          }
+          case 32: {
+            Amount = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            Name = input.ReadString();
+            break;
+          }
+          case 16: {
+            Type = (global::io.hverse.game.protogen.PieceType) input.ReadEnum();
+            break;
+          }
+          case 24: {
+            CombineNumber = input.ReadInt32();
+            break;
+          }
+          case 32: {
+            Amount = input.ReadInt32();
             break;
           }
         }

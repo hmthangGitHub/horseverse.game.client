@@ -94,7 +94,7 @@ public class LoginStatePresenter : IDisposable
                 Model = SystemInfo.deviceModel,
                 Version = Application.version,
             }
-        });
+        }, 5.0f);
         await HandleLoginResponse(res);
     }
 
@@ -138,20 +138,20 @@ public class LoginStatePresenter : IDisposable
                     Model = SystemInfo.deviceModel,
                     Version = Application.version,
                 }
-            });
+            }, 10.0f);
             if (res.ResultCode == 100)
             {
                 await HandleLoginResponse(res);
                 return true;
             }
-            else if (res.ResultCode == 203 || res.ResultCode == 202 || res.ResultCode == 204)
+            else //if (res.ResultCode == 203 || res.ResultCode == 202 || res.ResultCode == 204)
             {
                 return false;
             }
-            else
-            {
-                throw new Exception("Login Failed");
-            }
+            //else
+            //{
+            //    throw new Exception("Login Failed");
+            //}
         }
         return false;
     }
