@@ -57,12 +57,21 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
             MatchId = BetMatchRepository.Current.BetMatchId
         }, 5.0f);
 
-        var bettingDetailResponse = await SocketClient.Send<GetBetHistoryRequest, GetBetHistoryResponse>(new GetBetHistoryRequest()
+        var bettingDetailResponse = await SocketClient.Send<GetBetHistoryDetailRequest, GetBetHistoryDetailResponse>(new GetBetHistoryDetailRequest()
         {
+            MatchId = BetMatchRepository.Current.BetMatchId
         }, 5.0f);
 
-        var betMatch = bettingDetailResponse.Records.First(x => x.MatchId == BetMatchRepository.Current.BetMatchId);
-        var totalWin = betMatch.TotalAmountWin;
+        var totalWin = 0;
+        if (bettingDetailResponse != null)
+        {
+            var betMatchs = bettingDetailResponse.Records;
+            foreach (var item in betMatchs)
+            {
+                totalWin += item.WinMoney;
+            }
+        }
+
         return new RaceMatchData()
         {
             HorseRaceTimes = QuickRaceDomainService.GetHorseRaceTimes(raceScriptRequest.RaceScript, MasterHorseContainer),
