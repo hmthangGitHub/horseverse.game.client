@@ -44,7 +44,7 @@ public class HorseRepository : Repository<long, HorseDataModel, HorseDataModel>,
             .ToList();
     }
 
-    static Color GetColorFromHexCode(string value)
+    public static Color GetColorFromHexCode(string value)
     {
         var color = Color.white;
         ColorUtility.TryParseHtmlString(value, out color);

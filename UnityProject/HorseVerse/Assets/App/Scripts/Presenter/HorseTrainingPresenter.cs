@@ -56,7 +56,7 @@ public class HorseTrainingPresenter : IDisposable
             () => OnTouchObstacleAsync().Forget(), 
             masterHorseTrainingPropertyContainer.DataList.First(),
             masterHorseTrainingBlockContainer, 
-            masterHorseTrainingBlockComboContainer, horseTrainingDataContext.horseMeshInformation);
+            masterHorseTrainingBlockComboContainer, horseTrainingDataContext.HorseMeshInformation);
         
         uiTrainingPressAnyKey.SetEntity(new UITrainingPressAnyKey.Entity()
         {

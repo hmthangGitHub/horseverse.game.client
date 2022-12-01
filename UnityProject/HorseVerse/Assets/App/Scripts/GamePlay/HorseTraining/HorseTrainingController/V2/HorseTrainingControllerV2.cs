@@ -114,7 +114,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         lastTap = currentTouch;
     }
 
-    public async UniTask Initialize(MasterHorseTrainingProperty masterHorseTrainingProperty, HorseMeshAssetLoader.HorseMeshInformation horseMeshInformation)
+    public async UniTask Initialize(MasterHorseTrainingProperty masterHorseTrainingProperty, HorseMeshInformation horseMeshInformation)
     {
         this.masterHorseTrainingProperty = masterHorseTrainingProperty;
         SetCameraYaw(masterHorseTrainingProperty.RunCameraRotation, cam1.transform);

@@ -22,25 +22,25 @@ public class HorseRacePresenterTest : MonoBehaviour
 
     public RaceMatchData FindMatch(DIContainer container)
     {
-        HorseRaceTime[] GetAllMasterHorseIds()
+        HorseRaceInfo[] GetAllMasterHorseIds()
         {
             return container.Inject<MasterHorseContainer>().MasterHorseIndexer.Keys
                             .Shuffle()
                             .Append(container.Inject<UserDataRepository>().Current.CurrentHorseNftId)
                             .Shuffle()
                             .Take(8)
-                            .Select(x => new HorseRaceTime()
+                            .Select(x => new HorseRaceInfo()
                             {
-                                masterHorseId = x,
+                                // masterHorseId = x,
                             })
                             .ToArray();
         }
 
         return new RaceMatchData()
         {
-            HorseRaceTimes = GetAllMasterHorseIds(),
+            HorseRaceInfos = GetAllMasterHorseIds(),
             MasterMapId = 10001002,
-            Mode = RaceMode.QuickMode
+            Mode = RaceMode.Race
         };
     }
 }

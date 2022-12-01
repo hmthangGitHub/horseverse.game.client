@@ -42,7 +42,7 @@ internal class BetModeRaceResultPresenter : IDisposable
         uiBetReward ??= await UILoader.Instantiate<UIBetReward>(token: cts.Token);
         uiBetReward.SetEntity(new UIBetReward.Entity()
         {
-            reward = UnityEngine.Random.Range(100, 1000),
+            reward = RaceMatchData.TotalBetWin,
             outerBtn = new ButtonComponent.Entity(() => 
             {
                 ucs.TrySetResult();
@@ -56,19 +56,20 @@ internal class BetModeRaceResultPresenter : IDisposable
     {
         var ucs = new UniTaskCompletionSource();
         uiBetModeResult ??= await UILoader.Instantiate<UIBetModeResult>();
-        var tops = RaceMatchData.HorseRaceTimes.Select(x => x.raceSegments.Sum(segment => segment.time)).ToArray().GetTopByTimes();
+        var tops = RaceMatchData.HorseRaceInfos.Select(x => x.RaceSegments.Sum(segment => segment.Time)).ToArray().GetTopByTimes();
         
         uiBetModeResult.SetEntity(new UIBetModeResult.Entity()
         {
             betModeResultList = new UIComponentBetModeResultList.Entity()
             {
-                entities = RaceMatchData.HorseRaceTimes
-                    .OrderBy(x => x.raceSegments.Sum(segment => segment.time))
+                entities = RaceMatchData.HorseRaceInfos
+                    .OrderBy(x => x.RaceSegments.Sum(segment => segment.Time))
                     .Select((x, i) => new UIComponentBetModeResult.Entity()
                     {
-                        horseName = MasterHorseContainer.MasterHorseIndexer[x.masterHorseId].Name,
-                        time = x.raceSegments.Sum(segment => segment.time),
+                        horseName = x.Name,
+                        time = x.RaceSegments.Sum(segment => segment.Time),
                         no = i + 1,
+                        
                     }).ToArray()
             },
             nextBtn = new ButtonComponent.Entity(() =>

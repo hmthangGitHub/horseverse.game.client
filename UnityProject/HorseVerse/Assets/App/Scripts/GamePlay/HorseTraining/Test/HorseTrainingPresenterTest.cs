@@ -10,7 +10,7 @@ public class HorseTrainingPresenterTest : MonoBehaviour
         var di = new DIContainer();
         di.Bind(new HorseTrainingDataContext()
         {
-            horseMeshInformation = new HorseMeshAssetLoader.HorseMeshInformation()
+            HorseMeshInformation = new HorseMeshInformation()
             {
                 horseModelPath = "Horses/Thunder",
                 color1 = Color.gray,

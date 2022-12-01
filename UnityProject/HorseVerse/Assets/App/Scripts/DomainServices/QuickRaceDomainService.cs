@@ -64,28 +64,43 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
         var response = await SocketClient.Send<RaceScriptRequest, RaceScriptResponse>(new RaceScriptRequest());
         return new RaceMatchData()
         {
-            HorseRaceTimes = GetHorseRaceTimes(response.RaceScript, MasterHorseContainer),
+            HorseRaceInfos = GetHorseRaceInfos(response.RaceScript, MasterHorseContainer),
             MasterMapId = 10001002,
-            Mode = RaceMode.QuickMode
+            Mode = RaceMode.Race
         };
     }
 
-    public static HorseRaceTime[] GetHorseRaceTimes(RaceScript responseRaceScript, MasterHorseContainer masterHorseContainer)
+    public static HorseRaceInfo[] GetHorseRaceInfos(RaceScript responseRaceScript, MasterHorseContainer masterHorseContainer)
     {
         return responseRaceScript.Phases.SelectMany(x =>
                 x.HorseStats.Select((stat, i) => (stat: stat, horseIndex: i, start: x.Start, end: x.End)))
             .GroupBy(x => x.horseIndex)
-            .Select(x => new HorseRaceTime()
+            .Select(x =>
             {
-                delayTime = x.First().stat.DelayTime,
-                raceSegments = x.Select(info => new RaceSegment()
+                var horseInfo = responseRaceScript.HorseInfos[x.Key];
+                var masterHorseId = 10000001; // TODO get from server
+                return new HorseRaceInfo()
                 {
-                    currentLane = info.stat.LaneStart,
-                    toLane = info.stat.LaneEnd,
-                    time = info.stat.Time,
-                    percentage = (float)(info.end) / responseRaceScript.TotalLength
-                }).ToArray(),
-                masterHorseId = masterHorseContainer.MasterHorseIndexer.Keys.First()
+                    DelayTime = x.First()
+                                 .stat.DelayTime,
+                    RaceSegments = x.Select(info => new RaceSegmentTime()
+                                    {
+                                        currentLane = info.stat.LaneStart,
+                                        ToLane = info.stat.LaneEnd,
+                                        Time = info.stat.Time,
+                                        Percentage = (float)(info.end) / responseRaceScript.TotalLength
+                                    })
+                                    .ToArray(),
+                    MeshInformation = new MasterHorseMeshInformation()
+                    {
+                        masterHorseId = masterHorseId,
+                        color1 = HorseRepository.GetColorFromHexCode(horseInfo.Color1),
+                        color2 = HorseRepository.GetColorFromHexCode(horseInfo.Color2),
+                        color3 = HorseRepository.GetColorFromHexCode(horseInfo.Color3),
+                        color4 = HorseRepository.GetColorFromHexCode(horseInfo.Color4),
+                    },
+                    Name = horseInfo.Name
+                };
             }).ToArray();
     }
 }
@@ -120,40 +135,40 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
 
     public async UniTask<RaceMatchData> FindMatch()
     {
-        HorseRaceTime[] GetAllMasterHorseIds()
+        HorseRaceInfo[] GetAllMasterHorseIds()
         {
             return Container.Inject<MasterHorseContainer>().MasterHorseIndexer.Keys
                             .Shuffle()
                             .Append(UserDataRepository.Current.CurrentHorseNftId)
                             .Shuffle()
                             .Take(8)
-                            .Select(x => new HorseRaceTime()
+                            .Select(x => new HorseRaceInfo()
                             {
-                                masterHorseId = x,
-                                raceSegments = GenerateRandomSegment()
+                                // masterHorseId = x,
+                                RaceSegments = GenerateRandomSegment()
                             })
                             .ToArray();
         }
 
         return new RaceMatchData()
         {
-            HorseRaceTimes = GetAllMasterHorseIds(),
+            HorseRaceInfos = GetAllMasterHorseIds(),
             MasterMapId = 10001002,
-            Mode = RaceMode.QuickMode
+            Mode = RaceMode.Race
         };
     }
 
-    private RaceSegment[] GenerateRandomSegment()
+    private RaceSegmentTime[] GenerateRandomSegment()
     {
         return Enumerable.Range(0, 3)
             .Select(x => GenerateRandomSegment(x, 2.0f))
             .ToArray();
     }
 
-    private RaceSegment GenerateRandomSegment(int id, float averageTime)
+    private RaceSegmentTime GenerateRandomSegment(int id, float averageTime)
     {
         // int numberSegment = 10;
-        return new RaceSegment()
+        return new RaceSegmentTime()
         {
             // id = id,
             // currentLane = UnityEngine.Random.Range(0, 8),

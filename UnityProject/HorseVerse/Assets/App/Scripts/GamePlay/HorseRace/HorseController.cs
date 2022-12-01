@@ -11,7 +11,6 @@ public class HorseController : MonoBehaviour
     public void SetHorseData(HorseInGameData horseInGameData)
     {
         this.horseInGameData = horseInGameData;
-
         playerIndicator.SetActive(horseInGameData.IsPlayer);
         CalculateRotation();
         CalculatePosition();

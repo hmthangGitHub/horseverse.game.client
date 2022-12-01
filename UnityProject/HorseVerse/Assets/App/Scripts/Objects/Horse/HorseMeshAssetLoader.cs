@@ -6,15 +6,6 @@ using UnityEngine;
 
 public static class HorseMeshAssetLoader
 {
-    public class HorseMeshInformation
-    {
-        public string horseModelPath;
-        public Color color1;
-        public Color color2;
-        public Color color3;
-        public Color color4;
-    }
-
     public static UniTask<GameObject> InstantiateHorse(HorseMeshInformation horseMeshInformation, CancellationToken token = default)
     {
         return InstantiateHorse(horseMeshInformation.horseModelPath, horseMeshInformation.color1, horseMeshInformation.color2, horseMeshInformation.color3, horseMeshInformation.color4, token);
@@ -24,7 +15,7 @@ public static class HorseMeshAssetLoader
     {
         var horsePrefab = await PrimitiveAssetLoader.LoadAssetAsync<GameObject>(path, token);
         var horse = Object.Instantiate(horsePrefab);
-        horse.GetComponent<HorseObjectData>().SetColor(c1, c2, c3, c4);
+        horse.GetComponentInChildren<HorseObjectData>().SetColor(c1, c2, c3, c4);
         return horse;
     }
 

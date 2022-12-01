@@ -86,7 +86,7 @@ public class UIHorseTrainingPresenter : IDisposable
         
         container.Bind(new HorseTrainingDataContext()
         {
-            horseMeshInformation = new HorseMeshAssetLoader.HorseMeshInformation()
+            HorseMeshInformation = new HorseMeshInformation()
             {
                 horseModelPath = MasterHorseContainer.MasterHorseIndexer[userHorse.MasterHorseId].ModelPath,
                 color1 = userHorse.Color1,
