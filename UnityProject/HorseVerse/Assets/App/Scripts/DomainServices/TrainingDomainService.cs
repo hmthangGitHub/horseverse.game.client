@@ -3,11 +3,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using io.hverse.game.protogen;
 
 public interface ITrainingDomainService
 {
     UniTask SendHorseToTraining(long masterHorseId);
     UniTask OnDoneTraningPeriod(long masterHorseId);
+    UniTask<TrainingRewardsResponse> GetTrainingRewardData(int distance, int coin);
 }
 
 public class TrainingDomainServiceBase
@@ -34,10 +36,18 @@ public class TrainingDomainService : TrainingDomainServiceBase, ITrainingDomainS
     {
         throw new System.NotImplementedException();
     }
+
+    public UniTask<TrainingRewardsResponse> GetTrainingRewardData(int distance, int coin)
+    {
+        throw new System.NotImplementedException();
+    }
 }
 
 public class LocalTraningDomainService : TrainingDomainServiceBase, ITrainingDomainService
 {
+    private ISocketClient socketClient;
+    private ISocketClient SocketClient => socketClient ??= container.Inject<ISocketClient>();
+
     public LocalTraningDomainService(IDIContainer container) : base(container) { }
 
     public async UniTask OnDoneTraningPeriod(long masterHorseId)
@@ -70,5 +80,16 @@ public class LocalTraningDomainService : TrainingDomainServiceBase, ITrainingDom
             TraningTimeStamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds() + 10,
         };
         await UserDataRepository.UpdateModelAsync(new UserDataModel[] { model });
+    }
+
+    public async UniTask<TrainingRewardsResponse> GetTrainingRewardData(int distance, int coin)
+    {
+        var trainingRewardsResponse = await SocketClient.Send<TrainingRewardsRequest, TrainingRewardsResponse>(new TrainingRewardsRequest()
+        {
+            CoinNumber = coin,
+            Distance = distance,
+        }, 5.0f);
+
+        return trainingRewardsResponse;
     }
 }

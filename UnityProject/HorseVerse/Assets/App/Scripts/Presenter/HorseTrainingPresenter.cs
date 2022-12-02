@@ -20,13 +20,17 @@ public class HorseTrainingPresenter : IDisposable
     private MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer;
     private UITrainingCoinCounting uiTrainingCoinCounting;
     private UITrainingPressAnyKey uiTrainingPressAnyKey;
-    
+
+    private ITrainingDomainService trainingDomainService;
+
     private CancellationTokenSource cts;
     private Scene mapSceneAsset;
     private int numberOfCoinTaken = 0;
+    private int distanceOfRunning = 0;
     private UniTaskCompletionSource ucs = new UniTaskCompletionSource();
 
     private HorseTrainingDataContext HorseTrainingDataContext => horseTrainingDataContext ??= Container.Inject<HorseTrainingDataContext>();
+    private ITrainingDomainService TrainingDomainService => trainingDomainService ??= Container.Inject<ITrainingDomainService>();
 
     public HorseTrainingPresenter(IDIContainer container)
     {
@@ -96,6 +100,11 @@ public class HorseTrainingPresenter : IDisposable
     private async UniTaskVoid OnTouchObstacleAsync()
     {
         ucs.TrySetResult();
+        var data = await TrainingDomainService.GetTrainingRewardData(distanceOfRunning, numberOfCoinTaken);
+        if (data.ResultCode == 100) {
+            if(data.Rewards.Count > 0)
+                Debug.Log("Reward " + data.Rewards[0].Type + " -- " + data.Rewards[0].Amount);
+        }
         await UniTask.CompletedTask;
     }
 
