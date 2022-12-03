@@ -29,19 +29,20 @@ namespace io.hverse.game.protogen {
             "FnRyYWluaW5nUmV3YXJkc1JlcXVlc3QYAiABKAsyFy5UcmFpbmluZ1Jld2Fy",
             "ZHNSZXF1ZXN0EjkKF3RyYWluaW5nUmV3YXJkc1Jlc3BvbnNlGAMgASgLMhgu",
             "VHJhaW5pbmdSZXdhcmRzUmVzcG9uc2UiPgoWVHJhaW5pbmdSZXdhcmRzUmVx",
-            "dWVzdBISCgpjb2luTnVtYmVyGAEgASgFEhAKCGRpc3RhbmNlGAIgASgFIlwK",
+            "dWVzdBISCgpjb2luTnVtYmVyGAEgASgDEhAKCGRpc3RhbmNlGAIgASgDInEK",
             "F1RyYWluaW5nUmV3YXJkc1Jlc3BvbnNlEhIKCnJlc3VsdENvZGUYASABKAUS",
-            "DwoHbWVzc2FnZRgCIAEoCRIcCgdyZXdhcmRzGAMgAygLMgsuUmV3YXJkSW5m",
-            "bypSChNUcmFpbmluZ01lc3NhZ2VUeXBlEhwKGFRSQUlOSU5HX1JFV0FSRFNf",
-            "UkVRVUVTVBAAEh0KGVRSQUlOSU5HX1JFV0FSRFNfUkVTUE9OU0UQAUJLChdp",
-            "by5odmVyc2UuZ2FtZS5wcm90b2dlbkIWVHJhaW5pbmdNZXNzYWdlRmFjdG9y",
-            "eaoCF2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuYgZwcm90bzM="));
+            "DwoHbWVzc2FnZRgCIAEoCRITCgtwb2ludE51bWJlchgDIAEoAxIcCgdyZXdh",
+            "cmRzGAQgAygLMgsuUmV3YXJkSW5mbypSChNUcmFpbmluZ01lc3NhZ2VUeXBl",
+            "EhwKGFRSQUlOSU5HX1JFV0FSRFNfUkVRVUVTVBAAEh0KGVRSQUlOSU5HX1JF",
+            "V0FSRFNfUkVTUE9OU0UQAUJLChdpby5odmVyc2UuZ2FtZS5wcm90b2dlbkIW",
+            "VHJhaW5pbmdNZXNzYWdlRmFjdG9yeaoCF2lvLmh2ZXJzZS5nYW1lLnByb3Rv",
+            "Z2VuYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::io.hverse.game.protogen.DataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.TrainingMessageType), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.TrainingMessage), global::io.hverse.game.protogen.TrainingMessage.Parser, new[]{ "MsgType", "TrainingRewardsRequest", "TrainingRewardsResponse" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.TrainingRewardsRequest), global::io.hverse.game.protogen.TrainingRewardsRequest.Parser, new[]{ "CoinNumber", "Distance" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.TrainingRewardsResponse), global::io.hverse.game.protogen.TrainingRewardsResponse.Parser, new[]{ "ResultCode", "Message", "Rewards" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.TrainingRewardsResponse), global::io.hverse.game.protogen.TrainingRewardsResponse.Parser, new[]{ "ResultCode", "Message", "PointNumber", "Rewards" }, null, null, null, null)
           }));
     }
     #endregion
@@ -384,10 +385,10 @@ namespace io.hverse.game.protogen {
 
     /// <summary>Field number for the "coinNumber" field.</summary>
     public const int CoinNumberFieldNumber = 1;
-    private int coinNumber_;
+    private long coinNumber_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CoinNumber {
+    public long CoinNumber {
       get { return coinNumber_; }
       set {
         coinNumber_ = value;
@@ -396,10 +397,10 @@ namespace io.hverse.game.protogen {
 
     /// <summary>Field number for the "distance" field.</summary>
     public const int DistanceFieldNumber = 2;
-    private int distance_;
+    private long distance_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int Distance {
+    public long Distance {
       get { return distance_; }
       set {
         distance_ = value;
@@ -430,8 +431,8 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (CoinNumber != 0) hash ^= CoinNumber.GetHashCode();
-      if (Distance != 0) hash ^= Distance.GetHashCode();
+      if (CoinNumber != 0L) hash ^= CoinNumber.GetHashCode();
+      if (Distance != 0L) hash ^= Distance.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -450,13 +451,13 @@ namespace io.hverse.game.protogen {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (CoinNumber != 0) {
+      if (CoinNumber != 0L) {
         output.WriteRawTag(8);
-        output.WriteInt32(CoinNumber);
+        output.WriteInt64(CoinNumber);
       }
-      if (Distance != 0) {
+      if (Distance != 0L) {
         output.WriteRawTag(16);
-        output.WriteInt32(Distance);
+        output.WriteInt64(Distance);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -468,13 +469,13 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (CoinNumber != 0) {
+      if (CoinNumber != 0L) {
         output.WriteRawTag(8);
-        output.WriteInt32(CoinNumber);
+        output.WriteInt64(CoinNumber);
       }
-      if (Distance != 0) {
+      if (Distance != 0L) {
         output.WriteRawTag(16);
-        output.WriteInt32(Distance);
+        output.WriteInt64(Distance);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -486,11 +487,11 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (CoinNumber != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CoinNumber);
+      if (CoinNumber != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(CoinNumber);
       }
-      if (Distance != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Distance);
+      if (Distance != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Distance);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -504,10 +505,10 @@ namespace io.hverse.game.protogen {
       if (other == null) {
         return;
       }
-      if (other.CoinNumber != 0) {
+      if (other.CoinNumber != 0L) {
         CoinNumber = other.CoinNumber;
       }
-      if (other.Distance != 0) {
+      if (other.Distance != 0L) {
         Distance = other.Distance;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -526,11 +527,11 @@ namespace io.hverse.game.protogen {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            CoinNumber = input.ReadInt32();
+            CoinNumber = input.ReadInt64();
             break;
           }
           case 16: {
-            Distance = input.ReadInt32();
+            Distance = input.ReadInt64();
             break;
           }
         }
@@ -549,11 +550,11 @@ namespace io.hverse.game.protogen {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            CoinNumber = input.ReadInt32();
+            CoinNumber = input.ReadInt64();
             break;
           }
           case 16: {
-            Distance = input.ReadInt32();
+            Distance = input.ReadInt64();
             break;
           }
         }
@@ -599,6 +600,7 @@ namespace io.hverse.game.protogen {
     public TrainingRewardsResponse(TrainingRewardsResponse other) : this() {
       resultCode_ = other.resultCode_;
       message_ = other.message_;
+      pointNumber_ = other.pointNumber_;
       rewards_ = other.rewards_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -633,10 +635,22 @@ namespace io.hverse.game.protogen {
       }
     }
 
+    /// <summary>Field number for the "pointNumber" field.</summary>
+    public const int PointNumberFieldNumber = 3;
+    private long pointNumber_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public long PointNumber {
+      get { return pointNumber_; }
+      set {
+        pointNumber_ = value;
+      }
+    }
+
     /// <summary>Field number for the "rewards" field.</summary>
-    public const int RewardsFieldNumber = 3;
+    public const int RewardsFieldNumber = 4;
     private static readonly pb::FieldCodec<global::io.hverse.game.protogen.RewardInfo> _repeated_rewards_codec
-        = pb::FieldCodec.ForMessage(26, global::io.hverse.game.protogen.RewardInfo.Parser);
+        = pb::FieldCodec.ForMessage(34, global::io.hverse.game.protogen.RewardInfo.Parser);
     private readonly pbc::RepeatedField<global::io.hverse.game.protogen.RewardInfo> rewards_ = new pbc::RepeatedField<global::io.hverse.game.protogen.RewardInfo>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -661,6 +675,7 @@ namespace io.hverse.game.protogen {
       }
       if (ResultCode != other.ResultCode) return false;
       if (Message != other.Message) return false;
+      if (PointNumber != other.PointNumber) return false;
       if(!rewards_.Equals(other.rewards_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -671,6 +686,7 @@ namespace io.hverse.game.protogen {
       int hash = 1;
       if (ResultCode != 0) hash ^= ResultCode.GetHashCode();
       if (Message.Length != 0) hash ^= Message.GetHashCode();
+      if (PointNumber != 0L) hash ^= PointNumber.GetHashCode();
       hash ^= rewards_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -698,6 +714,10 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(18);
         output.WriteString(Message);
       }
+      if (PointNumber != 0L) {
+        output.WriteRawTag(24);
+        output.WriteInt64(PointNumber);
+      }
       rewards_.WriteTo(output, _repeated_rewards_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -717,6 +737,10 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(18);
         output.WriteString(Message);
       }
+      if (PointNumber != 0L) {
+        output.WriteRawTag(24);
+        output.WriteInt64(PointNumber);
+      }
       rewards_.WriteTo(ref output, _repeated_rewards_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -733,6 +757,9 @@ namespace io.hverse.game.protogen {
       }
       if (Message.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Message);
+      }
+      if (PointNumber != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(PointNumber);
       }
       size += rewards_.CalculateSize(_repeated_rewards_codec);
       if (_unknownFields != null) {
@@ -752,6 +779,9 @@ namespace io.hverse.game.protogen {
       }
       if (other.Message.Length != 0) {
         Message = other.Message;
+      }
+      if (other.PointNumber != 0L) {
+        PointNumber = other.PointNumber;
       }
       rewards_.Add(other.rewards_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -777,7 +807,11 @@ namespace io.hverse.game.protogen {
             Message = input.ReadString();
             break;
           }
-          case 26: {
+          case 24: {
+            PointNumber = input.ReadInt64();
+            break;
+          }
+          case 34: {
             rewards_.AddEntriesFrom(input, _repeated_rewards_codec);
             break;
           }
@@ -804,7 +838,11 @@ namespace io.hverse.game.protogen {
             Message = input.ReadString();
             break;
           }
-          case 26: {
+          case 24: {
+            PointNumber = input.ReadInt64();
+            break;
+          }
+          case 34: {
             rewards_.AddEntriesFrom(ref input, _repeated_rewards_codec);
             break;
           }
