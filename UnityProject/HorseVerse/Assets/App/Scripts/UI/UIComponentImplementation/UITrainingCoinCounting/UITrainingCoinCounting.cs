@@ -8,12 +8,15 @@ public class UITrainingCoinCounting : PopupEntity<UITrainingCoinCounting.Entity>
     public class Entity
     {
 	    public int coin;
+        public ButtonComponent.Entity btnSetting;
     }
 
     public FormattedTextComponent coin;
+    public ButtonComponent btnSetting;
 
     protected override void OnSetEntity()
     {
 	    coin.SetEntity(this.entity.coin);
+        btnSetting.SetEntity(this.entity.btnSetting);
     }
 }	

@@ -68,7 +68,8 @@ public class HorseTrainingPresenter : IDisposable
             {
                 uiTrainingCoinCounting.SetEntity(new UITrainingCoinCounting.Entity()
                 {
-                    coin = numberOfCoinTaken
+                    coin = numberOfCoinTaken,
+                    btnSetting = new ButtonComponent.Entity(UniTask.Action(async () => { await OnBtnPauseClicked(); }))
                 });
                 uiTrainingCoinCounting.In().Forget();
                 uiTrainingPressAnyKey.Out().Forget();
@@ -86,6 +87,63 @@ public class HorseTrainingPresenter : IDisposable
         return numberOfCoinTaken;
     }
 
+    private async UniTask OnBtnPauseClicked()
+    {
+        var uiConfirm = await UILoader.Instantiate<UIPopUpPause>(token: cts.Token);
+        bool wait = true;
+        int type = 0;
+        uiConfirm.SetEntity(new UIPopUpPause.Entity()
+        {
+            settingBtn = new ButtonComponent.Entity(() => { wait = false; type = 1; }),
+            continueBtn = new ButtonComponent.Entity(() => { wait = false; }),
+            exitBtn = new ButtonComponent.Entity(() => { wait = false; type = 2; })
+        });
+        await uiConfirm.In();
+        await UniTask.WaitUntil(() => wait == false);
+        UILoader.SafeRelease(ref uiConfirm);
+        
+        if (type == 1)
+        {
+            await OnBtnSettingClicked();
+        }
+        else if (type == 2)
+        {
+            await OnBtnExitClicked();
+        }
+    }
+
+    private async UniTask OnBtnSettingClicked()
+    {
+        var uiConfirm = await UILoader.Instantiate<UIPopupYesNoMessage>(token: cts.Token);
+        bool wait = true;
+        uiConfirm.SetEntity(new UIPopupYesNoMessage.Entity()
+        {
+            title = "NOTICE",
+            message = "Do you want to exit ? You won't receive any reward once you do.",
+            yesBtn = new ButtonComponent.Entity(() => { wait = false; }),
+            noBtn = new ButtonComponent.Entity(() => { wait = false; })
+        });
+        await uiConfirm.In();
+        await UniTask.WaitUntil(() => wait == false);
+        UILoader.SafeRelease(ref uiConfirm);
+    }
+
+    private async UniTask OnBtnExitClicked()
+    {
+        var uiConfirm = await UILoader.Instantiate<UIPopupYesNoMessage>(token: cts.Token);
+        bool wait = true;
+        uiConfirm.SetEntity(new UIPopupYesNoMessage.Entity()
+        {
+            title = "NOTICE",
+            message = "Do you want to exit ? You won't receive any reward once you do.",
+            yesBtn = new ButtonComponent.Entity(() => { wait = false; }),
+            noBtn = new ButtonComponent.Entity(() => { wait = false; })
+        });
+        await uiConfirm.In();
+        await UniTask.WaitUntil(() => wait == false);
+        UILoader.SafeRelease(ref uiConfirm);
+    }
+
     private void OnTakeCoin()
     {
         numberOfCoinTaken++;
@@ -99,12 +157,11 @@ public class HorseTrainingPresenter : IDisposable
 
     private async UniTaskVoid OnTouchObstacleAsync()
     {
-        ucs.TrySetResult();
         var data = await TrainingDomainService.GetTrainingRewardData(distanceOfRunning, numberOfCoinTaken);
         if (data.ResultCode == 100) {
-            if(data.Rewards.Count > 0)
-                Debug.Log("Reward " + data.Rewards[0].Type + " -- " + data.Rewards[0].Amount);
+            await ShowUIHorseTrainingResultAsync(data);
         }
+        ucs.TrySetResult();
         await UniTask.CompletedTask;
     }
 
@@ -127,5 +184,35 @@ public class HorseTrainingPresenter : IDisposable
         MasterLoader.SafeRelease(ref masterHorseTrainingBlockComboContainer);
         horseTrainingDataContext = default;
         DisposeUtility.SafeDispose(ref horseTrainingManager);
+    }
+
+    public async UniTask ShowUIHorseTrainingResultAsync(io.hverse.game.protogen.TrainingRewardsResponse result)
+    {
+        var popup = await UILoader.Instantiate<UITrainingResult>(token: cts.Token);
+        bool wait = true;
+        long numbox = 0;
+        long numcoin = 0;
+
+        foreach(var item in result.Rewards)
+        {
+            if (item.Type == io.hverse.game.protogen.RewardType.Chip)
+                numcoin += item.Amount;
+            if (item.Type == io.hverse.game.protogen.RewardType.Chest)
+                numbox += item.Amount;
+        }
+
+        popup.SetEntity(new UITrainingResult.Entity()
+        {
+            confirmBtn = new ButtonComponent.Entity(() => { wait = false; }),
+            retryBtn = new ButtonComponent.Entity(() => { wait = false; }),
+            boxReward = new UITrainingResultRewardComponent.Entity() { Total = (int)numbox},
+            coinReward = new UITrainingResultRewardComponent.Entity() { Total = (int)numcoin },
+            currentEnergy = 1,
+            totalEnergy = 10,
+            score = result.PointNumber,
+        });
+        await popup.In();
+        await UniTask.WaitUntil(() => wait == false);
+        UILoader.SafeRelease(ref popup);
     }
 }
