@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using Cinemachine;
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
@@ -14,6 +15,10 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private const string Obstacle = "Obstacle";
     private const string Coin = "Coin";
     private const string Bridge = "Bridge";
+    private static readonly int Speed = Animator.StringToHash("Speed");
+    private static readonly int Horizontal = Animator.StringToHash("Horizontal");
+    private static readonly int Jumping = Animator.StringToHash("IsJumping");
+
     [SerializeField] private new Rigidbody rigidbody;
     [SerializeField] private GameObject landingVFX;
     [SerializeField] private GameObject trailVFX;
@@ -28,17 +33,19 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     [SerializeField] private GameObject cam2;
     [SerializeField] private GameObject cam3;
     [SerializeField] private Transform horsePosition;
-    
     [SerializeField] private Vector3 groundVelocity;
+    [SerializeField]
+    private Transform pivotPoint;
 
     private bool isStart;
     private bool isDead;
-    private bool isGrounded;
-    private bool isJustManualJump = true;
-    public Transform pivotPoint;
+    private bool isGrounded = true;
+    private bool isJumping;
+    
     private Animator animator;
+    private Animator Animator => animator ??= GetComponentInChildren<Animator>();
     private float currentAirTime;
-    private float MaxAirTime => JumpVelocity / DefaultGravity + masterHorseTrainingProperty.FallAirTimeMax + 1.0f;
+    private float MaxAirTime => Mathf.Abs(JumpVelocity / DefaultGravity) + masterHorseTrainingProperty.FallAirTimeMax;
 
     public event Action OnTakeCoin = ActionUtility.EmptyAction.Instance;
     public event Action OnDeadEvent = ActionUtility.EmptyAction.Instance;
@@ -58,8 +65,10 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         Left,
         Right
     }
-
     private LastTap lastTap;
+    private CinemachineOrbitalTransposer cinemachineOrbitalTransposer;
+    private float animationHorizontal;
+    private static readonly int VerticalVelocity = Animator.StringToHash("VerticalVelocity");
 
     private void AddInputEvents()
     {
@@ -160,18 +169,15 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
     public Vector2 AirTime => new Vector2(masterHorseTrainingProperty.FallAirTimeMin, masterHorseTrainingProperty.FallAirTimeMax);
 
-    private void OnStart(bool b)
+    private void OnStart(bool isStart)
     {
-        if (b)
+        if (isStart)
         {
-            Debug.Log("OnStart");
             currentForwardVelocity = ForwardVelocity;  
             currentHorizontalVelocity = HorizontalVelocity;
             cam3.SetActive(false);
             cam1.SetActive(true);
-            animator = GetComponentInChildren<Animator>();
-            animator.SetFloat("Speed", 1.0f);
-            
+            Animator.SetFloat(Speed, 1.0f);
             AddInputEvents();
         }
     }
@@ -182,44 +188,62 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         {
             CheckIfGrounded();
             CheckIfFall();
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                ManualJump();
-            }
-        
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                groundVelocity += Vector3.right * HorizontalVelocity;
-            }
-            else if(Input.GetKeyUp(KeyCode.A))
-            {
-                groundVelocity -= Vector3.right * HorizontalVelocity;
-            }
-        
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                groundVelocity -= Vector3.right * HorizontalVelocity;
-            }
-            else if (Input.GetKeyUp(KeyCode.D))
-            {
-                groundVelocity += Vector3.right * HorizontalVelocity;
-            }
+            ControlHorse();
+            UpdateHorizontalAnimation();
+            UpdateJumpAnimation();
         }
         
         if(!IsStart)
         {
-            cam3.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineOrbitalTransposer>().m_XAxis
-                .m_InputAxisValue = 0.03f;
+            cinemachineOrbitalTransposer ??= cam3.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineOrbitalTransposer>();
+            cinemachineOrbitalTransposer.m_XAxis.m_InputAxisValue = 0.03f;
         }
     }
 
+    private void UpdateJumpAnimation()
+    {
+        animator.SetFloat(VerticalVelocity, rigidbody.velocity.y);
+        animator.SetBool(Jumping, isJumping);
+    }
 
-    public void ManualJump()
+    private void UpdateHorizontalAnimation()
+    {
+        animationHorizontal = Mathf.Lerp(animationHorizontal, Math.Sign(-groundVelocity.x), Time.deltaTime * 10.0f);
+        Animator.SetFloat(Horizontal, animationHorizontal);
+    }
+
+    private void ControlHorse()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ManualJump();
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            groundVelocity += Vector3.right * HorizontalVelocity;
+        }
+        else if (Input.GetKeyUp(KeyCode.A))
+        {
+            groundVelocity -= Vector3.right * HorizontalVelocity;
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            groundVelocity -= Vector3.right * HorizontalVelocity;
+        }
+        else if (Input.GetKeyUp(KeyCode.D))
+        {
+            groundVelocity += Vector3.right * HorizontalVelocity;
+        }
+    }
+
+    private void ManualJump()
     {
         if (isGrounded)
         {
             Jump(true);
+            isJumping = true;
         }
     }
 
@@ -241,7 +265,6 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
     private void Jump(bool manual)
     {
-        isJustManualJump = manual;
         rigidbody.velocity = Vector3.up * JumpVelocity;
     }
 
@@ -262,35 +285,37 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
     private void CheckIfGrounded()
     {
-        IsGrounded = Physics.RaycastAll(transform.position, -Vector3.up, pivotPoint.transform.localPosition.magnitude + 0.1f)
+        Debug.DrawLine(pivotPoint.position, pivotPoint.position + -Vector3.up * 0.15f, Color.red);
+        IsGrounded = Physics.RaycastAll(pivotPoint.position, -Vector3.up, 0.15f)
             .Any(x => x.collider.CompareTag("Platform"));
     }
 
     private void OnGrounded(bool isGrounded)
     {
+        Debug.Log("OnGrounded " + isGrounded);
         if (isGrounded && IsStart)
         {
             cam1.SetActive(true);
             cam2.SetActive(false);
             rigidbody.velocity = Vector3.Scale(new Vector3(0.0f, 0.0f, 1.0f), rigidbody.velocity);
 
-            if (!isJustManualJump)
+            var minAirTimeToShake = Mathf.Abs(JumpVelocity / DefaultGravity) * 2 + 0.1f;
+            if (currentAirTime > minAirTimeToShake)
             {
-                var strength = Map(currentAirTime, 0.0f, MaxAirTime, 2.0f, 10.0f);
-                var time = Map(currentAirTime, 0.0f, MaxAirTime, 0.2f, 0.35f);
-                cam1.transform.DOShakePosition(time, strength);
+                var strength = Map(currentAirTime, minAirTimeToShake, MaxAirTime, 2.0f, 5.0f);
+                var time = Map(currentAirTime, minAirTimeToShake, MaxAirTime, 0.1f, 0.35f);
+                cam1.transform.DOShakePosition(time, strength, 20);
                 var vfx = Instantiate(landingVFX);
                 vfx.transform.position = pivotPoint.position + Vector3.up * 0.1f;
                 trailVFX.SetActive(false);
             }
-
             currentAirTime = 0.0f;
         }
-        else
+
+        if (isGrounded && isJumping)
         {
-            animator.CrossFade("Jumping", 0.25f, 0);
+            isJumping = false;
         }
-        animator.SetBool("Jumping", !isGrounded);
     }
     
     float Map(float v, float a1, float a2, float b1, float b2)
@@ -309,8 +334,8 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         if (other.CompareTag(Obstacle) && !isDead)
         {
             OnDead();
-            cam1.transform.DOShakePosition(0.5f, 4.0f);
-            cam2.transform.DOShakePosition(0.5f, 4.0f);
+            cam1.transform.DOShakePosition(0.35f, 2.5f);
+            cam2.transform.DOShakePosition(0.35f, 2.5f);
         }
 
         if (other.CompareTag(Coin))

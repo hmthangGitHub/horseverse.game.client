@@ -533,7 +533,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 1.3161182
   m_Direction: 1
-  m_Center: {x: 0, y: -0.36694098, z: 0}
+  m_Center: {x: 0, y: 0.66, z: 0}
 --- !u!136 &1532857601942786524
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -547,7 +547,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 1.323514
   m_Direction: 1
-  m_Center: {x: 0, y: -0.36324286, z: 0}
+  m_Center: {x: 0, y: 0.66, z: 0}
 --- !u!1 &1532857602144899074
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,8 +856,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1532857603614099802}
-  m_LocalRotation: {x: 0.17626421, y: -0, z: -0, w: 0.98434293}
-  m_LocalPosition: {x: 0, y: 3.7000003, z: -10.000002}
+  m_LocalRotation: {x: 0.17626426, y: -0.00000001693698, z: 0.0000000030328695, w: 0.98434293}
+  m_LocalPosition: {x: 0, y: 3.4628584, z: -9.999998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1532857602144899075}
@@ -882,8 +882,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_LookAt: {fileID: 9156934736356840812}
+  m_Follow: {fileID: 9156934736356840812}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 10
@@ -985,7 +985,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8401246998427576892}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.94, z: 0}
+  m_LocalPosition: {x: 0, y: -0.2371417, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children: []
   m_Father: {fileID: 1532857601942786514}
