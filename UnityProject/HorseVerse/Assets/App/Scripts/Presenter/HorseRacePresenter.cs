@@ -63,7 +63,7 @@ public class HorseRacePresenter : IDisposable
         await horseRaceManager.ShowFreeCamera();
         horseRaceManager.EnablePostProcessing(true);
         await (horseRaceManager.cameraBlendingAnimation.FadeOutAnimationAsync(),
-               raceModeHorseIntroPresenter.ShowHorsesInfoIntroAsync(RaceMatchData.HorseRaceTimes.Select(x => x.masterHorseId).ToArray(), 
+               raceModeHorseIntroPresenter.ShowHorsesInfoIntroAsync(RaceMatchData.HorseRaceInfos.ToArray(), 
                                                                     targetGenerator.StartPosition, 
                                                                     Quaternion.identity));
         raceModeHorseIntroPresenter.Dispose();
@@ -84,14 +84,15 @@ public class HorseRacePresenter : IDisposable
     private async UniTask InitHorseRaceAsync()
     {
         horseRaceManager ??= Object.Instantiate((await Resources.LoadAsync<HorseRaceManager>("GamePlay/HorseRaceManager") as HorseRaceManager));
-        playerHorseIndex = RaceMatchData.HorseRaceTimes.ToList().FindIndex(x => x.masterHorseId == UserDataRepository.Current.CurrentHorseNftId);
-        await horseRaceManager.InitializeAsync(RaceMatchData.HorseRaceTimes.Select(x => MasterHorseContainer.MasterHorseIndexer[x.masterHorseId].RaceModeModelPath).ToArray(),
+        
+        playerHorseIndex = RaceMatchData.HorseRaceInfos.ToList().FindIndex(x => x.Name == UserDataRepository.Current.UserName);
+        await horseRaceManager.InitializeAsync(RaceMatchData.HorseRaceInfos.Select(x => MasterHorseContainer.GetHorseMeshInformation(x.MeshInformation, HorseModelMode.Race)).ToArray(),
                                                masterMap.MapSettings,
                                                masterMap.MapPath,
                                                playerHorseIndex,
-                                               RaceMatchData.HorseRaceTimes.Select(x => x.raceSegments.Sum(segment => segment.time)).ToArray(),
+                                               RaceMatchData.HorseRaceInfos.Select(x => x.RaceSegments.Sum(segment => segment.Time)).ToArray(),
                                                1,
-                                               RaceMatchData.HorseRaceTimes,
+                                               RaceMatchData.HorseRaceInfos,
                                                default);
     }
 
@@ -142,7 +143,7 @@ public class HorseRacePresenter : IDisposable
             uiSpeedController.Out().Forget();
             uiHorseRaceStatus.Out().Forget();
             await UIBackGroundPresenter.ShowBackGroundAsync();
-            if (RaceMatchData.Mode == RaceMode.QuickMode)
+            if (RaceMatchData.Mode == RaceMode.Race)
             {
                 OnToQuickRaceModeResultState();
             }
@@ -230,7 +231,7 @@ public class HorseRacePresenter : IDisposable
 
     private int[] RandomHorseInLanes()
     {
-        return Enumerable.Range(0, RaceMatchData.HorseRaceTimes.Length).ToArray();
+        return Enumerable.Range(0, RaceMatchData.HorseRaceInfos.Length).ToArray();
     }
 
     public void Dispose()

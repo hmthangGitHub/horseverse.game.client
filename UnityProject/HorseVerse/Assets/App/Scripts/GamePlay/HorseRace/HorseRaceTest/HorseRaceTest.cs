@@ -14,15 +14,15 @@ public class HorseRaceTest : MonoBehaviour
     {
         var masterHorseContainer = await MasterLoader.LoadMasterAsync<MasterHorseContainer>();
         var masterMapContainer = await MasterLoader.LoadMasterAsync<MasterMapContainer>();
-        long[] horseIdInLanes = RandomMasterHorseIdsInLanes(masterHorseContainer);
+        var horseIdInLanes = RandomMasterHorseIdsInLanes(masterHorseContainer);
 
-        await horseRaceManager.InitializeAsync(horseIdInLanes.Select(x => masterHorseContainer.MasterHorseIndexer[x].RaceModeModelPath).ToArray(),
-                                               masterMapContainer.MasterMapIndexer[masterMapId].MapSettings,
+        await horseRaceManager.InitializeAsync(default,
+                                               masterMapContainer.MasterMapIndexer[masterMapId].MapSettings, 
                                                masterMapContainer.MasterMapIndexer[masterMapId].MapPath,
-                                               UnityEngine.Random.Range(0, 7),
+                                    UnityEngine.Random.Range(0, 7),
                                                Enumerable.Range(1, 8).Select(x => UnityEngine.Random.Range(49.5f, 50.5f)).ToArray(),
                                                1,
-                                               null,
+                                               default,
                                                default);
 
         await horseRaceManager.ShowFreeCamera();

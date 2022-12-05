@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -14,5 +15,11 @@ public static class DisposeUtility
         }
         disposable?.Dispose();
         disposable = default;
+    }
+
+    public static void SafeDispose(ref CancellationTokenSource cts)
+    {
+        cts.SafeCancelAndDispose();
+        cts = default;
     }
 }

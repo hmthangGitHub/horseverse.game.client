@@ -18,18 +18,21 @@ public class UIBetModePresenter : IDisposable
     
     public event Action OnBack = ActionUtility.EmptyAction.Instance;
     public event Action OnToRaceMode = ActionUtility.EmptyAction.Instance;
+    public event Action OnTimeOut = ActionUtility.EmptyAction.Instance;
     
     private IBetRateRepository betRateRepository = default;
     private IBetModeDomainService betModeDomainService = default;
     private IReadOnlyUserDataRepository userDataRepository = default;
     private IReadOnlyBetMatchRepository betMatchRepository = default;
     private UIHorse3DViewPresenter uiHorse3DViewPresenter;
+    private UITouchDisablePresenter uiTouchDisablePresenter;
     
     public IBetRateRepository BetRateRepository => betRateRepository ??= container.Inject<IBetRateRepository>();
     private IBetModeDomainService BetModeDomainService => betModeDomainService ??= container.Inject<IBetModeDomainService>();
     private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
     private IReadOnlyBetMatchRepository BetMatchRepository => betMatchRepository ??= container.Inject<IReadOnlyBetMatchRepository>();
     private UIHorse3DViewPresenter UiHorse3DViewPresenter => uiHorse3DViewPresenter ??= container.Inject<UIHorse3DViewPresenter>();
+    private UITouchDisablePresenter UITouchDisablePresenter => uiTouchDisablePresenter ??= container.Inject<UITouchDisablePresenter>();
 
     private int currentBettingAmouth = 0;
 
@@ -114,7 +117,10 @@ public class UIBetModePresenter : IDisposable
             }
         });
 
-        await uiBetMode.In();
+        if (uiBetMode)
+        {
+            await uiBetMode.In();
+        }
     }
 
     private void OnModelUpdate((UserDataModel before, UserDataModel after) model)
@@ -127,17 +133,27 @@ public class UIBetModePresenter : IDisposable
 
     private async UniTaskVoid OnChangeToRaceModeAsync()
     {
-        var raceMatchData = await BetModeDomainService.GetCurrentBetModeRaceMatchData();
-        container.Bind(raceMatchData);
-        UiHorse3DViewPresenter.Dispose();
-        TransitionAsync(OnToRaceMode).Forget();
+        if (BetRateRepository.Models.Any(x => x.Value.TotalBet > 0))
+        {
+            await UITouchDisablePresenter.Delay(1.5f);
+            var raceMatchData = await BetModeDomainService.GetCurrentBetModeRaceMatchData();
+            container.Bind(raceMatchData);
+            UiHorse3DViewPresenter.Dispose();
+            TransitionAsync(OnToRaceMode).Forget();    
+        }
+        else
+        {
+            await UITouchDisablePresenter.Delay(1.5f);
+            TransitionAsync(OnTimeOut).Forget();
+        }
     }
 
     private async UniTaskVoid OnBetAllAtHorseNumber(int horseNumber)
     {
         if (await AskIsConfirmBet())
         {
-            var keys = BetRateRepository.Models.Where(x => x.Key.second != default && x.Key.first == horseNumber || x.Key.second == horseNumber)
+            var keys = BetRateRepository.Models.Where(x => (x.Key.second != default && x.Key.first == horseNumber || x.Key.second == horseNumber) 
+                                                           && (x.Key.second > x.Key.first))
                 .Select(x => x.Key)
                 .ToArray();
             BetModeDomainService.BetAsync(keys, currentBettingAmouth).Forget();    

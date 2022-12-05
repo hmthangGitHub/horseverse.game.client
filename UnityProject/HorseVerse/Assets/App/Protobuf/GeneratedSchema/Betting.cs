@@ -57,12 +57,12 @@ namespace io.hverse.game.protogen {
             "ASgJEiEKC2JldHRpbmdUeXBlGAQgASgOMgwuQmV0dGluZ1R5cGUikgEKF1Nl",
             "bmRCZXR0aW5nSW5mb1Jlc3BvbnNlEg8KB21hdGNoSWQYASABKAMSFAoMaW5k",
             "ZXhPZkhvdXNlGAIgASgJEhgKEHRvdGFsQW1vdW50T2ZCZXQYAyABKAUSGQoR",
-            "cGxheWVyUHJlc2VudENoaXAYBCABKAUSGwoGcmVzdWx0GAUgASgOMgsuUmVz",
+            "cGxheWVyUHJlc2VudENoaXAYBCABKAMSGwoGcmVzdWx0GAUgASgOMgsuUmVz",
             "dWx0Q29kZSJSChRDYW5jZWxCZXR0aW5nUmVxdWVzdBIPCgdtYXRjaElkGAEg",
             "ASgDEhQKDGluZGV4T2ZIb3JzZRgCIAMoCRITCgtpc0NhbmNlbEFsbBgDIAEo",
             "CCJkChVDYW5jZWxCZXR0aW5nUmVzcG9uc2USGwoGcmVzdWx0GAEgASgOMgsu",
             "UmVzdWx0Q29kZRIUCgxlcnJvck1lc3NhZ2UYAiABKAkSGAoQdG90YWxQcmVz",
-            "ZW50Q2hpcBgDIAEoBSKZAQoMQmV0dGluZ01hdGNoEg8KB21hdGNoSWQYASAB",
+            "ZW50Q2hpcBgDIAEoAyKZAQoMQmV0dGluZ01hdGNoEg8KB21hdGNoSWQYASAB",
             "KAMSEwoLdGltZVRvU3RhcnQYAiABKAMSGgoSdG90YWxBbW91bnRCZXR0aW5n",
             "GAMgASgFEg4KBnJlc3VsdBgEIAEoCRIWCg50b3RhbEFtb3VudFdpbhgFIAEo",
             "BRIfCgpyYWNlU2NyaXB0GAYgASgLMgsuUmFjZVNjcmlwdCIWChRHZXRCZXRI",
@@ -2533,10 +2533,10 @@ namespace io.hverse.game.protogen {
 
     /// <summary>Field number for the "playerPresentChip" field.</summary>
     public const int PlayerPresentChipFieldNumber = 4;
-    private int playerPresentChip_;
+    private long playerPresentChip_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int PlayerPresentChip {
+    public long PlayerPresentChip {
       get { return playerPresentChip_; }
       set {
         playerPresentChip_ = value;
@@ -2585,7 +2585,7 @@ namespace io.hverse.game.protogen {
       if (MatchId != 0L) hash ^= MatchId.GetHashCode();
       if (IndexOfHouse.Length != 0) hash ^= IndexOfHouse.GetHashCode();
       if (TotalAmountOfBet != 0) hash ^= TotalAmountOfBet.GetHashCode();
-      if (PlayerPresentChip != 0) hash ^= PlayerPresentChip.GetHashCode();
+      if (PlayerPresentChip != 0L) hash ^= PlayerPresentChip.GetHashCode();
       if (Result != global::io.hverse.game.protogen.ResultCode.Success) hash ^= Result.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -2617,9 +2617,9 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(24);
         output.WriteInt32(TotalAmountOfBet);
       }
-      if (PlayerPresentChip != 0) {
+      if (PlayerPresentChip != 0L) {
         output.WriteRawTag(32);
-        output.WriteInt32(PlayerPresentChip);
+        output.WriteInt64(PlayerPresentChip);
       }
       if (Result != global::io.hverse.game.protogen.ResultCode.Success) {
         output.WriteRawTag(40);
@@ -2647,9 +2647,9 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(24);
         output.WriteInt32(TotalAmountOfBet);
       }
-      if (PlayerPresentChip != 0) {
+      if (PlayerPresentChip != 0L) {
         output.WriteRawTag(32);
-        output.WriteInt32(PlayerPresentChip);
+        output.WriteInt64(PlayerPresentChip);
       }
       if (Result != global::io.hverse.game.protogen.ResultCode.Success) {
         output.WriteRawTag(40);
@@ -2674,8 +2674,8 @@ namespace io.hverse.game.protogen {
       if (TotalAmountOfBet != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(TotalAmountOfBet);
       }
-      if (PlayerPresentChip != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(PlayerPresentChip);
+      if (PlayerPresentChip != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(PlayerPresentChip);
       }
       if (Result != global::io.hverse.game.protogen.ResultCode.Success) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Result);
@@ -2701,7 +2701,7 @@ namespace io.hverse.game.protogen {
       if (other.TotalAmountOfBet != 0) {
         TotalAmountOfBet = other.TotalAmountOfBet;
       }
-      if (other.PlayerPresentChip != 0) {
+      if (other.PlayerPresentChip != 0L) {
         PlayerPresentChip = other.PlayerPresentChip;
       }
       if (other.Result != global::io.hverse.game.protogen.ResultCode.Success) {
@@ -2735,7 +2735,7 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 32: {
-            PlayerPresentChip = input.ReadInt32();
+            PlayerPresentChip = input.ReadInt64();
             break;
           }
           case 40: {
@@ -2770,7 +2770,7 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 32: {
-            PlayerPresentChip = input.ReadInt32();
+            PlayerPresentChip = input.ReadInt64();
             break;
           }
           case 40: {
@@ -3108,10 +3108,10 @@ namespace io.hverse.game.protogen {
 
     /// <summary>Field number for the "totalPresentChip" field.</summary>
     public const int TotalPresentChipFieldNumber = 3;
-    private int totalPresentChip_;
+    private long totalPresentChip_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int TotalPresentChip {
+    public long TotalPresentChip {
       get { return totalPresentChip_; }
       set {
         totalPresentChip_ = value;
@@ -3145,7 +3145,7 @@ namespace io.hverse.game.protogen {
       int hash = 1;
       if (Result != global::io.hverse.game.protogen.ResultCode.Success) hash ^= Result.GetHashCode();
       if (ErrorMessage.Length != 0) hash ^= ErrorMessage.GetHashCode();
-      if (TotalPresentChip != 0) hash ^= TotalPresentChip.GetHashCode();
+      if (TotalPresentChip != 0L) hash ^= TotalPresentChip.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -3172,9 +3172,9 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(18);
         output.WriteString(ErrorMessage);
       }
-      if (TotalPresentChip != 0) {
+      if (TotalPresentChip != 0L) {
         output.WriteRawTag(24);
-        output.WriteInt32(TotalPresentChip);
+        output.WriteInt64(TotalPresentChip);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -3194,9 +3194,9 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(18);
         output.WriteString(ErrorMessage);
       }
-      if (TotalPresentChip != 0) {
+      if (TotalPresentChip != 0L) {
         output.WriteRawTag(24);
-        output.WriteInt32(TotalPresentChip);
+        output.WriteInt64(TotalPresentChip);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -3214,8 +3214,8 @@ namespace io.hverse.game.protogen {
       if (ErrorMessage.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(ErrorMessage);
       }
-      if (TotalPresentChip != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TotalPresentChip);
+      if (TotalPresentChip != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(TotalPresentChip);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -3235,7 +3235,7 @@ namespace io.hverse.game.protogen {
       if (other.ErrorMessage.Length != 0) {
         ErrorMessage = other.ErrorMessage;
       }
-      if (other.TotalPresentChip != 0) {
+      if (other.TotalPresentChip != 0L) {
         TotalPresentChip = other.TotalPresentChip;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -3262,7 +3262,7 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 24: {
-            TotalPresentChip = input.ReadInt32();
+            TotalPresentChip = input.ReadInt64();
             break;
           }
         }
@@ -3289,7 +3289,7 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 24: {
-            TotalPresentChip = input.ReadInt32();
+            TotalPresentChip = input.ReadInt64();
             break;
           }
         }

@@ -52,28 +52,31 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
 
     public async UniTask<RaceMatchData> GetCurrentBetModeRaceMatchData()
     {
-        var matchRequest = await SocketClient.Send<GetCurrentRaceScriptRequest, GetCurrentRaceScriptResponse>(new GetCurrentRaceScriptRequest()
+        var raceScriptRequest = await SocketClient.Send<GetCurrentRaceScriptRequest, GetCurrentRaceScriptResponse>(new GetCurrentRaceScriptRequest()
         {
             MatchId = BetMatchRepository.Current.BetMatchId
         }, 5.0f);
 
-        await UniTask.Delay(1000);
-
-        //var bettingDetailResponse = await SocketClient.Send<GetBetHistoryRequest, GetBetHistoryResponse>(new GetBetHistoryRequest()
-        //{
-        //}, 5.0f);
+        var bettingDetailResponse = await SocketClient.Send<GetBetHistoryDetailRequest, GetBetHistoryDetailResponse>(new GetBetHistoryDetailRequest()
+        {
+            MatchId = BetMatchRepository.Current.BetMatchId
+        }, 5.0f);
 
         var totalWin = 0;
-        //if (bettingDetailResponse != null)
-        //{
-        //    var betMatch = bettingDetailResponse.Records.First(x => x.MatchId == BetMatchRepository.Current.BetMatchId);
-        //    totalWin = betMatch.TotalAmountWin;
-        //}
+        if (bettingDetailResponse != null)
+        {
+            var betMatchs = bettingDetailResponse.Records;
+            foreach (var item in betMatchs)
+            {
+                totalWin += item.WinMoney;
+            }
+        }
+
         return new RaceMatchData()
         {
-            HorseRaceTimes = QuickRaceDomainService.GetHorseRaceTimes(matchRequest.RaceScript, MasterHorseContainer),
+            HorseRaceInfos = QuickRaceDomainService.GetHorseRaceInfos(raceScriptRequest.RaceScript, MasterHorseContainer),
             MasterMapId = 10001002,
-            Mode = RaceMode.BetMode,
+            Mode = RaceMode.Bet,
             BetMatchId = BetMatchRepository.Current.BetMatchId,
             TotalBetWin = totalWin
         };

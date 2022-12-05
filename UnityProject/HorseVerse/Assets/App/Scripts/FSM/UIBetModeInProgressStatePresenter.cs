@@ -7,6 +7,9 @@ internal class UIBetModeInProgressStatePresenter : IDisposable
     private IDIContainer Container { get; }
     private CancellationTokenSource cts;
     private UIBetInProgressPopUp uiBetInProgressPopUp;
+    private UITouchDisablePresenter uiTouchDisablePresenter;
+    private UITouchDisablePresenter UITouchDisablePresenter => uiTouchDisablePresenter ??= Container.Inject<UITouchDisablePresenter>();
+    
     public event Action OnBack = ActionUtility.EmptyAction.Instance; 
     public event Action OnTimeOut = ActionUtility.EmptyAction.Instance;
     
@@ -25,18 +28,28 @@ internal class UIBetModeInProgressStatePresenter : IDisposable
         uiBetInProgressPopUp = await UILoader.Instantiate<UIBetInProgressPopUp>(token : cts.Token);
         uiBetInProgressPopUp.SetEntity(new UIBetInProgressPopUp.Entity()
         {
-            outerBtn = new ButtonComponent.Entity(() => OnBack()),
+            outerBtn = new ButtonComponent.Entity(UniTask.Action(async () =>
+            {
+                await uiBetInProgressPopUp.Out(); 
+                OnBack();
+            })),
             timer = new UIComponentCountDownTimer.Entity()
             {
-                outDatedEvent = () => OnTimeOut(),
+                outDatedEvent = UniTask.Action(async() =>
+                {
+                    await UITouchDisablePresenter.ShowTillFinishTaskAsync(UniTask.Delay(1000));
+                    await uiBetInProgressPopUp.Out();
+                    OnTimeOut();
+                }),
                 utcEndTimeStamp = (int)BetMatchRepository.Current.TimeToNextMatch,
             }
         });
-        await uiBetInProgressPopUp.In();
+        await uiBetInProgressPopUp.In().AttachExternalCancellation(cts.Token); 
     }
 
     public void Dispose()
     {
+        DisposeUtility.SafeDispose(ref cts);
         UILoader.SafeRelease(ref uiBetInProgressPopUp);
     }
 }

@@ -31,7 +31,7 @@ public class TargetGenerator : MonoBehaviour
         return start + spacing * lane;
     }
 
-    public ((Vector3 target, float time)[] targets,int finishIndex) GenerateTargets(RaceSegment[] raceSegments)
+    public ((Vector3 target, float time)[] targets,int finishIndex) GenerateTargets(RaceSegmentTime[] raceSegments)
     {
         var firstPoint = SimplyPath.bezierPath.GetPoint(predefinePath.PredefinedWayPointIndices.First());
         var tFirst = SimplyPath.path.GetClosestTimeOnPath(firstPoint);
@@ -39,7 +39,7 @@ public class TargetGenerator : MonoBehaviour
         var lastPoint = SimplyPath.bezierPath.GetPoint(predefinePath.PredefinedWayPointIndices.Last());
         var tLast = SimplyPath.path.GetClosestTimeOnPath(lastPoint);
         
-        var paddingTargets = raceSegments.Select(x => (FromTimeToPoint(  Mathf.Lerp(tFirst, tLast, x.percentage), GetOffsetFromLane(x.toLane)), x.time)).ToArray();
+        var paddingTargets = raceSegments.Select(x => (FromTimeToPoint(  Mathf.Lerp(tFirst, tLast, x.Percentage), GetOffsetFromLane(x.ToLane)), x.Time)).ToArray();
         return (paddingTargets, raceSegments.Length - 1);
     }
 }

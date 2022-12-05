@@ -17,7 +17,7 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
         MasterHorseTrainingProperty masterHorseTrainingProperty,
         MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer,
         MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer,
-        HorseMeshAssetLoader.HorseMeshInformation horseMeshInformation)
+        HorseMeshInformation horseMeshInformation)
     {
         await horseTrainingController.Initialize(masterHorseTrainingProperty, horseMeshInformation);
         horseTrainingController.OnTakeCoin += onTakeCoin;

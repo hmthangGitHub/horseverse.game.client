@@ -20,7 +20,7 @@ public class RaceModeHorseIntroPresenter : IDisposable
         Container = container;
     }
 
-    public async UniTask ShowHorsesInfoIntroAsync(long[] masterHorseIds, Vector3 horsePosition, Quaternion rotation)
+    public async UniTask ShowHorsesInfoIntroAsync(HorseRaceInfo[] masterHorseIds, Vector3 horsePosition, Quaternion rotation)
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
@@ -31,7 +31,7 @@ public class RaceModeHorseIntroPresenter : IDisposable
         {
             for (int i = 0; i < masterHorseIds.Length; i++)
             {
-                await ShowHorseInfoAsync(MasterHorseContainer.MasterHorseIndexer[masterHorseIds[i]],
+                await ShowHorseInfoAsync(masterHorseIds[i],
                                          i + 1,
                                          100.0f)
                      .AttachExternalCancellation(cts.Token);
@@ -50,7 +50,7 @@ public class RaceModeHorseIntroPresenter : IDisposable
         uiHorse3DIntro = await UILoader.Instantiate<UIHorse3DInRaceSceneIntro>(token: cts.Token);
     }
 
-    private async UniTask ShowHorseInfoAsync(MasterHorse masterHorse, int gate, float introTime)
+    private async UniTask ShowHorseInfoAsync(HorseRaceInfo horseRaceInfo, int gate, float introTime)
     {
         var ucs = new UniTaskCompletionSource();
         void OnSkipHorse()
@@ -61,18 +61,23 @@ public class RaceModeHorseIntroPresenter : IDisposable
         uiHorseInfoIntro.SetEntity(new UIHorseInfoIntro.Entity()
         {
             gate = gate,
-            horseName = masterHorse.Name,
+            horseName = horseRaceInfo.Name,
             outerBtn = new ButtonComponent.Entity(OnSkipHorse),
             skipAllBtn = new ButtonComponent.Entity(OnSkipAllHorseIntro)
         });
 
+        var horseMeshInformation = MasterHorseContainer.GetHorseMeshInformation(horseRaceInfo.MeshInformation, HorseModelMode.Intro);
         if (uiHorse3DIntro.entity == default)
         {
             uiHorse3DIntro.SetEntity(new UIHorse3DInRaceSceneIntro.Entity()
             {
                 horseModelLoader = new UIHorseModelLoader.Entity()
                 {
-                    horse = masterHorse.IntroRaceModeModelPath,
+                    horse = horseMeshInformation.horseModelPath,
+                    color1 = horseMeshInformation.color1,
+                    color2 = horseMeshInformation.color2,
+                    color3 = horseMeshInformation.color3,
+                    color4 = horseMeshInformation.color4,
                     position = horsePosition,
                     rotation = rotation
                 }
@@ -81,7 +86,16 @@ public class RaceModeHorseIntroPresenter : IDisposable
         }
         else
         {
-            uiHorse3DIntro.entity.horseModelLoader.horse = masterHorse.IntroRaceModeModelPath;
+            uiHorse3DIntro.entity.horseModelLoader = new UIHorseModelLoader.Entity()
+            {
+                horse = horseMeshInformation.horseModelPath,
+                color1 = horseMeshInformation.color1,
+                color2 = horseMeshInformation.color2,
+                color3 = horseMeshInformation.color3,
+                color4 = horseMeshInformation.color4,
+                position = horsePosition,
+                rotation = rotation
+            };
             uiHorse3DIntro.horseModelLoader.SetEntity(uiHorse3DIntro.entity.horseModelLoader);
         }
         

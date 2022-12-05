@@ -61,7 +61,7 @@ public class AgentTesting : MonoBehaviour
         di.Bind(dependency);
         var iQuickRaceDomainService = new LocalQuickRaceDomainService(di);
         var result = await iQuickRaceDomainService.FindMatch();
-        var targets = targetGenerator.GenerateTargets(result.HorseRaceTimes[0].raceSegments).targets;
+        var targets = targetGenerator.GenerateTargets(result.HorseRaceInfos[0].RaceSegments).targets;
         for (int i = 0; i < targets.Length; i++)
         {
             var x = targets[i];

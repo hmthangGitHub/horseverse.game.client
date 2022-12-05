@@ -27,18 +27,15 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.Bind(new QuickRaceDomainService(Container));
         this.Container.Bind(new LocalTraningDomainService(Container));
         this.Container.Bind(new HorseSumaryListEntityFactory(Container));
+        
 #if UNITY_WEBGL || WEB_SOCKET
         this.Container.Bind(WebSocketClient.Initialize(new ProtobufMessageParser()));
 #else
         this.Container.Bind(TCPSocketClient.Initialize(new ProtobufMessageParser()));
 #endif
+        this.Container.Bind(await UITouchDisablePresenter.InstantiateAsync(Container));
         base.Enter();
 
-    }
-
-    private void ToLevelEditorState()
-    {
-        ChangeState<LevelEditorState>();
     }
 
     public override void AddStates()
@@ -64,6 +61,7 @@ public class InitialState : InjectedBHState, IDisposable
 
     public void Dispose()
     {
+        this.Container.RemoveAndDisposeIfNeed<UITouchDisablePresenter>();
 #if UNITY_WEBGL || WEB_SOCKET
         this.Container.RemoveAndDisposeIfNeed<WebSocketClient>();
 #else

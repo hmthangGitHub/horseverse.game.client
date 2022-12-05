@@ -1,5 +1,5 @@
 ﻿public class HorseTrainingDataContext
 {
-    public HorseMeshAssetLoader.HorseMeshInformation horseMeshInformation { get; set; }
+    public HorseMeshInformation HorseMeshInformation { get; set; }
     public long MasterMapId { get; set; }
 }

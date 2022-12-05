@@ -38,7 +38,7 @@ public class QuickRaceResultPresenter : IDisposable
         uiHorseQuickRaceResultList ??= await UILoader.Instantiate<UIHorseQuickRaceResultList>();
         uiHorseQuickRaceResultList.SetEntity(new UIHorseQuickRaceResultList.Entity()
         {
-            horseNames = RaceMatchData.HorseRaceTimes.Select(x => MasterHorseContainer.MasterHorseIndexer[x.masterHorseId].Name).ToArray(),
+            horseNames = RaceMatchData.HorseRaceInfos.Select(x => x.Name).ToArray(),
             outerBtn = new ButtonComponent.Entity(UniTask.Action(async () =>
             {
                 await uiHorseQuickRaceResultList.Out();
@@ -71,15 +71,15 @@ public class QuickRaceResultPresenter : IDisposable
 
     private UIComponentHorseResult.Entity[] GetResultList()
     {
-        return RaceMatchData.HorseRaceTimes.Select(x =>
-                (horseRaceTime: x, totalRaceTime: x.raceSegments.Sum(raceSegment => raceSegment.time)))
+        return RaceMatchData.HorseRaceInfos.Select(x =>
+                (horseRaceTime: x, totalRaceTime: x.RaceSegments.Sum(raceSegment => raceSegment.Time)))
             .OrderBy(x => x.totalRaceTime)
             .Select((x, i) => new UIComponentHorseResult.Entity()
             {
-                isPlayer = x.horseRaceTime.masterHorseId == UserDataRepository.Current.CurrentHorseNftId,
+                isPlayer = x.horseRaceTime.Name == UserDataRepository.Current.UserName,
                 lane = i + 1,
                 top = i + 1,
-                name = MasterHorseContainer.MasterHorseIndexer[x.horseRaceTime.masterHorseId].Name,
+                name = x.horseRaceTime.Name,
                 time = x.totalRaceTime
             })
             .ToArray();
