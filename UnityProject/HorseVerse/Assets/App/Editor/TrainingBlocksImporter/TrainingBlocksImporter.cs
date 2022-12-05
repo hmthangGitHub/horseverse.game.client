@@ -35,7 +35,9 @@ public class TrainingBlocksImporter
     private static void SaveToBlockSettings()
     {
         var trainingBlockSetting = AssetDatabase.LoadAssetAtPath<TrainingBlockSettings>(TrainingBlockSettings);
-        trainingBlockSetting.blockCombos = LoadAllAssetAtPath<TrainingBlockPredefine>(TrainingBlocksPath);
+        trainingBlockSetting.blockCombos = LoadAllAssetAtPath<TrainingBlockPredefine>(TrainingBlocksPath)
+            .Where(x => !x.name.Contains("starting_block"))
+            .ToArray();
         EditorUtility.SetDirty(trainingBlockSetting);
     }
 
@@ -116,7 +118,6 @@ public class TrainingBlocksImporter
                 position = position,
                 parent = blockInstance.transform
             },
-            tag = string.Empty,
             layer = default
         };
         var sceneryContainerBoxCollider = sceneryContainer.AddComponent<BoxCollider>();
@@ -138,7 +139,6 @@ public class TrainingBlocksImporter
                 position = position,
                 parent = blockInstance.transform
             },
-            tag = string.Empty,
             layer = default
         };
         var sceneryConflictRegionBoxCollider = sceneryConflictRegion.AddComponent<BoxCollider>();
