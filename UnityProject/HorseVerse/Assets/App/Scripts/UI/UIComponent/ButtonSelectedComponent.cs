@@ -84,7 +84,6 @@ public class ButtonSelectedComponent : UIComponent<ButtonSelectedComponent.Entit
             this.entity.isSelected = isSelected;
             anim.SetBool("IsSelected", this.entity.isSelected);
             anim.SetTrigger("Normal");
-            Debug.Log("Is Selected " + this.entity.isSelected);
         }
     }
 

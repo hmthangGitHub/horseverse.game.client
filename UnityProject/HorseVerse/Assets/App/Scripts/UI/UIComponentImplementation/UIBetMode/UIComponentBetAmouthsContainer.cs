@@ -9,18 +9,18 @@ public class UIComponentBetAmouthsContainer : UIComponent<UIComponentBetAmouthsC
     {
         public int totalBetAmouth;
         public ButtonComponent.Entity cancelBtn;
-        public UIComponentBetAmouthIndicator.Entity betAmouthIndicator;
+        public UIComponentBetAmouthList.Entity betAmounths;
     }
 
     public FormattedTextComponent totalBetAmouth;
     public ButtonComponent cancelBtn;
-    public UIComponentBetAmouthIndicator betAmouthIndicator;
+    public UIComponentBetAmouthList betAmounths;
 
     protected override void OnSetEntity()
     {
         totalBetAmouth.SetEntity(this.entity.totalBetAmouth);
         cancelBtn.SetEntity(this.entity.cancelBtn);
-        betAmouthIndicator.SetEntity(this.entity.betAmouthIndicator);
+        betAmounths.SetEntity(this.entity.betAmounths);
     }
 
     public void SetTotalBetAmouth(int amouth)

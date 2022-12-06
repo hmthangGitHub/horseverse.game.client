@@ -11,7 +11,7 @@ public class UIBetModeAnimation : UISequenceAnimationBase
 {
     public UIComponentSingleBetSlotList singleSlots;
     public RectTransform singleBet;
-    public HorizontalLayoutGroup singleBetHorizontalLayout;
+    public GridLayoutGroup singleBetHorizontalLayout;
     public UIComponentDoubleBetList doubleBetSlots;
     public RectTransform doubleBet;
     public GridLayoutGroup doubleBetHorizontalLayout;
@@ -26,6 +26,7 @@ public class UIBetModeAnimation : UISequenceAnimationBase
 
     public async UniTask AnimationOut()
     {
+        Debug.Log("OUTTX XXXX ");
         await PlayAnimationAsync(CreateAnimationOut);
     }
 

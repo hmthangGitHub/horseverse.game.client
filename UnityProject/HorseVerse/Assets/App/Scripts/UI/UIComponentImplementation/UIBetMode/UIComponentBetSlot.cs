@@ -7,18 +7,18 @@ public class UIComponentBetSlot : UIComponent<UIComponentBetSlot.Entity>
     [System.Serializable]
     public class Entity
     {
-        public int horseNumber;
-        public int firstHorseNumber;
-        public int secondHorseNumber;
+        public UIComponentBetSlotNumber.Entity horseNumber;
+        public UIComponentBetSlotNumber.Entity firstHorseNumber;
+        public UIComponentBetSlotNumber.Entity secondHorseNumber;
         public UIComponentBetSlotType.BetType betType;
         public float betRatio;
         public int totalBet;
         public ButtonComponent.Entity betBtn;
     }
 
-    public FormattedTextComponent horseNumber;
-    public FormattedTextComponent firstHorseNumber;
-    public FormattedTextComponent secondHorseNumber;
+    public UIComponentBetSlotNumber horseNumber;
+    public UIComponentBetSlotNumber firstHorseNumber;
+    public UIComponentBetSlotNumber secondHorseNumber;
     public UIComponentBetSlotType betType;
     public FormattedTextComponent betRatio;
     public FormattedTextComponent totalBet;

@@ -73,6 +73,12 @@ public class HorseRaceStatusPlayerList : UIComponent<HorseRaceStatusPlayerList.E
         rectTransfrom.DOAnchorPos(destination, 0.25f).SetEase(Ease.InOutSine);
     }
 
+    public string GetName(int lane)
+    {
+        var player = lane + 1;
+        return player.ToString();
+    }
+
     public void UpdatePosition(float normalizePos)
     {
         rectTransform.anchoredPosition = Vector2.Lerp(originalPos, destination, normalizePos);

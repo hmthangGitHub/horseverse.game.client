@@ -35,8 +35,8 @@ public class UIComponentQuickBetButtonsContainer : UIComponent<UIComponentQuickB
             quickBetButton.SetEntity(new UIComponentQuickBetButtons.Entity()
             {
                 betAllBtn = new ButtonComponent.Entity(() => this.onBetAll.Invoke(horseIndex)),
-                horizontalBetBtn = new ButtonComponent.Entity(() => this.onBetHorizontal.Invoke(horseIndex)),
-                verticalBetBtn = new ButtonComponent.Entity(() => this.onBetVertical.Invoke(horseIndex)),
+                //horizontalBetBtn = new ButtonComponent.Entity(() => this.onBetHorizontal.Invoke(horseIndex)),
+                //verticalBetBtn = new ButtonComponent.Entity(() => this.onBetVertical.Invoke(horseIndex)),
             });
         }
     }

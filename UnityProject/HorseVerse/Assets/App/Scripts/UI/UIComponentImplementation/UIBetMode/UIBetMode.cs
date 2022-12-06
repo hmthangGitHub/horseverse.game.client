@@ -9,7 +9,6 @@ public class UIBetMode : PopupEntity<UIBetMode.Entity>
     public class Entity
     {
         public UIComponentBetModeHeader.Entity header;
-        public ButtonComponent.Entity backBtn;
         public UIComponentSingleBetSlotList.Entity singleBetSlotList;
         public UIComponentDoubleBetList.Entity doubleBetSlotList;
         public UIComponentQuickBetButtonsContainer.Entity quickBetButtonsContainer;
@@ -17,7 +16,6 @@ public class UIBetMode : PopupEntity<UIBetMode.Entity>
     }
 
     public UIComponentBetModeHeader header;
-    public ButtonComponent backBtn;
     public UIComponentSingleBetSlotList singleBetSlotList;
     public UIComponentDoubleBetList doubleBetSlotList;
     public UIComponentQuickBetButtonsContainer quickBetButtonsContainer;
@@ -27,7 +25,6 @@ public class UIBetMode : PopupEntity<UIBetMode.Entity>
     protected override void OnSetEntity()
     {
         header.SetEntity(this.entity.header);
-        backBtn.SetEntity(this.entity.backBtn);
         singleBetSlotList.SetEntity(this.entity.singleBetSlotList);
         doubleBetSlotList.SetEntity(this.entity.doubleBetSlotList);
         quickBetButtonsContainer.SetEntity(this.entity.quickBetButtonsContainer);

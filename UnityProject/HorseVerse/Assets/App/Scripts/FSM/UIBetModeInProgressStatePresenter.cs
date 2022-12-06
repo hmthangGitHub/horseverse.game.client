@@ -38,7 +38,8 @@ internal class UIBetModeInProgressStatePresenter : IDisposable
                 outDatedEvent = UniTask.Action(async() =>
                 {
                     await UITouchDisablePresenter.ShowTillFinishTaskAsync(UniTask.Delay(1000));
-                    await uiBetInProgressPopUp.Out();
+                    if(uiBetInProgressPopUp != default)
+                        await uiBetInProgressPopUp.Out();
                     OnTimeOut();
                 }),
                 utcEndTimeStamp = (int)BetMatchRepository.Current.TimeToNextMatch,
