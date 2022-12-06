@@ -132,6 +132,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         var horse = await HorseMeshAssetLoader.InstantiateHorse(horseMeshInformation);
         horse.transform.parent = horsePosition;
         horse.transform.localPosition = Vector3.zero;
+        horse.transform.localScale = Vector3.one;
     }
 
     private void SetCameraYaw(float rotation, Transform cameraTransform)
