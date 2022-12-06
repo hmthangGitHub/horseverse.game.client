@@ -196,7 +196,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         await cameraBlendingAnimation.FadeInAnimationAsync();
         freeCamera.gameObject.SetActive(false);
         raceCamera.gameObject.SetActive(true);
-        racingTrackController.PlayStartAnimation();
+        racingTrackController?.PlayStartAnimation();
         await (cameraBlendingAnimation.FadeOutAnimationAsync(),
                 UniTask.Delay(TimeSpan.FromSeconds(3)));
     }

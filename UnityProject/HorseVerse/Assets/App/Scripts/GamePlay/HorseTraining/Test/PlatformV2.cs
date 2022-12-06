@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PlatformV2 : PlatformBase
 {
+    [SerializeField]
+    private TrainingCoin coinPrefab;
+    
     public virtual void GenerateBlocks(Vector3 relativePointToPlayer,
                                        Vector3 lastEndPosition,
                                        TrainingBlockPredefine blockComboPrefab,
@@ -14,6 +17,22 @@ public class PlatformV2 : PlatformBase
     {
         var blockCombo = InstantiateTrainingBlockPredefine(relativePointToPlayer, lastEndPosition, blockComboPrefab, masterHorseTrainingProperty);
         InstantiateObstacles(obstacleVariationContainer, blockCombo);
+        InstantiateScenery(sceneryPrefab, blockCombo);
+        InstantiateCoins(blockCombo);
+    }
+
+    private void InstantiateCoins(TrainingBlockPredefine trainingBlockPredefine)
+    {
+        trainingBlockPredefine.coinPositions.ForEach(x =>
+        {
+            var coin = Instantiate(coinPrefab, x, Quaternion.identity, trainingBlockPredefine.transform);
+            coin.transform.localPosition = x + new Vector3(0 , 1, 0);
+        });
+    }
+
+    private static void InstantiateScenery(GameObject[] sceneryPrefab,
+                                           TrainingBlockPredefine blockCombo)
+    {
         Enumerable.Range(0, Random.Range(0, 8))
                   .ForEach(x =>
                   {
@@ -22,7 +41,9 @@ public class PlatformV2 : PlatformBase
                       {
                           p = blockCombo.sceneryContainer.bounds.RandomPointInBounds();
                       }
-                      var sceneryObject = Instantiate(sceneryPrefab.RandomElement(),p + blockCombo.transform.position, Quaternion.identity, blockCombo.transform);
+
+                      var sceneryObject = Instantiate(sceneryPrefab.RandomElement(), p + blockCombo.transform.position,
+                          Quaternion.identity, blockCombo.transform);
                   });
     }
 
@@ -55,11 +76,10 @@ public class PlatformV2 : PlatformBase
         var platformBounds = platform.bounds;
         var startPositionLocal = new Vector3(0, platformBounds.extents.y,
             -platformBounds.extents.z + masterHorseTrainingProperty.LandingPoint);
-        var endPositionLocal = new Vector3(0, platformBounds.extents.y,
-            platformBounds.extents.z - masterHorseTrainingProperty.JumpingPoint);
-        blockCombo.transform.position = lastEndPosition + relativePointToPlayer - startPositionLocal;
+        var endPositionLocal = new Vector3(0, platformBounds.extents.y, platformBounds.extents.z - masterHorseTrainingProperty.JumpingPoint);
+        blockCombo.transform.position = lastEndPosition + relativePointToPlayer - startPositionLocal + platform.transform.localPosition;
         start.transform.position = lastEndPosition + relativePointToPlayer;
-        end.transform.position = blockCombo.transform.position + endPositionLocal;
+        end.transform.position = blockCombo.transform.position + endPositionLocal + platform.transform.localPosition;
         return blockCombo;
     }
 }

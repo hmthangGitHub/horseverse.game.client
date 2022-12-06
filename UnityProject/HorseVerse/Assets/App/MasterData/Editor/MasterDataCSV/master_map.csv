@@ -1,8 +1,9 @@
-type_name,master_map_id,map_path,map_name,map_settings
-type,long,string,string,string
-out_put_client,TRUE,TRUE,TRUE,TRUE
-out_put_server,TRUE,FALSE,FALSE,FALSE
-id,id,,,
-,10001001,Maps/racing_scene_1,Racing Scene 1,Maps/MapSettings/map_settings_1
-,10001002,Maps/racing_scene_stadium,Stadium,Maps/MapSettings/map_settings_stadium
-,10001003,Maps/racing_scene_stadium_training,Stadium Training,Maps/MapSettings/map_settings_stadium
+type_name,master_map_id,map_path,map_name,map_settings,master_map_phase_setting_group_id
+type,long,string,string,string,long
+out_put_client,TRUE,TRUE,TRUE,TRUE,TRUE
+out_put_server,TRUE,FALSE,FALSE,FALSE,TRUE
+id,id,,,,
+,10001001,Maps/racing_scene_1,Racing Scene 1,Maps/MapSettings/map_settings_1,2
+,10001002,Maps/racing_scene_stadium,Stadium,Maps/MapSettings/map_settings_stadium,2
+,10001003,Maps/racing_scene_stadium_training,Stadium Training,Maps/MapSettings/map_settings_stadium,2
+,10001004,Maps/racing_scene_stadium_2,Stadium,Maps/MapSettings/map_settings_stadium,2
