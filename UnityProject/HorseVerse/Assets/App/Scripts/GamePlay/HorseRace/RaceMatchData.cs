@@ -17,6 +17,11 @@ public class HorseRaceInfo
     public RaceSegmentTime[] RaceSegments { get; set; }
 }
 
+public class HorseBetInfo
+{
+    public HorseDataModel[] horseInfos { get; set; }
+}
+
 public class RaceSegmentTime
 {
     public int currentLane;

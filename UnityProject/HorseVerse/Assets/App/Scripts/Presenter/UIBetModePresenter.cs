@@ -15,7 +15,9 @@ public class UIBetModePresenter : IDisposable
     private UIBetConfirmation uiBetConfirmation = default;
     private CancellationTokenSource cts = default;
     private readonly IDIContainer container = default;
-    
+    private UIBetModeHorseInfo uiBetModeHorseInfo = default;
+
+
     public event Action OnBack = ActionUtility.EmptyAction.Instance;
     public event Action OnToRaceMode = ActionUtility.EmptyAction.Instance;
     public event Action OnTimeOut = ActionUtility.EmptyAction.Instance;
@@ -33,8 +35,13 @@ public class UIBetModePresenter : IDisposable
     private IReadOnlyBetMatchRepository BetMatchRepository => betMatchRepository ??= container.Inject<IReadOnlyBetMatchRepository>();
     private UIHorse3DViewPresenter UiHorse3DViewPresenter => uiHorse3DViewPresenter ??= container.Inject<UIHorse3DViewPresenter>();
     private UITouchDisablePresenter UITouchDisablePresenter => uiTouchDisablePresenter ??= container.Inject<UITouchDisablePresenter>();
+    private MasterHorseContainer masterHorseContainer;
+    private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= container.Inject<MasterHorseContainer>();
+
+    private HorseBetInfo horseBetInfo = default;
 
     private int currentBettingAmouth = 0;
+    private int currentHorseInfoView = -1;
 
     public UIBetModePresenter(IDIContainer container)
     {
@@ -52,7 +59,11 @@ public class UIBetModePresenter : IDisposable
         
         uiBetMode ??= await UILoader.Instantiate<UIBetMode>(token: cts.Token);
         uiBetConfirmation ??= await UILoader.Instantiate<UIBetConfirmation>(token: cts.Token);
-        
+        uiBetModeHorseInfo ??= await UILoader.Instantiate<UIBetModeHorseInfo>(token: cts.Token);
+
+        horseBetInfo = await BetModeDomainService.GetCurrentBetModeHorseData();
+
+
         uiBetMode.SetEntity(new UIBetMode.Entity()
         {
             betAmouthsContainer = new UIComponentBetAmouthsContainer.Entity()
@@ -113,7 +124,8 @@ public class UIBetModePresenter : IDisposable
             quickBetButtonsContainer = new UIComponentQuickBetButtonsContainer.Entity()
             {
                 onBetAll = val => OnBetAllAtHorseNumber(val).Forget()
-            }
+            },
+            btnHorseList = new ButtonComponent.Entity(()=> OpenHorseList().Forget()),
         });
 
         if (uiBetMode)
@@ -139,7 +151,9 @@ public class UIBetModePresenter : IDisposable
         {
             await UITouchDisablePresenter.Delay(1.5f);
             var raceMatchData = await BetModeDomainService.GetCurrentBetModeRaceMatchData();
+            
             container.Bind(raceMatchData);
+
             UiHorse3DViewPresenter.Dispose();
             Debug.Log("X1");
             TransitionAsync(OnToRaceMode).Forget();    
@@ -254,12 +268,36 @@ public class UIBetModePresenter : IDisposable
 #endif
     }
 
+    private async UniTask OpenHorseList()
+    {
+        var ucs = new UniTaskCompletionSource();
+        uiBetModeHorseInfo.SetEntity(new UIBetModeHorseInfo.Entity()
+        {
+            backBtn = new ButtonComponent.Entity(()=>
+            {
+                ucs.TrySetResult();
+            }),
+            horseList = new UIComponentBetModeHorseInfoList.Entity() { 
+                entities = getHorseInfo()
+            },
+            horseDetail = new UIComponentHorseDetail.Entity(),
+            horseDetailNumber = 1,
+            horseRace = new UIComponentHorseRace.Entity(),
+        });
+        await UniTask.Delay(200);
+        OnUpdateHorseInfoView(0);
+        await uiBetModeHorseInfo.In();
+        await ucs.Task;
+        await uiBetModeHorseInfo.Out();
+    }
+
     public void Dispose()
     {
         cts.SafeCancelAndDispose();
         cts = default;
         UILoader.SafeRelease(ref uiBetMode);
         UILoader.SafeRelease(ref uiBetConfirmation);
+        UILoader.SafeRelease(ref uiBetModeHorseInfo);
         BetRateRepository.OnModelUpdate -= BetRateRepositoryOnModelUpdate;
         BetRateRepository.OnModelsUpdate -= BetRateRepositoryOnModelsUpdate;
 
@@ -269,5 +307,86 @@ public class UIBetModePresenter : IDisposable
         betModeDomainService = default;
         currentBettingAmouth = default;
         uiHorse3DViewPresenter = default;
+    }
+
+    private UIComponentBetModeHorseInfoItem.Entity[] getHorseInfo()
+    {
+        if(horseBetInfo != default && horseBetInfo.horseInfos != default)
+        {
+            int len = horseBetInfo.horseInfos.Length;
+            var data = new List<UIComponentBetModeHorseInfoItem.Entity>();
+            for(int i = 0; i < len; i++)
+            {
+                int index = i;
+                var item = new UIComponentBetModeHorseInfoItem.Entity()
+                {
+                    no = i + 1,
+                    horseName = MasterHorseContainer.MasterHorseIndexer[horseBetInfo.horseInfos[i].MasterHorseId].Name,
+                    avgRec = horseBetInfo.horseInfos[i].AverageBettingRecord,
+                    bestRec = horseBetInfo.horseInfos[i].BestBettingRecord,
+                    lastMatch = horseBetInfo.horseInfos[i].LastBettingRecord,
+                    rate = horseBetInfo.horseInfos[i].Rate,
+                    button = new ButtonSelectedComponent.Entity(()=> { OnUpdateHorseInfoView(index);}, false)
+                };
+                data.Add(item);
+            }
+            return data.ToArray();
+        }
+        return null;
+    }
+
+    private void OnUpdateHorseInfoView(int index)
+    {
+        if (currentHorseInfoView > -1)
+        {
+            var e = uiBetModeHorseInfo.horseList.instanceList[currentHorseInfoView];
+            e.button.SetSelected(false);
+            currentHorseInfoView = -1;
+        }
+
+        if (index < uiBetModeHorseInfo.horseList.instanceList.Count)
+        {
+            var curr = uiBetModeHorseInfo.horseList.instanceList[index];
+            curr.button.SetSelected(true);
+            currentHorseInfoView = index;
+            var horseInfo = horseBetInfo.horseInfos[index];
+            var entity = uiBetModeHorseInfo.entity;
+            entity.horseDetail = new UIComponentHorseDetail.Entity()
+            {
+                horseName = MasterHorseContainer.MasterHorseIndexer[horseInfo.MasterHorseId].Name,
+                level = horseInfo.Level,
+                powerProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
+                {
+                    bonus = horseInfo.PowerBonus,
+                    progressBar = new UIComponentProgressBar.Entity()
+                    {
+                        progress = horseInfo.PowerRatio
+                    }
+                },
+                speedProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
+                {
+                    bonus = horseInfo.SpeedBonus,
+                    progressBar = new UIComponentProgressBar.Entity()
+                    {
+                        progress = horseInfo.SpeedRatio
+                    }
+                },
+                technicallyProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
+                {
+                    bonus = horseInfo.TechnicallyBonus,
+                    progressBar = new UIComponentProgressBar.Entity()
+                    {
+                        progress = horseInfo.TechnicallyRatio
+                    }
+                },
+            };
+            entity.horseDetailNumber = index + 1;
+            entity.horseRace = new UIComponentHorseRace.Entity()
+            {
+                type = horseInfo.Type
+            };
+
+            uiBetModeHorseInfo.UpdateDetailInfo(entity);
+        }
     }
 }

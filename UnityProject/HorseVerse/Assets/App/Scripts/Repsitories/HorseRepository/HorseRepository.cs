@@ -48,7 +48,6 @@ public class HorseRepository : Repository<long, HorseDataModel, HorseDataModel>,
     {
         var color = Color.white;
         ColorUtility.TryParseHtmlString(value, out color);
-        Debug.Log("PARSE COLOR " + value + " to " + color.ToString());
         return color;
     }
 

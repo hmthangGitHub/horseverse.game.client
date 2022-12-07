@@ -10,6 +10,7 @@ public interface IBetModeDomainService
     UniTask CancelBetAsync();
     UniTask BetAsync((int first, int second)[] keys, int amouth);
     UniTask<RaceMatchData> GetCurrentBetModeRaceMatchData();
+    UniTask<HorseBetInfo> GetCurrentBetModeHorseData();
     UniTask RequestBetData();
 }
 
@@ -82,6 +83,48 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
         };
     }
 
+    public async UniTask<HorseBetInfo> GetCurrentBetModeHorseData()
+    {
+
+        var horseResponse = await SocketClient.Send<GetHorseListRequest, GetHorseListResponse>(new GetHorseListRequest()
+        {
+            MatchId = BetMatchRepository.Current.BetMatchId
+        }, 5.0f);
+        HorseDataModel[] data = default;
+        if(horseResponse.Result == ResultCode.Success)
+        {
+            data = horseResponse.HorseInfos.Select(x =>
+            {
+                return new HorseDataModel()
+                {
+                    HorseNtfId = x.NftId,
+                    Earning = UnityEngine.Random.Range(100, 10000),
+                    PowerBonus = x.Bms,
+                    PowerRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
+                    SpeedBonus = x.Mms,
+                    SpeedRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
+                    TechnicallyBonus = x.Acceleration,
+                    TechnicallyRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
+                    Rarity = (int)x.Rarity,
+                    Type = (int)x.HorseType,
+                    Level = x.Level,
+                    Color1 = HorseRepository.GetColorFromHexCode(x.Color1),
+                    Color2 = HorseRepository.GetColorFromHexCode(x.Color2),
+                    Color3 = HorseRepository.GetColorFromHexCode(x.Color3),
+                    Color4 = HorseRepository.GetColorFromHexCode(x.Color4),
+                    LastBettingRecord = x.LastBettingRecord,
+                    AverageBettingRecord = x.AverageBettingRecord,
+                    BestBettingRecord = x.BestBettingRecord,
+                    Rate = x.WinRate
+                };
+            }).ToArray();
+        }
+        return new HorseBetInfo()
+        {
+            horseInfos = data
+        };
+    }
+         
     public async UniTask CancelBetAsync()
     {
         var response = await SocketClient.Send<CancelBettingRequest, CancelBettingResponse>(new CancelBettingRequest()
@@ -172,5 +215,10 @@ public class LocalBetModeDomainService : BetModeDomainServiceBase, IBetModeDomai
     public async UniTask<RaceMatchData> GetCurrentBetModeRaceMatchData()
     {
         return await new LocalQuickRaceDomainService(container).FindMatch();
+    }
+
+    public async UniTask<HorseBetInfo> GetCurrentBetModeHorseData()
+    {
+        return new HorseBetInfo();
     }
 }

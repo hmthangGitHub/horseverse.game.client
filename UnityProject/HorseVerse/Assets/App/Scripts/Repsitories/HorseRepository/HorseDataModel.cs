@@ -20,5 +20,10 @@ public class HorseDataModel
     public Color Color3 { get; set; }
     public Color Color4 { get; set; }
 
+    public float LastBettingRecord { get; set; }
+    public float AverageBettingRecord { get; set; }
+    public float BestBettingRecord { get; set; }
+    public float Rate { get; set; }
+
     public long MasterHorseId => 10000001;
 }

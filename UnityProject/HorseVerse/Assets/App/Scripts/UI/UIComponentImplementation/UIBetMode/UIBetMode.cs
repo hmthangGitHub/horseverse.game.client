@@ -13,6 +13,8 @@ public class UIBetMode : PopupEntity<UIBetMode.Entity>
         public UIComponentDoubleBetList.Entity doubleBetSlotList;
         public UIComponentQuickBetButtonsContainer.Entity quickBetButtonsContainer;
         public UIComponentBetAmouthsContainer.Entity betAmouthsContainer;
+        public ButtonComponent.Entity btnHorseList;
+        
     }
 
     public UIComponentBetModeHeader header;
@@ -21,7 +23,9 @@ public class UIBetMode : PopupEntity<UIBetMode.Entity>
     public UIComponentQuickBetButtonsContainer quickBetButtonsContainer;
     public UIComponentBetAmouthsContainer betAmouthsContainer;
     public UIBetModeAnimation uiBetModeAnimation;
-    
+    public ButtonComponent btnHorseList;
+
+
     protected override void OnSetEntity()
     {
         header.SetEntity(this.entity.header);
@@ -29,6 +33,7 @@ public class UIBetMode : PopupEntity<UIBetMode.Entity>
         doubleBetSlotList.SetEntity(this.entity.doubleBetSlotList);
         quickBetButtonsContainer.SetEntity(this.entity.quickBetButtonsContainer);
         betAmouthsContainer.SetEntity(this.entity.betAmouthsContainer);
+        btnHorseList.SetEntity(this.entity.btnHorseList);
     }
 
     protected override UniTask AnimationIn()

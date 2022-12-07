@@ -26,7 +26,6 @@ public class UIBetModeAnimation : UISequenceAnimationBase
 
     public async UniTask AnimationOut()
     {
-        Debug.Log("OUTTX XXXX ");
         await PlayAnimationAsync(CreateAnimationOut);
     }
 
@@ -39,7 +38,7 @@ public class UIBetModeAnimation : UISequenceAnimationBase
                 doubleBetHorizontalLayout.enabled = false;
                 singleBetHorizontalLayout.enabled = false;
             })
-            .Append(betAmouthsContainer.DOAnchorPosYToThenReverse(-500.0f, 0.15f))
+            .Append(betAmouthsContainer.DOAnchorPosYToThenReverse(-600.0f, 0.15f))
             .Append(quickBetButtonsContainer.DOFade(1.0f, 0.0f, 0.15f))
             .Append(singleSlots.instanceList.Select(x => ((RectTransform)x.transform).DOAnchorPosXToThenReverse(2500, 0.15f)).ToArray().AsSequence(false))
             .Join(doubleBetSlots.instanceList.Select(x => ((RectTransform)x.transform).DOAnchorPosXToThenReverse(2500, 0.15f)).ToArray().AsSequence(false))
@@ -68,7 +67,7 @@ public class UIBetModeAnimation : UISequenceAnimationBase
             .Join(doubleBet.DOAnchorPosXFrom(-600.0f, 0.15f))
             .Join(doubleBetSlots.instanceList.Select(x => ((RectTransform)x.transform).DOAnchorPosXFrom(2500, 0.15f)).ToArray().AsSequence(false))
             .Append(quickBetButtonsContainer.DOFade(0.0f, 1.0f, 0.15f))
-            .Append(betAmouthsContainer.DOAnchorPosYFrom(-500.0f, 0.15f))
+            .Append(betAmouthsContainer.DOAnchorPosYFrom(-600.0f, 0.15f))
             .OnKill(() =>
             {
                 doubleBetHorizontalLayout.enabled = true;

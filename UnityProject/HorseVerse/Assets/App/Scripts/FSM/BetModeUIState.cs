@@ -24,6 +24,7 @@ public class BetModeUIState : InjectedBState
         uiBetModePresenter = new UIBetModePresenter(Container);
         uiBetModePresenter.OnBack += OnBackToMainMenu;
         uiBetModePresenter.OnToRaceMode += OnToRaceMode;
+        uiBetModePresenter.OnTimeOut += OnBackToMainMenu;
         await uiBetModePresenter.ShowUIBetModeAsync();
     }
 
@@ -44,6 +45,7 @@ public class BetModeUIState : InjectedBState
         base.Exit();
         uiBetModePresenter.OnBack -= OnBackToMainMenu;
         uiBetModePresenter.OnToRaceMode -= OnToRaceMode;
+        uiBetModePresenter.OnTimeOut -= OnBackToMainMenu;
         uiBetModePresenter?.Dispose();
         uiBetModePresenter = default;
     }

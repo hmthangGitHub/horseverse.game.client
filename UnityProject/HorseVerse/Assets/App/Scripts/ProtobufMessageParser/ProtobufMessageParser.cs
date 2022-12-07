@@ -47,6 +47,9 @@ public class ProtobufMessageParser : IMessageParser
         AddToSerializeLookUpTable<GetBetHistoryRequest>(x => new BettingMessage(x));
         AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.GetBetHistoryResponse, x => x.GetBetHistoryResponse);
 
+        AddToSerializeLookUpTable<GetHorseListRequest>(x => new BettingMessage(x));
+        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.GetHorseListResponse, x => x.GetHorseListResponse);
+
         AddToSerializeLookUpTable<TrainingRewardsRequest>(x => new TrainingMessage(x));
         AddToParseLookUpTable<TrainingMessage, TrainingMessageType>(TrainingMessageType.TrainingRewardsResponse, x => x.TrainingRewardsResponse);
     }

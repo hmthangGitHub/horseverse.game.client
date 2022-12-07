@@ -50,7 +50,6 @@ public class ButtonSelectedComponent : UIComponent<ButtonSelectedComponent.Entit
         buttonEvent.RemoveAllListeners();
         buttonEvent.AddListener(() => this.entity.onClickEvent.Invoke());
         button.interactable = this.entity.isInteractable;
-        Debug.Log("Is Selected " + this.entity.isSelected);
         anim.SetBool("IsSelected", this.entity.isSelected);
         anim.SetTrigger("Normal");
         delayToSetAnim().Forget();
