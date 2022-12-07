@@ -1,5 +1,5 @@
 {
-    "m_SGVersion": 3,
+    "m_SGVersion": 2,
     "m_Type": "UnityEditor.ShaderGraph.GraphData",
     "m_ObjectId": "f06bb1d77f174039b98626a956e27b5b",
     "m_Properties": [
@@ -23,12 +23,6 @@
         }
     ],
     "m_Keywords": [],
-    "m_Dropdowns": [],
-    "m_CategoryData": [
-        {
-            "m_Id": "592e5d5cf6db47d59194cc865f6b809d"
-        }
-    ],
     "m_Nodes": [
         {
             "m_Id": "20c7357b4cd841888e3ca9739cb5ac3b"
@@ -619,11 +613,10 @@
         "serializedMesh": {
             "m_SerializedMesh": "{\"mesh\":{\"instanceID\":0}}",
             "m_Guid": ""
-        },
-        "preventRotation": false
+        }
     },
     "m_Path": "Shader Graphs",
-    "m_GraphPrecision": 1,
+    "m_ConcretePrecision": 0,
     "m_PreviewMode": 2,
     "m_OutputNode": {
         "m_Id": ""
@@ -686,13 +679,9 @@
         "m_GuidSerialized": "29901e1f-9c1f-45d0-80e5-4499936a6de8"
     },
     "m_Name": "Opacity",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Opacity",
     "m_DefaultReferenceName": "_Opacity",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
@@ -1377,8 +1366,7 @@
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
-    },
-    "m_ClampType": 0
+    }
 }
 
 {
@@ -1859,13 +1847,9 @@
         "m_GuidSerialized": "d56437c3-4173-4bb8-9d70-5e887296ff10"
     },
     "m_Name": "Color",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Color",
     "m_DefaultReferenceName": "_Color",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 1,
@@ -1876,7 +1860,6 @@
         "b": 1.0,
         "a": 1.0
     },
-    "isMainColor": false,
     "m_ColorMode": 1
 }
 
@@ -2189,13 +2172,9 @@
         "m_GuidSerialized": "e31ce7bb-230e-4019-896b-3e8b299ca301"
     },
     "m_Name": "Lightning_Thickness",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Lightning_Thickness",
     "m_DefaultReferenceName": "_Lightning_Thickness",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
@@ -2732,17 +2711,11 @@
     "m_ActiveSubTarget": {
         "m_Id": "d263f8747290416c887da9f6de4ec14e"
     },
-    "m_AllowMaterialOverride": false,
     "m_SurfaceType": 1,
-    "m_ZTestMode": 4,
-    "m_ZWriteControl": 0,
     "m_AlphaMode": 0,
-    "m_RenderFace": 0,
+    "m_TwoSided": false,
     "m_AlphaClip": false,
-    "m_CastShadows": false,
-    "m_ReceiveShadows": true,
-    "m_CustomEditorGUI": "",
-    "m_SupportVFX": false
+    "m_CustomEditorGUI": ""
 }
 
 {
@@ -3374,13 +3347,9 @@
         "m_GuidSerialized": "bcdccf75-c730-4e70-883f-80763c62037e"
     },
     "m_Name": "speed",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "speed",
     "m_DefaultReferenceName": "_speed",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
@@ -3944,13 +3913,9 @@
         "m_GuidSerialized": "5556f338-cc11-4551-a9ab-0bebb1e30320"
     },
     "m_Name": "Amount",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Amount",
     "m_DefaultReferenceName": "_Amount",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
@@ -4335,13 +4300,9 @@
         "m_GuidSerialized": "f2c2dc4e-8760-4dc4-bbd1-f710a5b8711d"
     },
     "m_Name": "Noise_Speed",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Noise_Speed",
     "m_DefaultReferenceName": "_Noise_Speed",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
