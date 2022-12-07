@@ -7,13 +7,13 @@ using UnityEngine;
 
 public class ActivateCamera : MonoBehaviour
 {
+    public GameObject cameraContainer;
     public event Func<UniTask> OnBeginActivateCameraEvent = () => UniTask.CompletedTask;
     public event Func<UniTask> OnActivateCameraEvent = () => UniTask.CompletedTask;
 
-    public CinemachineVirtualCamera activateCamera;
     private CinemachineVirtualCamera[] cinemachineVirtualCameras;
     private CinemachineVirtualCamera[] CinemachineVirtualCameras => cinemachineVirtualCameras ??= 
-        activateCamera.transform.parent.GetComponentsInChildren<CinemachineVirtualCamera>(true);
+        cameraContainer.GetComponentsInChildren<CinemachineVirtualCamera>(true);
     public void Activate()
     {
         OnActivateAsync().Forget();
@@ -32,9 +32,10 @@ public class ActivateCamera : MonoBehaviour
         }
 
         await OnBeginActivateCameraEvent();
-        foreach (var item in CinemachineVirtualCameras)
+        var activateCameraIndex = this.transform.GetSiblingIndex() + 1 % transform.parent.childCount; 
+        for (int i = 0; i < CinemachineVirtualCameras.Length; i++)
         {
-            item.gameObject.SetActive(item == activateCamera);
+            CinemachineVirtualCameras[i].gameObject.SetActive(i == activateCameraIndex);
         }
         OnActivateCameraEvent.Invoke().Forget();
     }

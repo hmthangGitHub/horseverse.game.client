@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class Vector3Extensions
@@ -24,4 +26,22 @@ public static class Vector3Extensions
     {
         return UnityEngine.Random.Range(range.x, range.y);
     }
+    
+    public static float Map(float s, float a1, float a2, float b1, float b2)
+    {
+        return b1 + (s-a1)*(b2-b1)/(a2-a1);
+    }
+    
+    public static IEnumerable<TSource> DistinctBy<TSource, TKey>
+            (this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+        {
+            HashSet<TKey> seenKeys = new HashSet<TKey>();
+            foreach (TSource element in source)
+            {
+                if (seenKeys.Add(keySelector(element)))
+                {
+                    yield return element;
+                }
+            }
+        }
 }

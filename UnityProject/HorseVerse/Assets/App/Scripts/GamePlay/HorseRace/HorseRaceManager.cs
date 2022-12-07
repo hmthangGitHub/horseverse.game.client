@@ -44,6 +44,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
     public float raceLength;
     public int playerHorseIndex;
     private RacingTrackController racingTrackController;
+    private bool isStartedRace;
     public event Action OnFinishTrackEvent = ActionUtility.EmptyAction.Instance;
 
     public async UniTask InitializeAsync(HorseMeshInformation[] horseMeshControllerPaths,
@@ -117,20 +118,42 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         raceCamera = Instantiate(GetRaceModeCamera(mapSettings), Vector3.zero, Quaternion.identity, transform);
         raceCamera.gameObject.SetActive(false);
         raceCamera.SetHorseGroup(this.horseGroup);
-        var needFadingBlendingCameras = GetNeedFadingBlendingCameras();
-        raceCamera.GetComponentsInChildren<ActivateCamera>(true).Where(x => needFadingBlendingCameras.Contains(x.activateCamera.name))
-            .ForEach(x => 
-            {
-                x.OnBeginActivateCameraEvent += cameraBlendingAnimation.FadeInAnimationAsync;
-                x.OnActivateCameraEvent += cameraBlendingAnimation.FadeOutAnimationAsync; 
-            });
-        
+
+        SubscribeToVcamsFading(true);
+
         targetGenerator = Instantiate(mapSettings.targetGenerator, Vector3.zero,Quaternion.identity, transform);
         warmUpCamera = Instantiate(mapSettings.warmUpCamera, Vector3.zero, Quaternion.identity, transform);
 
         horsePosition.position = targetGenerator.StartPosition;
         warmUpCamera.gameObject.SetActive(false);
         warmUpCamera.SetTargetGroup(this.horseGroup.transform);
+    }
+
+    private void SubscribeToVcamsFading(bool enable)
+    {
+        if (raceCamera == default) return;
+        
+        var allVcams = raceCamera.vCameraContainer.GetComponentsInChildren<CinemachineVirtualCamera>(true)
+                                 .Select(x => x.name)
+                                 .ToList();
+
+        var needFadingBlendingCameras = GetNeedFadingBlendingCameras()
+            .Select(x => allVcams.FindIndex(vCam => vCam == x));
+        var activateCameras = raceCamera.triggerContainer.GetComponentsInChildren<ActivateCamera>(true);
+        activateCameras.Where((x, i) => needFadingBlendingCameras.Contains(i + 1 % activateCameras.Length))
+                       .ForEach(x =>
+                       {
+                           if (enable)
+                           {
+                               x.OnBeginActivateCameraEvent += cameraBlendingAnimation.FadeInAnimationAsync;
+                               x.OnActivateCameraEvent += cameraBlendingAnimation.FadeOutAnimationAsync;    
+                           }
+                           else
+                           {
+                               x.OnBeginActivateCameraEvent -= cameraBlendingAnimation.FadeInAnimationAsync;
+                               x.OnActivateCameraEvent -= cameraBlendingAnimation.FadeOutAnimationAsync;    
+                           }
+                       });
     }
 
     private IEnumerable<string> GetNeedFadingBlendingCameras()
@@ -183,7 +206,11 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
 
     public void StartRace()
     {
-        horseControllers.ForEach(x => x.StartRace());
+        if (isStartedRace == false)
+        {
+            isStartedRace = true;
+            horseControllers.ForEach(x => x.StartRace());
+        }
     }
 
     public void EnablePostProcessing(bool enable)
@@ -256,6 +283,23 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (isStartedRace)
+        {
+            StartRace();
+            horseGroup.m_Targets = Array.Empty<CinemachineTargetGroup.Target>();
+            var horseInGroup = horseControllers.OrderByDescending(x => x.CurrentRaceProgressWeight)
+                            .Take(2)
+                            .ToArray();
+            if ((horseInGroup.First().transform.position - horseInGroup.Last().transform.position).magnitude > 7.0f)
+            {
+                horseInGroup = horseInGroup.Take(1).ToArray();
+            }
+            horseInGroup.ForEach(x => horseGroup.AddMember(x.transform, 1, 1));
+        }
+    }
+    
     public void Dispose()
     {
         if(mapScene != default)
@@ -263,14 +307,8 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
             SceneAssetLoader.UnloadAssetAtPath(mapPath);
             mapScene = default;
         }
-        var needFadingBlendingCameras = GetNeedFadingBlendingCameras();
-        
-        raceCamera?.GetComponentsInChildren<ActivateCamera>(true).Where(x => needFadingBlendingCameras.Contains(x.activateCamera.name))
-            .ForEach(x => 
-            {
-                x.OnBeginActivateCameraEvent -= cameraBlendingAnimation.FadeInAnimationAsync;
-                x.OnActivateCameraEvent -= cameraBlendingAnimation.FadeOutAnimationAsync; 
-            });
+
+        SubscribeToVcamsFading(false);
         
         this.horseControllerModelPaths?.Select(x => x.horseModelPath)
             .ToList()

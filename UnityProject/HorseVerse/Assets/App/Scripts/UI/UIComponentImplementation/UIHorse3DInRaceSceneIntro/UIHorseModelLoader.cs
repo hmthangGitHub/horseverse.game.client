@@ -24,6 +24,7 @@ public class UIHorseModelLoader : UIComponent<UIHorseModelLoader.Entity>
     private CancellationTokenSource cts;
     private GameObject horse;
     private string oldHorse = string.Empty;
+    private static readonly int Speed = Animator.StringToHash("Speed");
 
     protected override void OnSetEntity()
     {
@@ -47,7 +48,8 @@ public class UIHorseModelLoader : UIComponent<UIHorseModelLoader.Entity>
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         horseIntro3DContainer.transform.parent = default;
-
+        horseIntro3DContainer.transform.localScale = Vector3.one;
+        
         if (horsePosition.transform.childCount > 0)
         {
             Destroy(horsePosition.transform.GetChild(0)
@@ -62,6 +64,7 @@ public class UIHorseModelLoader : UIComponent<UIHorseModelLoader.Entity>
         horse.transform.parent = horsePosition.transform;
         horse.transform.localPosition = Vector3.zero;
         horse.transform.localRotation = Quaternion.Euler(0, 90, 0);
+        horse.transform.localScale = Vector3.one;
 
         if (this.gameObject.activeInHierarchy)
         {
@@ -77,7 +80,7 @@ public class UIHorseModelLoader : UIComponent<UIHorseModelLoader.Entity>
             if (animator != null)
             {
                 animator.applyRootMotion = false;
-                animator.SetFloat("Speed", 0.5f);
+                animator.SetFloat(Speed, UnityEngine.Random.Range(0.2f, 0.27f));
             }
             
         }

@@ -36,6 +36,8 @@ public class HorseController : MonoBehaviour
 
     [SerializeField] private GameObject playerIndicator;
     [SerializeField] NavMeshAgent navMeshAgent;
+    private Vector2 timeRange;
+    private static readonly int Speed = Animator.StringToHash("Speed");
 
 #if UNITY_EDITOR
     private GameObject target;
@@ -47,15 +49,14 @@ public class HorseController : MonoBehaviour
     private void Start()
     {
         animator = GetComponentInChildren<Animator>(true);
-        animator.SetFloat("Speed", 0.0f);
-        animator.Play("Idle");
+        animator.SetFloat(Speed, 0.0f);
     }
 
     public void StartRace()
     {
-        animator.Play("Movement", 0, UnityEngine.Random.insideUnitCircle.x);
-        animator.SetFloat("Speed", 1.0f);
         isStart = true;
+        timeRange = new Vector2(this.horseInGameData.PredefineTargets.targets.Min(x => x.time),
+            this.horseInGameData.PredefineTargets.targets.Max(x => x.time));
         ChangeTarget();
     }
 
@@ -96,7 +97,7 @@ public class HorseController : MonoBehaviour
                 }
                 ChangeTarget();
             }
-
+            
         }
     }
 
@@ -144,8 +145,15 @@ public class HorseController : MonoBehaviour
         currentTargetIndex %= PredefineTargets.Length;
         navMeshAgent.destination = PredefineTargets[currentTargetIndex].target;
         navMeshAgent.speed = (Transform.position - PredefineTargets[currentTargetIndex].target).magnitude / PredefineTargets[currentTargetIndex].time;
+
+        SetAnimation(PredefineTargets[currentTargetIndex].time);
 #if UNITY_EDITOR
         Target.transform.position = PredefineTargets[currentTargetIndex].target;
 #endif
+    }
+
+    private void SetAnimation(float time)
+    {
+        animator.SetFloat(Speed, Vector3Extensions.Map(time, timeRange.x, timeRange.y, 1.1f, 0.8f));
     }
 }
