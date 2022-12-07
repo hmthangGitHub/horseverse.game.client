@@ -65,7 +65,7 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
         return new RaceMatchData()
         {
             HorseRaceInfos = GetHorseRaceInfos(response.RaceScript, MasterHorseContainer),
-            MasterMapId = 10001002,
+            MasterMapId = QuickRaceState.MasterMapId,
             Mode = RaceMode.Race
         };
     }
@@ -153,7 +153,7 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
         return new RaceMatchData()
         {
             HorseRaceInfos = GetAllMasterHorseIds(),
-            MasterMapId = 10001002,
+            MasterMapId = QuickRaceState.MasterMapId,
             Mode = RaceMode.Race
         };
     }

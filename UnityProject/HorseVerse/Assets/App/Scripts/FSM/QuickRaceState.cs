@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class QuickRaceState : InjectedBHState
 {
-    public override void Enter()
-    {
-        base.Enter();
-    }
+    public static long MasterMapId = 10001004;
 
     public override void AddStates()
     {

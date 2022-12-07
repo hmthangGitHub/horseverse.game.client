@@ -10,6 +10,12 @@ using Vector3 = UnityEngine.Vector3;
 public class TrainingCoin : MonoBehaviour
 {
     private Tween tween;
+
+    private void OnEnable()
+    {
+        Set(UnityEngine.Random.Range(0.0f, 1.0f));
+    }
+
     public void Set(float delay)
     {
         tween = transform.DOLocalRotate(new Vector3(0, 18.0f, 0), 0.1f, RotateMode.FastBeyond360)

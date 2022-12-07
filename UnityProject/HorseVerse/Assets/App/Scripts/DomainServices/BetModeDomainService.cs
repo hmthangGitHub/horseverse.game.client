@@ -75,7 +75,7 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
         return new RaceMatchData()
         {
             HorseRaceInfos = QuickRaceDomainService.GetHorseRaceInfos(raceScriptRequest.RaceScript, MasterHorseContainer),
-            MasterMapId = 10001002,
+            MasterMapId = QuickRaceState.MasterMapId,
             Mode = RaceMode.Bet,
             BetMatchId = BetMatchRepository.Current.BetMatchId,
             TotalBetWin = totalWin

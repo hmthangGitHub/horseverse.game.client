@@ -8,7 +8,7 @@ using UnityEngine;
 public class HorseRaceTest : MonoBehaviour
 {
     public HorseRaceManager horseRaceManager;
-    public long masterMapId = 10001002;
+    public long masterMapId = QuickRaceState.MasterMapId;
 
     private async void Start()
     {

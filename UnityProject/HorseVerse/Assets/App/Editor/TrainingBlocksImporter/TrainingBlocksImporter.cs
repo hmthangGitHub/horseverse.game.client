@@ -22,9 +22,15 @@ public class TrainingBlocksImporter
     public static bool ImportBlockCombosValidate()
     {
         return Selection.gameObjects.All(x => PrefabUtility.GetPrefabAssetType(x) == PrefabAssetType.Model
-                                              && x.transform.Find(x.name) != default);
+                                              && x.transform.Cast<Transform>().Any(child => IsFloor(child, x)) != default);
     }
-    
+
+    private static bool IsFloor(Transform child,
+                                GameObject x)
+    {
+        return child.name.Contains(x.name) && !child.name.Contains("standie");
+    }
+
     [MenuItem("Assets/Importer/ImportBlocks")]
     public static void ImportBlockCombos()
     {
@@ -66,24 +72,30 @@ public class TrainingBlocksImporter
         {
             var trainingBlockPredefine = InstantiateTrainingBlockPredefine(blockInstance);
 
-            AssignLayerToChild(blockInstance);
-            var platformGo = blockInstance.transform.Cast<Transform>().First(x => x.name == blockInstance.name).gameObject;
+            AssignLayerToChild(blockInstance, trainingBlockPredefine);
+            var platformGo = blockInstance.transform.Cast<Transform>().First(x => IsFloor(x, blockInstance.gameObject)).gameObject;
             CreateSceneryContainers(platformGo, platformGo.transform.position, blockInstance,trainingBlockPredefine);
         }, $"{TrainingBlocksPath}/{originalBlock.name}.prefab");
     }
 
-    private static void AssignLayerToChild(GameObject blockInstance)
+    private static void AssignLayerToChild(GameObject blockInstance,
+                                           TrainingBlockPredefine trainingBlockPredefine)
     {
         foreach (Transform child in blockInstance.transform)
         {
             var childGameObject = child.gameObject;
-            if (child.name == blockInstance.name)
+            if (IsFloor(child, blockInstance))
             {
                 childGameObject.layer = LayerMask.NameToLayer("TrainingPlatform");
                 childGameObject.tag = "Platform";
             }
             else if (child.name == "obstacle_dummy")
             {
+            }
+            else if (child.name == "coinblock")
+            {
+                trainingBlockPredefine.coinPositions = child.Cast<Transform>().Select(x => x.localPosition).ToArray();
+                child.gameObject.SetActive(false);
             }
             else
             {

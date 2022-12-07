@@ -39,7 +39,7 @@ public class HorseRacePresenterTest : MonoBehaviour
         return new RaceMatchData()
         {
             HorseRaceInfos = GetAllMasterHorseIds(),
-            MasterMapId = 10001002,
+            MasterMapId = QuickRaceState.MasterMapId,
             Mode = RaceMode.Race
         };
     }
