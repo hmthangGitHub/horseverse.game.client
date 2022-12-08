@@ -25,7 +25,7 @@ public class QuickRaceMenuState : InjectedBState
     private async UniTask OnEnterStateAsync()
     {
         uiQuickRacePresenter = new UIQuickRacePresenter(this.Container);
-        UIHeaderPresenter.ShowHeaderAsync(true).Forget();
+        UIHeaderPresenter.ShowHeaderAsync(true, "RACE").Forget();
         UIHeaderPresenter.OnBack += OnBack;
         uiQuickRacePresenter.OnFoundMatch += OnFoundMatch;
         await uiQuickRacePresenter.ShowUIQuickRaceAsync();

@@ -14,7 +14,7 @@ public class TrainingUIState : InjectedBState
         presenter = new UIHorseTrainingPresenter(Container);
 
         UIHeaderPresenter.OnBack += OnBack;
-        UIHeaderPresenter.ShowHeaderAsync(true).Forget();
+        UIHeaderPresenter.ShowHeaderAsync(true, "TRAINING").Forget();
         presenter.ToTrainingActionState += ToTrainingActionState;
         presenter.ShowUIHorseTrainingAsync().Forget();
     }

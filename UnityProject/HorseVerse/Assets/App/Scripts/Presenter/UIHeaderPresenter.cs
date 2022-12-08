@@ -29,13 +29,14 @@ public class UIHeaderPresenter : IDisposable
         }
     }
 
-    public async UniTask ShowHeaderAsync(bool showBackBtn = true)
+    public async UniTask ShowHeaderAsync(bool showBackBtn = true, string title = "")
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         await UserDataRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
         await InstantiateUIIfNeed();
         ShowBackBtn(showBackBtn);
+        SetTitle(title);
         uiHeader.In().Forget();
     }
 
@@ -65,6 +66,11 @@ public class UIHeaderPresenter : IDisposable
     public void ShowBackBtn(bool showBackBtn)
     {
         uiHeader.SetVisibleBackBtn(showBackBtn);
+    }
+
+    public void SetTitle(string title)
+    {
+        uiHeader.SetTitle(title);
     }
 
     public void Dispose()

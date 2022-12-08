@@ -7,16 +7,20 @@ public class UIComponentTraningHorseSelectSumary : UIComponent<UIComponentTranin
 	[System.Serializable]
     public class Entity
     {
+        public long horseNFTId;
         public string horseName;
-        public ButtonComponent.Entity selectBtn;
+        public UIComponentHorseRace.Entity horseRace;
+        public ButtonSelectedComponent.Entity selectBtn;
     }
 
     public FormattedTextComponent horseName;
-    public ButtonComponent selectBtn;
+    public UIComponentHorseRace horseRace;
+    public ButtonSelectedComponent selectBtn;
 
     protected override void OnSetEntity()
     {
         horseName.SetEntity(this.entity.horseName);
         selectBtn.SetEntity(this.entity.selectBtn);
+        horseRace.SetEntity(this.entity.horseRace);
     }
 }	

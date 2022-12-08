@@ -38,7 +38,10 @@ public partial class UIQuickRacePresenter : IDisposable
         DebugSetUp();
 #endif
     }
-    
+
+
+    private long currentSelectHorseId = -1;
+
     public async UniTask ShowUIQuickRaceAsync()
     {
         cts.SafeCancelAndDispose();
@@ -47,7 +50,7 @@ public partial class UIQuickRacePresenter : IDisposable
         await HorseRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
 
         UserDataRepository.OnModelUpdate += UserDataRepositoryOnModelUpdate;
-
+        currentSelectHorseId = UserDataRepository.Current.CurrentHorseNftId;
         uiQuickMode.SetEntity(new UIQuickMode.Entity()
         {
             cancelMatchBtn = new ButtonComponent.Entity(OnCancelFindMatch),
@@ -63,7 +66,7 @@ public partial class UIQuickRacePresenter : IDisposable
             findMatchTimer = new UIComponentDuration.Entity(),
             findMatchEnergyCost = findMatchEnergyCost,
             horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.CurrentHorseNftId),
-            horseSelectSumaryList = HorseSumaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(),
+            horseSelectSumaryList = HorseSumaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(OnSelectHorse),
         });
         uiQuickMode.In().Forget();
     }
@@ -143,5 +146,27 @@ public partial class UIQuickRacePresenter : IDisposable
         
         disposableList.ForEach(x => x.Dispose());
         disposableList.Clear();
+    }
+
+    private void OnSelectHorse(long nftId)
+    {
+        if (currentSelectHorseId == nftId) return;
+        var l = uiQuickMode.horseSelectSumaryList.instanceList;
+        if (currentSelectHorseId > -1)
+        {
+            var old = l.FirstOrDefault(o => o.entity.horseNFTId == currentSelectHorseId);
+            if (old != null)
+            {
+                old.selectBtn.SetSelected(false);
+            }
+            currentSelectHorseId = -1;
+        }
+        var current = l.FirstOrDefault(o => o.entity.horseNFTId == nftId);
+        if (current != default)
+        {
+            current.selectBtn.SetSelected(true);
+            currentSelectHorseId = nftId;
+        }
+
     }
 }

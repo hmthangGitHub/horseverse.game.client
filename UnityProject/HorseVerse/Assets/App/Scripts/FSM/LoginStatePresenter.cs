@@ -176,6 +176,7 @@ public class LoginStatePresenter : IDisposable
     {
         uiLogin = await UILoader.Instantiate<UILogin>(token: cts.Token);
         bool closed = false;
+        bool result = false;
         uiLogin.SetEntity(new UILogin.Entity()
         {
             id = new UIComponentInputField.Entity(),
@@ -184,11 +185,25 @@ public class LoginStatePresenter : IDisposable
             {
                 LoginAsync().Forget();
                 closed = true;
+                result = true;
+            }),
+            cancelBtn = new ButtonComponent.Entity(()=> {
+                closeAccount().Forget(); closed = true; result = false;
+            }), 
+            registerBtn = new ButtonComponent.Entity(()=> { 
+                
             })
         });
         uiLogin.In().Forget();
         await UniTask.WaitUntil(() => closed == true);
-        return true;
+        return result;
+    }
+
+    private async UniTask closeAccount()
+    {
+        await uiLogin.Out();
+        UILoader.SafeRelease(ref uiLogin);
+        uiLogin = default;
     }
 
     private async UniTask<bool> doLoginWithOTP()

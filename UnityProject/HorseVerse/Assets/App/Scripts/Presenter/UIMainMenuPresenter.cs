@@ -51,42 +51,46 @@ public class UIMainMenuPresenter : IDisposable
             trainingBtn = new ButtonComponent.Entity(() => TransitionToAsync(OnTraningBtn).Forget()),
             horseInfo = new UIComponentHorseBreedInfoAndDetail.Entity()
             {
-                horseBreedProgressList = new UIComponentHorseBreedProgressList.Entity()
-                {
-                    entities = new UIComponentHorseBreedProgressType.Entity[] 
-                    {
-                        new UIComponentHorseBreedProgressType.Entity()
-                        {
-                            breedType = UIComponentHorseBreedProgressType.BreedType.Night,
-                            progress = 0.25f
-                        },
-                        new UIComponentHorseBreedProgressType.Entity()
-                        {
-                            breedType = UIComponentHorseBreedProgressType.BreedType.Thunder,
-                            progress = 0.35f
-                        },
-                        new UIComponentHorseBreedProgressType.Entity()
-                        {
-                            breedType = UIComponentHorseBreedProgressType.BreedType.Light,
-                            progress = 0.65f
-                        }
-                    }
-                },
+                //horseBreedProgressList = new UIComponentHorseBreedProgressList.Entity()
+                //{
+                //    entities = new UIComponentHorseBreedProgressType.Entity[] 
+                //    {
+                //        new UIComponentHorseBreedProgressType.Entity()
+                //        {
+                //            breedType = UIComponentHorseBreedProgressType.BreedType.Night,
+                //            progress = 0.25f
+                //        },
+                //        new UIComponentHorseBreedProgressType.Entity()
+                //        {
+                //            breedType = UIComponentHorseBreedProgressType.BreedType.Thunder,
+                //            progress = 0.35f
+                //        },
+                //        new UIComponentHorseBreedProgressType.Entity()
+                //        {
+                //            breedType = UIComponentHorseBreedProgressType.BreedType.Light,
+                //            progress = 0.65f
+                //        }
+                //    }
+                //},
                 horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.CurrentHorseNftId),
             },
-            userInfo = new UIComponentMainMenuUserInfo.Entity()
+            //userInfo = new UIComponentMainMenuUserInfo.Entity()
+            //{
+            //    energy = UserDataRepository.Current.Energy,
+            //    energyMax = UserDataRepository.Current.MaxEnergy,
+            //    level = UserDataRepository.Current.Level,
+            //    levelIcon = string.Empty,
+            //    levelProgressBar = new UIComponentProgressBar.Entity()
+            //    {
+            //        progress = (float)UserDataRepository.Current.Exp / UserDataRepository.Current.NextLevelExp
+            //    },
+            //    currentExp = UserDataRepository.Current.Exp,
+            //    maxExp = UserDataRepository.Current.NextLevelExp,
+            //    userName = UserDataRepository.Current.UserName
+            //}
+            horseRace = new UIComponentHorseRace.Entity()
             {
-                energy = UserDataRepository.Current.Energy,
-                energyMax = UserDataRepository.Current.MaxEnergy,
-                level = UserDataRepository.Current.Level,
-                levelIcon = string.Empty,
-                levelProgressBar = new UIComponentProgressBar.Entity()
-                {
-                    progress = (float)UserDataRepository.Current.Exp / UserDataRepository.Current.NextLevelExp
-                },
-                currentExp = UserDataRepository.Current.Exp,
-                maxExp = UserDataRepository.Current.NextLevelExp,
-                userName = UserDataRepository.Current.UserName
+                type = HorseDetailEntityFactory.GetHorseRace(UserDataRepository.Current.CurrentHorseNftId)
             }
         });
         uiMainMenu.In().Forget();

@@ -17,7 +17,7 @@ public class StableUIState : InjectedBState
         UIHorse3DViewPresenter.HideHorse3DViewAsync().Forget();
         uiHorseStablePresenter ??= new UIHorseStablePresenter(Container);
         uiHorseStablePresenter.OnViewHorseDetail += OnViewHorseDetail;
-        UIHeaderPresenter.ShowHeaderAsync(true).Forget();
+        UIHeaderPresenter.ShowHeaderAsync(true, "STABLE").Forget();
         UIHeaderPresenter.OnBack += OnBack;
         uiHorseStablePresenter.ShowUIHorseStableAsync().Forget();
     }

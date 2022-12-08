@@ -20,7 +20,7 @@ public class HorseDetailEntityFactory
         var masterHorse = MasterHorseContainer.MasterHorseIndexer[userHorse.MasterHorseId];
         return new UIComponentHorseDetail.Entity()
         {
-            earning = userHorse.Earning,
+            level = userHorse.Level,
             horseName = masterHorse.Name,
             powerProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
             {
@@ -47,5 +47,11 @@ public class HorseDetailEntityFactory
                 }
             },
         };
+    }
+
+    public int GetHorseRace(long horseNtfId)
+    {
+        var userHorse = HorseRepository.Models[horseNtfId];
+        return userHorse.Type;
     }
 }
