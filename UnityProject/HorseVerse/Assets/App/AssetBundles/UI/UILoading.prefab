@@ -236,6 +236,7 @@ GameObject:
   - component: {fileID: 5148316792760003902}
   - component: {fileID: 1526402568736741997}
   - component: {fileID: 5148316792760003903}
+  - component: {fileID: 6648689746812465252}
   m_Layer: 5
   m_Name: UILoading
   m_TagString: Untagged
@@ -285,6 +286,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83e8d54ae9ab68948b6b3b2070eef35d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasGroup: {fileID: 1526402568736741997}
+  animation: {fileID: 6648689746812465252}
+--- !u!114 &6648689746812465252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5148316792760003901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468673738261aff498c748fe30832580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 1526402568736741997}

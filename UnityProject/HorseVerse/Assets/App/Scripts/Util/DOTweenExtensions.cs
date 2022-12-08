@@ -75,6 +75,13 @@ public static class DOTweenExtensions
         return DOTween.To(image.SetAlpha, from, to, duration)
             .OnKill(() => image.SetAlpha(reverseOnKill ? from : to));
     }
+    
+    public static Tween DOFade(this CanvasGroup canvasGroup, float from, float to, float duration, bool reverseOnKill = false)
+    {
+        canvasGroup.alpha = from;
+        return DOTween.To(val => canvasGroup.alpha = val, from, to, duration)
+                      .OnKill(() => canvasGroup.alpha = (reverseOnKill ? from : to));
+    }
 
     public static void SetAlpha(this Image image, float alpha)
     {
