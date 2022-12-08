@@ -77,9 +77,9 @@ public class PlatformV2 : PlatformBase
         var startPositionLocal = new Vector3(0, platformBounds.extents.y,
             -platformBounds.extents.z + masterHorseTrainingProperty.LandingPoint);
         var endPositionLocal = new Vector3(0, platformBounds.extents.y, platformBounds.extents.z - masterHorseTrainingProperty.JumpingPoint);
-        blockCombo.transform.position = lastEndPosition + relativePointToPlayer - startPositionLocal + platform.transform.localPosition;
+        blockCombo.transform.position = lastEndPosition + relativePointToPlayer - startPositionLocal - platform.transform.localPosition;
         start.transform.position = lastEndPosition + relativePointToPlayer;
-        end.transform.position = blockCombo.transform.position + endPositionLocal + platform.transform.localPosition;
+        end.transform.position = platform.transform.position + endPositionLocal;
         return blockCombo;
     }
 }
