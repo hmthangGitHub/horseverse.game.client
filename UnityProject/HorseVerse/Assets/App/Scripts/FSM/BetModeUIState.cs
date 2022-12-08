@@ -24,8 +24,13 @@ public class BetModeUIState : InjectedBState
         uiBetModePresenter = new UIBetModePresenter(Container);
         uiBetModePresenter.OnBack += OnBackToMainMenu;
         uiBetModePresenter.OnToRaceMode += OnToRaceMode;
-        uiBetModePresenter.OnTimeOut += OnBackToMainMenu;
+        uiBetModePresenter.OnTimeOut += OnTimeOut;
         await uiBetModePresenter.ShowUIBetModeAsync();
+    }
+
+    private void OnTimeOut()
+    {
+        ((RootFSM)SuperMachine).ChangeToChildStateRecursive<BetModeState>();
     }
 
     private void OnToRaceMode()
