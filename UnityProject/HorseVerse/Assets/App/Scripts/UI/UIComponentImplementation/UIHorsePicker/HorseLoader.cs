@@ -49,6 +49,10 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
             await LoadNewHorse();
             SetHorseAnimationIfNeed();
         }
+        else
+        {
+            UpdateColor();
+        }
     }
 
     private void SetHorseAnimationIfNeed()
@@ -70,6 +74,7 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
         horse.transform.parent = horsePosition;
         horse.transform.localScale = Vector3.one;
         horse.transform.localPosition = Vector3.zero;
+        horse.transform.localRotation = Quaternion.identity;
         
         SetLayerRecursively(horse, LayerMask.NameToLayer("RenderTexture"));
     }
@@ -83,7 +88,6 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
         }
     }
 
-
     private void DetachHorseContainer()
     {
         horseContainer.transform.parent = null;
@@ -96,6 +100,17 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
         {
             Animator animator = horse.GetComponent<Animator>();
             animator.applyRootMotion = false;
+        }
+    }
+
+    private void UpdateColor()
+    {
+        if (horse != null)
+        {
+            horse.GetComponentInChildren<HorseObjectData>().SetColor(this.entity.color1,
+            this.entity.color2,
+            this.entity.color3,
+            this.entity.color4);
         }
     }
 

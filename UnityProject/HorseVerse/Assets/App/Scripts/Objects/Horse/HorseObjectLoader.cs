@@ -57,6 +57,7 @@ public class HorseObjectLoader : MonoBehaviour
             await LoadNewHorse();
             SetHorseAnimationIfNeed();
         }
+        else UpdateColor();
     }
 
     private void SetHorseAnimationIfNeed()
@@ -108,6 +109,17 @@ public class HorseObjectLoader : MonoBehaviour
         }
     }
 
+    private void UpdateColor()
+    {
+        if (horse != null)
+        {
+            horse.GetComponentInChildren<HorseObjectData>().SetColor(this.entity.color1,
+            this.entity.color2,
+            this.entity.color3,
+            this.entity.color4);
+        }
+    }
+
     private void OnDestroy()
     {
         HorseObjectLoaderExtension.safeCancelAndDispose(cts);
@@ -121,7 +133,6 @@ public class HorseObjectLoader : MonoBehaviour
         {
             Object.Destroy(this.horseContainer.gameObject);
         }
-        Debug.Log("Destroy horse obj loader");
     }
 
     

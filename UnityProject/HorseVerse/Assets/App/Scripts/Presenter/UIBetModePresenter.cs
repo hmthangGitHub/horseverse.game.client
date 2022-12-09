@@ -27,6 +27,7 @@ public class UIBetModePresenter : IDisposable
     private IReadOnlyUserDataRepository userDataRepository = default;
     private IReadOnlyBetMatchRepository betMatchRepository = default;
     private UIHorse3DViewPresenter uiHorse3DViewPresenter;
+    private UIHorseInfo3DViewPresenter uiHorseInfo3DViewPresenter;
     private UITouchDisablePresenter uiTouchDisablePresenter;
     
     public IBetRateRepository BetRateRepository => betRateRepository ??= container.Inject<IBetRateRepository>();
@@ -34,6 +35,8 @@ public class UIBetModePresenter : IDisposable
     private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
     private IReadOnlyBetMatchRepository BetMatchRepository => betMatchRepository ??= container.Inject<IReadOnlyBetMatchRepository>();
     private UIHorse3DViewPresenter UiHorse3DViewPresenter => uiHorse3DViewPresenter ??= container.Inject<UIHorse3DViewPresenter>();
+    private UIHorseInfo3DViewPresenter UiHorseInfo3DViewPresenter => uiHorseInfo3DViewPresenter ??= container.Inject<UIHorseInfo3DViewPresenter>();
+
     private UITouchDisablePresenter UITouchDisablePresenter => uiTouchDisablePresenter ??= container.Inject<UITouchDisablePresenter>();
     private MasterHorseContainer masterHorseContainer;
     private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= container.Inject<MasterHorseContainer>();
@@ -155,13 +158,13 @@ public class UIBetModePresenter : IDisposable
             container.Bind(raceMatchData);
 
             UiHorse3DViewPresenter.Dispose();
-            Debug.Log("X1");
+            UiHorseInfo3DViewPresenter.Dispose();
             TransitionAsync(OnToRaceMode).Forget();    
         }
         else
         {
             await UITouchDisablePresenter.Delay(1.5f);
-            Debug.Log("X2");
+            UiHorseInfo3DViewPresenter.Dispose();
             TransitionAsync(OnTimeOut).Forget();
         }
     }
@@ -254,6 +257,7 @@ public class UIBetModePresenter : IDisposable
 
     private async UniTaskVoid TransitionAsync(Action action)
     {
+        await UiHorseInfo3DViewPresenter.HideHorse3DViewAsync();
         await uiBetMode.Out();
         action();
     }
@@ -275,6 +279,7 @@ public class UIBetModePresenter : IDisposable
         {
             backBtn = new ButtonComponent.Entity(()=>
             {
+                UiHorseInfo3DViewPresenter.HideHorse3DViewAsync().Forget();
                 ucs.TrySetResult();
             }),
             horseList = new UIComponentBetModeHorseInfoList.Entity() { 
@@ -285,7 +290,7 @@ public class UIBetModePresenter : IDisposable
             horseRace = new UIComponentHorseRace.Entity(),
         });
         await UniTask.Delay(200);
-        OnUpdateHorseInfoView(0);
+        await OnUpdateHorseInfoView(0);
         await uiBetModeHorseInfo.In();
         await ucs.Task;
         await uiBetModeHorseInfo.Out();
@@ -298,6 +303,9 @@ public class UIBetModePresenter : IDisposable
         UILoader.SafeRelease(ref uiBetMode);
         UILoader.SafeRelease(ref uiBetConfirmation);
         UILoader.SafeRelease(ref uiBetModeHorseInfo);
+
+        uiHorseInfo3DViewPresenter?.Dispose();
+
         BetRateRepository.OnModelUpdate -= BetRateRepositoryOnModelUpdate;
         BetRateRepository.OnModelsUpdate -= BetRateRepositoryOnModelsUpdate;
 
@@ -307,6 +315,7 @@ public class UIBetModePresenter : IDisposable
         betModeDomainService = default;
         currentBettingAmouth = default;
         uiHorse3DViewPresenter = default;
+        uiHorseInfo3DViewPresenter = default;
     }
 
     private UIComponentBetModeHorseInfoItem.Entity[] getHorseInfo()
@@ -326,7 +335,7 @@ public class UIBetModePresenter : IDisposable
                     bestRec = horseBetInfo.horseInfos[i].BestBettingRecord,
                     lastMatch = horseBetInfo.horseInfos[i].LastBettingRecord,
                     rate = horseBetInfo.horseInfos[i].Rate,
-                    button = new ButtonSelectedComponent.Entity(()=> { OnUpdateHorseInfoView(index);}, false)
+                    button = new ButtonSelectedComponent.Entity(()=> { OnUpdateHorseInfoView(index).Forget();}, false)
                 };
                 data.Add(item);
             }
@@ -335,13 +344,15 @@ public class UIBetModePresenter : IDisposable
         return null;
     }
 
-    private void OnUpdateHorseInfoView(int index)
+    private async UniTask OnUpdateHorseInfoView(int index)
     {
+        bool update = false;
         if (currentHorseInfoView > -1)
         {
             var e = uiBetModeHorseInfo.horseList.instanceList[currentHorseInfoView];
             e.button.SetSelected(false);
             currentHorseInfoView = -1;
+            update = true;
         }
 
         if (index < uiBetModeHorseInfo.horseList.instanceList.Count)
@@ -387,6 +398,10 @@ public class UIBetModePresenter : IDisposable
             };
 
             uiBetModeHorseInfo.UpdateDetailInfo(entity);
+            if (!update)
+                await UiHorseInfo3DViewPresenter.ShowHorse3DViewAsync(horseInfo.MasterHorseId, horseInfo.Color1, horseInfo.Color2, horseInfo.Color3, horseInfo.Color4);
+            else
+                await UiHorseInfo3DViewPresenter.UpdateMode(horseInfo.MasterHorseId, horseInfo.Color1, horseInfo.Color2, horseInfo.Color3, horseInfo.Color4);
         }
     }
 }
