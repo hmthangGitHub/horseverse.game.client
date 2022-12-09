@@ -18,20 +18,22 @@ public class HorseObjectLoader : MonoBehaviour
         public Color color2;
         public Color color3;
         public Color color4;
+        public int backgroundType;
     }
 
     public Transform horseContainer;
     public Transform horsePosition;
+    public List<Transform> containers;
 
     private CancellationTokenSource cts;
     private GameObject horse;
     private string oldHorse = string.Empty;
-
     public Entity entity { get; protected set; }
     public void SetEntity(Entity entity)
     {
         this.entity = entity;
         this.gameObject.SetActive(false);
+        resetBackgroundType();
         OnSetEntity();
     }
 
@@ -47,6 +49,8 @@ public class HorseObjectLoader : MonoBehaviour
 
     private async UniTask LoadHorseAsync()
     {
+        resetBackgroundType();
+        containers[this.entity.backgroundType].gameObject.SetActive(true);
         if (oldHorse != this.entity.horse)
         {
             HorseObjectLoaderExtension.safeCancelAndDispose(cts);
@@ -93,7 +97,6 @@ public class HorseObjectLoader : MonoBehaviour
         }
     }
 
-
     private void DetachHorseContainer()
     {
         horseContainer.transform.parent = null;
@@ -135,7 +138,22 @@ public class HorseObjectLoader : MonoBehaviour
         }
     }
 
-    
+    private void resetBackgroundType()
+    {
+        foreach(var item in containers)
+        {
+            item.gameObject.SetActive(false);
+        }
+    }
+
+    public void SetBackgroundType(int index)
+    {
+        resetBackgroundType();
+        this.entity.backgroundType = index;
+        this.containers[this.entity.backgroundType].gameObject.SetActive(true);
+    }
+
+
 }
 
 public static class HorseObjectLoaderExtension

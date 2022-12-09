@@ -14,12 +14,14 @@ public class StableUIState : InjectedBState
     public override void Enter()
     {
         base.Enter();
-        UIHorse3DViewPresenter.HideHorse3DViewAsync().Forget();
+        //UIHorse3DViewPresenter.HideHorse3DViewAsync().Forget();
+        UIHorse3DViewPresenter.ShowHorse3DViewAsync(1).Forget();
         uiHorseStablePresenter ??= new UIHorseStablePresenter(Container);
         uiHorseStablePresenter.OnViewHorseDetail += OnViewHorseDetail;
         UIHeaderPresenter.ShowHeaderAsync(true, "STABLE").Forget();
         UIHeaderPresenter.OnBack += OnBack;
         uiHorseStablePresenter.ShowUIHorseStableAsync().Forget();
+
     }
 
     private void OnBack()

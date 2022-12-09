@@ -29,7 +29,7 @@ public class HorseSumaryListEntityFactory
             entities = HorseRepository.Models.Select(x => new UIComponentTraningHorseSelectSumary.Entity()
             {
                 horseNFTId = x.Value.HorseNtfId,
-                horseName = MasterHorseContainer.MasterHorseIndexer[x.Value.MasterHorseId].Name,
+                horseName = x.Value.Name,
                 horseRace = new UIComponentHorseRace.Entity() {type = x.Value.Type },
                 selectBtn = new ButtonSelectedComponent.Entity(() => OnSelectHorse(x.Key, onSelect), x.Value.HorseNtfId == current)
             }).ToArray()

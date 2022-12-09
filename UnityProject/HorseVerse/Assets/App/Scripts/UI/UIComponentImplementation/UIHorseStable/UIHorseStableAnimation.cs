@@ -12,14 +12,14 @@ public class UIHorseStableAnimation : UISequenceAnimationBase
     protected override Tween CreateInAnimation()
     {
         layoutGroup.enabled = false;
-        return stableHorseAvatarList.CreateSequenceAnimation(x => x.RectTransform().DOAnchorPosYFrom(-500, 0.15f).SetEase(Ease.OutBack), false, 0.1f)
+        return stableHorseAvatarList.CreateSequenceAnimation(x => x.RectTransform().DOAnchorPosXFrom(-500, 0.15f).SetEase(Ease.OutBack), false, 0.1f)
             .OnKill(() => layoutGroup.enabled = true);
     }
 
     protected override Tween CreateOutAnimation()
     {
         layoutGroup.enabled = false;
-        return stableHorseAvatarList.CreateSequenceAnimation(x => x.RectTransform().DOAnchorPosYToThenReverse(-500, 0.10f).SetEase(Ease.InBack), false, 0.05f)
+        return stableHorseAvatarList.CreateSequenceAnimation(x => x.RectTransform().DOAnchorPosXToThenReverse(-500, 0.10f).SetEase(Ease.InBack), false, 0.05f)
             .OnKill(() => layoutGroup.enabled = true);
     }
 }

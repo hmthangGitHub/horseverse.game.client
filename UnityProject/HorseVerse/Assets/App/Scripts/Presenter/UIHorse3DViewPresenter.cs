@@ -25,7 +25,7 @@ public class UIHorse3DViewPresenter : IDisposable
         this.container = container;    
     }
 
-    public async UniTask ShowHorse3DViewAsync()
+    public async UniTask ShowHorse3DViewAsync(int backgroundType = 0)
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
@@ -63,12 +63,17 @@ public class UIHorse3DViewPresenter : IDisposable
                     color2 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color2,
                     color3 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color3,
                     color4 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color4,
+                    backgroundType = backgroundType,
                 }
             });
             objHorse3DView.transform.SetAsFirstSibling();
-            objHorse3DView.In().Forget();
+            objHorse3DView.In(backgroundType).Forget();
             isIn = true;
             UserDataRepository.OnModelUpdate += UserDataRepositoryOnModelUpdate;
+        }
+        else
+        {
+            objHorse3DView.horseLoader.SetBackgroundType(backgroundType);
         }
     }
 
@@ -91,11 +96,11 @@ public class UIHorse3DViewPresenter : IDisposable
     {
         if (model.after.CurrentHorseNftId != model.before.CurrentHorseNftId)
         {
-            UpdateMode().Forget();
+            UpdateMode(objHorse3DView.entity.horseLoader.backgroundType).Forget();
         }
     }
 
-    private async UniTask UpdateMode()
+    private async UniTask UpdateMode(int backgroundType = 0)
     {
         var userHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
         var masterHorse = MasterHorseContainer.MasterHorseIndexer[userHorse.MasterHorseId];
@@ -117,9 +122,10 @@ public class UIHorse3DViewPresenter : IDisposable
             color2 = userHorse.Color2,
             color3 = userHorse.Color3,
             color4 = userHorse.Color4,
+            backgroundType = backgroundType,
         };
         objHorse3DView.horseLoader.SetEntity(objHorse3DView.entity.horseLoader);
-        await objHorse3DView.In();
+        await objHorse3DView.In(backgroundType);
     }
 
     public void Dispose()

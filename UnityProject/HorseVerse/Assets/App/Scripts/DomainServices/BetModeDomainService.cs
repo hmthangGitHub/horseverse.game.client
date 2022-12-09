@@ -98,6 +98,7 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
                 return new HorseDataModel()
                 {
                     HorseNtfId = x.NftId,
+                    Name = x.Name,
                     Earning = UnityEngine.Random.Range(100, 10000),
                     PowerBonus = x.Bms,
                     PowerRatio = UnityEngine.Random.Range(0.0001f, 0.5f),

@@ -25,6 +25,7 @@ public class HorseRepository : Repository<long, HorseDataModel, HorseDataModel>,
         return response.PlayerInventory.HorseList.Select(horseInfo => new HorseDataModel()
             {
                 HorseNtfId = horseInfo.NftId,
+                Name = horseInfo.Name,
                 Earning = UnityEngine.Random.Range(100, 10000),
                 PowerBonus = UnityEngine.Random.Range(0.0001f, 0.5f),
                 PowerRatio = UnityEngine.Random.Range(0.0001f, 0.5f),

@@ -107,8 +107,6 @@ public class UIBetModePresenter : IDisposable
             header = new UIComponentBetModeHeader.Entity()
             {
                 changeRaceBtn = new ButtonComponent.Entity(ChangeRaceBtn),
-                energy = UserDataRepository.Current.Energy,
-                maxEnergy = UserDataRepository.Current.MaxEnergy,
                 timeCountDown = new UIComponentCountDownTimer.Entity()
                 {
                     outDatedEvent = () => OnChangeToRaceModeAsync().Forget(),
