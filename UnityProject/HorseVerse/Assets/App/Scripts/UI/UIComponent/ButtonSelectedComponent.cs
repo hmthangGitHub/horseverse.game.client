@@ -42,7 +42,7 @@ public class ButtonSelectedComponent : UIComponent<ButtonSelectedComponent.Entit
 
     private void Awake()
     {
-        this.button.onClick.AddListener(() => buttonEvent.Invoke()); 
+        this.button.onClick.AddListener(() => { buttonEvent.Invoke(); PlaySound(); }); 
     }
 
     protected override void OnSetEntity()
@@ -97,5 +97,10 @@ public class ButtonSelectedComponent : UIComponent<ButtonSelectedComponent.Entit
     {
         button ??= this.GetComponent<Button>();
         anim ??= this.GetComponent<Animator>();
+    }
+
+    private void PlaySound()
+    {
+        SoundController.PlayClick();
     }
 }

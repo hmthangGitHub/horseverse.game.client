@@ -138,6 +138,8 @@ public class UIBetModePresenter : IDisposable
             uiBetMode.header.header.In().Forget();
             await uiBetMode.In();
         }
+
+        SoundController.PlayMusicBetModePrepare();
     }
 
     private void OnModelUpdate((UserDataModel before, UserDataModel after) model)
@@ -257,6 +259,7 @@ public class UIBetModePresenter : IDisposable
 
     private async UniTaskVoid TransitionAsync(Action action)
     {
+        SoundController.PlayMusicBase();
         await UiHorseInfo3DViewPresenter.HideHorse3DViewAsync();
         await uiBetMode.Out();
         action();

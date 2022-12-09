@@ -125,7 +125,7 @@ public class LoginStatePresenter : IDisposable
 
     private async UniTask<bool> doLoginWithAccessToken()
     {
-        var token = PlayerPrefs.GetString("USER_LOGIN_ACCESS_TOKEN", "");
+        var token = PlayerPrefs.GetString(GameDefine.TOKEN_STORAGE, "");
         if (!string.IsNullOrEmpty(token))
         {
             var res = await SocketClient.Send<LoginRequest, LoginResponse>(new LoginRequest()
@@ -305,7 +305,7 @@ public class LoginStatePresenter : IDisposable
                 TraningTimeStamp = 0,
             };
             await UserDataRepository.UpdateDataAsync(new UserDataModel[] { model });
-            PlayerPrefs.SetString("USER_LOGIN_ACCESS_TOKEN", res.PlayerInfo.AccessToken);
+            PlayerPrefs.SetString(GameDefine.TOKEN_STORAGE, res.PlayerInfo.AccessToken);
         }
         else
         {

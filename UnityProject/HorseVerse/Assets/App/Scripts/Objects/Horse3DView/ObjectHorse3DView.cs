@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectHorse3DView : MonoBehaviour
+public class ObjectHorse3DView : ObjectComponent<ObjectHorse3DView.Entity>
 {
     public class Entity
     {
@@ -12,15 +12,7 @@ public class ObjectHorse3DView : MonoBehaviour
 
     public HorseObjectLoader horseLoader;
 
-    public Entity entity { get; protected set; }
-    public void SetEntity(Entity entity)
-    {
-        this.entity = entity;
-        this.gameObject.SetActive(false);
-        OnSetEntity();
-    }
-
-    protected void OnSetEntity()
+    protected override void OnSetEntity()
     {
         horseLoader.SetEntity(this.entity.horseLoader);
     }

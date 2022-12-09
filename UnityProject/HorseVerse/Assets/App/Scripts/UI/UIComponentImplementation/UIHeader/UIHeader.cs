@@ -16,6 +16,7 @@ public class UIHeader : PopupEntity<UIHeader.Entity>
         public bool backBtnVisible;
         public string title;
         public ButtonComponent.Entity backBtn;
+        public ButtonComponent.Entity settingBtn;
     }
 
     public IsVisibleComponent userNameVisible;
@@ -23,6 +24,7 @@ public class UIHeader : PopupEntity<UIHeader.Entity>
     public FormattedTextComponent coin;
     public FormattedTextComponent energy;
     public ButtonComponent backBtn;
+    public ButtonComponent settingBtn;
     public IsVisibleComponent backBtnVisible;
     public FormattedTextComponent title;
     public UIHeaderAnimation uiHeaderAnimation;
@@ -34,6 +36,7 @@ public class UIHeader : PopupEntity<UIHeader.Entity>
         energy.SetEntity(this.entity.energy, this.entity.maxEnergy);
         title.SetEntity(this.entity.title);
         backBtn.SetEntity(this.entity.backBtn);
+        settingBtn.SetEntity(this.entity.settingBtn);
         backBtnVisible.SetEntity(this.entity.backBtnVisible);
         userNameVisible.SetEntity(!this.entity.backBtnVisible);
     }

@@ -80,6 +80,7 @@ public class HorseTrainingPresenter : IDisposable
     public async UniTask<bool> StartTrainingAsync()
     {
         await UniTask.Delay(1500);
+        SoundController.PlayMusicTrainingInGame();
         uiTrainingPressAnyKey.In().Forget();
         trainingUcsRetry = new UniTaskCompletionSource<bool>();
         return await trainingUcsRetry.Task.AttachExternalCancellation(cts.Token);
@@ -97,6 +98,7 @@ public class HorseTrainingPresenter : IDisposable
                 await uiConfirm.Out();
                 UILoader.SafeRelease(ref uiConfirm);
                 trainingUcsRetry.TrySetResult(false);
+                SoundController.PlayMusicBase();
             }
             else
             {

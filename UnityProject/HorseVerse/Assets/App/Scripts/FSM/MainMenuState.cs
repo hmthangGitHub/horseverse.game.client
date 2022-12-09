@@ -31,6 +31,7 @@ public class MainMenuState : InjectedBState
         uiMainMenuPresenter ??= new UIMainMenuPresenter(this.Container);
         SubcribeEvents();
         uiMainMenuPresenter.ShowMainMenuAsync().Forget();
+        SoundController.PlayMusicBase();
     }
 
     private async UniTask ShowBackGrounAsync()

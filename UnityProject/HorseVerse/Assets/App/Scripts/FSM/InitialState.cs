@@ -16,6 +16,7 @@ public class InitialState : InjectedBHState, IDisposable
     private async UniTaskVoid OnEnterStateAsync()
     {
         this.Container.Bind(await MasterLoader.LoadMasterAsync<MasterHorseContainer>());
+        this.Container.Bind(new AudioPresenter(Container));
         this.Container.Bind(new HorseRepository(Container));
         this.Container.Bind(new BetRateRepository());
         this.Container.Bind(new UserDataRepository());
@@ -68,6 +69,7 @@ public class InitialState : InjectedBHState, IDisposable
 #else
         this.Container.RemoveAndDisposeIfNeed<TCPSocketClient>();
 #endif
+        this.Container.RemoveAndDisposeIfNeed<AudioPresenter>();
         this.Container.RemoveAndDisposeIfNeed<UILoadingPresenter>();
         this.Container.RemoveAndDisposeIfNeed<UIHeaderPresenter>();
         this.Container.RemoveAndDisposeIfNeed<UIBackGroundPresenter>();
