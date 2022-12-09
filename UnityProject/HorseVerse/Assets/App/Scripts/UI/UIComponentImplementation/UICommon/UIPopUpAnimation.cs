@@ -12,13 +12,15 @@ public class UIPopUpAnimation : UISequenceAnimationBase
     protected override Tween CreateInAnimation()
     {
         return DOTweenExtensions.To(SetScale, 0.0f, 1.0f, duration)
-            .SetEase(Ease.OutBack);
+            .SetEase(Ease.OutBack)
+            .SetUpdate(true);
     }
 
     protected override Tween CreateOutAnimation()
     {
         return DOTweenExtensions.To(SetScale, 1.0f, 0.0f, duration, reverseOnKill : true)
-            .SetEase(Ease.InBack);
+            .SetEase(Ease.InBack)
+            .SetUpdate(true);
     }
 
     private void SetScale(float val)

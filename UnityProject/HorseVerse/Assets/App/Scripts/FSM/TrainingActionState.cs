@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -7,29 +8,44 @@ public class TrainingActionState : InjectedBState
     private UILoadingPresenter uiLoadingPresenter;
     private UIHorse3DViewPresenter uiHorse3DViewPresenter;
     private UIBackGroundPresenter uiBackGroundPresenter;
-    private HorseTrainingPresenter horseTrainingPresenter;
     private UILoadingPresenter UILoadingPresenter => uiLoadingPresenter ??= Container.Inject<UILoadingPresenter>();
     private UIHorse3DViewPresenter UIHorse3DViewPresenter => uiHorse3DViewPresenter ??= Container.Inject<UIHorse3DViewPresenter>();
     private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
+    private CancellationTokenSource cts;
 
     public override void Enter()
     {
         base.Enter();
+        cts.SafeCancelAndDispose();
+        cts = new CancellationTokenSource();
         OnEnterStateAsync().Forget();
     }
         
     private async UniTask OnEnterStateAsync()
     {
         await HideHorseAndBackGround();
-        horseTrainingPresenter = new HorseTrainingPresenter(Container);
-        await horseTrainingPresenter.LoadAssetsAsync();
-        UILoadingPresenter.HideLoading();
-        
-        var coinCollected = await horseTrainingPresenter.StartTrainingAsync();
-
+        await StartTraining();
         await ShowHorseAndBackground();
         this.Machine.ChangeState<TrainingUIState>();
         UILoadingPresenter.HideLoading();
+    }
+
+    private async UniTask StartTraining()
+    {
+        while (true)
+        {
+            using var horseTrainingPresenter = new HorseTrainingPresenter(Container);
+            await horseTrainingPresenter.LoadAssetsAsync().AttachExternalCancellation(cts.Token);
+            UILoadingPresenter.HideLoading();
+            if (!await horseTrainingPresenter.StartTrainingAsync().AttachExternalCancellation(cts.Token))
+            {
+                break;
+            }
+            else
+            {
+                await UILoadingPresenter.ShowLoadingAsync();    
+            }
+        }
     }
 
     private async UniTask ShowHorseAndBackground()
@@ -55,11 +71,11 @@ public class TrainingActionState : InjectedBState
 
     private async UniTask OnEditStateAsync()
     {
+        DisposeUtility.SafeDispose(ref cts);
         Container.RemoveAndDisposeIfNeed<HorseTrainingDataContext>();
         uiLoadingPresenter = default;
         uiHorse3DViewPresenter = default;
         uiBackGroundPresenter = default;
-        DisposeUtility.SafeDispose(ref horseTrainingPresenter);
         await UniTask.CompletedTask;
     }
 }

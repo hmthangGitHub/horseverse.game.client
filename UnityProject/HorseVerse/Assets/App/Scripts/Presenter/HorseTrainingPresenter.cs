@@ -27,7 +27,7 @@ public class HorseTrainingPresenter : IDisposable
     private Scene mapSceneAsset;
     private int numberOfCoinTaken = 0;
     private int distanceOfRunning = 0;
-    private UniTaskCompletionSource ucs = new UniTaskCompletionSource();
+    private UniTaskCompletionSource<bool> trainingUcsRetry;
 
     private HorseTrainingDataContext HorseTrainingDataContext => horseTrainingDataContext ??= Container.Inject<HorseTrainingDataContext>();
     private ITrainingDomainService TrainingDomainService => trainingDomainService ??= Container.Inject<ITrainingDomainService>();
@@ -40,16 +40,15 @@ public class HorseTrainingPresenter : IDisposable
 
     public async UniTask LoadAssetsAsync()
     {
+        masterMapContainer = await MasterLoader.LoadMasterAsync<MasterMapContainer>(token: cts.Token);
+        mapSceneAsset = await SceneAssetLoader.LoadSceneAsync(masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.MasterMapId]
+            .MapPath, true, token: cts.Token);
         horseTrainingManager ??= Object.Instantiate((await Resources.LoadAsync<HorseTrainingManager>("GamePlay/HorseTrainingManager") as HorseTrainingManager));
         
-        masterMapContainer = await MasterLoader.LoadMasterAsync<MasterMapContainer>(token: cts.Token);
         masterHorseContainer = await MasterLoader.LoadMasterAsync<MasterHorseContainer>(token: cts.Token);
         masterHorseTrainingPropertyContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingPropertyContainer>(token: cts.Token);
         masterHorseTrainingBlockContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(token: cts.Token);
         masterHorseTrainingBlockComboContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>(token: cts.Token);
-        
-        mapSceneAsset = await SceneAssetLoader.LoadSceneAsync(masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.MasterMapId]
-            .MapPath, true, token: cts.Token);
 
         uiTrainingCoinCounting = await UILoader.Instantiate<UITrainingCoinCounting>(token: cts.Token);
         uiTrainingPressAnyKey = await UILoader.Instantiate<UITrainingPressAnyKey>(token: cts.Token);
@@ -57,7 +56,7 @@ public class HorseTrainingPresenter : IDisposable
         await horseTrainingManager.Initialize(
             masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.MasterMapId].MapPath,
             OnTakeCoin,
-            () => OnTouchObstacleAsync().Forget(), 
+            () => OnTouchObstacleAsync().Forget(),
             masterHorseTrainingPropertyContainer.DataList.First(),
             masterHorseTrainingBlockContainer, 
             masterHorseTrainingBlockComboContainer, horseTrainingDataContext.HorseMeshInformation);
@@ -69,7 +68,7 @@ public class HorseTrainingPresenter : IDisposable
                 uiTrainingCoinCounting.SetEntity(new UITrainingCoinCounting.Entity()
                 {
                     coin = numberOfCoinTaken,
-                    btnSetting = new ButtonComponent.Entity(UniTask.Action(async () => { await OnBtnPauseClicked(); }))
+                    btnSetting = new ButtonComponent.Entity(UniTask.Action(async () => await OnBtnPauseClicked()))
                 });
                 uiTrainingCoinCounting.In().Forget();
                 uiTrainingPressAnyKey.Out().Forget();
@@ -78,38 +77,44 @@ public class HorseTrainingPresenter : IDisposable
         });
     }
 
-    public async UniTask<int> StartTrainingAsync()
+    public async UniTask<bool> StartTrainingAsync()
     {
         await UniTask.Delay(1500);
         uiTrainingPressAnyKey.In().Forget();
-        ucs = new UniTaskCompletionSource();
-        await ucs.Task.AttachExternalCancellation(cts.Token);
-        return numberOfCoinTaken;
+        trainingUcsRetry = new UniTaskCompletionSource<bool>();
+        return await trainingUcsRetry.Task.AttachExternalCancellation(cts.Token);
     }
 
     private async UniTask OnBtnPauseClicked()
     {
+        Time.timeScale = 0.0f;
         var uiConfirm = await UILoader.Instantiate<UIPopUpPause>(token: cts.Token);
-        bool wait = true;
-        int type = 0;
+        var exitBtnEntity = new ButtonComponent.Entity(UniTask.Action(async() =>
+        {
+            await uiConfirm.Out();
+            if (await AskForQuit())
+            {
+                await uiConfirm.Out();
+                UILoader.SafeRelease(ref uiConfirm);
+                trainingUcsRetry.TrySetResult(false);
+            }
+            else
+            {
+                await uiConfirm.In();
+            }
+        }));
         uiConfirm.SetEntity(new UIPopUpPause.Entity()
         {
-            settingBtn = new ButtonComponent.Entity(() => { wait = false; type = 1; }),
-            continueBtn = new ButtonComponent.Entity(() => { wait = false; }),
-            exitBtn = new ButtonComponent.Entity(() => { wait = false; type = 2; })
+            settingBtn = exitBtnEntity,
+            continueBtn = new ButtonComponent.Entity(UniTask.Action(async() =>
+            {
+                await uiConfirm.Out();
+                UILoader.SafeRelease(ref uiConfirm);
+                Time.timeScale = 1.0f;
+            })),
+            exitBtn = exitBtnEntity,
         });
-        await uiConfirm.In();
-        await UniTask.WaitUntil(() => wait == false);
-        UILoader.SafeRelease(ref uiConfirm);
-        
-        if (type == 1)
-        {
-            await OnBtnSettingClicked();
-        }
-        else if (type == 2)
-        {
-            await OnBtnExitClicked();
-        }
+        uiConfirm.In().Forget();
     }
 
     private async UniTask OnBtnSettingClicked()
@@ -128,20 +133,24 @@ public class HorseTrainingPresenter : IDisposable
         UILoader.SafeRelease(ref uiConfirm);
     }
 
-    private async UniTask OnBtnExitClicked()
+    private async UniTask<bool> AskForQuit()
     {
+        var askForQuitUcs = new UniTaskCompletionSource<bool>();
         var uiConfirm = await UILoader.Instantiate<UIPopupYesNoMessage>(token: cts.Token);
-        bool wait = true;
         uiConfirm.SetEntity(new UIPopupYesNoMessage.Entity()
         {
             title = "NOTICE",
             message = "Do you want to exit ? You won't receive any reward once you do.",
-            yesBtn = new ButtonComponent.Entity(() => { wait = false; }),
-            noBtn = new ButtonComponent.Entity(() => { wait = false; })
+            yesBtn = new ButtonComponent.Entity(() =>
+            {
+                askForQuitUcs.TrySetResult(true);
+            }),
+            noBtn = new ButtonComponent.Entity(() => { askForQuitUcs.TrySetResult(false); })
         });
         await uiConfirm.In();
-        await UniTask.WaitUntil(() => wait == false);
+        var result = await askForQuitUcs.Task.AttachExternalCancellation(cts.Token);
         UILoader.SafeRelease(ref uiConfirm);
+        return result;
     }
 
     private void OnTakeCoin()
@@ -157,19 +166,18 @@ public class HorseTrainingPresenter : IDisposable
 
     private async UniTaskVoid OnTouchObstacleAsync()
     {
+        Time.timeScale = 0.0f;
         var data = await TrainingDomainService.GetTrainingRewardData(distanceOfRunning, numberOfCoinTaken);
         if (data.ResultCode == 100) {
             await ShowUIHorseTrainingResultAsync(data);
         }
-        ucs.TrySetResult();
-        await UniTask.CompletedTask;
     }
 
     public void Dispose()
     {
         cts.SafeCancelAndDispose();
         cts = default;
-        
+        Time.timeScale = 1.0f;
         if (mapSceneAsset != default)
         {
             SceneAssetLoader.UnloadAssetAtPath(masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.MasterMapId].MapPath);
@@ -189,7 +197,6 @@ public class HorseTrainingPresenter : IDisposable
     public async UniTask ShowUIHorseTrainingResultAsync(io.hverse.game.protogen.TrainingRewardsResponse result)
     {
         var popup = await UILoader.Instantiate<UITrainingResult>(token: cts.Token);
-        bool wait = true;
         long numbox = 0;
         long numcoin = 0;
 
@@ -203,8 +210,16 @@ public class HorseTrainingPresenter : IDisposable
 
         popup.SetEntity(new UITrainingResult.Entity()
         {
-            confirmBtn = new ButtonComponent.Entity(() => { wait = false; }),
-            retryBtn = new ButtonComponent.Entity(() => { wait = false; }),
+            confirmBtn = new ButtonComponent.Entity(() =>
+            {
+                trainingUcsRetry.TrySetResult(false);
+                UILoader.SafeRelease(ref popup);
+            }),
+            retryBtn = new ButtonComponent.Entity(() =>
+            {
+                trainingUcsRetry.TrySetResult(true);
+                UILoader.SafeRelease(ref popup);
+            }),
             boxReward = new UITrainingResultRewardComponent.Entity() { Total = (int)numbox},
             coinReward = new UITrainingResultRewardComponent.Entity() { Total = (int)numcoin },
             currentEnergy = 1,
@@ -212,7 +227,5 @@ public class HorseTrainingPresenter : IDisposable
             score = result.PointNumber,
         });
         await popup.In();
-        await UniTask.WaitUntil(() => wait == false);
-        UILoader.SafeRelease(ref popup);
     }
 }
