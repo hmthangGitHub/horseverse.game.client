@@ -8,22 +8,18 @@ public class UIComponentBetModeHeader : UIComponent<UIComponentBetModeHeader.Ent
     public class Entity
     {
         public UIComponentCountDownTimer.Entity timeCountDown;
-        public UIComponentBetModeUserInfo.Entity userInfo;
-        public int energy;
-        public int maxEnergy;
+        public UIHeader.Entity header;
         public ButtonComponent.Entity changeRaceBtn;
     }
 
     public UIComponentCountDownTimer timeCountDown;
-    public UIComponentBetModeUserInfo userInfo;
-    public FormattedTextComponent energy;
+    public UIHeader header;
     public ButtonComponent changeRaceBtn;
 
     protected override void OnSetEntity()
     {
         timeCountDown.SetEntity(this.entity.timeCountDown);
-        userInfo.SetEntity(this.entity.userInfo);
-        energy.SetEntity(this.entity.energy, this.entity.maxEnergy);
+        header.SetEntity(this.entity.header);
         changeRaceBtn.SetEntity(this.entity.changeRaceBtn);
     }
 }	

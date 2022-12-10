@@ -15,9 +15,18 @@ public static class UILoader
         return instance;
     }
 
+    public static async UniTask<T> InstantiateInSpace<T>(ObjectCanvas.UICanvasType canvasType = ObjectCanvas.UICanvasType.Default, CancellationToken token = default) where T : PopupEntity
+    {
+        var type = typeof(T).ToString();
+        var prefab = await LoadResource<T>(type, token);
+        var instance = GameObject.Instantiate<T>(prefab, ObjectCanvas.GetCanvas(canvasType).transform, false);
+        return instance;
+    }
+
     private static async UniTask<T> LoadResource<T>(string type, CancellationToken token) where T : PopupEntity
     {
         var go = await PrimitiveAssetLoader.LoadAssetAsync<GameObject>(GetPathFromType(type), token);
+        if (go == default) Debug.LogError("Cant Load " + type);
         return go.GetComponent<T>();
     }
 

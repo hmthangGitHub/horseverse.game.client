@@ -20,6 +20,10 @@ public class LoadingState : InjectedBState
         cts = new CancellationTokenSource();
         var uiLoadingPresenter = this.Container.Inject<UILoadingPresenter>();
         uiLoadingPresenter.ShowLoadingAsync().Forget();
+
+        var audioPresenter = this.Container.Inject<AudioPresenter>();
+        audioPresenter.ShowAudioAsync().Forget();
+
         await UniTask.Delay(1000).AttachExternalCancellation(cts.Token);
         this.Machine.ChangeState<LoginState>();
     }

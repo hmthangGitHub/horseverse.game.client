@@ -16,6 +16,7 @@ public class InitialState : InjectedBHState, IDisposable
     private async UniTaskVoid OnEnterStateAsync()
     {
         this.Container.Bind(await MasterLoader.LoadMasterAsync<MasterHorseContainer>());
+        this.Container.Bind(new AudioPresenter(Container));
         this.Container.Bind(new HorseRepository(Container));
         this.Container.Bind(new BetRateRepository());
         this.Container.Bind(new UserDataRepository());
@@ -23,6 +24,7 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.Bind(new UIHeaderPresenter(Container));
         this.Container.Bind(new UIBackGroundPresenter(Container));
         this.Container.Bind(new UIHorse3DViewPresenter(Container));
+        this.Container.Bind(new UIHorseInfo3DViewPresenter(Container)); //Use for show other horse
         this.Container.Bind(new HorseDetailEntityFactory(Container));
         this.Container.Bind(new QuickRaceDomainService(Container));
         this.Container.Bind(new LocalTraningDomainService(Container));
@@ -67,10 +69,12 @@ public class InitialState : InjectedBHState, IDisposable
 #else
         this.Container.RemoveAndDisposeIfNeed<TCPSocketClient>();
 #endif
+        this.Container.RemoveAndDisposeIfNeed<AudioPresenter>();
         this.Container.RemoveAndDisposeIfNeed<UILoadingPresenter>();
         this.Container.RemoveAndDisposeIfNeed<UIHeaderPresenter>();
         this.Container.RemoveAndDisposeIfNeed<UIBackGroundPresenter>();
         this.Container.RemoveAndDisposeIfNeed<UIHorse3DViewPresenter>();
+        this.Container.RemoveAndDisposeIfNeed<UIHorseInfo3DViewPresenter>();
         this.Container.RemoveAndDisposeIfNeed<HorseDetailEntityFactory>();
         this.Container.RemoveAndDisposeIfNeed<QuickRaceDomainService>();
         this.Container.RemoveAndDisposeIfNeed<LocalTraningDomainService>();

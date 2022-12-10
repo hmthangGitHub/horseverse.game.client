@@ -23,6 +23,9 @@ public class ProtobufMessageParser : IMessageParser
         AddToSerializeLookUpTable<EmailCodeRequest>(x => new LoginMessage(x));
         AddToParseLookUpTable<LoginMessage, LoginMessageType>(LoginMessageType.EmailCodeResponse, x => x.EmailCodeResponse);
 
+        AddToSerializeLookUpTable<MasterDataRequest>(x => new DataMessage(x));
+        AddToParseLookUpTable<DataMessage, DataMessageType>(DataMessageType.MasterDataResponse, x => x.MasterDataResponse);
+
         AddToSerializeLookUpTable<PlayerInventoryRequest>(x => new PlayerMessage(x));
         AddToParseLookUpTable<PlayerMessage, PlayerMessageType>(PlayerMessageType.PlayerInventoryResponse, x => x.PlayerInventoryResponse);
         
@@ -43,6 +46,12 @@ public class ProtobufMessageParser : IMessageParser
         
         AddToSerializeLookUpTable<GetBetHistoryRequest>(x => new BettingMessage(x));
         AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.GetBetHistoryResponse, x => x.GetBetHistoryResponse);
+
+        AddToSerializeLookUpTable<GetHorseListRequest>(x => new BettingMessage(x));
+        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.GetHorseListResponse, x => x.GetHorseListResponse);
+
+        AddToSerializeLookUpTable<TrainingRewardsRequest>(x => new TrainingMessage(x));
+        AddToParseLookUpTable<TrainingMessage, TrainingMessageType>(TrainingMessageType.TrainingRewardsResponse, x => x.TrainingRewardsResponse);
     }
     
     private void AddToParseLookUpTable<TSubMessage, TEnum>(TEnum enumMessage, Func<TSubMessage, IMessage> resultFactory) where TEnum : System.Enum

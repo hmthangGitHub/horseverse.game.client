@@ -26,11 +26,12 @@ public class MainMenuState : InjectedBState
         
         ShowBackGrounAsync().Forget();
         UIHorse3DViewPresenter.ShowHorse3DViewAsync().Forget();
-        //UiHeaderPresenter.ShowHeaderAsync(false).Forget();
+        UiHeaderPresenter.ShowHeaderAsync(false).Forget();
 
         uiMainMenuPresenter ??= new UIMainMenuPresenter(this.Container);
         SubcribeEvents();
         uiMainMenuPresenter.ShowMainMenuAsync().Forget();
+        SoundController.PlayMusicBase();
     }
 
     private async UniTask ShowBackGrounAsync()
@@ -100,6 +101,7 @@ public class MainMenuState : InjectedBState
     {
         base.Exit();
         UnSubcribeEvents();
+        UiHeaderPresenter.HideHeader();
         uiMainMenuPresenter.Dispose();
         uiMainMenuPresenter = default;
         uiLoadingPresenter = default;

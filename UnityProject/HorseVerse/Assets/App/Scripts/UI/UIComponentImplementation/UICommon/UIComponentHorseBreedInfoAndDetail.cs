@@ -7,16 +7,16 @@ public class UIComponentHorseBreedInfoAndDetail : UIComponent<UIComponentHorseBr
 	[System.Serializable]
     public class Entity
     {
-        public UIComponentHorseBreedProgressList.Entity horseBreedProgressList;
+        //public UIComponentHorseBreedProgressList.Entity horseBreedProgressList;
         public UIComponentHorseDetail.Entity horseDetail;
     }
 
-    public UIComponentHorseBreedProgressList horseBreedProgressList;
+    //public UIComponentHorseBreedProgressList horseBreedProgressList;
     public UIComponentHorseDetail horseDetail;
 
     protected override void OnSetEntity()
     {
-        horseBreedProgressList.SetEntity(this.entity.horseBreedProgressList);
+        //horseBreedProgressList.SetEntity(this.entity.horseBreedProgressList);
         horseDetail.SetEntity(this.entity.horseDetail);
     }
 }	

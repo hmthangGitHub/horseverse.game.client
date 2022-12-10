@@ -5,20 +5,23 @@ using UnityEngine.UI;
 
 public class UIComponentHorseStableAvatar : UIComponent<UIComponentHorseStableAvatar.Entity>
 {
-	[System.Serializable]
+    [System.Serializable]
     public class Entity
     {
-        public ButtonComponent.Entity selectBtn;
+        public long horseNFTId;
+        public string horseName;
+        public UIComponentHorseRace.Entity horseRace;
+        public ButtonSelectedComponent.Entity selectBtn;
     }
 
-    public ButtonComponent selectBtn;
-    public GameObject backGroundContainer;
+    public FormattedTextComponent horseName;
+    public UIComponentHorseRace horseRace;
+    public ButtonSelectedComponent selectBtn;
+
     protected override void OnSetEntity()
     {
-        this.selectBtn.SetEntity(this.entity.selectBtn);
-        
-        var allBg = backGroundContainer.GetComponentsInChildren<Image>();
-        var randomBg = allBg.RandomElement();
-        allBg.ForEach(x => x.gameObject.SetActive(x == randomBg));
+        horseName.SetEntity(this.entity.horseName);
+        selectBtn.SetEntity(this.entity.selectBtn);
+        horseRace.SetEntity(this.entity.horseRace);
     }
 }	

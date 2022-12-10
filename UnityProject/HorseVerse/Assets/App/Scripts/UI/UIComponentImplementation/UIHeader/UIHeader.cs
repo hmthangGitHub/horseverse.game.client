@@ -14,14 +14,19 @@ public class UIHeader : PopupEntity<UIHeader.Entity>
         public int maxEnergy;
         public int energy;
         public bool backBtnVisible;
+        public string title;
         public ButtonComponent.Entity backBtn;
+        public ButtonComponent.Entity settingBtn;
     }
 
+    public IsVisibleComponent userNameVisible;
     public FormattedTextComponent userName;
     public FormattedTextComponent coin;
     public FormattedTextComponent energy;
     public ButtonComponent backBtn;
+    public ButtonComponent settingBtn;
     public IsVisibleComponent backBtnVisible;
+    public FormattedTextComponent title;
     public UIHeaderAnimation uiHeaderAnimation;
     
     protected override void OnSetEntity()
@@ -29,14 +34,24 @@ public class UIHeader : PopupEntity<UIHeader.Entity>
         userName.SetEntity(this.entity.userName);
         coin.SetEntity(this.entity.coin);
         energy.SetEntity(this.entity.energy, this.entity.maxEnergy);
+        title.SetEntity(this.entity.title);
         backBtn.SetEntity(this.entity.backBtn);
+        settingBtn.SetEntity(this.entity.settingBtn);
         backBtnVisible.SetEntity(this.entity.backBtnVisible);
+        userNameVisible.SetEntity(!this.entity.backBtnVisible);
     }
 
     public void SetVisibleBackBtn(bool visible)
     {
         entity.backBtnVisible = visible;
         backBtnVisible.SetEntity(this.entity.backBtnVisible);
+        userNameVisible.SetEntity(!this.entity.backBtnVisible);
+    }
+
+    public void SetTitle(string text)
+    {
+        entity.title = text;
+        title.SetEntity(this.entity.title);
     }
 
     public void SetBackBtnCallBack(Action callback)

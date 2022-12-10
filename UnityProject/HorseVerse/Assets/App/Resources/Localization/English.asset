@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0272bc3580cb837428cd89445f783adb, type: 3}
+  m_Name: English
+  m_EditorClassIdentifier: 
+  Name: English
+  Icon: {fileID: 0}
+  systemLanguageType: 10
+  Text:
+  - Text: RESULT_CODE_100
+    Localize: Succeed
+  - Text: RESULT_CODE_101
+    Localize: Unknown Error !!!
+  - Text: RESULT_CODE_102
+    Localize: Wrong Request
+  - Text: RESULT_CODE_103
+    Localize: Load data failed !
+  - Text: RESULT_CODE_104
+    Localize: Save data failed !
+  - Text: RESULT_CODE_105
+    Localize: Not Enough
+  - Text: RESULT_CODE_106
+    Localize: Not Own
+  - Text: RESULT_CODE_107
+    Localize: Not Exist
+  - Text: RESULT_CODE_200
+    Localize: Account not activate
+  - Text: RESULT_CODE_201
+    Localize: Account not found !
+  - Text: RESULT_CODE_202
+    Localize: Wrong password
+  - Text: RESULT_CODE_203
+    Localize: Unauthorized
+  - Text: RESULT_CODE_204
+    Localize: Expired token
+  - Text: RESULT_CODE_205
+    Localize: Login multiple devices

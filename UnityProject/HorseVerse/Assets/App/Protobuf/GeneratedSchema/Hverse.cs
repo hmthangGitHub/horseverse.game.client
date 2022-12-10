@@ -26,14 +26,14 @@ namespace io.hverse.game.protogen {
           string.Concat(
             "CgxodmVyc2UucHJvdG8aGWdvb2dsZS9wcm90b2J1Zi9hbnkucHJvdG8iVwoL",
             "R2FtZU1lc3NhZ2USIQoHbXNnVHlwZRgBIAEoDjIQLkdhbWVNZXNzYWdlVHlw",
-            "ZRIlCgdtc2dEYXRhGAIgASgLMhQuZ29vZ2xlLnByb3RvYnVmLkFueSrRAQoP",
+            "ZRIlCgdtc2dEYXRhGAIgASgLMhQuZ29vZ2xlLnByb3RvYnVmLkFueSrnAQoP",
             "R2FtZU1lc3NhZ2VUeXBlEhIKDlNZU1RFTV9NRVNTQUdFEAASEAoMUElOR19N",
             "RVNTQUdFEAESEAoMREFUQV9NRVNTQUdFEAISEQoNTE9HSU5fTUVTU0FHRRAD",
             "EhIKDlBMQVlFUl9NRVNTQUdFEAQSEAoMUkFDRV9NRVNTQUdFEAUSEwoPQkVU",
             "VElOR19NRVNTQUdFEAYSEAoMQ0hBVF9NRVNTQUdFEAcSEwoPTUFJTEJPWF9N",
-            "RVNTQUdFEAgSEQoNQ0hFU1RfTUVTU0FHRRAJQkkKF2lvLmh2ZXJzZS5nYW1l",
-            "LnByb3RvZ2VuQhRIdmVyc2VNZXNzYWdlRmFjdG9yeaoCF2lvLmh2ZXJzZS5n",
-            "YW1lLnByb3RvZ2VuYgZwcm90bzM="));
+            "RVNTQUdFEAgSEQoNQ0hFU1RfTUVTU0FHRRAJEhQKEFRSQUlOSU5HX01FU1NB",
+            "R0UQCkJJChdpby5odmVyc2UuZ2FtZS5wcm90b2dlbkIUSHZlcnNlTWVzc2Fn",
+            "ZUZhY3RvcnmqAhdpby5odmVyc2UuZ2FtZS5wcm90b2dlbmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.AnyReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.GameMessageType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -55,6 +55,7 @@ namespace io.hverse.game.protogen {
     [pbr::OriginalName("CHAT_MESSAGE")] ChatMessage = 7,
     [pbr::OriginalName("MAILBOX_MESSAGE")] MailboxMessage = 8,
     [pbr::OriginalName("CHEST_MESSAGE")] ChestMessage = 9,
+    [pbr::OriginalName("TRAINING_MESSAGE")] TrainingMessage = 10,
   }
 
   #endregion

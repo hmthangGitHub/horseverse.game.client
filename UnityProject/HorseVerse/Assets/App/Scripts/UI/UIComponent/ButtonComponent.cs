@@ -38,7 +38,7 @@ public class ButtonComponent : UIComponent<ButtonComponent.Entity>
 
     private void Awake()
     {
-        this.button.onClick.AddListener(() => buttonEvent.Invoke());
+        this.button.onClick.AddListener(() => { buttonEvent.Invoke(); PlaySound(); });
     }
 
     protected override void OnSetEntity()
@@ -72,5 +72,10 @@ public class ButtonComponent : UIComponent<ButtonComponent.Entity>
     void Reset()
     {
         button ??= this.GetComponent<Button>();
+    }
+
+    private void PlaySound()
+    {
+        SoundController.PlayClick();
     }
 }

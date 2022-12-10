@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading;
 using UnityEngine;
 
@@ -27,7 +28,7 @@ public class UIHorseTrainingPresenter : IDisposable
     private IReadOnlyHorseRepository HorseRepository => horseRepository ??= container.Inject<IReadOnlyHorseRepository>();
     private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= container.Inject<MasterHorseContainer>();
 
-
+    private long currentSelectHorseId = -1;
     public UIHorseTrainingPresenter(IDIContainer container)
     {
         this.container = container;
@@ -46,19 +47,21 @@ public class UIHorseTrainingPresenter : IDisposable
             await TrainingDomainService.OnDoneTraningPeriod(UserDataRepository.Current.CurrentHorseNftId);
         }
         UserDataRepository.OnModelUpdate += UserDataRepositoryOnModelUpdate;
-
+        var h = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
+        currentSelectHorseId = UserDataRepository.Current.CurrentHorseNftId;
         uiHorseTraining.SetEntity(new UIHorseTraining.Entity()
         {
             horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.CurrentHorseNftId),
-            horseSelectSumaryList = HorseSummaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(),
+            horseRace = new UIComponentHorseRace.Entity() { type = h.Type },
+            horseSelectSumaryList = HorseSummaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(OnSelectHorse),
             prepareState = new UIComponentTrainingPrepareState.Entity()
             {
-                mapSelection = new UIComponentHorseTraningMapSelection.Entity()
-                {
-                    mapToggleGroup = new UIComponentToggleGroup.Entity()
-                    {
-                    },
-                },
+                //mapSelection = new UIComponentHorseTraningMapSelection.Entity()
+                //{
+                //    mapToggleGroup = new UIComponentToggleGroup.Entity()
+                //    {
+                //    },
+                //},
                 toTraningBtn = new ButtonComponent.Entity(() => ToTrainingAsync().Forget()),
                 traningCost = trainingCost,
             },
@@ -104,6 +107,8 @@ public class UIHorseTrainingPresenter : IDisposable
         if (model.before.CurrentHorseNftId != model.after.CurrentHorseNftId)
         {
             uiHorseTraining.SetHorseDetailEntity(HorseDetailEntityFactory.InstantiateHorseDetailEntity(model.after.CurrentHorseNftId));
+            var h = HorseRepository.Models[model.after.CurrentHorseNftId];
+            uiHorseTraining.SetHorseRaceEntity( new UIComponentHorseRace.Entity() { type = h.Type });
         }
 
         if (model.before.TraningTimeStamp == 0 && model.after.TraningTimeStamp != 0)
@@ -138,4 +143,28 @@ public class UIHorseTrainingPresenter : IDisposable
         UILoader.SafeRelease(ref uiHorseTraining);
         UserDataRepository.OnModelUpdate -= UserDataRepositoryOnModelUpdate;
     }
+
+    private void OnSelectHorse(long nftId)
+    {
+        if (currentSelectHorseId == nftId) return;
+
+        var l = uiHorseTraining.horseSelectSumaryList.instanceList;
+        if (currentSelectHorseId > -1)
+        {
+            var old = l.FirstOrDefault(o => o.entity.horseNFTId == currentSelectHorseId);
+            if(old != null)
+            {
+                old.selectBtn.SetSelected(false);
+            }
+            currentSelectHorseId = -1;
+        }
+        var current = l.FirstOrDefault(o => o.entity.horseNFTId == nftId);
+        if (current != default)
+        {
+            current.selectBtn.SetSelected(true);
+            currentSelectHorseId = nftId;
+        }
+
+    }
+
 }

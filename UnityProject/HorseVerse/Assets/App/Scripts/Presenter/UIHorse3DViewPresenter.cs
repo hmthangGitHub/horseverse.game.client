@@ -14,6 +14,7 @@ public class UIHorse3DViewPresenter : IDisposable
     private IReadOnlyHorseRepository HorseRepository => horseRepository ??= container.Inject<IReadOnlyHorseRepository>();
 
     private UIHorse3DView uiHorse3DView = default;
+    private ObjectHorse3DView objHorse3DView = default;
     private CancellationTokenSource cts = default;
 
     private MasterHorseContainer masterHorseContainer = default;
@@ -24,31 +25,55 @@ public class UIHorse3DViewPresenter : IDisposable
         this.container = container;    
     }
 
-    public async UniTask ShowHorse3DViewAsync()
+    public async UniTask ShowHorse3DViewAsync(int backgroundType = 0)
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         await UserDataRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
         await HorseRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
 
-        uiHorse3DView ??= await UILoader.Instantiate<UIHorse3DView>(token : cts.Token);
+        //uiHorse3DView ??= await UILoader.Instantiate<UIHorse3DView>(token: cts.Token);
+        //if (!isIn)
+        //{
+        //    uiHorse3DView.SetEntity(new UIHorse3DView.Entity()
+        //    {
+        //        horseLoader = new HorseLoader.Entity()
+        //        {
+        //            horse = MasterHorseContainer.MasterHorseIndexer[HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].MasterHorseId].ModelPath,
+        //            color1 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color1,
+        //            color2 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color2,
+        //            color3 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color3,
+        //            color4 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color4,
+        //        }
+        //    });
+        //    uiHorse3DView.transform.SetAsFirstSibling();
+        //    uiHorse3DView.In().Forget();
+        //    isIn = true;
+        //    UserDataRepository.OnModelUpdate += UserDataRepositoryOnModelUpdate;
+        //}
+        objHorse3DView ??= await ObjectLoader.Instantiate<ObjectHorse3DView>("Object", ObjectHolder.Holder, token: cts.Token);
         if (!isIn)
         {
-            uiHorse3DView.SetEntity(new UIHorse3DView.Entity()
+            objHorse3DView.SetEntity(new ObjectHorse3DView.Entity()
             {
-                horseLoader = new HorseLoader.Entity()
+                horseLoader = new HorseObjectLoader.Entity()
                 {
                     horse = MasterHorseContainer.MasterHorseIndexer[HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].MasterHorseId].ModelPath,
                     color1 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color1,
                     color2 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color2,
                     color3 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color3,
                     color4 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color4,
+                    backgroundType = backgroundType,
                 }
             });
-            uiHorse3DView.transform.SetAsFirstSibling();
-            uiHorse3DView.In().Forget();
+            objHorse3DView.transform.SetAsFirstSibling();
+            objHorse3DView.In(backgroundType).Forget();
             isIn = true;
             UserDataRepository.OnModelUpdate += UserDataRepositoryOnModelUpdate;
+        }
+        else
+        {
+            objHorse3DView.horseLoader.SetBackgroundType(backgroundType);
         }
     }
 
@@ -63,49 +88,50 @@ public class UIHorse3DViewPresenter : IDisposable
 
     private UniTask GetOutTask()
     {
-        return uiHorse3DView?.Out() ?? UniTask.CompletedTask;
+        //return uiHorse3DView?.Out() ?? UniTask.CompletedTask;
+        return objHorse3DView?.Out() ?? UniTask.CompletedTask;
     }
 
     private void UserDataRepositoryOnModelUpdate((UserDataModel before, UserDataModel after) model)
     {
         if (model.after.CurrentHorseNftId != model.before.CurrentHorseNftId)
         {
-            UpdateMode().Forget();
+            UpdateMode(objHorse3DView.entity.horseLoader.backgroundType).Forget();
         }
     }
 
-    private async UniTask UpdateMode()
+    private async UniTask UpdateMode(int backgroundType = 0)
     {
         var userHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
         var masterHorse = MasterHorseContainer.MasterHorseIndexer[userHorse.MasterHorseId];
-        Debug.Log("Horse Color " + userHorse.Color1 + " -- " + userHorse.Color2);
-        uiHorse3DView.entity.horseLoader = new HorseLoader.Entity()
+        //uiHorse3DView.entity.horseLoader = new HorseLoader.Entity()
+        //{
+        //    horse = masterHorse.ModelPath,
+        //    color1 = userHorse.Color1,
+        //    color2 = userHorse.Color2,
+        //    color3 = userHorse.Color3,
+        //    color4 = userHorse.Color4,
+        //};
+        //uiHorse3DView.horseLoader.SetEntity(uiHorse3DView.entity.horseLoader);
+        //await uiHorse3DView.In();
+
+        objHorse3DView.entity.horseLoader = new HorseObjectLoader.Entity()
         {
             horse = masterHorse.ModelPath,
             color1 = userHorse.Color1,
             color2 = userHorse.Color2,
             color3 = userHorse.Color3,
             color4 = userHorse.Color4,
+            backgroundType = backgroundType,
         };
-        uiHorse3DView.horseLoader.SetEntity(uiHorse3DView.entity.horseLoader);
-        await uiHorse3DView.In();
+        objHorse3DView.horseLoader.SetEntity(objHorse3DView.entity.horseLoader);
+        await objHorse3DView.In(backgroundType);
     }
 
     public void Dispose()
     {
         HideHorse3DViewAsync().Forget();
-        UILoader.SafeRelease(ref uiHorse3DView);
-    }
-
-    private void setColor(GameObject horse, Color c1, Color c2, Color c3, Color c4)
-    {
-        if (horse != null)
-        {
-            HorseObjectData data = horse.GetComponent<HorseObjectData>();
-            if (data != null)
-            {
-                HorseObjectPresenter.SetColor(data, c1, c2, c3, c4);
-            }
-        }
+        //UILoader.SafeRelease(ref uiHorse3DView);
+        ObjectLoader.SafeRelease("Object", ref objHorse3DView);
     }
 }

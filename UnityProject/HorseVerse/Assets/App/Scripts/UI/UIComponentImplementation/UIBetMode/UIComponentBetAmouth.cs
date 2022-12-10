@@ -8,12 +8,18 @@ public class UIComponentBetAmouth : UIComponent<UIComponentBetAmouth.Entity>
     public class Entity
     {
         public int betAmouth;
+        public ButtonSelectedComponent.Entity button;
     }
 
-    public FormattedTextComponent betAmouth;
+    public List<FormattedTextComponent> betAmouth;
+    public ButtonSelectedComponent button;
 
     protected override void OnSetEntity()
     {
-        betAmouth.SetEntity(this.entity.betAmouth);
+        button.SetEntity(this.entity.button);
+        foreach (var item in betAmouth)
+        {
+            item.SetEntity(this.entity.betAmouth);
+        }
     }
 }	

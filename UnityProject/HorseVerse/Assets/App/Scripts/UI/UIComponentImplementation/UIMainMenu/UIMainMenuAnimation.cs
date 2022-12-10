@@ -14,13 +14,10 @@ using UnityEngine.UI;
 public class UIMainMenuAnimation : UISequenceAnimationBase
 {
     public GameObject userInfoAndhorseBreed;
-    public GameObject[] buttons;
+    public GameObject Banner;
 
-    public UIComponentHorseBreedProgressList horseProgressList;
+    //public UIComponentHorseBreedProgressList horseProgressList;
     public UIComponentHorseDetailAnimation horseDetailAnimation;
-    public UIComponentProgressBar levelProgress;
-    public FormattedTextComponent currentExp;
-    public FormattedTextComponent energy;
     public VerticalLayoutGroup buttonLayOutGroup;
 
     public async UniTask AnimationIn()
@@ -34,15 +31,11 @@ public class UIMainMenuAnimation : UISequenceAnimationBase
             .AppendCallback(() => buttonLayOutGroup.enabled = false)
             .Append(((RectTransform)userInfoAndhorseBreed.transform).DOAnchorPosXFrom(-700, 0.25f))
             .Join(((RectTransform)userInfoAndhorseBreed.transform).DOFade(0.0f, 1.0f, 0.25f))
-            .Append(horseProgressList.instanceList
-                .Select(x => DOTweenExtensions.To(x.SetProgress, 0, x.entity.progress, 0.25f)).ToArray()
-                .AsSequence(false))
+            //.Append(horseProgressList.instanceList
+            //    .Select(x => DOTweenExtensions.To(x.SetProgress, 0, x.entity.progress, 0.25f)).ToArray()
+            //    .AsSequence(false))
             .Join(horseDetailAnimation.CreateAnimation())
-            .Join(DOTweenExtensions.To(levelProgress.SetProgress, 0.0f, levelProgress.entity.progress, 0.25f))
-            .Join(currentExp.CreateNumberAnimation<int>(0.25f, 0, 1))
-            .Join(energy.CreateNumberAnimation<int>(0.25f, 0, 1))
-            .Append(buttons.Select(x => ((RectTransform)x.transform).DOAnchorPosXFrom(600, 0.25f)).ToArray()
-                .AsSequence(false, 0.1f))
+            .Join(((RectTransform)Banner.transform).DOAnchorPosYFrom(1000, 0.25f))  
             .OnKill(() => buttonLayOutGroup.enabled = true);
     }
 
@@ -57,8 +50,7 @@ public class UIMainMenuAnimation : UISequenceAnimationBase
             .AppendCallback(() => buttonLayOutGroup.enabled = false)
             .Append(((RectTransform)userInfoAndhorseBreed.transform).DOAnchorPosXToThenReverse(-700, 0.25f))
             .Join(((RectTransform)userInfoAndhorseBreed.transform).DOFade(1.0f, 0.0f, 0.5f, true))
-            .Join(buttons.Select(x => ((RectTransform)x.transform).DOAnchorPosXToThenReverse(600, 0.25f)).ToArray()
-                .AsSequence(false, 0.1f))
+            .Join(((RectTransform)Banner.transform).DOAnchorPosYToThenReverse(1000, 0.25f))
             .OnKill(() => buttonLayOutGroup.enabled = true);
     }
 

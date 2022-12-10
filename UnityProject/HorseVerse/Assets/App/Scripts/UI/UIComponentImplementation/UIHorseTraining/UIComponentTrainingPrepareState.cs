@@ -9,17 +9,17 @@ public class UIComponentTrainingPrepareState : UIComponent<UIComponentTrainingPr
     {
         public ButtonComponent.Entity toTraningBtn;
         public int traningCost;
-        public UIComponentHorseTraningMapSelection.Entity mapSelection;
+        //public UIComponentHorseTraningMapSelection.Entity mapSelection;
     }
 
     public ButtonComponent toTraningBtn;
     public FormattedTextComponent traningCost;
-    public UIComponentHorseTraningMapSelection mapSelection;
+    //public UIComponentHorseTraningMapSelection mapSelection;
 
     protected override void OnSetEntity()
     {
         toTraningBtn.SetEntity(this.entity.toTraningBtn);
         traningCost.SetEntity(this.entity.traningCost);
-        mapSelection.SetEntity(this.entity.mapSelection);
+        //mapSelection.SetEntity(this.entity.mapSelection);
     }
 }	

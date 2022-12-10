@@ -18,7 +18,7 @@ public class UIBackGroundPresenter : IDisposable
         {
             cts.SafeCancelAndDispose();
             cts = new CancellationTokenSource();
-            uiBackGround ??= await UILoader.Instantiate<UIBackGround>(UICanvas.UICanvasType.BackGround, token: cts.Token);
+            uiBackGround ??= await UILoader.InstantiateInSpace<UIBackGround>(ObjectCanvas.UICanvasType.BackGround, token: cts.Token);
             uiBackGround.SetEntity(new UIBackGround.Entity());
             uiBackGround.In().Forget();
         } 

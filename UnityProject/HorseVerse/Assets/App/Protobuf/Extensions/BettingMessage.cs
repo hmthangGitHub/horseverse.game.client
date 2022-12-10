@@ -42,6 +42,12 @@ namespace io.hverse.game.protogen
             MsgType = BettingMessageType.GetBetHistoryRequest;
             GetBetHistoryRequest = x;
         }
+
+        public BettingMessage(GetHorseListRequest x)
+        {
+            MsgType = BettingMessageType.GetHorseListRequest;
+            GetHorseListRequest = x;
+        }
     }    
 }
 

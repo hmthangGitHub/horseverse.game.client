@@ -186,6 +186,8 @@ public class HorseRacePresenter : IDisposable
                 uiHorseRaceStatus.playerList.ChangePosition(positions[i].InitialLane, i);
                 cachePositions[i] = positions[i].InitialLane;
             }
+            if (i == 0) uiHorseRaceStatus.UpdateFirstRank(uiHorseRaceStatus.playerList.GetName(positions[i].InitialLane));
+            if (i == 1) uiHorseRaceStatus.UpdateSecondRank(uiHorseRaceStatus.playerList.GetName(positions[i].InitialLane));
         }
     }
 

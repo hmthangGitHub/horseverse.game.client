@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Net.Sockets;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -37,7 +38,7 @@ public class LoginStatePresenter : IDisposable
         string host = "tcp.prod.game.horsesoflegends.com";
         int port = 8670;
 #endif
-
+        await doInitLocalLocalization();
 #if CUSTOM_SERVER
         var uiSV = await UILoader.Instantiate<UIPopUpServerSelection>(token: cts.Token);
         bool wait = true;
@@ -124,7 +125,7 @@ public class LoginStatePresenter : IDisposable
 
     private async UniTask<bool> doLoginWithAccessToken()
     {
-        var token = PlayerPrefs.GetString("USER_LOGIN_ACCESS_TOKEN", "");
+        var token = PlayerPrefs.GetString(GameDefine.TOKEN_STORAGE, "");
         if (!string.IsNullOrEmpty(token))
         {
             var res = await SocketClient.Send<LoginRequest, LoginResponse>(new LoginRequest()
@@ -176,6 +177,7 @@ public class LoginStatePresenter : IDisposable
     {
         uiLogin = await UILoader.Instantiate<UILogin>(token: cts.Token);
         bool closed = false;
+        bool result = false;
         uiLogin.SetEntity(new UILogin.Entity()
         {
             id = new UIComponentInputField.Entity(),
@@ -184,11 +186,25 @@ public class LoginStatePresenter : IDisposable
             {
                 LoginAsync().Forget();
                 closed = true;
+                result = true;
+            }),
+            cancelBtn = new ButtonComponent.Entity(()=> {
+                closeAccount().Forget(); closed = true; result = false;
+            }), 
+            registerBtn = new ButtonComponent.Entity(()=> { 
+                
             })
         });
         uiLogin.In().Forget();
         await UniTask.WaitUntil(() => closed == true);
-        return true;
+        return result;
+    }
+
+    private async UniTask closeAccount()
+    {
+        await uiLogin.Out();
+        UILoader.SafeRelease(ref uiLogin);
+        uiLogin = default;
     }
 
     private async UniTask<bool> doLoginWithOTP()
@@ -272,12 +288,15 @@ public class LoginStatePresenter : IDisposable
     {
         if (res?.ResultCode == 100)
         {
+            // GetMasterData 
+            var data = await GetMasterData();
+
             var model = new UserDataModel()
             {
                 Coin = res.PlayerInfo.Chip,
                 Energy = res.PlayerInfo.Energy,
                 CurrentHorseNftId = res.PlayerInfo.CurrentHorse.NftId,
-                MaxEnergy = 100,
+                MaxEnergy = (data != default) ? data.MaxEnergyNumber : 0,
                 UserId = res.PlayerInfo.Id,
                 UserName = res.PlayerInfo.Name,
                 Exp = 0,
@@ -286,11 +305,47 @@ public class LoginStatePresenter : IDisposable
                 TraningTimeStamp = 0,
             };
             await UserDataRepository.UpdateDataAsync(new UserDataModel[] { model });
-            PlayerPrefs.SetString("USER_LOGIN_ACCESS_TOKEN", res.PlayerInfo.AccessToken);
+            PlayerPrefs.SetString(GameDefine.TOKEN_STORAGE, res.PlayerInfo.AccessToken);
         }
         else
         {
             //throw new Exception("Login Failed");
+            await ShowMessagePopUp("NOTICE", LanguageManager.GetText($"RESULT_CODE_{res.ResultCode}"));
         }
+    }
+
+    private async UniTask ShowMessagePopUp(string title, string message)
+    {
+        var uiConfirm = await UILoader.Instantiate<UIPopupMessage>(token: cts.Token);
+        bool wait = true;
+
+        uiConfirm.SetEntity(new UIPopupMessage.Entity()
+        {
+            title = title,
+            message = message,
+            confirmBtn = new ButtonComponent.Entity(() => { wait = false; })
+        });
+        await uiConfirm.In();
+        await UniTask.WaitUntil(() => wait == false);
+        UILoader.SafeRelease(ref uiConfirm);
+    }
+
+    private async UniTask<MasterDataResponse> GetMasterData()
+    {
+        var res = await SocketClient.Send<MasterDataRequest, MasterDataResponse>(new MasterDataRequest());
+        return res;
+    }
+
+    IEnumerator doInitLocalLocalization(System.Action onFinish = null)
+    {
+        string path = $"Localization/Localization";
+        ResourceRequest rq = Resources.LoadAsync<LanguageDependentText>(path);
+        yield return rq;
+        if (rq.asset != null)
+        {
+            LanguageDependentText depen = rq.asset as LanguageDependentText;
+            LanguageManager.InitializeLocal(SystemLanguage.English, depen);
+        }
+        onFinish?.Invoke();
     }
 }

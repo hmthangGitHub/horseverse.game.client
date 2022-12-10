@@ -14,6 +14,9 @@ public class UIHeaderPresenter : IDisposable
     private IReadOnlyUserDataRepository userDataRepository = default;
     public IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
     public event Action OnBack = ActionUtility.EmptyAction.Instance;
+    
+    private UIPopUpSettings uiSetting;
+
 
     public UIHeaderPresenter(IDIContainer container)
     {
@@ -29,13 +32,14 @@ public class UIHeaderPresenter : IDisposable
         }
     }
 
-    public async UniTask ShowHeaderAsync(bool showBackBtn = true)
+    public async UniTask ShowHeaderAsync(bool showBackBtn = true, string title = "")
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         await UserDataRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
         await InstantiateUIIfNeed();
         ShowBackBtn(showBackBtn);
+        SetTitle(title);
         uiHeader.In().Forget();
     }
 
@@ -50,7 +54,8 @@ public class UIHeaderPresenter : IDisposable
                 energy = UserDataRepository.Current.Energy,
                 maxEnergy = UserDataRepository.Current.MaxEnergy,
                 userName = UserDataRepository.Current.UserName,
-                backBtn = new ButtonComponent.Entity(() => OnBack())
+                backBtn = new ButtonComponent.Entity(() => OnBack()),
+                settingBtn = new ButtonComponent.Entity(() => OnSetting().Forget())
             });
         }
     }
@@ -67,11 +72,69 @@ public class UIHeaderPresenter : IDisposable
         uiHeader.SetVisibleBackBtn(showBackBtn);
     }
 
+    public void SetTitle(string title)
+    {
+        uiHeader.SetTitle(title);
+    }
+
     public void Dispose()
     {
         cts.SafeCancelAndDispose();
         cts = default;
         UserDataRepository.OnModelUpdate -= OnModelUpdate;
+        UILoader.SafeRelease(ref uiSetting);
         UILoader.SafeRelease(ref uiHeader);
+       
+    }
+
+    private async UniTask OnSetting()
+    {
+        var ucs = new UniTaskCompletionSource();
+        uiSetting ??= await UILoader.Instantiate<UIPopUpSettings>(token: cts.Token);
+        bool _LogOut = false;
+        uiSetting.SetEntity(new UIPopUpSettings.Entity()
+        {
+            closeBtn = new ButtonComponent.Entity(()=> { ucs.TrySetResult(); }),
+            logOutBtn = new ButtonComponent.Entity(()=> { ucs.TrySetResult(); _LogOut = true; }),
+            bgmSlider = new UIComponentProgressBar.Entity()
+            {
+                progress = SoundController.GetBGMVolume(),
+                OnChangeValue = UpdateBGM,
+            },
+            gfxSlider = new UIComponentProgressBar.Entity
+            {
+                progress = SoundController.GetGFXVolume(),
+                OnChangeValue = UpdateGFX,
+            },
+            sfxSlider = new UIComponentProgressBar.Entity
+            {
+                progress = SoundController.GetSFXVolume(),
+                OnChangeValue = UpdateSFX,
+            },
+        });
+        await uiSetting.In();
+        await ucs.Task;
+        await uiSetting.Out();
+        if (_LogOut) LogOut();
+    }
+
+    private void UpdateBGM(float f)
+    {
+        SoundController.SetBGMVolume(f);
+    }
+
+    private void UpdateSFX(float f)
+    {
+        SoundController.SetSFXVolume(f);
+    }
+
+    private void UpdateGFX(float f)
+    {
+        SoundController.SetGFXVolume(f);
+    }
+
+    private void LogOut()
+    {
+
     }
 }

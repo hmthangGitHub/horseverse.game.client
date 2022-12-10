@@ -29,47 +29,48 @@ namespace io.hverse.game.protogen {
             "MhIuTWFzdGVyRGF0YVJlcXVlc3QSLwoSbWFzdGVyRGF0YVJlc3BvbnNlGAMg",
             "ASgLMhMuTWFzdGVyRGF0YVJlc3BvbnNlIhMKEU1hc3RlckRhdGFSZXF1ZXN0",
             "Ii0KEk1hc3RlckRhdGFSZXNwb25zZRIXCg9tYXhFbmVyZ3lOdW1iZXIYASAB",
-            "KAUijwIKCUhvcnNlSW5mbxINCgVuZnRJZBgBIAEoAxILCgNibXMYAiABKAIS",
+            "KAUi4wIKCUhvcnNlSW5mbxINCgVuZnRJZBgBIAEoAxILCgNibXMYAiABKAIS",
             "CwoDbW1zGAMgASgCEhQKDGFjY2VsZXJhdGlvbhgEIAEoAhIPCgdzdGFtaW5h",
             "GAUgASgCEh0KCWhvcnNlVHlwZRgGIAEoDjIKLkhvcnNlVHlwZRIXCgZyYXJp",
             "dHkYByABKA4yBy5SYXJpdHkSDAoEbHVjaxgIIAEoBRINCgVsZXZlbBgJIAEo",
             "BRIOCgZjb2xvcjEYCiABKAkSDgoGY29sb3IyGAsgASgJEg4KBmNvbG9yMxgM",
             "IAEoCRIOCgZjb2xvcjQYDSABKAkSDwoHd2luUmF0ZRgOIAEoAhIMCgRuYW1l",
-            "GA8gASgJIjcKClJld2FyZEluZm8SGQoEdHlwZRgBIAEoDjILLlJld2FyZFR5",
-            "cGUSDgoGYW1vdW50GAIgASgDIoYBCghJdGVtSW5mbxIXCgR0eXBlGAEgASgO",
-            "MgkuSXRlbVR5cGUSIwoMY2hlc3RLZXlJbmZvGAIgASgLMg0uQ2hlc3RLZXlJ",
-            "bmZvEh0KCWNoZXN0SW5mbxgDIAEoCzIKLkNoZXN0SW5mbxIdCglwaWVjZUlu",
-            "Zm8YBCABKAsyCi5QaWVjZUluZm8iSQoMQ2hlc3RLZXlJbmZvEgwKBG5hbWUY",
-            "ASABKAkSGwoEdHlwZRgCIAEoDjINLkNoZXN0S2V5VHlwZRIOCgZhbW91bnQY",
-            "AyABKAUiQwoJQ2hlc3RJbmZvEgwKBG5hbWUYASABKAkSGAoEdHlwZRgCIAEo",
-            "DjIKLkNoZXN0VHlwZRIOCgZhbW91bnQYAyABKAUiWgoJUGllY2VJbmZvEgwK",
-            "BG5hbWUYASABKAkSGAoEdHlwZRgCIAEoDjIKLlBpZWNlVHlwZRIVCg1jb21i",
-            "aW5lTnVtYmVyGAMgASgFEg4KBmFtb3VudBgEIAEoBSpECg9EYXRhTWVzc2Fn",
-            "ZVR5cGUSFwoTTUFTVEVSX0RBVEFfUkVRVUVTVBAAEhgKFE1BU1RFUl9EQVRB",
-            "X1JFU1BPTlNFEAEqeQoGUmFyaXR5EhIKDlJBUklUWV9VTktOT1dOEAASEQoN",
-            "UkFSSVRZX0NPTU1PThABEhMKD1JBUklUWV9VTkNPTU1PThACEg8KC1JBUklU",
-            "WV9SQVJFEAMSDwoLUkFSSVRZX0VQSUMQBBIRCg1SQVJJVFlfTEVHRU5EEAUq",
-            "ZwoJSG9yc2VUeXBlEhYKEkhPUlNFX1RZUEVfVU5LTk9XThAAEhQKEEhPUlNF",
-            "X1RZUEVfQkxBWkUQARIWChJIT1JTRV9UWVBFX1RIVU5ERVIQAhIUChBIT1JT",
-            "RV9UWVBFX0hJRFJPEAMqIAoETGFuZRIGCgJJThAAEgcKA01JRBABEgcKA09V",
-            "VBACKkYKDFJld2FyZFN0YXR1cxIbChdSRVdBUkRfU1RBVFVTX1VOQ0xBSU1F",
-            "RBAAEhkKFVJFV0FSRF9TVEFUVVNfQ0xBSU1FRBABKk8KClJld2FyZFR5cGUS",
-            "FAoQUkVXQVJEX1RZUEVfTk9ORRAAEhQKEFJFV0FSRF9UWVBFX0NISVAQARIV",
-            "ChFSRVdBUkRfVFlQRV9DSEVTVBACKk0KCEl0ZW1UeXBlEhcKE0lURU1fVFlQ",
-            "RV9DSEVTVF9LRVkQABITCg9JVEVNX1RZUEVfQ0hFU1QQARITCg9JVEVNX1RZ",
-            "UEVfUElFQ0UQAiopCgxDaGVzdEtleVR5cGUSGQoVQ0hFU1RfS0VZX1RZUEVf",
-            "Q09NTU9OEAAqNwoJQ2hlc3RUeXBlEhUKEUNIRVNUX1RZUEVfQ09NTU9OEAAS",
-            "EwoPQ0hFU1RfVFlQRV9SQVJFEAEqIQoJUGllY2VUeXBlEhQKEFBJRUNFX1RZ",
-            "UEVfQ0hFU1QQAEJHChdpby5odmVyc2UuZ2FtZS5wcm90b2dlbkISRGF0YU1l",
-            "c3NhZ2VGYWN0b3J5qgIXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5iBnByb3Rv",
-            "Mw=="));
+            "GA8gASgJEhkKEWxhc3RCZXR0aW5nUmVjb3JkGBAgASgCEhwKFGF2ZXJhZ2VC",
+            "ZXR0aW5nUmVjb3JkGBEgASgCEhkKEWJlc3RCZXR0aW5nUmVjb3JkGBIgASgC",
+            "IjcKClJld2FyZEluZm8SGQoEdHlwZRgBIAEoDjILLlJld2FyZFR5cGUSDgoG",
+            "YW1vdW50GAIgASgDIoYBCghJdGVtSW5mbxIXCgR0eXBlGAEgASgOMgkuSXRl",
+            "bVR5cGUSIwoMY2hlc3RLZXlJbmZvGAIgASgLMg0uQ2hlc3RLZXlJbmZvEh0K",
+            "CWNoZXN0SW5mbxgDIAEoCzIKLkNoZXN0SW5mbxIdCglwaWVjZUluZm8YBCAB",
+            "KAsyCi5QaWVjZUluZm8iSQoMQ2hlc3RLZXlJbmZvEgwKBG5hbWUYASABKAkS",
+            "GwoEdHlwZRgCIAEoDjINLkNoZXN0S2V5VHlwZRIOCgZhbW91bnQYAyABKAUi",
+            "QwoJQ2hlc3RJbmZvEgwKBG5hbWUYASABKAkSGAoEdHlwZRgCIAEoDjIKLkNo",
+            "ZXN0VHlwZRIOCgZhbW91bnQYAyABKAUiWgoJUGllY2VJbmZvEgwKBG5hbWUY",
+            "ASABKAkSGAoEdHlwZRgCIAEoDjIKLlBpZWNlVHlwZRIVCg1jb21iaW5lTnVt",
+            "YmVyGAMgASgFEg4KBmFtb3VudBgEIAEoBSpECg9EYXRhTWVzc2FnZVR5cGUS",
+            "FwoTTUFTVEVSX0RBVEFfUkVRVUVTVBAAEhgKFE1BU1RFUl9EQVRBX1JFU1BP",
+            "TlNFEAEqeQoGUmFyaXR5EhIKDlJBUklUWV9VTktOT1dOEAASEQoNUkFSSVRZ",
+            "X0NPTU1PThABEhMKD1JBUklUWV9VTkNPTU1PThACEg8KC1JBUklUWV9SQVJF",
+            "EAMSDwoLUkFSSVRZX0VQSUMQBBIRCg1SQVJJVFlfTEVHRU5EEAUqZwoJSG9y",
+            "c2VUeXBlEhYKEkhPUlNFX1RZUEVfVU5LTk9XThAAEhQKEEhPUlNFX1RZUEVf",
+            "QkxBWkUQARIWChJIT1JTRV9UWVBFX1RIVU5ERVIQAhIUChBIT1JTRV9UWVBF",
+            "X0hJRFJPEAMqIAoETGFuZRIGCgJJThAAEgcKA01JRBABEgcKA09VVBACKkYK",
+            "DFJld2FyZFN0YXR1cxIbChdSRVdBUkRfU1RBVFVTX1VOQ0xBSU1FRBAAEhkK",
+            "FVJFV0FSRF9TVEFUVVNfQ0xBSU1FRBABKk8KClJld2FyZFR5cGUSFAoQUkVX",
+            "QVJEX1RZUEVfTk9ORRAAEhQKEFJFV0FSRF9UWVBFX0NISVAQARIVChFSRVdB",
+            "UkRfVFlQRV9DSEVTVBACKk0KCEl0ZW1UeXBlEhcKE0lURU1fVFlQRV9DSEVT",
+            "VF9LRVkQABITCg9JVEVNX1RZUEVfQ0hFU1QQARITCg9JVEVNX1RZUEVfUElF",
+            "Q0UQAiopCgxDaGVzdEtleVR5cGUSGQoVQ0hFU1RfS0VZX1RZUEVfQ09NTU9O",
+            "EAAqNwoJQ2hlc3RUeXBlEhUKEUNIRVNUX1RZUEVfQ09NTU9OEAASEwoPQ0hF",
+            "U1RfVFlQRV9SQVJFEAEqIQoJUGllY2VUeXBlEhQKEFBJRUNFX1RZUEVfQ0hF",
+            "U1QQAEJHChdpby5odmVyc2UuZ2FtZS5wcm90b2dlbkISRGF0YU1lc3NhZ2VG",
+            "YWN0b3J5qgIXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.DataMessageType), typeof(global::io.hverse.game.protogen.Rarity), typeof(global::io.hverse.game.protogen.HorseType), typeof(global::io.hverse.game.protogen.Lane), typeof(global::io.hverse.game.protogen.RewardStatus), typeof(global::io.hverse.game.protogen.RewardType), typeof(global::io.hverse.game.protogen.ItemType), typeof(global::io.hverse.game.protogen.ChestKeyType), typeof(global::io.hverse.game.protogen.ChestType), typeof(global::io.hverse.game.protogen.PieceType), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.DataMessage), global::io.hverse.game.protogen.DataMessage.Parser, new[]{ "MsgType", "MasterDataRequest", "MasterDataResponse" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataRequest), global::io.hverse.game.protogen.MasterDataRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataResponse), global::io.hverse.game.protogen.MasterDataResponse.Parser, new[]{ "MaxEnergyNumber" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "Bms", "Mms", "Acceleration", "Stamina", "HorseType", "Rarity", "Luck", "Level", "Color1", "Color2", "Color3", "Color4", "WinRate", "Name" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "Bms", "Mms", "Acceleration", "Stamina", "HorseType", "Rarity", "Luck", "Level", "Color1", "Color2", "Color3", "Color4", "WinRate", "Name", "LastBettingRecord", "AverageBettingRecord", "BestBettingRecord" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RewardInfo), global::io.hverse.game.protogen.RewardInfo.Parser, new[]{ "Type", "Amount" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ItemInfo), global::io.hverse.game.protogen.ItemInfo.Parser, new[]{ "Type", "ChestKeyInfo", "ChestInfo", "PieceInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ChestKeyInfo), global::io.hverse.game.protogen.ChestKeyInfo.Parser, new[]{ "Name", "Type", "Amount" }, null, null, null, null),
@@ -812,6 +813,9 @@ namespace io.hverse.game.protogen {
       color4_ = other.color4_;
       winRate_ = other.winRate_;
       name_ = other.name_;
+      lastBettingRecord_ = other.lastBettingRecord_;
+      averageBettingRecord_ = other.averageBettingRecord_;
+      bestBettingRecord_ = other.bestBettingRecord_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1013,6 +1017,51 @@ namespace io.hverse.game.protogen {
       }
     }
 
+    /// <summary>Field number for the "lastBettingRecord" field.</summary>
+    public const int LastBettingRecordFieldNumber = 16;
+    private float lastBettingRecord_;
+    /// <summary>
+    /// Just for betting
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float LastBettingRecord {
+      get { return lastBettingRecord_; }
+      set {
+        lastBettingRecord_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "averageBettingRecord" field.</summary>
+    public const int AverageBettingRecordFieldNumber = 17;
+    private float averageBettingRecord_;
+    /// <summary>
+    /// Just for betting
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float AverageBettingRecord {
+      get { return averageBettingRecord_; }
+      set {
+        averageBettingRecord_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "bestBettingRecord" field.</summary>
+    public const int BestBettingRecordFieldNumber = 18;
+    private float bestBettingRecord_;
+    /// <summary>
+    /// Just for betting
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float BestBettingRecord {
+      get { return bestBettingRecord_; }
+      set {
+        bestBettingRecord_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1043,6 +1092,9 @@ namespace io.hverse.game.protogen {
       if (Color4 != other.Color4) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(WinRate, other.WinRate)) return false;
       if (Name != other.Name) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(LastBettingRecord, other.LastBettingRecord)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(AverageBettingRecord, other.AverageBettingRecord)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(BestBettingRecord, other.BestBettingRecord)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1065,6 +1117,9 @@ namespace io.hverse.game.protogen {
       if (Color4.Length != 0) hash ^= Color4.GetHashCode();
       if (WinRate != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(WinRate);
       if (Name.Length != 0) hash ^= Name.GetHashCode();
+      if (LastBettingRecord != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(LastBettingRecord);
+      if (AverageBettingRecord != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(AverageBettingRecord);
+      if (BestBettingRecord != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(BestBettingRecord);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1143,6 +1198,18 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(122);
         output.WriteString(Name);
       }
+      if (LastBettingRecord != 0F) {
+        output.WriteRawTag(133, 1);
+        output.WriteFloat(LastBettingRecord);
+      }
+      if (AverageBettingRecord != 0F) {
+        output.WriteRawTag(141, 1);
+        output.WriteFloat(AverageBettingRecord);
+      }
+      if (BestBettingRecord != 0F) {
+        output.WriteRawTag(149, 1);
+        output.WriteFloat(BestBettingRecord);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1213,6 +1280,18 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(122);
         output.WriteString(Name);
       }
+      if (LastBettingRecord != 0F) {
+        output.WriteRawTag(133, 1);
+        output.WriteFloat(LastBettingRecord);
+      }
+      if (AverageBettingRecord != 0F) {
+        output.WriteRawTag(141, 1);
+        output.WriteFloat(AverageBettingRecord);
+      }
+      if (BestBettingRecord != 0F) {
+        output.WriteRawTag(149, 1);
+        output.WriteFloat(BestBettingRecord);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1267,6 +1346,15 @@ namespace io.hverse.game.protogen {
       }
       if (Name.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
+      }
+      if (LastBettingRecord != 0F) {
+        size += 2 + 4;
+      }
+      if (AverageBettingRecord != 0F) {
+        size += 2 + 4;
+      }
+      if (BestBettingRecord != 0F) {
+        size += 2 + 4;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1324,6 +1412,15 @@ namespace io.hverse.game.protogen {
       }
       if (other.Name.Length != 0) {
         Name = other.Name;
+      }
+      if (other.LastBettingRecord != 0F) {
+        LastBettingRecord = other.LastBettingRecord;
+      }
+      if (other.AverageBettingRecord != 0F) {
+        AverageBettingRecord = other.AverageBettingRecord;
+      }
+      if (other.BestBettingRecord != 0F) {
+        BestBettingRecord = other.BestBettingRecord;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1400,6 +1497,18 @@ namespace io.hverse.game.protogen {
             Name = input.ReadString();
             break;
           }
+          case 133: {
+            LastBettingRecord = input.ReadFloat();
+            break;
+          }
+          case 141: {
+            AverageBettingRecord = input.ReadFloat();
+            break;
+          }
+          case 149: {
+            BestBettingRecord = input.ReadFloat();
+            break;
+          }
         }
       }
     #endif
@@ -1473,6 +1582,18 @@ namespace io.hverse.game.protogen {
           }
           case 122: {
             Name = input.ReadString();
+            break;
+          }
+          case 133: {
+            LastBettingRecord = input.ReadFloat();
+            break;
+          }
+          case 141: {
+            AverageBettingRecord = input.ReadFloat();
+            break;
+          }
+          case 149: {
+            BestBettingRecord = input.ReadFloat();
             break;
           }
         }

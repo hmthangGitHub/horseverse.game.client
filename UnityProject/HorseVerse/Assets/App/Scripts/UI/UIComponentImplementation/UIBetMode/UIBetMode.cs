@@ -9,29 +9,31 @@ public class UIBetMode : PopupEntity<UIBetMode.Entity>
     public class Entity
     {
         public UIComponentBetModeHeader.Entity header;
-        public ButtonComponent.Entity backBtn;
         public UIComponentSingleBetSlotList.Entity singleBetSlotList;
         public UIComponentDoubleBetList.Entity doubleBetSlotList;
         public UIComponentQuickBetButtonsContainer.Entity quickBetButtonsContainer;
         public UIComponentBetAmouthsContainer.Entity betAmouthsContainer;
+        public ButtonComponent.Entity btnHorseList;
+        
     }
 
     public UIComponentBetModeHeader header;
-    public ButtonComponent backBtn;
     public UIComponentSingleBetSlotList singleBetSlotList;
     public UIComponentDoubleBetList doubleBetSlotList;
     public UIComponentQuickBetButtonsContainer quickBetButtonsContainer;
     public UIComponentBetAmouthsContainer betAmouthsContainer;
     public UIBetModeAnimation uiBetModeAnimation;
-    
+    public ButtonComponent btnHorseList;
+
+
     protected override void OnSetEntity()
     {
         header.SetEntity(this.entity.header);
-        backBtn.SetEntity(this.entity.backBtn);
         singleBetSlotList.SetEntity(this.entity.singleBetSlotList);
         doubleBetSlotList.SetEntity(this.entity.doubleBetSlotList);
         quickBetButtonsContainer.SetEntity(this.entity.quickBetButtonsContainer);
         betAmouthsContainer.SetEntity(this.entity.betAmouthsContainer);
+        btnHorseList.SetEntity(this.entity.btnHorseList);
     }
 
     protected override UniTask AnimationIn()

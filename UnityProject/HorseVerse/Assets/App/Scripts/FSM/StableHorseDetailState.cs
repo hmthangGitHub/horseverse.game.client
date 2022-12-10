@@ -16,7 +16,7 @@ public class StableHorseDetailState : InjectedBState
         base.Enter();
         Container.Bind(new LocalHorseDetailDomainService(Container));
 
-        UIHeaderPresenter.ShowHeaderAsync(true).Forget();
+        UIHeaderPresenter.ShowHeaderAsync(true, "STABLE").Forget();
         UIHeaderPresenter.OnBack += OnBack;
 
         UIHorse3DViewPresenter.ShowHorse3DViewAsync().Forget();
