@@ -240,7 +240,6 @@ public class HorseRacePresenter : IDisposable
         
         raceModeHorseIntroPresenter?.Dispose();
         raceModeHorseIntroPresenter = default;
-        audioPresenter = default;
         AudioManager.Instance.StopSound();
     }
 }
