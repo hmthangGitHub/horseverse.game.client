@@ -98,7 +98,7 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
     {
         if (horse != null)
         {
-            Animator animator = horse.GetComponent<Animator>();
+            Animator animator = horse.GetComponentInChildren<Animator>();
             animator.applyRootMotion = false;
         }
     }

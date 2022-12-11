@@ -29,7 +29,14 @@ public static class Vector3Extensions
     
     public static float Map(float s, float a1, float a2, float b1, float b2)
     {
-        return b1 + (s-a1)*(b2-b1)/(a2-a1);
+        if (Math.Abs(a2 - a1) < 0.0001f)
+        {
+            return (b1 + b2) * 0.5f;
+        }
+        else
+        {
+            return b1 + (s-a1)*(b2-b1)/(a2-a1);    
+        }
     }
     
     public static IEnumerable<TSource> DistinctBy<TSource, TKey>

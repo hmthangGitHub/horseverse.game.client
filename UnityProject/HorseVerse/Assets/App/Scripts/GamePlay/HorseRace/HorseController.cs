@@ -20,7 +20,7 @@ public class HorseController : MonoBehaviour
     public bool IsPlayer => horseInGameData.IsPlayer;
     private float CurrentOffset => horseInGameData.CurrentOffset;
     public int TopInRaceMatch => horseInGameData.TopInRaceMatch;
-    public float CurrentRaceProgressWeight => currentTargetIndex * 1000 - DistanceToCurrentTarget();
+    public float CurrentRaceProgressWeight => progressiveTargetIndex * 10000 - DistanceToCurrentTarget();
     public int InitialLane => horseInGameData.InitialLane;
     private PathCreator PathCreator => horseInGameData.TargetGenerator.SimplyPath;
     private (Vector3 target, float time)[] PredefineTargets => horseInGameData?.PredefineTargets.targets;
@@ -31,6 +31,8 @@ public class HorseController : MonoBehaviour
     private Transform _transform;
     private Transform Transform => _transform ??= this.transform;
     private int currentTargetIndex = -1;
+    private int progressiveTargetIndex = -1;
+    private int currentLap = 0;
     private bool isStart;
     private Animator animator;
 
@@ -149,13 +151,14 @@ public class HorseController : MonoBehaviour
 
     private bool IsLastWayPoint()
     {
-        return currentTargetIndex == FinishIndex;
+        return progressiveTargetIndex == FinishIndex;
     }
 
     private void ChangeTarget()
     {
-        currentTargetIndex++;
-        currentTargetIndex %= PredefineTargets.Length;
+        progressiveTargetIndex++;
+        currentLap = progressiveTargetIndex / PredefineTargets.Length; 
+        currentTargetIndex = progressiveTargetIndex % PredefineTargets.Length;
         navMeshAgent.destination = PredefineTargets[currentTargetIndex].target;
         navMeshAgent.speed = (Transform.position - PredefineTargets[currentTargetIndex].target).magnitude / PredefineTargets[currentTargetIndex].time;
 
@@ -176,6 +179,6 @@ public class HorseController : MonoBehaviour
 
     private void SetAnimation(float time)
     {
-        targetAnimationSpeed = Vector3Extensions.Map(time, timeRange.x - 0.000001f, timeRange.y + 0.00001f, 1.1f, 0.8f);
+        targetAnimationSpeed = Vector3Extensions.Map(time, timeRange.x, timeRange.y, 1.1f, 0.8f);
     }
 }

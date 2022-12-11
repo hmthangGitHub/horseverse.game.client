@@ -30,7 +30,7 @@ public class HorseRacePresenter : IDisposable
     private MasterMap masterMap;
     private MapSettings mapSettings;
     private TargetGenerator targetGenerator;
-    private CancellationTokenSource cts;
+    private CancellationTokenSource statusCts;
     private RaceModeHorseIntroPresenter raceModeHorseIntroPresenter;
     private int numberOfHorseFinishTheRace = 0;
 
@@ -111,10 +111,10 @@ public class HorseRacePresenter : IDisposable
 
     private async UniTaskVoid StartUpdateRaceHorseStatus()
     {
-        cts = new CancellationTokenSource();
+        statusCts = new CancellationTokenSource();
         while (true)
         {
-            await UniTask.WaitForFixedUpdate(cancellationToken : cts.Token);
+            await UniTask.WaitForFixedUpdate(cancellationToken : statusCts.Token);
             UpdateRaceStatus();
         }
     }
@@ -133,12 +133,16 @@ public class HorseRacePresenter : IDisposable
 
     private async UniTask OnFinishTrackAsync()
     {
-        AudioManager.Instance.StopSound();
-        await FlashScreenAsync();
-        AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunRacing);
-        numberOfHorseFinishTheRace++;
-        if (numberOfHorseFinishTheRace == 2)
+        if (numberOfHorseFinishTheRace < 2)
         {
+            AudioManager.Instance.StopSound();
+            await FlashScreenAsync();
+            AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunRacing);
+            numberOfHorseFinishTheRace++;
+        }
+        if (numberOfHorseFinishTheRace >= 2)
+        {
+            statusCts.SafeCancelAndDispose();
             horseRaceManager.OnFinishTrackEvent -= OnFinishTrack;
             uiHorseRaceStatus.Out().Forget();
             await UIBackGroundPresenter.ShowBackGroundAsync();
@@ -212,7 +216,7 @@ public class HorseRacePresenter : IDisposable
 
     public void Dispose()
     {
-        cts.SafeCancelAndDispose();
+        statusCts.SafeCancelAndDispose();
         horseRaceManager.Dispose();
         Object.Destroy(horseRaceManager?.gameObject);
         horseRaceManager = null;
