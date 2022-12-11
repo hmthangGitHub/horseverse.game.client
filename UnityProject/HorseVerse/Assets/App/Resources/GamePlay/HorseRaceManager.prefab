@@ -79,6 +79,7 @@ Transform:
   - {fileID: 8251910977996556368}
   - {fileID: 3105539193534741760}
   - {fileID: 6582944123425411307}
+  - {fileID: 744169412276267109}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -106,6 +107,7 @@ MonoBehaviour:
   horseControllers: []
   horsePosition: {fileID: 3105539193534741760}
   horseGroup: {fileID: 3105539192944362201}
+  followTarget: {fileID: 744169412276267109}
   averageSpeed: 14
   averageTimeToFinish: 0
   timeOffSet: {x: -0.5, y: 0.5}
@@ -173,8 +175,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3105539194236147834}
-  m_LocalRotation: {x: -0.1417375, y: 0.83344346, z: -0.25038496, w: -0.47179428}
-  m_LocalPosition: {x: -87.42414, y: 4.2021904, z: 38.19406}
+  m_LocalRotation: {x: 0.049546994, y: 0.87769634, z: -0.093024075, w: 0.46748346}
+  m_LocalPosition: {x: 100.76744, y: 5.0199995, z: 29.86583}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3105539193444477319}
@@ -205,7 +207,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 500
-  field of view: 65
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -243,7 +245,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 6
-    m_Time: 2
+    m_Time: 3
     m_CustomCurve:
       serializedVersion: 2
       m_Curve:
@@ -657,3 +659,33 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7950062687985578189
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 744169412276267109}
+  m_Layer: 0
+  m_Name: followTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &744169412276267109
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7950062687985578189}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1338.75, y: 619, z: -25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3105539193444477319}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

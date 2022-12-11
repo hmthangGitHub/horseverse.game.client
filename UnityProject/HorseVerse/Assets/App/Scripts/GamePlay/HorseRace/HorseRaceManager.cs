@@ -35,6 +35,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
 
     public Transform horsePosition;
     public CinemachineTargetGroup horseGroup;
+    public Transform followTarget;
     public float RaceTime { get; private set; }
 
     public float averageSpeed = 24.0f;
@@ -117,7 +118,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
 
         raceCamera = Instantiate(GetRaceModeCamera(mapSettings), Vector3.zero, Quaternion.identity, transform);
         raceCamera.gameObject.SetActive(false);
-        raceCamera.SetHorseGroup(this.horseGroup);
+        raceCamera.SetHorseGroup(this.followTarget.transform);
 
         SubscribeToVcamsFading(true);
 
@@ -283,21 +284,24 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (isStartedRace)
         {
             StartRace();
             horseGroup.m_Targets = Array.Empty<CinemachineTargetGroup.Target>();
             var horseInGroup = horseControllers.OrderByDescending(x => x.CurrentRaceProgressWeight)
-                            .Take(2)
+                            .Take(1)
                             .ToArray();
-            if ((horseInGroup.First().transform.position - horseInGroup.Last().transform.position).magnitude > 7.0f)
-            {
-                horseInGroup = horseInGroup.Take(1).ToArray();
-            }
-            horseInGroup.ForEach(x => horseGroup.AddMember(x.transform, 1, 1));
+            // if ((horseInGroup.First().transform.position - horseInGroup.Last().transform.position).magnitude > 15.0f)
+            // {
+            //     horseInGroup = horseInGroup.Take(1).ToArray();
+            // }
+            horseInGroup.ForEach(x => horseGroup.AddMember(x.transform, 1, 0));
+            horseGroup.DoUpdate();
         }
+        followTarget.position = Vector3.Lerp(followTarget.position, targetGenerator.SimplyPath.path.GetClosestPointOnPath(horseGroup.transform.position),
+            Time.deltaTime * 15.0f);
     }
     
     public void Dispose()

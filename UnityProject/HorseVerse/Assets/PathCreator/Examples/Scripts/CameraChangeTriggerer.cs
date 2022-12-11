@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class CameraChangeTriggerer : MonoBehaviour
 {
-    public CinemachineTargetGroup TargetGroup
+    public Transform TargetGroup
     {
         get => targetGroup;
         set
@@ -21,17 +21,12 @@ public class CameraChangeTriggerer : MonoBehaviour
 
             if (changingLookAt)
             {
-                cinemachineVirtualCamera.LookAt = cinemachineVirtualCamera.Follow;
+                cinemachineVirtualCamera.LookAt = value.transform;
             }
         }
     }
 
-    public float timeToChangeTarget = 5.0f;
-    public float changeTargetTime = 0.0f;
-    public bool updateChangingTarget = false;
-    public ICinemachineCamera to;
     public bool changingFollow = true;
     public bool changingLookAt = true;
-    public bool isLookingForTopHorse;
-    [SerializeField] private CinemachineTargetGroup targetGroup;
+    [SerializeField] private Transform targetGroup;
 }

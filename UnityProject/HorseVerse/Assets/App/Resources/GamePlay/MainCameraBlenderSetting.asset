@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CustomBlends:
   - m_From: '**ANY CAMERA**'
-    m_To: dollyStraight
+    m_To: vcDollyStraight
     m_Blend:
       m_Style: 0
       m_Time: 2
@@ -25,7 +25,7 @@ MonoBehaviour:
         m_PostInfinity: 0
         m_RotationOrder: 0
   - m_From: '**ANY CAMERA**'
-    m_To: dollyCloseUp
+    m_To: vcDollyCloseUp
     m_Blend:
       m_Style: 0
       m_Time: 2
@@ -36,7 +36,7 @@ MonoBehaviour:
         m_PostInfinity: 0
         m_RotationOrder: 0
   - m_From: '**ANY CAMERA**'
-    m_To: dollyCloseUp (1)
+    m_To: vcDollyCloseUp (1)
     m_Blend:
       m_Style: 1
       m_Time: 5
@@ -47,7 +47,7 @@ MonoBehaviour:
         m_PostInfinity: 0
         m_RotationOrder: 0
   - m_From: '**ANY CAMERA**'
-    m_To: dollyCloseUp (2)
+    m_To: vcDollyCloseUp (3)
     m_Blend:
       m_Style: 3
       m_Time: 4
