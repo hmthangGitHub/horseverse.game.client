@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class AudioManager : MonoBehaviour
+public partial class AudioManager : MonoBehaviour
 {
 	private static AudioManager _instance = default;
 	public static AudioManager Instance { get { return _instance; } }

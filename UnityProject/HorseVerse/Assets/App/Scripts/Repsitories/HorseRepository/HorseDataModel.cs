@@ -25,6 +25,4 @@ public class HorseDataModel
     public float AverageBettingRecord { get; set; }
     public float BestBettingRecord { get; set; }
     public float Rate { get; set; }
-
-    public long MasterHorseId => 10000001;
 }

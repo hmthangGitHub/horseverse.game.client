@@ -18,7 +18,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private static readonly int Speed = Animator.StringToHash("Speed");
     private static readonly int Horizontal = Animator.StringToHash("Horizontal");
     private static readonly int Jumping = Animator.StringToHash("IsJumping");
-
+    
     [SerializeField] private new Rigidbody rigidbody;
     [SerializeField] private GameObject landingVFX;
     [SerializeField] private GameObject trailVFX;
@@ -68,6 +68,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private LastTap lastTap;
     private CinemachineOrbitalTransposer cinemachineOrbitalTransposer;
     private float animationHorizontal;
+    private float animationSpeed;
     private static readonly int VerticalVelocity = Animator.StringToHash("VerticalVelocity");
 
     private void AddInputEvents()
@@ -178,7 +179,10 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
             currentHorizontalVelocity = HorizontalVelocity;
             cam3.SetActive(false);
             cam1.SetActive(true);
-            Animator.SetFloat(Speed, 1.0f);
+            DOTween.To(val =>
+            {
+                Animator.SetFloat(Speed, val);
+            }, 0.0f, 1.0f, 1.0f);
             AddInputEvents();
         }
     }
@@ -245,6 +249,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         {
             Jump(true);
             isJumping = true;
+            animator.CrossFade("JumpStart", 0.1f, 0);
         }
     }
 
@@ -309,6 +314,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
                 var vfx = Instantiate(landingVFX);
                 vfx.transform.position = pivotPoint.position + Vector3.up * 0.1f;
                 trailVFX.SetActive(false);
+                AudioManager.Instance.PlaySound(AudioManager.HorseLand);
             }
             currentAirTime = 0.0f;
         }
@@ -316,6 +322,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         if (isGrounded && isJumping)
         {
             isJumping = false;
+            animator.CrossFade("Running", 0.15f, 0);
         }
     }
     

@@ -27,14 +27,14 @@ public class CameraBlendingAnimation : MonoBehaviour
 
     public async UniTask FadeInAnimationAsync()
     {
-        await image.DOFade(1.0f, durationOut).SetEase(Ease.OutQuart);
+        await image.DOFade(1.5f, durationOut).SetEase(Ease.OutQuart);
     }
     
     public async void FadeInAnimationAsync2()
     {
         if (!excludeCameraBlending.Contains(cinemachineBrain.ActiveVirtualCamera.Name))
         {
-            await image.DOFade(1.0f, durationOut).SetEase(Ease.OutQuart);    
+            await image.DOFade(1.5f, durationOut).SetEase(Ease.OutQuart);    
         }
     }
     

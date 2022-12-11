@@ -328,10 +328,11 @@ public class UIBetModePresenter : IDisposable
             for(int i = 0; i < len; i++)
             {
                 int index = i;
+                // var userHorse = 
                 var item = new UIComponentBetModeHorseInfoItem.Entity()
                 {
                     no = i + 1,
-                    horseName = MasterHorseContainer.MasterHorseIndexer[horseBetInfo.horseInfos[i].MasterHorseId].Name,
+                    horseName = horseBetInfo.horseInfos[i].Name,
                     avgRec = horseBetInfo.horseInfos[i].AverageBettingRecord,
                     bestRec = horseBetInfo.horseInfos[i].BestBettingRecord,
                     lastMatch = horseBetInfo.horseInfos[i].LastBettingRecord,
@@ -365,7 +366,7 @@ public class UIBetModePresenter : IDisposable
             var entity = uiBetModeHorseInfo.entity;
             entity.horseDetail = new UIComponentHorseDetail.Entity()
             {
-                horseName = MasterHorseContainer.MasterHorseIndexer[horseInfo.MasterHorseId].Name,
+                horseName = horseInfo.Name,
                 level = horseInfo.Level,
                 powerProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
                 {
@@ -397,12 +398,12 @@ public class UIBetModePresenter : IDisposable
             {
                 type = horseInfo.Type
             };
-
+            
             uiBetModeHorseInfo.UpdateDetailInfo(entity);
             if (!update)
-                await UiHorseInfo3DViewPresenter.ShowHorse3DViewAsync(horseInfo.MasterHorseId, horseInfo.Color1, horseInfo.Color2, horseInfo.Color3, horseInfo.Color4);
+                await UiHorseInfo3DViewPresenter.ShowHorse3DViewAsync(MasterHorseContainer.FromTypeToMasterHorse(horseInfo.Type).MasterHorseId, horseInfo.Color1, horseInfo.Color2, horseInfo.Color3, horseInfo.Color4);
             else
-                await UiHorseInfo3DViewPresenter.UpdateMode(horseInfo.MasterHorseId, horseInfo.Color1, horseInfo.Color2, horseInfo.Color3, horseInfo.Color4);
+                await UiHorseInfo3DViewPresenter.UpdateMode(MasterHorseContainer.FromTypeToMasterHorse(horseInfo.Type).MasterHorseId, horseInfo.Color1, horseInfo.Color2, horseInfo.Color3, horseInfo.Color4);
         }
     }
 }

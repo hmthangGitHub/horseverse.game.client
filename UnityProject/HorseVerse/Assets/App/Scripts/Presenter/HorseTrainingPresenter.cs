@@ -73,6 +73,7 @@ public class HorseTrainingPresenter : IDisposable
                 uiTrainingCoinCounting.In().Forget();
                 uiTrainingPressAnyKey.Out().Forget();
                 horseTrainingManager.StartGame();
+                AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunTraining);
             }
         });
     }
@@ -83,7 +84,9 @@ public class HorseTrainingPresenter : IDisposable
         SoundController.PlayMusicTrainingInGame();
         uiTrainingPressAnyKey.In().Forget();
         trainingUcsRetry = new UniTaskCompletionSource<bool>();
-        return await trainingUcsRetry.Task.AttachExternalCancellation(cts.Token);
+        var isNeedRetry =  await trainingUcsRetry.Task.AttachExternalCancellation(cts.Token);
+        AudioManager.Instance.StopSound();
+        return isNeedRetry;
     }
 
     private async UniTask OnBtnPauseClicked()
@@ -194,6 +197,7 @@ public class HorseTrainingPresenter : IDisposable
         MasterLoader.SafeRelease(ref masterHorseTrainingBlockComboContainer);
         horseTrainingDataContext = default;
         DisposeUtility.SafeDispose(ref horseTrainingManager);
+        AudioManager.Instance.StopSound();
     }
 
     public async UniTask ShowUIHorseTrainingResultAsync(io.hverse.game.protogen.TrainingRewardsResponse result)
