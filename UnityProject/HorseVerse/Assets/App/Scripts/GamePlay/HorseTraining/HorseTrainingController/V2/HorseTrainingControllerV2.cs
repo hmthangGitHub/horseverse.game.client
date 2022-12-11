@@ -250,6 +250,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
             Jump(true);
             isJumping = true;
             animator.CrossFade("JumpStart", 0.1f, 0);
+            AudioManager.Instance.StopSound();
         }
     }
 
@@ -315,6 +316,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
                 vfx.transform.position = pivotPoint.position + Vector3.up * 0.1f;
                 trailVFX.SetActive(false);
                 AudioManager.Instance.PlaySound(AudioManager.HorseLand);
+                AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunTraining);
             }
             currentAirTime = 0.0f;
         }
@@ -323,6 +325,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         {
             isJumping = false;
             animator.CrossFade("Running", 0.15f, 0);
+            AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunTraining);
         }
     }
     

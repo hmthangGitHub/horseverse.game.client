@@ -18,7 +18,7 @@ public class UIHorseTrainingPresenter : IDisposable
     private ITrainingDomainService trainingDomainService;
     private IReadOnlyHorseRepository horseRepository;
     private MasterHorseContainer masterHorseContainer;
-    private const int trainingCost = 100;
+    private const int trainingCost = 1;
     public event Action ToTrainingActionState = ActionUtility.EmptyAction.Instance;
     
     private HorseDetailEntityFactory HorseDetailEntityFactory => horseDetailEntityFactory ??= container.Inject<HorseDetailEntityFactory>();

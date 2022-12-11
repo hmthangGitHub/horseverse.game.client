@@ -45,6 +45,7 @@ public class UIBetModePresenter : IDisposable
 
     private int currentBettingAmouth = 0;
     private int currentHorseInfoView = -1;
+    private CancellationTokenSource ctsInfo;
 
     public UIBetModePresenter(IDIContainer container)
     {
@@ -290,7 +291,7 @@ public class UIBetModePresenter : IDisposable
             horseDetailNumber = 1,
             horseRace = new UIComponentHorseRace.Entity(),
         });
-        await UniTask.Delay(500);
+        await UniTask.Delay(1500);
         await OnUpdateHorseInfoView(0);
         await uiBetModeHorseInfo.In();
         await ucs.Task;
@@ -299,6 +300,8 @@ public class UIBetModePresenter : IDisposable
 
     public void Dispose()
     {
+        ctsInfo.SafeCancelAndDispose();
+        ctsInfo = default;
         cts.SafeCancelAndDispose();
         cts = default;
         UILoader.SafeRelease(ref uiBetMode);
@@ -337,7 +340,7 @@ public class UIBetModePresenter : IDisposable
                     bestRec = horseBetInfo.horseInfos[i].BestBettingRecord,
                     lastMatch = horseBetInfo.horseInfos[i].LastBettingRecord,
                     rate = horseBetInfo.horseInfos[i].Rate,
-                    button = new ButtonSelectedComponent.Entity(()=> { OnUpdateHorseInfoView(index).Forget();}, false)
+                    button = new ButtonSelectedComponent.Entity(()=> { OnUpdateHorseInfoView(index).Forget();}, index == 0)
                 };
                 data.Add(item);
             }
@@ -348,6 +351,9 @@ public class UIBetModePresenter : IDisposable
 
     private async UniTask OnUpdateHorseInfoView(int index)
     {
+        ctsInfo.SafeCancelAndDispose();
+        ctsInfo = new CancellationTokenSource();
+
         bool update = false;
         if (currentHorseInfoView > -1)
         {
@@ -401,9 +407,9 @@ public class UIBetModePresenter : IDisposable
             
             uiBetModeHorseInfo.UpdateDetailInfo(entity);
             if (!update)
-                await UiHorseInfo3DViewPresenter.ShowHorse3DViewAsync(MasterHorseContainer.FromTypeToMasterHorse(horseInfo.Type).MasterHorseId, horseInfo.Color1, horseInfo.Color2, horseInfo.Color3, horseInfo.Color4);
+                await UiHorseInfo3DViewPresenter.ShowHorse3DViewAsync(MasterHorseContainer.FromTypeToMasterHorse(horseInfo.Type).MasterHorseId, horseInfo.Color1, horseInfo.Color2, horseInfo.Color3, horseInfo.Color4).AttachExternalCancellation(ctsInfo.Token);
             else
-                await UiHorseInfo3DViewPresenter.UpdateMode(MasterHorseContainer.FromTypeToMasterHorse(horseInfo.Type).MasterHorseId, horseInfo.Color1, horseInfo.Color2, horseInfo.Color3, horseInfo.Color4);
+                await UiHorseInfo3DViewPresenter.UpdateMode(MasterHorseContainer.FromTypeToMasterHorse(horseInfo.Type).MasterHorseId, horseInfo.Color1, horseInfo.Color2, horseInfo.Color3, horseInfo.Color4).AttachExternalCancellation(ctsInfo.Token);
         }
     }
 }

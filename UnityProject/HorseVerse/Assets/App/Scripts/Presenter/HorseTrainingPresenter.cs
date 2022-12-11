@@ -172,6 +172,8 @@ public class HorseTrainingPresenter : IDisposable
     private async UniTaskVoid OnTouchObstacleAsync()
     {
         Time.timeScale = 0.0f;
+        AudioManager.Instance.StopSound();
+        SoundController.PlayHitObstance();
         var data = await TrainingDomainService.GetTrainingRewardData(distanceOfRunning, numberOfCoinTaken);
         if (data.ResultCode == 100) {
             await ShowUIHorseTrainingResultAsync(data);

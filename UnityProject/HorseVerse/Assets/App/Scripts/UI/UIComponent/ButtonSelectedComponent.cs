@@ -52,8 +52,6 @@ public class ButtonSelectedComponent : UIComponent<ButtonSelectedComponent.Entit
         buttonEvent.RemoveAllListeners();
         buttonEvent.AddListener(() => this.entity.onClickEvent.Invoke());
         button.interactable = this.entity.isInteractable;
-        anim.SetBool("IsSelected", this.entity.isSelected);
-        anim.SetTrigger("Normal");
         delayToSetAnim().Forget();
     }
 
@@ -83,8 +81,9 @@ public class ButtonSelectedComponent : UIComponent<ButtonSelectedComponent.Entit
         if (this.entity != null)
         {
             this.entity.isSelected = isSelected;
-            anim.SetBool("IsSelected", this.entity.isSelected);
-            anim.SetTrigger("Normal");
+            delayToSetAnim().Forget();
+            //anim.SetBool("IsSelected", this.entity.isSelected);
+            //anim.SetTrigger("Normal");
         }
     }
 

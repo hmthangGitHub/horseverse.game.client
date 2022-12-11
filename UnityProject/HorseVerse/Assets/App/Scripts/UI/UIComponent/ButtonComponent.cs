@@ -83,6 +83,5 @@ public class ButtonComponent : UIComponent<ButtonComponent.Entity>
             SoundController.PlaySFX(sfxName);
         else
             SoundController.PlayClick();
-        Debug.Log("PLAY SOUND");
     }
 }

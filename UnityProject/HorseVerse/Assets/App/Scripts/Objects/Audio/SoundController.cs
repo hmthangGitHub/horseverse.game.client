@@ -68,4 +68,14 @@ public static class SoundController
     {
         AudioManager.Instance?.PlayMusic("TrainingInGame");
     }
+
+    public static void PlayHitObstance()
+    {
+        AudioManager.Instance?.PlaySound("HitRock");
+    }
+
+    public static void PlayLanding()
+    {
+        AudioManager.Instance?.PlaySound("HorseLand");
+    }
 }
