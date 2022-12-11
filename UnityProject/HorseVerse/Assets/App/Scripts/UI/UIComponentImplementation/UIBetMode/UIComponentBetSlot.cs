@@ -32,7 +32,7 @@ public class UIComponentBetSlot : UIComponent<UIComponentBetSlot.Entity>
         firstHorseNumber.SetEntity(this.entity.firstHorseNumber);
         secondHorseNumber.SetEntity(this.entity.secondHorseNumber);
         betType.SetEntity(this.entity.betType);
-        betRatio.SetEntity(this.entity.betRatio);
+        betRatio.SetEntity(this.entity.betRatio.ToString("0.00"));
         totalBet.SetEntity(this.entity.totalBet);
         betBtn.SetEntity(this.entity.betBtn);
     }

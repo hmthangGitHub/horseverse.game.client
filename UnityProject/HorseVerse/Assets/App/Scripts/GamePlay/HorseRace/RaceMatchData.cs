@@ -15,6 +15,17 @@ public class HorseRaceInfo
     public float DelayTime { get; set; }
     public MasterHorseMeshInformation MeshInformation { get; set; }
     public RaceSegmentTime[] RaceSegments { get; set; }
+
+    public float PowerBonus { get; set; }
+    public float PowerRatio { get; set; }
+    public float SpeedBonus { get; set; }
+    public float SpeedRatio { get; set; }
+    public float TechnicallyBonus { get; set; }
+    public float TechnicallyRatio { get; set; }
+
+    public int Type { get; set; }
+    public int Rarity { get; set; }
+    public int Level { get; set; }
 }
 
 public class HorseBetInfo

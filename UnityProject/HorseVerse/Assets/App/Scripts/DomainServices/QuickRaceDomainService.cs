@@ -78,7 +78,7 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
             .Select(x =>
             {
                 var horseInfo = responseRaceScript.HorseInfos[x.Key];
-                var masterHorseId = 10000001; // TODO get from server
+                var masterHorseId = 10000000 + (int)horseInfo.HorseType; //10000001; // TODO get from server
                 return new HorseRaceInfo()
                 {
                     DelayTime = x.First()
@@ -99,7 +99,16 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
                         color3 = HorseRepository.GetColorFromHexCode(horseInfo.Color3),
                         color4 = HorseRepository.GetColorFromHexCode(horseInfo.Color4),
                     },
-                    Name = horseInfo.Name
+                    Name = horseInfo.Name,
+                    PowerBonus = horseInfo.Bms,
+                    PowerRatio = 1,
+                    SpeedBonus = horseInfo.Mms,
+                    SpeedRatio = 1,
+                    TechnicallyBonus = horseInfo.Acceleration,
+                    TechnicallyRatio = 1,
+                    Rarity = (int)horseInfo.Rarity,
+                    Type = (int)horseInfo.HorseType,
+                    Level = horseInfo.Level,
                 };
             }).ToArray();
     }

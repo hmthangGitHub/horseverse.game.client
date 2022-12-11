@@ -9,20 +9,20 @@ public class UIHorseInfoIntro : PopupEntity<UIHorseInfoIntro.Entity>
     {
         public ButtonComponent.Entity outerBtn;
         public ButtonComponent.Entity skipAllBtn;
-        public string horseName;
+        public UIComponentHorseDetail.Entity horseInfo;
         public int gate;
     }
 
     public ButtonComponent outerBtn;
     public ButtonComponent skipAllBtn;
-    public FormattedTextComponent horseName;
+    public UIComponentHorseDetail horseInfo;
     public FormattedTextComponent gate;
 
     protected override void OnSetEntity()
     {
         outerBtn.SetEntity(this.entity.outerBtn);
         skipAllBtn.SetEntity(this.entity.skipAllBtn);
-        horseName.SetEntity(this.entity.horseName);
+        horseInfo.SetEntity(this.entity.horseInfo);
         gate.SetEntity(this.entity.gate);
     }
 }	

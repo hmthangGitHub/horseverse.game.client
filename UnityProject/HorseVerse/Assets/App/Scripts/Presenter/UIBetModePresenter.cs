@@ -132,7 +132,7 @@ public class UIBetModePresenter : IDisposable
         if (uiBetMode)
         {
             uiBetMode.header.header.SetVisibleBackBtn(true);
-            uiBetMode.header.header.SetTitle("BETTING");
+            uiBetMode.header.header.SetTitle("ARENA");
             uiBetMode.header.header.In().Forget();
             await uiBetMode.In();
         }
@@ -290,7 +290,7 @@ public class UIBetModePresenter : IDisposable
             horseDetailNumber = 1,
             horseRace = new UIComponentHorseRace.Entity(),
         });
-        await UniTask.Delay(200);
+        await UniTask.Delay(500);
         await OnUpdateHorseInfoView(0);
         await uiBetModeHorseInfo.In();
         await ucs.Task;
