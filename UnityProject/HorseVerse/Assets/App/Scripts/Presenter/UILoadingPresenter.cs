@@ -12,6 +12,7 @@ public class UILoadingPresenter : IDisposable
 
     public async UniTask ShowLoadingAsync()
     {
+        Debug.Log("Show Loading");
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         uiLoading ??= await UILoader.Instantiate<UILoading>(UICanvas.UICanvasType.Loading).AttachExternalCancellation(cancellationToken: cts.Token);
@@ -23,6 +24,7 @@ public class UILoadingPresenter : IDisposable
     {
         cts.SafeCancelAndDispose();
         uiLoading?.Out().Forget();
+        Debug.Log("Hide Loading");
     }
 
     public void Dispose()

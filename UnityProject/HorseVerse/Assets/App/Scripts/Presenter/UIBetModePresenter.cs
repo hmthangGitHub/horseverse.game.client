@@ -276,6 +276,8 @@ public class UIBetModePresenter : IDisposable
 
     private async UniTask OpenHorseList()
     {
+        ctsInfo.SafeCancelAndDispose();
+        ctsInfo = new CancellationTokenSource();
         var ucs = new UniTaskCompletionSource();
         uiBetModeHorseInfo.SetEntity(new UIBetModeHorseInfo.Entity()
         {
@@ -291,10 +293,10 @@ public class UIBetModePresenter : IDisposable
             horseDetailNumber = 1,
             horseRace = new UIComponentHorseRace.Entity(),
         });
-        await UniTask.Delay(1500);
+        await UITouchDisablePresenter.Delay(1.5f, ctsInfo.Token);
         await OnUpdateHorseInfoView(0);
         await uiBetModeHorseInfo.In();
-        await ucs.Task;
+        await ucs.Task.AttachExternalCancellation(cts.Token);
         await uiBetModeHorseInfo.Out();
     }
 
@@ -339,7 +341,7 @@ public class UIBetModePresenter : IDisposable
                     avgRec = horseBetInfo.horseInfos[i].AverageBettingRecord,
                     bestRec = horseBetInfo.horseInfos[i].BestBettingRecord,
                     lastMatch = horseBetInfo.horseInfos[i].LastBettingRecord,
-                    rate = horseBetInfo.horseInfos[i].Rate,
+                    rate = BetRateRepository.Models[(i + 1, default)].Rate,
                     button = new ButtonSelectedComponent.Entity(()=> { OnUpdateHorseInfoView(index).Forget();}, index == 0)
                 };
                 data.Add(item);
@@ -351,9 +353,6 @@ public class UIBetModePresenter : IDisposable
 
     private async UniTask OnUpdateHorseInfoView(int index)
     {
-        ctsInfo.SafeCancelAndDispose();
-        ctsInfo = new CancellationTokenSource();
-
         bool update = false;
         if (currentHorseInfoView > -1)
         {

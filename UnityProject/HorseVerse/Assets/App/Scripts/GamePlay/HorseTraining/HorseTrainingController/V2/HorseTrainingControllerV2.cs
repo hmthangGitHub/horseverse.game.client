@@ -68,7 +68,6 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private LastTap lastTap;
     private CinemachineOrbitalTransposer cinemachineOrbitalTransposer;
     private float animationHorizontal;
-    private float animationSpeed;
     private static readonly int VerticalVelocity = Animator.StringToHash("VerticalVelocity");
 
     private void AddInputEvents()
@@ -182,7 +181,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
             DOTween.To(val =>
             {
                 Animator.SetFloat(Speed, val);
-            }, 0.0f, 1.0f, 1.0f);
+            }, 0.0f, 1.0f, 0.25f);
             AddInputEvents();
         }
     }

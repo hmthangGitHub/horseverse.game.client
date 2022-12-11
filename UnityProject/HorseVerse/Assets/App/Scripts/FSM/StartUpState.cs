@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using Cysharp.Threading.Tasks;
 
 public class StartUpState : InjectedBHState
@@ -7,14 +8,19 @@ public class StartUpState : InjectedBHState
 #if ENABLE_DEBUG_MODULE
     private UIDebugMenuPresenter uiDebugMenuPresenter;
 #endif
+    private bool isNeedResetState = false;
+    
     public override void Enter()
     {
         base.Enter();
         errorHandler.OnError += ErrorHandlerOnError;
 #if ENABLE_DEBUG_MODULE
-        uiDebugMenuPresenter ??= new UIDebugMenuPresenter(Container);
-        uiDebugMenuPresenter.InitializeAsync().Forget();
-        uiDebugMenuPresenter.OnToLevelEditorState += ToLevelEditorState;
+        if (uiDebugMenuPresenter == default)
+        {
+            uiDebugMenuPresenter ??= new UIDebugMenuPresenter(Container);
+            uiDebugMenuPresenter.InitializeAsync().Forget();
+            uiDebugMenuPresenter.OnToLevelEditorState += ToLevelEditorState;    
+        }
 #endif
     }
 
@@ -36,6 +42,7 @@ public class StartUpState : InjectedBHState
 
     private void ErrorHandlerOnError()
     {
+        isNeedResetState = true;
         this.Machine.CurrentState.Exit();
     }
 
@@ -47,18 +54,21 @@ public class StartUpState : InjectedBHState
         
 #if ENABLE_DEBUG_MODULE
             uiDebugMenuPresenter.OnToLevelEditorState -= ToLevelEditorState;
-            uiDebugMenuPresenter.Dispose();
-            uiDebugMenuPresenter = default;
+            DisposeUtility.SafeDispose(ref uiDebugMenuPresenter);
 #endif
         }
         finally
         {
             errorHandler.OnError -= ErrorHandlerOnError;
-            errorHandler.Dispose();
-            errorHandler = default;
+            DisposeUtility.SafeDispose(ref errorHandler);
             
             this.Machine.RemoveAllStates();
-            this.Machine.Initialize();
+            if (isNeedResetState)
+            {
+                this.Machine.Initialize();    
+            }
+
+            isNeedResetState = false;
         }
         
     }
