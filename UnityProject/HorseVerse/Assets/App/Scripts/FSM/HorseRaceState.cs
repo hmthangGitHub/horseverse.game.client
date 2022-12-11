@@ -20,12 +20,18 @@ public class HorseRaceState : InjectedBHState
     public override async void Enter()
     {
         base.Enter();
+        await OnEnterAsync();
+    }
+
+    private async UniTask OnEnterAsync()
+    {
         horseRacePresenter = new HorseRacePresenter(Container);
         horseRacePresenter.OnToBetModeResultState += ToBetModeResultState;
         horseRacePresenter.OnToQuickRaceModeResultState += ToQuickRaceResultState;
         UIBackGroundPresenter.ReleaseBackGround();
 
         await horseRacePresenter.LoadAssetAsync();
+        
         UiLoadingPresenter.HideLoading();
         await StartRaceAsync();
     }

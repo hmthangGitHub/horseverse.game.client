@@ -49,6 +49,7 @@ public class HorseRacePresenter : IDisposable
         await LoadUI();
         raceModeHorseIntroPresenter = new RaceModeHorseIntroPresenter(Container);
         await raceModeHorseIntroPresenter.LoadUIAsync();
+        await UniTask.Delay(500);
     }
 
     private async UniTask GetMapSettings()

@@ -46,14 +46,20 @@ public class UITouchDisablePresenter : IDisposable
 
     public async UniTask ShowTillFinishTaskAsync(UniTask task)
     {
-        await ShowAsync();
-        await task;
-        await Hide();
+        try
+        {
+            await ShowAsync();
+            await task;
+        }
+        finally
+        {
+            await Hide();
+        }
     }
 
-    public async UniTask Delay(float second)
+    public async UniTask Delay(float second, CancellationToken token = default)
     {
-        await ShowTillFinishTaskAsync(UniTask.Delay(TimeSpan.FromSeconds(second)));
+        await ShowTillFinishTaskAsync(UniTask.Delay(TimeSpan.FromSeconds(second), cancellationToken : token));
     }
     
     public async UniTask Hide()
