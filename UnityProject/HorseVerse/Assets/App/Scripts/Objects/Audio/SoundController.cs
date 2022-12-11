@@ -44,6 +44,10 @@ public static class SoundController
         return 0;
     }
 
+    public static void PlaySFX(string soundName)
+    {
+        AudioManager.Instance?.PlaySound(soundName);
+    }
 
     public static void PlayClick()
     {

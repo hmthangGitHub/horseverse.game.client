@@ -37,6 +37,8 @@ public class ButtonSelectedComponent : UIComponent<ButtonSelectedComponent.Entit
     public Button button;
     public Animator anim;
     public bool IsSelected;
+    public string sfxName;
+    public bool enableSFX = true;
 
     private UnityEvent buttonEvent = new UnityEvent();
 
@@ -101,6 +103,10 @@ public class ButtonSelectedComponent : UIComponent<ButtonSelectedComponent.Entit
 
     private void PlaySound()
     {
-        SoundController.PlayClick();
+        if (!enableSFX) return;
+        if (!string.IsNullOrEmpty(sfxName))
+            SoundController.PlaySFX(sfxName);
+        else
+            SoundController.PlayClick();
     }
 }

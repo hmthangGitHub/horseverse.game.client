@@ -319,6 +319,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 4166526920376545534}
+  sfxName: Click
+  enableSFX: 1
 --- !u!1 &751539439813758413
 GameObject:
   m_ObjectHideFlags: 0
@@ -993,6 +995,8 @@ MonoBehaviour:
   button: {fileID: 1113940962216853370}
   anim: {fileID: 2296612430181901585}
   IsSelected: 0
+  sfxName: 
+  enableSFX: 1
 --- !u!114 &326277800209712085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2423,6 +2427,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 2977597102882778136}
+  sfxName: Click
+  enableSFX: 1
 --- !u!1 &2275054596238155381
 GameObject:
   m_ObjectHideFlags: 0
@@ -5977,6 +5983,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea1b8db09db939d48a69bcfe37ce53eb, type: 3}
+--- !u!224 &252190272648028580 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3507986521540786028, guid: ea1b8db09db939d48a69bcfe37ce53eb, type: 3}
+  m_PrefabInstance: {fileID: 3733812365065803464}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3679097685072924091 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 63029822578662259, guid: ea1b8db09db939d48a69bcfe37ce53eb, type: 3}
@@ -5988,8 +5999,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 553b105b242a8e4488be348a49df3ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &252190272648028580 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3507986521540786028, guid: ea1b8db09db939d48a69bcfe37ce53eb, type: 3}
-  m_PrefabInstance: {fileID: 3733812365065803464}
-  m_PrefabAsset: {fileID: 0}

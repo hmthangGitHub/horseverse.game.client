@@ -33,6 +33,8 @@ public class ButtonComponent : UIComponent<ButtonComponent.Entity>
     }
 
     public Button button;
+    public string sfxName = "Click";
+    public bool enableSFX = true;
 
     private UnityEvent buttonEvent = new UnityEvent();
 
@@ -76,6 +78,11 @@ public class ButtonComponent : UIComponent<ButtonComponent.Entity>
 
     private void PlaySound()
     {
-        SoundController.PlayClick();
+        if (!enableSFX) return;
+        if (!string.IsNullOrEmpty(sfxName.Trim()))
+            SoundController.PlaySFX(sfxName);
+        else
+            SoundController.PlayClick();
+        Debug.Log("PLAY SOUND");
     }
 }

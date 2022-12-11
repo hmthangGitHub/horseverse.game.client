@@ -135,6 +135,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 614191151}
+  sfxName: Click
+  enableSFX: 1
 --- !u!114 &614191149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5620,6 +5622,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ed85ad0daa521e469e5a042bcf88cd2, type: 3}
+--- !u!224 &6410363070157037680 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 277592999208894350, guid: 5ed85ad0daa521e469e5a042bcf88cd2, type: 3}
+  m_PrefabInstance: {fileID: 6569654968931131390}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2799575590188324051 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9076456708863331117, guid: 5ed85ad0daa521e469e5a042bcf88cd2, type: 3}
@@ -5631,8 +5638,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54e68b053feb2234a86a758cb64fd98f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &6410363070157037680 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 277592999208894350, guid: 5ed85ad0daa521e469e5a042bcf88cd2, type: 3}
-  m_PrefabInstance: {fileID: 6569654968931131390}
-  m_PrefabAsset: {fileID: 0}
