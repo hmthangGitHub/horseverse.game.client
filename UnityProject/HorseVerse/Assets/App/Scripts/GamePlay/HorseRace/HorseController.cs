@@ -29,7 +29,7 @@ public class HorseController : MonoBehaviour
     private event Action OnFinishTrackEvent = ActionUtility.EmptyAction.Instance;
 
     private Transform _transform;
-    private Transform Transform => _transform ?? this.transform;
+    private Transform Transform => _transform ??= this.transform;
     private int currentTargetIndex = -1;
     private bool isStart;
     private Animator animator;
@@ -38,6 +38,11 @@ public class HorseController : MonoBehaviour
     [SerializeField] NavMeshAgent navMeshAgent;
     private Vector2 timeRange;
     private static readonly int Speed = Animator.StringToHash("Speed");
+    private static readonly int Horizontal = Animator.StringToHash("Horizontal");
+    private float animationSpeed; 
+    private float animationHorizontal; 
+    private float targetHorizontalSpeed; 
+    private float targetAnimationSpeed; 
 
 #if UNITY_EDITOR
     private GameObject target;
@@ -58,6 +63,10 @@ public class HorseController : MonoBehaviour
         timeRange = new Vector2(this.horseInGameData.PredefineTargets.targets.Min(x => x.time),
             this.horseInGameData.PredefineTargets.targets.Max(x => x.time));
         ChangeTarget();
+        DOTween.To(val =>
+        {
+            animator.SetFloat(Speed, val);
+        }, 0.0f, 1.0f, 1.0f);
     }
 
     private void CalculatePosition()
@@ -97,7 +106,11 @@ public class HorseController : MonoBehaviour
                 }
                 ChangeTarget();
             }
-            
+
+            animationSpeed = Mathf.Lerp(animationSpeed, targetAnimationSpeed, Time.deltaTime * 10.0f);
+            animationHorizontal = Vector3Extensions.Map( Mathf.Clamp(navMeshAgent.velocity.x, -30.0f, 30.0f), -3.0f, 3.0f, -1.0f, 1.0f);
+            animator.SetFloat(Speed, animationSpeed);
+            animator.SetFloat(Horizontal, animationHorizontal);
         }
     }
 
@@ -146,14 +159,23 @@ public class HorseController : MonoBehaviour
         navMeshAgent.destination = PredefineTargets[currentTargetIndex].target;
         navMeshAgent.speed = (Transform.position - PredefineTargets[currentTargetIndex].target).magnitude / PredefineTargets[currentTargetIndex].time;
 
+        
         SetAnimation(PredefineTargets[currentTargetIndex].time);
+        SetHorizontalSpeed(PredefineTargets[currentTargetIndex].target);
 #if UNITY_EDITOR
         Target.transform.position = PredefineTargets[currentTargetIndex].target;
 #endif
     }
 
+    private void SetHorizontalSpeed(Vector3 target)
+    {
+        var delta = target - this.transform.position;
+        var angle = Vector3.SignedAngle(Transform.forward, delta, Vector3.up);
+        targetHorizontalSpeed = Vector3Extensions.Map( Mathf.Clamp(navMeshAgent.velocity.x, -30.0f, 30.0f), -30.0f, 30, -1.0f, 1.0f);
+    }
+
     private void SetAnimation(float time)
     {
-        animator.SetFloat(Speed, Vector3Extensions.Map(time, timeRange.x, timeRange.y, 1.1f, 0.8f));
+        targetAnimationSpeed = Vector3Extensions.Map(time, timeRange.x, timeRange.y, 1.1f, 0.8f);
     }
 }

@@ -77,13 +77,19 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
 
         void OnSkipFreeCamera()
         {
-            ucs.TrySetResult();
             freeCamera.OnSkipFreeCamera -= OnSkipFreeCamera;
-            freeCamera.gameObject.SetActive(false);
+            OnSkipFreeCameraAsync().Forget();
         }
+        
+        async UniTaskVoid OnSkipFreeCameraAsync()
+        {
+            await cameraBlendingAnimation.FadeInAnimationAsync();
+            freeCamera.gameObject.SetActive(false);
+            ucs.TrySetResult();
+        }
+        
         freeCamera.OnSkipFreeCamera += OnSkipFreeCamera;
         await ucs.Task;
-        await cameraBlendingAnimation.FadeInAnimationAsync();
         mainCamera.SetActive(true);
     }
 
@@ -293,10 +299,6 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
             var horseInGroup = horseControllers.OrderByDescending(x => x.CurrentRaceProgressWeight)
                             .Take(1)
                             .ToArray();
-            // if ((horseInGroup.First().transform.position - horseInGroup.Last().transform.position).magnitude > 15.0f)
-            // {
-            //     horseInGroup = horseInGroup.Take(1).ToArray();
-            // }
             horseInGroup.ForEach(x => horseGroup.AddMember(x.transform, 1, 0));
             horseGroup.DoUpdate();
         }

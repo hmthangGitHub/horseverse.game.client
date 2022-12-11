@@ -10,7 +10,6 @@ public class HorseRacePresenter : IDisposable
 {
     private HorseRaceManager horseRaceManager;
     private UIHorseRaceStatus uiHorseRaceStatus;
-    private UISpeedController uiSpeedController;
     private UIFlashScreenAnimation uiFlashScreen;
 
     private int[] cachePositions;
@@ -99,7 +98,6 @@ public class HorseRacePresenter : IDisposable
     private async UniTask LoadUI()
     {
         uiHorseRaceStatus ??= await UILoader.Instantiate<UIHorseRaceStatus>();
-        uiSpeedController ??= await UILoader.Instantiate<UISpeedController>();
         uiFlashScreen ??= await UILoader.Instantiate<UIFlashScreenAnimation>();
     }
 
@@ -107,7 +105,6 @@ public class HorseRacePresenter : IDisposable
     {
         int[] horseIdInLanes = RandomHorseInLanes();
         SetEntityHorseRaceManager(horseIdInLanes);
-        SetEntityUISpeedController();
         StartUpdateRaceHorseStatus().Forget();
     }
 
@@ -140,7 +137,6 @@ public class HorseRacePresenter : IDisposable
         if (numberOfHorseFinishTheRace == 2)
         {
             horseRaceManager.OnFinishTrackEvent -= OnFinishTrack;
-            uiSpeedController.Out().Forget();
             uiHorseRaceStatus.Out().Forget();
             await UIBackGroundPresenter.ShowBackGroundAsync();
             if (RaceMatchData.Mode == RaceMode.Race)
@@ -191,31 +187,6 @@ public class HorseRacePresenter : IDisposable
         }
     }
 
-    private void SetEntityUISpeedController()
-    {
-        uiSpeedController.SetEntity(new UISpeedController.Entity()
-        {
-            fast = new ButtonComponent.Entity(() =>
-            {
-                Time.timeScale = 2.0f;
-            }),
-            normal = new ButtonComponent.Entity(() =>
-            {
-                Time.timeScale = 1.0f;
-            }),
-            pause = new ButtonComponent.Entity(() =>
-            {
-                Time.timeScale = 0.0f;
-            }),
-            skip = new ButtonComponent.Entity(() =>
-            {
-                this.horseRaceManager.Skip();
-                this.uiHorseRaceStatus.Skip();
-            })
-        });
-        uiSpeedController.In().Forget();
-    }
-
     private void SetEntityUIHorseRaceStatus(int[] playerList, float timeToFinish)
     {
         cachePositions = Enumerable.Repeat(-1, playerList.Length).ToArray();
@@ -245,7 +216,6 @@ public class HorseRacePresenter : IDisposable
         Object.Destroy(targetGenerator);
         targetGenerator = null;
 
-        UILoader.SafeRelease(ref uiSpeedController);
         UILoader.SafeRelease(ref uiHorseRaceStatus);
         UILoader.SafeRelease(ref uiFlashScreen);
         MasterLoader.SafeRelease(ref masterMapContainer);

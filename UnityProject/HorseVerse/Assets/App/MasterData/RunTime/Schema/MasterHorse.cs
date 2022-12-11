@@ -24,4 +24,8 @@ public partial class MasterHorse
 	private string name;
 	public string Name => name;
 
+	[JsonProperty]
+	private MasterHorseType master_horse_type;
+	public MasterHorseType MasterHorseType => master_horse_type;
+
 }

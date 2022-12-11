@@ -76,13 +76,10 @@ public class UIHorseModelLoader : UIComponent<UIHorseModelLoader.Entity>
     {
         if (horse != null)
         {
-            Animator animator = horse.GetComponent<Animator>();
-            if (animator != null)
-            {
+            var animator = horse.GetComponentInChildren<Animator>();
                 animator.applyRootMotion = false;
+                animator.Play("Running", 0, 0.0f);
                 animator.SetFloat(Speed, UnityEngine.Random.Range(0.2f, 0.27f));
-            }
-            
         }
     }
 

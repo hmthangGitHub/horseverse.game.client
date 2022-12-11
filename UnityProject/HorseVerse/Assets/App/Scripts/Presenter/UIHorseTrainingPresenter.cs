@@ -91,7 +91,7 @@ public class UIHorseTrainingPresenter : IDisposable
         {
             HorseMeshInformation = new HorseMeshInformation()
             {
-                horseModelPath = MasterHorseContainer.MasterHorseIndexer[userHorse.MasterHorseId].ModelPath,
+                horseModelPath = MasterHorseContainer.FromTypeToMasterHorse(userHorse.Type).ModelPath,
                 color1 = userHorse.Color1,
                 color2 = userHorse.Color2,
                 color3 = userHorse.Color3,

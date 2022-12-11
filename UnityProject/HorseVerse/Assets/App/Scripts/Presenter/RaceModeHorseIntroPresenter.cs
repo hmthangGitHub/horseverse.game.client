@@ -33,7 +33,7 @@ public class RaceModeHorseIntroPresenter : IDisposable
             {
                 await ShowHorseInfoAsync(masterHorseIds[i],
                                          i + 1,
-                                         100.0f)
+                                         5.0f)
                      .AttachExternalCancellation(cts.Token);
             }
         }
