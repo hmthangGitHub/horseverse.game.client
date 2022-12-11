@@ -106,6 +106,7 @@ public class HorseRacePresenter : IDisposable
         int[] horseIdInLanes = RandomHorseInLanes();
         SetEntityHorseRaceManager(horseIdInLanes);
         StartUpdateRaceHorseStatus().Forget();
+        AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunRacing);
     }
 
     private async UniTaskVoid StartUpdateRaceHorseStatus()
@@ -132,8 +133,10 @@ public class HorseRacePresenter : IDisposable
 
     private async UniTask OnFinishTrackAsync()
     {
-        numberOfHorseFinishTheRace++;
+        AudioManager.Instance.StopSound();
         await FlashScreenAsync();
+        AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunRacing);
+        numberOfHorseFinishTheRace++;
         if (numberOfHorseFinishTheRace == 2)
         {
             horseRaceManager.OnFinishTrackEvent -= OnFinishTrack;
@@ -237,5 +240,7 @@ public class HorseRacePresenter : IDisposable
         
         raceModeHorseIntroPresenter?.Dispose();
         raceModeHorseIntroPresenter = default;
+        audioPresenter = default;
+        AudioManager.Instance.StopSound();
     }
 }

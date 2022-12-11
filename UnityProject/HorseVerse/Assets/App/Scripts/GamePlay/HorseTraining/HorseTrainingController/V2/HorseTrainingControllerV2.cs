@@ -314,6 +314,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
                 var vfx = Instantiate(landingVFX);
                 vfx.transform.position = pivotPoint.position + Vector3.up * 0.1f;
                 trailVFX.SetActive(false);
+                AudioManager.Instance.PlaySound(AudioManager.HorseLand);
             }
             currentAirTime = 0.0f;
         }

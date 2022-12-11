@@ -108,7 +108,7 @@ public class HorseController : MonoBehaviour
             }
 
             animationSpeed = Mathf.Lerp(animationSpeed, targetAnimationSpeed, Time.deltaTime * 10.0f);
-            animationHorizontal = Vector3Extensions.Map( Mathf.Clamp(navMeshAgent.velocity.x, -30.0f, 30.0f), -3.0f, 3.0f, -1.0f, 1.0f);
+            animationHorizontal = Vector3Extensions.Map( Mathf.Clamp(navMeshAgent.velocity.x, -12.0f, 12.0f), -12.0f, 12.0f, -1.0f, 1.0f);
             animator.SetFloat(Speed, animationSpeed);
             animator.SetFloat(Horizontal, animationHorizontal);
         }
@@ -176,6 +176,6 @@ public class HorseController : MonoBehaviour
 
     private void SetAnimation(float time)
     {
-        targetAnimationSpeed = Vector3Extensions.Map(time, timeRange.x, timeRange.y, 1.1f, 0.8f);
+        targetAnimationSpeed = Vector3Extensions.Map(time, timeRange.x - 0.000001f, timeRange.y + 0.00001f, 1.1f, 0.8f);
     }
 }
