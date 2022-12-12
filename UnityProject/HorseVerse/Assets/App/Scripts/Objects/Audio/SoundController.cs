@@ -78,4 +78,8 @@ public static class SoundController
     {
         AudioManager.Instance?.PlaySound("HorseLand");
     }
+    public static void PlayHitCoin()
+    {
+        AudioManager.Instance?.PlaySound("EarnCoin");
+    }
 }

@@ -351,6 +351,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         if (other.CompareTag(Coin))
         {
             OnTakeCoin.Invoke();
+            SoundController.PlayHitCoin();
         }
     }
 

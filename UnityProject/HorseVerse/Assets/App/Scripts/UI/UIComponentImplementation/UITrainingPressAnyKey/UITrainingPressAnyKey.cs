@@ -19,6 +19,7 @@ public class UITrainingPressAnyKey : PopupEntity<UITrainingPressAnyKey.Entity>
 
     private void Update()
     {
+        if (this.entity == null) return;
 	    if (Input.GetMouseButtonUp(0) || ((Input.touchCount > 0 ) && Input.touches[0].phase == TouchPhase.Ended))
 	    {
 		    this.entity.onInput?.Invoke();

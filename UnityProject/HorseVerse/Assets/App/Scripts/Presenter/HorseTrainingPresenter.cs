@@ -110,7 +110,12 @@ public class HorseTrainingPresenter : IDisposable
         }));
         uiConfirm.SetEntity(new UIPopUpPause.Entity()
         {
-            settingBtn = exitBtnEntity,
+            settingBtn = new ButtonComponent.Entity(() => { 
+                OnBtnSettingClicked().Forget();
+                //await uiConfirm.Out();
+                //UILoader.SafeRelease(ref uiConfirm);
+                //Time.timeScale = 1.0f;
+            }),
             continueBtn = new ButtonComponent.Entity(UniTask.Action(async() =>
             {
                 await uiConfirm.Out();
@@ -124,18 +129,32 @@ public class HorseTrainingPresenter : IDisposable
 
     private async UniTask OnBtnSettingClicked()
     {
-        var uiConfirm = await UILoader.Instantiate<UIPopupYesNoMessage>(token: cts.Token);
-        bool wait = true;
-        uiConfirm.SetEntity(new UIPopupYesNoMessage.Entity()
+        var ucs = new UniTaskCompletionSource();
+        var uiSetting = await UILoader.Instantiate<UIPopUpSettingInGame>(token: cts.Token);
+        
+        uiSetting.SetEntity(new UIPopUpSettingInGame.Entity()
         {
-            title = "NOTICE",
-            message = "Do you want to exit ? You won't receive any reward once you do.",
-            yesBtn = new ButtonComponent.Entity(() => { wait = false; }),
-            noBtn = new ButtonComponent.Entity(() => { wait = false; })
+            closeBtn = new ButtonComponent.Entity(() => { ucs.TrySetResult(); }),
+            bgmSlider = new UIComponentProgressBar.Entity()
+            {
+                progress = SoundController.GetBGMVolume(),
+                OnChangeValue = UpdateBGM,
+            },
+            gfxSlider = new UIComponentProgressBar.Entity
+            {
+                progress = SoundController.GetGFXVolume(),
+                OnChangeValue = UpdateGFX,
+            },
+            sfxSlider = new UIComponentProgressBar.Entity
+            {
+                progress = SoundController.GetSFXVolume(),
+                OnChangeValue = UpdateSFX,
+            },
         });
-        await uiConfirm.In();
-        await UniTask.WaitUntil(() => wait == false);
-        UILoader.SafeRelease(ref uiConfirm);
+        await uiSetting.In();
+        await ucs.Task;
+        await uiSetting.Out();
+        UILoader.SafeRelease(ref uiSetting);
     }
 
     private async UniTask<bool> AskForQuit()
@@ -167,6 +186,21 @@ public class HorseTrainingPresenter : IDisposable
     private void UpdateCoinUI()
     {
         uiTrainingCoinCounting.coin.SetEntity(numberOfCoinTaken);
+    }
+
+    private void UpdateBGM(float f)
+    {
+        SoundController.SetBGMVolume(f);
+    }
+
+    private void UpdateSFX(float f)
+    {
+        SoundController.SetSFXVolume(f);
+    }
+
+    private void UpdateGFX(float f)
+    {
+        SoundController.SetGFXVolume(f);
     }
 
     private async UniTaskVoid OnTouchObstacleAsync()

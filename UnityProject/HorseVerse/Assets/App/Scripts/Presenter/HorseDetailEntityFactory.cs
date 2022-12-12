@@ -21,7 +21,7 @@ public class HorseDetailEntityFactory
         return new UIComponentHorseDetail.Entity()
         {
             level = userHorse.Level,
-            horseName = masterHorse.Name,
+            horseName = userHorse.Name,
             powerProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
             {
                 bonus = userHorse.PowerBonus,
