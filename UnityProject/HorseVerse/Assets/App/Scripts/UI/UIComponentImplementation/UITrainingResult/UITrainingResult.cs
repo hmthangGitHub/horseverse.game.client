@@ -19,7 +19,7 @@ public class UITrainingResult : PopupEntity<UITrainingResult.Entity>
         public UITrainingResultRewardComponent.Entity coinReward;
     }
 
-    public TextMeshProUGUI score;
+    public FormattedTextComponent score;
     public ButtonComponent confirmBtn;
     public ButtonComponent retryBtn;
     public FormattedTextComponent energy;
@@ -29,7 +29,7 @@ public class UITrainingResult : PopupEntity<UITrainingResult.Entity>
 
     protected override void OnSetEntity()
     {
-        score.text = this.entity.score.ToString();
+        score.SetEntity(this.entity.score.ToString());
         confirmBtn.SetEntity(this.entity.confirmBtn);
         retryBtn.SetEntity(this.entity.retryBtn);
         energy.SetEntity(this.entity.currentEnergy.ToString(), this.entity.totalEnergy.ToString());
