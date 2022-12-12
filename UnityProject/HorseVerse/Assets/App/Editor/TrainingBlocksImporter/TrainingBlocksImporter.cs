@@ -92,6 +92,18 @@ public class TrainingBlocksImporter
             else if (child.name == "obstacle_dummy")
             {
             }
+            else if (child.name == "collider")
+            {
+                child.Cast<Transform>()
+                     .ForEach(x =>
+                     {
+                         var meshRenderer = x.GetComponent<MeshRenderer>();
+                         meshRenderer.enabled = false;
+                         x.gameObject.AddComponent<MeshCollider>();
+                         x.gameObject.layer = LayerMask.NameToLayer("TrainingObject");
+                         x.tag = "Obstacle";
+                     });
+            }
             else if (child.name == "coinblock")
             {
                 trainingBlockPredefine.coinPositions = child.Cast<Transform>().Select(x => x.localPosition).ToArray();
