@@ -1688,6 +1688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horseName: {fileID: 7875285712640550444}
+  horseLevel: {fileID: 1824029841977270219}
   horseRace: {fileID: 7972232626449945439}
   selectBtn: {fileID: 7289553029044750599}
 --- !u!1 &7875285711870114800
@@ -2233,8 +2234,9 @@ GameObject:
   - component: {fileID: 7875285712889363909}
   - component: {fileID: 7875285712889363911}
   - component: {fileID: 7875285712889363910}
+  - component: {fileID: 1824029841977270219}
   m_Layer: 5
-  m_Name: iconDetailLabel
+  m_Name: LevelDetailLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2287,7 +2289,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Icon details
+  m_text: 'Level: 1'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 063d9d21debc62c47ae1db59e24c1769, type: 2}
   m_sharedMaterial: {fileID: 860308009754018327, guid: 063d9d21debc62c47ae1db59e24c1769, type: 2}
@@ -2356,6 +2358,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1824029841977270219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7875285712889363908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5191d4c33a3144b4bb9cfdc78624bfb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 7875285712889363910}
+  format: 'Level: {0}'
 --- !u!1 &7878937870533582509
 GameObject:
   m_ObjectHideFlags: 0

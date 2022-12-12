@@ -43,6 +43,7 @@ public class UIHorseStablePresenter : IDisposable
                 {
                     horseNFTId = x.Value.HorseNtfId,
                     horseName = x.Value.Name,
+                    horseLevel = x.Value.Level,
                     horseRace = new UIComponentHorseRace.Entity() { type = x.Value.Type },
                     selectBtn = new ButtonSelectedComponent.Entity(() => OnSelectHorseAsync(x.Key).Forget(), x.Value.HorseNtfId == current)
                 }).ToArray()
