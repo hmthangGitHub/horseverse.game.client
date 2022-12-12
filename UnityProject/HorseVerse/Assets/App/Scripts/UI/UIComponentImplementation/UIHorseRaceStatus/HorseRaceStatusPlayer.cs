@@ -13,14 +13,14 @@ public class HorseRaceStatusPlayer : UIComponent<HorseRaceStatusPlayer.Entity>
         public bool isPlayer;
     }
 
-    public FormattedTextComponent index;
     public IsVisibleComponent isPlayer;
     public Image image;
+    public List<Sprite> sprites;
 
     protected override void OnSetEntity()
     {
-        this.index.SetEntity(this.entity.lane);
+        var sprite = sprites[this.entity.lane - 1];
         this.isPlayer.SetEntity(this.entity.isPlayer);
-        this.image.color = new Color(UnityEngine.Random.Range(0.0f, 1.0f), UnityEngine.Random.Range(0.0f, 1.0f), UnityEngine.Random.Range(0.0f, 1.0f) , 1.0f);
+        this.image.sprite = sprite;
     }
 }
