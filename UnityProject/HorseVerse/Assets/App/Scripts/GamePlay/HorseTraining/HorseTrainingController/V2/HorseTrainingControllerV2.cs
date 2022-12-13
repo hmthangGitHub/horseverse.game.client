@@ -181,7 +181,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
             
             DOTween.To(val =>
             {
-                Debug.Log($"Speed {val}");
+                //Debug.Log($"Speed {val}");
                 Animator.SetFloat(Speed, val);
                 currentForwardVelocity = Mathf.Lerp(0.0f, ForwardVelocity, val);
                 currentHorizontalVelocity = Mathf.Lerp(0.0f, HorizontalVelocity, val);
