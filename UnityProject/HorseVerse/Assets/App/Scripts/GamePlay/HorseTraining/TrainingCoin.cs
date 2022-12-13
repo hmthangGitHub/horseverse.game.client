@@ -22,13 +22,6 @@ public class TrainingCoin : MonoBehaviour
             .SetLoops(-1, LoopType.Incremental)
             .SetEase(Ease.Linear)
             .SetDelay(delay);
-        
-        // DOTween.Sequence()
-        //     .SetDelay(0.1f)
-        //     .Join(transform.DOMoveFrom(transform.position + Vector3.up * (-1.0f), transform.position, 1.0f).SetEase(Ease.OutElastic))
-        //     .Join(transform.DOScaleFrom(transform.localScale * 0.0f, transform.localScale, 1.0f).SetEase(Ease.OutElastic))
-        //     .SetDelay(UnityEngine.Random.Range(0.1f, 0.6f))
-        //     .SetUpdate(true);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -36,9 +29,13 @@ public class TrainingCoin : MonoBehaviour
         if (other.CompareTag("TrainingHorse"))
         {
             tween?.Kill();
-            transform.DOMove(transform.position + Vector3.up * 1, 0.2f)
-                .SetEase(Ease.OutBack)
-                .OnComplete(() => Destroy(this.gameObject));    
+
+            DOTween.To(val =>
+                   {
+                       this.transform.position = Vector3.Lerp(this.transform.position, other.transform.position + Vector3.up * 1.5f, val);
+                   }, 0.0f, 1.0f, 0.5f)
+                   .SetEase(Ease.InFlash)
+                   .OnComplete(() => Destroy(this.gameObject));
         }
     }
 }

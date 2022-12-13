@@ -22,6 +22,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     [SerializeField] private new Rigidbody rigidbody;
     [SerializeField] private GameObject landingVFX;
     [SerializeField] private GameObject trailVFX;
+    [SerializeField] private GameObject takeCoinVFX;
     [SerializeField] private LeanFingerUp touchUp;
     [SerializeField] private LeanFingerDown touchDown;
     
@@ -69,6 +70,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private CinemachineOrbitalTransposer cinemachineOrbitalTransposer;
     private float animationHorizontal;
     private static readonly int VerticalVelocity = Animator.StringToHash("VerticalVelocity");
+    private int horizontalDirection = 0;
 
     private void AddInputEvents()
     {
@@ -78,11 +80,11 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
             if (finger.Down && finger.StartScreenPosition.x < Screen.width / 2)
             {
-                groundVelocity += Vector3.right * HorizontalVelocity;
+                horizontalDirection += 1;
             }
             else if (finger.Down && finger.StartScreenPosition.x > Screen.width / 2)
             {
-                groundVelocity -= Vector3.right * HorizontalVelocity;
+                horizontalDirection -= 1;
             }
             DetectDoubleTap(finger);
         });
@@ -93,11 +95,11 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
             if (finger.Up && finger.StartScreenPosition.x < Screen.width / 2)
             {
-                groundVelocity -= Vector3.right * HorizontalVelocity;
+                horizontalDirection -= 1;
             }
             else if (finger.Up && finger.StartScreenPosition.x > Screen.width / 2)
             {
-                groundVelocity += Vector3.right * HorizontalVelocity;
+                horizontalDirection += 1;
             }
         });
     }
@@ -174,14 +176,16 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     {
         if (isStart)
         {
-            currentForwardVelocity = ForwardVelocity;  
-            currentHorizontalVelocity = HorizontalVelocity;
             cam3.SetActive(false);
             cam1.SetActive(true);
+            
             DOTween.To(val =>
             {
+                Debug.Log($"Speed {val}");
                 Animator.SetFloat(Speed, val);
-            }, 0.0f, 1.0f, 0.25f);
+                currentForwardVelocity = Mathf.Lerp(0.0f, ForwardVelocity, val);
+                currentHorizontalVelocity = Mathf.Lerp(0.0f, HorizontalVelocity, val);
+            }, 0.0f, 1.0f, 2.0f).SetEase(Ease.Linear);
             AddInputEvents();
         }
     }
@@ -212,7 +216,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
     private void UpdateHorizontalAnimation()
     {
-        animationHorizontal = Mathf.Lerp(animationHorizontal, Math.Sign(-groundVelocity.x), Time.deltaTime * 10.0f);
+        animationHorizontal = Mathf.Lerp(animationHorizontal, Math.Sign(-horizontalDirection), Time.deltaTime * 10.0f);
         Animator.SetFloat(Horizontal, animationHorizontal);
     }
 
@@ -225,20 +229,20 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            groundVelocity += Vector3.right * HorizontalVelocity;
+            horizontalDirection += 1;
         }
         else if (Input.GetKeyUp(KeyCode.A))
         {
-            groundVelocity -= Vector3.right * HorizontalVelocity;
+            horizontalDirection -= 1;
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
-            groundVelocity -= Vector3.right * HorizontalVelocity;
+            horizontalDirection -= 1;
         }
         else if (Input.GetKeyUp(KeyCode.D))
         {
-            groundVelocity += Vector3.right * HorizontalVelocity;
+            horizontalDirection += 1;
         }
     }
 
@@ -277,7 +281,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private void FixedUpdate()
     {
         if (!IsStart) return;
-        rigidbody.velocity = new Vector3(-groundVelocity.x, rigidbody.velocity.y, currentForwardVelocity);
+        rigidbody.velocity = new Vector3(-horizontalDirection * currentHorizontalVelocity, rigidbody.velocity.y, currentForwardVelocity);
         if (rigidbody.velocity.y < 0)
         {
             
@@ -298,16 +302,14 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
     private void OnGrounded(bool isGrounded)
     {
-        Debug.Log("OnGrounded " + isGrounded);
         if (isGrounded && IsStart)
         {
-            cam1.SetActive(true);
-            cam2.SetActive(false);
             rigidbody.velocity = Vector3.Scale(new Vector3(0.0f, 0.0f, 1.0f), rigidbody.velocity);
-
             var minAirTimeToShake = Mathf.Abs(JumpVelocity / DefaultGravity) * 2 + 0.1f;
             if (currentAirTime > minAirTimeToShake)
             {
+                cam1.SetActive(true);
+                cam2.SetActive(false);
                 var strength = Map(currentAirTime, minAirTimeToShake, MaxAirTime, 2.0f, 5.0f);
                 var time = Map(currentAirTime, minAirTimeToShake, MaxAirTime, 0.1f, 0.35f);
                 cam1.transform.DOShakePosition(time, strength, 20);
@@ -323,7 +325,6 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         if (isGrounded && isJumping)
         {
             isJumping = false;
-            animator.CrossFade("Running", 0.15f, 0);
             AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunTraining);
         }
     }
@@ -351,6 +352,8 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         if (other.CompareTag(Coin))
         {
             OnTakeCoin.Invoke();
+            takeCoinVFX.gameObject.SetActive(false);
+            takeCoinVFX.gameObject.SetActive(true);
             SoundController.PlayHitCoin();
         }
     }
