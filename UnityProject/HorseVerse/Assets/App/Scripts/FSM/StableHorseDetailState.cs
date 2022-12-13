@@ -18,6 +18,7 @@ public class StableHorseDetailState : InjectedBState
 
         UIHeaderPresenter.ShowHeaderAsync(true, "STABLE").Forget();
         UIHeaderPresenter.OnBack += OnBack;
+        UIHeaderPresenter.OnLogOut += OnLogOut;
 
         UIHorse3DViewPresenter.ShowHorse3DViewAsync().Forget();
 
@@ -36,11 +37,24 @@ public class StableHorseDetailState : InjectedBState
         this.Machine.ChangeState<StableUIState>();
     }
 
+    private void OnLogOut()
+    {
+        OnLogOutAsync().Forget();
+    }
+
+    private async UniTask OnLogOutAsync()
+    {
+        await uiHorseStablePresenter.OutAsync();
+        this.Machine.RemoveAllStates();
+        this.Machine.Initialize();
+    }
+
     public override void Exit()
     {
         base.Exit();
         UIHeaderPresenter.HideHeader();
         UIHeaderPresenter.OnBack -= OnBack;
+        UIHeaderPresenter.OnLogOut -= OnLogOut;
         uiHorseStablePresenter.Dispose();
         uiHorseStablePresenter = default;
         Container.RemoveAndDisposeIfNeed<LocalHorseDetailDomainService>();

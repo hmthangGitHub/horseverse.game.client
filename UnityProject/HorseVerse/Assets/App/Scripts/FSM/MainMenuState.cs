@@ -27,7 +27,7 @@ public class MainMenuState : InjectedBState
         ShowBackGrounAsync().Forget();
         UIHorse3DViewPresenter.ShowHorse3DViewAsync().Forget();
         UiHeaderPresenter.ShowHeaderAsync(false).Forget();
-
+        UiHeaderPresenter.OnLogOut += OnLogOut;
         uiMainMenuPresenter ??= new UIMainMenuPresenter(this.Container);
         SubcribeEvents();
         uiMainMenuPresenter.ShowMainMenuAsync().Forget();
@@ -102,6 +102,7 @@ public class MainMenuState : InjectedBState
         base.Exit();
         UnSubcribeEvents();
         UiHeaderPresenter.HideHeader();
+        UiHeaderPresenter.OnLogOut -= OnLogOut;
         uiMainMenuPresenter.Dispose();
         uiMainMenuPresenter = default;
         uiLoadingPresenter = default;
@@ -110,5 +111,15 @@ public class MainMenuState : InjectedBState
         uiBackGroundPresenter = default;
         cts.SafeCancelAndDispose();
         cts = default;
+    }
+
+    private void OnLogOut()
+    {
+        OnLogOutAsync().Forget();
+    }
+
+    private async UniTask OnLogOutAsync()
+    {
+        Debug.Log("Log Out");
     }
 }
