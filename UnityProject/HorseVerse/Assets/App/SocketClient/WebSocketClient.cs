@@ -74,6 +74,15 @@ public class WebSocketClient : SocketClientBase, ISocketClient
         await connectTask.Task.AttachExternalCancellation(cts.Token).ThrowWhenTimeOut();
     }
 
+    public override async UniTask Close()
+    {
+        cts.SafeCancelAndDispose();
+        cts = default;
+        UnSubscribeMessage();
+        if (ws != null) await ws.Close();
+        ws = default;
+    }
+
     void Update()
     {
 #if !UNITY_WEBGL || UNITY_EDITOR

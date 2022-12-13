@@ -32,6 +32,7 @@ public class ScriptingDefineSymbolEditor : EditorWindow
 			{ "ENABLE_LOG", "" },
             { "DEV", "" },
 			{ "CUSTOM_SERVER", "" },
+			{ "MULTI_ACCOUNT", ""},
 			{ "WEB_SOCKET", "" },
 		 };
 	}

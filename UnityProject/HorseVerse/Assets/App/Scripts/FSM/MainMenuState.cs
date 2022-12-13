@@ -18,6 +18,10 @@ public class MainMenuState : InjectedBState
     private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
     private CancellationTokenSource cts;
     
+    private ISocketClient socketClient;
+    private ISocketClient SocketClient => socketClient ??= Container.Inject<ISocketClient>();
+
+
     public override void Enter()
     {
         base.Enter();
@@ -109,6 +113,7 @@ public class MainMenuState : InjectedBState
         uiHeaderPresenter = default;
         uiHorse3DViewPresenter = default;
         uiBackGroundPresenter = default;
+        socketClient = default;
         cts.SafeCancelAndDispose();
         cts = default;
     }
@@ -120,6 +125,12 @@ public class MainMenuState : InjectedBState
 
     private async UniTask OnLogOutAsync()
     {
-        Debug.Log("Log Out");
+        await uiHorse3DViewPresenter.HideHorse3DViewAsync();
+        uiHorse3DViewPresenter.Dispose();
+        await SocketClient.Close();
+        PlayerPrefs.DeleteKey(GameDefine.TOKEN_CURRENT_KEY_INDEX);
+        PlayerPrefs.DeleteKey(GameDefine.TOKEN_STORAGE);
+        AudioManager.Instance?.StopMusic();
+        this.Machine.ChangeState<LoginState>();
     }
 }

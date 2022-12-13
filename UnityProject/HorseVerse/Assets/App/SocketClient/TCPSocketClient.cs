@@ -59,6 +59,15 @@ public class TCPSocketClient : SocketClientBase
         ReadMessageAsync(socketConnection).Forget();
 	}
 
+    public override async UniTask Close()
+    {
+        cancellationTokenSource.SafeCancelAndDispose();
+        cancellationTokenSource = default;
+        socketConnection?.Close();
+        socketConnection?.Dispose();
+        socketConnection = default;
+    }
+
     private async UniTask ConnectTask(string url, int port)
     {
         socketConnection = new TcpClient();
