@@ -14,7 +14,11 @@ public class UIHeaderPresenter : IDisposable
     private IReadOnlyUserDataRepository userDataRepository = default;
     public IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
     public event Action OnBack = ActionUtility.EmptyAction.Instance;
-    
+    public event Action OnLogOut = ActionUtility.EmptyAction.Instance;
+
+    private ISocketClient socketClient;
+    private ISocketClient SocketClient => socketClient ??= container.Inject<ISocketClient>();
+
     private UIPopUpSettings uiSetting;
 
 
@@ -135,6 +139,6 @@ public class UIHeaderPresenter : IDisposable
 
     private void LogOut()
     {
-
+        OnLogOut();
     }
 }

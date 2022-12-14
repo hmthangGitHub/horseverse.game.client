@@ -90,6 +90,7 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
     }
 
     public abstract UniTask Connect(string url, int port);
+    public abstract UniTask Close();
     public abstract void Dispose();
     public abstract UniTask Send<T>(T message) where T : IMessage;
 }

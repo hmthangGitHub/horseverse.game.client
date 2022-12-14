@@ -18,6 +18,10 @@ public class MainMenuState : InjectedBState
     private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
     private CancellationTokenSource cts;
     
+    private ISocketClient socketClient;
+    private ISocketClient SocketClient => socketClient ??= Container.Inject<ISocketClient>();
+
+
     public override void Enter()
     {
         base.Enter();
@@ -27,7 +31,7 @@ public class MainMenuState : InjectedBState
         ShowBackGrounAsync().Forget();
         UIHorse3DViewPresenter.ShowHorse3DViewAsync().Forget();
         UiHeaderPresenter.ShowHeaderAsync(false).Forget();
-
+        UiHeaderPresenter.OnLogOut += OnLogOut;
         uiMainMenuPresenter ??= new UIMainMenuPresenter(this.Container);
         SubcribeEvents();
         uiMainMenuPresenter.ShowMainMenuAsync().Forget();
@@ -102,13 +106,31 @@ public class MainMenuState : InjectedBState
         base.Exit();
         UnSubcribeEvents();
         UiHeaderPresenter.HideHeader();
+        UiHeaderPresenter.OnLogOut -= OnLogOut;
         uiMainMenuPresenter.Dispose();
         uiMainMenuPresenter = default;
         uiLoadingPresenter = default;
         uiHeaderPresenter = default;
         uiHorse3DViewPresenter = default;
         uiBackGroundPresenter = default;
+        socketClient = default;
         cts.SafeCancelAndDispose();
         cts = default;
+    }
+
+    private void OnLogOut()
+    {
+        OnLogOutAsync().Forget();
+    }
+
+    private async UniTask OnLogOutAsync()
+    {
+        await uiHorse3DViewPresenter.HideHorse3DViewAsync();
+        uiHorse3DViewPresenter.Dispose();
+        await SocketClient.Close();
+        PlayerPrefs.DeleteKey(GameDefine.TOKEN_CURRENT_KEY_INDEX);
+        PlayerPrefs.DeleteKey(GameDefine.TOKEN_STORAGE);
+        AudioManager.Instance?.StopMusic();
+        this.Machine.ChangeState<LoginState>();
     }
 }

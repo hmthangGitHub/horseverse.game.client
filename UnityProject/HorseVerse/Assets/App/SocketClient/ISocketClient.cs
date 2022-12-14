@@ -6,6 +6,7 @@ using Google.Protobuf;
 public interface ISocketClient : IDisposable
 {
     UniTask Connect(string url, int port);
+    UniTask Close();
     UniTask Send<T>(T message) where T : IMessage;
     UniTask<TResponse> Send<TRequest, TResponse>(TRequest request, CancellationToken token = default(CancellationToken)) where TRequest : IMessage
         where TResponse : IMessage;

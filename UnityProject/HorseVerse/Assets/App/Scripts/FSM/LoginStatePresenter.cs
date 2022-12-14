@@ -42,18 +42,29 @@ public class LoginStatePresenter : IDisposable
 #if CUSTOM_SERVER
         var uiSV = await UILoader.Instantiate<UIPopUpServerSelection>(token: cts.Token);
         bool wait = true;
-        
+        int currentProfileIndex = 0;
         uiSV.SetEntity(new UIPopUpServerSelection.Entity()
         {
-            cancelBtn = new ButtonComponent.Entity(()=> { wait = false; }),
-            connectBtn = new ButtonComponent.Entity(()=> { host = uiSV.hostInput.inputField.text; port = System.Convert.ToInt32(uiSV.portInput.inputField.text); wait = false; }),
+            cancelBtn = new ButtonComponent.Entity(()=> { wait = false; currentProfileIndex = uiSV.entity.CurrentProfileIndex; }),
+            connectBtn = new ButtonComponent.Entity(()=> { 
+                host = uiSV.hostInput.inputField.text; 
+                port = System.Convert.ToInt32(uiSV.portInput.inputField.text); 
+                wait = false;
+                currentProfileIndex = uiSV.entity.CurrentProfileIndex;
+            }),
             hostInput = new UIComponentInputField.Entity() { defaultValue = host, interactable = true},
             portInput = new UIComponentInputField.Entity() { defaultValue = port.ToString(), interactable = true },
+            CurrentProfileIndex = currentProfileIndex,
         });
         uiSV.In().Forget();
         UILoadingPresenter.HideLoading();
         await UniTask.WaitUntil(() => wait == false);
+        
         UILoader.SafeRelease(ref uiSV);
+#endif
+
+#if MULTI_ACCOUNT
+        PlayerPrefs.SetString(GameDefine.TOKEN_CURRENT_KEY_INDEX, currentProfileIndex.ToString());
 #endif
 
 #if UNITY_WEBGL || WEB_SOCKET
@@ -125,7 +136,12 @@ public class LoginStatePresenter : IDisposable
 
     private async UniTask<bool> doLoginWithAccessToken()
     {
+#if MULTI_ACCOUNT
+        var indexToken = PlayerPrefs.GetString(GameDefine.TOKEN_CURRENT_KEY_INDEX, "");
+        var token = PlayerPrefs.GetString(GameDefine.TOKEN_STORAGE + indexToken, "");
+#else
         var token = PlayerPrefs.GetString(GameDefine.TOKEN_STORAGE, "");
+#endif
         if (!string.IsNullOrEmpty(token))
         {
             var res = await SocketClient.Send<LoginRequest, LoginResponse>(new LoginRequest()
@@ -305,7 +321,12 @@ public class LoginStatePresenter : IDisposable
                 TraningTimeStamp = 0,
             };
             await UserDataRepository.UpdateDataAsync(new UserDataModel[] { model });
+#if MULTI_ACCOUNT
+            var indexToken = PlayerPrefs.GetString(GameDefine.TOKEN_CURRENT_KEY_INDEX, "");
+            PlayerPrefs.SetString(GameDefine.TOKEN_STORAGE + indexToken, res.PlayerInfo.AccessToken);
+#else
             PlayerPrefs.SetString(GameDefine.TOKEN_STORAGE, res.PlayerInfo.AccessToken);
+#endif
         }
         else
         {
