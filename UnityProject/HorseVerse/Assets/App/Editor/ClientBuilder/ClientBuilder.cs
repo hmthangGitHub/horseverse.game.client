@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Build;
@@ -191,8 +192,29 @@ public class ClientBuilder : EditorWindow
             BuildPipeline.BuildPlayer(scenes,
                                       $"{Application.dataPath.Replace("Assets", "")}Builds/{currentClientVersion}/{currentEnviroment}/{UnityEditor.EditorUserBuildSettings.activeBuildTarget}/{GetAssetTypeAsString(assetBuildMode)}/{Application.productName}_{currentEnviroment}_{currentClientVersion}{GetFileExtension()}",
                                       EditorUserBuildSettings.activeBuildTarget,
-                                      BuildOptions.None);
+                                      GetBuildOptions());
         }
+    }
+    
+    static BuildOptions GetBuildOptions()
+    {
+        var playerOptionsInternal = new BuildPlayerOptions();
+        var development = EditorUserBuildSettings.development;
+        if (development)
+            playerOptionsInternal.options |= BuildOptions.Development;
+        if (EditorUserBuildSettings.allowDebugging & development)
+            playerOptionsInternal.options |= BuildOptions.AllowDebugging;
+        if (EditorUserBuildSettings.symlinkLibraries)
+            playerOptionsInternal.options |= BuildOptions.SymlinkLibraries;
+        if (EditorUserBuildSettings.enableHeadlessMode)
+            playerOptionsInternal.options |= BuildOptions.EnableHeadlessMode;
+        if (EditorUserBuildSettings.connectProfiler && (development || EditorUserBuildSettings.activeBuildTarget == BuildTarget.WSAPlayer))
+            playerOptionsInternal.options |= BuildOptions.ConnectWithProfiler;
+        if (EditorUserBuildSettings.buildWithDeepProfilingSupport & development)
+            playerOptionsInternal.options |= BuildOptions.EnableDeepProfilingSupport;
+        if (EditorUserBuildSettings.buildScriptsOnly)
+            playerOptionsInternal.options |= BuildOptions.BuildScriptsOnly;
+        return playerOptionsInternal.options;
     }
 
     private string GetFileExtension()
