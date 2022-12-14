@@ -39,8 +39,12 @@ public class HorseObjectData : MonoBehaviour
                 var mat = materials[i].RefRenderer.materials[materials[i].MaterialIndex];
                 if(mat != null)
                 {
-                    mat.SetColor("_BaseColor", color);
-                    mat.SetColor("_Color", color);
+                    if (mat.HasProperty("_BaseColor"))
+                        mat.SetColor("_BaseColor", color);
+                    if (mat.HasProperty("_Color"))
+                        mat.SetColor("_Color", color);
+                    if (mat.HasProperty("_MainColor"))
+                        mat.SetColor("_MainColor", color);
                 }
             }
         }
