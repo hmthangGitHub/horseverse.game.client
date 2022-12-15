@@ -11,18 +11,17 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
-using SFB;
+using Google.Protobuf.WellKnownTypes;
+using SimpleFileBrowser;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Type = System.Type;
 
 public class MasterRuntimeEditorPresenter : IDisposable
 {
     private CancellationTokenSource cts;
     private UIDebugMasterEditor uiDebugMasterEditor;
-#if UNITY_WEBGL && !UNITY_EDITOR
-    [DllImport("__Internal")]
-    private static extern void DownloadFile(string gameObjectName, string methodName, string filename, byte[] byteArray, int byteArraySize);
-#endif
+    
     public async UniTask PerformMasterEditAsyncGeneric<T>() where T : IMasterContainer, new()
     {
         cts.SafeCancelAndDispose();
@@ -56,12 +55,15 @@ public class MasterRuntimeEditorPresenter : IDisposable
             }),
             importBtn = new ButtonComponent.Entity(UniTask.Action(async () =>
             {
-                var paths = StandaloneFileBrowser.OpenFilePanel("Select Master To Import", "", "csv", false);
-                if (paths.Length > 0) {
-                    var loader = new WWW(new System.Uri(paths[0]).AbsoluteUri);
-                    await loader.ToUniTask();
-                    await SaveToLocalAsync<T>(uiDebugMasterEditor, fields, loader.text);
-                }
+                FileBrowser.SetDefaultFilter( "*.csv" );
+                FileBrowser.ShowLoadDialog(paths => UniTask.Action(async () =>
+                    {
+                        var loader = new WWW(new System.Uri(paths[0]).AbsoluteUri);
+                        await loader.ToUniTask();
+                        await SaveToLocalAsync<T>(uiDebugMasterEditor, fields, loader.text);
+                    }),
+                    () => { }, FileBrowser.PickMode.Files, false,
+                    title: "Select Master To Import");
             }))
         });
         await uiDebugMasterEditor.In().AttachExternalCancellation(cts.Token);
@@ -89,23 +91,15 @@ public class MasterRuntimeEditorPresenter : IDisposable
         var fileName = Regex.Replace(type.ToString(), "([A-Z])", "_$1").ToLower().Remove(0, 1);
         var csvDatas = string.Join("\n", csvDataAsLine);
         
-#if UNITY_WEBGL && !UNITY_EDITOR
-    var bytes = Encoding.UTF8.GetBytes(csvDatas);
-    DownloadFile(string.Empty, string.Empty, $"{fileName}.csv", bytes, bytes.Length);
-#elif UNITY_STANDALONE_WIN || UNITY_STANDALONE_MAC || UNITY_STANDALONE_OSX || UNITY_EDITOR
-        var path = StandaloneFileBrowser.SaveFilePanel($"Save master", string.Empty, fileName, new[]
+#if UNITY_STANDALONE_WIN || UNITY_STANDALONE_MAC || UNITY_STANDALONE_OSX || UNITY_EDITOR
+        FileBrowser.SetDefaultFilter( "*.csv" );
+        FileBrowser.ShowSaveDialog(paths =>
         {
-            new ExtensionFilter()
+            if (!string.IsNullOrEmpty(paths[0]))
             {
-                Extensions = new[] { "csv" }
+                File.WriteAllText(paths[0], csvDatas);
             }
-        });
-        if (!string.IsNullOrEmpty(path))
-        {
-            File.WriteAllText(path, csvDatas);
-        }
-        
-        // StandaloneFileBrowser.OpenFilePanel;
+        }, () => { }, FileBrowser.PickMode.Files, initialFilename: $"{fileName}.csv");
 #endif
     }
 
