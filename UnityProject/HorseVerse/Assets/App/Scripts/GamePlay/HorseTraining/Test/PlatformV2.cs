@@ -18,15 +18,17 @@ public class PlatformV2 : PlatformBase
         var blockCombo = InstantiateTrainingBlockPredefine(relativePointToPlayer, lastEndPosition, blockComboPrefab, masterHorseTrainingProperty);
         InstantiateObstacles(obstacleVariationContainer, blockCombo);
         InstantiateScenery(sceneryPrefab, blockCombo);
-        InstantiateCoins(blockCombo);
+        InstantiateCoins(blockCombo, masterHorseTrainingProperty);
     }
 
-    private void InstantiateCoins(TrainingBlockPredefine trainingBlockPredefine)
+    private void InstantiateCoins(TrainingBlockPredefine trainingBlockPredefine,
+                                  MasterHorseTrainingProperty masterHorseTrainingProperty)
     {
         trainingBlockPredefine.coinPositions.ForEach(x =>
         {
             var coin = Instantiate(coinPrefab, x, Quaternion.identity, trainingBlockPredefine.transform);
             coin.transform.localPosition = x + new Vector3(0 , 1, 0);
+            coinPrefab.GetComponent<SphereCollider>().radius = masterHorseTrainingProperty.CoinColliderRadius;
         });
     }
 
