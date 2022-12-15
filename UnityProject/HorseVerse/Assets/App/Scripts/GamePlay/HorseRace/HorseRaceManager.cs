@@ -46,6 +46,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
     public int playerHorseIndex;
     private RacingTrackController racingTrackController;
     private bool isStartedRace;
+    private bool isHorsesLoaded;
     public event Action OnFinishTrackEvent = ActionUtility.EmptyAction.Instance;
 
     public async UniTask InitializeAsync(HorseMeshInformation[] horseMeshControllerPaths,
@@ -68,6 +69,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         CalculateRaceStat(times, totalLap);
         SetHorseControllerStat(tops, horseRaceTimes);
         RaceTime = GetMinimumRaceTime(horseRaceTimes);
+        isHorsesLoaded = true;
     }
 
     public async UniTask ShowFreeCamera()
@@ -292,18 +294,16 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
 
     private void Update()
     {
-        if (isStartedRace)
+        if (isHorsesLoaded)
         {
-            StartRace();
-            horseGroup.m_Targets = Array.Empty<CinemachineTargetGroup.Target>();
-            var horseInGroup = horseControllers.OrderByDescending(x => x.CurrentRaceProgressWeight)
-                            .Take(1)
-                            .ToArray();
-            horseInGroup.ForEach(x => horseGroup.AddMember(x.transform, 1, 0));
-            horseGroup.DoUpdate();
+            var firstHorse = isStartedRace
+                ? horseControllers.OrderByDescending(x => x.CurrentRaceProgressWeight)
+                                  .First()
+                                  .transform
+                : horseControllers[horseControllers.Length / 2]
+                    .transform;
+            followTarget.position = Vector3.Lerp(followTarget.position, firstHorse.transform.position, Time.deltaTime * 15.0f);
         }
-        followTarget.position = Vector3.Lerp(followTarget.position, targetGenerator.SimplyPath.path.GetClosestPointOnPath(horseGroup.transform.position),
-            Time.deltaTime * 15.0f);
     }
     
     public void Dispose()
