@@ -64,4 +64,8 @@ public partial class MasterHorseTrainingProperty
 	private float landing_point;
 	public float LandingPoint => landing_point;
 
+	[JsonProperty]
+	private float coin_collider_radius;
+	public float CoinColliderRadius => coin_collider_radius;
+
 }

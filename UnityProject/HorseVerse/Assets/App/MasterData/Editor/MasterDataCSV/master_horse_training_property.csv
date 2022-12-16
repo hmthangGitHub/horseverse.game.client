@@ -1,6 +1,6 @@
-type_name,master_horse_training_property_id,jump_velocity,horizontal_velocity,forward_velocity,fall_gravity_multiplier,fall_air_time_min,fall_air_time_max,block_padding,block_spacing,block_numbers_min,block_numbers_max,run_camera_rotation,fall_camera_rotation,jumping_point,landing_point
-type,long,float,float,float,float,float,float,float,float,int,int,float,float,float,float
-out_put_client,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE
-out_put_server,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
-id,id,,,,,,,,,,,,,,
-,10003001,5.5,10,12,3,1.75,2.5,10,1,0,10,12.827,50.76,1.5,4
+type_name,master_horse_training_property_id,jump_velocity,horizontal_velocity,forward_velocity,fall_gravity_multiplier,fall_air_time_min,fall_air_time_max,block_padding,block_spacing,block_numbers_min,block_numbers_max,run_camera_rotation,fall_camera_rotation,jumping_point,landing_point,coin_collider_radius
+type,long,float,float,float,float,float,float,float,float,int,int,float,float,float,float,float
+out_put_client,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE
+out_put_server,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
+id,id,,,,,,,,,,,,,,,
+,10003001,5.5,10,18,3,1.75,2.5,10,1,0,10,12.827,50.76,1.5,6,0.75
