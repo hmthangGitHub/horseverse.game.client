@@ -92,7 +92,7 @@ public class LoginStatePresenter : IDisposable
         await UniTask.Delay(1000);
     }
 
-    private async UniTask LoginAsync()
+    private async UniTask<bool> LoginAsync()
     {
         var res = await SocketClient.Send<LoginRequest, LoginResponse>(new LoginRequest()
         {
@@ -107,7 +107,7 @@ public class LoginStatePresenter : IDisposable
                 Version = Application.version,
             }
         }, 5.0f);
-        await HandleLoginResponse(res);
+        return await HandleLoginResponse(res);
     }
 
     private io.hverse.game.protogen.Platform GetCurrentPlatform()
@@ -130,6 +130,8 @@ public class LoginStatePresenter : IDisposable
         cts = default;
         UILoader.SafeRelease(ref uiLogin);
         if(uiLoginOTP != default) UILoader.SafeRelease(ref uiLoginOTP);
+        uiLogin = default;
+        uiLoginOTP = default;
         socketClient = default;
         uiLoadingPresenter = default;
     }
@@ -191,7 +193,7 @@ public class LoginStatePresenter : IDisposable
 
     private async UniTask<bool> doLoginWithEmail()
     {
-        uiLogin = await UILoader.Instantiate<UILogin>(token: cts.Token);
+        uiLogin ??= await UILoader.Instantiate<UILogin>(token: cts.Token);
         bool closed = false;
         bool result = false;
         uiLogin.SetEntity(new UILogin.Entity()
@@ -200,9 +202,8 @@ public class LoginStatePresenter : IDisposable
             passWord = new UIComponentInputField.Entity(),
             loginBtn = new ButtonComponent.Entity(() =>
             {
-                LoginAsync().Forget();
-                closed = true;
                 result = true;
+                closed = true;
             }),
             cancelBtn = new ButtonComponent.Entity(()=> {
                 closeAccount().Forget(); closed = true; result = false;
@@ -213,7 +214,9 @@ public class LoginStatePresenter : IDisposable
         });
         uiLogin.In().Forget();
         await UniTask.WaitUntil(() => closed == true);
-        return result;
+        if (result)
+            return await LoginAsync();
+        return false;
     }
 
     private async UniTask closeAccount()
@@ -225,19 +228,21 @@ public class LoginStatePresenter : IDisposable
 
     private async UniTask<bool> doLoginWithOTP()
     {
-        uiLoginOTP = await UILoader.Instantiate<UILoginOTP>(token: cts.Token);
+        uiLoginOTP ??= await UILoader.Instantiate<UILoginOTP>(token: cts.Token);
         bool closed = false;
         bool result = false;
         uiLoginOTP.SetEntity(new UILoginOTP.Entity()
         {
             id = new UIComponentInputField.Entity(),
             code = new UIComponentInputField.Entity(),
-            loginBtn = new ButtonComponent.Entity(() => { LoginOTPAsync().Forget(); closed = true; result = true; }),
+            loginBtn = new ButtonComponent.Entity(() => { closed = true; result = true; }),
             cancelBtn = new ButtonComponent.Entity(() => { closeOTP().Forget(); closed = true; result = false; }),
             getCodeBtn = new ButtonComponent.Entity(() => GetCodeOTPAsync().Forget())
         });
         await uiLoginOTP.In();
         await UniTask.WaitUntil(() => closed == true);
+        if(result) 
+            return await LoginOTPAsync();
         return result;
     }
 
@@ -248,7 +253,7 @@ public class LoginStatePresenter : IDisposable
         uiLoginOTP = default;
     }
 
-    private async UniTask LoginOTPAsync()
+    private async UniTask<bool> LoginOTPAsync()
     {
         var res = await SocketClient.Send<LoginRequest, LoginResponse>(new LoginRequest()
         {
@@ -263,7 +268,7 @@ public class LoginStatePresenter : IDisposable
                 Version = Application.version,
             }
         });
-        await HandleLoginResponse(res);
+        return await HandleLoginResponse(res);
     }
 
     private async UniTask GetCodeOTPAsync()
@@ -300,7 +305,7 @@ public class LoginStatePresenter : IDisposable
         }
     }
 
-    private async UniTask HandleLoginResponse(LoginResponse res)
+    private async UniTask<bool> HandleLoginResponse(LoginResponse res)
     {
         if (res?.ResultCode == 100)
         {
@@ -327,11 +332,13 @@ public class LoginStatePresenter : IDisposable
 #else
             PlayerPrefs.SetString(GameDefine.TOKEN_STORAGE, res.PlayerInfo.AccessToken);
 #endif
+            return true;
         }
         else
         {
             //throw new Exception("Login Failed");
             await ShowMessagePopUp("NOTICE", LanguageManager.GetText($"RESULT_CODE_{res.ResultCode}"));
+            return false;
         }
     }
 

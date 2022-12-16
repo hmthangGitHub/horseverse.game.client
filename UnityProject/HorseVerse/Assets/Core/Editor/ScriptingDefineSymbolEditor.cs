@@ -34,6 +34,7 @@ public class ScriptingDefineSymbolEditor : EditorWindow
 			{ "CUSTOM_SERVER", "" },
 			{ "MULTI_ACCOUNT", ""},
 			{ "WEB_SOCKET", "" },
+			{ "ENABLE_DEBUG_MODULE", ""},
 		 };
 	}
 

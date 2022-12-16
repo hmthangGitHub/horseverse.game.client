@@ -11,7 +11,7 @@ public class UserDataRepository : Repository<long, UserDataModel, UserDataModel>
     {
     }
 
-    public UserDataModel Current => Models.First().Value;
+    public UserDataModel Current { get { if (Models.Count == 0) return default; return Models.First().Value; } }
     public async UniTask UpdateCoin(long coin)
     {
         var newModel = Current.Clone();
@@ -23,6 +23,8 @@ public class UserDataRepository : Repository<long, UserDataModel, UserDataModel>
     {
         return UniTask.FromResult(Enumerable.Empty<UserDataModel>());
     }
+
+
 }
 
 public interface IReadOnlyUserDataRepository : IReadOnlyRepository<long, UserDataModel>

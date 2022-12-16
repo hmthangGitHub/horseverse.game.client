@@ -30,6 +30,7 @@ public class UIHorse3DViewPresenter : IDisposable
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         await UserDataRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
+        await UniTask.WaitUntil(()=> UserDataRepository.Current != default).AttachExternalCancellation(cts.Token);
         await HorseRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
 
         //uiHorse3DView ??= await UILoader.Instantiate<UIHorse3DView>(token: cts.Token);
