@@ -9,11 +9,12 @@ public class BetModeUIState : InjectedBState
     private UILoadingPresenter uiLoadingPresenter;
     private UILoadingPresenter UILoadingPresenter => uiLoadingPresenter ??= Container.Inject<UILoadingPresenter>();
     private UIHeaderPresenter UIHeaderPresenter => uiHeaderPresenter ??= Container.Inject<UIHeaderPresenter>();
-
+    
     public override void Enter()
     {
         base.Enter();
         OnEnterStateAsync().Forget();
+
     }
 
     private async UniTaskVoid OnEnterStateAsync()

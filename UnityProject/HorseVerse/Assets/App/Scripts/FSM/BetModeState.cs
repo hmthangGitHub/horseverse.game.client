@@ -22,11 +22,17 @@ public class BetModeState : InjectedBHState
         base.Enter();
         Container.Bind(new BetModeDomainService(Container));
         Container.Bind(new BetMatchRepository(Container));
+#if ENABLE_DEBUG_MODULE
+        Container.Bind(new BetModeUIDebugMenuPresenter(Container));
+#endif
     }
 
     public override void Exit()
     {
         base.Exit();
+#if ENABLE_DEBUG_MODULE
+        Container.RemoveAndDisposeIfNeed<BetModeUIDebugMenuPresenter>();
+#endif
         Container.RemoveAndDisposeIfNeed<BetMatchRepository>();
         Container.RemoveAndDisposeIfNeed<BetModeDomainService>();
     }

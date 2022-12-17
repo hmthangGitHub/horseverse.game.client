@@ -40,14 +40,19 @@ public partial class UIDebugMenuPresenter : IDisposable
             openBtn = new ButtonComponent.Entity(() => UpdateDebugMenuState(UIDebugMenuState.State.Expand)),
             debugMenuItemList = new UIDebugMenuItemList.Entity()
             {
-                entities = debugMenuList.Select(x => new UIDebugMenuItem.Entity()
-                {
-                    debugMenu = x.debugMenu,
-                    debugMenuBtn = new ButtonComponent.Entity(x.action)
-                }).ToArray()
+                entities = CreateDebugMenuEntities()
             }
         });
         uiDebugMenu.In().Forget();
+    }
+
+    private UIDebugMenuItem.Entity[] CreateDebugMenuEntities()
+    {
+        return debugMenuList.Select(x => new UIDebugMenuItem.Entity()
+        {
+            debugMenu = x.debugMenu,
+            debugMenuBtn = new ButtonComponent.Entity(x.action)
+        }).ToArray();
     }
 
     private void UpdateDebugMenuState(UIDebugMenuState.State state)
@@ -88,6 +93,25 @@ public partial class UIDebugMenuPresenter : IDisposable
                 UpdateDebugMenuState(UIDebugMenuState.State.Collapse);
             }
         });
+    }
+
+    public void AddDebugMenu(string debugMenu, Action action)
+    {
+        debugMenuList.Add((debugMenu, action));
+        UpdateDebugMenu();
+    }
+
+    private void UpdateDebugMenu()
+    {
+        uiDebugMenu.entity.debugMenuItemList.entities = CreateDebugMenuEntities();
+        uiDebugMenu.debugMenuItemList.SetEntity(uiDebugMenu.entity.debugMenuItemList.entities);
+        uiDebugMenu.RefreshMenu();
+    }
+
+    public void RemoveDebugMenu(string debugMenu)
+    {
+        debugMenuList.RemoveAll(x => x.debugMenu == debugMenu);
+        UpdateDebugMenu();
     }
 
     private string GetCurrentInvisibleDebugMenu()

@@ -218,7 +218,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         if (isStartedRace == false)
         {
             isStartedRace = true;
-            horseControllers.ForEach(x => x.StartRace());
+            horseControllers.ForEach(x => x.StartRaceAsync().Forget());
         }
     }
 
@@ -255,7 +255,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
             .ForEach((x, i) =>
             {
                 var index = i;
-                HorseController horseController = horseControllers[i];
+                var horseController = horseControllers[i];
                 horseController.SetHorseData(new HorseInGameData()
                 {
                     TargetGenerator = targetGenerator,
@@ -265,6 +265,8 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
                     InitialLane = i,
                     OnFinishTrack = () => OnFinishTrack(topInRaceMatch[index]),
                     PredefineTargets = CalculatePredefineTarget(horseRaceTimes[i]),
+                    MainCamera = mainCamera,
+                    Delay = x.DelayTime
                 });
             });
     }

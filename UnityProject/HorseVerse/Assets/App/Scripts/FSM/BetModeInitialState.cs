@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using io.hverse.game.protogen;
+using UnityEngine;
 
 public class BetModeInitialState : InjectedBState
 {
@@ -10,6 +11,10 @@ public class BetModeInitialState : InjectedBState
     private UIHorse3DViewPresenter UIHorse3DViewPresenter => uiHorse3DViewPresenter ??= this.Container.Inject<UIHorse3DViewPresenter>();
     private IBetModeDomainService BetModeDomainService => betModeDomainService ??= Container.Inject<IBetModeDomainService>();
     private IReadOnlyBetMatchRepository BetMatchRepository => betMatchRepository ??= Container.Inject<IReadOnlyBetMatchRepository>();
+#if ENABLE_DEBUG_MODULE
+    private BetModeUIDebugMenuPresenter betModeUIDebugMenuPresenter;
+    private BetModeUIDebugMenuPresenter BetModeUIDebugMenuPresenter => betModeUIDebugMenuPresenter ??= Container.Inject<BetModeUIDebugMenuPresenter>();
+#endif
     
     public override void Enter()
     {
@@ -21,7 +26,9 @@ public class BetModeInitialState : InjectedBState
     {
         await UIHorse3DViewPresenter.HideHorse3DViewAsync();
         await BetModeDomainService.RequestBetData();
-        
+#if ENABLE_DEBUG_MODULE
+        BetModeUIDebugMenuPresenter.UpdateMatchId();
+#endif
         if (BetMatchRepository.Current.MatchStatus == MatchStatus.Acting)
         {
             this.Machine.ChangeState<BetModeInProgressState>();
@@ -38,5 +45,6 @@ public class BetModeInitialState : InjectedBState
         betMatchRepository = default;
         betModeDomainService = default;
         uiHorse3DViewPresenter = default;
+        betModeUIDebugMenuPresenter = default;
     }
 }

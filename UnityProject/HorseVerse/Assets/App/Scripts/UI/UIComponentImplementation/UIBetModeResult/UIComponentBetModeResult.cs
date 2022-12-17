@@ -9,12 +9,14 @@ public class UIComponentBetModeResult : UIComponent<UIComponentBetModeResult.Ent
     {
         public int no;
         public string horseName;
+        public int horseNumber;
         public float time;
     }
 
     public IsVisibleComponent bg;
     public FormattedTextComponent no;
     public FormattedTextComponent horseName;
+    public UIComponentEnumInt horseNumber;
     public UIComponentTimeSpan time;
 
     protected override void OnSetEntity()
@@ -22,6 +24,7 @@ public class UIComponentBetModeResult : UIComponent<UIComponentBetModeResult.Ent
         no.SetEntity(this.entity.no);
         horseName.SetEntity(this.entity.horseName);
         time.SetEntity(this.entity.time);
+        horseNumber.SetEntity(this.entity.horseNumber);
         bg.SetEntity(this.transform.GetSiblingIndex() % 2 == 1);
     }
 }	
