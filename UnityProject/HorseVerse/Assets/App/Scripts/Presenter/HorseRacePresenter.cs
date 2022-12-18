@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public class HorseRacePresenter : IDisposable
+public partial class HorseRacePresenter : IDisposable
 {
     private HorseRaceManager horseRaceManager;
     private UIHorseRaceStatus uiHorseRaceStatus;
@@ -14,31 +14,34 @@ public class HorseRacePresenter : IDisposable
 
     private int[] cachePositions;
     private IReadOnlyUserDataRepository userDataRepository;
-    private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= Container.Inject<IReadOnlyUserDataRepository>();
     private MasterHorseContainer masterHorseContainer;
-    private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= Container.Inject<MasterHorseContainer>();
-    private int playerHorseIndex;
     public event Action OnToBetModeResultState = ActionUtility.EmptyAction.Instance;
     public event Action OnToQuickRaceModeResultState = ActionUtility.EmptyAction.Instance;
-
+    private int playerHorseIndex;
     private RaceMatchData raceMatchData;
-    private RaceMatchData RaceMatchData => raceMatchData ??= Container.Inject<RaceMatchData>();
     private UIBackGroundPresenter uiBackGroundPresenter;
-    private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
-
     private MasterMapContainer masterMapContainer;
     private MasterMap masterMap;
     private MapSettings mapSettings;
     private TargetGenerator targetGenerator;
     private CancellationTokenSource statusCts;
+    private CancellationTokenSource cts;
+    private readonly CancellationToken token;
     private RaceModeHorseIntroPresenter raceModeHorseIntroPresenter;
     private int numberOfHorseFinishTheRace = 0;
+    
+    private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= Container.Inject<IReadOnlyUserDataRepository>();
+    private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= Container.Inject<MasterHorseContainer>();
+    private RaceMatchData RaceMatchData => raceMatchData ??= Container.Inject<RaceMatchData>();
+    private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
 
     private IDIContainer Container { get; }
 
     public HorseRacePresenter(IDIContainer container)
     {
         Container = container;
+        cts = new CancellationTokenSource();
+        token = cts.Token;
     }
 
     public async UniTask LoadAssetAsync()
@@ -49,7 +52,7 @@ public class HorseRacePresenter : IDisposable
         await LoadUI();
         raceModeHorseIntroPresenter = new RaceModeHorseIntroPresenter(Container);
         await raceModeHorseIntroPresenter.LoadUIAsync();
-        await UniTask.Delay(500);
+        await UniTask.Delay(500, cancellationToken: token);
     }
 
     private async UniTask GetMapSettings()
@@ -60,14 +63,17 @@ public class HorseRacePresenter : IDisposable
 
     public async UniTask PlayIntro()
     {
+#if ENABLE_DEBUG_MODULE
+        CreateDebuggerAction();
+#endif
         await horseRaceManager.ShowFreeCamera();
         horseRaceManager.EnablePostProcessing(true);
         await (horseRaceManager.cameraBlendingAnimation.FadeOutAnimationAsync(),
                raceModeHorseIntroPresenter.ShowHorsesInfoIntroAsync(RaceMatchData.HorseRaceInfos.ToArray(), 
                                                                     targetGenerator.StartPosition, 
-                                                                    Quaternion.identity));
-        raceModeHorseIntroPresenter.Dispose();
-        raceModeHorseIntroPresenter = default;
+                                                                    Quaternion.identity)
+                                          .AttachExternalCancellation(token));
+        DisposeUtility.SafeDispose(ref raceModeHorseIntroPresenter);
         horseRaceManager.EnablePostProcessing(false);
         await horseRaceManager.cameraBlendingAnimation.FadeInAnimationAsync();
         
@@ -93,7 +99,7 @@ public class HorseRacePresenter : IDisposable
                                                RaceMatchData.HorseRaceInfos.Select(x => x.RaceSegments.Sum(segment => segment.Time)).ToArray(),
                                                1,
                                                RaceMatchData.HorseRaceInfos,
-                                               default);
+                                               token);
     }
 
     private async UniTask LoadUI()
@@ -113,9 +119,10 @@ public class HorseRacePresenter : IDisposable
     private async UniTaskVoid StartUpdateRaceHorseStatus()
     {
         statusCts = new CancellationTokenSource();
-        while (true)
+        using var linkedToken = CancellationTokenSource.CreateLinkedTokenSource(statusCts.Token, token);
+        while (!linkedToken.Token.IsCancellationRequested)
         {
-            await UniTask.WaitForFixedUpdate(cancellationToken : statusCts.Token);
+            await UniTask.WaitForFixedUpdate(cancellationToken : linkedToken.Token);
             UpdateRaceStatus();
         }
     }
@@ -143,18 +150,24 @@ public class HorseRacePresenter : IDisposable
         }
         if (numberOfHorseFinishTheRace >= 2)
         {
-            statusCts.SafeCancelAndDispose();
-            horseRaceManager.OnFinishTrackEvent -= OnFinishTrack;
-            uiHorseRaceStatus.Out().Forget();
-            await UIBackGroundPresenter.ShowBackGroundAsync();
-            if (RaceMatchData.Mode == RaceMode.Race)
-            {
-                OnToQuickRaceModeResultState();
-            }
-            else
-            {
-                OnToBetModeResultState();
-            }
+            await OnShowResult();
+        }
+    }
+
+    private async UniTask OnShowResult()
+    {
+        statusCts.SafeCancelAndDispose();
+        horseRaceManager.OnFinishTrackEvent -= OnFinishTrack;
+        uiHorseRaceStatus.Out()
+                         .Forget();
+        await UIBackGroundPresenter.ShowBackGroundAsync();
+        if (RaceMatchData.Mode == RaceMode.Race)
+        {
+            OnToQuickRaceModeResultState();
+        }
+        else
+        {
+            OnToBetModeResultState();
         }
     }
 
@@ -217,10 +230,13 @@ public class HorseRacePresenter : IDisposable
 
     public void Dispose()
     {
-        statusCts.SafeCancelAndDispose();
-        horseRaceManager.Dispose();
-        Object.Destroy(horseRaceManager?.gameObject);
-        horseRaceManager = null;
+#if ENABLE_DEBUG_MODULE
+        RemoveDebuggerAction();
+#endif
+        DisposeUtility.SafeDispose(ref statusCts);
+        DisposeUtility.SafeDispose(ref cts);
+        DisposeUtility.SafeDispose(ref horseRaceManager);
+        
         Object.Destroy(targetGenerator);
         targetGenerator = null;
 
@@ -243,8 +259,7 @@ public class HorseRacePresenter : IDisposable
         cachePositions = default;
         masterHorseContainer = default;
         
-        raceModeHorseIntroPresenter?.Dispose();
-        raceModeHorseIntroPresenter = default;
+        DisposeUtility.SafeDispose(ref raceModeHorseIntroPresenter);
         AudioManager.Instance.StopSound();
     }
 }

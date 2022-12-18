@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 
 public class StartUpState : InjectedBHState
 {
-    private ErrorHandler errorHandler = new ErrorHandler();
+    private ErrorHandler errorHandler;
 #if ENABLE_DEBUG_MODULE
     private UIDebugMenuPresenter uiDebugMenuPresenter;
 #endif
@@ -13,6 +13,7 @@ public class StartUpState : InjectedBHState
     public override void Enter()
     {
         base.Enter();
+        errorHandler = new ErrorHandler();
         errorHandler.OnError += ErrorHandlerOnError;
 #if ENABLE_DEBUG_MODULE
         if (uiDebugMenuPresenter == default)
@@ -52,8 +53,8 @@ public class StartUpState : InjectedBHState
         try
         {
             base.Exit();
-            Container.RemoveAndDisposeIfNeed<UIDebugMenuPresenter>();
 #if ENABLE_DEBUG_MODULE
+            Container.RemoveAndDisposeIfNeed<UIDebugMenuPresenter>();
             uiDebugMenuPresenter.OnToLevelEditorState -= ToLevelEditorState;
             DisposeUtility.SafeDispose(ref uiDebugMenuPresenter);
 #endif
@@ -68,7 +69,6 @@ public class StartUpState : InjectedBHState
             {
                 this.Machine.Initialize();    
             }
-
             isNeedResetState = false;
         }
         

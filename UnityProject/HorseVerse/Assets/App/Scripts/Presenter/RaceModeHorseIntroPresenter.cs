@@ -129,7 +129,8 @@ public class RaceModeHorseIntroPresenter : IDisposable
         
         uiHorseInfoIntro.In().Forget();
 
-        await UniTask.WhenAny(ucs.Task, UniTask.Delay((int)(introTime * 1000)));
+        await UniTask.WhenAny(ucs.Task.AttachExternalCancellation(cts.Token), 
+            UniTask.Delay(TimeSpan.FromSeconds(introTime), cancellationToken: cts.Token));
     }
 
     private void OnSkipAllHorseIntro()

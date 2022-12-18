@@ -17,10 +17,10 @@ public class HorseRaceState : InjectedBHState
     private UIBackGroundPresenter uiBackGroundPresenter;
     private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
 
-    public override async void Enter()
+    public override void Enter()
     {
         base.Enter();
-        await OnEnterAsync();
+        OnEnterAsync().Forget();
     }
 
     private async UniTask OnEnterAsync()
