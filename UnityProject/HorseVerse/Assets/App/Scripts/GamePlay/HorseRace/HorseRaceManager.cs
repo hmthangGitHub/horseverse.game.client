@@ -37,6 +37,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
     public CinemachineTargetGroup horseGroup;
     public Transform followTarget;
     public float RaceTime { get; private set; }
+    public event Action OnFinishTrackEvent = ActionUtility.EmptyAction.Instance;
 
     public float averageSpeed = 24.0f;
     public float averageTimeToFinish;
@@ -47,7 +48,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
     private RacingTrackController racingTrackController;
     private bool isStartedRace;
     private bool isHorsesLoaded;
-    public event Action OnFinishTrackEvent = ActionUtility.EmptyAction.Instance;
+    private CancellationToken token;
 
     public async UniTask InitializeAsync(HorseMeshInformation[] horseMeshControllerPaths,
                                          string mapSettingPath,
@@ -70,6 +71,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         SetHorseControllerStat(tops, horseRaceTimes);
         RaceTime = GetMinimumRaceTime(horseRaceTimes);
         isHorsesLoaded = true;
+        this.token = token;
     }
 
     public async UniTask ShowFreeCamera()
@@ -91,7 +93,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         }
         
         freeCamera.OnSkipFreeCamera += OnSkipFreeCamera;
-        await ucs.Task;
+        await ucs.Task.AttachExternalCancellation(cancellationToken: this.token);
         mainCamera.SetActive(true);
     }
 
@@ -115,7 +117,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         }
 
         warmUpCamera.OnFinishWarmingUp += OnFinishWarmingUp;
-        await ucs.Task;
+        await ucs.Task.AttachExternalCancellation(this.token);
         warmUpCamera.gameObject.SetActive(false);
     }
 
@@ -234,7 +236,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         raceCamera.gameObject.SetActive(true);
         racingTrackController?.PlayStartAnimation();
         await (cameraBlendingAnimation.FadeOutAnimationAsync(),
-                UniTask.Delay(TimeSpan.FromSeconds(3)));
+                UniTask.Delay(TimeSpan.FromSeconds(3), cancellationToken: token));
     }
 
     private void CalculateRaceStat(float[] times, int totalLap)

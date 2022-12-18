@@ -23,9 +23,21 @@ public class BetModeUIDebugMenuPresenter : IDisposable
         });
     }
 
+    public void AddSkipRaceMenu(Action skipAction)
+    {
+        UIDebugMenuPresenter.AddDebugMenu($"BetMode/Skip", skipAction);
+    }
+    
+    public void RemoveSkipRaceMenu()
+    {
+        UIDebugMenuPresenter.RemoveDebugMenu($"BetMode/Skip");
+    }
+
     public void Dispose()
     {
         UIDebugMenuPresenter.RemoveDebugMenu($"BetMode/MatchId : {BetMatchRepository.Current.BetMatchId}");
+        uiDebugMenuPresenter = default;
+        betMatchRepository = default;
     }
 }
 #endif
