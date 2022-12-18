@@ -11,5 +11,6 @@ public class HorseInGameData
     public TargetGenerator TargetGenerator { get; set; }
     public ((Vector3 target, float time)[] targets, int finishIndex) PredefineTargets { get; set; }
     public Action OnFinishTrack { get; set; }
-    public HorseMeshInformation HorseMeshInformation { get; set; }
+    public GameObject MainCamera { get; set; }
+    public float Delay { get; set; }
 }

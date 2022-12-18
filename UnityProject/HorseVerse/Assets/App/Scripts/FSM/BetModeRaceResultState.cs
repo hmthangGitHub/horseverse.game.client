@@ -13,7 +13,7 @@ public class BetModeRaceResultState : InjectedBState
 
     private async UniTaskVoid ShowResultAndRewardAsync()
     {
-        await presenter.ShowResultAsynnc();
+        await presenter.ShowResultAsync();
         this.GetSuperMachine<RootFSM>().ChangeToChildStateRecursive<MainMenuState>();
     }
 

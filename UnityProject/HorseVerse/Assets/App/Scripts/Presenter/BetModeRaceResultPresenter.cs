@@ -16,23 +16,26 @@ internal class BetModeRaceResultPresenter : IDisposable
     private RaceMatchData raceMatchData;
     private ISocketClient socketClient;
     private MasterHorseContainer masterHorseContainer;
+    private UserDataRepository userDataRepository;
     
     private RaceMatchData RaceMatchData => raceMatchData ??= Container.Inject<RaceMatchData>();
-    private ISocketClient SocketClient => socketClient ??= Container.Inject<ISocketClient>();
-
-    private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= Container.Inject<MasterHorseContainer>();
+    private UserDataRepository UserDataRepository => userDataRepository ??= Container.Inject<UserDataRepository>();
 
     public BetModeRaceResultPresenter(IDIContainer container)
     {
         this.Container = container;
     }
 
-    public async UniTask ShowResultAsynnc()
+    public async UniTask ShowResultAsync()
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         await ShowBetModeResultAsync();
         await ShowRewardAsync();
+        if (RaceMatchData.TotalBetWin >= 0)
+        {
+            await UserDataRepository.UpdateCoin(UserDataRepository.Current.Coin + RaceMatchData.TotalBetWin);
+        }
     }
 
     private async UniTask ShowRewardAsync()
@@ -63,13 +66,14 @@ internal class BetModeRaceResultPresenter : IDisposable
             betModeResultList = new UIComponentBetModeResultList.Entity()
             {
                 entities = RaceMatchData.HorseRaceInfos
-                    .OrderBy(x => x.RaceSegments.Sum(segment => segment.Time))
+                                        .Select((horseRaceInfo, index) => (horseRaceInfo , index))
+                    .OrderBy(x => x.horseRaceInfo.RaceSegments.Sum(segment => segment.Time))
                     .Select((x, i) => new UIComponentBetModeResult.Entity()
                     {
-                        horseName = x.Name,
-                        time = x.RaceSegments.Sum(segment => segment.Time),
+                        horseName = x.horseRaceInfo.Name,
+                        time = x.horseRaceInfo.RaceSegments.Sum(segment => segment.Time) + x.horseRaceInfo.DelayTime,
                         no = i + 1,
-                        
+                        horseNumber = x.index
                     }).ToArray()
             },
             nextBtn = new ButtonComponent.Entity(() =>

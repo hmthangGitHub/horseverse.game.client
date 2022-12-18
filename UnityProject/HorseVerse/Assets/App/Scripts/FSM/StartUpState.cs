@@ -19,7 +19,8 @@ public class StartUpState : InjectedBHState
         {
             uiDebugMenuPresenter ??= new UIDebugMenuPresenter(Container);
             uiDebugMenuPresenter.InitializeAsync().Forget();
-            uiDebugMenuPresenter.OnToLevelEditorState += ToLevelEditorState;    
+            uiDebugMenuPresenter.OnToLevelEditorState += ToLevelEditorState;
+            Container.Bind(uiDebugMenuPresenter);
         }
 #endif
     }
@@ -51,7 +52,7 @@ public class StartUpState : InjectedBHState
         try
         {
             base.Exit();
-        
+            Container.RemoveAndDisposeIfNeed<UIDebugMenuPresenter>();
 #if ENABLE_DEBUG_MODULE
             uiDebugMenuPresenter.OnToLevelEditorState -= ToLevelEditorState;
             DisposeUtility.SafeDispose(ref uiDebugMenuPresenter);
