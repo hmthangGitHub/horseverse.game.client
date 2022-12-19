@@ -27,7 +27,6 @@ public class UIHeader : PopupEntity<UIHeader.Entity>
     public ButtonComponent settingBtn;
     public IsVisibleComponent backBtnVisible;
     public FormattedTextComponent title;
-    public UIHeaderAnimation uiHeaderAnimation;
     
     protected override void OnSetEntity()
     {
@@ -57,15 +56,5 @@ public class UIHeader : PopupEntity<UIHeader.Entity>
     public void SetBackBtnCallBack(Action callback)
     {
         backBtn.SetEntity(callback);
-    }
-
-    protected override UniTask AnimationIn()
-    {
-        return uiHeaderAnimation.AnimationIn();
-    }
-
-    protected override UniTask AnimationOut()
-    {
-        return uiHeaderAnimation.AnimationOut();
     }
 }

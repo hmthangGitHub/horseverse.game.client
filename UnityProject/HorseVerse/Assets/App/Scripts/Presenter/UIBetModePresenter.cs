@@ -72,7 +72,13 @@ public class UIBetModePresenter : IDisposable
         {
             betAmouthsContainer = new UIComponentBetAmouthsContainer.Entity()
             {
-                cancelBtn = new ButtonComponent.Entity(() => BetModeDomainService.CancelBetAsync().Forget()),
+                cancelBtn = new ButtonComponent.Entity(() =>
+                {
+                    if (BetRateRepository.TotalBetAmouth > 0)
+                    {
+                        BetModeDomainService.CancelBetAsync().Forget();
+                    }
+                }),
                 totalBetAmouth = (int)BetRateRepository.TotalBetAmouth,
                 betAmounths = new UIComponentBetAmouthList.Entity()
                 {

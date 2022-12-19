@@ -11,12 +11,37 @@ public class UITouchDisablePresenter : IDisposable
     
     private CancellationTokenSource cts;
     private UITouchDisable uiTouchDisable;
+    private UITouchDisable internalUiTouchDisable;
+    private int uiInOutNumber;
 
     private UITouchDisablePresenter(IDIContainer container)
     {
         this.container = container;
         SocketClient.OnStartRequest += OnStartRequest;
         SocketClient.OnEndRequest += OnEndRequest;
+        PopupEntity.BeginInOut += OnBeginInOut;
+        PopupEntity.EndInOut += OnEndInOut;
+    }
+
+    private void OnEndInOut(Type type)
+    {
+        if (type != uiTouchDisable.GetType())
+        {
+            uiInOutNumber--;
+            if (uiInOutNumber <= 0)
+            {
+                internalUiTouchDisable.Out().Forget();
+            }
+        }
+    }
+
+    private void OnBeginInOut(Type type)
+    {
+        if (type != uiTouchDisable.GetType())
+        {
+            uiInOutNumber++;
+            internalUiTouchDisable.In().Forget();
+        }
     }
 
     private void OnEndRequest()
@@ -33,7 +58,12 @@ public class UITouchDisablePresenter : IDisposable
     {
         var presenter = new UITouchDisablePresenter(container);
         presenter.uiTouchDisable = await UILoader.Instantiate<UITouchDisable>(UICanvas.UICanvasType.Loading);
-        presenter.uiTouchDisable.SetEntity(new UITouchDisable.Entity());
+        presenter.internalUiTouchDisable = await UILoader.Instantiate<UITouchDisable>(UICanvas.UICanvasType.Loading);
+        presenter.uiTouchDisable.SetEntity(new UITouchDisable.Entity()
+        {
+            loadingHorse = true
+        });
+        presenter.internalUiTouchDisable.SetEntity(new UITouchDisable.Entity());
         return presenter;
     }
 
@@ -74,8 +104,11 @@ public class UITouchDisablePresenter : IDisposable
         SocketClient.OnStartRequest -= OnStartRequest;
         SocketClient.OnEndRequest -= OnEndRequest;
         socketClient = default;
+        PopupEntity.BeginInOut -= OnBeginInOut;
+        PopupEntity.EndInOut -= OnEndInOut;
         
         DisposeUtility.SafeDispose(ref cts);
         UILoader.SafeRelease(ref uiTouchDisable);
+        UILoader.SafeRelease(ref internalUiTouchDisable);
     }
 }
