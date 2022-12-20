@@ -67,7 +67,7 @@ internal class BetModeRaceResultPresenter : IDisposable
             {
                 entities = RaceMatchData.HorseRaceInfos
                                         .Select((horseRaceInfo, index) => (horseRaceInfo , index))
-                    .OrderBy(x => x.horseRaceInfo.RaceSegments.Sum(segment => segment.Time))
+                    .OrderBy(x => x.horseRaceInfo.RaceSegments.Sum(segment => segment.Time) + x.horseRaceInfo.DelayTime)
                     .Select((x, i) => new UIComponentBetModeResult.Entity()
                     {
                         horseName = x.horseRaceInfo.Name,

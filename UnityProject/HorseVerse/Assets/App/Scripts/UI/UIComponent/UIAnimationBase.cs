@@ -13,7 +13,7 @@ public class UIAnimationBase : MonoBehaviour
     {
         EndAnimation();
         tweenAnimation = animationFactory.Invoke();
-        return tweenAnimation?.AwaitForComplete(TweenCancelBehaviour.CancelAwait, cts.Token) ?? UniTask.CompletedTask;
+        return tweenAnimation?.AwaitForComplete(TweenCancelBehaviour.CancelAwait, cancellationToken: cts.Token) ?? UniTask.CompletedTask;
     }
 
     private void EndAnimation()

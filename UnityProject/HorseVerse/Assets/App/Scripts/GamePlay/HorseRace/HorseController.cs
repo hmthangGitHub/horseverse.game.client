@@ -85,7 +85,6 @@ public partial class HorseController : MonoBehaviour
     {
         if (isStarted)
         {
-            runTime += Time.deltaTime;
             if (IsReachTarget())
             {
                 if (IsLastWayPoint())
@@ -96,13 +95,7 @@ public partial class HorseController : MonoBehaviour
                 ChangeTarget();
             }
 
-            if (progressiveTargetIndex <= FinishIndex)
-            {
-                var totalTimeToCurrent = PredefineTargets.Take(currentTargetIndex + 1)
-                                                         .Sum(x => x.time);
-                var timeLeft = totalTimeToCurrent - runTime;
-                navMeshAgent.speed = DistanceToCurrentTarget() / timeLeft;
-            }
+            
             
             animationSpeed = Mathf.Lerp(animationSpeed, targetAnimationSpeed, Time.deltaTime * 10.0f);
             animator.SetFloat(Speed, animationSpeed);
@@ -120,7 +113,23 @@ public partial class HorseController : MonoBehaviour
         }
         
     }
-    
+
+    private void FixedUpdate()
+    {
+        if (!isStarted) return;
+        if (progressiveTargetIndex > FinishIndex) return;
+        
+        runTime += Time.deltaTime;
+        var totalTimeToCurrent = PredefineTargets.Take(currentTargetIndex + 1)
+                                                 .Sum(x => x.time);
+        var timeLeft = totalTimeToCurrent - runTime;
+        if (timeLeft > 0.0f)
+        {
+            var speed = DistanceToCurrentTarget() / timeLeft;
+            navMeshAgent.speed = Mathf.Min(speed, 25.0f);
+        }
+    }
+
     private bool IsReachTarget()
     {
         return DistanceToCurrentTarget() < 1f;
