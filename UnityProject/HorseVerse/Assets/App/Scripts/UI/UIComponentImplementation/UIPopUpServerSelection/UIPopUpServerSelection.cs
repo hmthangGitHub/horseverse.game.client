@@ -12,6 +12,7 @@ public class UIPopUpServerSelection : PopupEntity<UIPopUpServerSelection.Entity>
         public ButtonComponent.Entity cancelBtn;
         public ButtonComponent.Entity connectBtn;
         public int CurrentProfileIndex;
+        public ServerDefine serverDefine;
     }
 
     public UIComponentInputField hostInput;
@@ -19,22 +20,18 @@ public class UIPopUpServerSelection : PopupEntity<UIPopUpServerSelection.Entity>
     public ButtonComponent cancelBtn;
     public ButtonComponent connectBtn;
     public ButtonComponent localBtn;
-    public ButtonComponent mainBtn;
+    public ButtonComponent devBtn;
+    public ButtonComponent stagingBtn;
 
-    private string defaultHost;
-    private string defaultPort;
-    private string localHost = "localhost";
-    private string localPort = "8770";
     protected override void OnSetEntity()
     {
         hostInput.SetEntity(this.entity.hostInput);
         portInput.SetEntity(this.entity.portInput);
         cancelBtn.SetEntity(this.entity.cancelBtn);
         connectBtn.SetEntity(this.entity.connectBtn);
-        defaultHost = this.entity.hostInput.defaultValue;
-        defaultPort = this.entity.portInput.defaultValue;
         localBtn.SetEntity(new ButtonComponent.Entity(()=> OnBtnLocalClicked()));
-        mainBtn.SetEntity(new ButtonComponent.Entity(() => OnBtnMainClicked()));
+        devBtn.SetEntity(new ButtonComponent.Entity(() => OnBtnDevClicked()));
+        stagingBtn.SetEntity(new ButtonComponent.Entity(() => OnBtnMainClicked()));
     }
 
     public void OnToggleLoginType(int index)
@@ -44,13 +41,19 @@ public class UIPopUpServerSelection : PopupEntity<UIPopUpServerSelection.Entity>
 
     private void OnBtnLocalClicked()
     {
-        hostInput.inputField.text = localHost;
-        portInput.inputField.text = localPort;
+        hostInput.inputField.text = this.entity.serverDefine.Local.Host;
+        portInput.inputField.text = this.entity.serverDefine.Local.Port.ToString();
+    }
+
+    private void OnBtnDevClicked()
+    {
+        hostInput.inputField.text = this.entity.serverDefine.Dev.Host;
+        portInput.inputField.text = this.entity.serverDefine.Dev.Port.ToString();
     }
 
     private void OnBtnMainClicked()
     {
-        hostInput.inputField.text = defaultHost;
-        portInput.inputField.text = defaultPort;
+        hostInput.inputField.text = this.entity.serverDefine.Staging.Host;
+        portInput.inputField.text = this.entity.serverDefine.Staging.Port.ToString();
     }
 }

@@ -22,6 +22,8 @@ public class LoginStatePresenter : IDisposable
     private UserDataRepository userDataRepository;
     private UserDataRepository UserDataRepository => userDataRepository ??= container.Inject<UserDataRepository>();
 
+    private ServerDefine serverDefine;
+
     public LoginStatePresenter(IDIContainer container)
     {
         this.container = container;
@@ -31,12 +33,18 @@ public class LoginStatePresenter : IDisposable
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
+        await doLoadServerSetting();
 #if UNITY_WEBGL || WEB_SOCKET
         string host = "ws://tcp.prod.game.horsesoflegends.com";
         int port = 8669;
 #else
         string host = "tcp.prod.game.horsesoflegends.com";
         int port = 8670;
+        if (serverDefine != default)
+        {
+            host = serverDefine.Production.Host;
+            port = serverDefine.Production.Port;
+        }
 #endif
         await doInitLocalLocalization();
 #if CUSTOM_SERVER
@@ -55,6 +63,7 @@ public class LoginStatePresenter : IDisposable
             hostInput = new UIComponentInputField.Entity() { defaultValue = host, interactable = true},
             portInput = new UIComponentInputField.Entity() { defaultValue = port.ToString(), interactable = true },
             CurrentProfileIndex = currentProfileIndex,
+            serverDefine = this.serverDefine,
         });
         uiSV.In().Forget();
         UILoadingPresenter.HideLoading();
@@ -375,5 +384,24 @@ public class LoginStatePresenter : IDisposable
             LanguageManager.InitializeLocal(SystemLanguage.English, depen);
         }
         onFinish?.Invoke();
+    }
+
+    IEnumerator doLoadServerSetting()
+    {
+#if UNITY_WEBGL || WEB_SOCKET
+        var rq = Resources.LoadAsync<ServerDefine>("Settings/WSServerDefine");
+        yield return rq;
+        if(rq.asset != null)
+        {
+            serverDefine = (ServerDefine)rq.asset;
+        }
+#else
+        var rq = Resources.LoadAsync<ServerDefine>("Settings/TCPServerDefine");
+        yield return rq;
+        if(rq.asset != null)
+        {
+            serverDefine = (ServerDefine)rq.asset;
+        }
+#endif
     }
 }
