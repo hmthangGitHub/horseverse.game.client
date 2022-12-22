@@ -35,7 +35,7 @@ public class HorseBetInfo
 
 public class RaceSegmentTime
 {
-    public int currentLane;
+    public int CurrentLane { get; set; }
     public int ToLane { get; set; }
     public float Time { get; set; }
     public float Percentage { get; set; }
