@@ -15,7 +15,7 @@ public class LevelDesignPin : MonoBehaviour
     
     private BoxCollider boxCollider;
 
-    public void SetBoxCollider(BoxCollider boxCollider)
+    private void SetBoxCollider(BoxCollider boxCollider)
     {
         this.boxCollider = boxCollider;
     }
@@ -28,16 +28,8 @@ public class LevelDesignPin : MonoBehaviour
     private void UpdatePositionToLeft()
     {
         var bounds = new Bounds(boxCollider.center, boxCollider.size);
-        Vector3 v3Center = bounds.center;
-        Vector3 v3Extents = bounds.extents;
-        var v3BackTopRight =
-            new Vector3(v3Center.x + v3Extents.x, v3Center.y + v3Extents.y,
-                v3Center.z + v3Extents.z); // Back top right corner
-        var v3FrontTopRight =
-            new Vector3(v3Center.x + v3Extents.x, v3Center.y + v3Extents.y,
-                v3Center.z - v3Extents.z); // Front top right corner
-        var point = (v3BackTopRight + v3FrontTopRight) * 0.5f;
-        point = boxCollider.transform.TransformPoint(point);
+        Vector3 v3CenterTop = bounds.center + new Vector3(0, bounds.extents.y, 0) ;
+        var point = boxCollider.transform.TransformPoint(v3CenterTop);
         this.transform.position = point;
     }
 }

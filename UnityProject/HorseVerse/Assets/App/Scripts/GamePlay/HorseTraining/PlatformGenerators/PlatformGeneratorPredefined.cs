@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class PlatformGeneratorV2 : PlatformGeneratorBase
+public class PlatformGeneratorPredefined : PlatformGeneratorBase
 {
     private const string TrainingBlockSettingPath = "Maps/MapSettings/training_block_settings";
     private TrainingBlockSettings trainingBlockSettings;
@@ -27,7 +27,7 @@ public class PlatformGeneratorV2 : PlatformGeneratorBase
                                                    Vector3 lastEndPosition)
     {
         var platform = Instantiate(platformPrefab, this.transform);
-        platform.GetComponent<PlatformV2>().GenerateBlocks(relativePointToPlayer, lastEndPosition,
+        platform.GetComponent<PlatformPredefined>().GenerateBlocks(relativePointToPlayer, lastEndPosition,
             trainingBlockSettings.blockCombos.RandomElement(), trainingBlockSettings.obstacles,
             trainingBlockSettings.sceneryObjects,
             masterHorseTrainingProperty);

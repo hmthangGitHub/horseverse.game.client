@@ -106,8 +106,4 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
 
     protected abstract PlatformBase CreatePlatform(Vector3 relativePointToPlayer,
                                                    Vector3 lastEndPosition);
-
-    public void SetMasterHorseTrainingProperty()
-    {
-    }
 }

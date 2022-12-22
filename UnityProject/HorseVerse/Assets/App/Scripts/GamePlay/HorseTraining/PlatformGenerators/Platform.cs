@@ -30,7 +30,7 @@ public class Platform : PlatformBase
             mapBlock.Lanes.ForEach((x, laneIndex) =>
             {
                 var masterHorseTrainingBlockId = masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList[i];
-                x.GenBlockLane(masterHorseTrainingBlockContainer.MasterHorseTrainingBlockIndexer[masterHorseTrainingBlockId][laneIndex]);
+                // x.GenBlockLane(masterHorseTrainingBlockContainer.MasterHorseTrainingBlockIndexer[masterHorseTrainingBlockId][laneIndex]);
             });
         }
     }

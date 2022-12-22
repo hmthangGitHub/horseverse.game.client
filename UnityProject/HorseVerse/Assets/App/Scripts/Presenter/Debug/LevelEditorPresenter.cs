@@ -19,17 +19,21 @@ public partial class LevelEditorPresenter : IDisposable
     private MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer;
     private MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer;
     private MasterHorseTrainingPropertyContainer masterHorseTrainingPropertyContainer;
+    private MasterTrainingModularBlockContainer masterTrainingModularBlockContainer;
     
     private UIDebugLevelEditor uiDebugLevelEditor;
     private UIDebugLevelDesignBlockTransformPin[] blockSegmentPin;
     private UIDebugLevelDesignBlockTransformPin blockNamePin;
     private UIDebugLevelDesignBlockTransformPin uiDebugLevelDesignBlockTransformPinPrefab;
-    private Platform platformPrefab;
+    private PlatformBase platformPrefab;
     private TrainingMapBlock trainingMapBlockPrefab;
     private GameObject freeCam;
     private Material debugLineMaterial;
     private GameObject root;
     private Camera freeCameraComponent;
+    
+    private const string TrainingBlockSettingPath = "Maps/MapSettings/training_block_settings";
+    private TrainingBlockSettings trainingBlockSettings;
 
     public event Action OnBack = ActionUtility.EmptyAction.Instance;
 
@@ -69,6 +73,7 @@ public partial class LevelEditorPresenter : IDisposable
     {
         var uiDebugLevelDesignBlockTransformPin = Object.Instantiate(uiDebugLevelDesignBlockTransformPinPrefab, uiDebugLevelDesignBlockTransformPinPrefab.transform.parent);
         uiDebugLevelDesignBlockTransformPin.gameObject.SetActive(true);
+        blockComboPinList.Add(uiDebugLevelDesignBlockTransformPin.gameObject);
         return uiDebugLevelDesignBlockTransformPin;
     }
 
@@ -76,9 +81,13 @@ public partial class LevelEditorPresenter : IDisposable
     {
         (masterHorseTrainingBlockContainer,
         masterHorseTrainingBlockComboContainer,
-        masterHorseTrainingPropertyContainer) = await (MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(cts.Token), 
+        masterHorseTrainingPropertyContainer,
+        masterTrainingModularBlockContainer) = await (MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(cts.Token), 
                                                         MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>(cts.Token), 
-                                                        MasterLoader.LoadMasterAsync<MasterHorseTrainingPropertyContainer>(cts.Token));
+                                                        MasterLoader.LoadMasterAsync<MasterHorseTrainingPropertyContainer>(cts.Token),
+                                                        MasterLoader.LoadMasterAsync<MasterTrainingModularBlockContainer>(cts.Token));
+        
+        masterHorseTrainingProperty = masterHorseTrainingPropertyContainer.MasterHorseTrainingPropertyIndexer.First().Value;
     }
 
     private async UniTask LoadInGameAssetAsync()
@@ -88,9 +97,11 @@ public partial class LevelEditorPresenter : IDisposable
         freeCameraComponent = freeCam.GetComponentInChildren<Camera>(true);
         
         var horseTrainingManager = await Resources.LoadAsync<HorseTrainingManager>("GamePlay/HorseTrainingManager") as HorseTrainingManager;
-        platformPrefab = horseTrainingManager.PlatformGenerator.platformPrefab.GetComponent<Platform>();
+        platformPrefab = horseTrainingManager.GetComponentInChildren<PlatformGeneratorModularBlock>()
+                                             .platformPrefab;
         debugLineMaterial = await Resources.LoadAsync("GamePlay/Debug/debugLine") as Material;
-        trainingMapBlockPrefab = platformPrefab.trainingMapBlockPrefab;
+        
+        trainingBlockSettings = await PrimitiveAssetLoader.LoadAssetAsync<TrainingBlockSettings>(TrainingBlockSettingPath, cts.Token);
     }
 
     private async UniTask SetEntityAsync()
@@ -206,11 +217,14 @@ public partial class LevelEditorPresenter : IDisposable
             currentEditingTrainingMapBlockGameObject = default;
             debugLineMaterial = default;
         
-            pinList.ForEach(x => Object.Destroy(x.gameObject));
-            pinList.Clear();
+            blockComboPinList.ForEach(x => Object.Destroy(x.gameObject));
+            blockComboPinList.Clear();
         
             Object.Destroy(root);
             freeCameraComponent = default;
+            
+            PrimitiveAssetLoader.UnloadAssetAtPath(TrainingBlockSettingPath);
+            trainingBlockSettings = default;
         }
     }
 }

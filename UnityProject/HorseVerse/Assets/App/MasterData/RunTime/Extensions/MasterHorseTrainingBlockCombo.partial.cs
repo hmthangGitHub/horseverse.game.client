@@ -11,19 +11,18 @@ public partial class MasterHorseTrainingBlockCombo
         master_horse_training_block_ids = string.Empty;
     }
     
-    public long[] MasterHorseTrainingBlockIdList
+    public string[] MasterHorseTrainingBlockIdList
     {
         get => CreateMasterHorseTrainingBlockIdList();
         set => master_horse_training_block_ids = string.Join(".", value);
     }
 
-    private long[] CreateMasterHorseTrainingBlockIdList()
+    private string[] CreateMasterHorseTrainingBlockIdList()
     {
         return !string.IsNullOrEmpty(MasterHorseTrainingBlockIds)
             ? MasterHorseTrainingBlockIds.Split('.')
-                .Select(long.Parse)
                 .ToArray() 
-            : Array.Empty<long>();
+            : Array.Empty<string>();
     }
 }
 #endif
