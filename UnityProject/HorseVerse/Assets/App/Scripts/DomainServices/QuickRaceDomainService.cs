@@ -73,19 +73,19 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
     public static HorseRaceInfo[] GetHorseRaceInfos(RaceScript responseRaceScript, MasterHorseContainer masterHorseContainer)
     {
         return responseRaceScript.Phases.SelectMany(x =>
-                x.HorseStats.Select((stat, i) => (stat: stat, horseIndex: i, start: x.Start, end: x.End)))
-            .GroupBy(x => x.horseIndex)
+                x.HorseStats.Select((stat, i) => (stat: stat, horseId: stat.HorseId, start: x.Start, end: x.End)))
+            .GroupBy(x => x.horseId)
             .Select(x =>
             {
-                var horseInfo = responseRaceScript.HorseInfos[x.Key];
-                var masterHorseId = 10000000 + (int)horseInfo.HorseType; //10000001; // TODO get from server
+                var horseInfo = responseRaceScript.HorseInfos.First(info => info.NftId == x.Key);
+                var masterHorse = masterHorseContainer.FromTypeToMasterHorse((int)horseInfo.HorseType);
                 return new HorseRaceInfo()
                 {
                     DelayTime = x.First()
                                  .stat.DelayTime,
                     RaceSegments = x.Select(info => new RaceSegmentTime()
                                     {
-                                        currentLane = info.stat.LaneStart,
+                                        CurrentLane = info.stat.LaneStart,
                                         ToLane = info.stat.LaneEnd,
                                         Time = info.stat.Time,
                                         Percentage = (float)(info.end) / responseRaceScript.TotalLength
@@ -93,7 +93,7 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
                                     .ToArray(),
                     MeshInformation = new MasterHorseMeshInformation()
                     {
-                        masterHorseId = masterHorseId,
+                        masterHorseId = masterHorse.MasterHorseId,
                         color1 = HorseRepository.GetColorFromHexCode(horseInfo.Color1),
                         color2 = HorseRepository.GetColorFromHexCode(horseInfo.Color2),
                         color3 = HorseRepository.GetColorFromHexCode(horseInfo.Color3),
@@ -110,7 +110,9 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
                     Type = (int)horseInfo.HorseType,
                     Level = horseInfo.Level,
                 };
-            }).ToArray();
+            })
+            .OrderBy(x => x.RaceSegments.First().CurrentLane)
+            .ToArray();
     }
 }
 

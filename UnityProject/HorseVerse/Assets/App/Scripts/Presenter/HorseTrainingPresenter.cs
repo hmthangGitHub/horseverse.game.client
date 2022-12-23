@@ -20,6 +20,7 @@ public class HorseTrainingPresenter : IDisposable
     private MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer;
     private UITrainingCoinCounting uiTrainingCoinCounting;
     private UITrainingPressAnyKey uiTrainingPressAnyKey;
+    private UIHorseTrainingInput uiHorseTrainingInput;
 
     private ITrainingDomainService trainingDomainService;
 
@@ -52,6 +53,7 @@ public class HorseTrainingPresenter : IDisposable
 
         uiTrainingCoinCounting = await UILoader.Instantiate<UITrainingCoinCounting>(token: cts.Token);
         uiTrainingPressAnyKey = await UILoader.Instantiate<UITrainingPressAnyKey>(token: cts.Token);
+        uiHorseTrainingInput = await UILoader.Instantiate<UIHorseTrainingInput>(token: cts.Token);
         
         await horseTrainingManager.Initialize(
             masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.MasterMapId].MapPath,
@@ -73,6 +75,12 @@ public class HorseTrainingPresenter : IDisposable
                 uiTrainingCoinCounting.In().Forget();
                 uiTrainingPressAnyKey.Out().Forget();
                 horseTrainingManager.StartGame();
+                uiHorseTrainingInput.SetEntity(new UIHorseTrainingInput.Entity()
+                {
+                    jumpLeft = new ButtonComponent.Entity(horseTrainingManager.HorseTrainingController.ManualJump),
+                    jumpRight = new ButtonComponent.Entity(horseTrainingManager.HorseTrainingController.ManualJump),
+                });
+                uiHorseTrainingInput.In().Forget();
                 AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunTraining);
             }
         });
@@ -226,6 +234,7 @@ public class HorseTrainingPresenter : IDisposable
         }
         UILoader.SafeRelease(ref uiTrainingCoinCounting);
         UILoader.SafeRelease(ref uiTrainingPressAnyKey);
+        UILoader.SafeRelease(ref uiHorseTrainingInput);
         MasterLoader.SafeRelease(ref masterMapContainer);
         MasterLoader.SafeRelease(ref masterHorseContainer);
         MasterLoader.SafeRelease(ref masterHorseTrainingPropertyContainer);
