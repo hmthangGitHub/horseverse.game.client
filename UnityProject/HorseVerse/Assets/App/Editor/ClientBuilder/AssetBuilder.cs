@@ -77,9 +77,13 @@ public class AssetBuilder
         string guid = GetGUID(file);
         var key = fileWithOutExtension.Substring(GetAssetBundlePath().Length);
         var group = AddressableAssetSettingsDefaultObject.Settings.groups.FirstOrDefault(x => key.Contains(x.Name));
-        var entry = AddressableAssetSettingsDefaultObject.Settings.CreateOrMoveEntry(guid, group);
-        entry.SetAddress(key);
-        AddLabelIfHorses(entry, Path.GetFileName(file));
+        if (group != default)
+        {
+            var entry = AddressableAssetSettingsDefaultObject.Settings.CreateOrMoveEntry(guid, group);
+            entry.SetAddress(key);
+            AddLabelIfHorses(entry, Path.GetFileName(file));    
+        }
+        
     }
 
     private static void AddLabelIfHorses(AddressableAssetEntry entry, string label)
