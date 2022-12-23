@@ -71,14 +71,17 @@ public class LevelEditorFreeCam : MonoBehaviour
             transform.position = transform.position + (transform.right * movementSpeed * Time.deltaTime);
         }
 
+        var verticalAxis = Camera.main.orthographic ? transform.up : transform.forward;
+        
         if (/*Input.GetKey(KeyCode.W) ||*/ Input.GetKey(KeyCode.UpArrow))
         {
-            transform.position = transform.position + (transform.forward * movementSpeed * Time.deltaTime);
+            
+            transform.position = transform.position + (verticalAxis * movementSpeed * Time.deltaTime);
         }
 
         if (/*Input.GetKey(KeyCode.S) ||*/ Input.GetKey(KeyCode.DownArrow))
         {
-            transform.position = transform.position + (-transform.forward * movementSpeed * Time.deltaTime);
+            transform.position = transform.position + (-verticalAxis * movementSpeed * Time.deltaTime);
         }
 
         // if (Input.GetKey(KeyCode.Q))

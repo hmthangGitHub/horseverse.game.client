@@ -27,7 +27,6 @@ public partial class LevelEditorPresenter : IDisposable
     private UIDebugLevelDesignBlockTransformPin uiDebugLevelDesignBlockTransformPinPrefab;
     private PlatformBase platformPrefab;
     private TrainingMapBlock trainingMapBlockPrefab;
-    private GameObject freeCam;
     private Material debugLineMaterial;
     private GameObject root;
     private Camera freeCameraComponent;
@@ -40,7 +39,6 @@ public partial class LevelEditorPresenter : IDisposable
     public LevelEditorPresenter(IDIContainer container)
     {
         Container = container;
-        root = new GameObject("Root");
     }
 
     public async UniTask ShowDebugMenuAsync()
@@ -92,9 +90,10 @@ public partial class LevelEditorPresenter : IDisposable
 
     private async UniTask LoadInGameAssetAsync()
     {
+        var rootPrefab = await Resources.LoadAsync<GameObject>("GamePlay/Debug/LevelEditorRoot") as GameObject;
+        root = Object.Instantiate(rootPrefab);
         var freeCamPrefab = await Resources.LoadAsync<GameObject>("GamePlay/Debug/LevelEditorFreeCamera") as GameObject;
-        freeCam = Object.Instantiate(freeCamPrefab, root.transform);
-        freeCameraComponent = freeCam.GetComponentInChildren<Camera>(true);
+        freeCameraComponent = root.GetComponentInChildren<LevelEditorFreeCam>(true).GetComponent<Camera>();
         
         var horseTrainingManager = await Resources.LoadAsync<HorseTrainingManager>("GamePlay/HorseTrainingManager") as HorseTrainingManager;
         platformPrefab = horseTrainingManager.GetComponentInChildren<PlatformGeneratorModularBlock>()
