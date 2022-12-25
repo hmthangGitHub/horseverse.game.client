@@ -225,12 +225,9 @@ public class TrainingBlocksImporter
             foreach (Transform child in obstacleInstance.transform)
             {
                 var childGameObject = child.gameObject;
-                if (!child.name.Contains("dummy"))
-                {
-                    childGameObject.AddComponent<MeshCollider>();
-                    childGameObject.layer = LayerMask.NameToLayer("TrainingObject");
-                    childGameObject.tag = "Obstacle";
-                }
+                childGameObject.AddComponent<MeshCollider>();
+                childGameObject.layer = LayerMask.NameToLayer("TrainingObject");
+                childGameObject.tag = "Obstacle";
             }
         }, $"{TrainingObstaclesPath}/{obstacle.name}.prefab");
     }

@@ -26,9 +26,8 @@ public partial class LevelEditorPresenter : IDisposable
     private UIDebugLevelDesignBlockTransformPin blockNamePin;
     private UIDebugLevelDesignBlockTransformPin uiDebugLevelDesignBlockTransformPinPrefab;
     private PlatformBase platformPrefab;
-    private TrainingMapBlock trainingMapBlockPrefab;
     private Material debugLineMaterial;
-    private GameObject root;
+    private LevelEditorManager levelEditorManager;
     private Camera freeCameraComponent;
     
     private const string TrainingBlockSettingPath = "Maps/MapSettings/training_block_settings";
@@ -67,12 +66,18 @@ public partial class LevelEditorPresenter : IDisposable
         uiDebugLevelDesignBlockTransformPinPrefab.gameObject.SetActive(false);
     }
 
-    private UIDebugLevelDesignBlockTransformPin CreateUiPin()
+    private UIDebugLevelDesignBlockTransformPin CreateUiPin(List<GameObject> storedList)
     {
         var uiDebugLevelDesignBlockTransformPin = Object.Instantiate(uiDebugLevelDesignBlockTransformPinPrefab, uiDebugLevelDesignBlockTransformPinPrefab.transform.parent);
         uiDebugLevelDesignBlockTransformPin.gameObject.SetActive(true);
-        blockComboPinList.Add(uiDebugLevelDesignBlockTransformPin.gameObject);
+        storedList.Add(uiDebugLevelDesignBlockTransformPin.gameObject);
         return uiDebugLevelDesignBlockTransformPin;
+    }
+
+    private void RemovePin(UIDebugLevelDesignBlockTransformPin pin)
+    {
+        Object.Destroy(pin.gameObject);
+        blockComboPinList.Remove(pin.gameObject);
     }
 
     private async UniTask LoadMasterAsync()
@@ -90,10 +95,9 @@ public partial class LevelEditorPresenter : IDisposable
 
     private async UniTask LoadInGameAssetAsync()
     {
-        var rootPrefab = await Resources.LoadAsync<GameObject>("GamePlay/Debug/LevelEditorRoot") as GameObject;
-        root = Object.Instantiate(rootPrefab);
-        var freeCamPrefab = await Resources.LoadAsync<GameObject>("GamePlay/Debug/LevelEditorFreeCamera") as GameObject;
-        freeCameraComponent = root.GetComponentInChildren<LevelEditorFreeCam>(true).GetComponent<Camera>();
+        var rootPrefab = await Resources.LoadAsync<LevelEditorManager>("GamePlay/Debug/LevelEditorManager") as LevelEditorManager;
+        levelEditorManager = Object.Instantiate(rootPrefab);
+        freeCameraComponent = levelEditorManager.GetComponentInChildren<Camera>(true);
         
         var horseTrainingManager = await Resources.LoadAsync<HorseTrainingManager>("GamePlay/HorseTrainingManager") as HorseTrainingManager;
         platformPrefab = horseTrainingManager.GetComponentInChildren<PlatformGeneratorModularBlock>()
@@ -120,6 +124,23 @@ public partial class LevelEditorPresenter : IDisposable
             backBtn = new ButtonComponent.Entity(() => OnBack.Invoke()),
             editMode = UIDebugLevelEditorMode.Mode.None,
             saveBtn = new ButtonComponent.Entity(OnSave),
+            editBlockToggle = new UIComponentToggle.Entity()
+            {
+                isOn = false,
+                onActiveToggle = val => IsEditingBlock = val 
+            },
+            editObstacleToggle = new UIComponentToggle.Entity()
+            {
+                isOn = false,
+                onActiveToggle = val => IsEditingObstacle = val
+            },
+            editCoinToggle = new UIComponentToggle.Entity()
+            {
+                isOn = false,
+                onActiveToggle = val => IsEditingCoin = val
+            },
+            addObstacleBtn = new ButtonComponent.Entity(CreateNewObstacle),
+            addCoinBtn = new ButtonComponent.Entity(CreateNewCoinEditor)
         });
         await uiDebugLevelEditor.In();
     }
@@ -196,6 +217,7 @@ public partial class LevelEditorPresenter : IDisposable
     {
         try
         {
+            UnSelectOldBlockCombo();
             OnSave();
         }
         finally
@@ -219,8 +241,7 @@ public partial class LevelEditorPresenter : IDisposable
             blockComboPinList.ForEach(x => Object.Destroy(x.gameObject));
             blockComboPinList.Clear();
         
-            Object.Destroy(root);
-            freeCameraComponent = default;
+            DisposeUtility.SafeDispose(ref levelEditorManager);
             
             PrimitiveAssetLoader.UnloadAssetAtPath(TrainingBlockSettingPath);
             trainingBlockSettings = default;

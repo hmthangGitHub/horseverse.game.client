@@ -20,7 +20,7 @@ public partial class MasterContainer<TKey, TMaster>
         var fields = type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
         var headerLine = string.Join(",", fields.Select(x => x.Name));
         var csvDataAsLine = DataList.Select(master => 
-                fields.Select(x => master.GetPropertyValue(x.Name).ToString()))
+                fields.Select(x => master.GetPropertyValue(x.Name)?.ToString() ?? string.Empty))
             .Select(dataInRow => string.Join(",", dataInRow)).ToList();
         var jsonData = CSVFileToJson.ConvertCsvFileToJsonObject(Array.Empty<string>()
             .Append(headerLine)

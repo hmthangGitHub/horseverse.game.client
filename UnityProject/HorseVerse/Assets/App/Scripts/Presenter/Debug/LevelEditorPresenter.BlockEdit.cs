@@ -47,17 +47,7 @@ public partial class LevelEditorPresenter
 
     private void OnEditBlock(int i, MasterHorseTrainingBlock masterHorseTrainingBlock)
     {
-        if (currentSelectedBlock != (masterHorseTrainingBlock, i))
-        {
-            UnSelectOldBlock();
-        }
-
-        uiDebugLevelEditor.blockList.blockList.instanceList[i].Select(true);
-        currentSelectedBlock = (masterHorseTrainingBlock, i);
-        currentEditingTrainingMapBlockGameObject = Object.Instantiate(trainingMapBlockPrefab, root.transform);
-        currentEditingTrainingMapBlockGameObject.BoundingBoxReference.GetComponent<MeshRenderer>().enabled = true;
-        DrawBlockBoundingBoxDebugLines();
-        AddPinToEachBlockSegment();
+        
     }
 
     private void AddPinToEachBlockSegment()

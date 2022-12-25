@@ -16,4 +16,12 @@ public partial class MasterHorseTrainingBlockCombo
 	private string master_horse_training_block_ids;
 	public string MasterHorseTrainingBlockIds => master_horse_training_block_ids;
 
+	[JsonProperty]
+	private string obstacles;
+	public string Obstacles => obstacles;
+
+	[JsonProperty]
+	private string coins;
+	public string Coins => coins;
+
 }
