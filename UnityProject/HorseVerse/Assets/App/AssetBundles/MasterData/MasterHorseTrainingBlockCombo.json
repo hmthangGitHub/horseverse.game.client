@@ -2,8 +2,15 @@
   {
     "master_horse_training_block_id": "10006001",
     "name": "Default Block Combo",
-    "master_horse_training_block_ids": "",
-    "obstacles": "",
-    "coins": ""
+    "master_horse_training_block_ids": "blockDefault",
+    "obstacles": "\"[{\"\"type\"\":\"\"jump_obstacle\"\"...\"\"localPosition\"\":{\"\"x\"\":0.0...\"\"y\"\":0.5...\"\"z\"\":-8.7}}]\"",
+    "coins": "\"[{\"\"numberOfCoin\"\":20...\"\"localPosition\"\":{\"\"x\"\":0.0...\"\"y\"\":1.5...\"\"z\"\":-8.7}...\"\"benzierPointPositions\"\":[{\"\"x\"\":0.0...\"\"y\"\":0.0...\"\"z\"\":-2.0}...{\"\"x\"\":-2.70190954...\"\"y\"\":0.0...\"\"z\"\":2.775138}...{\"\"x\"\":-1.86189222...\"\"y\"\":-0.5029075...\"\"z\"\":8.992657}...{\"\"x\"\":2.433577...\"\"y\"\":0.146164775...\"\"z\"\":13.3561583}]}]\""
+  },
+  {
+    "master_horse_training_block_id": "10006002",
+    "name": "default 2",
+    "master_horse_training_block_ids": "blockPadding.blockDefault.blockDefault.blockDefault",
+    "obstacles": "\"[{\"\"type\"\":\"\"jump_obstacle\"\"...\"\"localPosition\"\":{\"\"x\"\":-3.57915044...\"\"y\"\":0.5...\"\"z\"\":-2.7134552}}...{\"\"type\"\":\"\"jump_obstacle\"\"...\"\"localPosition\"\":{\"\"x\"\":0.0...\"\"y\"\":0.5...\"\"z\"\":5.902853}}]\"",
+    "coins": "\"[{\"\"numberOfCoin\"\":27...\"\"localPosition\"\":{\"\"x\"\":2.74081922...\"\"y\"\":1.5...\"\"z\"\":-4.35}...\"\"benzierPointPositions\"\":[{\"\"x\"\":0.0...\"\"y\"\":0.0...\"\"z\"\":-2.0}...{\"\"x\"\":0.0...\"\"y\"\":0.0...\"\"z\"\":40.1379433}]}...{\"\"numberOfCoin\"\":0...\"\"localPosition\"\":{\"\"x\"\":0.0...\"\"y\"\":1.5...\"\"z\"\":-8.7}...\"\"benzierPointPositions\"\":[{\"\"x\"\":0.0...\"\"y\"\":0.0...\"\"z\"\":-2.0}...{\"\"x\"\":-2.51873779...\"\"y\"\":9.536743E-07...\"\"z\"\":18.6882515}...{\"\"x\"\":0.0...\"\"y\"\":0.0...\"\"z\"\":45.30126}]}]\""
   }
 ]
