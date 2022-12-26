@@ -21,8 +21,8 @@ public class LoginState : InjectedBState
         this.Machine.ChangeState<MainMenuState>();
         return;
 #endif
-        // await loginPresenter.ConnectAndLoginAsync();
-        // this.Machine.ChangeState<MainMenuState>();
+        await loginPresenter.ConnectAndLoginAsync();
+        this.Machine.ChangeState<MainMenuState>();
     }
 
     public override void Exit()

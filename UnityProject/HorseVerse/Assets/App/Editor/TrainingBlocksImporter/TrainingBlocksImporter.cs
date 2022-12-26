@@ -281,10 +281,15 @@ public class TrainingBlocksImporter
         ImportAsPrefabVariant(obj, blockModular =>
             {
                 var children = blockModular.transform.Cast<Transform>().ToArray();
-                children.First(x => x.name == "platform")
-                      .gameObject.AddComponent<BoxCollider>();
-                children.First(x => x.name == "standie")
-                      .gameObject.AddComponent<MeshCollider>();
+                var platform = children.First(x => x.name == "platform");
+                platform.gameObject.AddComponent<BoxCollider>();
+                platform.gameObject.layer = LayerMask.NameToLayer("TrainingPlatform");
+                platform.gameObject.tag = "Platform";
+                
+                var standie = children.First(x => x.name == "standie");
+                standie.gameObject.layer = LayerMask.NameToLayer("TrainingObject");
+                standie.tag = "Obstacle";
+                standie.gameObject.AddComponent<MeshCollider>();
             },
             $"{TrainingBlockModularPath}/{obj.name}.prefab");
     }

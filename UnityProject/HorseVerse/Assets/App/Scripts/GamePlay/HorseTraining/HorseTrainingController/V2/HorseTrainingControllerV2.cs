@@ -207,6 +207,23 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
             cinemachineOrbitalTransposer ??= cam3.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineOrbitalTransposer>();
             cinemachineOrbitalTransposer.m_XAxis.m_InputAxisValue = 0.03f;
         }
+
+        GetRelativePoint();
+    }
+
+    public Vector3 GetRelativePoint()
+    {
+        var outputCamera = CinemachineCore.Instance.GetActiveBrain(0)
+                                          .OutputCamera;
+        var ray = outputCamera.ScreenPointToRay(new Vector3(-10, Screen.height + 10));
+
+        var plane = new Plane(outputCamera.transform.forward, transform.position);
+
+        plane.Raycast(ray, out var enter);
+        var hitPoint = ray.GetPoint(enter);
+        var relative = hitPoint - transform.position;
+        Debug.DrawLine(transform.position, hitPoint);
+        return relative;
     }
 
     private void UpdateJumpAnimation()
@@ -371,4 +388,5 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     {
         PrimitiveAssetLoader.UnloadAssetAtPath(horseModelPath);
     }
+
 }

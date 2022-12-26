@@ -6,6 +6,8 @@ using UnityEngine;
 public partial class PlatformModular : PlatformBase
 {
     [SerializeField]
+    private CoinEditor coinPrefab;
+    [SerializeField]
     private BoxCollider[] boxColliders;
     [SerializeField]
     private BoxCollider paddingHeadCollider;
@@ -70,7 +72,12 @@ public partial class PlatformModular : PlatformBase
         parent.position += childWorldDestination - child.position;
     }
 
-    public void GenerateBlock(Vector3 startPosition, GameObject[] blockPrefabs, GameObject paddingHeadPrefab, GameObject paddingTailPrefab, float jumpingPoint, float landingPoint)
+    public void GenerateBlock(Vector3 startPosition,
+                              GameObject[] blockPrefabs,
+                              GameObject paddingHeadPrefab,
+                              GameObject paddingTailPrefab,
+                              float jumpingPoint,
+                              float landingPoint)
     {
         InstantiateBlocks(blockPrefabs, paddingHeadPrefab, paddingTailPrefab);
         Tiling();
@@ -78,6 +85,53 @@ public partial class PlatformModular : PlatformBase
         PlaceStartObjectAtOffsetToFirstBlock(jumpingPoint);
         PlaceEndObjectAtOffsetToLastBlock(landingPoint);
         AlignToStartPosition(startPosition);
+    }
+    
+    public void GenerateBlock(Vector3 startPosition,
+                              GameObject[] blockPrefabs,
+                              GameObject paddingHeadPrefab,
+                              GameObject paddingTailPrefab,
+                              float jumpingPoint,
+                              float landingPoint,
+                              MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo, 
+                              GameObject[] obstaclesPrefab)
+    {
+        GenerateBlock(startPosition, blockPrefabs, paddingHeadPrefab, paddingTailPrefab, jumpingPoint, landingPoint);
+        GenerateObstacle(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab);
+        GenerateCoins(masterHorseTrainingBlockCombo.CoinList);
+    }
+
+    private void GenerateCoins(Coin[] coinsList)
+    {
+        coinsList.ForEach(x =>
+        {
+            var coin = Instantiate(coinPrefab, this.transform);
+            coin.transform.localPosition = x.localPosition.ToVector3();
+            coin.Init(x.numberOfCoin, x.benzierPointPositions.Select(x => x.ToVector3()).ToArray());
+        });
+     
+    }
+
+    private void GenerateObstacle(Obstacle[] obstacleList,
+                                  GameObject[] obstaclesPrefab)
+    {
+        obstacleList.ForEach(x =>
+        {
+            var obstaclesPrefabParent = obstaclesPrefab.FirstOrDefault(saveObstacles => saveObstacles.name == x.type);
+            CreatObstacle(obstaclesPrefabParent, x.localPosition);
+        });
+    }
+    
+    private void CreatObstacle(GameObject obstaclesPrefabParent,
+                                     Position localPosition)
+    {
+        var prefab = obstaclesPrefabParent
+                     .transform.Cast<Transform>()
+                     .Where(x => !x.gameObject.name.Contains("dummy"))
+                     .RandomElement();
+        var obstacle = UnityEngine.Object.Instantiate(prefab, transform).gameObject;
+        obstacle.name = prefab.name;
+        obstacle.transform.localPosition = localPosition.ToVector3();
     }
 
     private void InstantiateBlocks(GameObject[] gameObjects,

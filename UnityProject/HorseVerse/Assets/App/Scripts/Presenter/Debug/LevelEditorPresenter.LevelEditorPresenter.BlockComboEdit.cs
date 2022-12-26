@@ -66,8 +66,9 @@ public partial class LevelEditorPresenter
         var blockComboName = await AskUserInput("Enter block combo name");
         if (!string.IsNullOrEmpty(blockComboName))
         {
-            var masterHorseTrainingBlockCombo = new MasterHorseTrainingBlockCombo(masterHorseTrainingBlockComboContainer
-                    .MasterHorseTrainingBlockComboIndexer.Max(x => x.Key) + 1, 
+            var masterHorseTrainingBlockId = masterHorseTrainingBlockComboContainer
+                                             .MasterHorseTrainingBlockComboIndexer.Max(x => x.Key) + 1;
+            var masterHorseTrainingBlockCombo = new MasterHorseTrainingBlockCombo(masterHorseTrainingBlockId, 
                 blockComboName);
             masterHorseTrainingBlockComboContainer.Add(masterHorseTrainingBlockCombo);
             UnSelectOldBlock();
@@ -105,7 +106,7 @@ public partial class LevelEditorPresenter
         uiDebugLevelEditor.editMode.SetEntity(UIDebugLevelEditorMode.Mode.BlockInCombo);
         uiDebugLevelEditor.entity.blockInComboList = new UIDebugLevelEditorBlockListContainer.Entity()
         {
-            blockList = masterTrainingModularBlockContainer.DataList.Select((masterHorseTrainingBlock, i) =>
+            blockList = masterTrainingModularBlockContainer.DataList.Where(x => x.MasterTrainingModularBlockType == MasterTrainingModularBlockType.Modular).Select((masterHorseTrainingBlock, i) =>
                 new UIDebugTrainingBlock.Entity()
                 {
                     blockName = masterHorseTrainingBlock.MasterTrainingModularBlockId,

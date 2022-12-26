@@ -44,7 +44,7 @@ public class HorseTrainingController : MonoFSMContainer
     public override void AddStates()
     {
         base.AddStates();
-        AddState<HorseTrainingCloudState>();
+        AddState<HorseTrainingCloudState>();        
         AddState<HorseTrainingIdleState>();
         AddState<HorseTrainingBridgeState>();
         AddState<HorseTrainingAirState>();
@@ -82,4 +82,6 @@ public class HorseTrainingController : MonoFSMContainer
     {
         OnFallEvent.Invoke();
     }
+    
+    
 }

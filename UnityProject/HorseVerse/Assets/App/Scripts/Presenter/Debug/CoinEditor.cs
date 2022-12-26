@@ -11,7 +11,12 @@ using Object = UnityEngine.Object;
 
 public class CoinEditor : MonoBehaviour
 {
-
+    public enum Mode
+    {
+        EditMode,
+        Runtime
+    }
+    public CoinEditor.Mode mode;
     public UIComponentSplineEditorMode.Status status;
     public BezierSpline spline;
     public UIDebugLevelEditorSplineEditor uiDebugLevelEditorSplineEditor;
@@ -42,31 +47,40 @@ public class CoinEditor : MonoBehaviour
     public void Init(int coinNumber,
                      Vector3[] positions)
     {
-        uiDebugLevelEditorSplineEditor.SetEntity(new UIDebugLevelEditorSplineEditor.Entity()
-        {
-            mode = UIComponentSplineEditorMode.Status.Normal,
-            addBtn = new ButtonComponent.Entity(AddNewBenzierPoint),
-            cancelBtn = new ButtonComponent.Entity(OnToggleStatus),
-            editBtn = new ButtonComponent.Entity(OnToggleStatus),
-            removeBtn = new ButtonComponent.Entity(() =>
-            {
-                if (spline.Count > 2)
-                {
-                    spline.RemovePointAt(spline.Count - 1);
-                }
-            }),
-            coinNumber = new UIComponentInputField.Entity()
-            {
-                defaultValue = coinNumber.ToString(),
-                onValueChange = val => OnChangeNumberOfCoin(Int32.Parse(val))
-            }
-        });
-        
-        uiDebugLevelEditorSplineEditor.In().Forget();
-        OnToggleStatus();
-        OnToggleStatus();
-        OnChangeNumberOfCoin(coinNumber);
+        InitUIDebugIfNeed(coinNumber);
         InitBenzierPoints(positions);
+        OnChangeNumberOfCoin(coinNumber);
+    }
+
+    private void InitUIDebugIfNeed(int coinNumber)
+    {
+        if (mode == Mode.EditMode)
+        {
+            uiDebugLevelEditorSplineEditor.SetEntity(new UIDebugLevelEditorSplineEditor.Entity()
+            {
+                mode = UIComponentSplineEditorMode.Status.Normal,
+                addBtn = new ButtonComponent.Entity(AddNewBenzierPoint),
+                cancelBtn = new ButtonComponent.Entity(OnToggleStatus),
+                editBtn = new ButtonComponent.Entity(OnToggleStatus),
+                removeBtn = new ButtonComponent.Entity(() =>
+                {
+                    if (spline.Count > 2)
+                    {
+                        spline.RemovePointAt(spline.Count - 1);
+                    }
+                }),
+                coinNumber = new UIComponentInputField.Entity()
+                {
+                    defaultValue = coinNumber.ToString(),
+                    onValueChange = val => OnChangeNumberOfCoin(Int32.Parse(val))
+                }
+            });
+
+            uiDebugLevelEditorSplineEditor.In()
+                                          .Forget();
+            OnToggleStatus();
+            OnToggleStatus();
+        }
     }
 
     private void InitBenzierPoints(Vector3[] positions)
@@ -112,7 +126,13 @@ public class CoinEditor : MonoBehaviour
 
     private void Update()
     {
-        listCoin.ForEach((x, i) => x.transform.position = spline.GetPoint(Mathf.InverseLerp(0, listCoin.Count - 1, i)));
+        UpdateCoinPosition();
+    }
+    
+    private void UpdateCoinPosition()
+    {
+        listCoin.ForEach((x,
+                          i) => x.transform.position = spline.GetPoint(Mathf.InverseLerp(0, listCoin.Count - 1, i)));
     }
 
 #if UNITY_EDITOR

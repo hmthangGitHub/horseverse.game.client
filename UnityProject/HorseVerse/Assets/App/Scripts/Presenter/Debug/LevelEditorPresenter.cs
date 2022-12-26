@@ -230,7 +230,6 @@ public partial class LevelEditorPresenter : IDisposable
             MasterLoader.SafeRelease(ref masterHorseTrainingPropertyContainer);
         
             UILoader.SafeRelease(ref uiDebugLevelEditor);
-            UILoader.SafeRelease(ref uiDebugLevelEditor);
             UILoader.SafeRelease(ref blockSegmentPin);
             UILoader.SafeRelease(ref blockNamePin);
             UILoader.SafeRelease(ref uiDebugLevelDesignBlockTransformPinPrefab);

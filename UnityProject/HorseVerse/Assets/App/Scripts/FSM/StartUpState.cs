@@ -21,15 +21,23 @@ public class StartUpState : InjectedBHState
             uiDebugMenuPresenter ??= new UIDebugMenuPresenter(Container);
             uiDebugMenuPresenter.InitializeAsync().Forget();
             uiDebugMenuPresenter.OnToLevelEditorState += ToLevelEditorState;
+            uiDebugMenuPresenter.OnToTrainingState += ToTrainingState;
             Container.Bind(uiDebugMenuPresenter);
         }
 #endif
     }
 
+#if ENABLE_DEBUG_MODULE
     private void ToLevelEditorState()
     {
         ChangeState<LevelEditorState>();
     }
+    
+    private void ToTrainingState()
+    {
+        ChangeState<TrainingState>();
+    }
+#endif
 
     public override void AddStates()
     {
@@ -37,6 +45,7 @@ public class StartUpState : InjectedBHState
         this.AddState<InitialState>();
 #if ENABLE_DEBUG_MODULE
         this.AddState<LevelEditorState>();
+        this.AddState<TrainingState>();
 #endif
         this.AddState<DownloadAssetState>();
         this.SetInitialState<DownloadAssetState>();
