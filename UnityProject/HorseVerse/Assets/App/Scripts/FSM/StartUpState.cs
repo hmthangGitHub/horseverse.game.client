@@ -76,7 +76,8 @@ public class StartUpState : InjectedBHState
             this.Machine.RemoveAllStates();
             if (isNeedResetState)
             {
-                this.Machine.Initialize();    
+                ((MonoFSMContainer)this.Machine).Reset();
+                this.Machine.Initialize();
             }
             isNeedResetState = false;
         }

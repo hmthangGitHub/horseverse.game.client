@@ -25,7 +25,7 @@ public class UITouchDisablePresenter : IDisposable
 
     private void OnEndInOut(Type type)
     {
-        if (type != uiTouchDisable.GetType())
+        if (type != internalUiTouchDisable.GetType())
         {
             uiInOutNumber--;
             if (uiInOutNumber <= 0)
@@ -37,7 +37,7 @@ public class UITouchDisablePresenter : IDisposable
 
     private void OnBeginInOut(Type type)
     {
-        if (type != uiTouchDisable.GetType())
+        if (type != internalUiTouchDisable.GetType())
         {
             uiInOutNumber++;
             internalUiTouchDisable.In().Forget();

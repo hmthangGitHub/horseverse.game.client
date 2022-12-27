@@ -18,18 +18,11 @@ public class TCPSocketClient : SocketClientBase
     private int dataBufferSize = 4096;
     #endregion
 
-    public static async UniTask<TCPSocketClient> Initialize(string host, int port, IMessageParser messageParser)
-    {
-        TCPSocketClient tcpSocketClient = Initialize(messageParser);
-        await tcpSocketClient.Connect(host, port);
-        return tcpSocketClient;
-    }
-
-    public static TCPSocketClient Initialize(IMessageParser messageParser)
+    public static TCPSocketClient Initialize(IMessageParser messageParser, IErrorCodeConfiguration errorCodeConfig)
     {
         var go = new GameObject("TCPSocketClient");
         var tcpSocketClient = go.AddComponent<TCPSocketClient>();
-        tcpSocketClient.SetIMessageParser(messageParser);
+        tcpSocketClient.Init(messageParser, errorCodeConfig);
         return tcpSocketClient;
     }
 

@@ -39,12 +39,19 @@ public class DIContainer : IDIContainer
     {
         if (dependencies.TryGetValue(typeof(T), out var dependency))
         {
-            if (dependency is IDisposable disposeable)
+            try
             {
-                disposeable.Dispose();
+                if (dependency is IDisposable disposeable)
+                {
+                    disposeable.Dispose();
+                }
+                dependency = default(T);
+                dependencies.Remove(typeof(T));
             }
-            dependency = default(T);
-            dependencies.Remove(typeof(T));
+            catch (Exception e)
+            {
+                Debug.LogWarning("Failed to dispose {e}");
+            }
         }
     }
 }

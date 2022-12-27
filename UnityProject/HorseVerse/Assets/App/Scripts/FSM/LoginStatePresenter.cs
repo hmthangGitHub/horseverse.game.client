@@ -326,7 +326,7 @@ public class LoginStatePresenter : IDisposable
                 Coin = res.PlayerInfo.Chip,
                 Energy = res.PlayerInfo.Energy,
                 CurrentHorseNftId = res.PlayerInfo.CurrentHorse.NftId,
-                MaxEnergy = (data != default) ? data.MaxEnergyNumber : 0,
+                MaxEnergy = (data != default) ? data.MaxHappinessNumber : 0,
                 UserId = res.PlayerInfo.Id,
                 UserName = res.PlayerInfo.Name,
                 Exp = 0,

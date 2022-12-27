@@ -41,6 +41,17 @@ public class UIBetModePresenter : IDisposable
     private MasterHorseContainer masterHorseContainer;
     private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= container.Inject<MasterHorseContainer>();
 
+    private int CurrentBettingAmouth
+    {
+        get => currentBettingAmouth;
+        set
+        {
+            if (currentBettingAmouth == value) return;
+            currentBettingAmouth = value;
+            OnUpdateBettingButtons();
+        }
+    }
+
     private HorseBetInfo horseBetInfo = default;
 
     private int currentBettingAmouth = 0;
@@ -145,6 +156,14 @@ public class UIBetModePresenter : IDisposable
         }
 
         SoundController.PlayMusicBetModePrepare();
+        OnUpdateBettingButtons();
+    }
+
+    private void OnUpdateBettingButtons()
+    {
+        uiBetMode.singleBetSlotList.instanceList.ForEach(x => x.betBtn.SetInteractable(UserDataRepository.Current.Coin >= CurrentBettingAmouth));
+        uiBetMode.doubleBetSlotList.instanceList.ForEach(x => x.betBtn.SetInteractable(UserDataRepository.Current.Coin >= CurrentBettingAmouth));
+        uiBetMode.quickBetButtonsContainer.SetInteractable(UserDataRepository.Current.Coin >= CurrentBettingAmouth * 7);
     }
 
     private void OnModelUpdate((UserDataModel before, UserDataModel after) model)
@@ -152,14 +171,15 @@ public class UIBetModePresenter : IDisposable
         if (model.after.Coin != model.before?.Coin)
         {
             uiBetMode?.header.header.coin.SetEntity(model.after.Coin);
+            OnUpdateBettingButtons();
         }
     }
 
     private async UniTaskVoid OnChangeToRaceModeAsync()
     {
+        await UITouchDisablePresenter.Delay(1.5f);
         if (BetRateRepository.Models.Any(x => x.Value.TotalBet > 0))
         {
-            await UITouchDisablePresenter.Delay(1.5f);
             var raceMatchData = await BetModeDomainService.GetCurrentBetModeRaceMatchData();
             
             container.Bind(raceMatchData);
@@ -170,7 +190,6 @@ public class UIBetModePresenter : IDisposable
         }
         else
         {
-            await UITouchDisablePresenter.Delay(1.5f);
             UiHorseInfo3DViewPresenter.Dispose();
             TransitionAsync(OnTimeOut).Forget();
         }
@@ -184,7 +203,7 @@ public class UIBetModePresenter : IDisposable
                                                            && (x.Key.second > x.Key.first))
                 .Select(x => x.Key)
                 .ToArray();
-            BetModeDomainService.BetAsync(keys, currentBettingAmouth).Forget();    
+            BetModeDomainService.BetAsync(keys, CurrentBettingAmouth).Forget();    
         }
     }
 
@@ -216,7 +235,7 @@ public class UIBetModePresenter : IDisposable
         var confirm = await AskIsConfirmBet();
         if (confirm)
         {
-            BetModeDomainService.BetAsync(new (int first, int second)[] { key }, currentBettingAmouth).Forget();    
+            BetModeDomainService.BetAsync(new (int first, int second)[] { key }, CurrentBettingAmouth).Forget();    
         }
     }
 
@@ -245,9 +264,9 @@ public class UIBetModePresenter : IDisposable
                     onActiveToggle = val => UserSettingLocalRepository.IsSkipConfirmBet = val
                 }
             });
-            await uiBetConfirmation.In();
-            await ucs.Task;
-            await uiBetConfirmation.Out();
+            await uiBetConfirmation.In().AttachExternalCancellation(cts.Token);
+            await ucs.Task.AttachExternalCancellation(cts.Token);
+            await uiBetConfirmation.Out().AttachExternalCancellation(cts.Token);
             return ucs.Task.GetAwaiter().GetResult();
         }
     }
@@ -265,7 +284,6 @@ public class UIBetModePresenter : IDisposable
     private async UniTaskVoid TransitionAsync(Action action)
     {
         SoundController.PlayMusicBase();
-        await UiHorseInfo3DViewPresenter.HideHorse3DViewAsync();
         await uiBetMode.Out();
         action();
     }
@@ -273,7 +291,7 @@ public class UIBetModePresenter : IDisposable
     private void OnSelectBetAmouthAtIndex(int index)
     {
 #if MOCK_DATA
-        currentBettingAmouth = uiBetMode.betAmouthsContainer.betAmounths
+        CurrentBettingAmouth = uiBetMode.betAmouthsContainer.betAmounths
                                                             .entity.betAmouthList[index];
 #else
         throw new NotImplementedException();
