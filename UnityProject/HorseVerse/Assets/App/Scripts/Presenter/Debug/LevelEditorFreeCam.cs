@@ -48,8 +48,19 @@ public class LevelEditorFreeCam : MonoBehaviour
     /// Set to true when free looking (on right mouse button).
     /// </summary>
     private bool looking = false;
-
     private Vector3 originalPosition;
+
+    public Camera levelDesignCamera;
+    private Camera originalCamera;
+
+    private void Awake()
+    {
+        originalCamera = Camera.main;
+        if(originalCamera != levelDesignCamera)
+        {
+            originalCamera.gameObject.SetActive(false);
+        }
+    }
 
     private void Start()
     {
@@ -71,14 +82,17 @@ public class LevelEditorFreeCam : MonoBehaviour
             transform.position = transform.position + (transform.right * movementSpeed * Time.deltaTime);
         }
 
+        var verticalAxis = Camera.main.orthographic ? transform.up : transform.forward;
+        
         if (/*Input.GetKey(KeyCode.W) ||*/ Input.GetKey(KeyCode.UpArrow))
         {
-            transform.position = transform.position + (transform.forward * movementSpeed * Time.deltaTime);
+            
+            transform.position = transform.position + (verticalAxis * movementSpeed * Time.deltaTime);
         }
 
         if (/*Input.GetKey(KeyCode.S) ||*/ Input.GetKey(KeyCode.DownArrow))
         {
-            transform.position = transform.position + (-transform.forward * movementSpeed * Time.deltaTime);
+            transform.position = transform.position + (-verticalAxis * movementSpeed * Time.deltaTime);
         }
 
         // if (Input.GetKey(KeyCode.Q))
@@ -118,7 +132,14 @@ public class LevelEditorFreeCam : MonoBehaviour
         if (axis != 0)
         {
             var zoomSensitivity = fastMode ? this.fastZoomSensitivity : this.zoomSensitivity;
-            transform.position = transform.position + transform.forward * axis * zoomSensitivity;
+            if (!levelDesignCamera.orthographic)
+            {
+                transform.position = transform.position + transform.forward * axis * zoomSensitivity;
+            }
+            else
+            {
+                levelDesignCamera.orthographicSize += axis * zoomSensitivity * Time.deltaTime;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
@@ -128,6 +149,12 @@ public class LevelEditorFreeCam : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.Mouse1))
         {
             StopLooking();
+        }
+
+        if (Input.GetKeyUp(KeyCode.Return))
+        {
+            this.transform.position = Vector3.zero;
+            this.transform.rotation = Quaternion.identity;
         }
     }
 
@@ -154,5 +181,10 @@ public class LevelEditorFreeCam : MonoBehaviour
         looking = false;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    private void OnDestroy()
+    {
+        originalCamera.gameObject.SetActive(true);
     }
 }

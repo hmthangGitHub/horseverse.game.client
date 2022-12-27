@@ -10,8 +10,33 @@ using Object = UnityEngine.Object;
 public partial class LevelEditorPresenter
 {
     private (MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo, int index) currentSelectingBlockCombo;
-    private Platform currentEditingPlatformObject;
-    private readonly List<GameObject> pinList = new List<GameObject>();
+    private PlatformBase currentEditingPlatformObject;
+    private readonly List<GameObject> blockComboPinList = new List<GameObject>();
+    private MasterHorseTrainingProperty masterHorseTrainingProperty;
+    private bool isEditingBlock;
+
+    public bool IsEditingBlock
+    {
+        get => isEditingBlock;
+        set
+        {
+            if (isEditingBlock == value) return;
+            isEditingBlock = value;
+            OnChangeEditingBlock();
+        }
+    }
+
+    private void OnChangeEditingBlock()
+    {
+        if (IsEditingBlock == false)
+        {
+            RemoveAllBlockPins();
+        }
+        else
+        {
+            AddPinToBlock(((PlatformModular)currentEditingPlatformObject));
+        }
+    }
 
     private void OnEditBlockComboBtn()
     {
@@ -41,8 +66,9 @@ public partial class LevelEditorPresenter
         var blockComboName = await AskUserInput("Enter block combo name");
         if (!string.IsNullOrEmpty(blockComboName))
         {
-            var masterHorseTrainingBlockCombo = new MasterHorseTrainingBlockCombo(masterHorseTrainingBlockComboContainer
-                    .MasterHorseTrainingBlockComboIndexer.Max(x => x.Key) + 1, 
+            var masterHorseTrainingBlockId = masterHorseTrainingBlockComboContainer
+                                             .MasterHorseTrainingBlockComboIndexer.Max(x => x.Key) + 1;
+            var masterHorseTrainingBlockCombo = new MasterHorseTrainingBlockCombo(masterHorseTrainingBlockId, 
                 blockComboName);
             masterHorseTrainingBlockComboContainer.Add(masterHorseTrainingBlockCombo);
             UnSelectOldBlock();
@@ -74,19 +100,19 @@ public partial class LevelEditorPresenter
         }
     }
 
-    private async UniTask<long> SelectingMasterHorseTrainingBlockIdAsync()
+    private async UniTask<string> SelectingMasterHorseTrainingBlockIdAsync()
     {
-        var ucs = new UniTaskCompletionSource<long>();
+        var ucs = new UniTaskCompletionSource<string>();
         uiDebugLevelEditor.editMode.SetEntity(UIDebugLevelEditorMode.Mode.BlockInCombo);
         uiDebugLevelEditor.entity.blockInComboList = new UIDebugLevelEditorBlockListContainer.Entity()
         {
-            blockList = masterHorseTrainingBlockContainer.DataList.Select((masterHorseTrainingBlock, i) =>
+            blockList = masterTrainingModularBlockContainer.DataList.Where(x => x.MasterTrainingModularBlockType == MasterTrainingModularBlockType.Modular).Select((masterHorseTrainingBlock, i) =>
                 new UIDebugTrainingBlock.Entity()
                 {
-                    blockName = masterHorseTrainingBlock.Name,
+                    blockName = masterHorseTrainingBlock.MasterTrainingModularBlockId,
                     selectButtonBtn = new ButtonComponent.Entity(() =>
                     {
-                        ucs.TrySetResult(masterHorseTrainingBlock.MasterHorseTrainingBlockId);
+                        ucs.TrySetResult(masterHorseTrainingBlock.MasterTrainingModularBlockId);
                         uiDebugLevelEditor.editMode.SetEntity(UIDebugLevelEditorMode.Mode.BlockCombo);
                     }),
                 }).ToArray(),
@@ -99,8 +125,8 @@ public partial class LevelEditorPresenter
         uiDebugLevelEditor.blockInComboList.SetEntity(uiDebugLevelEditor.entity.blockInComboList);
         return await ucs.Task.AttachExternalCancellation(cts.Token);
     }
-
-    private void UpdateBlockCombo(List<long> masterHorseTrainingBlockIdList)
+    
+    private void UpdateBlockCombo(List<string> masterHorseTrainingBlockIdList)
     {
         currentSelectingBlockCombo.masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList =
             masterHorseTrainingBlockIdList.ToArray();
@@ -110,9 +136,10 @@ public partial class LevelEditorPresenter
         OnEditBlockCombo(master, index);
     }
 
-    private async UniTask OnDeleteBlockInComBoAsync(MasterHorseTrainingBlock masterHorseTrainingBlock, int index)
+    private async UniTask OnDeleteBlockInComBoAsync(string name, int index)
     {
-        if (await IsUserAgreeTo($"Agree To Delete Block {masterHorseTrainingBlock.Name} \n in {currentSelectingBlockCombo.masterHorseTrainingBlockCombo.Name}?"))
+        if (await IsUserAgreeTo($"Agree To Delete Block {name} \n " +
+                                $"in {currentSelectingBlockCombo.masterHorseTrainingBlockCombo.Name}?"))
         {
             var masterHorseTrainingBlockIdList = currentSelectingBlockCombo.masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList.ToList();
             masterHorseTrainingBlockIdList.RemoveAt(index);
@@ -124,61 +151,72 @@ public partial class LevelEditorPresenter
     {
         uiDebugLevelEditor.blockComboList.blockList.instanceList[i].Select(true);
         currentSelectingBlockCombo = (masterHorseTrainingBlockCombo, i);
-        currentEditingPlatformObject = Object.Instantiate(platformPrefab, root.transform);
+        currentEditingPlatformObject = Object.Instantiate(platformPrefab, levelEditorManager.transform);
+        
+        var paddingBlockId = masterTrainingModularBlockContainer.MasterTrainingModularBlockIndexer.Values
+                                                                .First(x => x.MasterTrainingModularBlockType == MasterTrainingModularBlockType.Padding)
+                                                                .MasterTrainingModularBlockId;
 
-        currentEditingPlatformObject.GenerateBlocks(Vector3.zero,
-            Vector3.zero,
-            masterHorseTrainingBlockContainer,
-            masterHorseTrainingBlockCombo,
-            masterHorseTrainingPropertyContainer.MasterHorseTrainingPropertyIndexer.First().Value);
+        var modularBlockIds = currentSelectingBlockCombo.masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList; 
 
-        currentEditingPlatformObject.GetComponentsInChildren<TrainingMapBlock>()
-            .ForEach((x, index) =>
-            {
-                AddMeshBoundaryDrawer(x.BoundingBoxReference.gameObject);
-                AddPintoBlockInCombo(masterHorseTrainingBlockCombo, index, x);
-            });
-
-        AddingPinToJumpingPoint();
+        var editingPlatformObject = ((PlatformModular)currentEditingPlatformObject);
+        editingPlatformObject.GenerateBlock(Vector3.zero, modularBlockIds.Select(x => trainingBlockSettings.BlocksLookUpTable[x].gameObject).ToArray(), 
+            trainingBlockSettings.BlocksLookUpTable[paddingBlockId].gameObject,
+        trainingBlockSettings.BlocksLookUpTable[paddingBlockId].gameObject,
+        masterHorseTrainingProperty.JumpingPoint,
+        masterHorseTrainingProperty.LandingPoint);
+        OnChangeEditingBlock();
+        
+        if (IsEditingObstacle)
+        {
+            GenerateObstacle().Forget();
+        }
+        if (IsEditingCoin)
+        {
+            GenerateCoinEditors().Forget();
+        }
     }
 
-    private void AddingPinToJumpingPoint()
+    private void RemoveAllBlockPins()
     {
-        var pinGameObject = new GameObject();
-        pinGameObject.transform.position = currentEditingPlatformObject.end.position + Vector3.up * 2f;
-        pinGameObject.transform.parent = currentEditingPlatformObject.end;
+        blockComboPinList.ForEach(x => Object.Destroy(x.gameObject));
+        blockComboPinList.Clear();
+    }
 
-        var pin = CreateUiPin();
-        pinList.Add(pin.gameObject);
+    private void AddPinToBlock(PlatformModular editingPlatformObject)
+    {
+        CreateBlockNamePin(editingPlatformObject);
+        CreateAddPin(editingPlatformObject);
+        editingPlatformObject.BoxColliders.ForEach(AddPinToBlockModular);
+    }
+
+    private void CreateAddPin(PlatformModular editingPlatformObject)
+    {
+        var pin = CreateUiPin(blockComboPinList);
+        blockComboPinList.Add(pin.gameObject);
         pin.SetEntity(new UIDebugLevelDesignBlockTransformPin.Entity()
         {
             isAddBtnVisible = true,
             addBtn = new ButtonComponent.Entity(() => OnAddBlockInComboAsync().Forget()),
-            pinTransform = pinGameObject.transform,
-            camera = freeCameraComponent
+            pinTransform = LevelDesignPin.Instantiate(editingPlatformObject.PaddingTailCollider).transform,
+            camera = freeCameraComponent,
+            
         });
         pin.In().Forget();
     }
 
-    private void AddPintoBlockInCombo(MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo, int i, TrainingMapBlock x)
+    private void AddPinToBlockModular(BoxCollider boxCollider,
+                                      int i)
     {
-        var masterHorseTrainingBlockId = masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList[i];
-        var masterHorseTrainingBlock = masterHorseTrainingBlockContainer
-            .MasterHorseTrainingBlockIndexer[masterHorseTrainingBlockId];
-        var blockName = masterHorseTrainingBlock
-            .Name;
-
-        var pinTransform = LevelDesignPin.Instantiate(x.BoundingBoxReference.GetComponent<BoxCollider>());
-        
-        var pin = CreateUiPin();
-        pinList.Add(pin.gameObject);
+        var pin = CreateUiPin(blockComboPinList);
+        var masterHorseTrainingBlockId = currentSelectingBlockCombo.masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList[i];
         pin.SetEntity(new UIDebugLevelDesignBlockTransformPin.Entity()
         {
-            pinTransform = pinTransform.transform,
+            pinTransform = LevelDesignPin.Instantiate(boxCollider).transform,
             camera = freeCameraComponent,
             blockName = new UIComponentInputField.Entity()
             {
-                defaultValue = blockName,
+                defaultValue = masterHorseTrainingBlockId,
                 interactable = false
             },
             isBlockNameVisible = true,
@@ -192,7 +230,6 @@ public partial class LevelEditorPresenter
                     Swap(masterHorseTrainingBlockIdList, i, i + 1);
                     UpdateBlockCombo(masterHorseTrainingBlockIdList);    
                 }
-                
             }),
             rightBtn = new ButtonComponent.Entity(() =>
             {
@@ -203,20 +240,42 @@ public partial class LevelEditorPresenter
                     UpdateBlockCombo(masterHorseTrainingBlockIdList);
                 }
             }),
-            deleteBtn = new ButtonComponent.Entity(() => OnDeleteBlockInComBoAsync(masterHorseTrainingBlock, i).Forget()),
+            deleteBtn = new ButtonComponent.Entity(() =>
+            {
+                var masterBlockModularId = currentSelectingBlockCombo.masterHorseTrainingBlockCombo
+                                                                         .MasterHorseTrainingBlockIdList[i]; 
+                OnDeleteBlockInComBoAsync(masterBlockModularId, i).Forget();
+            }),
             isDeleteBtnVisible = true,
-            shuffleBtn = new ButtonComponent.Entity(() => OnChangeToAnotherBlock(masterHorseTrainingBlockCombo, i).Forget()),
+            shuffleBtn = new ButtonComponent.Entity(() => OnChangeToAnotherBlock(i).Forget()),
             isShuffleBtnVisible = true
         });
         pin.In().Forget();
     }
 
-    private async UniTaskVoid OnChangeToAnotherBlock(MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo, int i)
+    private void CreateBlockNamePin(PlatformModular editingPlatformObject)
+    {
+        var pin = CreateUiPin(blockComboPinList);
+        pin.SetEntity(new UIDebugLevelDesignBlockTransformPin.Entity()
+        {
+            pinTransform = LevelDesignPin.Instantiate(editingPlatformObject.PaddingHeadCollider).transform,
+            camera = freeCameraComponent,
+            blockName = new UIComponentInputField.Entity()
+            {
+                defaultValue = currentSelectingBlockCombo.masterHorseTrainingBlockCombo.Name,
+                interactable = false
+            },
+            isBlockNameVisible = true
+        });
+        pin.In().Forget();
+    }
+
+    private async UniTaskVoid OnChangeToAnotherBlock(int i)
     {
         var selectingMasterHorseTrainingBlockId = await SelectingMasterHorseTrainingBlockIdAsync();
         if (selectingMasterHorseTrainingBlockId != default)
         {
-            var idList = masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList;
+            var idList = currentSelectingBlockCombo.masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList;
             idList[i] = selectingMasterHorseTrainingBlockId;
             UpdateBlockCombo(idList.ToList());
         }
@@ -231,6 +290,15 @@ public partial class LevelEditorPresenter
     {
         if (currentSelectingBlockCombo != default)
         {
+            if (IsEditingObstacle)
+            {
+                SaveObstacleToBlockAndRemove();
+            }
+            if (IsEditingCoin)
+            {
+                SaveCoinsToBlockAndRemove();
+            }
+            
             uiDebugLevelEditor.blockComboList.blockList.instanceList[currentSelectingBlockCombo.index].Select(false);
             currentSelectingBlockCombo = default;
         }
@@ -240,8 +308,8 @@ public partial class LevelEditorPresenter
             Object.Destroy(currentEditingPlatformObject.gameObject);
             currentEditingPlatformObject = default;
             
-            pinList.ForEach(x => Object.Destroy(x.gameObject));
-            pinList.Clear();
+            blockComboPinList.ForEach(x => Object.Destroy(x.gameObject));
+            blockComboPinList.Clear();
         }
     }
 

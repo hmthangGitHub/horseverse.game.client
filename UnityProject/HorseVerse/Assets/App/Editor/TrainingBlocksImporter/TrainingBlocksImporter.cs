@@ -13,9 +13,10 @@ using Object = UnityEngine.Object;
 
 public class TrainingBlocksImporter
 {
-    private const string TrainingBlocksPath = "Assets/App/Prefabs/GameMode/HorseTraining/MapSettings/trainingMapBlock/BlockV2/TrainingBlocks";
-    private const string TrainingObstaclesPath = "Assets/App/Prefabs/GameMode/HorseTraining/MapSettings/trainingMapBlock/BlockV2/Obstacles";
-    private const string TrainingSceneryObjectsPath = "Assets/App/Prefabs/GameMode/HorseTraining/MapSettings/trainingMapBlock/BlockV2/SceneryObjects";
+    private const string TrainingBlocksPath = "Assets/App/Prefabs/GameMode/HorseTraining/MapSettings/trainingMapBlock/BlockPredefined/TrainingBlocks";
+    private const string TrainingObstaclesPath = "Assets/App/Prefabs/GameMode/HorseTraining/MapSettings/trainingMapBlock/BlockPredefined/Obstacles";
+    private const string TrainingSceneryObjectsPath = "Assets/App/Prefabs/GameMode/HorseTraining/MapSettings/trainingMapBlock/BlockPredefined/SceneryObjects";
+    private const string TrainingBlockModularPath = "Assets/App/Prefabs/GameMode/HorseTraining/MapSettings/trainingMapBlock/BlockModular";
     private const string TrainingBlockSettings = "Assets/App/AssetBundles/Maps/MapSettings/training_block_settings.asset";
 
     [MenuItem("Assets/Importer/ImportBlocks", true)]
@@ -224,12 +225,9 @@ public class TrainingBlocksImporter
             foreach (Transform child in obstacleInstance.transform)
             {
                 var childGameObject = child.gameObject;
-                if (!child.name.Contains("dummy"))
-                {
-                    childGameObject.AddComponent<MeshCollider>();
-                    childGameObject.layer = LayerMask.NameToLayer("TrainingObject");
-                    childGameObject.tag = "Obstacle";
-                }
+                childGameObject.AddComponent<MeshCollider>();
+                childGameObject.layer = LayerMask.NameToLayer("TrainingObject");
+                childGameObject.tag = "Obstacle";
             }
         }, $"{TrainingObstaclesPath}/{obstacle.name}.prefab");
     }
@@ -256,5 +254,43 @@ public class TrainingBlocksImporter
         ImportAsPrefabVariant(obj, sceneryObject => sceneryObject.transform.Cast<Transform>()
                                                                  .ForEach(x => x.gameObject.AddComponent<SceneryObjectAnimation>()),
             $"{TrainingSceneryObjectsPath}/{obj.name}.prefab");
+    }
+    
+    [MenuItem("Assets/Importer/ImportBlockModular", true)]
+    public static bool ImportBlockModularValidate()
+    {
+        return Selection.gameObjects.All(x =>
+        {
+            var children = x.transform.Cast<Transform>().ToArray();
+            return children.Any(child => child.name == "platform" )
+                && children.Any(child => child.name == "standie");
+        });
+    }
+    
+    [MenuItem("Assets/Importer/ImportBlockModular")]
+    public static void ImportBlocksModular()
+    {
+        Selection.gameObjects.ForEach(ImportBlockModular);
+        var trainingBlockSetting = AssetDatabase.LoadAssetAtPath<TrainingBlockSettings>(TrainingBlockSettings);
+        trainingBlockSetting.blocks = LoadAllAssetAtPath<GameObject>(TrainingBlockModularPath);
+        EditorUtility.SetDirty(trainingBlockSetting);
+    }
+
+    private static void ImportBlockModular(GameObject obj)
+    {
+        ImportAsPrefabVariant(obj, blockModular =>
+            {
+                var children = blockModular.transform.Cast<Transform>().ToArray();
+                var platform = children.First(x => x.name == "platform");
+                platform.gameObject.AddComponent<BoxCollider>();
+                platform.gameObject.layer = LayerMask.NameToLayer("TrainingPlatform");
+                platform.gameObject.tag = "Platform";
+                
+                var standie = children.First(x => x.name == "standie");
+                standie.gameObject.layer = LayerMask.NameToLayer("TrainingObject");
+                standie.tag = "Obstacle";
+                standie.gameObject.AddComponent<MeshCollider>();
+            },
+            $"{TrainingBlockModularPath}/{obj.name}.prefab");
     }
 }

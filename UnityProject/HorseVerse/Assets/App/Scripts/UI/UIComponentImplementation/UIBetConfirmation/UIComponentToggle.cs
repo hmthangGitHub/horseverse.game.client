@@ -27,4 +27,9 @@ public class UIComponentToggle : UIComponent<UIComponentToggle.Entity>
 	    onActiveToggleInternal = ActionUtility.EmptyAction<bool>.Instance;
 	    onActiveToggleInternal += this.entity.onActiveToggle;
     }
+
+    private void Reset()
+    {
+	    toggle = GetComponent<Toggle>();
+    }
 }	

@@ -19,24 +19,25 @@ public partial class LevelEditorPresenter : IDisposable
     private MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer;
     private MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer;
     private MasterHorseTrainingPropertyContainer masterHorseTrainingPropertyContainer;
+    private MasterTrainingModularBlockContainer masterTrainingModularBlockContainer;
     
     private UIDebugLevelEditor uiDebugLevelEditor;
     private UIDebugLevelDesignBlockTransformPin[] blockSegmentPin;
     private UIDebugLevelDesignBlockTransformPin blockNamePin;
     private UIDebugLevelDesignBlockTransformPin uiDebugLevelDesignBlockTransformPinPrefab;
-    private Platform platformPrefab;
-    private TrainingMapBlock trainingMapBlockPrefab;
-    private GameObject freeCam;
+    private PlatformBase platformPrefab;
     private Material debugLineMaterial;
-    private GameObject root;
+    private LevelEditorManager levelEditorManager;
     private Camera freeCameraComponent;
+    
+    private const string TrainingBlockSettingPath = "Maps/MapSettings/training_block_settings";
+    private TrainingBlockSettings trainingBlockSettings;
 
     public event Action OnBack = ActionUtility.EmptyAction.Instance;
 
     public LevelEditorPresenter(IDIContainer container)
     {
         Container = container;
-        root = new GameObject("Root");
     }
 
     public async UniTask ShowDebugMenuAsync()
@@ -65,32 +66,45 @@ public partial class LevelEditorPresenter : IDisposable
         uiDebugLevelDesignBlockTransformPinPrefab.gameObject.SetActive(false);
     }
 
-    private UIDebugLevelDesignBlockTransformPin CreateUiPin()
+    private UIDebugLevelDesignBlockTransformPin CreateUiPin(List<GameObject> storedList)
     {
         var uiDebugLevelDesignBlockTransformPin = Object.Instantiate(uiDebugLevelDesignBlockTransformPinPrefab, uiDebugLevelDesignBlockTransformPinPrefab.transform.parent);
         uiDebugLevelDesignBlockTransformPin.gameObject.SetActive(true);
+        storedList.Add(uiDebugLevelDesignBlockTransformPin.gameObject);
         return uiDebugLevelDesignBlockTransformPin;
+    }
+
+    private void RemovePin(UIDebugLevelDesignBlockTransformPin pin)
+    {
+        Object.Destroy(pin.gameObject);
+        blockComboPinList.Remove(pin.gameObject);
     }
 
     private async UniTask LoadMasterAsync()
     {
         (masterHorseTrainingBlockContainer,
         masterHorseTrainingBlockComboContainer,
-        masterHorseTrainingPropertyContainer) = await (MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(cts.Token), 
+        masterHorseTrainingPropertyContainer,
+        masterTrainingModularBlockContainer) = await (MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(cts.Token), 
                                                         MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>(cts.Token), 
-                                                        MasterLoader.LoadMasterAsync<MasterHorseTrainingPropertyContainer>(cts.Token));
+                                                        MasterLoader.LoadMasterAsync<MasterHorseTrainingPropertyContainer>(cts.Token),
+                                                        MasterLoader.LoadMasterAsync<MasterTrainingModularBlockContainer>(cts.Token));
+        
+        masterHorseTrainingProperty = masterHorseTrainingPropertyContainer.MasterHorseTrainingPropertyIndexer.First().Value;
     }
 
     private async UniTask LoadInGameAssetAsync()
     {
-        var freeCamPrefab = await Resources.LoadAsync<GameObject>("GamePlay/Debug/LevelEditorFreeCamera") as GameObject;
-        freeCam = Object.Instantiate(freeCamPrefab, root.transform);
-        freeCameraComponent = freeCam.GetComponentInChildren<Camera>(true);
+        var rootPrefab = await Resources.LoadAsync<LevelEditorManager>("GamePlay/Debug/LevelEditorManager") as LevelEditorManager;
+        levelEditorManager = Object.Instantiate(rootPrefab);
+        freeCameraComponent = levelEditorManager.GetComponentInChildren<Camera>(true);
         
         var horseTrainingManager = await Resources.LoadAsync<HorseTrainingManager>("GamePlay/HorseTrainingManager") as HorseTrainingManager;
-        platformPrefab = horseTrainingManager.PlatformGenerator.platformPrefab.GetComponent<Platform>();
+        platformPrefab = horseTrainingManager.GetComponentInChildren<PlatformGeneratorModularBlock>()
+                                             .platformPrefab;
         debugLineMaterial = await Resources.LoadAsync("GamePlay/Debug/debugLine") as Material;
-        trainingMapBlockPrefab = platformPrefab.trainingMapBlockPrefab;
+        
+        trainingBlockSettings = await PrimitiveAssetLoader.LoadAssetAsync<TrainingBlockSettings>(TrainingBlockSettingPath, cts.Token);
     }
 
     private async UniTask SetEntityAsync()
@@ -110,6 +124,23 @@ public partial class LevelEditorPresenter : IDisposable
             backBtn = new ButtonComponent.Entity(() => OnBack.Invoke()),
             editMode = UIDebugLevelEditorMode.Mode.None,
             saveBtn = new ButtonComponent.Entity(OnSave),
+            editBlockToggle = new UIComponentToggle.Entity()
+            {
+                isOn = false,
+                onActiveToggle = val => IsEditingBlock = val 
+            },
+            editObstacleToggle = new UIComponentToggle.Entity()
+            {
+                isOn = false,
+                onActiveToggle = val => IsEditingObstacle = val
+            },
+            editCoinToggle = new UIComponentToggle.Entity()
+            {
+                isOn = false,
+                onActiveToggle = val => IsEditingCoin = val
+            },
+            addObstacleBtn = new ButtonComponent.Entity(CreateNewObstacle),
+            addCoinBtn = new ButtonComponent.Entity(CreateNewCoinEditor)
         });
         await uiDebugLevelEditor.In();
     }
@@ -186,6 +217,7 @@ public partial class LevelEditorPresenter : IDisposable
     {
         try
         {
+            UnSelectOldBlockCombo();
             OnSave();
         }
         finally
@@ -198,7 +230,6 @@ public partial class LevelEditorPresenter : IDisposable
             MasterLoader.SafeRelease(ref masterHorseTrainingPropertyContainer);
         
             UILoader.SafeRelease(ref uiDebugLevelEditor);
-            UILoader.SafeRelease(ref uiDebugLevelEditor);
             UILoader.SafeRelease(ref blockSegmentPin);
             UILoader.SafeRelease(ref blockNamePin);
             UILoader.SafeRelease(ref uiDebugLevelDesignBlockTransformPinPrefab);
@@ -206,11 +237,13 @@ public partial class LevelEditorPresenter : IDisposable
             currentEditingTrainingMapBlockGameObject = default;
             debugLineMaterial = default;
         
-            pinList.ForEach(x => Object.Destroy(x.gameObject));
-            pinList.Clear();
+            blockComboPinList.ForEach(x => Object.Destroy(x.gameObject));
+            blockComboPinList.Clear();
         
-            Object.Destroy(root);
-            freeCameraComponent = default;
+            DisposeUtility.SafeDispose(ref levelEditorManager);
+            
+            PrimitiveAssetLoader.UnloadAssetAtPath(TrainingBlockSettingPath);
+            trainingBlockSettings = default;
         }
     }
 }
