@@ -132,7 +132,9 @@ public partial class MasterDataGenerator : EditorWindow
 
     private (string[] preExecuteCSVData, string[] outputFieldNames, string[] outPutTypeNames, string idColumn)  PreExecuteCSVData(TextAsset master)
     {
-        string[] lines = CSVReader.ReadLines(master);
+        string[] lines = CSVReader.ReadLines(master)
+                                  .Select(x => x.Replace("\"\"" ,"\""))
+                                  .ToArray();
         var linesAsColumn = lines.Select(x => x.Split(','));
         
         var outputClientColumns = linesAsColumn.FirstOrDefault(line => line[0] == Prefix.out_put_client.ToString())
