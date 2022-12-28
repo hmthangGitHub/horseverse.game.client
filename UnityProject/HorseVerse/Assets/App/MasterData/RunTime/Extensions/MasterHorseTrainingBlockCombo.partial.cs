@@ -72,9 +72,14 @@ public partial class MasterHorseTrainingBlockCombo
 
     public Obstacle[] ObstacleList
     {
-        get =>
-            JsonConvert.DeserializeObject((Obstacles ?? string.Empty).Replace("...", ","), typeof(Obstacle[])) as
-                Obstacle[] ?? Array.Empty<Obstacle>();  
+        get
+        {
+            var s = (Obstacles ?? string.Empty).Replace("...", ",");
+#if UNITY_STANDALONE_OSX
+            s = SafeConvertString(s);
+#endif
+            return JsonConvert.DeserializeObject(s, typeof(Obstacle[])) as Obstacle[] ?? Array.Empty<Obstacle>();
+        }
 #if ENABLE_MASTER_RUN_TIME_EDIT
         set
         {
@@ -85,13 +90,37 @@ public partial class MasterHorseTrainingBlockCombo
     }
 
     public Coin[] CoinList
+    {
+        get
         {
-            get => JsonConvert.DeserializeObject((Coins ?? string.Empty).Replace("...", ","), typeof(Coin[])) as Coin[] ?? Array.Empty<Coin>();
-#if ENABLE_MASTER_RUN_TIME_EDIT
-            set
-            {
-                coins = JsonConvert.SerializeObject(value).Replace(",", "...");
-            }
+            var s = (Coins ?? string.Empty).Replace("...", ",");
+#if UNITY_STANDALONE_OSX
+            s = SafeConvertString(s);
 #endif
+            return JsonConvert.DeserializeObject(s, typeof(Coin[])) as Coin[] ?? Array.Empty<Coin>();
         }
+#if ENABLE_MASTER_RUN_TIME_EDIT
+        set
+        {
+            coins = JsonConvert.SerializeObject(value).Replace(",", "...");
+        }
+#endif
+    }
+
+    private static string SafeConvertString(string s)
+    {
+#if UNITY_STANDALONE_OSX
+        var index = s.IndexOf("[");
+        if (index != 0)
+        {
+            s = s.Remove(0, index);
+        }
+        index = s.LastIndexOf("]");
+        if (index != s.Length - 1)
+        {
+            s = s.Remove(index + 1, s.Length - (index + 1));
+        }
+#endif
+        return s;
+    }
 }
