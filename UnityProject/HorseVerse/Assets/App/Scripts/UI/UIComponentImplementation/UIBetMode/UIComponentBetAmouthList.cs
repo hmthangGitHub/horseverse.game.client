@@ -37,7 +37,7 @@ public class UIComponentBetAmouthList : UIComponent<UIComponentBetAmouthList.Ent
     
     async UniTask delayToChangeFocus()
     {
-        await UniTask.Delay(200);
+        await UniTask.Yield(cancellationToken: this.GetCancellationTokenOnDestroy());
         ChangeFocus(0);
     }
 

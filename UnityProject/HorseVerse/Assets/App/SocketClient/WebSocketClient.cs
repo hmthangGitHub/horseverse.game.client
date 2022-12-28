@@ -11,11 +11,11 @@ public class WebSocketClient : SocketClientBase, ISocketClient
     private CancellationTokenSource cts;
     private UniTaskCompletionSource connectTask;
 
-    public static WebSocketClient Initialize(IMessageParser messageParser)
+    public static WebSocketClient Initialize(IMessageParser messageParser, IErrorCodeConfiguration errorCodeConfig)
     {
         var go = new GameObject("WebSocketClient");
         var webSocketClient = go.AddComponent<WebSocketClient>();
-        webSocketClient.SetIMessageParser(messageParser);
+        webSocketClient.Init(messageParser, errorCodeConfig);
         return webSocketClient;
     }
 

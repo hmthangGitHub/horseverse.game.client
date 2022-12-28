@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using Google.Protobuf;
 using System;
+using System.Linq;
 using System.Threading;
 using UnityEngine;
 
@@ -8,12 +9,14 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
 {
     private readonly MessageBroker.IMessageBroker messageBroker = new MessageBroker.ChannelMessageBroker();
     protected IMessageParser messageParser;
+    protected IErrorCodeConfiguration errorCodeConfig;
     public event Action OnStartRequest = ActionUtility.EmptyAction.Instance;
     public event Action OnEndRequest = ActionUtility.EmptyAction.Instance;
 
-    protected void SetIMessageParser(IMessageParser messageParser)
+    protected void Init(IMessageParser messageParser, IErrorCodeConfiguration errorCodeConfig)
     {
         this.messageParser = messageParser;
+        this.errorCodeConfig = errorCodeConfig;
     }
 
     protected void OnMessage(byte[] data)
@@ -33,18 +36,41 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
         messageBroker.UnSubscribe(callback);
     }
 
-    public async UniTask<TResponse> Send<TRequest, TResponse>(TRequest request, CancellationToken token = default(CancellationToken)) where TRequest : IMessage
+    public async UniTask<TResponse> Send<TRequest, TResponse>(TRequest request, float timeOut = 3.0f, CancellationToken token = default(CancellationToken)) where TRequest : IMessage
                                                                                 where TResponse : IMessage
     {
         Debug.Log($"Sending request {request.GetType()} {request}");
         var ucs = new UniTaskCompletionSource<TResponse>();
+        var cts = new CancellationTokenSource();
         void OnResponse(TResponse response)
         {
             Debug.Log("Received response " + response);
-            ucs.TrySetResult(response);
-            if (token == default)
+            try
             {
-                OnEndRequest.Invoke();
+                if (response is IErrorCodeMessage errorCodeMessage
+                    && errorCodeMessage.ResultCode != this.errorCodeConfig.SuccessCode
+                    && !errorCodeConfig.HandleCode.Contains(errorCodeMessage.ResultCode))
+                {
+                    var message = errorCodeConfig.ErrorCodeMessage.TryGetValue(errorCodeMessage.ResultCode, out var msg)
+                        ? msg
+                        : "Unknown Message";
+                    throw new Exception($"Failed Response Exception Result Code:{errorCodeMessage.ResultCode} " +
+                                        $"- {message}");
+                }
+
+                ucs.TrySetResult(response);
+            }
+            catch
+            {
+                cts.SafeCancelAndDispose();
+                throw;
+            }
+            finally
+            {
+                if (token == default)
+                {
+                    OnEndRequest.Invoke();
+                }
             }
         }
         messageBroker.Subscribe<TResponse>(OnResponse);
@@ -56,36 +82,13 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
         try
         {
             return token == default
-                ? await ucs.Task.ThrowWhenTimeOut()
+                ? await ucs.Task.ThrowWhenTimeOut(timeOut, cts.Token)
                 : await ucs.Task.AttachExternalCancellation(token);
         }
         finally
         {
             messageBroker.UnSubscribe<TResponse>(OnResponse);
-        }
-    }
-
-    public async UniTask<TResponse> Send<TRequest, TResponse>(TRequest request, float timeOut, CancellationToken token = default(CancellationToken)) where TRequest : IMessage
-                                                                                where TResponse : IMessage
-    {
-        Debug.Log($"Sending request {request.GetType()} {request}");
-        var ucs = new UniTaskCompletionSource<TResponse>();
-        void OnResponse(TResponse response)
-        {
-            Debug.Log("Received response " + response);
-            ucs.TrySetResult(response);
-        }
-        messageBroker.Subscribe<TResponse>(OnResponse);
-        await Send<TRequest>(request);
-        try
-        {
-            return token == default
-                ? await ucs.Task.ThrowWhenTimeOut(timeOut)
-                : await ucs.Task.AttachExternalCancellation(token);
-        }
-        finally
-        {
-            messageBroker.UnSubscribe<TResponse>(OnResponse);
+            cts.SafeCancelAndDispose();
         }
     }
 

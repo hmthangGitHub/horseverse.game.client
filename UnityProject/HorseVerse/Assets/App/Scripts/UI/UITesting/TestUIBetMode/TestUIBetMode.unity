@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028377, g: 0.22571409, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -319,26 +319,36 @@ MonoBehaviour:
     header:
       timeCountDown:
         utcEndTimeStamp: 1686855975
-      userInfo:
-        userName: My name
-        coin: 999999
-      energy: 0
-      maxEnergy: 0
+      header:
+        userName: 
+        coin: 0
+        maxEnergy: 0
+        energy: 0
+        backBtnVisible: 0
+        title: 
+        backBtn:
+          onClickEvent:
+            m_PersistentCalls:
+              m_Calls: []
+          isInteractable: 1
+        settingBtn:
+          onClickEvent:
+            m_PersistentCalls:
+              m_Calls: []
+          isInteractable: 1
       changeRaceBtn:
         onClickEvent:
           m_PersistentCalls:
             m_Calls: []
         isInteractable: 1
-    backBtn:
-      onClickEvent:
-        m_PersistentCalls:
-          m_Calls: []
-      isInteractable: 0
     singleBetSlotList:
       entities:
-      - horseNumber: 1
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 0
         betRatio: 2.6
         totalBet: 100
@@ -347,9 +357,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 2
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 0
         betRatio: 2.6
         totalBet: 100
@@ -358,9 +371,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 3
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 0
         betRatio: 2.6
         totalBet: 100
@@ -369,9 +385,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 4
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 0
         betRatio: 2.6
         totalBet: 100
@@ -380,9 +399,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 5
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 0
         betRatio: 2.6
         totalBet: 100
@@ -391,9 +413,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 6
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 0
         betRatio: 2.6
         totalBet: 100
@@ -402,9 +427,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 7
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 0
         betRatio: 2.6
         totalBet: 100
@@ -413,9 +441,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 8
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 0
         betRatio: 2.6
         totalBet: 100
@@ -426,9 +457,12 @@ MonoBehaviour:
           isInteractable: 1
     doubleBetSlotList:
       entities:
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -437,9 +471,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -448,9 +485,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -459,9 +499,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -470,9 +513,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -481,9 +527,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -492,9 +541,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -503,9 +555,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -514,9 +569,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -525,9 +583,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -536,9 +597,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -547,9 +611,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -558,9 +625,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -569,9 +639,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -580,9 +653,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -591,9 +667,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -602,9 +681,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -613,9 +695,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -624,9 +709,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -635,9 +723,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -646,9 +737,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -657,9 +751,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -668,9 +765,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -679,9 +779,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -690,9 +793,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -701,9 +807,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -712,9 +821,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -723,9 +835,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -734,9 +849,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -745,9 +863,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -756,9 +877,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -767,9 +891,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -778,9 +905,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -789,9 +919,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -800,9 +933,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -811,9 +947,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -822,9 +961,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -833,9 +975,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -844,9 +989,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -855,9 +1003,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -866,9 +1017,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -877,9 +1031,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -888,9 +1045,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -899,9 +1059,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -910,9 +1073,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -921,9 +1087,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -932,9 +1101,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -943,9 +1115,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -954,9 +1129,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -965,9 +1143,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -976,9 +1157,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -987,9 +1171,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -998,9 +1185,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -1009,9 +1199,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -1020,9 +1213,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -1031,9 +1227,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -1042,9 +1241,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -1053,9 +1255,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -1064,9 +1269,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -1075,9 +1283,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -1086,9 +1297,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -1097,9 +1311,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -1108,9 +1325,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -1119,9 +1339,12 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseNumber: 0
-        firstHorseNumber: 1
-        secondHorseNumber: 2
+      - horseNumber:
+          Number: 0
+        firstHorseNumber:
+          Number: 0
+        secondHorseNumber:
+          Number: 0
         betType: 1
         betRatio: 5.1
         totalBet: 999
@@ -1137,15 +1360,13 @@ MonoBehaviour:
           m_PersistentCalls:
             m_Calls: []
         isInteractable: 1
-      betAmouthIndicator:
-        betAmouthListScroller:
-          entities:
-          - betAmouth: 10
-          - betAmouth: 11
-          - betAmouth: 100
-          - betAmouth: 105
-          - betAmouth: 107
-          - betAmouth: 500000
+      betAmounths:
+        betAmouthList: 
+    btnHorseList:
+      onClickEvent:
+        m_PersistentCalls:
+          m_Calls: []
+      isInteractable: 1
 --- !u!4 &971917695
 Transform:
   m_ObjectHideFlags: 0
@@ -1362,6 +1583,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1265037717}
     m_Modifications:
+    - target: {fileID: 267641452616735731, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 267641452616735731, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 267641452616735731, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 267641452616735731, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 598090299291116628, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1449,6 +1686,90 @@ PrefabInstance:
     - target: {fileID: 2525184192925590133, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
       propertyPath: m_Name
       value: UIBetMode
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952899880653898759, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952899880653898759, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952899880653898759, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952899880653898759, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108719522627712806, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108719522627712806, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108719522627712806, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108719522627712806, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4768340756925218045, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4768340756925218045, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4768340756925218045, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4768340756925218045, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5616573104561835996, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5616573104561835996, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5616573104561835996, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5616573104561835996, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7707168100080081703, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8691749915216793640, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8691749915216793640, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8691749915216793640, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8691749915216793640, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9bd18317771ee0489208c5255a0e637, type: 3}

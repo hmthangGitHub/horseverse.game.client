@@ -5,7 +5,6 @@ using UnityEngine;
 using Google.Protobuf;
 using Google.Protobuf.WellKnownTypes;
 using System;
-using System.Linq;
 
 public class ProtobufMessageParser : IMessageParser
 {

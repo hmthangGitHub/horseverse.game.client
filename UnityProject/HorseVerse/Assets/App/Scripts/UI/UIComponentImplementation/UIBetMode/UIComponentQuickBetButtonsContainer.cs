@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UIComponentQuickBetButtonsContainer : UIComponent<UIComponentQuickBetButtonsContainer.Entity>
@@ -35,10 +36,14 @@ public class UIComponentQuickBetButtonsContainer : UIComponent<UIComponentQuickB
             quickBetButton.SetEntity(new UIComponentQuickBetButtons.Entity()
             {
                 betAllBtn = new ButtonComponent.Entity(() => this.onBetAll.Invoke(horseIndex)),
-                //horizontalBetBtn = new ButtonComponent.Entity(() => this.onBetHorizontal.Invoke(horseIndex)),
-                //verticalBetBtn = new ButtonComponent.Entity(() => this.onBetVertical.Invoke(horseIndex)),
             });
         }
+    }
+
+    public void SetInteractable(bool isInteractable)
+    {
+        transform.GetComponentsInChildren<UIComponentQuickBetButtons>()
+                 .ForEach(x => x.betAllBtn.SetInteractable(isInteractable));
     }
 
     private void OnEnable()

@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using System.Linq;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using Google.Protobuf.Collections;
 using io.hverse.game.protogen;
 
 public interface IBetModeDomainService
@@ -53,33 +54,18 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
 
     public async UniTask<RaceMatchData> GetCurrentBetModeRaceMatchData()
     {
-        var raceScriptRequest = await SocketClient.Send<GetCurrentRaceScriptRequest, GetCurrentRaceScriptResponse>(new GetCurrentRaceScriptRequest()
-        {
-            MatchId = BetMatchRepository.Current.BetMatchId
-        }, 5.0f);
-
         var bettingDetailResponse = await SocketClient.Send<GetBetHistoryDetailRequest, GetBetHistoryDetailResponse>(new GetBetHistoryDetailRequest()
         {
             MatchId = BetMatchRepository.Current.BetMatchId
         }, 5.0f);
 
-        var totalWin = 0;
-        if (bettingDetailResponse != null)
-        {
-            var betMatchs = bettingDetailResponse.Records;
-            foreach (var item in betMatchs)
-            {
-                totalWin += item.WinMoney;
-            }
-        }
-
         return new RaceMatchData()
         {
-            HorseRaceInfos = QuickRaceDomainService.GetHorseRaceInfos(raceScriptRequest.RaceScript, MasterHorseContainer),
+            HorseRaceInfos = QuickRaceDomainService.GetHorseRaceInfos(BetMatchRepository.Current.RaceScript, MasterHorseContainer),
             MasterMapId = QuickRaceState.MasterMapId,
             Mode = RaceMode.Bet,
             BetMatchId = BetMatchRepository.Current.BetMatchId,
-            TotalBetWin = totalWin
+            TotalBetWin = bettingDetailResponse.Records.Sum(item => item.WinMoney)
         };
     }
 
@@ -91,35 +77,32 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
             MatchId = BetMatchRepository.Current.BetMatchId
         }, 5.0f);
         HorseDataModel[] data = default;
-        if(horseResponse.Result == ResultCode.Success)
+        data = horseResponse.HorseInfos.Select(x =>
         {
-            data = horseResponse.HorseInfos.Select(x =>
+            return new HorseDataModel()
             {
-                return new HorseDataModel()
-                {
-                    HorseNtfId = x.NftId,
-                    Name = x.Name,
-                    Earning = UnityEngine.Random.Range(100, 10000),
-                    PowerBonus = x.Bms,
-                    PowerRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
-                    SpeedBonus = x.Mms,
-                    SpeedRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
-                    TechnicallyBonus = x.Acceleration,
-                    TechnicallyRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
-                    Rarity = (int)x.Rarity,
-                    Type = (int)x.HorseType,
-                    Level = x.Level,
-                    Color1 = HorseRepository.GetColorFromHexCode(x.Color1),
-                    Color2 = HorseRepository.GetColorFromHexCode(x.Color2),
-                    Color3 = HorseRepository.GetColorFromHexCode(x.Color3),
-                    Color4 = HorseRepository.GetColorFromHexCode(x.Color4),
-                    LastBettingRecord = x.LastBettingRecord,
-                    AverageBettingRecord = x.AverageBettingRecord,
-                    BestBettingRecord = x.BestBettingRecord,
-                    Rate = x.WinRate
-                };
-            }).ToArray();
-        }
+                HorseNtfId = x.NftId,
+                Name = x.Name,
+                Earning = UnityEngine.Random.Range(100, 10000),
+                PowerBonus = x.Bms,
+                PowerRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
+                SpeedBonus = x.Mms,
+                SpeedRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
+                TechnicallyBonus = x.Acceleration,
+                TechnicallyRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
+                Rarity = (int)x.Rarity,
+                Type = (int)x.HorseType,
+                Level = x.Level,
+                Color1 = HorseRepository.GetColorFromHexCode(x.Color1),
+                Color2 = HorseRepository.GetColorFromHexCode(x.Color2),
+                Color3 = HorseRepository.GetColorFromHexCode(x.Color3),
+                Color4 = HorseRepository.GetColorFromHexCode(x.Color4),
+                LastBettingRecord = x.LastBettingRecord,
+                AverageBettingRecord = x.AverageBettingRecord,
+                BestBettingRecord = x.BestBettingRecord,
+                Rate = x.WinRate
+            };
+        }).ToArray();
         return new HorseBetInfo()
         {
             horseInfos = data
@@ -133,20 +116,12 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
             MatchId = BetMatchRepository.Current.BetMatchId,
             IsCancelAll = true
         });
-
-        if (response.Result == ResultCode.Success)
-        {
-            await UserDataRepository.UpdateCoin(response.TotalPresentChip);
-            var resetCoinModels = BetRateRepository.Models.Values.Where(x => x.TotalBet != 0)
-                .Select(x => x.Clone())
-                .ToArray();
-            resetCoinModels.ForEach(x => x.TotalBet = 0);
-            await BetRateRepository.UpdateModelAsync(resetCoinModels);
-        }
-        else
-        {
-            throw new Exception("Cancel bet failed");
-        }
+        await UserDataRepository.UpdateCoin(response.TotalPresentChip);
+        var resetCoinModels = BetRateRepository.Models.Values.Where(x => x.TotalBet != 0)
+            .Select(x => x.Clone())
+            .ToArray();
+        resetCoinModels.ForEach(x => x.TotalBet = 0);
+        await BetRateRepository.UpdateModelAsync(resetCoinModels);
     }
 
     public async UniTask RequestBetData()
@@ -163,7 +138,8 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
                 MatchStatus = response.MatchStatus,
                 BetMatchId = response.MatchId,
                 BetMatchTimeStamp = response.TimeToStart,
-                TimeToNextMatch = response.TimeToNextMatch
+                TimeToNextMatch = response.TimeToNextMatch,
+                RaceScript = response.RaceScript
             }
         });
 
