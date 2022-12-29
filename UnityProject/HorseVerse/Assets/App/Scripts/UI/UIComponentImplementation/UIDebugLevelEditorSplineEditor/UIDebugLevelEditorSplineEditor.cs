@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIDebugLevelEditorSplineEditor : PopupEntity<UIDebugLevelEditorSplineEditor.Entity>
+public class UIDebugLevelEditorSplineEditor : UIComponent<UIDebugLevelEditorSplineEditor.Entity>
 {
     [System.Serializable]
     public class Entity
