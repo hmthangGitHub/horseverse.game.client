@@ -111,11 +111,6 @@ public partial class LevelEditorPresenter : IDisposable
     {
         uiDebugLevelEditor.SetEntity(new UIDebugLevelEditor.Entity()
         {
-            editBlockBtn = new ButtonComponent.Entity(() =>
-            {
-                UnSelectOldBlockCombo();
-                OnEditBlockBtn();
-            }),
             editBlockComboBtn = new ButtonComponent.Entity(() =>
             {
                 UnSelectOldBlock();

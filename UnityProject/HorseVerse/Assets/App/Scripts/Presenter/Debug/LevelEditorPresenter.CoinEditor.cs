@@ -37,7 +37,7 @@ public partial class LevelEditorPresenter
         var coinEditor = Object.Instantiate(levelEditorManager.coinEditor, currentEditingPlatformObject.transform);
         coinEditors.Add(coinEditor);
         coinEditor.transform.localPosition = Vector3.zero;
-        Snap(currentPlatformObject.PaddingHeadCollider, coinEditor.GetComponent<Collider>());
+        PlatformModular.Snap(currentPlatformObject.PaddingHeadCollider, coinEditor.GetComponent<Collider>());
         AddPintoCoinEditor(coinEditor);
         return coinEditor;
     }
