@@ -338,6 +338,7 @@ public class UIBetModePresenter : IDisposable
 
         BetRateRepository.OnModelUpdate -= BetRateRepositoryOnModelUpdate;
         BetRateRepository.OnModelsUpdate -= BetRateRepositoryOnModelsUpdate;
+        UserDataRepository.OnModelUpdate -= OnModelUpdate;
 
         userDataRepository = default;
         betRateRepository = default;

@@ -41,7 +41,7 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
                 new SendBettingInfoRequest()
                 {
                     BettingType = bet.second == default ? BettingType.Single : BettingType.Double,
-                    MatchId = (int)BetMatchRepository.Current.BetMatchId,
+                    MatchId = BetMatchRepository.Current.BetMatchId,
                     AmountOfBet = amouth,
                     IndexOfHouse = bet.ToIndexOfHorse()
                 });
