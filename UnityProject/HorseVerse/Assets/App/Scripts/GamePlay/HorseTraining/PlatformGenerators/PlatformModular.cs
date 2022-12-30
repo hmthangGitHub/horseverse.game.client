@@ -14,6 +14,8 @@ public partial class PlatformModular : PlatformBase
     [SerializeField]
     private BoxCollider paddingTailCollider;
 
+    private Vector3[] centers;
+
     public BoxCollider[] BoxColliders => boxColliders;
     public BoxCollider PaddingHeadCollider => paddingHeadCollider;
     public BoxCollider PaddingTailCollider => paddingTailCollider;
@@ -22,28 +24,52 @@ public partial class PlatformModular : PlatformBase
     [ContextMenu("Tiling")]
     private void Tiling()
     {
-        var sizeZ = BoxColliders.FirstOrDefault()?.bounds.size.z ?? default;
-        for (var i = 0; i < BoxColliders.Length; i++)
+        if (BoxColliders.Length <= 0) return;
+        ChangePositionOfParentToMatchChildPosition(BoxColliders[0].transform.parent,
+            BoxColliders[0].transform,
+            new Vector3(0, 0, 0));
+
+        centers = BoxColliders.Select(x => x.center)
+                                  .ToArray();
+        for (var i = 1; i < BoxColliders.Length; i++)
         {
-            ChangePositionOfParentToMatchChildPosition(BoxColliders[i].transform.parent,
-                BoxColliders[i].transform,
-                new Vector3(0, 0, i * sizeZ));
+            var baseCollider = BoxColliders[i - 1];
+            var alignedCollider = BoxColliders[i];
+            
+            AlignCollider(baseCollider, alignedCollider, 1);
         }
+    }
+
+    private static void AlignCollider(BoxCollider baseCollider,
+                                      BoxCollider alignedCollider,
+                                      int direction)
+    {
+        var worldPos = baseCollider.transform.position + baseCollider.center +
+                       new Vector3(0, baseCollider.bounds.extents.y, direction * baseCollider.bounds.extents.z)
+                       - (alignedCollider.center + new Vector3(0, alignedCollider.bounds.extents.y, -direction * alignedCollider.bounds.extents.z));
+        ChangePositionOfParentToMatchChildPosition(alignedCollider.transform.parent,
+            alignedCollider.transform,
+            worldPos);
     }
 
     [ContextMenu("TilingPaddingBlocks")]
     private void TilingPaddingBlocks()
     {
-        var firstBoxCollider = BoxColliders.FirstOrDefault();
-        var extendZ = firstBoxCollider?.bounds.extents.z ?? 0;
+        if (!BoxColliders.Any())
+        {
+            ChangePositionOfParentToMatchChildPosition(PaddingHeadCollider.transform.parent,
+                PaddingHeadCollider.transform,
+                new Vector3(0, 0, -(0 + PaddingHeadCollider.bounds.extents.z)));
         
-        ChangePositionOfParentToMatchChildPosition(PaddingHeadCollider.transform.parent,
-            PaddingHeadCollider.transform,
-            new Vector3(0, 0, -(extendZ + PaddingHeadCollider.bounds.extents.z)));
-        
-        ChangePositionOfParentToMatchChildPosition(PaddingTailCollider.transform.parent,
-            PaddingTailCollider.transform,
-            new Vector3(0, 0, (BoxColliders.Length - 1) * extendZ * 2 + (extendZ + PaddingHeadCollider.bounds.extents.z)));
+            ChangePositionOfParentToMatchChildPosition(PaddingTailCollider.transform.parent,
+                PaddingTailCollider.transform,
+                new Vector3(0, 0, (BoxColliders.Length - 1) * 0 * 2 + (0 + PaddingHeadCollider.bounds.extents.z)));
+        }
+        else
+        {
+            AlignCollider(BoxColliders.First(),PaddingHeadCollider, -1);
+            AlignCollider(BoxColliders.Last(),PaddingTailCollider, 1);
+        }
     }
 
     private void PlaceStartObjectAtOffsetToFirstBlock(float offset)
@@ -142,5 +168,15 @@ public partial class PlatformModular : PlatformBase
                                   .ToArray();
         paddingHeadCollider = Instantiate(paddingHead, this.blockContainer).GetComponentInChildren<BoxCollider>();
         paddingTailCollider = Instantiate(paddingTail, this.blockContainer).GetComponentInChildren<BoxCollider>();
+    }
+    
+    public static void Snap(Collider floor, Collider objetToSnap)
+    {
+        var bounds = floor.bounds;
+        var yHeadOffset = bounds.center.y + bounds.extents.y;
+        var obstacleBounds = objetToSnap.bounds;
+        var yObstacleOffset = -obstacleBounds.center.y + obstacleBounds.extents.y;
+        objetToSnap.transform.position = floor.transform.position
+                                         + Vector3.up * (yHeadOffset + yObstacleOffset);
     }
 }

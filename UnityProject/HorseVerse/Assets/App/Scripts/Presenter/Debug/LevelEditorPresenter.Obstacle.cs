@@ -92,21 +92,10 @@ public partial class LevelEditorPresenter
         var runtimeTransformHandle = obstacleDummy.AddComponent<RuntimeTransformHandle>();
         runtimeTransformHandle.axes = HandleAxes.XZ;
         
-        Snap(currentPlatformObject.PaddingHeadCollider, obstacleDummy.GetComponent<Collider>());
+        PlatformModular.Snap(currentPlatformObject.PaddingHeadCollider, obstacleDummy.GetComponent<Collider>());
         obstacleInBlocks.Add((index, obstacleDummy));
         
         return obstacleDummy;
-    }
-
-    private void Snap(Collider floor,
-                      Collider objetToSnap)
-    {
-        var bounds = floor.bounds;
-        var yHeadOffset = bounds.center.y + bounds.extents.y;
-        var obstacleBounds = objetToSnap.bounds;
-        var yObstacleOffset = -obstacleBounds.center.y + obstacleBounds.extents.y;
-        objetToSnap.transform.position = floor.transform.position
-                                         + Vector3.up * (yHeadOffset + yObstacleOffset);
     }
 
     private void AddPinToObstacle(GameObject obstacle)

@@ -23,6 +23,8 @@ public class UIDebugLevelEditor : PopupEntity<UIDebugLevelEditor.Entity>
         public UIDebugLevelEditorBlockListContainer.Entity blockInComboList;
         public IsVisibleComponent.Entity isAddObstacleBtnVisible;
         public IsVisibleComponent.Entity isAddCoinBtnVisible;
+        public IsVisibleComponent.Entity isCoinEditorVisible;
+        public UIDebugLevelEditorSplineEditor.Entity coinEditor;
         public bool isPopUpVisible;
     }
 
@@ -43,6 +45,8 @@ public class UIDebugLevelEditor : PopupEntity<UIDebugLevelEditor.Entity>
     public IsVisibleComponent isPopUpVisible;
     public IsVisibleComponent isAddObstacleBtnVisible;
     public IsVisibleComponent isAddCoinBtnVisible;
+    public IsVisibleComponent isCoinEditorVisible;
+    public UIDebugLevelEditorSplineEditor coinEditor;
     public UIDebugLevelEditorPopUp popUp;
 
     protected override void OnSetEntity()
@@ -64,6 +68,8 @@ public class UIDebugLevelEditor : PopupEntity<UIDebugLevelEditor.Entity>
         editCoinToggle.SetEntity(entity.editCoinToggle);
         isAddObstacleBtnVisible.SetEntity(entity.isAddCoinBtnVisible);
         isAddCoinBtnVisible.SetEntity(entity.isAddCoinBtnVisible);
+        coinEditor.SetEntity(entity.coinEditor);
+        isCoinEditorVisible.SetEntity(entity.isCoinEditorVisible);
     }
 
     public void SetPopUpEntity(UIDebugLevelEditorPopUp.Entity popUpEntity)

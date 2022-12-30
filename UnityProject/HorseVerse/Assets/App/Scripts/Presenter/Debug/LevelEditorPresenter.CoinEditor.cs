@@ -10,6 +10,7 @@ public partial class LevelEditorPresenter
     private readonly List<GameObject> coinPinList = new List<GameObject>();
     private bool isEditingCoin;
     private readonly List<CoinEditor> coinEditors = new List<CoinEditor>();
+    private CoinEditor currentEditingCoin;
 
     private void CreateNewCoinEditor()
     {
@@ -37,14 +38,14 @@ public partial class LevelEditorPresenter
         var coinEditor = Object.Instantiate(levelEditorManager.coinEditor, currentEditingPlatformObject.transform);
         coinEditors.Add(coinEditor);
         coinEditor.transform.localPosition = Vector3.zero;
-        Snap(currentPlatformObject.PaddingHeadCollider, coinEditor.GetComponent<Collider>());
+        PlatformModular.Snap(currentPlatformObject.PaddingHeadCollider, coinEditor.GetComponent<Collider>());
         AddPintoCoinEditor(coinEditor);
         return coinEditor;
     }
 
     private void AddPintoCoinEditor(CoinEditor coinEditor)
     {
-        var pin = CreateUiPin(obstaclePinList);
+        var pin = CreateUiPin(coinPinList);
         pin.SetEntity(new UIDebugLevelDesignBlockTransformPin.Entity()
         {
             isDeleteBtnVisible = true,
@@ -54,6 +55,26 @@ public partial class LevelEditorPresenter
                 coinEditors.Remove(coinEditor);
                 RemovePin(pin);
             }),
+            shuffleBtn = new ButtonComponent.Entity(() =>
+            {
+                currentEditingCoin?.OnToggleStatus();
+                
+                currentEditingCoin = coinEditor;
+                uiDebugLevelEditor.isCoinEditorVisible.SetEntity(true);
+                uiDebugLevelEditor.coinEditor.SetEntity(new UIDebugLevelEditorSplineEditor.Entity()
+                {
+                    mode = UIComponentSplineEditorMode.Status.Normal,
+                    addBtn = new ButtonComponent.Entity(coinEditor.AddNewBenzierPoint),
+                    removeBtn = new ButtonComponent.Entity(coinEditor.RemoveLastBenzierPoint),
+                    coinNumber = new UIComponentInputField.Entity()
+                    {
+                        defaultValue = coinEditor.CoinNumber.ToString(),
+                        onValueChange = val => coinEditor.OnChangeNumberOfCoin(Int32.Parse(val))
+                    }
+                });
+                currentEditingCoin.OnToggleStatus();
+            }),
+            isShuffleBtnVisible = true,
             pinTransform = LevelDesignPin.Instantiate(coinEditor.GetComponent<Collider>()).transform,
             camera = freeCameraComponent
         });
@@ -97,5 +118,9 @@ public partial class LevelEditorPresenter
             .ToArray();
         coinEditors.ForEach(x => Object.Destroy(x.gameObject));
         coinEditors.Clear();
+        coinPinList.ForEach(x => Object.Destroy(x.gameObject));
+        coinPinList.Clear();
+        uiDebugLevelEditor.isCoinEditorVisible.SetEntity(false);
+        currentEditingCoin = default;
     }
 }

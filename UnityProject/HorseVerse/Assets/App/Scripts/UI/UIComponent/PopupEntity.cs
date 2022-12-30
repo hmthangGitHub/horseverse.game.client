@@ -32,8 +32,15 @@ public abstract class PopupEntity<T> : PopupEntity, IUIComponent<T>, IPopupEntit
     public void SetEntity(T entity)
     {
         this.entity = entity;
-        this.gameObject.SetActive(false);
-        OnSetEntity();
+        if (!EqualityComparer<T>.Default.Equals(this.entity, default(T)))
+        {
+            this.gameObject.SetActive(true);
+            OnSetEntity();
+        }
+        else
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 
     protected virtual UniTask AnimationIn()
