@@ -1,10 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
+using GoogleSheetsToUnity;
+using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Networking;
+using Object = UnityEngine.Object;
 
 public partial class MasterDataGenerator : EditorWindow
 {
@@ -54,10 +62,62 @@ public partial class MasterDataGenerator : EditorWindow
                 GenerateEnum(enumMaster);
             }
         }
+
+        if (GUILayout.Button("Fetch new master"))
+        {
+            Debug.Log(AssetDatabase.GetAssetPath(csvFiles.First()));
+            BatchReadRawAsync("1_tPCfwDF2iiWversmLs8kbPrHGWjqg1bJfG4qgend_I", csvFiles.Select(x => x.name), false).Forget();
+        }
+    }
+    
+    private static async UniTask<BatchRawData> BatchReadRawAsync(string sheetId, IEnumerable<string> sheetRanges, bool valueAsFormatted, CancellationToken ct = default)
+    {
+        await SpreadsheetManager.CheckForRefreshToken();
+
+        var valueRenderOption = valueAsFormatted ? "FORMATTED_VALUE" : "UNFORMATTED_VALUE";
+        var sheetRangeTexts = string.Join("&", sheetRanges.Select(x => $"ranges='{x}'"));
+        var url = $"https://sheets.googleapis.com/v4/spreadsheets/{sheetId}/values:batchGet?{sheetRangeTexts}&valueRenderOption={valueRenderOption}&access_token={SpreadsheetManager.Config.gdr.access_token}";
+
+        var something = await GetAsync<BatchRawData>(url, default);
+        Debug.Log(string.Join(",", something.valueRanges.First().values.First()));
+        return something;
+    }
+    
+    private static async UniTask<T> GetAsync<T>(string url, CancellationToken ct)
+    {
+        using var request = UnityWebRequest.Get(url);
+        await request.SendWebRequest().ToUniTask(cancellationToken: ct);
+
+        if (string.IsNullOrEmpty(request.downloadHandler.text) || request.downloadHandler.text == "{}")
+        {
+            Debug.LogWarning("Unable to Retreive data from google sheets");
+            return default;
+        }
+
+        return JsonConvert.DeserializeObject<T>(request.downloadHandler.text);
     }
 
-    
-    
+    private void callback(GstuSpreadSheet arg0)
+    {
+        Debug.Log("Yo");
+        var x = 10;
+    }
+
+    [Serializable]
+    internal class BatchRawData
+    {
+        public string spreadsheetId = string.Empty;
+        public List<RawData> valueRanges = Enumerable.Empty<RawData>().ToList();
+    }
+
+    [Serializable]
+    internal class RawData
+    {
+        public string range = "";
+        public string majorDimension = default;
+        public IReadOnlyList<IReadOnlyList<string>> values = new List<List<string>>();
+    }
+
     private static int FindIndexOfColumn(string[] lines, string columnName)
     {
         return lines.First()

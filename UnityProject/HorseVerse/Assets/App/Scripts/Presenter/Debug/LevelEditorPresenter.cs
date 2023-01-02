@@ -29,6 +29,8 @@ public partial class LevelEditorPresenter : IDisposable
     private Material debugLineMaterial;
     private LevelEditorManager levelEditorManager;
     private Camera freeCameraComponent;
+    // public Master CurrentBlockComboType { get; set; }
+
     
     private const string TrainingBlockSettingPath = "Maps/MapSettings/training_block_settings";
     private TrainingBlockSettings trainingBlockSettings;
@@ -135,10 +137,16 @@ public partial class LevelEditorPresenter : IDisposable
                 onActiveToggle = val => IsEditingCoin = val
             },
             addObstacleBtn = new ButtonComponent.Entity(CreateNewObstacle),
-            addCoinBtn = new ButtonComponent.Entity(CreateNewCoinEditor)
+            addCoinBtn = new ButtonComponent.Entity(CreateNewCoinEditor),
+            blockComboType = new UIComponentBlockComboType.Entity()
+            {
+                defaultValue = UIComponentBlockComboType.BlockComboType.Modular,
+                // onValueChanged = val => CurrentBlockComboType
+            }
         });
         await uiDebugLevelEditor.In();
     }
+
 
     private void OnSave()
     {

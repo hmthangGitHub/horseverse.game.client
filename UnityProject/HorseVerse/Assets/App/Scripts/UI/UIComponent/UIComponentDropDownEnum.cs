@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(UIComponentDropDown))]
 public class UIComponentDropDownEnum<T> : UIComponent<UIComponentDropDownEnum<T>.Entity> where T : Enum
 {
 	[System.Serializable]
