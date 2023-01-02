@@ -1,6 +1,4 @@
-﻿using System;
-//using System.Windows.Forms;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 
 public class StartUpState : InjectedBHState
 {
@@ -9,12 +7,16 @@ public class StartUpState : InjectedBHState
     private UIDebugMenuPresenter uiDebugMenuPresenter;
 #endif
     private bool isNeedResetState = false;
+    private StartUpStatePresenter startUpStateHandler;
     
     public override void Enter()
     {
         base.Enter();
         errorHandler = new ErrorHandler();
-        errorHandler.OnError += ErrorHandlerOnError;
+        errorHandler.OnError += OnReboot;
+        startUpStateHandler = new StartUpStatePresenter();
+        startUpStateHandler.OnReboot += OnReboot;
+        Container.Bind(startUpStateHandler);
 #if ENABLE_DEBUG_MODULE
         if (uiDebugMenuPresenter == default)
         {
@@ -43,6 +45,7 @@ public class StartUpState : InjectedBHState
     {
         base.AddStates();
         this.AddState<InitialState>();
+        this.AddState<LoginState>();
 #if ENABLE_DEBUG_MODULE
         this.AddState<LevelEditorState>();
         this.AddState<TrainingState>();
@@ -51,7 +54,7 @@ public class StartUpState : InjectedBHState
         this.SetInitialState<DownloadAssetState>();
     }
 
-    private void ErrorHandlerOnError()
+    private void OnReboot()
     {
         isNeedResetState = true;
         this.Machine.CurrentState.Exit();
@@ -67,10 +70,12 @@ public class StartUpState : InjectedBHState
             uiDebugMenuPresenter.OnToLevelEditorState -= ToLevelEditorState;
             DisposeUtility.SafeDispose(ref uiDebugMenuPresenter);
 #endif
+            startUpStateHandler.OnReboot -= OnReboot;
+            Container.RemoveAndDisposeIfNeed<StartUpStatePresenter>();
         }
         finally
         {
-            errorHandler.OnError -= ErrorHandlerOnError;
+            errorHandler.OnError -= OnReboot;
             DisposeUtility.SafeDispose(ref errorHandler);
             
             this.Machine.RemoveAllStates();
