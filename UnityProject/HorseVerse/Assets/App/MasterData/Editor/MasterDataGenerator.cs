@@ -29,7 +29,7 @@ public partial class MasterDataGenerator : EditorWindow
     private const string CSV_FILES_PROPERTY = "csvFiles";
     public TextAsset[] csvFiles;
 
-    public const string masterDataTemplateFile = "Assets/App/MasterData/Editor/Templates/MasterDataTemplate.txt";
+    public const string MasterDataTemplateFile = "Assets/App/MasterData/Editor/Templates/MasterDataTemplate.txt";
     public const string masterDataContainerTemplateFile = "Assets/App/MasterData/Editor/Templates/MasterDataContainerTemplate.txt";
     public const string masterDataFieldTemplate = "Assets/App/MasterData/Editor/Templates/MasterDataFieldTemplate.txt";
 
@@ -65,57 +65,11 @@ public partial class MasterDataGenerator : EditorWindow
 
         if (GUILayout.Button("Fetch new master"))
         {
-            Debug.Log(AssetDatabase.GetAssetPath(csvFiles.First()));
-            BatchReadRawAsync("1_tPCfwDF2iiWversmLs8kbPrHGWjqg1bJfG4qgend_I", csvFiles.Select(x => x.name), false).Forget();
+            BatchReadRawAsync("1_tPCfwDF2iiWversmLs8kbPrHGWjqg1bJfG4qgend_I", csvFiles.Select(x => (name : x.name, path : AssetDatabase.GetAssetPath(x)))
+                .ToArray()
+                    , false)
+                .Forget();
         }
-    }
-    
-    private static async UniTask<BatchRawData> BatchReadRawAsync(string sheetId, IEnumerable<string> sheetRanges, bool valueAsFormatted, CancellationToken ct = default)
-    {
-        await SpreadsheetManager.CheckForRefreshToken();
-
-        var valueRenderOption = valueAsFormatted ? "FORMATTED_VALUE" : "UNFORMATTED_VALUE";
-        var sheetRangeTexts = string.Join("&", sheetRanges.Select(x => $"ranges='{x}'"));
-        var url = $"https://sheets.googleapis.com/v4/spreadsheets/{sheetId}/values:batchGet?{sheetRangeTexts}&valueRenderOption={valueRenderOption}&access_token={SpreadsheetManager.Config.gdr.access_token}";
-
-        var something = await GetAsync<BatchRawData>(url, default);
-        Debug.Log(string.Join(",", something.valueRanges.First().values.First()));
-        return something;
-    }
-    
-    private static async UniTask<T> GetAsync<T>(string url, CancellationToken ct)
-    {
-        using var request = UnityWebRequest.Get(url);
-        await request.SendWebRequest().ToUniTask(cancellationToken: ct);
-
-        if (string.IsNullOrEmpty(request.downloadHandler.text) || request.downloadHandler.text == "{}")
-        {
-            Debug.LogWarning("Unable to Retreive data from google sheets");
-            return default;
-        }
-
-        return JsonConvert.DeserializeObject<T>(request.downloadHandler.text);
-    }
-
-    private void callback(GstuSpreadSheet arg0)
-    {
-        Debug.Log("Yo");
-        var x = 10;
-    }
-
-    [Serializable]
-    internal class BatchRawData
-    {
-        public string spreadsheetId = string.Empty;
-        public List<RawData> valueRanges = Enumerable.Empty<RawData>().ToList();
-    }
-
-    [Serializable]
-    internal class RawData
-    {
-        public string range = "";
-        public string majorDimension = default;
-        public IReadOnlyList<IReadOnlyList<string>> values = new List<List<string>>();
     }
 
     private static int FindIndexOfColumn(string[] lines, string columnName)
@@ -170,7 +124,7 @@ public partial class MasterDataGenerator : EditorWindow
     {
         var masterFieldTemplateFile = AssetDatabase.LoadAssetAtPath<TextAsset>(MasterDataGenerator.masterDataFieldTemplate) as TextAsset;
         var path = $"{GetAbsolutePathOfAsset(outPutSchemaFolder)}/{masterUpperCaseName}.cs";
-        var masterDataTemplateFile = AssetDatabase.LoadAssetAtPath<TextAsset>(MasterDataGenerator.masterDataTemplateFile) as TextAsset;
+        var masterDataTemplateFile = AssetDatabase.LoadAssetAtPath<TextAsset>(MasterDataGenerator.MasterDataTemplateFile) as TextAsset;
         var fieldSources = string.Empty;
         for (int i = 0; i < outputFieldNames.Length; i++)
         {
@@ -199,7 +153,7 @@ public partial class MasterDataGenerator : EditorWindow
         
         var outputClientColumns = linesAsColumn.FirstOrDefault(line => line[0] == Prefix.out_put_client.ToString())
                                                .Select((x, i) => (x, i))
-                                               .Where(x => x.x == "TRUE")
+                                               .Where(x => x.x.ToLower() == "true")
                                                .Select(x => x.i)
                                                .ToArray();
         var outputFieldNames = linesAsColumn.FirstOrDefault(line => line[0] == Prefix.type_name.ToString())
