@@ -172,14 +172,10 @@ public class LoginStatePresenter : IDisposable
                 await HandleLoginResponse(res);
                 return true;
             }
-            else //if (res.ResultCode == 203 || res.ResultCode == 202 || res.ResultCode == 204)
+            else
             {
                 return false;
             }
-            //else
-            //{
-            //    throw new Exception("Login Failed");
-            //}
         }
         return false;
     }

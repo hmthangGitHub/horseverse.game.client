@@ -54,10 +54,8 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
                     var message = errorCodeConfig.ErrorCodeMessage.TryGetValue(errorCodeMessage.ResultCode, out var msg)
                         ? msg
                         : "Unknown Message";
-#if UNITY_EDITOR
                     throw new Exception($"Failed Response Exception Result Code:{errorCodeMessage.ResultCode} " +
                                         $"- {message}");
-#endif
                 }
 
                 ucs.TrySetResult(response);

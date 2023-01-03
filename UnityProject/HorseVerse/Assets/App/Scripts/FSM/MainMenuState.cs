@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using RobustFSM.Interfaces;
 using UnityEngine;
 
 public class MainMenuState : InjectedBState
@@ -16,6 +17,8 @@ public class MainMenuState : InjectedBState
     private UIMainMenuPresenter uiMainMenuPresenter;
     private UIBackGroundPresenter uiBackGroundPresenter;
     private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
+    private StartUpStatePresenter startUpStatePresenter;
+    private StartUpStatePresenter StartUpStatePresenter => startUpStatePresenter ??= Container.Inject<StartUpStatePresenter>();
     private CancellationTokenSource cts;
     
     private ISocketClient socketClient;
@@ -100,24 +103,8 @@ public class MainMenuState : InjectedBState
     {
         this.Machine.ChangeState<TrainingState>();
     }
-
-    public override void Exit()
-    {
-        base.Exit();
-        UnSubcribeEvents();
-        UiHeaderPresenter.HideHeader();
-        UiHeaderPresenter.OnLogOut -= OnLogOut;
-        uiMainMenuPresenter.Dispose();
-        uiMainMenuPresenter = default;
-        uiLoadingPresenter = default;
-        uiHeaderPresenter = default;
-        uiHorse3DViewPresenter = default;
-        uiBackGroundPresenter = default;
-        socketClient = default;
-        cts.SafeCancelAndDispose();
-        cts = default;
-    }
-
+    
+    
     private void OnLogOut()
     {
         OnLogOutAsync().Forget();
@@ -136,6 +123,24 @@ public class MainMenuState : InjectedBState
         PlayerPrefs.DeleteKey(GameDefine.TOKEN_STORAGE);
 #endif
         AudioManager.Instance?.StopMusic();
-        this.Machine.ChangeState<LoginState>();
+        StartUpStatePresenter.Reboot();
+        startUpStatePresenter = default;
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        UnSubcribeEvents();
+        UiHeaderPresenter.HideHeader();
+        UiHeaderPresenter.OnLogOut -= OnLogOut;
+        uiMainMenuPresenter.Dispose();
+        uiMainMenuPresenter = default;
+        uiLoadingPresenter = default;
+        uiHeaderPresenter = default;
+        uiHorse3DViewPresenter = default;
+        uiBackGroundPresenter = default;
+        socketClient = default;
+        cts.SafeCancelAndDispose();
+        cts = default;
     }
 }
