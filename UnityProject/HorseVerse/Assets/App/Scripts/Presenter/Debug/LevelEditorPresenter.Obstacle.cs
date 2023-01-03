@@ -92,7 +92,7 @@ public partial class LevelEditorPresenter
         var runtimeTransformHandle = obstacleDummy.AddComponent<RuntimeTransformHandle>();
         runtimeTransformHandle.axes = HandleAxes.XZ;
         
-        PlatformModular.Snap(currentPlatformObject.PaddingHeadCollider, obstacleDummy.GetComponent<Collider>());
+        PlatformModular.Snap(currentPlatformObject.FirstCollider, obstacleDummy.GetComponent<Collider>());
         obstacleInBlocks.Add((index, obstacleDummy));
         
         return obstacleDummy;

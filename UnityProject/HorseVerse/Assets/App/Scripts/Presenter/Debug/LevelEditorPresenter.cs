@@ -29,11 +29,22 @@ public partial class LevelEditorPresenter : IDisposable
     private Material debugLineMaterial;
     private LevelEditorManager levelEditorManager;
     private Camera freeCameraComponent;
-    // public Master CurrentBlockComboType { get; set; }
 
-    
+    private MasterTrainingBlockComboType CurrentBlockComboType
+    {
+        get => currentBlockComboType;
+        set
+        {
+            if (currentBlockComboType == value) return;
+            currentBlockComboType = value;
+            OnSelectBlockComboType();
+        }
+    }
+
+
     private const string TrainingBlockSettingPath = "Maps/MapSettings/training_block_settings";
     private TrainingBlockSettings trainingBlockSettings;
+    private MasterTrainingBlockComboType currentBlockComboType;
 
     public event Action OnBack = ActionUtility.EmptyAction.Instance;
 
@@ -113,11 +124,6 @@ public partial class LevelEditorPresenter : IDisposable
     {
         uiDebugLevelEditor.SetEntity(new UIDebugLevelEditor.Entity()
         {
-            editBlockComboBtn = new ButtonComponent.Entity(() =>
-            {
-                UnSelectOldBlock();
-                OnEditBlockComboBtn();
-            }),
             backBtn = new ButtonComponent.Entity(() => OnBack.Invoke()),
             editMode = UIDebugLevelEditorMode.Mode.None,
             saveBtn = new ButtonComponent.Entity(OnSave),
@@ -141,10 +147,12 @@ public partial class LevelEditorPresenter : IDisposable
             blockComboType = new UIComponentBlockComboType.Entity()
             {
                 defaultValue = UIComponentBlockComboType.BlockComboType.Modular,
-                // onValueChanged = val => CurrentBlockComboType
+                onValueChanged = val => CurrentBlockComboType = (MasterTrainingBlockComboType)(int)val
             }
         });
         await uiDebugLevelEditor.In();
+        UnSelectOldBlock();
+        OnEditBlockComboBtn();
     }
 
 

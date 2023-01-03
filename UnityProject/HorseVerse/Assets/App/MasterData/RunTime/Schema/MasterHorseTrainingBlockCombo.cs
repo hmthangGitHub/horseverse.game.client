@@ -24,4 +24,8 @@ public partial class MasterHorseTrainingBlockCombo
 	private string coins;
 	public string Coins => coins;
 
+	[JsonProperty]
+	private MasterTrainingBlockComboType master_training_block_combo_type;
+	public MasterTrainingBlockComboType MasterTrainingBlockComboType => master_training_block_combo_type;
+
 }

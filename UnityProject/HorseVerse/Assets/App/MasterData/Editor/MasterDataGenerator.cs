@@ -52,23 +52,40 @@ public partial class MasterDataGenerator : EditorWindow
 
         if (GUILayout.Button("Generate"))
         {
-            csvFiles.Where(x => x != null && x.name != "enum")
-                    .ToList()
-                    .ForEach(GenerateMaster);
-
-            var enumMaster = csvFiles.FirstOrDefault(x => x != null && x.name == "enum");
-            if (enumMaster != default)
-            {
-                GenerateEnum(enumMaster);
-            }
+            Generate();
         }
 
-        if (GUILayout.Button("Fetch new master"))
+        if (GUILayout.Button("Fetch & Generate"))
         {
-            BatchReadRawAsync("1_tPCfwDF2iiWversmLs8kbPrHGWjqg1bJfG4qgend_I", csvFiles.Select(x => (name : x.name, path : AssetDatabase.GetAssetPath(x)))
-                .ToArray()
-                    , false)
-                .Forget();
+            FetAndGenerateAsync();
+        }
+    }
+
+    private async UniTaskVoid FetAndGenerateAsync()
+    {
+        await FetchNewMaster();
+        Generate();
+    }
+
+    private async UniTask FetchNewMaster()
+    {
+        await BatchReadRawAsync("1_tPCfwDF2iiWversmLs8kbPrHGWjqg1bJfG4qgend_I", csvFiles
+                                                                          .Select(x => (name: x.name,
+                                                                              path: AssetDatabase.GetAssetPath(x)))
+                                                                          .ToArray()
+            , false);
+    }
+
+    private void Generate()
+    {
+        csvFiles.Where(x => x != null && x.name != "enum")
+                .ToList()
+                .ForEach(GenerateMaster);
+
+        var enumMaster = csvFiles.FirstOrDefault(x => x != null && x.name == "enum");
+        if (enumMaster != default)
+        {
+            GenerateEnum(enumMaster);
         }
     }
 

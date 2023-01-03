@@ -78,8 +78,9 @@ namespace GoogleSheetsToUnity
             {
                 yield return request.SendWebRequest();
 
-                SpreadsheetManager.Config.gdr = JsonUtility.FromJson<GoogleDataResponse>(request.downloadHandler.text);
-                SpreadsheetManager.Config.gdr.nextRefreshTime = DateTime.Now.AddSeconds(SpreadsheetManager.Config.gdr.expires_in);
+                var gdr = JsonUtility.FromJson<GoogleDataResponse>(request.downloadHandler.text);
+                gdr.nextRefreshTime = DateTime.Now.AddSeconds(gdr.expires_in);
+                SpreadsheetManager.Config.gdr = gdr;
                 EditorUtility.SetDirty(SpreadsheetManager.Config);
                 AssetDatabase.SaveAssets();
             }
@@ -194,9 +195,10 @@ namespace GoogleSheetsToUnity
                 {
                     yield return request.SendWebRequest();
 
-                    GoogleDataResponse newGdr = JsonUtility.FromJson<GoogleDataResponse>(request.downloadHandler.text);
-                    SpreadsheetManager.Config.gdr.access_token = newGdr.access_token;
-                    SpreadsheetManager.Config.gdr.nextRefreshTime = DateTime.Now.AddSeconds(newGdr.expires_in);
+                    var newGdr = JsonUtility.FromJson<GoogleDataResponse>(request.downloadHandler.text);
+                    newGdr.nextRefreshTime = DateTime.Now.AddSeconds(newGdr.expires_in);
+                    newGdr.refresh_token = SpreadsheetManager.Config.gdr.refresh_token;
+                    SpreadsheetManager.Config.gdr = newGdr;
 
 #if UNITY_EDITOR
                     EditorUtility.SetDirty(SpreadsheetManager.Config);

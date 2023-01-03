@@ -8,6 +8,7 @@ public partial class PlatformModular
     public GameObject testPaddingTail;
     public float testOffset;
     public Transform testStartPosition;
+    public MasterTrainingBlockComboType masterTrainingBlockComboTypeTest;
 
     [ContextMenu("PlaceStartObjectAtOffsetToFirstBlock")]
     public void PlaceStartObjectAtOffsetToFirstBlock()
@@ -30,7 +31,7 @@ public partial class PlatformModular
     [ContextMenu("GenerateBlock")]
     public void GenerateBlock()
     {
-        GenerateBlock(testStartPosition.position, testBlocks, testPaddingHead, testPaddingTail, testOffset, testOffset);
+        GenerateBlock(testStartPosition.position, testBlocks, testPaddingHead, testPaddingTail, testOffset, testOffset, masterTrainingBlockComboTypeTest);
     }
 }
 #endif

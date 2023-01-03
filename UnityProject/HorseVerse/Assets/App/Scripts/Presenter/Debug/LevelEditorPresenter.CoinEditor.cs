@@ -38,7 +38,7 @@ public partial class LevelEditorPresenter
         var coinEditor = Object.Instantiate(levelEditorManager.coinEditor, currentEditingPlatformObject.transform);
         coinEditors.Add(coinEditor);
         coinEditor.transform.localPosition = Vector3.zero;
-        PlatformModular.Snap(currentPlatformObject.PaddingHeadCollider, coinEditor.GetComponent<Collider>());
+        PlatformModular.Snap(currentPlatformObject.FirstCollider, coinEditor.GetComponent<Collider>());
         AddPintoCoinEditor(coinEditor);
         return coinEditor;
     }
@@ -69,7 +69,7 @@ public partial class LevelEditorPresenter
                     coinNumber = new UIComponentInputField.Entity()
                     {
                         defaultValue = coinEditor.CoinNumber.ToString(),
-                        onValueChange = val => coinEditor.OnChangeNumberOfCoin(Int32.Parse(val))
+                        onValueChange = val => coinEditor.OnChangeNumberOfCoin(int.TryParse(val, out var number) ? number : default)
                     }
                 });
                 currentEditingCoin.OnToggleStatus();

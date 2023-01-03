@@ -20,6 +20,10 @@ public partial class MasterDataGenerator
                                                                  bool valueAsFormatted,
                                                                  CancellationToken ct = default)
     {
+        if (string.IsNullOrEmpty(SpreadsheetManager.Config.gdr?.refresh_token))
+        {
+            GoogleAuthrisationHelper.BuildHttpListener();
+        }
         await SpreadsheetManager.CheckForRefreshToken();
 
         var valueRenderOption = valueAsFormatted ? "FORMATTED_VALUE" : "UNFORMATTED_VALUE";

@@ -3,14 +3,24 @@
     "master_horse_training_block_id": "10006001",
     "name": "Default Block Combo",
     "master_horse_training_block_ids": "road_1_9.road_1_9.road_1_9.road_1_9.road_1_9.road_1_9.road_1_9.road_1_9.blockDefault",
-    "obstacles": "\"[{\"type\":\"jump_obstacle\"...\"localPosition\":{\"x\":0.0...\"y\":-0.499997139...\"z\":17.1342087}}...{\"type\":\"jump_obstacle\"...\"localPosition\":{\"x\":0.0...\"y\":-0.499997139...\"z\":10.1635227}}]\"",
-    "coins": "\"[{\"numberOfCoin\":20...\"localPosition\":{\"x\":0.088335216...\"y\":0.500002861...\"z\":-8.050551}...\"benzierPointPositions\":[{\"x\":0.0...\"y\":0.0...\"z\":-2.0}...{\"x\":-1.96385...\"y\":0.0...\"z\":1.999999}...{\"x\":1.44134712...\"y\":0.0...\"z\":2.99999952}...{\"x\":0.0...\"y\":0.0...\"z\":14.2615824}]}...{\"numberOfCoin\":10...\"localPosition\":{\"x\":-3.29509974...\"y\":0.500002861...\"z\":-2.918005}...\"benzierPointPositions\":[{\"x\":0.0...\"y\":0.0...\"z\":-2.0}...{\"x\":0.0...\"y\":0.0...\"z\":8.995863}]}]\""
+    "obstacles": "[{\"type\":\"jump_obstacle\"...\"localPosition\":{\"x\":0.0...\"y\":-0.499997139...\"z\":17.1342087}}...{\"type\":\"jump_obstacle\"...\"localPosition\":{\"x\":0.0...\"y\":-0.499997139...\"z\":10.1635227}}]",
+    "coins": "[{\"numberOfCoin\":20...\"localPosition\":{\"x\":0.088335216...\"y\":2.861023E-06...\"z\":-8.050551}...\"benzierPointPositions\":[{\"x\":0.0...\"y\":0.0...\"z\":-2.0}...{\"x\":-1.96385...\"y\":0.0...\"z\":1.999999}...{\"x\":1.44134712...\"y\":0.0...\"z\":2.99999952}...{\"x\":0.0...\"y\":0.0...\"z\":14.2615824}]}...{\"numberOfCoin\":10...\"localPosition\":{\"x\":-3.29509974...\"y\":2.861023E-06...\"z\":-2.918005}...\"benzierPointPositions\":[{\"x\":0.0...\"y\":0.0...\"z\":-2.0}...{\"x\":0.0...\"y\":0.0...\"z\":8.995863}]}]",
+    "master_training_block_combo_type": "Modular"
   },
   {
     "master_horse_training_block_id": "10006002",
     "name": "default 2",
     "master_horse_training_block_ids": "blockPadding.blockDefault.blockDefault.blockDefault",
     "obstacles": "[]",
-    "coins": "[]"
+    "coins": "[]",
+    "master_training_block_combo_type": "Modular"
+  },
+  {
+    "master_horse_training_block_id": "10006005",
+    "name": "BBBB",
+    "master_horse_training_block_ids": "road_6",
+    "obstacles": "[{\"type\":\"jump_obstacle\"...\"localPosition\":{\"x\":2.68029881...\"y\":1.43051147E-06...\"z\":18.0306587}}...{\"type\":\"lane_run_obstacle\"...\"localPosition\":{\"x\":-1.63343775...\"y\":1.43051147E-06...\"z\":9.654423}}...{\"type\":\"jump_obstacle\"...\"localPosition\":{\"x\":3.0706377...\"y\":1.43051147E-06...\"z\":2.772972}}...{\"type\":\"lane_run_obstacle\"...\"localPosition\":{\"x\":-2.8483696...\"y\":1.43051147E-06...\"z\":-3.723957}}]",
+    "coins": "[{\"numberOfCoin\":50...\"localPosition\":{\"x\":-0.527725935...\"y\":0.500001431...\"z\":-1.25985336}...\"benzierPointPositions\":[{\"x\":0.0...\"y\":0.0...\"z\":-2.0}...{\"x\":-2.151719...\"y\":0.0...\"z\":1.99999809}...{\"x\":3.67909241...\"y\":-0.206405759...\"z\":7.662979}...{\"x\":2.80520463...\"y\":-0.0177209377...\"z\":12.99205}...{\"x\":-0.910544634...\"y\":-0.148215413...\"z\":16.83345}...{\"x\":0.0166764259...\"y\":-0.148215413...\"z\":34.5650749}]}...{\"numberOfCoin\":20...\"localPosition\":{\"x\":0.452434778...\"y\":0.500001431...\"z\":-30.553257}...\"benzierPointPositions\":[{\"x\":0.0...\"y\":0.0...\"z\":-2.0}...{\"x\":0.006452799...\"y\":0.0...\"z\":23.8891411}]}]",
+    "master_training_block_combo_type": "Predefine"
   }
 ]

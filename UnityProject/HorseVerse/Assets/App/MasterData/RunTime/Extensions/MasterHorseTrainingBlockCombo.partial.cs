@@ -47,11 +47,12 @@ public class Position
 
 public partial class MasterHorseTrainingBlockCombo
 {
-    public MasterHorseTrainingBlockCombo(long masterHorseTrainingBlockId, string name)
+    public MasterHorseTrainingBlockCombo(long masterHorseTrainingBlockId, string name, MasterTrainingBlockComboType masterTrainingBlockComboType, string masterTrainingModularBlockId)
     {
         this.name = name;
-        this.master_horse_training_block_id = masterHorseTrainingBlockId;
-        master_horse_training_block_ids = string.Empty;
+        master_horse_training_block_id = masterHorseTrainingBlockId;
+        master_horse_training_block_ids = masterTrainingModularBlockId;
+        master_training_block_combo_type = masterTrainingBlockComboType;
     }
     
     public string[] MasterHorseTrainingBlockIdList
@@ -74,9 +75,7 @@ public partial class MasterHorseTrainingBlockCombo
     {
         get
         {
-            var s = (Obstacles ?? string.Empty).Replace("...", ",");
-            s = SafeConvertString(s);
-            return JsonConvert.DeserializeObject(s, typeof(Obstacle[])) as Obstacle[] ?? Array.Empty<Obstacle>();
+            return JsonConvert.DeserializeObject(FormatCustomData(Obstacles), typeof(Obstacle[])) as Obstacle[] ?? Array.Empty<Obstacle>();
         }
 #if ENABLE_MASTER_RUN_TIME_EDIT
         set
@@ -91,9 +90,7 @@ public partial class MasterHorseTrainingBlockCombo
     {
         get
         {
-            var s = (Coins ?? string.Empty).Replace("...", ",");
-            s = SafeConvertString(s);
-            return JsonConvert.DeserializeObject(s, typeof(Coin[])) as Coin[] ?? Array.Empty<Coin>();
+            return JsonConvert.DeserializeObject(FormatCustomData(Coins), typeof(Coin[])) as Coin[] ?? Array.Empty<Coin>();
         }
 #if ENABLE_MASTER_RUN_TIME_EDIT
         set
@@ -103,18 +100,11 @@ public partial class MasterHorseTrainingBlockCombo
 #endif
     }
 
-    private static string SafeConvertString(string s)
+    private static string FormatCustomData(string s)
     {
-        var index = s.IndexOf("[");
-        if (index != 0)
-        {
-            s = s.Remove(0, index);
-        }
-        index = s.LastIndexOf("]");
-        if (index != s.Length - 1)
-        {
-            s = s.Remove(index + 1, s.Length - (index + 1));
-        }
-        return s;
+        if (string.IsNullOrEmpty(s)) return "[]";
+        return s.Replace("...", ",")
+             .Replace("\"[", "[")
+             .Replace("\"]", "]");
     }
 }

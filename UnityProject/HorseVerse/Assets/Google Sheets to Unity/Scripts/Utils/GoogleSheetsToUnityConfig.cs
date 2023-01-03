@@ -17,8 +17,12 @@ namespace GoogleSheetsToUnity
 
     public int PORT;
 
-    public GoogleDataResponse gdr;
+    public GoogleDataResponse gdr
+    {
+        get => JsonUtility.FromJson<GoogleDataResponse>(PlayerPrefs.GetString("GoogleDataResponseKey", string.Empty));
+        set => PlayerPrefs.SetString("GoogleDataResponseKey", JsonUtility.ToJson(value));
     }
+  }
 
     [System.Serializable]
     public class GoogleDataResponse
