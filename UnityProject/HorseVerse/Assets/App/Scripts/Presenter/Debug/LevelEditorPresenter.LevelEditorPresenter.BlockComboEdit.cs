@@ -48,7 +48,9 @@ public partial class LevelEditorPresenter
     {
         uiDebugLevelEditor.entity.blockComboList = new UIDebugLevelEditorBlockListContainer.Entity()
         {
-            blockList = masterHorseTrainingBlockComboContainer.DataList.Select((masterHorseTrainingBlockCombo, i) =>
+            blockList = masterHorseTrainingBlockComboContainer.DataList
+                                                              .Where(x => x.MasterTrainingBlockComboType == CurrentBlockComboType)
+                                                              .Select((masterHorseTrainingBlockCombo, i) =>
                 new UIDebugTrainingBlock.Entity()
                 {
                     blockName = masterHorseTrainingBlockCombo.Name,
@@ -64,20 +66,31 @@ public partial class LevelEditorPresenter
     private async UniTaskVoid OnAddBlockComboAsync()
     {
         var blockComboName = await AskUserInput("Enter block combo name");
-        if (!string.IsNullOrEmpty(blockComboName))
-        {
-            var masterHorseTrainingBlockId = masterHorseTrainingBlockComboContainer
-                                             .MasterHorseTrainingBlockComboIndexer.Max(x => x.Key) + 1;
-            var masterHorseTrainingBlockCombo = new MasterHorseTrainingBlockCombo(masterHorseTrainingBlockId, 
-                blockComboName);
-            masterHorseTrainingBlockComboContainer.Add(masterHorseTrainingBlockCombo);
-            UnSelectOldBlock();
-            OnEditBlockComboBtn();
-            OnEditBlockCombo(masterHorseTrainingBlockCombo, masterHorseTrainingBlockComboContainer.DataList.Length - 1);
+        if (string.IsNullOrEmpty(blockComboName)) return;
+        var masterHorseTrainingBlockId = CurrentBlockComboType == MasterTrainingBlockComboType.Predefine
+            ? await SelectingMasterHorseTrainingBlockIdAsync()
+            : string.Empty;
+        if (CurrentBlockComboType == MasterTrainingBlockComboType.Predefine &&
+            string.IsNullOrEmpty(masterHorseTrainingBlockId)) return;
+        
+        var masterHorseTrainingBlockComboId = masterHorseTrainingBlockComboContainer
+                                         .MasterHorseTrainingBlockComboIndexer.Max(x => x.Key) + 1;
+        var masterHorseTrainingBlockCombo = new MasterHorseTrainingBlockCombo(masterHorseTrainingBlockComboId,
+            blockComboName,
+            CurrentBlockComboType,
+            masterHorseTrainingBlockId);
+        masterHorseTrainingBlockComboContainer.Add(masterHorseTrainingBlockCombo);
+        UnSelectOldBlock();
+        OnEditBlockComboBtn();
+        OnEditBlockCombo(masterHorseTrainingBlockCombo, masterHorseTrainingBlockComboContainer.DataList
+            .Where(x => x.MasterTrainingBlockComboType == CurrentBlockComboType)
+            .ToArray()
+            .Length - 1);
 
-            await UniTask.DelayFrame(1);
-            uiDebugLevelEditor.blockComboList.blockList.GetComponentsInParent<ScrollRect>().First().normalizedPosition = new Vector2(1, 1);
-        }
+        await UniTask.DelayFrame(1);
+        uiDebugLevelEditor.blockComboList.blockList.GetComponentsInParent<ScrollRect>()
+                          .First()
+                          .normalizedPosition = new Vector2(1, 1);
     }
 
     private void OnEditBlockCombo(MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo, int i)
@@ -106,7 +119,8 @@ public partial class LevelEditorPresenter
         uiDebugLevelEditor.editMode.SetEntity(UIDebugLevelEditorMode.Mode.BlockInCombo);
         uiDebugLevelEditor.entity.blockInComboList = new UIDebugLevelEditorBlockListContainer.Entity()
         {
-            blockList = masterTrainingModularBlockContainer.DataList.Where(x => x.MasterTrainingModularBlockType == MasterTrainingModularBlockType.Modular).Select((masterHorseTrainingBlock, i) =>
+            blockList = masterTrainingModularBlockContainer.DataList
+                                                           .Where(x => x.MasterTrainingModularBlockType == FromBlockComboTypeToModularBlockType(CurrentBlockComboType)).Select((masterHorseTrainingBlock, i) =>
                 new UIDebugTrainingBlock.Entity()
                 {
                     blockName = masterHorseTrainingBlock.MasterTrainingModularBlockId,
@@ -164,7 +178,8 @@ public partial class LevelEditorPresenter
             trainingBlockSettings.BlocksLookUpTable[paddingBlockId].gameObject,
         trainingBlockSettings.BlocksLookUpTable[paddingBlockId].gameObject,
         masterHorseTrainingProperty.JumpingPoint,
-        masterHorseTrainingProperty.LandingPoint);
+        masterHorseTrainingProperty.LandingPoint,
+        CurrentBlockComboType);
         OnChangeEditingBlock();
         
         if (IsEditingObstacle)
@@ -185,15 +200,17 @@ public partial class LevelEditorPresenter
 
     private void AddPinToBlock(PlatformModular editingPlatformObject)
     {
-        CreateBlockNamePin(editingPlatformObject);
-        CreateAddPin(editingPlatformObject);
+        if (CurrentBlockComboType == MasterTrainingBlockComboType.Modular)
+        {
+            CreateBlockNamePin(editingPlatformObject);
+            CreateAddPin(editingPlatformObject);
+        }
         editingPlatformObject.BoxColliders.ForEach(AddPinToBlockModular);
     }
 
     private void CreateAddPin(PlatformModular editingPlatformObject)
     {
         var pin = CreateUiPin(blockComboPinList);
-        blockComboPinList.Add(pin.gameObject);
         pin.SetEntity(new UIDebugLevelDesignBlockTransformPin.Entity()
         {
             isAddBtnVisible = true,
@@ -321,5 +338,24 @@ public partial class LevelEditorPresenter
             UnSelectOldBlockCombo();
             OnEditBlockComboBtn();
         }
+    }
+
+    private void OnSelectBlockComboType()
+    {
+        UnSelectOldBlockCombo();
+        SetEntityBlockComboList();
+        uiDebugLevelEditor.editMode.SetEntity(UIDebugLevelEditorMode.Mode.BlockCombo);
+    }
+
+    private MasterTrainingModularBlockType FromBlockComboTypeToModularBlockType(
+        MasterTrainingBlockComboType masterTrainingBlockComboType)
+    {
+        return masterTrainingBlockComboType switch
+        {
+            MasterTrainingBlockComboType.Custom => MasterTrainingModularBlockType.Custom,
+            MasterTrainingBlockComboType.Modular => MasterTrainingModularBlockType.Modular,
+            MasterTrainingBlockComboType.Predefine => MasterTrainingModularBlockType.Predefine,
+            _ => MasterTrainingModularBlockType.Modular,
+        };
     }
 }

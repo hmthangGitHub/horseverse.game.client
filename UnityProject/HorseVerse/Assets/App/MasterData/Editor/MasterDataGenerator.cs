@@ -1,10 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
+using GoogleSheetsToUnity;
+using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Networking;
+using Object = UnityEngine.Object;
 
 public partial class MasterDataGenerator : EditorWindow
 {
@@ -21,7 +29,7 @@ public partial class MasterDataGenerator : EditorWindow
     private const string CSV_FILES_PROPERTY = "csvFiles";
     public TextAsset[] csvFiles;
 
-    public const string masterDataTemplateFile = "Assets/App/MasterData/Editor/Templates/MasterDataTemplate.txt";
+    public const string MasterDataTemplateFile = "Assets/App/MasterData/Editor/Templates/MasterDataTemplate.txt";
     public const string masterDataContainerTemplateFile = "Assets/App/MasterData/Editor/Templates/MasterDataContainerTemplate.txt";
     public const string masterDataFieldTemplate = "Assets/App/MasterData/Editor/Templates/MasterDataFieldTemplate.txt";
 
@@ -44,20 +52,43 @@ public partial class MasterDataGenerator : EditorWindow
 
         if (GUILayout.Button("Generate"))
         {
-            csvFiles.Where(x => x != null && x.name != "enum")
-                    .ToList()
-                    .ForEach(GenerateMaster);
+            Generate();
+        }
 
-            var enumMaster = csvFiles.FirstOrDefault(x => x != null && x.name == "enum");
-            if (enumMaster != default)
-            {
-                GenerateEnum(enumMaster);
-            }
+        if (GUILayout.Button("Fetch & Generate"))
+        {
+            FetAndGenerateAsync();
         }
     }
 
-    
-    
+    private async UniTaskVoid FetAndGenerateAsync()
+    {
+        await FetchNewMaster();
+        Generate();
+    }
+
+    private async UniTask FetchNewMaster()
+    {
+        await BatchReadRawAsync("1_tPCfwDF2iiWversmLs8kbPrHGWjqg1bJfG4qgend_I", csvFiles
+                                                                          .Select(x => (name: x.name,
+                                                                              path: AssetDatabase.GetAssetPath(x)))
+                                                                          .ToArray()
+            , false);
+    }
+
+    private void Generate()
+    {
+        csvFiles.Where(x => x != null && x.name != "enum")
+                .ToList()
+                .ForEach(GenerateMaster);
+
+        var enumMaster = csvFiles.FirstOrDefault(x => x != null && x.name == "enum");
+        if (enumMaster != default)
+        {
+            GenerateEnum(enumMaster);
+        }
+    }
+
     private static int FindIndexOfColumn(string[] lines, string columnName)
     {
         return lines.First()
@@ -110,7 +141,7 @@ public partial class MasterDataGenerator : EditorWindow
     {
         var masterFieldTemplateFile = AssetDatabase.LoadAssetAtPath<TextAsset>(MasterDataGenerator.masterDataFieldTemplate) as TextAsset;
         var path = $"{GetAbsolutePathOfAsset(outPutSchemaFolder)}/{masterUpperCaseName}.cs";
-        var masterDataTemplateFile = AssetDatabase.LoadAssetAtPath<TextAsset>(MasterDataGenerator.masterDataTemplateFile) as TextAsset;
+        var masterDataTemplateFile = AssetDatabase.LoadAssetAtPath<TextAsset>(MasterDataGenerator.MasterDataTemplateFile) as TextAsset;
         var fieldSources = string.Empty;
         for (int i = 0; i < outputFieldNames.Length; i++)
         {
@@ -139,7 +170,7 @@ public partial class MasterDataGenerator : EditorWindow
         
         var outputClientColumns = linesAsColumn.FirstOrDefault(line => line[0] == Prefix.out_put_client.ToString())
                                                .Select((x, i) => (x, i))
-                                               .Where(x => x.x == "TRUE")
+                                               .Where(x => x.x.ToLower() == "true")
                                                .Select(x => x.i)
                                                .ToArray();
         var outputFieldNames = linesAsColumn.FirstOrDefault(line => line[0] == Prefix.type_name.ToString())
