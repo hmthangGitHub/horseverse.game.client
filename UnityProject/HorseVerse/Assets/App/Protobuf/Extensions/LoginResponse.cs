@@ -18,7 +18,8 @@ namespace io.hverse.game.protogen
     // public sealed partial class PrivateChatResponse : IErrorCodeMessage {}
     // public sealed partial class RaceScriptResponse : IErrorCodeMessage {}
     public sealed partial class ReadMailResponse : IErrorCodeMessage {}
-    public sealed partial class TrainingRewardsResponse : IErrorCodeMessage {}
+    public sealed partial class StartTrainingResponse : IErrorCodeMessage {}
+    public sealed partial class FinishTrainingResponse : IErrorCodeMessage { }
     // public sealed partial class AcceptPrivateChatResponse : IErrorCodeMessage {}
     public sealed partial class ExchangeChestKeyResponse : IErrorCodeMessage {}
     public sealed partial class GetBetHistoryResponse : IErrorCodeMessage {}

@@ -4,6 +4,7 @@ public class HorseDataModel
 {
     public long HorseNtfId { get; set; }
     public string Name { get; set; }
+    public int Happiness { get; set; }
     public int Earning { get; set; }
     public float PowerBonus { get; set; }
     public float PowerRatio { get; set; }

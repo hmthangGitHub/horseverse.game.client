@@ -49,8 +49,11 @@ public class ProtobufMessageParser : IMessageParser
         AddToSerializeLookUpTable<GetHorseListRequest>(x => new BettingMessage(x));
         AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.GetHorseListResponse, x => x.GetHorseListResponse);
 
-        AddToSerializeLookUpTable<TrainingRewardsRequest>(x => new TrainingMessage(x));
-        AddToParseLookUpTable<TrainingMessage, TrainingMessageType>(TrainingMessageType.TrainingRewardsResponse, x => x.TrainingRewardsResponse);
+        AddToSerializeLookUpTable<StartTrainingRequest>(x => new TrainingMessage(x));
+        AddToParseLookUpTable<TrainingMessage, TrainingMessageType>(TrainingMessageType.StartTrainingResponse, x => x.StartTrainingResponse);
+
+        AddToSerializeLookUpTable<FinishTrainingRequest>(x => new TrainingMessage(x));
+        AddToParseLookUpTable<TrainingMessage, TrainingMessageType>(TrainingMessageType.FinishTrainingResponse, x => x.FinishTrainingResponse);
     }
     
     private void AddToParseLookUpTable<TSubMessage, TEnum>(TEnum enumMessage, Func<TSubMessage, IMessage> resultFactory) where TEnum : System.Enum

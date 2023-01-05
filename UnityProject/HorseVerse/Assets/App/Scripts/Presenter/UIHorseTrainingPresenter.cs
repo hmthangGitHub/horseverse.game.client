@@ -83,22 +83,27 @@ public class UIHorseTrainingPresenter : IDisposable
 
     private async UniTask ToTrainingAsync()
     {
-        ToTrainingActionState.Invoke();
-        
-        var userHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
-        
-        container.Bind(new HorseTrainingDataContext()
+        var data = await TrainingDomainService.StartTrainingData(UserDataRepository.Current.CurrentHorseNftId);
+        if (data.ResultCode == 100)
         {
-            HorseMeshInformation = new HorseMeshInformation()
+            ToTrainingActionState.Invoke();
+
+            var userHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
+            userHorse.Happiness = data.Happiness;
+            container.Bind(new HorseTrainingDataContext()
             {
-                horseModelPath = MasterHorseContainer.FromTypeToMasterHorse(userHorse.Type).ModelPath,
-                color1 = userHorse.Color1,
-                color2 = userHorse.Color2,
-                color3 = userHorse.Color3,
-                color4 = userHorse.Color4,
-            },
-            MasterMapId = 10001003,
-        });
+                HorseMeshInformation = new HorseMeshInformation()
+                {
+                    horseModelPath = MasterHorseContainer.FromTypeToMasterHorse(userHorse.Type).ModelPath,
+                    color1 = userHorse.Color1,
+                    color2 = userHorse.Color2,
+                    color3 = userHorse.Color3,
+                    color4 = userHorse.Color4,
+                },
+                MasterMapId = 10001003,
+            });
+        }
+
         //await TrainingDomainService.SendHorseToTraining(UserDataRepository.Current.MasterHorseId);
     }
 
@@ -165,6 +170,14 @@ public class UIHorseTrainingPresenter : IDisposable
             currentSelectHorseId = nftId;
         }
 
+        UpdateStatusHorse();
+    }
+
+    private void UpdateStatusHorse()
+    {
+        var userHorse = HorseRepository.Models[currentSelectHorseId];
+        var happy = userHorse.Happiness;
+        uiHorseTraining.prepareState.toTraningBtn.SetInteractable(happy > 0);
     }
 
 }

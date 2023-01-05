@@ -24,25 +24,33 @@ namespace io.hverse.game.protogen {
     static TrainingReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cg50cmFpbmluZy5wcm90bxoKZGF0YS5wcm90byKsAQoPVHJhaW5pbmdNZXNz",
-            "YWdlEiUKB21zZ1R5cGUYASABKA4yFC5UcmFpbmluZ01lc3NhZ2VUeXBlEjcK",
-            "FnRyYWluaW5nUmV3YXJkc1JlcXVlc3QYAiABKAsyFy5UcmFpbmluZ1Jld2Fy",
-            "ZHNSZXF1ZXN0EjkKF3RyYWluaW5nUmV3YXJkc1Jlc3BvbnNlGAMgASgLMhgu",
-            "VHJhaW5pbmdSZXdhcmRzUmVzcG9uc2UiPgoWVHJhaW5pbmdSZXdhcmRzUmVx",
-            "dWVzdBISCgpjb2luTnVtYmVyGAEgASgDEhAKCGRpc3RhbmNlGAIgASgDInEK",
-            "F1RyYWluaW5nUmV3YXJkc1Jlc3BvbnNlEhIKCnJlc3VsdENvZGUYASABKAUS",
-            "DwoHbWVzc2FnZRgCIAEoCRITCgtwb2ludE51bWJlchgDIAEoAxIcCgdyZXdh",
-            "cmRzGAQgAygLMgsuUmV3YXJkSW5mbypSChNUcmFpbmluZ01lc3NhZ2VUeXBl",
-            "EhwKGFRSQUlOSU5HX1JFV0FSRFNfUkVRVUVTVBAAEh0KGVRSQUlOSU5HX1JF",
-            "V0FSRFNfUkVTUE9OU0UQAUJLChdpby5odmVyc2UuZ2FtZS5wcm90b2dlbkIW",
-            "VHJhaW5pbmdNZXNzYWdlRmFjdG9yeaoCF2lvLmh2ZXJzZS5nYW1lLnByb3Rv",
-            "Z2VuYgZwcm90bzM="));
+            "Cg50cmFpbmluZy5wcm90bxoKZGF0YS5wcm90byKUAgoPVHJhaW5pbmdNZXNz",
+            "YWdlEiUKB21zZ1R5cGUYASABKA4yFC5UcmFpbmluZ01lc3NhZ2VUeXBlEjMK",
+            "FHN0YXJ0VHJhaW5pbmdSZXF1ZXN0GAIgASgLMhUuU3RhcnRUcmFpbmluZ1Jl",
+            "cXVlc3QSNQoVc3RhcnRUcmFpbmluZ1Jlc3BvbnNlGAMgASgLMhYuU3RhcnRU",
+            "cmFpbmluZ1Jlc3BvbnNlEjUKFWZpbmlzaFRyYWluaW5nUmVxdWVzdBgEIAEo",
+            "CzIWLkZpbmlzaFRyYWluaW5nUmVxdWVzdBI3ChZmaW5pc2hUcmFpbmluZ1Jl",
+            "c3BvbnNlGAUgASgLMhcuRmluaXNoVHJhaW5pbmdSZXNwb25zZSInChRTdGFy",
+            "dFRyYWluaW5nUmVxdWVzdBIPCgdob3JzZUlkGAEgASgDIk8KFVN0YXJ0VHJh",
+            "aW5pbmdSZXNwb25zZRISCgpyZXN1bHRDb2RlGAEgASgFEg8KB21lc3NhZ2UY",
+            "AiABKAkSEQoJaGFwcGluZXNzGAMgASgFIj0KFUZpbmlzaFRyYWluaW5nUmVx",
+            "dWVzdBISCgpjb2luTnVtYmVyGAEgASgDEhAKCGRpc3RhbmNlGAIgASgDInAK",
+            "FkZpbmlzaFRyYWluaW5nUmVzcG9uc2USEgoKcmVzdWx0Q29kZRgBIAEoBRIP",
+            "CgdtZXNzYWdlGAIgASgJEhMKC3BvaW50TnVtYmVyGAMgASgDEhwKB3Jld2Fy",
+            "ZHMYBCADKAsyCy5SZXdhcmRJbmZvKokBChNUcmFpbmluZ01lc3NhZ2VUeXBl",
+            "EhoKFlNUQVJUX1RSQUlOSU5HX1JFUVVFU1QQABIbChdTVEFSVF9UUkFJTklO",
+            "R19SRVNQT05TRRABEhsKF0ZJTklTSF9UUkFJTklOR19SRVFVRVNUEAISHAoY",
+            "RklOSVNIX1RSQUlOSU5HX1JFU1BPTlNFEANCSwoXaW8uaHZlcnNlLmdhbWUu",
+            "cHJvdG9nZW5CFlRyYWluaW5nTWVzc2FnZUZhY3RvcnmqAhdpby5odmVyc2Uu",
+            "Z2FtZS5wcm90b2dlbmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::io.hverse.game.protogen.DataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.TrainingMessageType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.TrainingMessage), global::io.hverse.game.protogen.TrainingMessage.Parser, new[]{ "MsgType", "TrainingRewardsRequest", "TrainingRewardsResponse" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.TrainingRewardsRequest), global::io.hverse.game.protogen.TrainingRewardsRequest.Parser, new[]{ "CoinNumber", "Distance" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.TrainingRewardsResponse), global::io.hverse.game.protogen.TrainingRewardsResponse.Parser, new[]{ "ResultCode", "Message", "PointNumber", "Rewards" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.TrainingMessage), global::io.hverse.game.protogen.TrainingMessage.Parser, new[]{ "MsgType", "StartTrainingRequest", "StartTrainingResponse", "FinishTrainingRequest", "FinishTrainingResponse" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.StartTrainingRequest), global::io.hverse.game.protogen.StartTrainingRequest.Parser, new[]{ "HorseId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.StartTrainingResponse), global::io.hverse.game.protogen.StartTrainingResponse.Parser, new[]{ "ResultCode", "Message", "Happiness" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.FinishTrainingRequest), global::io.hverse.game.protogen.FinishTrainingRequest.Parser, new[]{ "CoinNumber", "Distance" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.FinishTrainingResponse), global::io.hverse.game.protogen.FinishTrainingResponse.Parser, new[]{ "ResultCode", "Message", "PointNumber", "Rewards" }, null, null, null, null)
           }));
     }
     #endregion
@@ -50,8 +58,10 @@ namespace io.hverse.game.protogen {
   }
   #region Enums
   public enum TrainingMessageType {
-    [pbr::OriginalName("TRAINING_REWARDS_REQUEST")] TrainingRewardsRequest = 0,
-    [pbr::OriginalName("TRAINING_REWARDS_RESPONSE")] TrainingRewardsResponse = 1,
+    [pbr::OriginalName("START_TRAINING_REQUEST")] StartTrainingRequest = 0,
+    [pbr::OriginalName("START_TRAINING_RESPONSE")] StartTrainingResponse = 1,
+    [pbr::OriginalName("FINISH_TRAINING_REQUEST")] FinishTrainingRequest = 2,
+    [pbr::OriginalName("FINISH_TRAINING_RESPONSE")] FinishTrainingResponse = 3,
   }
 
   #endregion
@@ -92,8 +102,10 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public TrainingMessage(TrainingMessage other) : this() {
       msgType_ = other.msgType_;
-      trainingRewardsRequest_ = other.trainingRewardsRequest_ != null ? other.trainingRewardsRequest_.Clone() : null;
-      trainingRewardsResponse_ = other.trainingRewardsResponse_ != null ? other.trainingRewardsResponse_.Clone() : null;
+      startTrainingRequest_ = other.startTrainingRequest_ != null ? other.startTrainingRequest_.Clone() : null;
+      startTrainingResponse_ = other.startTrainingResponse_ != null ? other.startTrainingResponse_.Clone() : null;
+      finishTrainingRequest_ = other.finishTrainingRequest_ != null ? other.finishTrainingRequest_.Clone() : null;
+      finishTrainingResponse_ = other.finishTrainingResponse_ != null ? other.finishTrainingResponse_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -105,7 +117,7 @@ namespace io.hverse.game.protogen {
 
     /// <summary>Field number for the "msgType" field.</summary>
     public const int MsgTypeFieldNumber = 1;
-    private global::io.hverse.game.protogen.TrainingMessageType msgType_ = global::io.hverse.game.protogen.TrainingMessageType.TrainingRewardsRequest;
+    private global::io.hverse.game.protogen.TrainingMessageType msgType_ = global::io.hverse.game.protogen.TrainingMessageType.StartTrainingRequest;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::io.hverse.game.protogen.TrainingMessageType MsgType {
@@ -115,27 +127,51 @@ namespace io.hverse.game.protogen {
       }
     }
 
-    /// <summary>Field number for the "trainingRewardsRequest" field.</summary>
-    public const int TrainingRewardsRequestFieldNumber = 2;
-    private global::io.hverse.game.protogen.TrainingRewardsRequest trainingRewardsRequest_;
+    /// <summary>Field number for the "startTrainingRequest" field.</summary>
+    public const int StartTrainingRequestFieldNumber = 2;
+    private global::io.hverse.game.protogen.StartTrainingRequest startTrainingRequest_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.TrainingRewardsRequest TrainingRewardsRequest {
-      get { return trainingRewardsRequest_; }
+    public global::io.hverse.game.protogen.StartTrainingRequest StartTrainingRequest {
+      get { return startTrainingRequest_; }
       set {
-        trainingRewardsRequest_ = value;
+        startTrainingRequest_ = value;
       }
     }
 
-    /// <summary>Field number for the "trainingRewardsResponse" field.</summary>
-    public const int TrainingRewardsResponseFieldNumber = 3;
-    private global::io.hverse.game.protogen.TrainingRewardsResponse trainingRewardsResponse_;
+    /// <summary>Field number for the "startTrainingResponse" field.</summary>
+    public const int StartTrainingResponseFieldNumber = 3;
+    private global::io.hverse.game.protogen.StartTrainingResponse startTrainingResponse_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.TrainingRewardsResponse TrainingRewardsResponse {
-      get { return trainingRewardsResponse_; }
+    public global::io.hverse.game.protogen.StartTrainingResponse StartTrainingResponse {
+      get { return startTrainingResponse_; }
       set {
-        trainingRewardsResponse_ = value;
+        startTrainingResponse_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "finishTrainingRequest" field.</summary>
+    public const int FinishTrainingRequestFieldNumber = 4;
+    private global::io.hverse.game.protogen.FinishTrainingRequest finishTrainingRequest_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.FinishTrainingRequest FinishTrainingRequest {
+      get { return finishTrainingRequest_; }
+      set {
+        finishTrainingRequest_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "finishTrainingResponse" field.</summary>
+    public const int FinishTrainingResponseFieldNumber = 5;
+    private global::io.hverse.game.protogen.FinishTrainingResponse finishTrainingResponse_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.FinishTrainingResponse FinishTrainingResponse {
+      get { return finishTrainingResponse_; }
+      set {
+        finishTrainingResponse_ = value;
       }
     }
 
@@ -155,8 +191,10 @@ namespace io.hverse.game.protogen {
         return true;
       }
       if (MsgType != other.MsgType) return false;
-      if (!object.Equals(TrainingRewardsRequest, other.TrainingRewardsRequest)) return false;
-      if (!object.Equals(TrainingRewardsResponse, other.TrainingRewardsResponse)) return false;
+      if (!object.Equals(StartTrainingRequest, other.StartTrainingRequest)) return false;
+      if (!object.Equals(StartTrainingResponse, other.StartTrainingResponse)) return false;
+      if (!object.Equals(FinishTrainingRequest, other.FinishTrainingRequest)) return false;
+      if (!object.Equals(FinishTrainingResponse, other.FinishTrainingResponse)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -164,9 +202,11 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (MsgType != global::io.hverse.game.protogen.TrainingMessageType.TrainingRewardsRequest) hash ^= MsgType.GetHashCode();
-      if (trainingRewardsRequest_ != null) hash ^= TrainingRewardsRequest.GetHashCode();
-      if (trainingRewardsResponse_ != null) hash ^= TrainingRewardsResponse.GetHashCode();
+      if (MsgType != global::io.hverse.game.protogen.TrainingMessageType.StartTrainingRequest) hash ^= MsgType.GetHashCode();
+      if (startTrainingRequest_ != null) hash ^= StartTrainingRequest.GetHashCode();
+      if (startTrainingResponse_ != null) hash ^= StartTrainingResponse.GetHashCode();
+      if (finishTrainingRequest_ != null) hash ^= FinishTrainingRequest.GetHashCode();
+      if (finishTrainingResponse_ != null) hash ^= FinishTrainingResponse.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -185,17 +225,25 @@ namespace io.hverse.game.protogen {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (MsgType != global::io.hverse.game.protogen.TrainingMessageType.TrainingRewardsRequest) {
+      if (MsgType != global::io.hverse.game.protogen.TrainingMessageType.StartTrainingRequest) {
         output.WriteRawTag(8);
         output.WriteEnum((int) MsgType);
       }
-      if (trainingRewardsRequest_ != null) {
+      if (startTrainingRequest_ != null) {
         output.WriteRawTag(18);
-        output.WriteMessage(TrainingRewardsRequest);
+        output.WriteMessage(StartTrainingRequest);
       }
-      if (trainingRewardsResponse_ != null) {
+      if (startTrainingResponse_ != null) {
         output.WriteRawTag(26);
-        output.WriteMessage(TrainingRewardsResponse);
+        output.WriteMessage(StartTrainingResponse);
+      }
+      if (finishTrainingRequest_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(FinishTrainingRequest);
+      }
+      if (finishTrainingResponse_ != null) {
+        output.WriteRawTag(42);
+        output.WriteMessage(FinishTrainingResponse);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -207,17 +255,25 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (MsgType != global::io.hverse.game.protogen.TrainingMessageType.TrainingRewardsRequest) {
+      if (MsgType != global::io.hverse.game.protogen.TrainingMessageType.StartTrainingRequest) {
         output.WriteRawTag(8);
         output.WriteEnum((int) MsgType);
       }
-      if (trainingRewardsRequest_ != null) {
+      if (startTrainingRequest_ != null) {
         output.WriteRawTag(18);
-        output.WriteMessage(TrainingRewardsRequest);
+        output.WriteMessage(StartTrainingRequest);
       }
-      if (trainingRewardsResponse_ != null) {
+      if (startTrainingResponse_ != null) {
         output.WriteRawTag(26);
-        output.WriteMessage(TrainingRewardsResponse);
+        output.WriteMessage(StartTrainingResponse);
+      }
+      if (finishTrainingRequest_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(FinishTrainingRequest);
+      }
+      if (finishTrainingResponse_ != null) {
+        output.WriteRawTag(42);
+        output.WriteMessage(FinishTrainingResponse);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -229,14 +285,20 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (MsgType != global::io.hverse.game.protogen.TrainingMessageType.TrainingRewardsRequest) {
+      if (MsgType != global::io.hverse.game.protogen.TrainingMessageType.StartTrainingRequest) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) MsgType);
       }
-      if (trainingRewardsRequest_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(TrainingRewardsRequest);
+      if (startTrainingRequest_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(StartTrainingRequest);
       }
-      if (trainingRewardsResponse_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(TrainingRewardsResponse);
+      if (startTrainingResponse_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(StartTrainingResponse);
+      }
+      if (finishTrainingRequest_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(FinishTrainingRequest);
+      }
+      if (finishTrainingResponse_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(FinishTrainingResponse);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -250,20 +312,32 @@ namespace io.hverse.game.protogen {
       if (other == null) {
         return;
       }
-      if (other.MsgType != global::io.hverse.game.protogen.TrainingMessageType.TrainingRewardsRequest) {
+      if (other.MsgType != global::io.hverse.game.protogen.TrainingMessageType.StartTrainingRequest) {
         MsgType = other.MsgType;
       }
-      if (other.trainingRewardsRequest_ != null) {
-        if (trainingRewardsRequest_ == null) {
-          TrainingRewardsRequest = new global::io.hverse.game.protogen.TrainingRewardsRequest();
+      if (other.startTrainingRequest_ != null) {
+        if (startTrainingRequest_ == null) {
+          StartTrainingRequest = new global::io.hverse.game.protogen.StartTrainingRequest();
         }
-        TrainingRewardsRequest.MergeFrom(other.TrainingRewardsRequest);
+        StartTrainingRequest.MergeFrom(other.StartTrainingRequest);
       }
-      if (other.trainingRewardsResponse_ != null) {
-        if (trainingRewardsResponse_ == null) {
-          TrainingRewardsResponse = new global::io.hverse.game.protogen.TrainingRewardsResponse();
+      if (other.startTrainingResponse_ != null) {
+        if (startTrainingResponse_ == null) {
+          StartTrainingResponse = new global::io.hverse.game.protogen.StartTrainingResponse();
         }
-        TrainingRewardsResponse.MergeFrom(other.TrainingRewardsResponse);
+        StartTrainingResponse.MergeFrom(other.StartTrainingResponse);
+      }
+      if (other.finishTrainingRequest_ != null) {
+        if (finishTrainingRequest_ == null) {
+          FinishTrainingRequest = new global::io.hverse.game.protogen.FinishTrainingRequest();
+        }
+        FinishTrainingRequest.MergeFrom(other.FinishTrainingRequest);
+      }
+      if (other.finishTrainingResponse_ != null) {
+        if (finishTrainingResponse_ == null) {
+          FinishTrainingResponse = new global::io.hverse.game.protogen.FinishTrainingResponse();
+        }
+        FinishTrainingResponse.MergeFrom(other.FinishTrainingResponse);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -285,17 +359,31 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 18: {
-            if (trainingRewardsRequest_ == null) {
-              TrainingRewardsRequest = new global::io.hverse.game.protogen.TrainingRewardsRequest();
+            if (startTrainingRequest_ == null) {
+              StartTrainingRequest = new global::io.hverse.game.protogen.StartTrainingRequest();
             }
-            input.ReadMessage(TrainingRewardsRequest);
+            input.ReadMessage(StartTrainingRequest);
             break;
           }
           case 26: {
-            if (trainingRewardsResponse_ == null) {
-              TrainingRewardsResponse = new global::io.hverse.game.protogen.TrainingRewardsResponse();
+            if (startTrainingResponse_ == null) {
+              StartTrainingResponse = new global::io.hverse.game.protogen.StartTrainingResponse();
             }
-            input.ReadMessage(TrainingRewardsResponse);
+            input.ReadMessage(StartTrainingResponse);
+            break;
+          }
+          case 34: {
+            if (finishTrainingRequest_ == null) {
+              FinishTrainingRequest = new global::io.hverse.game.protogen.FinishTrainingRequest();
+            }
+            input.ReadMessage(FinishTrainingRequest);
+            break;
+          }
+          case 42: {
+            if (finishTrainingResponse_ == null) {
+              FinishTrainingResponse = new global::io.hverse.game.protogen.FinishTrainingResponse();
+            }
+            input.ReadMessage(FinishTrainingResponse);
             break;
           }
         }
@@ -318,17 +406,31 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 18: {
-            if (trainingRewardsRequest_ == null) {
-              TrainingRewardsRequest = new global::io.hverse.game.protogen.TrainingRewardsRequest();
+            if (startTrainingRequest_ == null) {
+              StartTrainingRequest = new global::io.hverse.game.protogen.StartTrainingRequest();
             }
-            input.ReadMessage(TrainingRewardsRequest);
+            input.ReadMessage(StartTrainingRequest);
             break;
           }
           case 26: {
-            if (trainingRewardsResponse_ == null) {
-              TrainingRewardsResponse = new global::io.hverse.game.protogen.TrainingRewardsResponse();
+            if (startTrainingResponse_ == null) {
+              StartTrainingResponse = new global::io.hverse.game.protogen.StartTrainingResponse();
             }
-            input.ReadMessage(TrainingRewardsResponse);
+            input.ReadMessage(StartTrainingResponse);
+            break;
+          }
+          case 34: {
+            if (finishTrainingRequest_ == null) {
+              FinishTrainingRequest = new global::io.hverse.game.protogen.FinishTrainingRequest();
+            }
+            input.ReadMessage(FinishTrainingRequest);
+            break;
+          }
+          case 42: {
+            if (finishTrainingResponse_ == null) {
+              FinishTrainingResponse = new global::io.hverse.game.protogen.FinishTrainingResponse();
+            }
+            input.ReadMessage(FinishTrainingResponse);
             break;
           }
         }
@@ -338,16 +440,16 @@ namespace io.hverse.game.protogen {
 
   }
 
-  public sealed partial class TrainingRewardsRequest : pb::IMessage<TrainingRewardsRequest>
+  public sealed partial class StartTrainingRequest : pb::IMessage<StartTrainingRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<TrainingRewardsRequest> _parser = new pb::MessageParser<TrainingRewardsRequest>(() => new TrainingRewardsRequest());
+    private static readonly pb::MessageParser<StartTrainingRequest> _parser = new pb::MessageParser<StartTrainingRequest>(() => new StartTrainingRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<TrainingRewardsRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<StartTrainingRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -363,7 +465,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public TrainingRewardsRequest() {
+    public StartTrainingRequest() {
       OnConstruction();
     }
 
@@ -371,7 +473,459 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public TrainingRewardsRequest(TrainingRewardsRequest other) : this() {
+    public StartTrainingRequest(StartTrainingRequest other) : this() {
+      horseId_ = other.horseId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public StartTrainingRequest Clone() {
+      return new StartTrainingRequest(this);
+    }
+
+    /// <summary>Field number for the "horseId" field.</summary>
+    public const int HorseIdFieldNumber = 1;
+    private long horseId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public long HorseId {
+      get { return horseId_; }
+      set {
+        horseId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as StartTrainingRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(StartTrainingRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (HorseId != other.HorseId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (HorseId != 0L) hash ^= HorseId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (HorseId != 0L) {
+        output.WriteRawTag(8);
+        output.WriteInt64(HorseId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (HorseId != 0L) {
+        output.WriteRawTag(8);
+        output.WriteInt64(HorseId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (HorseId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(HorseId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(StartTrainingRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.HorseId != 0L) {
+        HorseId = other.HorseId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            HorseId = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            HorseId = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class StartTrainingResponse : pb::IMessage<StartTrainingResponse>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<StartTrainingResponse> _parser = new pb::MessageParser<StartTrainingResponse>(() => new StartTrainingResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<StartTrainingResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::io.hverse.game.protogen.TrainingReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public StartTrainingResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public StartTrainingResponse(StartTrainingResponse other) : this() {
+      resultCode_ = other.resultCode_;
+      message_ = other.message_;
+      happiness_ = other.happiness_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public StartTrainingResponse Clone() {
+      return new StartTrainingResponse(this);
+    }
+
+    /// <summary>Field number for the "resultCode" field.</summary>
+    public const int ResultCodeFieldNumber = 1;
+    private int resultCode_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int ResultCode {
+      get { return resultCode_; }
+      set {
+        resultCode_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "message" field.</summary>
+    public const int MessageFieldNumber = 2;
+    private string message_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Message {
+      get { return message_; }
+      set {
+        message_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "happiness" field.</summary>
+    public const int HappinessFieldNumber = 3;
+    private int happiness_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Happiness {
+      get { return happiness_; }
+      set {
+        happiness_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as StartTrainingResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(StartTrainingResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (ResultCode != other.ResultCode) return false;
+      if (Message != other.Message) return false;
+      if (Happiness != other.Happiness) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (ResultCode != 0) hash ^= ResultCode.GetHashCode();
+      if (Message.Length != 0) hash ^= Message.GetHashCode();
+      if (Happiness != 0) hash ^= Happiness.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (ResultCode != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(ResultCode);
+      }
+      if (Message.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Message);
+      }
+      if (Happiness != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Happiness);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (ResultCode != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(ResultCode);
+      }
+      if (Message.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Message);
+      }
+      if (Happiness != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Happiness);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (ResultCode != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ResultCode);
+      }
+      if (Message.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Message);
+      }
+      if (Happiness != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Happiness);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(StartTrainingResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.ResultCode != 0) {
+        ResultCode = other.ResultCode;
+      }
+      if (other.Message.Length != 0) {
+        Message = other.Message;
+      }
+      if (other.Happiness != 0) {
+        Happiness = other.Happiness;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            ResultCode = input.ReadInt32();
+            break;
+          }
+          case 18: {
+            Message = input.ReadString();
+            break;
+          }
+          case 24: {
+            Happiness = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            ResultCode = input.ReadInt32();
+            break;
+          }
+          case 18: {
+            Message = input.ReadString();
+            break;
+          }
+          case 24: {
+            Happiness = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class FinishTrainingRequest : pb::IMessage<FinishTrainingRequest>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<FinishTrainingRequest> _parser = new pb::MessageParser<FinishTrainingRequest>(() => new FinishTrainingRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<FinishTrainingRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::io.hverse.game.protogen.TrainingReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public FinishTrainingRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public FinishTrainingRequest(FinishTrainingRequest other) : this() {
       coinNumber_ = other.coinNumber_;
       distance_ = other.distance_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -379,8 +933,8 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public TrainingRewardsRequest Clone() {
-      return new TrainingRewardsRequest(this);
+    public FinishTrainingRequest Clone() {
+      return new FinishTrainingRequest(this);
     }
 
     /// <summary>Field number for the "coinNumber" field.</summary>
@@ -410,12 +964,12 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as TrainingRewardsRequest);
+      return Equals(other as FinishTrainingRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(TrainingRewardsRequest other) {
+    public bool Equals(FinishTrainingRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -501,7 +1055,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(TrainingRewardsRequest other) {
+    public void MergeFrom(FinishTrainingRequest other) {
       if (other == null) {
         return;
       }
@@ -564,21 +1118,21 @@ namespace io.hverse.game.protogen {
 
   }
 
-  public sealed partial class TrainingRewardsResponse : pb::IMessage<TrainingRewardsResponse>
+  public sealed partial class FinishTrainingResponse : pb::IMessage<FinishTrainingResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<TrainingRewardsResponse> _parser = new pb::MessageParser<TrainingRewardsResponse>(() => new TrainingRewardsResponse());
+    private static readonly pb::MessageParser<FinishTrainingResponse> _parser = new pb::MessageParser<FinishTrainingResponse>(() => new FinishTrainingResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<TrainingRewardsResponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<FinishTrainingResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.TrainingReflection.Descriptor.MessageTypes[2]; }
+      get { return global::io.hverse.game.protogen.TrainingReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -589,7 +1143,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public TrainingRewardsResponse() {
+    public FinishTrainingResponse() {
       OnConstruction();
     }
 
@@ -597,7 +1151,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public TrainingRewardsResponse(TrainingRewardsResponse other) : this() {
+    public FinishTrainingResponse(FinishTrainingResponse other) : this() {
       resultCode_ = other.resultCode_;
       message_ = other.message_;
       pointNumber_ = other.pointNumber_;
@@ -607,8 +1161,8 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public TrainingRewardsResponse Clone() {
-      return new TrainingRewardsResponse(this);
+    public FinishTrainingResponse Clone() {
+      return new FinishTrainingResponse(this);
     }
 
     /// <summary>Field number for the "resultCode" field.</summary>
@@ -661,12 +1215,12 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as TrainingRewardsResponse);
+      return Equals(other as FinishTrainingResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(TrainingRewardsResponse other) {
+    public bool Equals(FinishTrainingResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -770,7 +1324,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(TrainingRewardsResponse other) {
+    public void MergeFrom(FinishTrainingResponse other) {
       if (other == null) {
         return;
       }

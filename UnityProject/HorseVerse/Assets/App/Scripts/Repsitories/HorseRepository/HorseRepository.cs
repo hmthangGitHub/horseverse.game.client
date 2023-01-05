@@ -26,6 +26,7 @@ public class HorseRepository : Repository<long, HorseDataModel, HorseDataModel>,
             {
                 HorseNtfId = horseInfo.NftId,
                 Name = horseInfo.Name,
+                Happiness = horseInfo.Happiness,
                 Earning = UnityEngine.Random.Range(100, 10000),
                 PowerBonus = UnityEngine.Random.Range(0.0001f, 0.5f),
                 PowerRatio = UnityEngine.Random.Range(0.0001f, 0.5f),

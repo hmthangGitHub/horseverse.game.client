@@ -245,7 +245,7 @@ public class HorseTrainingPresenter : IDisposable
         AudioManager.Instance.StopSound();
     }
 
-    public async UniTask ShowUIHorseTrainingResultAsync(io.hverse.game.protogen.TrainingRewardsResponse result)
+    public async UniTask ShowUIHorseTrainingResultAsync(io.hverse.game.protogen.FinishTrainingResponse result)
     {
         var popup = await UILoader.Instantiate<UITrainingResult>(token: cts.Token);
         long numbox = 0;

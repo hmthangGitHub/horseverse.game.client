@@ -9,6 +9,7 @@ GoogleSheetsToUnity.Legacy
 
 namespace GoogleSheetsToUnity.Editor
 {
+#if UNITY_EDITOR
     public class GoogleSheetsToUnityEditorWindow : EditorWindow
     {
 #if GSTU_Legacy
@@ -225,4 +226,5 @@ namespace GoogleSheetsToUnity.Editor
         }
 #endif
     }
+#endif
 }

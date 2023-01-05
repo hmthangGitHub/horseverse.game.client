@@ -9,7 +9,8 @@ public interface ITrainingDomainService
 {
     UniTask SendHorseToTraining(long masterHorseId);
     UniTask OnDoneTraningPeriod(long masterHorseId);
-    UniTask<TrainingRewardsResponse> GetTrainingRewardData(int distance, int coin);
+    UniTask<StartTrainingResponse> StartTrainingData(long HorseId);
+    UniTask<FinishTrainingResponse> GetTrainingRewardData(int distance, int coin);
 }
 
 public class TrainingDomainServiceBase
@@ -37,7 +38,12 @@ public class TrainingDomainService : TrainingDomainServiceBase, ITrainingDomainS
         throw new System.NotImplementedException();
     }
 
-    public UniTask<TrainingRewardsResponse> GetTrainingRewardData(int distance, int coin)
+    public UniTask<StartTrainingResponse> StartTrainingData(long HorseId)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public UniTask<FinishTrainingResponse> GetTrainingRewardData(int distance, int coin)
     {
         throw new System.NotImplementedException();
     }
@@ -82,9 +88,19 @@ public class LocalTraningDomainService : TrainingDomainServiceBase, ITrainingDom
         await UserDataRepository.UpdateModelAsync(new UserDataModel[] { model });
     }
 
-    public async UniTask<TrainingRewardsResponse> GetTrainingRewardData(int distance, int coin)
+    public async UniTask<StartTrainingResponse> StartTrainingData(long HorseId)
     {
-        var trainingRewardsResponse = await SocketClient.Send<TrainingRewardsRequest, TrainingRewardsResponse>(new TrainingRewardsRequest()
+        var response = await SocketClient.Send<StartTrainingRequest, StartTrainingResponse>(new StartTrainingRequest()
+        {
+            HorseId = HorseId,
+        }, 5.0f);
+
+        return response;
+    }
+
+    public async UniTask<FinishTrainingResponse> GetTrainingRewardData(int distance, int coin)
+    {
+        var trainingRewardsResponse = await SocketClient.Send<FinishTrainingRequest, FinishTrainingResponse>(new FinishTrainingRequest()
         {
             CoinNumber = coin,
             Distance = distance,

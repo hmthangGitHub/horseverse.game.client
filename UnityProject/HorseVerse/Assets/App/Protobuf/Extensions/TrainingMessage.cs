@@ -7,10 +7,16 @@ namespace io.hverse.game.protogen
     {
         Enum ISubMessage.MsgType => this.MsgType;
         public GameMessageType GameMessageType => GameMessageType.TrainingMessage;
-        public TrainingMessage(TrainingRewardsRequest x)
+        public TrainingMessage(StartTrainingRequest x)
         {
-            MsgType = TrainingMessageType.TrainingRewardsRequest;
-            TrainingRewardsRequest = x;
+            MsgType = TrainingMessageType.StartTrainingRequest;
+            StartTrainingRequest = x;
+        }
+
+        public TrainingMessage(FinishTrainingRequest x)
+        {
+            MsgType = TrainingMessageType.FinishTrainingRequest;
+            FinishTrainingRequest = x;
         }
     }
 }
