@@ -23,7 +23,6 @@ public class UIHorseTraining : PopupEntity<UIHorseTraining.Entity>
     public UIComponentTraningProcessingState processingState;
     public UIComponentTraningHorseSelectSumaryList horseSelectSumaryList;
     
-    
     protected override void OnSetEntity()
     {
         horseDetail.SetEntity(this.entity.horseDetail);

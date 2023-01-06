@@ -406,6 +406,7 @@ public class LoginStatePresenter : IDisposable
     private void UpdateMasterData(MasterDataResponse data)
     {
         UserSettingLocalRepository.MasterDataModel.MaxHappinessNumber = data.MaxHappinessNumber;
+        UserSettingLocalRepository.MasterDataModel.TrainingHappinessCost = data.HappinessNumberPerTraining;
         UserSettingLocalRepository.MasterDataModel.BetNumberList.Clear();
         UserSettingLocalRepository.MasterDataModel.BetNumberList.AddRange(data.BetNumberList);
     }

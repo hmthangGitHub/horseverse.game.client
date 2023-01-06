@@ -18,7 +18,6 @@ public class UIHorseTrainingPresenter : IDisposable
     private ITrainingDomainService trainingDomainService;
     private IReadOnlyHorseRepository horseRepository;
     private MasterHorseContainer masterHorseContainer;
-    private const int trainingCost = 1;
     public event Action ToTrainingActionState = ActionUtility.EmptyAction.Instance;
     
     private HorseDetailEntityFactory HorseDetailEntityFactory => horseDetailEntityFactory ??= container.Inject<HorseDetailEntityFactory>();
@@ -49,6 +48,7 @@ public class UIHorseTrainingPresenter : IDisposable
         UserDataRepository.OnModelUpdate += UserDataRepositoryOnModelUpdate;
         var h = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
         currentSelectHorseId = UserDataRepository.Current.CurrentHorseNftId;
+
         uiHorseTraining.SetEntity(new UIHorseTraining.Entity()
         {
             horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.CurrentHorseNftId),
@@ -63,7 +63,7 @@ public class UIHorseTrainingPresenter : IDisposable
                 //    },
                 //},
                 toTraningBtn = new ButtonComponent.Entity(() => ToTrainingAsync().Forget()),
-                traningCost = trainingCost,
+                traningCost = UserSettingLocalRepository.MasterDataModel.TrainingHappinessCost,
             },
             processingState = currentState == UIComponentTraningState.TraningState.Processing ? new UIComponentTraningProcessingState.Entity()
             {

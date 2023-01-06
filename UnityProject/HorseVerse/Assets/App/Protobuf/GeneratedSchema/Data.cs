@@ -28,50 +28,51 @@ namespace io.hverse.game.protogen {
             "MhAuRGF0YU1lc3NhZ2VUeXBlEi0KEW1hc3RlckRhdGFSZXF1ZXN0GAIgASgL",
             "MhIuTWFzdGVyRGF0YVJlcXVlc3QSLwoSbWFzdGVyRGF0YVJlc3BvbnNlGAMg",
             "ASgLMhMuTWFzdGVyRGF0YVJlc3BvbnNlIhMKEU1hc3RlckRhdGFSZXF1ZXN0",
-            "IkcKEk1hc3RlckRhdGFSZXNwb25zZRIaChJtYXhIYXBwaW5lc3NOdW1iZXIY",
-            "ASABKAUSFQoNYmV0TnVtYmVyTGlzdBgCIAMoBSKUAwoJSG9yc2VJbmZvEg0K",
-            "BW5mdElkGAEgASgDEgsKA2JtcxgCIAEoAhILCgNtbXMYAyABKAISFAoMYWNj",
-            "ZWxlcmF0aW9uGAQgASgCEg8KB3N0YW1pbmEYBSABKAISHQoJaG9yc2VUeXBl",
-            "GAYgASgOMgouSG9yc2VUeXBlEhcKBnJhcml0eRgHIAEoDjIHLlJhcml0eRIM",
-            "CgRsdWNrGAggASgFEg0KBWxldmVsGAkgASgFEg4KBmNvbG9yMRgKIAEoCRIO",
-            "CgZjb2xvcjIYCyABKAkSDgoGY29sb3IzGAwgASgJEg4KBmNvbG9yNBgNIAEo",
-            "CRIPCgd3aW5SYXRlGA4gASgCEgwKBG5hbWUYDyABKAkSGQoRbGFzdEJldHRp",
-            "bmdSZWNvcmQYECABKAISHAoUYXZlcmFnZUJldHRpbmdSZWNvcmQYESABKAIS",
-            "GQoRYmVzdEJldHRpbmdSZWNvcmQYEiABKAISEQoJaGFwcGluZXNzGBMgASgF",
-            "EhwKFHJlc3RvcmVIYXBwaW5lc3NUaW1lGBQgASgDIjcKClJld2FyZEluZm8S",
-            "GQoEdHlwZRgBIAEoDjILLlJld2FyZFR5cGUSDgoGYW1vdW50GAIgASgDIoYB",
-            "CghJdGVtSW5mbxIXCgR0eXBlGAEgASgOMgkuSXRlbVR5cGUSIwoMY2hlc3RL",
-            "ZXlJbmZvGAIgASgLMg0uQ2hlc3RLZXlJbmZvEh0KCWNoZXN0SW5mbxgDIAEo",
-            "CzIKLkNoZXN0SW5mbxIdCglwaWVjZUluZm8YBCABKAsyCi5QaWVjZUluZm8i",
-            "SQoMQ2hlc3RLZXlJbmZvEgwKBG5hbWUYASABKAkSGwoEdHlwZRgCIAEoDjIN",
-            "LkNoZXN0S2V5VHlwZRIOCgZhbW91bnQYAyABKAUiQwoJQ2hlc3RJbmZvEgwK",
-            "BG5hbWUYASABKAkSGAoEdHlwZRgCIAEoDjIKLkNoZXN0VHlwZRIOCgZhbW91",
-            "bnQYAyABKAUiWgoJUGllY2VJbmZvEgwKBG5hbWUYASABKAkSGAoEdHlwZRgC",
-            "IAEoDjIKLlBpZWNlVHlwZRIVCg1jb21iaW5lTnVtYmVyGAMgASgFEg4KBmFt",
-            "b3VudBgEIAEoBSpECg9EYXRhTWVzc2FnZVR5cGUSFwoTTUFTVEVSX0RBVEFf",
-            "UkVRVUVTVBAAEhgKFE1BU1RFUl9EQVRBX1JFU1BPTlNFEAEqeQoGUmFyaXR5",
-            "EhIKDlJBUklUWV9VTktOT1dOEAASEQoNUkFSSVRZX0NPTU1PThABEhMKD1JB",
-            "UklUWV9VTkNPTU1PThACEg8KC1JBUklUWV9SQVJFEAMSDwoLUkFSSVRZX0VQ",
-            "SUMQBBIRCg1SQVJJVFlfTEVHRU5EEAUqZwoJSG9yc2VUeXBlEhYKEkhPUlNF",
-            "X1RZUEVfVU5LTk9XThAAEhQKEEhPUlNFX1RZUEVfQkxBWkUQARIWChJIT1JT",
-            "RV9UWVBFX1RIVU5ERVIQAhIUChBIT1JTRV9UWVBFX0hJRFJPEAMqIAoETGFu",
-            "ZRIGCgJJThAAEgcKA01JRBABEgcKA09VVBACKkYKDFJld2FyZFN0YXR1cxIb",
-            "ChdSRVdBUkRfU1RBVFVTX1VOQ0xBSU1FRBAAEhkKFVJFV0FSRF9TVEFUVVNf",
-            "Q0xBSU1FRBABKk8KClJld2FyZFR5cGUSFAoQUkVXQVJEX1RZUEVfTk9ORRAA",
-            "EhQKEFJFV0FSRF9UWVBFX0NISVAQARIVChFSRVdBUkRfVFlQRV9DSEVTVBAC",
-            "Kk0KCEl0ZW1UeXBlEhcKE0lURU1fVFlQRV9DSEVTVF9LRVkQABITCg9JVEVN",
-            "X1RZUEVfQ0hFU1QQARITCg9JVEVNX1RZUEVfUElFQ0UQAiopCgxDaGVzdEtl",
-            "eVR5cGUSGQoVQ0hFU1RfS0VZX1RZUEVfQ09NTU9OEAAqNwoJQ2hlc3RUeXBl",
-            "EhUKEUNIRVNUX1RZUEVfQ09NTU9OEAASEwoPQ0hFU1RfVFlQRV9SQVJFEAEq",
-            "IQoJUGllY2VUeXBlEhQKEFBJRUNFX1RZUEVfQ0hFU1QQAEJHChdpby5odmVy",
-            "c2UuZ2FtZS5wcm90b2dlbkISRGF0YU1lc3NhZ2VGYWN0b3J5qgIXaW8uaHZl",
-            "cnNlLmdhbWUucHJvdG9nZW5iBnByb3RvMw=="));
+            "ImsKEk1hc3RlckRhdGFSZXNwb25zZRIaChJtYXhIYXBwaW5lc3NOdW1iZXIY",
+            "ASABKAUSIgoaaGFwcGluZXNzTnVtYmVyUGVyVHJhaW5pbmcYAiABKAUSFQoN",
+            "YmV0TnVtYmVyTGlzdBgDIAMoBSKUAwoJSG9yc2VJbmZvEg0KBW5mdElkGAEg",
+            "ASgDEgsKA2JtcxgCIAEoAhILCgNtbXMYAyABKAISFAoMYWNjZWxlcmF0aW9u",
+            "GAQgASgCEg8KB3N0YW1pbmEYBSABKAISHQoJaG9yc2VUeXBlGAYgASgOMgou",
+            "SG9yc2VUeXBlEhcKBnJhcml0eRgHIAEoDjIHLlJhcml0eRIMCgRsdWNrGAgg",
+            "ASgFEg0KBWxldmVsGAkgASgFEg4KBmNvbG9yMRgKIAEoCRIOCgZjb2xvcjIY",
+            "CyABKAkSDgoGY29sb3IzGAwgASgJEg4KBmNvbG9yNBgNIAEoCRIPCgd3aW5S",
+            "YXRlGA4gASgCEgwKBG5hbWUYDyABKAkSGQoRbGFzdEJldHRpbmdSZWNvcmQY",
+            "ECABKAISHAoUYXZlcmFnZUJldHRpbmdSZWNvcmQYESABKAISGQoRYmVzdEJl",
+            "dHRpbmdSZWNvcmQYEiABKAISEQoJaGFwcGluZXNzGBMgASgFEhwKFHJlc3Rv",
+            "cmVIYXBwaW5lc3NUaW1lGBQgASgDIjcKClJld2FyZEluZm8SGQoEdHlwZRgB",
+            "IAEoDjILLlJld2FyZFR5cGUSDgoGYW1vdW50GAIgASgDIoYBCghJdGVtSW5m",
+            "bxIXCgR0eXBlGAEgASgOMgkuSXRlbVR5cGUSIwoMY2hlc3RLZXlJbmZvGAIg",
+            "ASgLMg0uQ2hlc3RLZXlJbmZvEh0KCWNoZXN0SW5mbxgDIAEoCzIKLkNoZXN0",
+            "SW5mbxIdCglwaWVjZUluZm8YBCABKAsyCi5QaWVjZUluZm8iSQoMQ2hlc3RL",
+            "ZXlJbmZvEgwKBG5hbWUYASABKAkSGwoEdHlwZRgCIAEoDjINLkNoZXN0S2V5",
+            "VHlwZRIOCgZhbW91bnQYAyABKAUiQwoJQ2hlc3RJbmZvEgwKBG5hbWUYASAB",
+            "KAkSGAoEdHlwZRgCIAEoDjIKLkNoZXN0VHlwZRIOCgZhbW91bnQYAyABKAUi",
+            "WgoJUGllY2VJbmZvEgwKBG5hbWUYASABKAkSGAoEdHlwZRgCIAEoDjIKLlBp",
+            "ZWNlVHlwZRIVCg1jb21iaW5lTnVtYmVyGAMgASgFEg4KBmFtb3VudBgEIAEo",
+            "BSpECg9EYXRhTWVzc2FnZVR5cGUSFwoTTUFTVEVSX0RBVEFfUkVRVUVTVBAA",
+            "EhgKFE1BU1RFUl9EQVRBX1JFU1BPTlNFEAEqeQoGUmFyaXR5EhIKDlJBUklU",
+            "WV9VTktOT1dOEAASEQoNUkFSSVRZX0NPTU1PThABEhMKD1JBUklUWV9VTkNP",
+            "TU1PThACEg8KC1JBUklUWV9SQVJFEAMSDwoLUkFSSVRZX0VQSUMQBBIRCg1S",
+            "QVJJVFlfTEVHRU5EEAUqZwoJSG9yc2VUeXBlEhYKEkhPUlNFX1RZUEVfVU5L",
+            "Tk9XThAAEhQKEEhPUlNFX1RZUEVfQkxBWkUQARIWChJIT1JTRV9UWVBFX1RI",
+            "VU5ERVIQAhIUChBIT1JTRV9UWVBFX0hJRFJPEAMqIAoETGFuZRIGCgJJThAA",
+            "EgcKA01JRBABEgcKA09VVBACKkYKDFJld2FyZFN0YXR1cxIbChdSRVdBUkRf",
+            "U1RBVFVTX1VOQ0xBSU1FRBAAEhkKFVJFV0FSRF9TVEFUVVNfQ0xBSU1FRBAB",
+            "Kk8KClJld2FyZFR5cGUSFAoQUkVXQVJEX1RZUEVfTk9ORRAAEhQKEFJFV0FS",
+            "RF9UWVBFX0NISVAQARIVChFSRVdBUkRfVFlQRV9DSEVTVBACKk0KCEl0ZW1U",
+            "eXBlEhcKE0lURU1fVFlQRV9DSEVTVF9LRVkQABITCg9JVEVNX1RZUEVfQ0hF",
+            "U1QQARITCg9JVEVNX1RZUEVfUElFQ0UQAiopCgxDaGVzdEtleVR5cGUSGQoV",
+            "Q0hFU1RfS0VZX1RZUEVfQ09NTU9OEAAqNwoJQ2hlc3RUeXBlEhUKEUNIRVNU",
+            "X1RZUEVfQ09NTU9OEAASEwoPQ0hFU1RfVFlQRV9SQVJFEAEqIQoJUGllY2VU",
+            "eXBlEhQKEFBJRUNFX1RZUEVfQ0hFU1QQAEJHChdpby5odmVyc2UuZ2FtZS5w",
+            "cm90b2dlbkISRGF0YU1lc3NhZ2VGYWN0b3J5qgIXaW8uaHZlcnNlLmdhbWUu",
+            "cHJvdG9nZW5iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.DataMessageType), typeof(global::io.hverse.game.protogen.Rarity), typeof(global::io.hverse.game.protogen.HorseType), typeof(global::io.hverse.game.protogen.Lane), typeof(global::io.hverse.game.protogen.RewardStatus), typeof(global::io.hverse.game.protogen.RewardType), typeof(global::io.hverse.game.protogen.ItemType), typeof(global::io.hverse.game.protogen.ChestKeyType), typeof(global::io.hverse.game.protogen.ChestType), typeof(global::io.hverse.game.protogen.PieceType), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.DataMessage), global::io.hverse.game.protogen.DataMessage.Parser, new[]{ "MsgType", "MasterDataRequest", "MasterDataResponse" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataRequest), global::io.hverse.game.protogen.MasterDataRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataResponse), global::io.hverse.game.protogen.MasterDataResponse.Parser, new[]{ "MaxHappinessNumber", "BetNumberList" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataResponse), global::io.hverse.game.protogen.MasterDataResponse.Parser, new[]{ "MaxHappinessNumber", "HappinessNumberPerTraining", "BetNumberList" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "Bms", "Mms", "Acceleration", "Stamina", "HorseType", "Rarity", "Luck", "Level", "Color1", "Color2", "Color3", "Color4", "WinRate", "Name", "LastBettingRecord", "AverageBettingRecord", "BestBettingRecord", "Happiness", "RestoreHappinessTime" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RewardInfo), global::io.hverse.game.protogen.RewardInfo.Parser, new[]{ "Type", "Amount" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ItemInfo), global::io.hverse.game.protogen.ItemInfo.Parser, new[]{ "Type", "ChestKeyInfo", "ChestInfo", "PieceInfo" }, null, null, null, null),
@@ -612,6 +613,7 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public MasterDataResponse(MasterDataResponse other) : this() {
       maxHappinessNumber_ = other.maxHappinessNumber_;
+      happinessNumberPerTraining_ = other.happinessNumberPerTraining_;
       betNumberList_ = other.betNumberList_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -634,10 +636,22 @@ namespace io.hverse.game.protogen {
       }
     }
 
+    /// <summary>Field number for the "happinessNumberPerTraining" field.</summary>
+    public const int HappinessNumberPerTrainingFieldNumber = 2;
+    private int happinessNumberPerTraining_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int HappinessNumberPerTraining {
+      get { return happinessNumberPerTraining_; }
+      set {
+        happinessNumberPerTraining_ = value;
+      }
+    }
+
     /// <summary>Field number for the "betNumberList" field.</summary>
-    public const int BetNumberListFieldNumber = 2;
+    public const int BetNumberListFieldNumber = 3;
     private static readonly pb::FieldCodec<int> _repeated_betNumberList_codec
-        = pb::FieldCodec.ForInt32(18);
+        = pb::FieldCodec.ForInt32(26);
     private readonly pbc::RepeatedField<int> betNumberList_ = new pbc::RepeatedField<int>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -661,6 +675,7 @@ namespace io.hverse.game.protogen {
         return true;
       }
       if (MaxHappinessNumber != other.MaxHappinessNumber) return false;
+      if (HappinessNumberPerTraining != other.HappinessNumberPerTraining) return false;
       if(!betNumberList_.Equals(other.betNumberList_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -670,6 +685,7 @@ namespace io.hverse.game.protogen {
     public override int GetHashCode() {
       int hash = 1;
       if (MaxHappinessNumber != 0) hash ^= MaxHappinessNumber.GetHashCode();
+      if (HappinessNumberPerTraining != 0) hash ^= HappinessNumberPerTraining.GetHashCode();
       hash ^= betNumberList_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -693,6 +709,10 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(8);
         output.WriteInt32(MaxHappinessNumber);
       }
+      if (HappinessNumberPerTraining != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(HappinessNumberPerTraining);
+      }
       betNumberList_.WriteTo(output, _repeated_betNumberList_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -708,6 +728,10 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(8);
         output.WriteInt32(MaxHappinessNumber);
       }
+      if (HappinessNumberPerTraining != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(HappinessNumberPerTraining);
+      }
       betNumberList_.WriteTo(ref output, _repeated_betNumberList_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -721,6 +745,9 @@ namespace io.hverse.game.protogen {
       int size = 0;
       if (MaxHappinessNumber != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(MaxHappinessNumber);
+      }
+      if (HappinessNumberPerTraining != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(HappinessNumberPerTraining);
       }
       size += betNumberList_.CalculateSize(_repeated_betNumberList_codec);
       if (_unknownFields != null) {
@@ -737,6 +764,9 @@ namespace io.hverse.game.protogen {
       }
       if (other.MaxHappinessNumber != 0) {
         MaxHappinessNumber = other.MaxHappinessNumber;
+      }
+      if (other.HappinessNumberPerTraining != 0) {
+        HappinessNumberPerTraining = other.HappinessNumberPerTraining;
       }
       betNumberList_.Add(other.betNumberList_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -758,8 +788,12 @@ namespace io.hverse.game.protogen {
             MaxHappinessNumber = input.ReadInt32();
             break;
           }
-          case 18:
           case 16: {
+            HappinessNumberPerTraining = input.ReadInt32();
+            break;
+          }
+          case 26:
+          case 24: {
             betNumberList_.AddEntriesFrom(input, _repeated_betNumberList_codec);
             break;
           }
@@ -782,8 +816,12 @@ namespace io.hverse.game.protogen {
             MaxHappinessNumber = input.ReadInt32();
             break;
           }
-          case 18:
           case 16: {
+            HappinessNumberPerTraining = input.ReadInt32();
+            break;
+          }
+          case 26:
+          case 24: {
             betNumberList_.AddEntriesFrom(ref input, _repeated_betNumberList_codec);
             break;
           }
