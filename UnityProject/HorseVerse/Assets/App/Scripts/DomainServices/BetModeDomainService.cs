@@ -191,7 +191,7 @@ public class LocalBetModeDomainService : BetModeDomainServiceBase, IBetModeDomai
 
     public async UniTask<RaceMatchData> GetCurrentBetModeRaceMatchData()
     {
-        return await new LocalQuickRaceDomainService(container).FindMatch();
+        return await new LocalQuickRaceDomainService(container).FindMatch(0);
     }
 
     public async UniTask<HorseBetInfo> GetCurrentBetModeHorseData()

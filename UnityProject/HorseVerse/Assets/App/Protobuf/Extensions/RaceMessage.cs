@@ -15,5 +15,17 @@ namespace io.hverse.game.protogen
             this.msgType_ = RaceMessageType.RaceScriptRequest;
             raceScriptRequest_ = request;
         }
+        
+        public RaceMessage(JoinPoolRequest request)
+        {
+            this.msgType_ = RaceMessageType.JoinPoolRequest;
+            joinPoolRequest_ = request;
+        }
+
+        public RaceMessage(ExitPoolRequest request)
+        {
+            this.msgType_ = RaceMessageType.ExitPoolRequest;
+            exitPoolRequest_ = request;
+        }
     }
 }

@@ -88,12 +88,12 @@ public partial class UIQuickRacePresenter : IDisposable
     private async UniTaskVoid OnFindMatchAsync()
     {
         StartFindMatchTimerAsync().Forget();
-        var raceMatchData = await QuickRaceDomainService.FindMatch().AttachExternalCancellation(cts.Token);
+        var raceMatchData = await QuickRaceDomainService.FindMatch(UserDataRepository.Current.CurrentHorseNftId);
         StopFindMatchTimer();
         OnFoundMatch.Invoke(raceMatchData);
     }
 
-    public void StopFindMatchTimer()
+    private void StopFindMatchTimer()
     {
         cts.SafeCancelAndDispose();
         cts = default;
@@ -125,8 +125,8 @@ public partial class UIQuickRacePresenter : IDisposable
 
     private async UniTaskVoid OnCancelFindMatchAsync()
     {
+        await QuickRaceDomainService.CancelFindMatch(UserDataRepository.Current.CurrentHorseNftId);
         StopFindMatchTimer();
-        await QuickRaceDomainService.CancelFindMatch();
         uiQuickMode.entity.findMatchBtnVisible.isVisible = true;
         uiQuickMode.entity.cancelMatchBtnVisible.isVisible = false;
         uiQuickMode.findMatchBtnVisible.SetEntity(true);
