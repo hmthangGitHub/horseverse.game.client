@@ -39,7 +39,13 @@ public partial class MasterDataGenerator
 
     private static void WriteCsvFile(RawData rawData, string path)
     {
-        var masterData = string.Join("\n", rawData.values.Select(x => string.Join(",", x)));
+        var columnLength = rawData.values.First()
+                                  .Count;
+        var masterData = string.Join("\n", rawData.values
+                                                  .Select(x => x.Concat(Enumerable.Range(0, columnLength - x.Count)
+                                                                                        .Select(dummy => string.Empty))
+                                                  )
+                                                  .Select(x => string.Join(",", x)));
         File.WriteAllText(path, masterData);
     }
 
