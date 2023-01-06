@@ -68,7 +68,7 @@ public partial class LevelEditorPresenter
         var blockComboName = await AskUserInput("Enter block combo name");
         if (string.IsNullOrEmpty(blockComboName)) return;
         var masterHorseTrainingBlockId = CurrentBlockComboType == MasterTrainingBlockComboType.Predefine
-            ? await SelectingMasterHorseTrainingBlockIdAsync()
+            ? await SelectingMasterHorseTrainingBlockIdAsync(FromBlockComboTypeToModularBlockType(CurrentBlockComboType))
             : string.Empty;
         if (CurrentBlockComboType == MasterTrainingBlockComboType.Predefine &&
             string.IsNullOrEmpty(masterHorseTrainingBlockId)) return;
@@ -104,23 +104,23 @@ public partial class LevelEditorPresenter
 
     private async UniTask OnAddBlockInComboAsync()
     {
-        var selectingMasterHorseTrainingBlockId = await SelectingMasterHorseTrainingBlockIdAsync();
+        var selectingMasterHorseTrainingBlockId = await SelectingMasterHorseTrainingBlockIdAsync(FromBlockComboTypeToModularBlockType(CurrentBlockComboType));
         if (selectingMasterHorseTrainingBlockId != default)
         {
             var masterHorseTrainingBlockIdList = currentSelectingBlockCombo.masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList.ToList();
             masterHorseTrainingBlockIdList.Add(selectingMasterHorseTrainingBlockId);
-            UpdateBlockCombo(masterHorseTrainingBlockIdList);
+            UpdateBlockInCombo(masterHorseTrainingBlockIdList);
         }
     }
 
-    private async UniTask<string> SelectingMasterHorseTrainingBlockIdAsync()
+    private async UniTask<string> SelectingMasterHorseTrainingBlockIdAsync(MasterTrainingModularBlockType masterTrainingModularBlockType)
     {
         var ucs = new UniTaskCompletionSource<string>();
         uiDebugLevelEditor.editMode.SetEntity(UIDebugLevelEditorMode.Mode.BlockInCombo);
         uiDebugLevelEditor.entity.blockInComboList = new UIDebugLevelEditorBlockListContainer.Entity()
         {
             blockList = masterTrainingModularBlockContainer.DataList
-                                                           .Where(x => x.MasterTrainingModularBlockType == FromBlockComboTypeToModularBlockType(CurrentBlockComboType)).Select((masterHorseTrainingBlock, i) =>
+                                                           .Where(x => x.MasterTrainingModularBlockType == masterTrainingModularBlockType).Select((masterHorseTrainingBlock, i) =>
                 new UIDebugTrainingBlock.Entity()
                 {
                     blockName = masterHorseTrainingBlock.MasterTrainingModularBlockId,
@@ -140,11 +140,16 @@ public partial class LevelEditorPresenter
         return await ucs.Task.AttachExternalCancellation(cts.Token);
     }
     
-    private void UpdateBlockCombo(List<string> masterHorseTrainingBlockIdList)
+    private void UpdateBlockInCombo(List<string> masterHorseTrainingBlockIdList)
     {
         currentSelectingBlockCombo.masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList =
             masterHorseTrainingBlockIdList.ToArray();
-        var master=  currentSelectingBlockCombo.masterHorseTrainingBlockCombo;
+        RefreshBlockCombo();
+    }
+
+    private void RefreshBlockCombo()
+    {
+        var master = currentSelectingBlockCombo.masterHorseTrainingBlockCombo;
         var index = currentSelectingBlockCombo.index;
         currentSelectingBlockCombo = default;
         OnEditBlockCombo(master, index);
@@ -157,7 +162,7 @@ public partial class LevelEditorPresenter
         {
             var masterHorseTrainingBlockIdList = currentSelectingBlockCombo.masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList.ToList();
             masterHorseTrainingBlockIdList.RemoveAt(index);
-            UpdateBlockCombo(masterHorseTrainingBlockIdList);
+            UpdateBlockInCombo(masterHorseTrainingBlockIdList);
         }
     }
 
@@ -167,16 +172,15 @@ public partial class LevelEditorPresenter
         currentSelectingBlockCombo = (masterHorseTrainingBlockCombo, i);
         currentEditingPlatformObject = Object.Instantiate(platformPrefab, levelEditorManager.transform);
         
-        var paddingBlockId = masterTrainingModularBlockContainer.MasterTrainingModularBlockIndexer.Values
-                                                                .First(x => x.MasterTrainingModularBlockType == MasterTrainingModularBlockType.Padding)
-                                                                .MasterTrainingModularBlockId;
+        var paddingStartBlockId= masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(masterHorseTrainingBlockCombo.MasterTrainingModularBlockIdStart);
+        var paddingEndBlockId= masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(masterHorseTrainingBlockCombo.MasterTrainingModularBlockIdEnd);
 
         var modularBlockIds = currentSelectingBlockCombo.masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList; 
 
         var editingPlatformObject = ((PlatformModular)currentEditingPlatformObject);
         editingPlatformObject.GenerateBlock(Vector3.zero, modularBlockIds.Select(x => trainingBlockSettings.BlocksLookUpTable[x].gameObject).ToArray(), 
-            trainingBlockSettings.BlocksLookUpTable[paddingBlockId].gameObject,
-        trainingBlockSettings.BlocksLookUpTable[paddingBlockId].gameObject,
+            trainingBlockSettings.BlocksLookUpTable[paddingStartBlockId].gameObject,
+        trainingBlockSettings.BlocksLookUpTable[paddingEndBlockId].gameObject,
         masterHorseTrainingProperty.JumpingPoint,
         masterHorseTrainingProperty.LandingPoint,
         CurrentBlockComboType);
@@ -217,7 +221,8 @@ public partial class LevelEditorPresenter
             addBtn = new ButtonComponent.Entity(() => OnAddBlockInComboAsync().Forget()),
             pinTransform = LevelDesignPin.Instantiate(editingPlatformObject.PaddingTailCollider).transform,
             camera = freeCameraComponent,
-            
+            isShuffleBtnVisible = true,
+            shuffleBtn = new ButtonComponent.Entity(() => OnChangePaddingAsync(currentSelectingBlockCombo.masterHorseTrainingBlockCombo.SetMasterTrainingModularBlockIdEnd).Forget()),
         });
         pin.In().Forget();
     }
@@ -245,7 +250,7 @@ public partial class LevelEditorPresenter
                         .Count - 1)
                 {
                     Swap(masterHorseTrainingBlockIdList, i, i + 1);
-                    UpdateBlockCombo(masterHorseTrainingBlockIdList);    
+                    UpdateBlockInCombo(masterHorseTrainingBlockIdList);    
                 }
             }),
             rightBtn = new ButtonComponent.Entity(() =>
@@ -254,7 +259,7 @@ public partial class LevelEditorPresenter
                 if (i != 0)
                 {
                     Swap(masterHorseTrainingBlockIdList, i, i - 1);
-                    UpdateBlockCombo(masterHorseTrainingBlockIdList);
+                    UpdateBlockInCombo(masterHorseTrainingBlockIdList);
                 }
             }),
             deleteBtn = new ButtonComponent.Entity(() =>
@@ -282,19 +287,31 @@ public partial class LevelEditorPresenter
                 defaultValue = currentSelectingBlockCombo.masterHorseTrainingBlockCombo.Name,
                 interactable = false
             },
-            isBlockNameVisible = true
+            isBlockNameVisible = true,
+            shuffleBtn = new ButtonComponent.Entity(() => OnChangePaddingAsync(currentSelectingBlockCombo.masterHorseTrainingBlockCombo.SetMasterTrainingModularBlockIdStart).Forget()),
+            isShuffleBtnVisible = true
         });
         pin.In().Forget();
     }
 
+    private async UniTaskVoid OnChangePaddingAsync(Action<string> setter)
+    {
+        var blockId =  await SelectingMasterHorseTrainingBlockIdAsync(MasterTrainingModularBlockType.Padding);
+        if (!string.IsNullOrEmpty(blockId))
+        {
+            setter(blockId);
+            RefreshBlockCombo();
+        }
+    }
+
     private async UniTaskVoid OnChangeToAnotherBlock(int i)
     {
-        var selectingMasterHorseTrainingBlockId = await SelectingMasterHorseTrainingBlockIdAsync();
+        var selectingMasterHorseTrainingBlockId = await SelectingMasterHorseTrainingBlockIdAsync(FromBlockComboTypeToModularBlockType(CurrentBlockComboType));
         if (selectingMasterHorseTrainingBlockId != default)
         {
             var idList = currentSelectingBlockCombo.masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList;
             idList[i] = selectingMasterHorseTrainingBlockId;
-            UpdateBlockCombo(idList.ToList());
+            UpdateBlockInCombo(idList.ToList());
         }
     }
 

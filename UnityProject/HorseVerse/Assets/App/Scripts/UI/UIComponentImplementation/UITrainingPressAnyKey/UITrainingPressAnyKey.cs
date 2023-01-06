@@ -10,19 +10,13 @@ public class UITrainingPressAnyKey : PopupEntity<UITrainingPressAnyKey.Entity>
 	[System.Serializable]
     public class Entity
     {
-	    public Action onInput;
+	    public ButtonComponent.Entity outerBtn;
     }
+    
+    public ButtonComponent outerBtn;
 
     protected override void OnSetEntity()
     {
-    }
-
-    private void Update()
-    {
-        if (this.entity == null) return;
-	    if (Input.GetMouseButtonUp(0) || ((Input.touchCount > 0 ) && Input.touches[0].phase == TouchPhase.Ended))
-	    {
-		    this.entity.onInput?.Invoke();
-	    }
+	    outerBtn.SetEntity(this.entity.outerBtn);
     }
 }	

@@ -107,13 +107,13 @@ public partial class PlatformModular : PlatformBase
 
     public void GenerateBlock(Vector3 startPosition,
                               GameObject[] blockPrefabs,
-                              GameObject paddingHeadPrefab,
-                              GameObject paddingTailPrefab,
+                              GameObject paddingStartPrefab,
+                              GameObject paddingEndPrefab,
                               float jumpingPoint,
                               float landingPoint,
                               MasterTrainingBlockComboType masterTrainingBlockComboType)
     {
-        InstantiateBlocks(blockPrefabs, paddingHeadPrefab, paddingTailPrefab, masterTrainingBlockComboType);
+        InstantiateBlocks(blockPrefabs, paddingStartPrefab, paddingEndPrefab, masterTrainingBlockComboType);
         Tiling();
         TilingPaddingBlocks(masterTrainingBlockComboType);
         PlaceStartObjectAtOffsetToFirstBlock(landingPoint);
@@ -123,14 +123,14 @@ public partial class PlatformModular : PlatformBase
     
     public void GenerateBlock(Vector3 startPosition,
                               GameObject[] blockPrefabs,
-                              GameObject paddingHeadPrefab,
-                              GameObject paddingTailPrefab,
+                              GameObject paddingStartPrefab,
+                              GameObject paddingEndPrefab,
                               float jumpingPoint,
                               float landingPoint,
                               MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo, 
                               GameObject[] obstaclesPrefab)
     {
-        GenerateBlock(startPosition, blockPrefabs, paddingHeadPrefab, paddingTailPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType);
+        GenerateBlock(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType);
         GenerateObstacle(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab);
         GenerateCoins(masterHorseTrainingBlockCombo.CoinList);
     }
