@@ -33,6 +33,11 @@ public class HorseTrainingPresenter : IDisposable
     private HorseTrainingDataContext HorseTrainingDataContext => horseTrainingDataContext ??= Container.Inject<HorseTrainingDataContext>();
     private ITrainingDomainService TrainingDomainService => trainingDomainService ??= Container.Inject<ITrainingDomainService>();
 
+    private IReadOnlyUserDataRepository userDataRepository;
+    private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= Container.Inject<IReadOnlyUserDataRepository>();
+    private IReadOnlyHorseRepository horseRepository;
+    private IReadOnlyHorseRepository HorseRepository => horseRepository ??= Container.Inject<IReadOnlyHorseRepository>();
+
     public HorseTrainingPresenter(IDIContainer container)
     {
         Container = container;
@@ -93,6 +98,22 @@ public class HorseTrainingPresenter : IDisposable
         uiTrainingPressAnyKey.In().Forget();
         trainingUcsRetry = new UniTaskCompletionSource<bool>();
         var isNeedRetry =  await trainingUcsRetry.Task.AttachExternalCancellation(cts.Token);
+
+        //Send happiness to server
+        if (isNeedRetry)
+        {
+            var data = await TrainingDomainService.StartTrainingData(UserDataRepository.Current.CurrentHorseNftId);
+            if (data.ResultCode == 100)
+            {
+                var userHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
+                userHorse.Happiness = data.Happiness;
+            }
+            else
+            {
+                isNeedRetry = false;
+            }
+        }
+
         AudioManager.Instance.StopSound();
         return isNeedRetry;
     }

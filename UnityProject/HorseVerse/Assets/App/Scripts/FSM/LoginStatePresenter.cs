@@ -316,6 +316,8 @@ public class LoginStatePresenter : IDisposable
         {
             // GetMasterData 
             var data = await GetMasterData();
+            UpdateMasterData(data);
+
 
             var model = new UserDataModel()
             {
@@ -399,5 +401,12 @@ public class LoginStatePresenter : IDisposable
             serverDefine = (ServerDefine)rq.asset;
         }
 #endif
+    }
+
+    private void UpdateMasterData(MasterDataResponse data)
+    {
+        UserSettingLocalRepository.MasterDataModel.MaxHappinessNumber = data.MaxHappinessNumber;
+        UserSettingLocalRepository.MasterDataModel.BetNumberList.Clear();
+        UserSettingLocalRepository.MasterDataModel.BetNumberList.AddRange(data.BetNumberList);
     }
 }

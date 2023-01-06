@@ -12,14 +12,15 @@ public class UIComponentHorseDetail : UIComponent<UIComponentHorseDetail.Entity>
         public UIComponentProgressBarWithBonus.Entity speedProgressBarWithBonus;
         public UIComponentProgressBarWithBonus.Entity powerProgressBarWithBonus;
         public UIComponentProgressBarWithBonus.Entity technicallyProgressBarWithBonus;
-        //public int earning;
+        public int happiness;
+        public int maxHappiness;
     }
 
     public FormattedTextComponent horseName;
     public UIComponentProgressBarWithBonus speedProgressBarWithBonus;
     public UIComponentProgressBarWithBonus powerProgressBarWithBonus;
     public UIComponentProgressBarWithBonus technicallyProgressBarWithBonus;
-    //public FormattedTextComponent earning;
+    public FormattedTextComponent happiness;
     public FormattedTextComponent level;
 
     protected override void OnSetEntity()
@@ -29,7 +30,7 @@ public class UIComponentHorseDetail : UIComponent<UIComponentHorseDetail.Entity>
         speedProgressBarWithBonus.SetEntity(this.entity.speedProgressBarWithBonus);
         powerProgressBarWithBonus.SetEntity(this.entity.powerProgressBarWithBonus);
         technicallyProgressBarWithBonus.SetEntity(this.entity.technicallyProgressBarWithBonus);
-        //earning.SetEntity(this.entity.earning);
+        if(happiness != default) happiness.SetEntity(this.entity.happiness, this.entity.maxHappiness);
         level.SetEntity(this.entity.level);
     }
 }	

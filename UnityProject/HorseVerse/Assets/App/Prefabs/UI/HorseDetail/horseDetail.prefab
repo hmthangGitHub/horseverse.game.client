@@ -292,6 +292,7 @@ MonoBehaviour:
   speedProgressBarWithBonus: {fileID: 2506121888883172286}
   powerProgressBarWithBonus: {fileID: 3855248671517609540}
   technicallyProgressBarWithBonus: {fileID: 8308843792280622781}
+  happiness: {fileID: 7628840227670731844}
   level: {fileID: 5925659697362912995}
 --- !u!114 &936797438961968532
 MonoBehaviour:
@@ -2985,7 +2986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 7425687558980465321}
-  format: '{0}'
+  format: '{0}/{1}'
 --- !u!1 &8462524979188446353
 GameObject:
   m_ObjectHideFlags: 0

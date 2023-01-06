@@ -46,6 +46,8 @@ public class HorseDetailEntityFactory
                     progress = userHorse.TechnicallyRatio
                 }
             },
+            happiness = userHorse.Happiness,
+            maxHappiness = UserSettingLocalRepository.MasterDataModel.MaxHappinessNumber,
         };
     }
 

@@ -12,4 +12,6 @@ public class UserSettingLocalRepository
     // }
     
     public static bool IsSkipConfirmBet { get; set; } // TODO temporary
+
+    public static MasterDataModel MasterDataModel { get; set; } = new MasterDataModel();
 }

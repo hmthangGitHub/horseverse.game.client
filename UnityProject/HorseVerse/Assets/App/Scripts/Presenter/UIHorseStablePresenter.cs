@@ -75,7 +75,9 @@ public class UIHorseStablePresenter : IDisposable
                     {
                         progress = HorseRepository.Models[current].TechnicallyRatio
                     }
-                }
+                },
+                happiness = HorseRepository.Models[current].Happiness,
+                maxHappiness = UserSettingLocalRepository.MasterDataModel.MaxHappinessNumber,
             },
             horseRace = new UIComponentHorseRace.Entity()
             {
@@ -139,6 +141,8 @@ public class UIHorseStablePresenter : IDisposable
                     progress = HorseRepository.Models[masterHorseId].TechnicallyRatio
                 }
             };
+            eh.happiness = HorseRepository.Models[masterHorseId].Happiness;
+            eh.maxHappiness = UserSettingLocalRepository.MasterDataModel.MaxHappinessNumber;
         };
 
         var er = uiHorseStable.horseRace.entity;
