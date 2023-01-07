@@ -10,8 +10,8 @@ using io.hverse.game.protogen;
 public interface IQuickRaceDomainService
 {
     UniTask ChangeHorse(long horseNtfId);
-    UniTask<RaceMatchData> FindMatch();
-    UniTask CancelFindMatch();
+    UniTask<RaceMatchData> FindMatch(long ntfHorseId);
+    UniTask CancelFindMatch(long ntfHorseId);
 }
 
 public class QuickRaceDomainServiceBase
@@ -30,15 +30,11 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
 {
     private ISocketClient socketClient;
     private MasterHorseContainer masterHorseContainer;
+    private UniTaskCompletionSource<RaceScriptResponse> findMatchUcs;
     private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= Container.Inject<MasterHorseContainer>();
     private ISocketClient SocketClient => socketClient ??= Container.Inject<ISocketClient>();
 
     public QuickRaceDomainService(IDIContainer container) : base(container){}
-
-    public UniTask CancelFindMatch()
-    {
-        return UniTask.CompletedTask;
-    }
 
     public async UniTask ChangeHorse(long horseNtfId)
     {
@@ -59,15 +55,43 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
         await UserDataRepository.UpdateModelAsync(new[] { model });
     }
 
-    public async UniTask<RaceMatchData> FindMatch()
+    public async UniTask<RaceMatchData> FindMatch(long ntfHorseId)
     {
-        var response = await SocketClient.Send<RaceScriptRequest, RaceScriptResponse>(new RaceScriptRequest());
+        JoinPool(ntfHorseId).Forget();
         return new RaceMatchData()
         {
-            HorseRaceInfos = GetHorseRaceInfos(response.RaceScript, MasterHorseContainer),
+            HorseRaceInfos = GetHorseRaceInfos((await findMatchUcs.Task).RaceScript, MasterHorseContainer),
             MasterMapId = QuickRaceState.MasterMapId,
             Mode = RaceMode.Race
         };
+    }
+
+    private async UniTaskVoid JoinPool(long ntfHorseId)
+    {
+        findMatchUcs = new UniTaskCompletionSource<RaceScriptResponse>();
+        await SocketClient.Send<JoinPoolRequest, JoinPoolResponse>(new JoinPoolRequest()
+        {
+            HorseId = ntfHorseId
+        });
+        SocketClient.Subscribe<RaceScriptResponse>(OnRacingScriptResponse);
+    }
+
+    private void OnRacingScriptResponse(RaceScriptResponse raceScriptResponse)
+    {
+        findMatchUcs.TrySetResult(raceScriptResponse);
+        SocketClient.UnSubscribe<RaceScriptResponse>(OnRacingScriptResponse);
+        findMatchUcs = default;
+    }
+
+    public async UniTask CancelFindMatch(long ntfHorseId)
+    {
+        await SocketClient.Send<ExitPoolRequest, ExitPoolResponse>(new ExitPoolRequest()
+        {
+            HorseId = ntfHorseId
+        });
+        findMatchUcs.TrySetCanceled();
+        findMatchUcs = default;
+        SocketClient.UnSubscribe<RaceScriptResponse>(OnRacingScriptResponse);
     }
 
     public static HorseRaceInfo[] GetHorseRaceInfos(RaceScript responseRaceScript, MasterHorseContainer masterHorseContainer)
@@ -120,7 +144,7 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
 {
     public LocalQuickRaceDomainService(IDIContainer container) : base(container) { }
 
-    public async UniTask CancelFindMatch()
+    public async UniTask CancelFindMatch(long ntfHorseId)
     {
         await UniTask.CompletedTask;
     }
@@ -144,7 +168,7 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
         await UserDataRepository.UpdateModelAsync(new UserDataModel[] { model });
     }
 
-    public async UniTask<RaceMatchData> FindMatch()
+    public async UniTask<RaceMatchData> FindMatch(long ntfHorseId)
     {
         HorseRaceInfo[] GetAllMasterHorseIds()
         {
