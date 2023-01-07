@@ -273,6 +273,10 @@ public class UIBetModePresenter : IDisposable
 
     private int[] GetBetAmouthEntities()
     {
+        if (UserSettingLocalRepository.MasterDataModel != default && UserSettingLocalRepository.MasterDataModel.BetNumberList.Count > 0)
+        {
+            return UserSettingLocalRepository.MasterDataModel.BetNumberList.ToArray();
+        }
 #if MOCK_DATA
         return new int[]
         {
