@@ -28,4 +28,12 @@ public partial class MasterHorseTrainingBlockCombo
 	private MasterTrainingBlockComboType master_training_block_combo_type;
 	public MasterTrainingBlockComboType MasterTrainingBlockComboType => master_training_block_combo_type;
 
+	[JsonProperty]
+	private string master_training_modular_block_id_start;
+	public string MasterTrainingModularBlockIdStart => master_training_modular_block_id_start;
+
+	[JsonProperty]
+	private string master_training_modular_block_id_end;
+	public string MasterTrainingModularBlockIdEnd => master_training_modular_block_id_end;
+
 }

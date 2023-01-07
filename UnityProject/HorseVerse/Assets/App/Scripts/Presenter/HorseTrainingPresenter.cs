@@ -70,7 +70,7 @@ public class HorseTrainingPresenter : IDisposable
         
         uiTrainingPressAnyKey.SetEntity(new UITrainingPressAnyKey.Entity()
         {
-            onInput = () =>
+            outerBtn = new ButtonComponent.Entity(() =>
             {
                 uiTrainingCoinCounting.SetEntity(new UITrainingCoinCounting.Entity()
                 {
@@ -87,7 +87,7 @@ public class HorseTrainingPresenter : IDisposable
                 });
                 uiHorseTrainingInput.In().Forget();
                 AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunTraining);
-            }
+            })
         });
     }
 

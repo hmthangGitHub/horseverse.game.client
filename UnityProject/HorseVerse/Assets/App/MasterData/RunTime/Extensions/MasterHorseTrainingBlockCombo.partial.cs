@@ -99,6 +99,18 @@ public partial class MasterHorseTrainingBlockCombo
         }
 #endif
     }
+    
+#if ENABLE_MASTER_RUN_TIME_EDIT
+    public void SetMasterTrainingModularBlockIdStart(string blockId)
+    {
+        master_training_modular_block_id_start = blockId;
+    }
+    
+    public void SetMasterTrainingModularBlockIdEnd(string blockId)
+    {
+        master_training_modular_block_id_end = blockId;
+    }
+#endif
 
     private static string FormatCustomData(string s)
     {
