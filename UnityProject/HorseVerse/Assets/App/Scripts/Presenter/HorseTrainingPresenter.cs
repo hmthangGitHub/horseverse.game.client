@@ -279,7 +279,7 @@ public class HorseTrainingPresenter : IDisposable
             if (item.Type == io.hverse.game.protogen.RewardType.Chest)
                 numbox += item.Amount;
         }
-
+        var userHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
         popup.SetEntity(new UITrainingResult.Entity()
         {
             confirmBtn = new ButtonComponent.Entity(() =>
@@ -291,11 +291,12 @@ public class HorseTrainingPresenter : IDisposable
             {
                 trainingUcsRetry.TrySetResult(true);
                 UILoader.SafeRelease(ref popup);
-            }),
+            }, userHorse.Happiness > 0),
             boxReward = new UITrainingResultRewardComponent.Entity() { Total = (int)numbox},
             coinReward = new UITrainingResultRewardComponent.Entity() { Total = (int)numcoin },
-            currentEnergy = 1,
-            totalEnergy = 10,
+            currentEnergy = userHorse.Happiness,
+            totalEnergy = UserSettingLocalRepository.MasterDataModel.MaxHappinessNumber,
+            costEnergy = UserSettingLocalRepository.MasterDataModel.TrainingHappinessCost,
             score = result.PointNumber,
         });
         await popup.In();

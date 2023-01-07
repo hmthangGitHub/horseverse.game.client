@@ -1497,6 +1497,7 @@ MonoBehaviour:
   score: {fileID: 6019891968461189830}
   confirmBtn: {fileID: 3478304217089606516}
   retryBtn: {fileID: 7332898484741628921}
+  cost: {fileID: 2692029253603418796}
   energy: {fileID: 3189538334595327185}
   layout: {fileID: 7530607792984039817}
   boxReward: {fileID: 6117927144057842603}
@@ -1907,6 +1908,7 @@ GameObject:
   - component: {fileID: 7973009738788842082}
   - component: {fileID: 6712857087040237113}
   - component: {fileID: 1480043263453461832}
+  - component: {fileID: 2692029253603418796}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -2032,6 +2034,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2692029253603418796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8430681419282936024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5191d4c33a3144b4bb9cfdc78624bfb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 1480043263453461832}
+  format: -{0} <sprite=0> RETRY
 --- !u!1 &9155136902930696086
 GameObject:
   m_ObjectHideFlags: 0

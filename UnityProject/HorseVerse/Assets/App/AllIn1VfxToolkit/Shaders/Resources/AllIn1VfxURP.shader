@@ -308,7 +308,7 @@
         	CBUFFER_START(UnityPerMaterial)
         	half _TimingSeed;
         	CBUFFER_END
-            #include "AllIn1VfxFunctions.cginc"
+            #include "./AllIn1VfxFunctions.cginc"
 
             struct appdata
             {

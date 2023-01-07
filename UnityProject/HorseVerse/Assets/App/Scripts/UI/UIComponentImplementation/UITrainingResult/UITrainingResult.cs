@@ -15,6 +15,7 @@ public class UITrainingResult : PopupEntity<UITrainingResult.Entity>
         public ButtonComponent.Entity retryBtn;
         public int currentEnergy;
         public int totalEnergy;
+        public int costEnergy;
         public UITrainingResultRewardComponent.Entity boxReward;
         public UITrainingResultRewardComponent.Entity coinReward;
     }
@@ -22,6 +23,7 @@ public class UITrainingResult : PopupEntity<UITrainingResult.Entity>
     public FormattedTextComponent score;
     public ButtonComponent confirmBtn;
     public ButtonComponent retryBtn;
+    public FormattedTextComponent cost;
     public FormattedTextComponent energy;
     public HorizontalLayoutGroup layout;
     public UITrainingResultRewardComponent boxReward;
@@ -33,6 +35,7 @@ public class UITrainingResult : PopupEntity<UITrainingResult.Entity>
         confirmBtn.SetEntity(this.entity.confirmBtn);
         retryBtn.SetEntity(this.entity.retryBtn);
         energy.SetEntity(this.entity.currentEnergy.ToString(), this.entity.totalEnergy.ToString());
+        cost.SetEntity(this.entity.costEnergy);
         boxReward.SetEntity(this.entity.boxReward);
         boxReward.gameObject.SetActive(this.entity.boxReward.Total > 0);
         coinReward.SetEntity(this.entity.coinReward);
