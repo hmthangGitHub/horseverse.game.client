@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public partial class MasterCoinPresetContainer : MasterContainer<long, MasterCoinPreset>
+public partial class MasterCoinPresetContainer : MasterContainer<string, MasterCoinPreset>
 {
-    public MasterCoinPresetContainer() : base(x => x.MasterMapId) { }
-    public IReadOnlyDictionary<long, MasterCoinPreset> MasterCoinPresetIndexer => Indexer;
+    public MasterCoinPresetContainer() : base(x => x.MasterCoinPresetId) { }
+    public IReadOnlyDictionary<string, MasterCoinPreset> MasterCoinPresetIndexer => Indexer;
 }

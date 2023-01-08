@@ -22,5 +22,21 @@ public partial class MasterContainer<TKey, TMaster>
         DataList = dataList.ToArray();
         indexer = default;
     }
+
+    public void AddOrModified(TMaster master)
+    {
+        var key = keyPredictor(master);
+        if (Indexer.TryGetValue(key, out var oldMaster))
+        {
+            var dataList = DataList.ToList();
+            var index = dataList.FindIndex(x => x.Equals(oldMaster));
+            dataList[index] = master;
+        }
+        else
+        {
+            Add(master);
+        }
+        
+    }
 }
 #endif

@@ -67,7 +67,8 @@ public class UIDebugLevelDesignBlockTransformPin : PopupEntity<UIDebugLevelDesig
     {
 	    if (entity?.pinTransform != default)
 	    {
-		    container.transform.position = entity.camera.WorldToScreenPoint(entity.pinTransform.transform.position);
+		    container.position = entity.camera.WorldToScreenPoint(entity.pinTransform.transform.position);
+			container.gameObject.SetActive(container.position.z >= 0);
 	    }
     }
 }

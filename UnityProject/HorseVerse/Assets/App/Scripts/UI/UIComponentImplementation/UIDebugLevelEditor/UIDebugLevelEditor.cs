@@ -14,6 +14,7 @@ public class UIDebugLevelEditor : PopupEntity<UIDebugLevelEditor.Entity>
         public ButtonComponent.Entity resetBtn;
         public ButtonComponent.Entity addObstacleBtn;
         public ButtonComponent.Entity addCoinBtn;
+        public ButtonComponent.Entity addFromPresetBtn;
         public UIDebugLevelEditorMode.Mode editMode;
         public UIDebugLevelEditorBlockListContainer.Entity blockList;
         public UIComponentToggle.Entity editBlockToggle;
@@ -24,6 +25,7 @@ public class UIDebugLevelEditor : PopupEntity<UIDebugLevelEditor.Entity>
         public IsVisibleComponent.Entity isAddObstacleBtnVisible;
         public IsVisibleComponent.Entity isAddCoinBtnVisible;
         public IsVisibleComponent.Entity isCoinEditorVisible;
+        public IsVisibleComponent.Entity isAddFromPresetVisible;
         public UIDebugLevelEditorSplineEditor.Entity coinEditor;
         public UIComponentBlockComboType.Entity blockComboType;
         public bool isPopUpVisible;
@@ -36,6 +38,7 @@ public class UIDebugLevelEditor : PopupEntity<UIDebugLevelEditor.Entity>
     public ButtonComponent resetBtn;
     public ButtonComponent addObstacleBtn;
     public ButtonComponent addCoinBtn;
+    public ButtonComponent addFromPresetBtn;
     public UIDebugLevelEditorMode editMode;
     public UIDebugLevelEditorBlockListContainer blockList;
     public UIComponentToggle editBlockToggle;
@@ -47,6 +50,7 @@ public class UIDebugLevelEditor : PopupEntity<UIDebugLevelEditor.Entity>
     public IsVisibleComponent isAddObstacleBtnVisible;
     public IsVisibleComponent isAddCoinBtnVisible;
     public IsVisibleComponent isCoinEditorVisible;
+    public IsVisibleComponent isAddFromPresetVisible;
     public UIDebugLevelEditorSplineEditor coinEditor;
     public UIComponentBlockComboType blockComboType;
     public UIDebugLevelEditorPopUp popUp;
@@ -62,13 +66,15 @@ public class UIDebugLevelEditor : PopupEntity<UIDebugLevelEditor.Entity>
         blockList.SetEntity(entity.blockList);
         addObstacleBtn.SetEntity(entity.addObstacleBtn);
         addCoinBtn.SetEntity(entity.addCoinBtn);
+        addFromPresetBtn.SetEntity(entity.addFromPresetBtn);
         blockInComboList.SetEntity(entity.blockInComboList);
         blockComboList.SetEntity(entity.blockComboList);
         isPopUpVisible.SetEntity(entity.isPopUpVisible);
         editBlockToggle.SetEntity(entity.editBlockToggle);
         editObstacleToggle.SetEntity(entity.editObstacleToggle);
         editCoinToggle.SetEntity(entity.editCoinToggle);
-        isAddObstacleBtnVisible.SetEntity(entity.isAddCoinBtnVisible);
+        isAddObstacleBtnVisible.SetEntity(entity.isAddObstacleBtnVisible);
+        isAddFromPresetVisible.SetEntity(entity.isAddFromPresetVisible);
         isAddCoinBtnVisible.SetEntity(entity.isAddCoinBtnVisible);
         coinEditor.SetEntity(entity.coinEditor);
         isCoinEditorVisible.SetEntity(entity.isCoinEditorVisible);

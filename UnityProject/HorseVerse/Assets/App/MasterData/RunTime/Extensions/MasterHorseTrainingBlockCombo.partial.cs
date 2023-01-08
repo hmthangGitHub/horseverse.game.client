@@ -129,7 +129,7 @@ public partial class MasterHorseTrainingBlockCombo
     }
 #endif
 
-    private static string FormatCustomData(string s)
+    public static string FormatCustomData(string s)
     {
         if (string.IsNullOrEmpty(s)) return "[]";
         return s.Replace("...", ",")

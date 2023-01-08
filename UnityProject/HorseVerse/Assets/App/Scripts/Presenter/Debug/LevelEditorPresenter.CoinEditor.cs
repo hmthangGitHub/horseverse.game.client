@@ -11,6 +11,7 @@ public partial class LevelEditorPresenter
     private bool isEditingCoin;
     private readonly List<CoinEditor> coinEditors = new List<CoinEditor>();
     private CoinEditor currentEditingCoin;
+    private MasterCoinPresetContainer masterCoinPresetContainer;
 
     private void CreateNewCoinEditor()
     {
@@ -21,10 +22,10 @@ public partial class LevelEditorPresenter
     private async UniTaskVoid GenerateCoinEditors()
     {
         await UniTask.Yield();
-        currentSelectingBlockCombo.masterHorseTrainingBlockCombo.CoinList.ForEach(CreateCoinEditor);
+        currentSelectingBlockCombo.masterHorseTrainingBlockCombo.CoinList.ForEach(CreateCoinEditorFromMasterCoin);
     }
     
-    private void CreateCoinEditor(Coin coin)
+    private void CreateCoinEditorFromMasterCoin(Coin coin)
     {
         var coinEditor = CreateCoinEditor();
         var coinEditorTransform = coinEditor.transform;
@@ -78,7 +79,15 @@ public partial class LevelEditorPresenter
                     {
                         defaultValue = coinEditor.CoinNumber.ToString(),
                         onValueChange = val => coinEditor.OnChangeNumberOfCoin(int.TryParse(val, out var number) ? number : default)
-                    }
+                    },
+                    saveToPresetBtn = new ButtonComponent.Entity(UniTask.Action(async () =>
+                    {
+                        var presetName = await AskUserInput("Enter preset name");
+                        if (!string.IsNullOrEmpty(presetName))
+                        {
+                            masterCoinPresetContainer.AddOrModified(MasterCoinPreset.Instantiate(presetName, FromCoinEditorToMasterCoin(coinEditor)));
+                        }
+                    }))
                 });
                 currentEditingCoin.OnToggleStatus();
             }),
@@ -110,21 +119,16 @@ public partial class LevelEditorPresenter
         }
         else
         {
-            currentSelectingBlockCombo.masterHorseTrainingBlockCombo.CoinList.ForEach(CreateCoinEditor);
+            currentSelectingBlockCombo.masterHorseTrainingBlockCombo.CoinList.ForEach(CreateCoinEditorFromMasterCoin);
         }
         
         uiDebugLevelEditor.isAddCoinBtnVisible.SetEntity(IsEditingCoin);
+        uiDebugLevelEditor.isAddFromPresetVisible.SetEntity(IsEditingCoin);
     }
 
     private void SaveCoinsToBlockAndRemove()
     {
-        currentSelectingBlockCombo.masterHorseTrainingBlockCombo.CoinList = coinEditors.Select(x => new Coin()
-            {
-                localPosition = Position.FromVector3(x.transform.localPosition),
-                numberOfCoin = x.CoinNumber,
-                benzierPointPositions = x.BenzierPointPositions.Select(Position.FromVector3)
-                                         .ToArray()
-            })
+        currentSelectingBlockCombo.masterHorseTrainingBlockCombo.CoinList = coinEditors.Select(FromCoinEditorToMasterCoin)
             .ToArray();
         coinEditors.ForEach(x => Object.Destroy(x.gameObject));
         coinEditors.Clear();
@@ -132,5 +136,26 @@ public partial class LevelEditorPresenter
         coinPinList.Clear();
         uiDebugLevelEditor.isCoinEditorVisible.SetEntity(false);
         currentEditingCoin = default;
+    }
+
+    private async UniTaskVoid AddCoinFromPresetAsync()
+    {
+        var masterCoinPresetId = await SelectFromList(masterCoinPresetContainer.MasterCoinPresetIndexer.Keys);
+        if (!string.IsNullOrEmpty(masterCoinPresetId))
+        {
+            CreateCoinEditorFromMasterCoin(masterCoinPresetContainer.MasterCoinPresetIndexer[masterCoinPresetId]
+                                                                    .CoinObject);
+        }
+    }
+
+    private static Coin FromCoinEditorToMasterCoin(CoinEditor x)
+    {
+        return new Coin()
+        {
+            localPosition = Position.FromVector3(x.transform.localPosition),
+            numberOfCoin = x.CoinNumber,
+            benzierPointPositions = x.BenzierPointPositions.Select(Position.FromVector3)
+                                     .ToArray()
+        };
     }
 }

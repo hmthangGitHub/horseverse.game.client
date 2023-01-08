@@ -95,10 +95,12 @@ public partial class LevelEditorPresenter : IDisposable
         (masterHorseTrainingBlockContainer,
         masterHorseTrainingBlockComboContainer,
         masterHorseTrainingPropertyContainer,
-        masterTrainingModularBlockContainer) = await (MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(cts.Token), 
+        masterTrainingModularBlockContainer,
+        masterCoinPresetContainer) = await (MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(cts.Token), 
                                                         MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>(cts.Token), 
                                                         MasterLoader.LoadMasterAsync<MasterHorseTrainingPropertyContainer>(cts.Token),
-                                                        MasterLoader.LoadMasterAsync<MasterTrainingModularBlockContainer>(cts.Token));
+                                                        MasterLoader.LoadMasterAsync<MasterTrainingModularBlockContainer>(cts.Token),
+                                                        MasterLoader.LoadMasterAsync<MasterCoinPresetContainer>(cts.Token));
         
         masterHorseTrainingProperty = masterHorseTrainingPropertyContainer.MasterHorseTrainingPropertyIndexer.First().Value;
     }
@@ -145,7 +147,8 @@ public partial class LevelEditorPresenter : IDisposable
             {
                 defaultValue = UIComponentBlockComboType.BlockComboType.Modular,
                 onValueChanged = val => CurrentBlockComboType = (MasterTrainingBlockComboType)(int)val
-            }
+            },
+            addFromPresetBtn = new ButtonComponent.Entity(() => AddCoinFromPresetAsync().Forget()),
         });
         await uiDebugLevelEditor.In();
         OnEditBlockComboBtn();
@@ -156,6 +159,7 @@ public partial class LevelEditorPresenter : IDisposable
     {
         masterHorseTrainingBlockContainer.SaveToLocal();
         masterHorseTrainingBlockComboContainer.SaveToLocal();
+        masterCoinPresetContainer.SaveToLocal();
     }
 
     private void UpdateEditMode(UIDebugLevelEditorMode.Mode editMode)
@@ -235,6 +239,7 @@ public partial class LevelEditorPresenter : IDisposable
             MasterLoader.SafeRelease(ref masterHorseTrainingBlockContainer);
             MasterLoader.SafeRelease(ref masterHorseTrainingBlockComboContainer);
             MasterLoader.SafeRelease(ref masterHorseTrainingPropertyContainer);
+            MasterLoader.SafeRelease(ref masterCoinPresetContainer);
         
             UILoader.SafeRelease(ref uiDebugLevelEditor);
             UILoader.SafeRelease(ref uiDebugLevelDesignBlockTransformPinPrefab);
