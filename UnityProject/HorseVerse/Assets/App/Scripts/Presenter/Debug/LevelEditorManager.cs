@@ -7,6 +7,7 @@ public class LevelEditorManager : MonoBehaviour, IDisposable
 {
     public Camera freeCamera;
     public CoinEditor coinEditor;
+    public ParentPositionController parentPositionControllerPrefab;
     public void Dispose()
     {
     }

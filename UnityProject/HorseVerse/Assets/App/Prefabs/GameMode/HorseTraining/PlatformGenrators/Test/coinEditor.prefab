@@ -223,13 +223,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ca210f900ba0849b97a20d1ca4ea32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 0
   status: 0
   spline: {fileID: 9012210592073271045}
-  uiDebugLevelEditorSplineEditor: {fileID: 0}
   coinPrefab: {fileID: 5445277000935676411, guid: 1aa7eec950c601943b5d19cdc1a34e5a, type: 3}
   container: {fileID: 9012210591285110438}
   listCoin: []
+  parentPositionControllerPrefab: {fileID: 6824648267046127552, guid: 4c1ebe6a30512b3438f59de4760483a8, type: 3}
   numberOfCoin: 0
   initPoints:
   - {fileID: 0}

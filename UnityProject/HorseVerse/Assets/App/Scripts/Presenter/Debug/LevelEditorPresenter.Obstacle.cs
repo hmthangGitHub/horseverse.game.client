@@ -71,14 +71,23 @@ public partial class LevelEditorPresenter
     private void CreateNewObstacle()
     {
         var obstacleDummy = CreatObstacle(0);
-        AddPinToObstacle(obstacleDummy);
+        AddPinToObstacle(obstacleDummy, 0);
     }
     
     private void CreateObstacleAtPosition(int index, Vector3 localPosition)
     {
         var obstacle = CreatObstacle(index);
         obstacle.transform.localPosition = new Vector3(localPosition.x, obstacle.transform.localPosition.y, localPosition.z);
-        AddPinToObstacle(obstacle);
+        AddPinToObstacle(obstacle, index);
+    }
+
+    private void CloneObstacle(GameObject obstacle, int index)
+    {
+        var cloned = Object.Instantiate(obstacle);
+        cloned.transform.Cast<Transform>()
+              .ForEach(x => Object.Destroy(x.gameObject));
+        obstacleInBlocks.Add((index, cloned));
+        AddPinToObstacle(cloned, index);
     }
 
     private GameObject CreatObstacle(int index)
@@ -98,7 +107,8 @@ public partial class LevelEditorPresenter
         return obstacleDummy;
     }
 
-    private void AddPinToObstacle(GameObject obstacle)
+    private void AddPinToObstacle(GameObject obstacle,
+                                  int index)
     {
         var pin = CreateUiPin(obstaclePinList);
         pin.SetEntity(new UIDebugLevelDesignBlockTransformPin.Entity()
@@ -108,6 +118,7 @@ public partial class LevelEditorPresenter
             {
                 Object.Destroy(obstacle);
                 RemovePin(pin);
+                obstacleInBlocks.RemoveAll(x => x.obstacle == obstacle);
             }),
             shuffleBtn = new ButtonComponent.Entity(() =>
             {
@@ -118,7 +129,12 @@ public partial class LevelEditorPresenter
             }),
             isShuffleBtnVisible = true,
             pinTransform = LevelDesignPin.Instantiate(obstacle.GetComponent<Collider>()).transform,
-            camera = freeCameraComponent
+            camera = freeCameraComponent,
+            isDuplicateBtnVisible = true,
+            duplicateBtn = new ButtonComponent.Entity(() =>
+            {
+                CloneObstacle(obstacle, index);
+            })
         });
         pin.In().Forget();
     }

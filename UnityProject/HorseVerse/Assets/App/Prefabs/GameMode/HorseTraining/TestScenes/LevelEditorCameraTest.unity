@@ -438,6 +438,7 @@ MonoBehaviour:
   positionSnap: {x: 0, y: 0, z: 0}
   rotationSnap: 0
   scaleSnap: {x: 0, y: 0, z: 0}
+  handleScale: 0.5
   autoScale: 0
   autoScaleFactor: 1
   handleCamera: {fileID: 0}
@@ -741,6 +742,10 @@ PrefabInstance:
     - target: {fileID: 9012210592073271044, guid: b2730fa02a5b25045815075bba9a90d9, type: 3}
       propertyPath: m_Name
       value: coinEditor
+      objectReference: {fileID: 0}
+    - target: {fileID: 9012210592073271055, guid: b2730fa02a5b25045815075bba9a90d9, type: 3}
+      propertyPath: status
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9012210592073271055, guid: b2730fa02a5b25045815075bba9a90d9, type: 3}
       propertyPath: initPoints.Array.data[0]

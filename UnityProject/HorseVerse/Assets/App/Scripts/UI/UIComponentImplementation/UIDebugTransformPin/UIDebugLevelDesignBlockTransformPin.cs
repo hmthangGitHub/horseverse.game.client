@@ -16,6 +16,7 @@ public class UIDebugLevelDesignBlockTransformPin : PopupEntity<UIDebugLevelDesig
 	    public bool isNavigationBtnVisible;
 	    public bool isDeleteBtnVisible;
 	    public bool isAddBtnVisible;
+	    public bool isDuplicateBtnVisible;
 	    public UIComponentInputField.Entity coinNumber;
 	    public UIComponentInputField.Entity blockName;
 	    public ButtonComponent.Entity shuffleBtn;
@@ -23,6 +24,7 @@ public class UIDebugLevelDesignBlockTransformPin : PopupEntity<UIDebugLevelDesig
 	    public ButtonComponent.Entity rightBtn;
 	    public ButtonComponent.Entity deleteBtn;
 	    public ButtonComponent.Entity addBtn;
+	    public ButtonComponent.Entity duplicateBtn;
     }
     
     public IsVisibleComponent isCoinNumberVisible;
@@ -31,6 +33,7 @@ public class UIDebugLevelDesignBlockTransformPin : PopupEntity<UIDebugLevelDesig
     public IsVisibleComponent isNavigationBtnVisible;
     public IsVisibleComponent isDeleteBtnVisible;
     public IsVisibleComponent isAddBtnVisible;
+    public IsVisibleComponent isDuplicateBtnVisible;
     public UIComponentInputField coinNumber;
     public UIComponentInputField blockName;
     public ButtonComponent shuffleBtn;
@@ -38,6 +41,7 @@ public class UIDebugLevelDesignBlockTransformPin : PopupEntity<UIDebugLevelDesig
     public ButtonComponent rightBtn;
     public ButtonComponent deleteBtn;
     public ButtonComponent addBtn;
+    public ButtonComponent duplicateBtn;
     public RectTransform container;
 
     protected override void OnSetEntity()
@@ -48,6 +52,7 @@ public class UIDebugLevelDesignBlockTransformPin : PopupEntity<UIDebugLevelDesig
 	    isNavigationBtnVisible.SetEntity(entity.isNavigationBtnVisible);
 		isDeleteBtnVisible.SetEntity(entity.isDeleteBtnVisible);
 	    isAddBtnVisible.SetEntity(entity.isAddBtnVisible);
+	    isDuplicateBtnVisible.SetEntity(entity.isDuplicateBtnVisible);
 	    coinNumber.SetEntity(entity.coinNumber);
 	    blockName.SetEntity(entity.blockName);
 	    shuffleBtn.SetEntity(entity.shuffleBtn);
@@ -55,16 +60,15 @@ public class UIDebugLevelDesignBlockTransformPin : PopupEntity<UIDebugLevelDesig
 		rightBtn.SetEntity(entity.rightBtn);
 		deleteBtn.SetEntity(entity.deleteBtn);
 		addBtn.SetEntity(entity.addBtn);
+		duplicateBtn.SetEntity(entity.duplicateBtn);
     }	
 
     private void Update()
     {
 	    if (entity?.pinTransform != default)
 	    {
-		    container.transform.position = entity.camera.WorldToScreenPoint(entity.pinTransform.transform.position);
-		    // var screenPoint = Camera.main.WorldToScreenPoint(entity.pinTransform.position);
-		    // RectTransformUtility.ScreenPointToLocalPointInRectangle(container.RectTransform(), screenPoint, Camera.current, out var localPosition);
-		    // container.anchoredPosition = localPosition;    
+		    container.position = entity.camera.WorldToScreenPoint(entity.pinTransform.transform.position);
+			container.gameObject.SetActive(container.position.z >= 0);
 	    }
     }
 }

@@ -22,8 +22,6 @@ public partial class LevelEditorPresenter : IDisposable
     private MasterTrainingModularBlockContainer masterTrainingModularBlockContainer;
     
     private UIDebugLevelEditor uiDebugLevelEditor;
-    private UIDebugLevelDesignBlockTransformPin[] blockSegmentPin;
-    private UIDebugLevelDesignBlockTransformPin blockNamePin;
     private UIDebugLevelDesignBlockTransformPin uiDebugLevelDesignBlockTransformPinPrefab;
     private PlatformBase platformPrefab;
     private Material debugLineMaterial;
@@ -65,7 +63,6 @@ public partial class LevelEditorPresenter : IDisposable
     private async UniTask LoadAssetAsync()
     {
         await LoadUIAssets();
-        await LoadBlockEditUIAssetsAsync();
         await LoadMasterAsync();
         await LoadInGameAssetAsync();
     }
@@ -98,10 +95,12 @@ public partial class LevelEditorPresenter : IDisposable
         (masterHorseTrainingBlockContainer,
         masterHorseTrainingBlockComboContainer,
         masterHorseTrainingPropertyContainer,
-        masterTrainingModularBlockContainer) = await (MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(cts.Token), 
+        masterTrainingModularBlockContainer,
+        masterCoinPresetContainer) = await (MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(cts.Token), 
                                                         MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>(cts.Token), 
                                                         MasterLoader.LoadMasterAsync<MasterHorseTrainingPropertyContainer>(cts.Token),
-                                                        MasterLoader.LoadMasterAsync<MasterTrainingModularBlockContainer>(cts.Token));
+                                                        MasterLoader.LoadMasterAsync<MasterTrainingModularBlockContainer>(cts.Token),
+                                                        MasterLoader.LoadMasterAsync<MasterCoinPresetContainer>(cts.Token));
         
         masterHorseTrainingProperty = masterHorseTrainingPropertyContainer.MasterHorseTrainingPropertyIndexer.First().Value;
     }
@@ -148,10 +147,10 @@ public partial class LevelEditorPresenter : IDisposable
             {
                 defaultValue = UIComponentBlockComboType.BlockComboType.Modular,
                 onValueChanged = val => CurrentBlockComboType = (MasterTrainingBlockComboType)(int)val
-            }
+            },
+            addFromPresetBtn = new ButtonComponent.Entity(() => AddCoinFromPresetAsync().Forget()),
         });
         await uiDebugLevelEditor.In();
-        UnSelectOldBlock();
         OnEditBlockComboBtn();
     }
 
@@ -160,6 +159,7 @@ public partial class LevelEditorPresenter : IDisposable
     {
         masterHorseTrainingBlockContainer.SaveToLocal();
         masterHorseTrainingBlockComboContainer.SaveToLocal();
+        masterCoinPresetContainer.SaveToLocal();
     }
 
     private void UpdateEditMode(UIDebugLevelEditorMode.Mode editMode)
@@ -239,13 +239,11 @@ public partial class LevelEditorPresenter : IDisposable
             MasterLoader.SafeRelease(ref masterHorseTrainingBlockContainer);
             MasterLoader.SafeRelease(ref masterHorseTrainingBlockComboContainer);
             MasterLoader.SafeRelease(ref masterHorseTrainingPropertyContainer);
+            MasterLoader.SafeRelease(ref masterCoinPresetContainer);
         
             UILoader.SafeRelease(ref uiDebugLevelEditor);
-            UILoader.SafeRelease(ref blockSegmentPin);
-            UILoader.SafeRelease(ref blockNamePin);
             UILoader.SafeRelease(ref uiDebugLevelDesignBlockTransformPinPrefab);
         
-            currentEditingTrainingMapBlockGameObject = default;
             debugLineMaterial = default;
         
             blockComboPinList.ForEach(x => Object.Destroy(x.gameObject));

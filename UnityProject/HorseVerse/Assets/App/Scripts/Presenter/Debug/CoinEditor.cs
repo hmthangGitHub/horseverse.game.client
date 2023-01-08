@@ -17,6 +17,8 @@ public class CoinEditor : MonoBehaviour
     public GameObject container;
     public List<GameObject> listCoin = new List<GameObject>();
     public int CoinNumber => listCoin.Count;
+    public ParentPositionController parentPositionControllerPrefab;
+    
     public Vector3[] BenzierPointPositions => GetComponentsInChildren<BezierPoint>(true)
                                             .Select(x => x.localPosition)
                                             .ToArray();
@@ -26,13 +28,24 @@ public class CoinEditor : MonoBehaviour
         status = status == UIComponentSplineEditorMode.Status.Edit ? UIComponentSplineEditorMode.Status.Normal : UIComponentSplineEditorMode.Status.Edit;
         GetComponentsInChildren<BezierPoint>().ForEach(AddHandlerToBenzierPoint);
         gameObject.GetOrAddComponent<RuntimeTransformHandle>();
+        AddPositionControllerIfNeed(this.transform);
         gameObject.GetOrAddComponent<HandleEnableController>().enabled = status == UIComponentSplineEditorMode.Status.Edit;
+    }
+
+    private void AddPositionControllerIfNeed(Transform parent)
+    {
+        if (parent.Cast<Transform>()
+                  .All(x => x.GetComponent<ParentPositionController>() == default))
+        {
+            Instantiate(parentPositionControllerPrefab, parent);
+        }
     }
 
     private void AddHandlerToBenzierPoint(BezierPoint x)
     {
         var runtimeTransformHandle = x.gameObject.GetOrAddComponent<RuntimeTransformHandle>();
         runtimeTransformHandle.enabled = status == UIComponentSplineEditorMode.Status.Edit;
+        AddPositionControllerIfNeed(x.transform);
     }
 
     public void Init(int coinNumber,

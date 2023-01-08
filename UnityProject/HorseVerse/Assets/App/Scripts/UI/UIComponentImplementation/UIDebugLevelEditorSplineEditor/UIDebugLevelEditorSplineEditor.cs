@@ -11,6 +11,7 @@ public class UIDebugLevelEditorSplineEditor : UIComponent<UIDebugLevelEditorSpli
         public ButtonComponent.Entity addBtn;
         public ButtonComponent.Entity cancelBtn;
         public ButtonComponent.Entity editBtn;
+        public ButtonComponent.Entity saveToPresetBtn;
         public UIComponentSplineEditorMode.Status mode;
         public UIComponentInputField.Entity coinNumber;
     }
@@ -19,6 +20,7 @@ public class UIDebugLevelEditorSplineEditor : UIComponent<UIDebugLevelEditorSpli
     public ButtonComponent addBtn;
     public ButtonComponent cancelBtn;
     public ButtonComponent editBtn;
+    public ButtonComponent saveToPresetBtn;
     public UIComponentSplineEditorMode mode;
     public UIComponentInputField coinNumber;
 
@@ -28,6 +30,7 @@ public class UIDebugLevelEditorSplineEditor : UIComponent<UIDebugLevelEditorSpli
         addBtn.SetEntity(this.entity.addBtn);
         cancelBtn.SetEntity(this.entity.cancelBtn);
         editBtn.SetEntity(this.entity.editBtn);
+        saveToPresetBtn.SetEntity(this.entity.saveToPresetBtn);
         coinNumber.SetEntity(this.entity.coinNumber);
         mode.SetEntity(this.entity.mode);
     }

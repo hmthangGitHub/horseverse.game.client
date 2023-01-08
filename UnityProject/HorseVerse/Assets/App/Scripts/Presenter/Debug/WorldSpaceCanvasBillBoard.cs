@@ -16,6 +16,6 @@ public class WorldSpaceCanvasBillBoard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.rotation = Quaternion.LookRotation(transform.position - this.cameraTransform.position);
+        transform.rotation = this.cameraTransform.rotation;
     }
 }

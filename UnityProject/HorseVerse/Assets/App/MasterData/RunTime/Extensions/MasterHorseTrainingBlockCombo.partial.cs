@@ -10,6 +10,11 @@ public class Obstacle
     public string type;
     [JsonProperty] 
     public Position localPosition;
+
+    public Obstacle Clone()
+    {
+        return (Obstacle)this.MemberwiseClone();
+    }
 }
 
 [Serializable]
@@ -21,6 +26,18 @@ public class Coin
     public Position localPosition;
     [JsonProperty]
     public Position[] benzierPointPositions;
+    
+    public Coin Clone()
+    {
+        var target = new Position[benzierPointPositions.Length];
+        benzierPointPositions.CopyTo(target, benzierPointPositions.Length);
+        return new Coin()
+        {
+            localPosition = localPosition,
+            numberOfCoin = numberOfCoin,
+            benzierPointPositions = target
+        };
+    }
 }
 
 public class Position
@@ -47,13 +64,25 @@ public class Position
 
 public partial class MasterHorseTrainingBlockCombo
 {
-    public MasterHorseTrainingBlockCombo(long masterHorseTrainingBlockId, string name, MasterTrainingBlockComboType masterTrainingBlockComboType, string masterTrainingModularBlockId)
+#if ENABLE_MASTER_RUN_TIME_EDIT
+    public MasterHorseTrainingBlockCombo(long masterHorseTrainingBlockId, 
+                                         string name, 
+                                         MasterTrainingBlockComboType masterTrainingBlockComboType, 
+                                         string masterTrainingModularBlockId)
     {
         this.name = name;
         master_horse_training_block_id = masterHorseTrainingBlockId;
         master_horse_training_block_ids = masterTrainingModularBlockId;
         master_training_block_combo_type = masterTrainingBlockComboType;
     }
+
+    public MasterHorseTrainingBlockCombo Clone(long overrideMasterHorseTrainingBlockId)
+    {
+        var clone = (MasterHorseTrainingBlockCombo)this.MemberwiseClone();
+        clone.master_horse_training_block_id = overrideMasterHorseTrainingBlockId;
+        return clone;
+    }
+#endif
     
     public string[] MasterHorseTrainingBlockIdList
     {
@@ -112,7 +141,7 @@ public partial class MasterHorseTrainingBlockCombo
     }
 #endif
 
-    private static string FormatCustomData(string s)
+    public static string FormatCustomData(string s)
     {
         if (string.IsNullOrEmpty(s)) return "[]";
         return s.Replace("...", ",")

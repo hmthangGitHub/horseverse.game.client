@@ -14,6 +14,39 @@ public static class Vector3Extensions
         return new Vector3(v.x,0, v.z);
     }
     
+    public static Vector3 SetX(this Vector3 v, float val)
+    {
+        return new Vector3(val,v.y, v.z);
+    }
+    
+    public static Vector3 SetY(this Vector3 v, float val)
+    {
+        return new Vector3(v.x,val, v.z);
+    }
+    
+    public static Vector3 SetZ(this Vector3 v, float val)
+    {
+        return new Vector3(v.x,v.y, val);
+    }
+
+    public static void SetX(this Transform transform,
+                            float val)
+    {
+        transform.position = transform.position.SetX(val);
+    }
+    
+    public static void SetY(this Transform transform,
+                            float val)
+    {
+        transform.position = transform.position.SetY(val);
+    }
+    
+    public static void SetZ(this Transform transform,
+                            float val)
+    {
+        transform.position = transform.position.SetZ(val);
+    }
+    
     public static Vector3 RandomPointInBounds(this Bounds bounds) {
         return new Vector3(
             UnityEngine.Random.Range(bounds.min.x, bounds.max.x),
