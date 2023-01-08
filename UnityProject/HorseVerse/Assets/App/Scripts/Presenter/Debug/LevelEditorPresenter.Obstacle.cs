@@ -108,6 +108,7 @@ public partial class LevelEditorPresenter
             {
                 Object.Destroy(obstacle);
                 RemovePin(pin);
+                obstacleInBlocks.RemoveAll(x => x.obstacle == obstacle);
             }),
             shuffleBtn = new ButtonComponent.Entity(() =>
             {
