@@ -66,7 +66,10 @@ public partial class LevelEditorPresenter
             }),
             shuffleBtn = new ButtonComponent.Entity(() =>
             {
-                currentEditingCoin?.OnToggleStatus();
+                if (currentEditingCoin != default)
+                {
+                    currentEditingCoin.OnToggleStatus();
+                }
                 
                 currentEditingCoin = coinEditor;
                 uiDebugLevelEditor.isCoinEditorVisible.SetEntity(true);

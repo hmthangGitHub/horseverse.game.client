@@ -56,7 +56,19 @@ public partial class LevelEditorPresenter
                     blockName = masterHorseTrainingBlockCombo.Name,
                     deleteBtn = new ButtonComponent.Entity(() =>
                         OnDeleteBlockComboAsync(masterHorseTrainingBlockCombo).Forget()),
-                    selectButtonBtn = new ButtonComponent.Entity(() => OnEditBlockCombo(masterHorseTrainingBlockCombo, i))
+                    selectButtonBtn = new ButtonComponent.Entity(() => OnEditBlockCombo(masterHorseTrainingBlockCombo, i)),
+                    duplicateBtn = new ButtonComponent.Entity(UniTask.Action(async () =>
+                    {
+                        var blockComboName = await AskUserInput("Enter block combo name");
+                        if (!string.IsNullOrEmpty(blockComboName))
+                        {
+                            var masterHorseTrainingBlockComboId = masterHorseTrainingBlockComboContainer
+                                                                  .MasterHorseTrainingBlockComboIndexer.Max(x => x.Key) + 1;
+                            var cloneMasterHorseTrainingBlockCombo = masterHorseTrainingBlockCombo.Clone(masterHorseTrainingBlockComboId);
+                            masterHorseTrainingBlockComboContainer.Add(cloneMasterHorseTrainingBlockCombo);
+                            await RefreshBlockComboListAfterCreateNewBlockCombo(cloneMasterHorseTrainingBlockCombo);
+                        }
+                    }))
                 }).ToArray(),
             addBtn = new ButtonComponent.Entity(() => OnAddBlockComboAsync().Forget())
         };
@@ -81,6 +93,13 @@ public partial class LevelEditorPresenter
             CurrentBlockComboType,
             masterHorseTrainingBlockId);
         masterHorseTrainingBlockComboContainer.Add(masterHorseTrainingBlockCombo);
+        
+        await RefreshBlockComboListAfterCreateNewBlockCombo(masterHorseTrainingBlockCombo);
+    }
+
+    private async UniTask RefreshBlockComboListAfterCreateNewBlockCombo(
+        MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo)
+    {
         OnEditBlockComboBtn();
         OnEditBlockCombo(masterHorseTrainingBlockCombo, masterHorseTrainingBlockComboContainer.DataList
             .Where(x => x.MasterTrainingBlockComboType == CurrentBlockComboType)
@@ -152,10 +171,10 @@ public partial class LevelEditorPresenter
     {
         currentSelectingBlockCombo.masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList =
             masterHorseTrainingBlockIdList.ToArray();
-        RefreshBlockCombo();
+        RefreshCurrentBlockCombo();
     }
 
-    private void RefreshBlockCombo()
+    private void RefreshCurrentBlockCombo()
     {
         var master = currentSelectingBlockCombo.masterHorseTrainingBlockCombo;
         var index = currentSelectingBlockCombo.index;
@@ -308,7 +327,7 @@ public partial class LevelEditorPresenter
         if (!string.IsNullOrEmpty(blockId))
         {
             setter(blockId);
-            RefreshBlockCombo();
+            RefreshCurrentBlockCombo();
         }
     }
 

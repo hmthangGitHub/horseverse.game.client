@@ -64,13 +64,25 @@ public class Position
 
 public partial class MasterHorseTrainingBlockCombo
 {
-    public MasterHorseTrainingBlockCombo(long masterHorseTrainingBlockId, string name, MasterTrainingBlockComboType masterTrainingBlockComboType, string masterTrainingModularBlockId)
+#if ENABLE_MASTER_RUN_TIME_EDIT
+    public MasterHorseTrainingBlockCombo(long masterHorseTrainingBlockId, 
+                                         string name, 
+                                         MasterTrainingBlockComboType masterTrainingBlockComboType, 
+                                         string masterTrainingModularBlockId)
     {
         this.name = name;
         master_horse_training_block_id = masterHorseTrainingBlockId;
         master_horse_training_block_ids = masterTrainingModularBlockId;
         master_training_block_combo_type = masterTrainingBlockComboType;
     }
+
+    public MasterHorseTrainingBlockCombo Clone(long overrideMasterHorseTrainingBlockId)
+    {
+        var clone = (MasterHorseTrainingBlockCombo)this.MemberwiseClone();
+        clone.master_horse_training_block_id = overrideMasterHorseTrainingBlockId;
+        return clone;
+    }
+#endif
     
     public string[] MasterHorseTrainingBlockIdList
     {

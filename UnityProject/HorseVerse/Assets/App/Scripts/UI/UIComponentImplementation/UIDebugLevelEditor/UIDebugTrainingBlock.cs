@@ -10,11 +10,13 @@ public class UIDebugTrainingBlock : UIComponent<UIDebugTrainingBlock.Entity>
 	    public string blockName;
 	    public ButtonComponent.Entity deleteBtn;
 	    public ButtonComponent.Entity selectButtonBtn;
+	    public ButtonComponent.Entity duplicateBtn;
     }
     
     public FormattedTextComponent blockName;
     public ButtonComponent deleteBtn;
     public ButtonComponent selectButtonBtn;
+    public ButtonComponent duplicateBtn;
     public IsVisibleComponent isSelected;
 
     protected override void OnSetEntity()
@@ -22,6 +24,7 @@ public class UIDebugTrainingBlock : UIComponent<UIDebugTrainingBlock.Entity>
 	    blockName.SetEntity(entity.blockName);
 	    deleteBtn.SetEntity(entity.deleteBtn);
 	    selectButtonBtn.SetEntity(entity.selectButtonBtn);
+	    duplicateBtn.SetEntity(entity.duplicateBtn);
 	    isSelected.SetEntity(false);
     }
 
