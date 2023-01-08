@@ -22,8 +22,6 @@ public partial class LevelEditorPresenter : IDisposable
     private MasterTrainingModularBlockContainer masterTrainingModularBlockContainer;
     
     private UIDebugLevelEditor uiDebugLevelEditor;
-    private UIDebugLevelDesignBlockTransformPin[] blockSegmentPin;
-    private UIDebugLevelDesignBlockTransformPin blockNamePin;
     private UIDebugLevelDesignBlockTransformPin uiDebugLevelDesignBlockTransformPinPrefab;
     private PlatformBase platformPrefab;
     private Material debugLineMaterial;
@@ -65,7 +63,6 @@ public partial class LevelEditorPresenter : IDisposable
     private async UniTask LoadAssetAsync()
     {
         await LoadUIAssets();
-        await LoadBlockEditUIAssetsAsync();
         await LoadMasterAsync();
         await LoadInGameAssetAsync();
     }
@@ -151,7 +148,6 @@ public partial class LevelEditorPresenter : IDisposable
             }
         });
         await uiDebugLevelEditor.In();
-        UnSelectOldBlock();
         OnEditBlockComboBtn();
     }
 
@@ -241,11 +237,8 @@ public partial class LevelEditorPresenter : IDisposable
             MasterLoader.SafeRelease(ref masterHorseTrainingPropertyContainer);
         
             UILoader.SafeRelease(ref uiDebugLevelEditor);
-            UILoader.SafeRelease(ref blockSegmentPin);
-            UILoader.SafeRelease(ref blockNamePin);
             UILoader.SafeRelease(ref uiDebugLevelDesignBlockTransformPinPrefab);
         
-            currentEditingTrainingMapBlockGameObject = default;
             debugLineMaterial = default;
         
             blockComboPinList.ForEach(x => Object.Destroy(x.gameObject));

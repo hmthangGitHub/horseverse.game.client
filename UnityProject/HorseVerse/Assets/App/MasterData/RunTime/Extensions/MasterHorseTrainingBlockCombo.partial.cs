@@ -10,6 +10,11 @@ public class Obstacle
     public string type;
     [JsonProperty] 
     public Position localPosition;
+
+    public Obstacle Clone()
+    {
+        return (Obstacle)this.MemberwiseClone();
+    }
 }
 
 [Serializable]
@@ -21,6 +26,18 @@ public class Coin
     public Position localPosition;
     [JsonProperty]
     public Position[] benzierPointPositions;
+    
+    public Coin Clone()
+    {
+        var target = new Position[benzierPointPositions.Length];
+        benzierPointPositions.CopyTo(target, benzierPointPositions.Length);
+        return new Coin()
+        {
+            localPosition = localPosition,
+            numberOfCoin = numberOfCoin,
+            benzierPointPositions = target
+        };
+    }
 }
 
 public class Position

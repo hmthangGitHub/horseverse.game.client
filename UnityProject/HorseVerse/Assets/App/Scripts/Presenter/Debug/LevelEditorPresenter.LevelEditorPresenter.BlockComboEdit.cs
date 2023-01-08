@@ -80,7 +80,6 @@ public partial class LevelEditorPresenter
             CurrentBlockComboType,
             masterHorseTrainingBlockId);
         masterHorseTrainingBlockComboContainer.Add(masterHorseTrainingBlockCombo);
-        UnSelectOldBlock();
         OnEditBlockComboBtn();
         OnEditBlockCombo(masterHorseTrainingBlockCombo, masterHorseTrainingBlockComboContainer.DataList
             .Where(x => x.MasterTrainingBlockComboType == CurrentBlockComboType)

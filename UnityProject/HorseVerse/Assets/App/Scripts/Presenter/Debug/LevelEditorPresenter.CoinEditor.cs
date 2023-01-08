@@ -31,6 +31,14 @@ public partial class LevelEditorPresenter
         coinEditorTransform.localPosition = new Vector3(coin.localPosition.x, coinEditorTransform.localPosition.y, coin.localPosition.z);
         coinEditor.Init(coin.numberOfCoin, coin.benzierPointPositions.Select(x => x.ToVector3()).ToArray());
     }
+    
+    private void CloneCoinEditor(CoinEditor coinEditor)
+    {
+        var clonedCoinEditor = CreateCoinEditor();
+        var coinEditorTransform = clonedCoinEditor.transform;
+        coinEditorTransform.localPosition = coinEditor.transform.localPosition;
+        clonedCoinEditor.Init(coinEditor.CoinNumber, coinEditor.BenzierPointPositions);
+    }
 
     private CoinEditor CreateCoinEditor()
     {
@@ -76,7 +84,9 @@ public partial class LevelEditorPresenter
             }),
             isShuffleBtnVisible = true,
             pinTransform = LevelDesignPin.Instantiate(coinEditor.GetComponent<Collider>()).transform,
-            camera = freeCameraComponent
+            camera = freeCameraComponent,
+            duplicateBtn = new ButtonComponent.Entity(() => CloneCoinEditor(coinEditor)),
+            isDuplicateBtnVisible = true
         });
         pin.In().Forget();
     }
