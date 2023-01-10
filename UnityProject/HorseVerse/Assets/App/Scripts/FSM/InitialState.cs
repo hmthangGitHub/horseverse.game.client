@@ -38,6 +38,7 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.Bind(TCPSocketClient.Initialize(new ProtobufMessageParser(), ErrorCodeConfiguration.Initialize(masterErrorCodeContainer)));
 #endif
         this.Container.Bind(await UITouchDisablePresenter.InstantiateAsync(Container));
+        this.Container.Bind(PingDomainService.Instantiate(Container));
         base.Enter();
 
     }
@@ -65,6 +66,7 @@ public class InitialState : InjectedBHState, IDisposable
 
     public void Dispose()
     {
+        this.Container.RemoveAndDisposeIfNeed<PingDomainService>();
         this.Container.RemoveAndDisposeIfNeed<UITouchDisablePresenter>();
 #if UNITY_WEBGL || WEB_SOCKET
         this.Container.RemoveAndDisposeIfNeed<WebSocketClient>();

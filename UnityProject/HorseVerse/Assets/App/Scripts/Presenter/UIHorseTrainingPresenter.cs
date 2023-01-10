@@ -81,13 +81,13 @@ public class UIHorseTrainingPresenter : IDisposable
 
     private async UniTask ToTrainingAsync()
     {
-        // var data = await TrainingDomainService.StartTrainingData(UserDataRepository.Current.CurrentHorseNftId);
-        // if (data.ResultCode == 100)
+        var data = await TrainingDomainService.StartTrainingData(UserDataRepository.Current.CurrentHorseNftId);
+        if (data.ResultCode == 100)
         {
             ToTrainingActionState.Invoke();
 
             var userHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
-            // userHorse.Happiness = data.Happiness;
+            userHorse.Happiness = data.Happiness;
             container.Bind(new HorseTrainingDataContext()
             {
                 HorseMeshInformation = new HorseMeshInformation()
@@ -101,8 +101,6 @@ public class UIHorseTrainingPresenter : IDisposable
                 MasterMapId = 10001003,
             });
         }   
-
-        //await TrainingDomainService.SendHorseToTraining(UserDataRepository.Current.MasterHorseId);
     }
 
     private void UserDataRepositoryOnModelUpdate((UserDataModel before, UserDataModel after) model)

@@ -23,6 +23,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     [SerializeField] private GameObject landingVFX;
     [SerializeField] private GameObject trailVFX;
     [SerializeField] private GameObject takeCoinVFX;
+    [SerializeField] private GameObject jumpVFX;
     [SerializeField] private LeanFingerUp touchUp;
     [SerializeField] private LeanFingerDown touchDown;
     
@@ -271,6 +272,8 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
             Jump(true);
             isJumping = true;
             animator.CrossFade("JumpStart", 0.1f, 0);
+            var vfx = Instantiate(jumpVFX);
+            vfx.transform.position = pivotPoint.position + Vector3.up * 0.1f;
             AudioManager.Instance.StopSound();
         }
     }
