@@ -59,6 +59,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8993483877423513918, guid: 55dc9c2553832884cafbb8978427d61c, type: 3}
+      propertyPath: m_Size.x
+      value: 1.867566
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993483877423513918, guid: 55dc9c2553832884cafbb8978427d61c, type: 3}
+      propertyPath: m_Size.y
+      value: 16.165037
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993483877423513918, guid: 55dc9c2553832884cafbb8978427d61c, type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993483877423513918, guid: 55dc9c2553832884cafbb8978427d61c, type: 3}
+      propertyPath: m_Center.y
+      value: 7.5825176
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993483877423513918, guid: 55dc9c2553832884cafbb8978427d61c, type: 3}
+      propertyPath: m_Center.z
+      value: 0.15931518
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4374391814245354872, guid: 55dc9c2553832884cafbb8978427d61c, type: 3}
     - {fileID: 3227319872149182565, guid: 55dc9c2553832884cafbb8978427d61c, type: 3}
@@ -103,7 +123,9 @@ MonoBehaviour:
   testPaddingTail: {fileID: 0}
   testOffset: 0
   testStartPosition: {fileID: 0}
+  masterTrainingBlockComboTypeTest: 0
   coinPrefab: {fileID: 2254685236390367293, guid: 3cf5b2207f582bd4c945d8d477c5f2a3, type: 3}
   boxColliders: []
+  allPlatformColliders: []
   paddingHeadCollider: {fileID: 0}
   paddingTailCollider: {fileID: 0}

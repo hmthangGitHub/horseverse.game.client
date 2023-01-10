@@ -14,6 +14,7 @@ public class UnityMessageForwarder : MonoBehaviour
                 GameObject go = new GameObject("UnityMessageForwarder");
                 _instance = go.AddComponent<UnityMessageForwarder>();
                 go.name = _instance.GetType().ToString();
+                DontDestroyOnLoad(go);
             }
 
             return _instance;

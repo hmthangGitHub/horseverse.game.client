@@ -291,7 +291,7 @@ public class HorseTrainingPresenter : IDisposable
             {
                 trainingUcsRetry.TrySetResult(true);
                 UILoader.SafeRelease(ref popup);
-            }, userHorse.Happiness > 0),
+            }, userHorse.Happiness >= UserSettingLocalRepository.MasterDataModel.TrainingHappinessCost),
             boxReward = new UITrainingResultRewardComponent.Entity() { Total = (int)numbox},
             coinReward = new UITrainingResultRewardComponent.Entity() { Total = (int)numcoin },
             currentEnergy = userHorse.Happiness,

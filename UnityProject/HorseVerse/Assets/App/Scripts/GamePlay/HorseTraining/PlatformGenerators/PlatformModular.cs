@@ -191,10 +191,10 @@ public partial class PlatformModular : PlatformBase
         }
     }
     
-    public static void Snap(Collider floor, Collider objetToSnap)
+    public static void Snap(BoxCollider floor, Collider objetToSnap)
     {
         var bounds = floor.bounds;
-        var yHeadOffset = bounds.center.y + bounds.extents.y;
+        var yHeadOffset = floor.center.y + bounds.extents.y;
         var obstacleBounds = objetToSnap.bounds;
         var yObstacleOffset = -obstacleBounds.center.y + obstacleBounds.extents.y;
         objetToSnap.transform.position = floor.transform.position

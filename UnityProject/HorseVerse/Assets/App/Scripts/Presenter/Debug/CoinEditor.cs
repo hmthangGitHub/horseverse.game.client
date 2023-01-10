@@ -45,7 +45,11 @@ public class CoinEditor : MonoBehaviour
     {
         var runtimeTransformHandle = x.gameObject.GetOrAddComponent<RuntimeTransformHandle>();
         runtimeTransformHandle.enabled = status == UIComponentSplineEditorMode.Status.Edit;
-        AddPositionControllerIfNeed(x.transform);
+
+        if (status == UIComponentSplineEditorMode.Status.Edit)
+        {
+            AddPositionControllerIfNeed(x.transform);
+        }
     }
 
     public void Init(int coinNumber,
