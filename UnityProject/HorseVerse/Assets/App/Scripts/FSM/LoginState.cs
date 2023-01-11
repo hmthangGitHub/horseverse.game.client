@@ -8,6 +8,9 @@ using UnityEngine;
 public class LoginState : InjectedBState
 {
     private LoginStatePresenter loginPresenter;
+    private IPingDomainService pingDomainService;
+    private IPingDomainService PingDomainService => pingDomainService ??= Container.Inject<IPingDomainService>();
+
     public override void Enter()
     {
         base.Enter();
@@ -22,6 +25,7 @@ public class LoginState : InjectedBState
         return;
 #endif
         await loginPresenter.ConnectAndLoginAsync();
+        PingDomainService.StartPingService().Forget();
         this.Machine.ChangeState<MainMenuState>();
     }
 

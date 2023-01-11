@@ -26,7 +26,6 @@ public class HorseTrainingPresenter : IDisposable
 
     private CancellationTokenSource cts;
     private Scene mapSceneAsset;
-    private int numberOfCoinTaken = 0;
     private int distanceOfRunning = 0;
     private UniTaskCompletionSource<bool> trainingUcsRetry;
 
@@ -37,6 +36,14 @@ public class HorseTrainingPresenter : IDisposable
     private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= Container.Inject<IReadOnlyUserDataRepository>();
     private IReadOnlyHorseRepository horseRepository;
     private IReadOnlyHorseRepository HorseRepository => horseRepository ??= Container.Inject<IReadOnlyHorseRepository>();
+
+    private string numberOfCoinTaken = ACT.Encrypt(0);
+
+    private int NumberOfCoinTaken
+    {
+        get => ACT.Decrypt(numberOfCoinTaken);
+        set => numberOfCoinTaken = ACT.Encrypt(value);
+    }
 
     public HorseTrainingPresenter(IDIContainer container)
     {
@@ -74,7 +81,7 @@ public class HorseTrainingPresenter : IDisposable
             {
                 uiTrainingCoinCounting.SetEntity(new UITrainingCoinCounting.Entity()
                 {
-                    coin = numberOfCoinTaken,
+                    coin = NumberOfCoinTaken,
                     btnSetting = new ButtonComponent.Entity(UniTask.Action(async () => await OnBtnPauseClicked()))
                 });
                 uiTrainingCoinCounting.In().Forget();
@@ -208,13 +215,13 @@ public class HorseTrainingPresenter : IDisposable
 
     private void OnTakeCoin()
     {
-        numberOfCoinTaken++;
+        NumberOfCoinTaken++;
         UpdateCoinUI();
     }
 
     private void UpdateCoinUI()
     {
-        uiTrainingCoinCounting.coin.SetEntity(numberOfCoinTaken);
+        uiTrainingCoinCounting.coin.SetEntity(NumberOfCoinTaken);
     }
 
     private void UpdateBGM(float f)
@@ -237,7 +244,7 @@ public class HorseTrainingPresenter : IDisposable
         Time.timeScale = 0.0f;
         AudioManager.Instance.StopSound();
         SoundController.PlayHitObstance();
-        var data = await TrainingDomainService.GetTrainingRewardData(distanceOfRunning, numberOfCoinTaken);
+        var data = await TrainingDomainService.GetTrainingRewardData(distanceOfRunning, NumberOfCoinTaken);
         if (data.ResultCode == 100) {
             await ShowUIHorseTrainingResultAsync(data);
         }

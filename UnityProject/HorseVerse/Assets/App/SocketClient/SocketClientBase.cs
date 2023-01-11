@@ -55,7 +55,8 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
                         ? msg
                         : "Unknown Message";
                     throw new Exception($"Failed Response Exception Result Code:{errorCodeMessage.ResultCode} " +
-                                        $"- {message}");
+                                        $"- {message} \n" +
+                                        $"{response}");
                 }
 
                 ucs.TrySetResult(response);
