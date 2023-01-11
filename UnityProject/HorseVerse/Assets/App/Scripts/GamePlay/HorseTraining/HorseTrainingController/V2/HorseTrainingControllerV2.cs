@@ -247,15 +247,12 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         var oldRunTime = TotalRunTimeEncrypt.Value;
         TotalRunTimeEncrypt.Value += Time.deltaTime;
         OnUpdateRunTime();
-        Debug.Log(TotalRunTimeEncrypt.Value);
         if (Mathf.FloorToInt(TotalRunTimeEncrypt.Value) == Mathf.FloorToInt(oldRunTime)) return;
         
         var totalScore = (int)(TotalRunTimeEncrypt.Value * 2) + TotalCoinEncrypt.Value;
         CurrentDifficulty = masterTrainingDifficultyContainer.MasterTrainingDifficultyIndexer
                                                              .Last(x => x.Value.RequiredScore <= totalScore)
                                                              .Value.Difficulty;
-        
-        Debug.Log($"CurrentDifficulty + {CurrentDifficulty}" );
     }
 
     public Vector3 GetRelativePoint()

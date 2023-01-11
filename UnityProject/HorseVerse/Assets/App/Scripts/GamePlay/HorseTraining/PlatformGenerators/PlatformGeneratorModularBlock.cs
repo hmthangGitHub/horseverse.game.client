@@ -45,7 +45,6 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
     private MasterHorseTrainingBlockCombo GetRandomBlockCombo()
     {
         var masterHorseTrainingBlockGroupId = GetMasterHorseTrainingBlockGroupId();
-        Debug.Log($"Random {masterHorseTrainingBlockGroupId}");
         return masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer[masterHorseTrainingBlockGroupId]
                                                      .RandomElement();
     }
@@ -56,7 +55,6 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
                         .DifficultyIndexer[horseTrainingControllerV2.CurrentDifficulty]
                         .Sum(x => x.Weight);
         var randomWeighted = Random.Range(0f, maxWeight);
-        Debug.Log($"randomWeighted {randomWeighted}");
         var weight = 0;
         var group = 0;
         foreach (var item in masterTrainingBlockDistributeContainer
