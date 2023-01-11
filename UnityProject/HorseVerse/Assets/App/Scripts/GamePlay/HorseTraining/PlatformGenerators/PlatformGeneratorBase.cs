@@ -9,6 +9,8 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     protected MasterHorseTrainingProperty masterHorseTrainingProperty;
     protected MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer;
     protected MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer;
+    protected MasterTrainingDifficultyContainer masterTrainingDifficultyContainer;
+    protected MasterTrainingBlockDistributeContainer masterTrainingBlockDistributeContainer;
     
     public PlatformBase platformPrefab;
     public GameObject lastPlatform;
@@ -18,11 +20,15 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
 
     public async UniTask InitializeAsync(MasterHorseTrainingProperty masterHorseTrainingProperty,
                                          MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer,
-                                         MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer)
+                                         MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer,
+                                         MasterTrainingDifficultyContainer masterTrainingDifficultyContainer,
+                                         MasterTrainingBlockDistributeContainer masterTrainingBlockDistributeContainer)
     {
         this.masterHorseTrainingProperty = masterHorseTrainingProperty;
         this.masterHorseTrainingBlockContainer = masterHorseTrainingBlockContainer;
         this.masterHorseTrainingBlockComboContainer = masterHorseTrainingBlockComboContainer;
+        this.masterTrainingDifficultyContainer = masterTrainingDifficultyContainer;
+        this.masterTrainingBlockDistributeContainer = masterTrainingBlockDistributeContainer;
         await InitializeInternal();
         for (var i = 0; i < 4; i++)
         {

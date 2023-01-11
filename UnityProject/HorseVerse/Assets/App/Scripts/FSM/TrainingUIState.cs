@@ -19,7 +19,6 @@ public class TrainingUIState : InjectedBState
 
         UIHeaderPresenter.OnBack += OnBack;
         UIHeaderPresenter.ShowHeaderAsync(true, "ADVENTURE").Forget();
-        UIHeaderPresenter.OnLogOut += OnLogOut;
         presenter.ToTrainingActionState += ToTrainingActionState;
         presenter.ShowUIHorseTrainingAsync().Forget();
     }
@@ -47,25 +46,4 @@ public class TrainingUIState : InjectedBState
         presenter.Dispose();
         presenter = null;
     }
-
-    private void OnLogOut()
-    {
-        OnLogOutAsync().Forget();
-    }
-
-    private async UniTask OnLogOutAsync()
-    {
-        await SocketClient.Close();
-#if MULTI_ACCOUNT
-        var indexToken = PlayerPrefs.GetString(GameDefine.TOKEN_CURRENT_KEY_INDEX, "");
-        PlayerPrefs.DeleteKey(GameDefine.TOKEN_STORAGE + indexToken);
-        PlayerPrefs.DeleteKey(GameDefine.TOKEN_CURRENT_KEY_INDEX);
-#else
-        PlayerPrefs.DeleteKey(GameDefine.TOKEN_STORAGE);
-#endif
-        AudioManager.Instance?.StopMusic();
-        this.Machine.ChangeState<LoginState>();
-        Release();
-    }
-
 }

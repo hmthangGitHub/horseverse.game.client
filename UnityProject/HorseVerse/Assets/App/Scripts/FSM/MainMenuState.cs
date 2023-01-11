@@ -34,7 +34,6 @@ public class MainMenuState : InjectedBState
         ShowBackGrounAsync().Forget();
         UIHorse3DViewPresenter.ShowHorse3DViewAsync().Forget();
         UiHeaderPresenter.ShowHeaderAsync(false).Forget();
-        UiHeaderPresenter.OnLogOut += OnLogOut;
         uiMainMenuPresenter ??= new UIMainMenuPresenter(this.Container);
         SubcribeEvents();
         uiMainMenuPresenter.ShowMainMenuAsync().Forget();
@@ -103,36 +102,12 @@ public class MainMenuState : InjectedBState
     {
         this.Machine.ChangeState<TrainingState>();
     }
-    
-    
-    private void OnLogOut()
-    {
-        OnLogOutAsync().Forget();
-    }
-
-    private async UniTask OnLogOutAsync()
-    {
-        await uiHorse3DViewPresenter.HideHorse3DViewAsync();
-        uiHorse3DViewPresenter.Dispose();
-        await SocketClient.Close();
-#if MULTI_ACCOUNT
-        var indexToken = PlayerPrefs.GetString(GameDefine.TOKEN_CURRENT_KEY_INDEX, "");
-        PlayerPrefs.DeleteKey(GameDefine.TOKEN_STORAGE + indexToken);
-        PlayerPrefs.DeleteKey(GameDefine.TOKEN_CURRENT_KEY_INDEX);
-#else
-        PlayerPrefs.DeleteKey(GameDefine.TOKEN_STORAGE);
-#endif
-        AudioManager.Instance?.StopMusic();
-        StartUpStatePresenter.Reboot();
-        startUpStatePresenter = default;
-    }
 
     public override void Exit()
     {
         base.Exit();
         UnSubcribeEvents();
         UiHeaderPresenter.HideHeader();
-        UiHeaderPresenter.OnLogOut -= OnLogOut;
         uiMainMenuPresenter.Dispose();
         uiMainMenuPresenter = default;
         uiLoadingPresenter = default;

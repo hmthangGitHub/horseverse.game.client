@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlatformGeneratorModularBlock : PlatformGeneratorBase
 {
@@ -23,8 +25,8 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
     protected override PlatformBase CreatePlatform(Vector3 relativePointToPlayer,
                                                    Vector3 lastEndPosition)
     {
-        var randomBlockCombo = masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboIndexer.Values.RandomElement();
-        
+        var randomBlockCombo = GetRandomBlockCombo();
+
         var paddingStartBlockId= masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(randomBlockCombo.MasterTrainingModularBlockIdStart);
         var paddingEndBlockId= masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(randomBlockCombo.MasterTrainingModularBlockIdEnd);
 
@@ -38,6 +40,34 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
             randomBlockCombo,
             trainingBlockSettings.obstacles);
         return platform;
+    }
+
+    private MasterHorseTrainingBlockCombo GetRandomBlockCombo()
+    {
+        var masterHorseTrainingBlockGroupId = GetMasterHorseTrainingBlockGroupId();
+        Debug.Log($"Random {masterHorseTrainingBlockGroupId}");
+        return masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer[masterHorseTrainingBlockGroupId]
+                                                     .RandomElement();
+    }
+
+    private int GetMasterHorseTrainingBlockGroupId()
+    {
+        var maxWeight = masterTrainingBlockDistributeContainer
+                        .DifficultyIndexer[horseTrainingControllerV2.CurrentDifficulty]
+                        .Sum(x => x.Weight);
+        var randomWeighted = Random.Range(0f, maxWeight);
+        Debug.Log($"randomWeighted {randomWeighted}");
+        var weight = 0;
+        var group = 0;
+        foreach (var item in masterTrainingBlockDistributeContainer
+                     .DifficultyIndexer[horseTrainingControllerV2.CurrentDifficulty])
+        {
+            weight += item.Weight;
+            if (randomWeighted <= weight)
+                return item.MasterHorseTrainingBlockGroupId;
+        }
+
+        throw new Exception($"Can not get random MasterHorseTrainingBlockGroupId ");
     }
 
     private string GetPaddingMasterTrainingModularBlockId(string masterTrainingModularBlockId)

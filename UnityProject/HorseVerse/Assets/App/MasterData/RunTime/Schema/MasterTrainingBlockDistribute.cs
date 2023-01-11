@@ -13,8 +13,8 @@ public partial class MasterTrainingBlockDistribute
 	public int Difficulty => difficulty;
 
 	[JsonProperty]
-	private long master_horse_training_block_group_id;
-	public long MasterHorseTrainingBlockGroupId => master_horse_training_block_group_id;
+	private int master_horse_training_block_group_id;
+	public int MasterHorseTrainingBlockGroupId => master_horse_training_block_group_id;
 
 	[JsonProperty]
 	private int weight;

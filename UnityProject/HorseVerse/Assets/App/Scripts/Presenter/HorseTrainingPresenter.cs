@@ -18,6 +18,8 @@ public class HorseTrainingPresenter : IDisposable
     private MasterHorseTrainingPropertyContainer masterHorseTrainingPropertyContainer;
     private MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer;
     private MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer;
+    private MasterTrainingDifficultyContainer masterTrainingDifficultyContainer;
+    private MasterTrainingBlockDistributeContainer masterTrainingBlockDistributeContainer;
     private UITrainingCoinCounting uiTrainingCoinCounting;
     private UITrainingPressAnyKey uiTrainingPressAnyKey;
     private UIHorseTrainingInput uiHorseTrainingInput;
@@ -36,15 +38,7 @@ public class HorseTrainingPresenter : IDisposable
     private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= Container.Inject<IReadOnlyUserDataRepository>();
     private IReadOnlyHorseRepository horseRepository;
     private IReadOnlyHorseRepository HorseRepository => horseRepository ??= Container.Inject<IReadOnlyHorseRepository>();
-
-    private string numberOfCoinTaken = ACT.Encrypt(0);
-
-    private int NumberOfCoinTaken
-    {
-        get => ACT.Decrypt(numberOfCoinTaken);
-        set => numberOfCoinTaken = ACT.Encrypt(value);
-    }
-
+    
     public HorseTrainingPresenter(IDIContainer container)
     {
         Container = container;
@@ -62,6 +56,8 @@ public class HorseTrainingPresenter : IDisposable
         masterHorseTrainingPropertyContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingPropertyContainer>(token: cts.Token);
         masterHorseTrainingBlockContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(token: cts.Token);
         masterHorseTrainingBlockComboContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>(token: cts.Token);
+        masterTrainingDifficultyContainer = await MasterLoader.LoadMasterAsync<MasterTrainingDifficultyContainer>(token: cts.Token);
+        masterTrainingBlockDistributeContainer = await MasterLoader.LoadMasterAsync<MasterTrainingBlockDistributeContainer>(token: cts.Token);
 
         uiTrainingCoinCounting = await UILoader.Instantiate<UITrainingCoinCounting>(token: cts.Token);
         uiTrainingPressAnyKey = await UILoader.Instantiate<UITrainingPressAnyKey>(token: cts.Token);
@@ -70,10 +66,14 @@ public class HorseTrainingPresenter : IDisposable
         await horseTrainingManager.Initialize(
             masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.MasterMapId].MapPath,
             OnTakeCoin,
+            OnUpdateRuntime,
             () => OnTouchObstacleAsync().Forget(),
             masterHorseTrainingPropertyContainer.DataList.First(),
             masterHorseTrainingBlockContainer, 
-            masterHorseTrainingBlockComboContainer, horseTrainingDataContext.HorseMeshInformation);
+            masterHorseTrainingBlockComboContainer,
+            masterTrainingBlockDistributeContainer, 
+            masterTrainingDifficultyContainer, 
+            horseTrainingDataContext.HorseMeshInformation);
         
         uiTrainingPressAnyKey.SetEntity(new UITrainingPressAnyKey.Entity()
         {
@@ -81,7 +81,7 @@ public class HorseTrainingPresenter : IDisposable
             {
                 uiTrainingCoinCounting.SetEntity(new UITrainingCoinCounting.Entity()
                 {
-                    coin = NumberOfCoinTaken,
+                    coin = 0,
                     btnSetting = new ButtonComponent.Entity(UniTask.Action(async () => await OnBtnPauseClicked()))
                 });
                 uiTrainingCoinCounting.In().Forget();
@@ -98,9 +98,14 @@ public class HorseTrainingPresenter : IDisposable
         });
     }
 
+    private void OnUpdateRuntime()
+    {
+        UpdateScoreUI();
+    }
+
     public async UniTask<bool> StartTrainingAsync()
     {
-        await UniTask.Delay(1500);
+        await UniTask.Delay(1500, cancellationToken: cts.Token);
         SoundController.PlayMusicTrainingInGame();
         uiTrainingPressAnyKey.In().Forget();
         trainingUcsRetry = new UniTaskCompletionSource<bool>();
@@ -215,14 +220,17 @@ public class HorseTrainingPresenter : IDisposable
 
     private void OnTakeCoin()
     {
-        NumberOfCoinTaken++;
-        UpdateCoinUI();
+        UpdateScoreUI();
     }
 
-    private void UpdateCoinUI()
+    private void UpdateScoreUI()
     {
-        uiTrainingCoinCounting.coin.SetEntity(NumberOfCoinTaken);
+        uiTrainingCoinCounting.coin.SetEntity(CurrentPoint);
     }
+
+    private int CurrentPoint =>
+        horseTrainingManager.HorseTrainingController.TotalCoinEncrypt.Value +
+        (int)(horseTrainingManager.HorseTrainingController.TotalRunTimeEncrypt.Value * 2);
 
     private void UpdateBGM(float f)
     {
@@ -244,7 +252,7 @@ public class HorseTrainingPresenter : IDisposable
         Time.timeScale = 0.0f;
         AudioManager.Instance.StopSound();
         SoundController.PlayHitObstance();
-        var data = await TrainingDomainService.GetTrainingRewardData(distanceOfRunning, NumberOfCoinTaken);
+        var data = await TrainingDomainService.GetTrainingRewardData(distanceOfRunning, CurrentPoint);
         if (data.ResultCode == 100) {
             await ShowUIHorseTrainingResultAsync(data);
         }
@@ -268,6 +276,8 @@ public class HorseTrainingPresenter : IDisposable
         MasterLoader.SafeRelease(ref masterHorseTrainingPropertyContainer);
         MasterLoader.SafeRelease(ref masterHorseTrainingBlockContainer);
         MasterLoader.SafeRelease(ref masterHorseTrainingBlockComboContainer);
+        MasterLoader.SafeRelease(ref masterTrainingDifficultyContainer);
+        MasterLoader.SafeRelease(ref masterTrainingBlockDistributeContainer);
         horseTrainingDataContext = default;
         DisposeUtility.SafeDispose(ref horseTrainingManager);
         AudioManager.Instance.StopSound();

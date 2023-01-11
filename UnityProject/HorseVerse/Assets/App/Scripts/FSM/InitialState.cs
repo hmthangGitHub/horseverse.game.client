@@ -8,6 +8,8 @@ using UnityEngine;
 
 public class InitialState : InjectedBHState, IDisposable
 {
+    private UIHeaderPresenter uiHeaderPresenter;
+    private StartUpStatePresenter StartUpStatePresenter => Container.Inject<StartUpStatePresenter>();
     public override void Enter()
     {
         OnEnterStateAsync().Forget();
@@ -22,7 +24,8 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.Bind(new BetRateRepository());
         this.Container.Bind(new UserDataRepository());
         this.Container.Bind(new UILoadingPresenter());
-        this.Container.Bind(new UIHeaderPresenter(Container));
+        uiHeaderPresenter = new UIHeaderPresenter(Container);
+        this.Container.Bind(uiHeaderPresenter);
         this.Container.Bind(new UIBackGroundPresenter(Container));
         this.Container.Bind(new UIHorse3DViewPresenter(Container));
         this.Container.Bind(new UIHorseInfo3DViewPresenter(Container)); //Use for show other horse
@@ -39,8 +42,23 @@ public class InitialState : InjectedBHState, IDisposable
 #endif
         this.Container.Bind(await UITouchDisablePresenter.InstantiateAsync(Container));
         this.Container.Bind(PingDomainService.Instantiate(Container));
+
+        uiHeaderPresenter.OnLogOut += OnLogOut;
         base.Enter();
 
+    }
+
+    private void OnLogOut()
+    {
+#if MULTI_ACCOUNT
+        var indexToken = PlayerPrefs.GetString(GameDefine.TOKEN_CURRENT_KEY_INDEX, "");
+        PlayerPrefs.DeleteKey(GameDefine.TOKEN_STORAGE + indexToken);
+        PlayerPrefs.DeleteKey(GameDefine.TOKEN_CURRENT_KEY_INDEX);
+#else
+        PlayerPrefs.DeleteKey(GameDefine.TOKEN_STORAGE);
+#endif
+        AudioManager.Instance?.StopMusic();
+        StartUpStatePresenter.Reboot();
     }
 
     public override void AddStates()
@@ -66,6 +84,7 @@ public class InitialState : InjectedBHState, IDisposable
 
     public void Dispose()
     {
+        uiHeaderPresenter.OnLogOut -= OnLogOut;
         this.Container.RemoveAndDisposeIfNeed<PingDomainService>();
         this.Container.RemoveAndDisposeIfNeed<UITouchDisablePresenter>();
 #if UNITY_WEBGL || WEB_SOCKET
@@ -90,5 +109,6 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.RemoveAndDisposeIfNeed<HorseSumaryListEntityFactory>();
         this.Container.RemoveAndDisposeIfNeed<MasterHorseContainer>();
         MasterLoader.Unload<MasterHorseContainer>();
+        uiHeaderPresenter = default;
     }
 }

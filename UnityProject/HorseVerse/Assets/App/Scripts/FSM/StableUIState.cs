@@ -22,7 +22,6 @@ public class StableUIState : InjectedBState
         uiHorseStablePresenter.OnViewHorseDetail += OnViewHorseDetail;
         UIHeaderPresenter.ShowHeaderAsync(true, "STABLE").Forget();
         UIHeaderPresenter.OnBack += OnBack;
-        UIHeaderPresenter.OnLogOut += OnLogOut;
         uiHorseStablePresenter.ShowUIHorseStableAsync().Forget();
 
     }
@@ -56,27 +55,5 @@ public class StableUIState : InjectedBState
         UIHeaderPresenter.OnBack -= OnBack;
         uiHorseStablePresenter.Dispose();
         uiHorseStablePresenter = default;
-    }
-
-    private void OnLogOut()
-    {
-        OnLogOutAsync().Forget();
-    }
-
-    private async UniTask OnLogOutAsync()
-    {
-        await uiHorse3DViewPresenter.HideHorse3DViewAsync();
-        uiHorse3DViewPresenter.Dispose();
-        await SocketClient.Close();
-#if MULTI_ACCOUNT
-        var indexToken = PlayerPrefs.GetString(GameDefine.TOKEN_CURRENT_KEY_INDEX, "");
-        PlayerPrefs.DeleteKey(GameDefine.TOKEN_STORAGE + indexToken);
-        PlayerPrefs.DeleteKey(GameDefine.TOKEN_CURRENT_KEY_INDEX);
-#else
-        PlayerPrefs.DeleteKey(GameDefine.TOKEN_STORAGE);
-#endif
-        AudioManager.Instance?.StopMusic();
-        this.Machine.ChangeState<LoginState>();
-        Release();
     }
 }

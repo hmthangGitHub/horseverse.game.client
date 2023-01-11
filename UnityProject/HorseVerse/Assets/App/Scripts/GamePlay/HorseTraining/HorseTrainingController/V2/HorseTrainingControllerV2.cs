@@ -36,8 +36,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     [SerializeField] private GameObject cam3;
     [SerializeField] private Transform horsePosition;
     [SerializeField] private Vector3 groundVelocity;
-    [SerializeField]
-    private Transform pivotPoint;
+    [SerializeField] private Transform pivotPoint;
 
     private bool isStart;
     private bool isDead;
@@ -47,19 +46,32 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private Animator animator;
     private Animator Animator => animator ??= GetComponentInChildren<Animator>();
     private float currentAirTime;
+    public CryptoField<float> TotalRunTimeEncrypt { get; } = new CryptoField<float>();
+    public CryptoField<int> TotalCoinEncrypt { get; } = new CryptoField<int>();
     private float MaxAirTime => Mathf.Abs(JumpVelocity / DefaultGravity) + masterHorseTrainingProperty.FallAirTimeMax;
-
+    public Vector2 AirTime => new Vector2(masterHorseTrainingProperty.FallAirTimeMin, masterHorseTrainingProperty.FallAirTimeMax);
     public event Action OnTakeCoin = ActionUtility.EmptyAction.Instance;
+    public event Action OnUpdateRunTime = ActionUtility.EmptyAction.Instance;
     public event Action OnDeadEvent = ActionUtility.EmptyAction.Instance;
 
     public float JumpVelocity => masterHorseTrainingProperty.JumpVelocity;
     public float HorizontalVelocity => masterHorseTrainingProperty.HorizontalVelocity;
-    public float ForwardVelocity => masterHorseTrainingProperty.ForwardVelocity;
+
+    [SerializeField]
+    public float ForwardVelocity { get; private set; }
+
+    private float GetForwardVelocityFromCurrentDifficulty()
+    {
+        return masterTrainingDifficultyContainer.MasterTrainingDifficultyIndexer.First(x =>
+            x.Value.Difficulty == CurrentDifficulty).Value.ForwardVelocity;
+    }
+
     public float LowJumpMultiplier => masterHorseTrainingProperty.FallGravityMultiplier;
     public float DefaultGravity => defaultGravity;
     public float lastTapTimeStamp = 0;
     public int index = 0;
     private MasterHorseTrainingProperty masterHorseTrainingProperty;
+    private MasterTrainingDifficultyContainer masterTrainingDifficultyContainer;
     private string horseModelPath;
     private enum LastTap
     {
@@ -72,6 +84,44 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private float animationHorizontal;
     private static readonly int VerticalVelocity = Animator.StringToHash("VerticalVelocity");
     private int horizontalDirection = 0;
+    private int currentDifficulty = 0;
+
+    public bool IsGrounded
+    {
+        get => isGrounded;
+        set
+        {
+            if (isGrounded != value)
+            {
+                isGrounded = value;
+                OnGrounded(isGrounded);
+            }
+        }
+    }
+
+    public bool IsStart
+    {
+        get => isStart;
+        set
+        {
+            if (isStart != value)
+            {
+                isStart = value;
+                OnStart(value);
+            }
+        }
+    }
+
+    public int CurrentDifficulty
+    {
+        get => currentDifficulty;
+        set
+        {
+            if (currentDifficulty == value) return;
+            currentDifficulty = value;
+            ForwardVelocity = GetForwardVelocityFromCurrentDifficulty();
+        }
+    }
 
     private void AddInputEvents()
     {
@@ -127,9 +177,11 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     }
 
     public async UniTask Initialize(MasterHorseTrainingProperty masterHorseTrainingProperty,
+                                    MasterTrainingDifficultyContainer masterTrainingDifficultyContainer,
                                     HorseMeshInformation horseMeshInformation)
     {
         this.masterHorseTrainingProperty = masterHorseTrainingProperty;
+        this.masterTrainingDifficultyContainer = masterTrainingDifficultyContainer;
         SetCameraYaw(masterHorseTrainingProperty.RunCameraRotation, cam1.transform);
         SetCameraYaw(masterHorseTrainingProperty.FallCameraRotation, cam2.transform);
         horseModelPath = horseMeshInformation.horseModelPath;
@@ -137,6 +189,9 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         horse.transform.parent = horsePosition;
         horse.transform.localPosition = Vector3.zero;
         horse.transform.localScale = Vector3.one;
+        CurrentDifficulty = 1;
+        TotalCoinEncrypt.Value = 0;
+        TotalRunTimeEncrypt.Value = 0;
     }
 
     private void SetCameraYaw(float rotation, Transform cameraTransform)
@@ -145,34 +200,6 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         localRotation.x = rotation;
         cameraTransform.localEulerAngles = localRotation;
     }
-
-    public bool IsGrounded
-    {
-        get => isGrounded;
-        set
-        {
-            if (isGrounded != value)
-            {
-                isGrounded = value;
-                OnGrounded(isGrounded);
-            }
-        }
-    }
-
-    public bool IsStart
-    {
-        get => isStart;
-        set
-        {
-            if (isStart != value)
-            {
-                isStart = value;
-                OnStart(value);
-            }
-        }
-    }
-
-    public Vector2 AirTime => new Vector2(masterHorseTrainingProperty.FallAirTimeMin, masterHorseTrainingProperty.FallAirTimeMax);
 
     private void OnStart(bool isStart)
     {
@@ -183,9 +210,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
             
             DOTween.To(val =>
             {
-                //Debug.Log($"Speed {val}");
                 Animator.SetFloat(Speed, val);
-                currentForwardVelocity = Mathf.Lerp(0.0f, ForwardVelocity, val);
                 currentHorizontalVelocity = Mathf.Lerp(0.0f, HorizontalVelocity, val);
             }, 0.0f, 1.0f, 2.0f).SetEase(Ease.Linear);
             AddInputEvents();
@@ -201,6 +226,8 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
             ControlHorse();
             UpdateHorizontalAnimation();
             UpdateJumpAnimation();
+            UpdateForwardVelocity();
+            UpdateDifficulty();
         }
         
         if(!IsStart)
@@ -208,8 +235,27 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
             cinemachineOrbitalTransposer ??= cam3.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineOrbitalTransposer>();
             cinemachineOrbitalTransposer.m_XAxis.m_InputAxisValue = 0.03f;
         }
+    }
 
-        GetRelativePoint();
+    private void UpdateForwardVelocity()
+    {
+        currentForwardVelocity = Mathf.Lerp(currentForwardVelocity, ForwardVelocity, Time.deltaTime);
+    }
+
+    private void UpdateDifficulty()
+    {
+        var oldRunTime = TotalRunTimeEncrypt.Value;
+        TotalRunTimeEncrypt.Value += Time.deltaTime;
+        OnUpdateRunTime();
+        Debug.Log(TotalRunTimeEncrypt.Value);
+        if (Mathf.FloorToInt(TotalRunTimeEncrypt.Value) == Mathf.FloorToInt(oldRunTime)) return;
+        
+        var totalScore = (int)(TotalRunTimeEncrypt.Value * 2) + TotalCoinEncrypt.Value;
+        CurrentDifficulty = masterTrainingDifficultyContainer.MasterTrainingDifficultyIndexer
+                                                             .Last(x => x.Value.RequiredScore <= totalScore)
+                                                             .Value.Difficulty;
+        
+        Debug.Log($"CurrentDifficulty + {CurrentDifficulty}" );
     }
 
     public Vector3 GetRelativePoint()
@@ -373,6 +419,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         if (other.CompareTag(Coin))
         {
             OnTakeCoin.Invoke();
+            TotalCoinEncrypt.Value++;
             takeCoinVFX.gameObject.SetActive(false);
             takeCoinVFX.gameObject.SetActive(true);
             SoundController.PlayHitCoin();
@@ -390,6 +437,8 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     public void Dispose()
     {
         PrimitiveAssetLoader.UnloadAssetAtPath(horseModelPath);
+        masterHorseTrainingProperty = default;
+        masterTrainingDifficultyContainer = default;
     }
 
 }
