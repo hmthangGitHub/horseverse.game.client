@@ -1,0 +1,9 @@
+using System.Linq;
+
+public partial class {0}Container
+{{
+    private ILookup<{1}, {0}> {2}Indexer;
+    
+    public ILookup<{1}, {0}> {3}Indexer => {2}Indexer ??= 
+        DataList.ToLookup(x => x.{3});
+}}

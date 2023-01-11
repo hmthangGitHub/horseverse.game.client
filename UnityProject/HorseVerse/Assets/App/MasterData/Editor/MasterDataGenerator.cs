@@ -29,9 +29,10 @@ public partial class MasterDataGenerator : EditorWindow
     private const string CSV_FILES_PROPERTY = "csvFiles";
     public TextAsset[] csvFiles;
 
-    public const string MasterDataTemplateFile = "Assets/App/MasterData/Editor/Templates/MasterDataTemplate.txt";
-    public const string masterDataContainerTemplateFile = "Assets/App/MasterData/Editor/Templates/MasterDataContainerTemplate.txt";
-    public const string masterDataFieldTemplate = "Assets/App/MasterData/Editor/Templates/MasterDataFieldTemplate.txt";
+    private const string MasterDataTemplateFile = "Assets/App/MasterData/Editor/Templates/MasterDataTemplate.txt";
+    private const string masterDataContainerTemplateFile = "Assets/App/MasterData/Editor/Templates/MasterDataContainerTemplate.txt";
+    private const string masterDataContainerGroupIndexerTemplate = "Assets/App/MasterData/Editor/Templates/masterDataContainerGroupIndexerTemplate.txt";
+    private const string masterDataFieldTemplate = "Assets/App/MasterData/Editor/Templates/MasterDataFieldTemplate.txt";
 
     public enum Prefix
     {
@@ -39,7 +40,8 @@ public partial class MasterDataGenerator : EditorWindow
         type,
         out_put_client,
         out_put_server,
-        id
+        id,
+        group
     }
 
     void OnGUI()
@@ -57,7 +59,7 @@ public partial class MasterDataGenerator : EditorWindow
 
         if (GUILayout.Button("Fetch & Generate"))
         {
-            FetAndGenerateAsync();
+            FetAndGenerateAsync().Forget();
         }
     }
 
@@ -111,28 +113,52 @@ public partial class MasterDataGenerator : EditorWindow
     {
         if (ValidateMaster(master))
         {
-            var executedCSVData = PreExecuteCSVData(master);
-            GenerateSchema(executedCSVData.outputFieldNames, executedCSVData.outPutTypeNames, executedCSVData.idColumn, master.name);
-            GenerateData(executedCSVData.preExecuteCSVData, master.name);
+            var executedCsvData = PreExecuteCSVData(master);
+            GenerateSchema(executedCsvData.outputFieldNames, executedCsvData.outPutTypeNames, executedCsvData.idColumn, master.name, executedCsvData.groupColums);
+            GenerateData(executedCsvData.preExecuteCSVData, master.name);
         }
     }
 
-    private void GenerateSchema(string[] outputFieldNames, string[] outPutTypeNames, string idColumn, string masterName)
+    private void GenerateSchema(string[] outputFieldNames, string[] outPutTypeNames, string idColumn, string masterName, string[] groupIdColumns)
     {
-        var masterDataContainerTemplateFile = AssetDatabase.LoadAssetAtPath<TextAsset>(MasterDataGenerator.masterDataContainerTemplateFile) as TextAsset;
         var masterUpperCaseName = ToTitleCaseWith_(masterName);
         GenerateMasterDataSource(outputFieldNames, outPutTypeNames, masterUpperCaseName);
-        GenerateMasterDataContainerSource(outputFieldNames, outPutTypeNames, idColumn, masterDataContainerTemplateFile, masterUpperCaseName);
+        GenerateMasterDataContainerSource(outputFieldNames, outPutTypeNames, idColumn, masterUpperCaseName);
+        GenerateMasterDataGroupIndexerSource(outputFieldNames, outPutTypeNames, masterUpperCaseName, groupIdColumns);
         AssetDatabase.Refresh();
     }
 
-    private void GenerateMasterDataContainerSource(string[] outputFieldNames, string[] outPutTypeNames, string idColumn, TextAsset masterDataContaienrTemplateFile, string masterUpperCaseName)
+    private void GenerateMasterDataGroupIndexerSource(string[] outputFieldNames,
+                                                      string[] outPutTypeNames,
+                                                      string masterUpperCaseName,
+                                                      string[] groupIdColumns)
+    {
+        var masterDataContainerGroupIndexerTemplateSource = AssetDatabase
+                                                    .LoadAssetAtPath<TextAsset>(masterDataContainerGroupIndexerTemplate)
+                                                    .text;
+        groupIdColumns.ToList().ForEach(x =>
+        {
+            var idColumnIndex = outputFieldNames.ToList().FindIndex(fieldName => fieldName == x);
+            var fieldName = ToTitleCaseWith_(x);
+            var source = string.Format(masterDataContainerGroupIndexerTemplateSource, masterUpperCaseName,
+                outPutTypeNames[idColumnIndex],
+                char.ToLowerInvariant(fieldName[0]) + fieldName.Substring(1),
+                fieldName);
+            var containerPath = $"{GetAbsolutePathOfAsset(outPutSchemaFolder)}/{masterUpperCaseName}Container.{fieldName}Indexer.cs";
+            File.WriteAllText(containerPath, source);
+        });
+    }
+
+    private void GenerateMasterDataContainerSource(string[] outputFieldNames,
+                                                   string[] outPutTypeNames,
+                                                   string idColumn,
+                                                   string masterUpperCaseName)
     {
         var idColumnIndex = outputFieldNames.ToList().FindIndex(x => x == idColumn);
-        var masterDataContainerSource = string.Format(masterDataContaienrTemplateFile.text,
-                                                      masterUpperCaseName,
-                                                      outPutTypeNames[idColumnIndex],
-                                                      ToTitleCaseWith_(idColumn));
+        var masterDataContainerSource = string.Format(AssetDatabase.LoadAssetAtPath<TextAsset>(masterDataContainerTemplateFile).text,
+                                                    masterUpperCaseName,
+                                                    outPutTypeNames[idColumnIndex],
+                                                    ToTitleCaseWith_(idColumn));
         var containerPath = $"{GetAbsolutePathOfAsset(outPutSchemaFolder)}/{masterUpperCaseName}Container.cs";
         File.WriteAllText(containerPath, masterDataContainerSource);
     }
@@ -161,48 +187,46 @@ public partial class MasterDataGenerator : EditorWindow
         return $"{Application.dataPath}/{AssetDatabase.GetAssetPath(asset).Replace("Assets", "")}";
     }
 
-    private (string[] preExecuteCSVData, string[] outputFieldNames, string[] outPutTypeNames, string idColumn)  PreExecuteCSVData(TextAsset master)
+    private (string[] preExecuteCSVData, string[] outputFieldNames, string[] outPutTypeNames, string idColumn, string[] groupColums)  PreExecuteCSVData(TextAsset master)
     {
         string[] lines = CSVReader.ReadLines(master)
                                   .Select(x => x.Replace("\"\"" ,"\""))
                                   .ToArray();
-        var linesAsColumn = lines.Select(x => x.Split(','));
+        var linesAsColumn = lines.Select(x => x.Split(',')).ToArray();
         
-        var outputClientColumns = linesAsColumn.FirstOrDefault(line => line[0] == Prefix.out_put_client.ToString())
+        var outputClientColumns = linesAsColumn.First(line => line[0] == Prefix.out_put_client.ToString())
                                                .Select((x, i) => (x, i))
                                                .Where(x => x.x.ToLower() == "true")
                                                .Select(x => x.i)
                                                .ToArray();
-        var outputFieldNames = linesAsColumn.FirstOrDefault(line => line[0] == Prefix.type_name.ToString())
+        var outputFieldNames = linesAsColumn.First(line => line[0] == Prefix.type_name.ToString())
                                             .Where((x, i) => outputClientColumns.Contains(i) && !string.IsNullOrEmpty(x))
                                             .ToArray();
-        var outPutTypes = linesAsColumn.FirstOrDefault(line => line[0] == Prefix.type.ToString())
+        var outPutTypes = linesAsColumn.First(line => line[0] == Prefix.type.ToString())
                                        .Where((x, i) => outputClientColumns.Contains(i))
                                        .ToArray();
 
-        var idColumn = linesAsColumn.FirstOrDefault(line => line[0] == Prefix.id.ToString())
+        var idColumn = linesAsColumn.First(line => line[0] == Prefix.id.ToString())
                                     .Select((x, i) => (x, i))
                                     .Where(x => outputClientColumns.Contains(x.i) && x.x == Prefix.id.ToString())
-                                    .Select(x => linesAsColumn.FirstOrDefault(line => line[0] == Prefix.type_name.ToString())[x.i])
-                                    .FirstOrDefault();
+                                    .Select(x => linesAsColumn.First(line => line[0] == Prefix.type_name.ToString())[x.i])
+                                    .First();
 
-        var preExecuteCSVData = new List<string>();
-
+        var groupColumns = linesAsColumn.FirstOrDefault(line => line[0] == Prefix.id.ToString())
+                                       ?.Select((x, i) => (x, i))
+                                       .Where(x => outputClientColumns.Contains(x.i) && x.x == Prefix.group.ToString())
+                                       .Select(x => linesAsColumn.First(line => line[0] == Prefix.type_name.ToString())[x.i]).ToArray()
+                                       ?? Array.Empty<string>();
+        
         var removedPrefixLines = linesAsColumn.Where(line => line[0] == Prefix.type_name.ToString())
                                               .ToList();
         removedPrefixLines.AddRange(linesAsColumn.Where(x => string.IsNullOrEmpty(x[0])));
 
-        foreach (var line in removedPrefixLines)
-        {
-            var cols = line.Where((x, i) => outputClientColumns.Contains(i))
-                           .ToArray();
-            var newLine = string.Join(",", cols);
-            preExecuteCSVData.Add(newLine);
-        }
-
         outPutTypes = outPutTypes.Select(x => x.Contains("_") ? ToTitleCaseWith_(x) : x).ToArray();
-            
-        return (preExecuteCSVData.ToArray(), outputFieldNames, outPutTypes, idColumn);
+
+        var preExecuteCsvData = removedPrefixLines.Select(line => line.Where((x, i) => outputClientColumns.Contains(i)))
+                                                  .Select(cols => string.Join(",", cols)).ToArray();
+        return (preExecuteCsvData, outputFieldNames, outPutTypes, idColumn, groupColumns);
     }
 
     private void GenerateData(string[] preExecuteCSVData, string masterName)

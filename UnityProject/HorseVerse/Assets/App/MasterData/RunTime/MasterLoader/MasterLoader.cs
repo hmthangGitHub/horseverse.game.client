@@ -12,8 +12,8 @@ public static class MasterLoader
     public static async UniTask<TMasterContainer> LoadMasterAsync<TMasterContainer>(CancellationToken token = default) where TMasterContainer : IMasterContainer, new()
     {
         var masterContainer = new TMasterContainer();
-#if ENABLE_MASTER_RUN_TIME_EDIT
         var text = await GetMasterRawDataText<TMasterContainer>(token);
+#if ENABLE_MASTER_RUN_TIME_EDIT
         try
         {
 #endif
