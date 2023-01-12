@@ -40,6 +40,10 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     [SerializeField] private Vector3 groundVelocity;
     [SerializeField] private Transform pivotPoint;
 
+    [Space, Header("INPUT SETTINGS")]
+    [SerializeField, Range(0, 1)] private float delayTimeForTouch = 0.05f;
+    [SerializeField] private float clampOffsetY = 25;
+
     private bool isStart;
     private bool isDead;
     private bool isGrounded = true;
@@ -213,12 +217,12 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private void HandleUpdateTouch(LeanFinger finger)
     {
         if (!finger.Up && lastTap == LastTap.Left && finger.StartScreenPosition.x < Screen.width / 2 
-            && Mathf.Abs(finger.ScreenPosition.y - finger.StartScreenPosition.y) < 2 && (Time.realtimeSinceStartup - lastTapTimeStamp) > 0.05f)
+            && Mathf.Abs(finger.ScreenPosition.y - finger.StartScreenPosition.y) < clampOffsetY && (Time.realtimeSinceStartup - lastTapTimeStamp) > delayTimeForTouch)
         {
             horizontalDirection = 1;
         }
         else if (!finger.Up && lastTap == LastTap.Right && finger.StartScreenPosition.x > Screen.width / 2
-           && Mathf.Abs(finger.ScreenPosition.y - finger.StartScreenPosition.y) < 2 && (Time.realtimeSinceStartup - lastTapTimeStamp) > 0.05f)
+           && Mathf.Abs(finger.ScreenPosition.y - finger.StartScreenPosition.y) < clampOffsetY && (Time.realtimeSinceStartup - lastTapTimeStamp) > delayTimeForTouch)
         {
             horizontalDirection = -1;
         }
