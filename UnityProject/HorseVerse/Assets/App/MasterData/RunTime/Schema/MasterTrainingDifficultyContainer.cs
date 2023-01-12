@@ -1,0 +1,11 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+public partial class MasterTrainingDifficultyContainer : MasterContainer<long, MasterTrainingDifficulty>
+{
+    public MasterTrainingDifficultyContainer() : base(x => x.MasterTrainingDifficultyId) { }
+    public IReadOnlyDictionary<long, MasterTrainingDifficulty> MasterTrainingDifficultyIndexer => Indexer;
+}

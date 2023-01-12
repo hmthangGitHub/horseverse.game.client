@@ -23,6 +23,10 @@ internal class PingDomainService : IDisposable, IPingDomainService
 
     public async UniTaskVoid StartPingService()
     {
+        DisposeUtility.SafeDispose(ref cts);
+        cts = new CancellationTokenSource();
+        token = cts.Token;
+        
         while (!cts.IsCancellationRequested)
         {
             await UniTask.Delay(TimeSpan.FromSeconds(10), cancellationToken : token);
@@ -36,8 +40,7 @@ internal class PingDomainService : IDisposable, IPingDomainService
     private PingDomainService(IDIContainer container)
     {
         this.container = container;
-        cts = new CancellationTokenSource();
-        token = cts.Token;
+        
     }
 
     public void Dispose()

@@ -22,7 +22,6 @@ public class StableHorseDetailState : InjectedBState
 
         UIHeaderPresenter.ShowHeaderAsync(true, "STABLE").Forget();
         UIHeaderPresenter.OnBack += OnBack;
-        UIHeaderPresenter.OnLogOut += OnLogOut;
 
         UIHorse3DViewPresenter.ShowHorse3DViewAsync().Forget();
 
@@ -41,28 +40,6 @@ public class StableHorseDetailState : InjectedBState
         this.Machine.ChangeState<StableUIState>();
     }
 
-    private void OnLogOut()
-    {
-        OnLogOutAsync().Forget();
-    }
-
-    private async UniTask OnLogOutAsync()
-    {
-        await uiHorse3DViewPresenter.HideHorse3DViewAsync();
-        uiHorse3DViewPresenter.Dispose();
-        await SocketClient.Close();
-#if MULTI_ACCOUNT
-        var indexToken = PlayerPrefs.GetString(GameDefine.TOKEN_CURRENT_KEY_INDEX, "");
-        PlayerPrefs.DeleteKey(GameDefine.TOKEN_STORAGE + indexToken);
-        PlayerPrefs.DeleteKey(GameDefine.TOKEN_CURRENT_KEY_INDEX);
-#else
-        PlayerPrefs.DeleteKey(GameDefine.TOKEN_STORAGE);
-#endif
-        AudioManager.Instance?.StopMusic();
-        this.Machine.ChangeState<LoginState>();
-        Release();
-    }
-
     public override void Exit()
     {
         base.Exit();
@@ -73,7 +50,6 @@ public class StableHorseDetailState : InjectedBState
     {
         UIHeaderPresenter.HideHeader();
         UIHeaderPresenter.OnBack -= OnBack;
-        UIHeaderPresenter.OnLogOut -= OnLogOut;
         uiHorseStablePresenter.Dispose();
         uiHorseStablePresenter = default;
         Container.RemoveAndDisposeIfNeed<LocalHorseDetailDomainService>();

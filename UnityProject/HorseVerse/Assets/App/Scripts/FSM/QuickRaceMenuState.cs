@@ -30,7 +30,6 @@ public class QuickRaceMenuState : InjectedBState
         uiQuickRacePresenter = new UIQuickRacePresenter(this.Container);
         UIHeaderPresenter.ShowHeaderAsync(true, "RACE").Forget();
         UIHeaderPresenter.OnBack += OnBack;
-        UIHeaderPresenter.OnLogOut += OnLogOut;
         uiQuickRacePresenter.OnFoundMatch += OnFoundMatch;
         await uiQuickRacePresenter.ShowUIQuickRaceAsync();
     }
@@ -68,28 +67,6 @@ public class QuickRaceMenuState : InjectedBState
         UIHeaderPresenter.OnBack -= OnBack;
         uiQuickRacePresenter.Dispose();
         uiQuickRacePresenter = default;
-    }
-
-    private void OnLogOut()
-    {
-        OnLogOutAsync().Forget();
-    }
-
-    private async UniTask OnLogOutAsync()
-    {
-        await uiHorse3DViewPresenter.HideHorse3DViewAsync();
-        uiHorse3DViewPresenter.Dispose();
-        await SocketClient.Close();
-#if MULTI_ACCOUNT
-        var indexToken = PlayerPrefs.GetString(GameDefine.TOKEN_CURRENT_KEY_INDEX, "");
-        PlayerPrefs.DeleteKey(GameDefine.TOKEN_STORAGE + indexToken);
-        PlayerPrefs.DeleteKey(GameDefine.TOKEN_CURRENT_KEY_INDEX);
-#else
-        PlayerPrefs.DeleteKey(GameDefine.TOKEN_STORAGE);
-#endif
-        AudioManager.Instance?.StopMusic();
-        this.Machine.ChangeState<LoginState>();
-        Release();
     }
 
 }

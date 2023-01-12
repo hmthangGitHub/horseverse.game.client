@@ -14,16 +14,26 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
 
     public HorseTrainingControllerV2 HorseTrainingController => horseTrainingController;
 
-    public async UniTask Initialize(string mapPath, Action onTakeCoin, Action onTouchObstacle,
+    public async UniTask Initialize(string mapPath,
+                                    Action onTakeCoin,
+                                    Action onUpdateRunTime,
+                                    Action onTouchObstacle,
                                     MasterHorseTrainingProperty masterHorseTrainingProperty,
                                     MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer,
                                     MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer,
+                                    MasterTrainingBlockDistributeContainer masterTrainingBlockDistributeContainer,
+                                    MasterTrainingDifficultyContainer masterTrainingDifficultyContainer,
                                     HorseMeshInformation horseMeshInformation)
     {
-        await HorseTrainingController.Initialize(masterHorseTrainingProperty, horseMeshInformation);
+        await HorseTrainingController.Initialize(masterHorseTrainingProperty, masterTrainingDifficultyContainer, horseMeshInformation);
         HorseTrainingController.OnTakeCoin += onTakeCoin;
+        HorseTrainingController.OnUpdateRunTime += onUpdateRunTime;
         HorseTrainingController.OnDeadEvent += onTouchObstacle;
-        await PlatformGenerator.InitializeAsync(masterHorseTrainingProperty, masterHorseTrainingBlockContainer, masterHorseTrainingBlockComboContainer);
+        await PlatformGenerator.InitializeAsync(masterHorseTrainingProperty, 
+            masterHorseTrainingBlockContainer, 
+            masterHorseTrainingBlockComboContainer, 
+            masterTrainingDifficultyContainer, 
+            masterTrainingBlockDistributeContainer);
     }
 
     public void StartGame()

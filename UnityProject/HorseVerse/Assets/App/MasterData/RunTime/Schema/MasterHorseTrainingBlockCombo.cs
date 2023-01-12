@@ -36,4 +36,8 @@ public partial class MasterHorseTrainingBlockCombo
 	private string master_training_modular_block_id_end;
 	public string MasterTrainingModularBlockIdEnd => master_training_modular_block_id_end;
 
+	[JsonProperty]
+	private int master_horse_training_block_combo_group_id;
+	public int MasterHorseTrainingBlockComboGroupId => master_horse_training_block_combo_group_id;
+
 }
