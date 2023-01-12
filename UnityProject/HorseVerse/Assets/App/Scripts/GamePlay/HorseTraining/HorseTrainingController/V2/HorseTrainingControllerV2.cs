@@ -26,7 +26,9 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     [SerializeField] private GameObject jumpVFX;
     [SerializeField] private LeanFingerUp touchUp;
     [SerializeField] private LeanFingerDown touchDown;
-    
+    [SerializeField] private LeanFingerUpdate touchUpdate;
+    [SerializeField] private LeanFingerSwipe touchDrap;
+
     [SerializeField] private float currentForwardVelocity;
     [SerializeField] private float currentHorizontalVelocity;
     [SerializeField] private float defaultGravity;
@@ -37,6 +39,10 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     [SerializeField] private Transform horsePosition;
     [SerializeField] private Vector3 groundVelocity;
     [SerializeField] private Transform pivotPoint;
+
+    [Space, Header("INPUT SETTINGS")]
+    [SerializeField, Range(0, 1)] private float delayTimeForTouch = 0.05f;
+    [SerializeField] private float clampOffsetY = 25;
 
     private bool isStart;
     private bool isDead;
@@ -77,7 +83,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     {
         None,
         Left,
-        Right
+        Right,
     }
     private LastTap lastTap;
     private CinemachineOrbitalTransposer cinemachineOrbitalTransposer;
@@ -129,15 +135,23 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         {
             if (!IsStart) return;
 
-            if (finger.Down && finger.StartScreenPosition.x < Screen.width / 2)
-            {
-                horizontalDirection += 1;
-            }
-            else if (finger.Down && finger.StartScreenPosition.x > Screen.width / 2)
-            {
-                horizontalDirection -= 1;
-            }
-            DetectDoubleTap(finger);
+            //if (finger.Down && finger.StartScreenPosition.x < Screen.width / 2)
+            //{
+            //    horizontalDirection += 1;
+            //}
+            //else if (finger.Down && finger.StartScreenPosition.x > Screen.width / 2)
+            //{
+            //    horizontalDirection -= 1;
+            //}
+
+            //DetectDoubleTap(finger);
+            HandleFirstTouch(finger);
+        });
+
+        touchUpdate.OnFinger.AddListener(finger =>
+        {
+            if (!IsStart) return;
+            HandleUpdateTouch(finger);
         });
 
         touchUp.OnFinger.AddListener(finger =>
@@ -146,12 +160,20 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
             if (finger.Up && finger.StartScreenPosition.x < Screen.width / 2)
             {
-                horizontalDirection -= 1;
+                if(horizontalDirection == 1)
+                    horizontalDirection -= 1;
             }
             else if (finger.Up && finger.StartScreenPosition.x > Screen.width / 2)
             {
-                horizontalDirection += 1;
+                if (horizontalDirection == -1)
+                    horizontalDirection += 1;
             }
+        });
+
+        touchDrap.OnDelta.AddListener(f =>
+        {
+            if (!IsStart) return;
+            DetectSwideJump(f);
         });
     }
 
@@ -174,6 +196,47 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
         lastTapTimeStamp = Time.realtimeSinceStartup;
         lastTap = currentTouch;
+    }
+
+    private void HandleFirstTouch(LeanFinger finger)
+    {
+        var currentTouch = LastTap.None;
+        if (finger.StartScreenPosition.x < Screen.width / 2)
+        {
+            currentTouch = LastTap.Left;
+        }
+        else if (finger.StartScreenPosition.x > Screen.width / 2)
+        {
+            currentTouch = LastTap.Right;
+        }
+
+        lastTapTimeStamp = Time.realtimeSinceStartup;
+        lastTap = currentTouch;
+    }
+
+    private void HandleUpdateTouch(LeanFinger finger)
+    {
+        if (!finger.Up && lastTap == LastTap.Left && finger.StartScreenPosition.x < Screen.width / 2 
+            && Mathf.Abs(finger.ScreenPosition.y - finger.StartScreenPosition.y) < clampOffsetY && (Time.realtimeSinceStartup - lastTapTimeStamp) > delayTimeForTouch)
+        {
+            horizontalDirection = 1;
+        }
+        else if (!finger.Up && lastTap == LastTap.Right && finger.StartScreenPosition.x > Screen.width / 2
+           && Mathf.Abs(finger.ScreenPosition.y - finger.StartScreenPosition.y) < clampOffsetY && (Time.realtimeSinceStartup - lastTapTimeStamp) > delayTimeForTouch)
+        {
+            horizontalDirection = -1;
+        }
+        //lastTapTimeStamp = Time.realtimeSinceStartup;
+    }
+
+    private void DetectSwideJump(Vector2 f)
+    {
+        if (lastTap != LastTap.None)
+        {
+            ManualJump();
+        }
+
+        lastTapTimeStamp = Time.realtimeSinceStartup;
     }
 
     public async UniTask Initialize(MasterHorseTrainingProperty masterHorseTrainingProperty,
@@ -319,6 +382,12 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
             vfx.transform.position = pivotPoint.position + Vector3.up * 0.1f;
             AudioManager.Instance.StopSound();
         }
+    }
+
+    public void ManualTurn(float x, float y)
+    {
+        if(x != 0)
+            horizontalDirection = -(int)x;
     }
 
     private void CheckIfFall()

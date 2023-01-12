@@ -87,12 +87,12 @@ public class HorseTrainingPresenter : IDisposable
                 uiTrainingCoinCounting.In().Forget();
                 uiTrainingPressAnyKey.Out().Forget();
                 horseTrainingManager.StartGame();
-                uiHorseTrainingInput.SetEntity(new UIHorseTrainingInput.Entity()
-                {
-                    jumpLeft = new ButtonComponent.Entity(horseTrainingManager.HorseTrainingController.ManualJump),
-                    jumpRight = new ButtonComponent.Entity(horseTrainingManager.HorseTrainingController.ManualJump),
-                });
-                uiHorseTrainingInput.In().Forget();
+                //uiHorseTrainingInput.SetEntity(new UIHorseTrainingInput.Entity()
+                //{
+                //    turning = horseTrainingManager.HorseTrainingController.ManualTurn,
+                //    jumpRight = new ButtonComponent.Entity(horseTrainingManager.HorseTrainingController.ManualJump),
+                //});
+                //uiHorseTrainingInput.In().Forget();
                 AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunTraining);
             })
         });
