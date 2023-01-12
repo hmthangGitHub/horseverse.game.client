@@ -89,7 +89,7 @@ public class ButtonSelectedComponent : UIComponent<ButtonSelectedComponent.Entit
 
     protected async UniTask delayToSetAnim()
     {
-        await UniTask.Delay(200);
+        await UniTask.Delay(200, cancellationToken: this.GetCancellationTokenOnDestroy());
         anim.SetBool("IsSelected", this.entity.isSelected);
         anim.SetTrigger("Normal");
     }

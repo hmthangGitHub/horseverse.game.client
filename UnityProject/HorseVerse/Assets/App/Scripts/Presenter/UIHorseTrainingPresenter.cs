@@ -53,7 +53,7 @@ public class UIHorseTrainingPresenter : IDisposable
         {
             horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.CurrentHorseNftId),
             horseRace = new UIComponentHorseRace.Entity() { type = h.Type },
-            horseSelectSumaryList = HorseSummaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(OnSelectHorse),
+            horseSelectSumaryList = HorseSummaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(),
             prepareState = new UIComponentTrainingPrepareState.Entity()
             {
                 toTraningBtn = new ButtonComponent.Entity(() => ToTrainingAsync().Forget())
@@ -120,6 +120,8 @@ public class UIHorseTrainingPresenter : IDisposable
             };
             
             uiHorseTraining.prepareState.toTraningBtn.SetEntity(uiHorseTraining.entity.prepareState.toTraningBtn);
+            
+            OnSelectHorse(model.after.CurrentHorseNftId);
         }
 
         if (model.before.TraningTimeStamp == 0 && model.after.TraningTimeStamp != 0)
@@ -175,15 +177,12 @@ public class UIHorseTrainingPresenter : IDisposable
             current.selectBtn.SetSelected(true);
             currentSelectHorseId = nftId;
         }
-
-        UpdateStatusHorse();
     }
 
     private void UpdateStatusHorse()
     {
         var userHorse = HorseRepository.Models[currentSelectHorseId];
-        var happy = userHorse.Happiness;
-        uiHorseTraining.prepareState.toTraningBtn.SetInteractable(happy > 0);
+        uiHorseTraining.prepareState.toTraningBtn.SetInteractable(userHorse.Happiness >= UserSettingLocalRepository.MasterDataModel.TrainingHappinessCost);
     }
 
 }

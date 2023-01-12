@@ -21,7 +21,7 @@ public class HorseSumaryListEntityFactory
         this.container = container;
     }
 
-    public UIComponentTraningHorseSelectSumaryList.Entity InstantiateHorseSelectSumaryListEntity(System.Action<long> onSelect)
+    public UIComponentTraningHorseSelectSumaryList.Entity InstantiateHorseSelectSumaryListEntity()
     {
         var current = UserReponsitory.Current.CurrentHorseNftId;
         return new UIComponentTraningHorseSelectSumaryList.Entity()
@@ -32,15 +32,13 @@ public class HorseSumaryListEntityFactory
                 horseName = x.Value.Name,
                 horseLevel = x.Value.Level,
                 horseRace = new UIComponentHorseRace.Entity() {type = x.Value.Type },
-                selectBtn = new ButtonSelectedComponent.Entity(() => OnSelectHorse(x.Key, onSelect), x.Value.HorseNtfId == current)
+                selectBtn = new ButtonSelectedComponent.Entity(() => OnSelectHorse(x.Key).Forget(), x.Value.HorseNtfId == current)
             }).ToArray()
         };
     }
 
-    private void OnSelectHorse(long horseNtfId, System.Action<long> onSelect)
+    private async UniTaskVoid OnSelectHorse(long horseNtfId)
     {
-        Debug.Log("Selected " + horseNtfId);
-        QuickRaceDomainService.ChangeHorse(horseNtfId).Forget();
-        onSelect?.Invoke(horseNtfId);
+        await QuickRaceDomainService.ChangeHorse(horseNtfId);
     }
 }

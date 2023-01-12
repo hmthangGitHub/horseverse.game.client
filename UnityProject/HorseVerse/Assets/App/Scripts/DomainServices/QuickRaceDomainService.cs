@@ -38,7 +38,6 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
 
     public async UniTask ChangeHorse(long horseNtfId)
     {
-        await UniTask.Delay(500);
         var model = new UserDataModel()
         {
             Coin = UserDataRepository.Current.Coin,
@@ -151,7 +150,6 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
 
     public async UniTask ChangeHorse(long horseNtfId)
     {
-        await UniTask.Delay(500);
         var model = new UserDataModel()
         {
             Coin = UserDataRepository.Current.Coin,
