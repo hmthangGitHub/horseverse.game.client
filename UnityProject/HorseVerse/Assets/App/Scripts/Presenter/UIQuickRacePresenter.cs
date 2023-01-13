@@ -66,7 +66,7 @@ public partial class UIQuickRacePresenter : IDisposable
             findMatchTimer = new UIComponentDuration.Entity(),
             findMatchEnergyCost = findMatchEnergyCost,
             horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.CurrentHorseNftId),
-            horseSelectSumaryList = HorseSumaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(OnSelectHorse),
+            horseSelectSumaryList = HorseSumaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(),
         });
         uiQuickMode.In().Forget();
     }
@@ -76,7 +76,7 @@ public partial class UIQuickRacePresenter : IDisposable
         if (model.before.CurrentHorseNftId != model.after.CurrentHorseNftId)
         {
             uiQuickMode.SetHorseDetailEntity(HorseDetailEntityFactory.InstantiateHorseDetailEntity(model.after.CurrentHorseNftId));
-
+            OnSelectHorse(model.after.CurrentHorseNftId);
         }
     }
 
