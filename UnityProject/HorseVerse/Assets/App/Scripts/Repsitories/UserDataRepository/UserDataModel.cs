@@ -12,6 +12,7 @@
     public int Exp { get; set; }
     public int NextLevelExp { get; set; }
 
+
     public UserDataModel Clone()
     {
         return (UserDataModel)this.MemberwiseClone();

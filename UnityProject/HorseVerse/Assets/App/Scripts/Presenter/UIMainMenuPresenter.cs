@@ -26,6 +26,8 @@ public class UIMainMenuPresenter : IDisposable
     private IHorseRepository horseRepository;
     private IHorseRepository HorseRepository => horseRepository ??= Container.Inject<IHorseRepository>();
 
+    private FeaturePresenter featurePresenter;
+    public FeaturePresenter FeaturePresenter => featurePresenter ?? Container.Inject<FeaturePresenter>();
     public UIMainMenuPresenter(IDIContainer container)
     {
         Container = container;
@@ -42,13 +44,13 @@ public class UIMainMenuPresenter : IDisposable
         uiMainMenu ??= await UILoader.Instantiate<UIMainMenu>(token: cts.Token);
         uiMainMenu.SetEntity(new UIMainMenu.Entity()
         {
-            betmodeBtn = new ButtonComponent.Entity(() => TransitionToAsync(OnBetModeBtn).Forget()),
+            betmodeBtn = new ButtonComponent.Entity(() => TransitionToAsync(OnBetModeBtn).Forget(), FeaturePresenter.CheckFeature(FEATURE_TYPE.ARENA)),
             //breedingBtn = new ButtonComponent.Entity(OnBreedingBtn),
             //inventoryBtn = new ButtonComponent.Entity(OnInventoryBtn),
             //libraryBtn = new ButtonComponent.Entity(OnLibraryBtn),
-            playBtn = new ButtonComponent.Entity(() => TransitionToAsync(OnPlayBtn).Forget()),
+            playBtn = new ButtonComponent.Entity(() => TransitionToAsync(OnPlayBtn).Forget(), FeaturePresenter.CheckFeature(FEATURE_TYPE.RACING)),
             stableBtn = new ButtonComponent.Entity(() => TransitionToAsync(OnStableBtn).Forget()),
-            trainingBtn = new ButtonComponent.Entity(() => TransitionToAsync(OnTraningBtn).Forget()),
+            trainingBtn = new ButtonComponent.Entity(() => TransitionToAsync(OnTraningBtn).Forget(), FeaturePresenter.CheckFeature(FEATURE_TYPE.ADVENTURE)),
             horseInfo = new UIComponentHorseBreedInfoAndDetail.Entity()
             {
                 //horseBreedProgressList = new UIComponentHorseBreedProgressList.Entity()

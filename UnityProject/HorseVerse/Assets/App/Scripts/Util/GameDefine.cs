@@ -12,3 +12,11 @@ public static class GameDefine
     public static string AUDIO_MUSIC_MUTE = "AUDIO_MUSIC_MUTE";
     public static string AUDIO_SFX_MUTE = "AUDIO_SFX_MUTE";
 }
+
+public enum FEATURE_TYPE
+{
+    SHOP = 0,
+    ADVENTURE = 1,
+    ARENA = 2,
+    RACING = 3,
+}

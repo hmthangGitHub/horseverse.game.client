@@ -42,7 +42,7 @@ public class InitialState : InjectedBHState, IDisposable
 #endif
         this.Container.Bind(await UITouchDisablePresenter.InstantiateAsync(Container));
         this.Container.Bind(PingDomainService.Instantiate(Container));
-
+        this.Container.Bind(new FeaturePresenter(Container));
         uiHeaderPresenter.OnLogOut += OnLogOut;
         base.Enter();
 
@@ -85,6 +85,7 @@ public class InitialState : InjectedBHState, IDisposable
     public void Dispose()
     {
         uiHeaderPresenter.OnLogOut -= OnLogOut;
+        this.Container.RemoveAndDisposeIfNeed<FeaturePresenter>();
         this.Container.RemoveAndDisposeIfNeed<PingDomainService>();
         this.Container.RemoveAndDisposeIfNeed<UITouchDisablePresenter>();
 #if UNITY_WEBGL || WEB_SOCKET

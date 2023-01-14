@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -333,6 +334,8 @@ public class LoginStatePresenter : IDisposable
                 TraningTimeStamp = 0,
             };
             await UserDataRepository.UpdateDataAsync(new UserDataModel[] { model });
+            var featurePresent = this.container.Inject<FeaturePresenter>();
+            featurePresent.SetFeatureList(GetFeatureList(res));
 #if MULTI_ACCOUNT
             var indexToken = PlayerPrefs.GetString(GameDefine.TOKEN_CURRENT_KEY_INDEX, "");
             PlayerPrefs.SetString(GameDefine.TOKEN_STORAGE + indexToken, res.PlayerInfo.AccessToken);
@@ -409,5 +412,15 @@ public class LoginStatePresenter : IDisposable
         UserSettingLocalRepository.MasterDataModel.TrainingHappinessCost = data.HappinessNumberPerTraining;
         UserSettingLocalRepository.MasterDataModel.BetNumberList.Clear();
         UserSettingLocalRepository.MasterDataModel.BetNumberList.AddRange(data.BetNumberList);
+    }
+
+    private FEATURE_TYPE[] GetFeatureList(LoginResponse res)
+    {
+        List<FEATURE_TYPE> listFeature = new List<FEATURE_TYPE>();
+        foreach(var item in res.FeatureList)
+        {
+            listFeature.Add((FEATURE_TYPE)item);
+        }
+        return listFeature.ToArray();
     }
 }

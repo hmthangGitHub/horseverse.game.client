@@ -24,36 +24,38 @@ namespace io.hverse.game.protogen {
     static LoginReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cgtsb2dpbi5wcm90bxoMcGxheWVyLnByb3RvItoBCgxMb2dpbk1lc3NhZ2US",
-            "IgoHbXNnVHlwZRgBIAEoDjIRLkxvZ2luTWVzc2FnZVR5cGUSIwoMbG9naW5S",
-            "ZXF1ZXN0GAIgASgLMg0uTG9naW5SZXF1ZXN0EiUKDWxvZ2luUmVzcG9uc2UY",
-            "AyABKAsyDi5Mb2dpblJlc3BvbnNlEisKEGVtYWlsQ29kZVJlcXVlc3QYBCAB",
-            "KAsyES5FbWFpbENvZGVSZXF1ZXN0Ei0KEWVtYWlsQ29kZVJlc3BvbnNlGAUg",
-            "ASgLMhIuRW1haWxDb2RlUmVzcG9uc2UitgEKCkNsaWVudEluZm8SEAoIcXJD",
-            "b2RlSWQYASABKAkSEwoLYWNjZXNzVG9rZW4YAiABKAkSDQoFZW1haWwYAyAB",
-            "KAkSEAoIcGFzc3dvcmQYBCABKAkSDwoHdmVyc2lvbhgFIAEoCRIQCghkZXZp",
-            "Y2VJZBgGIAEoCRIbCghwbGF0Zm9ybRgHIAEoDjIJLlBsYXRmb3JtEg0KBW1v",
-            "ZGVsGAggASgJEhEKCWVtYWlsQ29kZRgJIAEoCSJOCgxMb2dpblJlcXVlc3QS",
-            "HwoKY2xpZW50SW5mbxgBIAEoCzILLkNsaWVudEluZm8SHQoJbG9naW5UeXBl",
-            "GAIgASgOMgouTG9naW5UeXBlIkQKDUxvZ2luUmVzcG9uc2USEgoKcmVzdWx0",
-            "Q29kZRgBIAEoBRIfCgpwbGF5ZXJJbmZvGAIgASgLMgsuUGxheWVySW5mbyJC",
-            "ChBFbWFpbENvZGVSZXF1ZXN0Eg0KBWVtYWlsGAEgASgJEh8KCmNsaWVudElu",
-            "Zm8YAiABKAsyCy5DbGllbnRJbmZvIicKEUVtYWlsQ29kZVJlc3BvbnNlEhIK",
-            "CnJlc3VsdENvZGUYASABKAUqagoQTG9naW5NZXNzYWdlVHlwZRIRCg1MT0dJ",
-            "Tl9SRVFVRVNUEAASEgoOTE9HSU5fUkVTUE9OU0UQARIWChJFTUFJTF9DT0RF",
-            "X1JFUVVFU1QQAhIXChNFTUFJTF9DT0RFX1JFU1BPTlNFEAMqawoJTG9naW5U",
-            "eXBlEhQKEExPR0lOX1RZUEVfRU1BSUwQABIVChFMT0dJTl9UWVBFX1FSQ09E",
-            "RRABEhsKF0xPR0lOX1RZUEVfQUNDRVNTX1RPS0VOEAISFAoQTE9HSU5fRU1B",
-            "SUxfQ09ERRADKikKCFBsYXRmb3JtEgsKB0FORFJPSUQQABIHCgNJT1MQARIH",
-            "CgNXRUIQAkJIChdpby5odmVyc2UuZ2FtZS5wcm90b2dlbkITTG9naW5NZXNz",
-            "YWdlRmFjdG9yeaoCF2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuYgZwcm90bzM="));
+            "Cgtsb2dpbi5wcm90bxoMcGxheWVyLnByb3RvGgpkYXRhLnByb3RvItoBCgxM",
+            "b2dpbk1lc3NhZ2USIgoHbXNnVHlwZRgBIAEoDjIRLkxvZ2luTWVzc2FnZVR5",
+            "cGUSIwoMbG9naW5SZXF1ZXN0GAIgASgLMg0uTG9naW5SZXF1ZXN0EiUKDWxv",
+            "Z2luUmVzcG9uc2UYAyABKAsyDi5Mb2dpblJlc3BvbnNlEisKEGVtYWlsQ29k",
+            "ZVJlcXVlc3QYBCABKAsyES5FbWFpbENvZGVSZXF1ZXN0Ei0KEWVtYWlsQ29k",
+            "ZVJlc3BvbnNlGAUgASgLMhIuRW1haWxDb2RlUmVzcG9uc2UitgEKCkNsaWVu",
+            "dEluZm8SEAoIcXJDb2RlSWQYASABKAkSEwoLYWNjZXNzVG9rZW4YAiABKAkS",
+            "DQoFZW1haWwYAyABKAkSEAoIcGFzc3dvcmQYBCABKAkSDwoHdmVyc2lvbhgF",
+            "IAEoCRIQCghkZXZpY2VJZBgGIAEoCRIbCghwbGF0Zm9ybRgHIAEoDjIJLlBs",
+            "YXRmb3JtEg0KBW1vZGVsGAggASgJEhEKCWVtYWlsQ29kZRgJIAEoCSJOCgxM",
+            "b2dpblJlcXVlc3QSHwoKY2xpZW50SW5mbxgBIAEoCzILLkNsaWVudEluZm8S",
+            "HQoJbG9naW5UeXBlGAIgASgOMgouTG9naW5UeXBlImcKDUxvZ2luUmVzcG9u",
+            "c2USEgoKcmVzdWx0Q29kZRgBIAEoBRIfCgpwbGF5ZXJJbmZvGAIgASgLMgsu",
+            "UGxheWVySW5mbxIhCgtmZWF0dXJlTGlzdBgDIAMoDjIMLkZlYXR1cmVUeXBl",
+            "IkIKEEVtYWlsQ29kZVJlcXVlc3QSDQoFZW1haWwYASABKAkSHwoKY2xpZW50",
+            "SW5mbxgCIAEoCzILLkNsaWVudEluZm8iJwoRRW1haWxDb2RlUmVzcG9uc2US",
+            "EgoKcmVzdWx0Q29kZRgBIAEoBSpqChBMb2dpbk1lc3NhZ2VUeXBlEhEKDUxP",
+            "R0lOX1JFUVVFU1QQABISCg5MT0dJTl9SRVNQT05TRRABEhYKEkVNQUlMX0NP",
+            "REVfUkVRVUVTVBACEhcKE0VNQUlMX0NPREVfUkVTUE9OU0UQAyprCglMb2dp",
+            "blR5cGUSFAoQTE9HSU5fVFlQRV9FTUFJTBAAEhUKEUxPR0lOX1RZUEVfUVJD",
+            "T0RFEAESGwoXTE9HSU5fVFlQRV9BQ0NFU1NfVE9LRU4QAhIUChBMT0dJTl9F",
+            "TUFJTF9DT0RFEAMqKQoIUGxhdGZvcm0SCwoHQU5EUk9JRBAAEgcKA0lPUxAB",
+            "EgcKA1dFQhACQkgKF2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuQhNMb2dpbk1l",
+            "c3NhZ2VGYWN0b3J5qgIXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5iBnByb3Rv",
+            "Mw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::io.hverse.game.protogen.PlayerReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::io.hverse.game.protogen.PlayerReflection.Descriptor, global::io.hverse.game.protogen.DataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.LoginMessageType), typeof(global::io.hverse.game.protogen.LoginType), typeof(global::io.hverse.game.protogen.Platform), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginMessage), global::io.hverse.game.protogen.LoginMessage.Parser, new[]{ "MsgType", "LoginRequest", "LoginResponse", "EmailCodeRequest", "EmailCodeResponse" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ClientInfo), global::io.hverse.game.protogen.ClientInfo.Parser, new[]{ "QrCodeId", "AccessToken", "Email", "Password", "Version", "DeviceId", "Platform", "Model", "EmailCode" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginRequest), global::io.hverse.game.protogen.LoginRequest.Parser, new[]{ "ClientInfo", "LoginType" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginResponse), global::io.hverse.game.protogen.LoginResponse.Parser, new[]{ "ResultCode", "PlayerInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginResponse), global::io.hverse.game.protogen.LoginResponse.Parser, new[]{ "ResultCode", "PlayerInfo", "FeatureList" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.EmailCodeRequest), global::io.hverse.game.protogen.EmailCodeRequest.Parser, new[]{ "Email", "ClientInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.EmailCodeResponse), global::io.hverse.game.protogen.EmailCodeResponse.Parser, new[]{ "ResultCode" }, null, null, null, null)
           }));
@@ -1214,6 +1216,7 @@ namespace io.hverse.game.protogen {
     public LoginResponse(LoginResponse other) : this() {
       resultCode_ = other.resultCode_;
       playerInfo_ = other.playerInfo_ != null ? other.playerInfo_.Clone() : null;
+      featureList_ = other.featureList_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1247,6 +1250,17 @@ namespace io.hverse.game.protogen {
       }
     }
 
+    /// <summary>Field number for the "featureList" field.</summary>
+    public const int FeatureListFieldNumber = 3;
+    private static readonly pb::FieldCodec<global::io.hverse.game.protogen.FeatureType> _repeated_featureList_codec
+        = pb::FieldCodec.ForEnum(26, x => (int) x, x => (global::io.hverse.game.protogen.FeatureType) x);
+    private readonly pbc::RepeatedField<global::io.hverse.game.protogen.FeatureType> featureList_ = new pbc::RepeatedField<global::io.hverse.game.protogen.FeatureType>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::io.hverse.game.protogen.FeatureType> FeatureList {
+      get { return featureList_; }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1264,6 +1278,7 @@ namespace io.hverse.game.protogen {
       }
       if (ResultCode != other.ResultCode) return false;
       if (!object.Equals(PlayerInfo, other.PlayerInfo)) return false;
+      if(!featureList_.Equals(other.featureList_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1273,6 +1288,7 @@ namespace io.hverse.game.protogen {
       int hash = 1;
       if (ResultCode != 0) hash ^= ResultCode.GetHashCode();
       if (playerInfo_ != null) hash ^= PlayerInfo.GetHashCode();
+      hash ^= featureList_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1299,6 +1315,7 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(18);
         output.WriteMessage(PlayerInfo);
       }
+      featureList_.WriteTo(output, _repeated_featureList_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1317,6 +1334,7 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(18);
         output.WriteMessage(PlayerInfo);
       }
+      featureList_.WriteTo(ref output, _repeated_featureList_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1333,6 +1351,7 @@ namespace io.hverse.game.protogen {
       if (playerInfo_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayerInfo);
       }
+      size += featureList_.CalculateSize(_repeated_featureList_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1354,6 +1373,7 @@ namespace io.hverse.game.protogen {
         }
         PlayerInfo.MergeFrom(other.PlayerInfo);
       }
+      featureList_.Add(other.featureList_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -1380,6 +1400,11 @@ namespace io.hverse.game.protogen {
             input.ReadMessage(PlayerInfo);
             break;
           }
+          case 26:
+          case 24: {
+            featureList_.AddEntriesFrom(input, _repeated_featureList_codec);
+            break;
+          }
         }
       }
     #endif
@@ -1404,6 +1429,11 @@ namespace io.hverse.game.protogen {
               PlayerInfo = new global::io.hverse.game.protogen.PlayerInfo();
             }
             input.ReadMessage(PlayerInfo);
+            break;
+          }
+          case 26:
+          case 24: {
+            featureList_.AddEntriesFrom(ref input, _repeated_featureList_codec);
             break;
           }
         }
