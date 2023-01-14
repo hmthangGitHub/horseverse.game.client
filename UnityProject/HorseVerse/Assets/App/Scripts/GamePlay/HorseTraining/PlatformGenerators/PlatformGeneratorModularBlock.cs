@@ -38,6 +38,7 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
             masterHorseTrainingProperty.JumpingPoint,
             masterHorseTrainingProperty.LandingPoint,
             randomBlockCombo,
+            masterHorseTrainingProperty.CoinColliderRadius,
             trainingBlockSettings.obstacles);
         return platform;
     }

@@ -16,7 +16,7 @@ public partial class LevelEditorPresenter
     private void CreateNewCoinEditor()
     {
         var coinEditor = CreateCoinEditor();
-        coinEditor.Init(0, Array.Empty<Vector3>());
+        coinEditor.Init(0, Array.Empty<Vector3>(), 0);
     }
     
     private async UniTaskVoid GenerateCoinEditors()
@@ -30,7 +30,7 @@ public partial class LevelEditorPresenter
         var coinEditor = CreateCoinEditor();
         var coinEditorTransform = coinEditor.transform;
         coinEditorTransform.localPosition = new Vector3(coin.localPosition.x, coinEditorTransform.localPosition.y, coin.localPosition.z);
-        coinEditor.Init(coin.numberOfCoin, coin.benzierPointPositions.Select(x => x.ToVector3()).ToArray());
+        coinEditor.Init(coin.numberOfCoin, coin.benzierPointPositions.Select(x => x.ToVector3()).ToArray(), 0);
     }
     
     private void CloneCoinEditor(CoinEditor coinEditor)
@@ -38,7 +38,7 @@ public partial class LevelEditorPresenter
         var clonedCoinEditor = CreateCoinEditor();
         var coinEditorTransform = clonedCoinEditor.transform;
         coinEditorTransform.localPosition = coinEditor.transform.localPosition;
-        clonedCoinEditor.Init(coinEditor.CoinNumber, coinEditor.BenzierPointPositions);
+        clonedCoinEditor.Init(coinEditor.CoinNumber, coinEditor.BenzierPointPositions, 0);
     }
 
     private CoinEditor CreateCoinEditor()
