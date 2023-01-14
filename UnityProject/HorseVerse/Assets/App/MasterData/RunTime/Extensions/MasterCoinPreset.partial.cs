@@ -5,7 +5,7 @@ using UnityEngine;
 
 public partial class MasterCoinPreset
 {
-#if ENABLE_MASTER_RUN_TIME_EDIT
+#if ENABLE_DEBUG_MODULE
     public static MasterCoinPreset Instantiate(string masterCoinPresetId, Coin coin)
     {
         return new MasterCoinPreset()

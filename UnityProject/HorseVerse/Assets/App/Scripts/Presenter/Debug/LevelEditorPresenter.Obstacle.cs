@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if ENABLE_DEBUG_MODULE
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
@@ -149,3 +150,4 @@ public partial class LevelEditorPresenter
         CreateObstacleAtPosition(obstacleIndex, localPosition);
     }
 }
+#endif

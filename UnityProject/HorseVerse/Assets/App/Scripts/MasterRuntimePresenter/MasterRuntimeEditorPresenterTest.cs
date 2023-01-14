@@ -1,4 +1,4 @@
-#if ENABLE_MASTER_RUN_TIME_EDIT
+#if ENABLE_DEBUG_MODULE
 
 using System.Collections;
 using System.Collections.Generic;

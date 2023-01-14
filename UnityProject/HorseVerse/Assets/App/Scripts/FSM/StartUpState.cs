@@ -12,11 +12,7 @@ public class StartUpState : InjectedBHState
     public override void Enter()
     {
         base.Enter();
-        errorHandler = new ErrorHandler();
-        errorHandler.OnError += OnReboot;
-        startUpStateHandler = new StartUpStatePresenter();
-        startUpStateHandler.OnReboot += OnReboot;
-        Container.Bind(startUpStateHandler);
+        OnEnterStateAsync().Forget();
 #if ENABLE_DEBUG_MODULE
         if (uiDebugMenuPresenter == default)
         {
@@ -27,6 +23,15 @@ public class StartUpState : InjectedBHState
             Container.Bind(uiDebugMenuPresenter);
         }
 #endif
+    }
+
+    private async UniTaskVoid OnEnterStateAsync()
+    {
+        errorHandler = await ErrorHandler.Instantiate();
+        errorHandler.OnError += OnReboot;
+        startUpStateHandler = new StartUpStatePresenter();
+        startUpStateHandler.OnReboot += OnReboot;
+        Container.Bind(startUpStateHandler);
     }
 
 #if ENABLE_DEBUG_MODULE

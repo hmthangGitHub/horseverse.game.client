@@ -18,10 +18,10 @@ public class CoinEditor : MonoBehaviour
     public List<GameObject> listCoin = new List<GameObject>();
     public int CoinNumber => listCoin.Count;
     public ParentPositionController parentPositionControllerPrefab;
-    
+    private float coinRadius;
     public Vector3[] BenzierPointPositions => GetComponentsInChildren<BezierPoint>(true)
-                                            .Select(x => x.localPosition)
-                                            .ToArray();
+                                              .Select(x => x.localPosition)
+                                              .ToArray();
     
     public void OnToggleStatus()
     {
@@ -53,8 +53,10 @@ public class CoinEditor : MonoBehaviour
     }
 
     public void Init(int coinNumber,
-                     Vector3[] positions)
+                     Vector3[] positions,
+                     float coinRadius)
     {
+        this.coinRadius = coinRadius;
         OnChangeNumberOfCoin(coinNumber);
         InitBenzierPoints(positions);
     }
@@ -103,8 +105,13 @@ public class CoinEditor : MonoBehaviour
         }
         else if (listCoin.Count < number)
         {
-            listCoin.AddRange(Enumerable.Range(0, number - listCoin.Count)  
-                      .Select(x => Instantiate(coinPrefab, container.transform)));
+            listCoin.AddRange(Enumerable.Range(0, number - listCoin.Count)
+                                        .Select(x =>
+                                        {
+                                            var coin = Instantiate(coinPrefab, container.transform);
+                                            coin.GetComponentInChildren<SphereCollider>(true).radius = coinRadius;
+                                            return coin;
+                                        }));
         }
     }
 
@@ -121,14 +128,16 @@ public class CoinEditor : MonoBehaviour
 
 #if UNITY_EDITOR
     [SerializeField]
-    private int numberOfCoin = 0;
+    private int numberOfCoinTest = 0;
     [SerializeField]
-    private Transform[] initPoints;
-    
+    private Transform[] initPointsTest;
+    [SerializeField]
+    private float coinRadiusTest;
+
     [ContextMenu("Init Test")]
     private void InitTest()
     {
-        Init(numberOfCoin, initPoints.Select(x => x.position).ToArray());
+        Init(numberOfCoinTest, initPointsTest.Select(x => x.position).ToArray(), coinRadiusTest);
     }
 #endif
 }

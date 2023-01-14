@@ -127,21 +127,22 @@ public partial class PlatformModular : PlatformBase
                               GameObject paddingEndPrefab,
                               float jumpingPoint,
                               float landingPoint,
-                              MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo, 
+                              MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo,
+                              float coinRadius,
                               GameObject[] obstaclesPrefab)
     {
         GenerateBlock(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType);
         GenerateObstacle(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab);
-        GenerateCoins(masterHorseTrainingBlockCombo.CoinList);
+        GenerateCoins(masterHorseTrainingBlockCombo.CoinList, coinRadius);
     }
 
-    private void GenerateCoins(Coin[] coinsList)
+    private void GenerateCoins(Coin[] coinsList, float coinRadius)
     {
         coinsList.ForEach(x =>
         {
             var coin = Instantiate(coinPrefab, this.transform);
             coin.transform.localPosition = x.localPosition.ToVector3();
-            coin.Init(x.numberOfCoin, x.benzierPointPositions.Select(x => x.ToVector3()).ToArray());
+            coin.Init(x.numberOfCoin, x.benzierPointPositions.Select(x => x.ToVector3()).ToArray(), coinRadius);
         });
      
     }

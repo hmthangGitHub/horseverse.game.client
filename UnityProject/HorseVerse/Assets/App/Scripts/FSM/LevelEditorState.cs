@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿#if ENABLE_DEBUG_MODULE
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 
 public class LevelEditorState : InjectedBState
@@ -30,3 +31,4 @@ public class LevelEditorState : InjectedBState
         levelEditorPresenter = default;
     }
 }
+#endif

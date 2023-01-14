@@ -64,7 +64,7 @@ public class Position
 
 public partial class MasterHorseTrainingBlockCombo
 {
-#if ENABLE_MASTER_RUN_TIME_EDIT
+#if ENABLE_DEBUG_MODULE
     public MasterHorseTrainingBlockCombo(long masterHorseTrainingBlockId, 
                                          string name, 
                                          MasterTrainingBlockComboType masterTrainingBlockComboType, 
@@ -87,7 +87,7 @@ public partial class MasterHorseTrainingBlockCombo
     public string[] MasterHorseTrainingBlockIdList
     {
         get => CreateMasterHorseTrainingBlockIdList();
-#if ENABLE_MASTER_RUN_TIME_EDIT
+#if ENABLE_DEBUG_MODULE
         set => master_horse_training_block_ids = string.Join(".", value);
 #endif
     }
@@ -106,7 +106,7 @@ public partial class MasterHorseTrainingBlockCombo
         {
             return JsonConvert.DeserializeObject(FormatCustomData(Obstacles), typeof(Obstacle[])) as Obstacle[] ?? Array.Empty<Obstacle>();
         }
-#if ENABLE_MASTER_RUN_TIME_EDIT
+#if ENABLE_DEBUG_MODULE
         set
         {
             obstacles = JsonConvert.SerializeObject(value)
@@ -121,7 +121,7 @@ public partial class MasterHorseTrainingBlockCombo
         {
             return JsonConvert.DeserializeObject(FormatCustomData(Coins), typeof(Coin[])) as Coin[] ?? Array.Empty<Coin>();
         }
-#if ENABLE_MASTER_RUN_TIME_EDIT
+#if ENABLE_DEBUG_MODULE
         set
         {
             coins = JsonConvert.SerializeObject(value).Replace(",", "...");
@@ -129,7 +129,7 @@ public partial class MasterHorseTrainingBlockCombo
 #endif
     }
     
-#if ENABLE_MASTER_RUN_TIME_EDIT
+#if ENABLE_DEBUG_MODULE
     public void SetMasterTrainingModularBlockIdStart(string blockId)
     {
         master_training_modular_block_id_start = blockId;

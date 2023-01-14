@@ -1,3 +1,4 @@
+#if ENABLE_DEBUG_MODULE
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -139,3 +140,4 @@ public partial class UIDebugMenuPresenter : IDisposable
         debugMenuList.Clear();
     }
 }
+#endif

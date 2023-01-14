@@ -66,15 +66,9 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
                 cts.SafeCancelAndDispose();
                 throw;
             }
-            finally
-            {
-                if (token == default)
-                {
-                    OnEndRequest.Invoke();
-                }
-            }
         }
         messageBroker.Subscribe<TResponse>(OnResponse);
+        
         if (token == default)
         {
             OnStartRequest.Invoke();
@@ -90,6 +84,10 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
         {
             messageBroker.UnSubscribe<TResponse>(OnResponse);
             cts.SafeCancelAndDispose();
+            if (token == default)
+            {
+                OnEndRequest.Invoke();
+            }
         }
     }
 
