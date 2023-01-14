@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if ENABLE_DEBUG_MODULE
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using System.Linq;
@@ -35,3 +36,4 @@ public partial class UIDebugMenuPresenter
         }));
     }
 }
+#endif

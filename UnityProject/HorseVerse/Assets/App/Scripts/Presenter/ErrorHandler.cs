@@ -1,20 +1,39 @@
-﻿#define DEVELOPMENT
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class ErrorHandler : IDisposable
 {
     public event Action OnError = ActionUtility.EmptyAction.Instance;
+    private UIPopupMessage uiPopupMessage;
+    private CancellationTokenSource cts;
+#if ENABLE_DEBUG_MODULE
     private string error => errorList[currentErrorIndex].error;
     private string stackTrace => errorList[currentErrorIndex].stackTrace;
-
     private List<(string error, string stackTrace)> errorList = new List<(string error, string stackTrace)>();
     private int currentErrorIndex = 0;
-    public ErrorHandler()
+#endif
+
+    private ErrorHandler()
     {
         SubscribeEvents();
+        cts = new CancellationTokenSource();
+    }
+
+    public static async UniTask<ErrorHandler> Instantiate()
+    {
+        var errorHandler = new ErrorHandler();
+        await errorHandler.InitializeInternal();
+        return errorHandler;
+    }
+
+    private async UniTask InitializeInternal()
+    {
+        uiPopupMessage = await UILoader.Instantiate<UIPopupMessage>(UICanvas.UICanvasType.Error, token: cts.Token);
     }
 
     private void SubscribeEvents()
@@ -22,7 +41,7 @@ public class ErrorHandler : IDisposable
         Application.logMessageReceived += ApplicationLogMessageReceived;
     }
 
-#if UNITY_EDITOR || DEVELOPMENT
+#if ENABLE_DEBUG_MODULE
     private Vector2 scrollPos;
     GUIStyle gsAlterQuest;
     GUIStyle areaStyle => gsAlterQuest ??= AreaGUIStyleUtil.CreateGs(new Color(0,0,0, 0.8f));
@@ -49,7 +68,8 @@ public class ErrorHandler : IDisposable
                 currentErrorIndex += errorList.Count;
                 currentErrorIndex %= errorList.Count;
             }
-            if (GUILayout.Button("OK"))
+
+            if (GUILayout.Button("Reload"))
             {
                 OnError.Invoke();
             }
@@ -79,23 +99,38 @@ public class ErrorHandler : IDisposable
             GUILayout.EndArea();
         }
     }
-
-    
 #endif
 
     private void ApplicationLogMessageReceived(string condition, string stackTrace, LogType type)
     {
-        if (type == LogType.Error || type == LogType.Exception)
+        if (type != LogType.Error && type != LogType.Exception) return;
+        if (!condition.Contains("Exception")) return;
+#if ENABLE_DEBUG_MODULE
+        ShowError(condition, stackTrace);
+#endif
+        var message = condition switch
         {
-            if (condition.Contains("Exception"))
-            {
-                ShowError(condition, stackTrace);
-            }
-        }
+            var socketException when socketException.Contains("SocketException") => "Network Error",
+            var timeOutException when timeOutException.Contains("TimeoutException") => "Network Error",
+            _ => "Unknown Error"
+        };
+        ShowErrorMessageAsync(message);
+    }
+
+    private void ShowErrorMessageAsync(string message)
+    {
+        uiPopupMessage.SetEntity(new UIPopupMessage.Entity()
+        {
+            message = message,
+            title = "ERROR",
+            confirmBtn = new ButtonComponent.Entity(() => OnError.Invoke())
+        });
+        uiPopupMessage.In().Forget();
     }
 
     private void ShowError(string condition, string stackTrace)
     {
+#if ENABLE_DEBUG_MODULE
         if(!errorList.Any())
         {
             UnityMessageForwarder.AddListener(UnityMessageForwarder.MessageType.OnGUI, OnGUIFunction);
@@ -104,11 +139,14 @@ public class ErrorHandler : IDisposable
         {
             errorList.Add((condition, stackTrace));
         }
+#endif
     }
 
     private void UnsubcribeEvents()
     {
+#if ENABLE_DEBUG_MODULE
         UnityMessageForwarder.RemoveListener(UnityMessageForwarder.MessageType.OnGUI, OnGUIFunction);
+#endif
         Application.logMessageReceived -= ApplicationLogMessageReceived;
     }
 
@@ -116,6 +154,10 @@ public class ErrorHandler : IDisposable
     {
         UnsubcribeEvents();
         OnError = ActionUtility.EmptyAction.Instance;
+        DisposeUtility.SafeDispose(ref cts);
+        UILoader.SafeRelease(ref uiPopupMessage);
+#if ENABLE_DEBUG_MODULE
         errorList.Clear();
+#endif
     }
 }

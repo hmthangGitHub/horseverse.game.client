@@ -13,12 +13,12 @@ public static class MasterLoader
     {
         var masterContainer = new TMasterContainer();
         var text = await GetMasterRawDataText<TMasterContainer>(token);
-#if ENABLE_MASTER_RUN_TIME_EDIT
+#if ENABLE_DEBUG_MODULE
         try
         {
 #endif
             masterContainer.SetDataList(text);
-#if ENABLE_MASTER_RUN_TIME_EDIT
+#if ENABLE_DEBUG_MODULE
         }
         catch
         {
@@ -32,7 +32,7 @@ public static class MasterLoader
     private static async UniTask<string> GetMasterRawDataText<TMasterContainer>(CancellationToken token) where TMasterContainer : IMasterContainer, new()
     {
         var masterPath = GetMasterPath<TMasterContainer>();
-#if ENABLE_MASTER_RUN_TIME_EDIT
+#if ENABLE_DEBUG_MODULE
         if(PlayerPrefs.HasKey(masterPath))
         {
             return PlayerPrefs.GetString(masterPath);
@@ -53,7 +53,7 @@ public static class MasterLoader
 
     public static void Unload<TMasterContainer>() where TMasterContainer : IMasterContainer
     {
-#if ENABLE_MASTER_RUN_TIME_EDIT
+#if ENABLE_DEBUG_MODULE
         if(PlayerPrefs.HasKey(GetMasterPath<TMasterContainer>()))
         {
             return;

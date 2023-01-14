@@ -45,6 +45,8 @@ public class BetModeInitialState : InjectedBState
         betMatchRepository = default;
         betModeDomainService = default;
         uiHorse3DViewPresenter = default;
+#if ENABLE_DEBUG_MODULE
         betModeUIDebugMenuPresenter = default;
+#endif
     }
 }

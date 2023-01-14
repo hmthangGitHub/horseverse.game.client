@@ -5,7 +5,7 @@ using System.Reflection;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-#if ENABLE_MASTER_RUN_TIME_EDIT
+#if ENABLE_DEBUG_MODULE
 
 public partial interface IMasterContainer
 {
