@@ -11,6 +11,7 @@ public interface ITrainingDomainService
     UniTask OnDoneTraningPeriod(long masterHorseId);
     UniTask<StartTrainingResponse> StartTrainingData(long HorseId);
     UniTask<FinishTrainingResponse> GetTrainingRewardData(int distance, int coin);
+    UniTask<TrainingLeaderBoardResponse> GetLeaderBoard();
 }
 
 public class TrainingDomainServiceBase
@@ -26,6 +27,8 @@ public class TrainingDomainServiceBase
 
 public class TrainingDomainService : TrainingDomainServiceBase, ITrainingDomainService
 {
+    private ISocketClient socketClient;
+    private ISocketClient SocketClient => socketClient ??= container.Inject<ISocketClient>();
     public TrainingDomainService(IDIContainer container) : base(container) { }
 
     public UniTask OnDoneTraningPeriod(long masterHorseId)
@@ -38,14 +41,30 @@ public class TrainingDomainService : TrainingDomainServiceBase, ITrainingDomainS
         throw new System.NotImplementedException();
     }
 
-    public UniTask<StartTrainingResponse> StartTrainingData(long HorseId)
+    public async UniTask<TrainingLeaderBoardResponse> GetLeaderBoard()
     {
-        throw new System.NotImplementedException();
+        return await SocketClient.Send<TrainingLeaderBoardRequest, TrainingLeaderBoardResponse>(new TrainingLeaderBoardRequest());
+    }
+    
+    public async UniTask<StartTrainingResponse> StartTrainingData(long HorseId)
+    {
+        var response = await SocketClient.Send<StartTrainingRequest, StartTrainingResponse>(new StartTrainingRequest()
+        {
+            HorseId = HorseId,
+        }, 5.0f);
+
+        return response;
     }
 
-    public UniTask<FinishTrainingResponse> GetTrainingRewardData(int distance, int coin)
+    public async UniTask<FinishTrainingResponse> GetTrainingRewardData(int duration, int coin)
     {
-        throw new System.NotImplementedException();
+        var trainingRewardsResponse = await SocketClient.Send<FinishTrainingRequest, FinishTrainingResponse>(new FinishTrainingRequest()
+        {
+            CoinNumber = coin,
+            TrainingTime = duration,
+        }, 5.0f);
+
+        return trainingRewardsResponse;
     }
 }
 
@@ -105,5 +124,10 @@ public class LocalTraningDomainService : TrainingDomainServiceBase, ITrainingDom
         }, 5.0f);
 
         return trainingRewardsResponse;
+    }
+
+    public UniTask<TrainingLeaderBoardResponse> GetLeaderBoard()
+    {
+        throw new NotImplementedException();
     }
 }

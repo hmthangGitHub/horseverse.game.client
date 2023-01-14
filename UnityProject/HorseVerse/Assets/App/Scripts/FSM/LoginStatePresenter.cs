@@ -157,7 +157,7 @@ public class LoginStatePresenter : IDisposable
         return await HandleLoginResponse(res);
     }
 
-    private io.hverse.game.protogen.Platform GetCurrentPlatform()
+    public static io.hverse.game.protogen.Platform GetCurrentPlatform()
     {
 #if UNITY_WEBGL
         return io.hverse.game.protogen.Platform.Web;

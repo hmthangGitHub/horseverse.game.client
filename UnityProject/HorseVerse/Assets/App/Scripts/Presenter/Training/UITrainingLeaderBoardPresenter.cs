@@ -15,6 +15,9 @@ public class UITrainingLeaderBoardPresenter : IDisposable
     private UITrainingLeaderBoard uiTrainingLeaderBoard;
     private CancellationTokenSource cts;
     private const int MAX_RANK = 50;
+
+    private TrainingDomainService trainingDomainService;
+    private TrainingDomainService TrainingDomainService => trainingDomainService ??= container.Inject<TrainingDomainService>();
     
     private ISocketClient SocketClient => socketClient ??= container.Inject<ISocketClient>();
     private UITouchDisablePresenter UITouchDisablePresenter => uiTouchDisablePresenter ??= container.Inject<UITouchDisablePresenter>();
@@ -30,8 +33,8 @@ public class UITrainingLeaderBoardPresenter : IDisposable
         cts = new CancellationTokenSource();
         
         await UITouchDisablePresenter.ShowTillFinishTaskAsync(InstantiateUI());
-        
-        var response = await SocketClient.Send<TrainingLeaderBoardRequest, TrainingLeaderBoardResponse>(new TrainingLeaderBoardRequest());
+
+        var response = await TrainingDomainService.GetLeaderBoard();
         
         uiTrainingLeaderBoard.SetEntity(new UITrainingLeaderBoard.Entity()
         {

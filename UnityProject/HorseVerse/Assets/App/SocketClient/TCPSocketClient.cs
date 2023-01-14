@@ -12,7 +12,6 @@ public class TCPSocketClient : SocketClientBase
 {
     #region private members
     private NetworkStream stream;
-	private CancellationTokenSource cancellationTokenSource;
 
 	private TcpClient socketConnection;
     private int dataBufferSize = 4096;
@@ -28,34 +27,41 @@ public class TCPSocketClient : SocketClientBase
 
     public override async UniTask Send<T>(T message)
     {
-        if (socketConnection.Connected)
+        if (IsSocketConnected(socketConnection.Client))
         {
             await stream.SendRawMessage(messageParser.ToByteArray(message));
         }
     }
+    
+    static bool IsSocketConnected(Socket s)
+    {
+        return !((s.Poll(1000, SelectMode.SelectRead) && (s.Available == 0)) || !s.Connected);
+    }
 
     public override void Dispose()
     {
-        cancellationTokenSource.SafeCancelAndDispose();
-        cancellationTokenSource = default;
+        base.Dispose();
+        
         socketConnection?.Close();
-        socketConnection?.Dispose();
-        socketConnection = default;
+        DisposeUtility.SafeDispose(ref socketConnection);
+        
         Destroy(this.gameObject);
     }
 
     public override async UniTask Connect(string url, int port)
     {
-        cancellationTokenSource.SafeCancelAndDispose();
-        cancellationTokenSource = new CancellationTokenSource();
-        await ConnectTask(url, port).AttachExternalCancellation(cancellationTokenSource.Token).ThrowWhenTimeOut();
+        Url = url;
+        Port = port;
+        socketSessionCts.SafeCancelAndDispose();
+        socketSessionCts = new CancellationTokenSource();
+        await ConnectTask(url, port).AttachExternalCancellation(socketSessionCts.Token).ThrowWhenTimeOut();
         ReadMessageAsync(socketConnection).Forget();
 	}
 
     public override async UniTask Close()
     {
-        cancellationTokenSource.SafeCancelAndDispose();
-        cancellationTokenSource = default;
+        socketSessionCts.SafeCancelAndDispose();
+        socketSessionCts = default;
         socketConnection?.Close();
         socketConnection?.Dispose();
         socketConnection = default;
@@ -71,9 +77,9 @@ public class TCPSocketClient : SocketClientBase
     {
         stream = socketConnection.GetStream();
         var buffer = new byte[dataBufferSize];
-        cancellationTokenSource?.Cancel();
-        cancellationTokenSource = new CancellationTokenSource();
-        var cancellationToken = cancellationTokenSource.Token;
+        socketSessionCts?.Cancel();
+        socketSessionCts = new CancellationTokenSource();
+        var cancellationToken = socketSessionCts.Token;
         while (!cancellationToken.IsCancellationRequested)
         {
             var rawMessage = await stream.ReadRawMessage(buffer).AttachExternalCancellation(cancellationToken : cancellationToken);

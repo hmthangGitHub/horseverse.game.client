@@ -18,7 +18,6 @@ public class InitialState : InjectedBHState, IDisposable
     private async UniTaskVoid OnEnterStateAsync()
     {
         this.Container.Bind(await MasterLoader.LoadMasterAsync<MasterHorseContainer>());
-        
         this.Container.Bind(new AudioPresenter(Container));
         this.Container.Bind(new HorseRepository(Container));
         this.Container.Bind(new BetRateRepository());
@@ -31,7 +30,7 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.Bind(new UIHorseInfo3DViewPresenter(Container)); //Use for show other horse
         this.Container.Bind(new HorseDetailEntityFactory(Container));
         this.Container.Bind(new QuickRaceDomainService(Container));
-        this.Container.Bind(new LocalTraningDomainService(Container));
+        this.Container.Bind(new TrainingDomainService(Container));
         this.Container.Bind(new HorseSumaryListEntityFactory(Container));
         var masterErrorCodeContainer = Container.Inject<MasterErrorCodeContainer>();
 #if UNITY_WEBGL || WEB_SOCKET
@@ -44,6 +43,9 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.Bind(new FeaturePresenter(Container));
         this.Container.Bind(new HorseRaceContext());
         this.Container.Bind(new HorseRaceInfoFactory(Container));
+        this.Container.Bind(RetryHandler.Instantiate(Container));
+        this.Container.Bind(LoginDomainService.Instantiate(Container));
+
         uiHeaderPresenter.OnLogOut += OnLogOut;
         base.Enter();
 
@@ -89,6 +91,8 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.RemoveAndDisposeIfNeed<HorseRaceInfoFactory>();
         this.Container.RemoveAndDisposeIfNeed<HorseRaceContext>();
         this.Container.RemoveAndDisposeIfNeed<FeaturePresenter>();
+        this.Container.RemoveAndDisposeIfNeed<LoginDomainService>();
+        this.Container.RemoveAndDisposeIfNeed<RetryHandler>();
         this.Container.RemoveAndDisposeIfNeed<PingDomainService>();
         this.Container.RemoveAndDisposeIfNeed<UITouchDisablePresenter>();
 #if UNITY_WEBGL || WEB_SOCKET
@@ -104,7 +108,7 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.RemoveAndDisposeIfNeed<UIHorseInfo3DViewPresenter>();
         this.Container.RemoveAndDisposeIfNeed<HorseDetailEntityFactory>();
         this.Container.RemoveAndDisposeIfNeed<QuickRaceDomainService>();
-        this.Container.RemoveAndDisposeIfNeed<LocalTraningDomainService>();
+        this.Container.RemoveAndDisposeIfNeed<TrainingDomainService>();
         this.Container.RemoveAndDisposeIfNeed<MasterHorseContainer>();
         this.Container.RemoveAndDisposeIfNeed<HorseRepository>();
         this.Container.RemoveAndDisposeIfNeed<BetRateRepository>();
