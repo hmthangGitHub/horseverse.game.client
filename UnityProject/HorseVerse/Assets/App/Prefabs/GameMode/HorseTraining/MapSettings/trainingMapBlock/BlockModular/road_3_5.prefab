@@ -15,6 +15,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Platform
       objectReference: {fileID: 0}
+    - target: {fileID: 901029025659100344, guid: 7a9a20b727fd8dc458e6abd29c4d2e59, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1027667067347571812, guid: 7a9a20b727fd8dc458e6abd29c4d2e59, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -23,9 +27,17 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Obstacle
       objectReference: {fileID: 0}
+    - target: {fileID: 1027667067347571812, guid: 7a9a20b727fd8dc458e6abd29c4d2e59, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5048875512502911638, guid: 7a9a20b727fd8dc458e6abd29c4d2e59, type: 3}
       propertyPath: m_Name
       value: road_3_5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5048875512502911638, guid: 7a9a20b727fd8dc458e6abd29c4d2e59, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5574019465283622956, guid: 7a9a20b727fd8dc458e6abd29c4d2e59, type: 3}
       propertyPath: m_RootOrder
@@ -83,19 +95,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1027667067347571812, guid: 7a9a20b727fd8dc458e6abd29c4d2e59, type: 3}
   m_PrefabInstance: {fileID: 7453223038701569979}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &348706996813881383
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7777210517435357955}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 9.614449, y: 0.7532305, z: 8.700004}
-  m_Center: {x: 0, y: -0.376614, z: 0.0037250519}
 --- !u!64 &2156955122425653784
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -110,3 +109,16 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5482436013768593812, guid: de62f8283372dff4a984c3d7eb822b62, type: 3}
+--- !u!65 &348706996813881383
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7777210517435357955}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 9.614449, y: 0.7532305, z: 8.700004}
+  m_Center: {x: 0, y: -0.376614, z: 0.0037250519}
