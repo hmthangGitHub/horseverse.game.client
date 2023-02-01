@@ -9,11 +9,11 @@ using UnityEngine;
 public class MainMenuState : InjectedBState
 {
     private UILoadingPresenter uiLoadingPresenter;
-    public UILoadingPresenter UiLoadingPresenter => uiLoadingPresenter ??= this.Container.Inject<UILoadingPresenter>();
+    private UILoadingPresenter UiLoadingPresenter => uiLoadingPresenter ??= this.Container.Inject<UILoadingPresenter>();
     private UIHeaderPresenter uiHeaderPresenter;
-    public UIHeaderPresenter UiHeaderPresenter => uiHeaderPresenter ??= this.Container.Inject<UIHeaderPresenter>();
+    private UIHeaderPresenter UiHeaderPresenter => uiHeaderPresenter ??= this.Container.Inject<UIHeaderPresenter>();
     private UIHorse3DViewPresenter uiHorse3DViewPresenter;
-    public UIHorse3DViewPresenter UIHorse3DViewPresenter => uiHorse3DViewPresenter ??= this.Container.Inject<UIHorse3DViewPresenter>();
+    private UIHorse3DViewPresenter UIHorse3DViewPresenter => uiHorse3DViewPresenter ??= this.Container.Inject<UIHorse3DViewPresenter>();
     private UIMainMenuPresenter uiMainMenuPresenter;
     private UIBackGroundPresenter uiBackGroundPresenter;
     private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();

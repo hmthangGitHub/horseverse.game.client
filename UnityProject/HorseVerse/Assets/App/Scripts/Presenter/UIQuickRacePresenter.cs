@@ -17,7 +17,7 @@ public partial class UIQuickRacePresenter : IDisposable
     private IDIContainer container;
     private List<IDisposable> disposableList = new List<IDisposable>();
 
-    public event Action<RaceMatchData> OnFoundMatch = ActionUtility.EmptyAction<RaceMatchData>.Instance;
+    public event Action<RaceScriptData> OnFoundMatch = ActionUtility.EmptyAction<RaceScriptData>.Instance;
 
     private IReadOnlyUserDataRepository userDataRepository;
     private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();

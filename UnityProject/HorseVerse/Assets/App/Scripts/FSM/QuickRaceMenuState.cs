@@ -34,12 +34,12 @@ public class QuickRaceMenuState : InjectedBState
         await uiQuickRacePresenter.ShowUIQuickRaceAsync();
     }
     
-    private void OnFoundMatch (RaceMatchData data)
+    private void OnFoundMatch (RaceScriptData data)
     {
         OnFoundMatchAsync(data).Forget();
     }
 
-    private async UniTaskVoid OnFoundMatchAsync (RaceMatchData data)
+    private async UniTaskVoid OnFoundMatchAsync (RaceScriptData data)
     {
         await UILoadingPresenter.ShowLoadingAsync();
 

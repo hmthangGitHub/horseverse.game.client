@@ -11,7 +11,7 @@ public partial class HorseRacePresenter
 
     private void CreateDebuggerAction()
     {
-        if (this.RaceMatchData.Mode == RaceMode.Bet)
+        if (this.RaceScriptData.Mode == HorseGameMode.Bet)
         {
             BetModeUIDebugMenuPresenter.AddSkipRaceMenu(() => OnShowResult().Forget());
         }
@@ -23,7 +23,7 @@ public partial class HorseRacePresenter
 
     private void RemoveDebuggerAction()
     {
-        if (RaceMatchData.Mode == RaceMode.Bet)
+        if (RaceScriptData.Mode == HorseGameMode.Bet)
         {
             BetModeUIDebugMenuPresenter.RemoveSkipRaceMenu();
         }

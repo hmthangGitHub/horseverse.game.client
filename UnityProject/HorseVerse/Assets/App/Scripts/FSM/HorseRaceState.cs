@@ -84,6 +84,6 @@ public class HorseRaceState : InjectedBHState
         horseRacePresenter.OnToQuickRaceModeResultState -= ToQuickRaceResultState;
         horseRacePresenter.Dispose();
         horseRacePresenter = default;
-        Container.RemoveAndDisposeIfNeed<RaceMatchData>();
+        Container.RemoveAndDisposeIfNeed<RaceScriptData>();
     }
 }

@@ -13,12 +13,12 @@ internal class BetModeRaceResultPresenter : IDisposable
     private UIResultTimeAndPricePool uiPricePoolAndTime;
     private UIBetReward uiBetReward;
     
-    private RaceMatchData raceMatchData;
+    private RaceScriptData raceScriptData;
     private ISocketClient socketClient;
     private MasterHorseContainer masterHorseContainer;
     private UserDataRepository userDataRepository;
     
-    private RaceMatchData RaceMatchData => raceMatchData ??= Container.Inject<RaceMatchData>();
+    private RaceScriptData RaceScriptData => raceScriptData ??= Container.Inject<RaceScriptData>();
     private UserDataRepository UserDataRepository => userDataRepository ??= Container.Inject<UserDataRepository>();
 
     public BetModeRaceResultPresenter(IDIContainer container)
@@ -32,9 +32,9 @@ internal class BetModeRaceResultPresenter : IDisposable
         cts = new CancellationTokenSource();
         await ShowBetModeResultAsync();
         await ShowRewardAsync();
-        if (RaceMatchData.TotalBetWin >= 0)
+        if (RaceScriptData.TotalBetWin >= 0)
         {
-            await UserDataRepository.UpdateCoin(UserDataRepository.Current.Coin + RaceMatchData.TotalBetWin);
+            await UserDataRepository.UpdateCoin(UserDataRepository.Current.Coin + RaceScriptData.TotalBetWin);
         }
     }
 
@@ -45,7 +45,7 @@ internal class BetModeRaceResultPresenter : IDisposable
         uiBetReward ??= await UILoader.Instantiate<UIBetReward>(token: cts.Token);
         uiBetReward.SetEntity(new UIBetReward.Entity()
         {
-            reward = RaceMatchData.TotalBetWin,
+            reward = RaceScriptData.TotalBetWin,
             outerBtn = new ButtonComponent.Entity(() => 
             {
                 ucs.TrySetResult();
@@ -59,13 +59,13 @@ internal class BetModeRaceResultPresenter : IDisposable
     {
         var ucs = new UniTaskCompletionSource();
         uiBetModeResult ??= await UILoader.Instantiate<UIBetModeResult>();
-        var tops = RaceMatchData.HorseRaceInfos.Select(x => x.RaceSegments.Sum(segment => segment.Time)).ToArray().GetTopByTimes();
+        var tops = RaceScriptData.HorseRaceInfos.Select(x => x.RaceSegments.Sum(segment => segment.Time)).ToArray().GetTopByTimes();
         
         uiBetModeResult.SetEntity(new UIBetModeResult.Entity()
         {
             betModeResultList = new UIComponentBetModeResultList.Entity()
             {
-                entities = RaceMatchData.HorseRaceInfos
+                entities = RaceScriptData.HorseRaceInfos
                                         .Select((horseRaceInfo, index) => (horseRaceInfo , index))
                     .OrderBy(x => x.horseRaceInfo.RaceSegments.Sum(segment => segment.Time) + x.horseRaceInfo.DelayTime)
                     .Select((x, i) => new UIComponentBetModeResult.Entity()
@@ -90,7 +90,7 @@ internal class BetModeRaceResultPresenter : IDisposable
         cts.SafeCancelAndDispose();
         cts = default;
         
-        raceMatchData = default;
+        raceScriptData = default;
         socketClient = default;
         masterHorseContainer = default;
         

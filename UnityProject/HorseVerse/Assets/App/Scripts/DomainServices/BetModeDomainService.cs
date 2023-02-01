@@ -10,7 +10,7 @@ public interface IBetModeDomainService
 {
     UniTask CancelBetAsync();
     UniTask BetAsync((int first, int second)[] keys, int amouth);
-    UniTask<RaceMatchData> GetCurrentBetModeRaceMatchData();
+    UniTask<RaceScriptData> GetCurrentBetModeRaceMatchData();
     UniTask<HorseBetInfo> GetCurrentBetModeHorseData();
     UniTask RequestBetData();
 }
@@ -52,18 +52,18 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
         }
     }
 
-    public async UniTask<RaceMatchData> GetCurrentBetModeRaceMatchData()
+    public async UniTask<RaceScriptData> GetCurrentBetModeRaceMatchData()
     {
         var bettingDetailResponse = await SocketClient.Send<GetBetHistoryDetailRequest, GetBetHistoryDetailResponse>(new GetBetHistoryDetailRequest()
         {
             MatchId = BetMatchRepository.Current.BetMatchId
         }, 5.0f);
 
-        return new RaceMatchData()
+        return new RaceScriptData()
         {
             HorseRaceInfos = QuickRaceDomainService.GetHorseRaceInfos(BetMatchRepository.Current.RaceScript, MasterHorseContainer),
             MasterMapId = QuickRaceState.MasterMapId,
-            Mode = RaceMode.Bet,
+            Mode = HorseGameMode.Bet,
             BetMatchId = BetMatchRepository.Current.BetMatchId,
             TotalBetWin = bettingDetailResponse.Records.Sum(item => item.WinMoney)
         };
@@ -189,7 +189,7 @@ public class LocalBetModeDomainService : BetModeDomainServiceBase, IBetModeDomai
     }
 
 
-    public async UniTask<RaceMatchData> GetCurrentBetModeRaceMatchData()
+    public async UniTask<RaceScriptData> GetCurrentBetModeRaceMatchData()
     {
         return await new LocalQuickRaceDomainService(container).FindMatch(0);
     }

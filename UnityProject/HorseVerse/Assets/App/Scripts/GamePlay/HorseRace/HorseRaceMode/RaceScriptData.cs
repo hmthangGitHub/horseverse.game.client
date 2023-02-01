@@ -1,10 +1,10 @@
 using io.hverse.game.protogen;
 
-public class RaceMatchData
+public class RaceScriptData
 {
     public HorseRaceInfo[] HorseRaceInfos { get; set; }
     public long MasterMapId { get; set; }
-    public RaceMode Mode { get; set; }
+    public HorseGameMode Mode { get; set; }
     public long BetMatchId { get; set; }
     public int TotalBetWin { get; set; }
 }
@@ -41,7 +41,7 @@ public class RaceSegmentTime
     public float Percentage { get; set; }
 }    
 
-public enum RaceMode
+public enum HorseGameMode
 {
     Bet,
     Race

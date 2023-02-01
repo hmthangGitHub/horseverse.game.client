@@ -8,8 +8,8 @@ public class QuickRaceResultPresenter : IDisposable
 {
     private CancellationTokenSource cts;
     private UIRaceResultList uiRaceResultList;
-    private RaceMatchData raceMatchData;
-    private RaceMatchData RaceMatchData => raceMatchData ??= Container.Inject<RaceMatchData>();
+    private RaceScriptData raceScriptData;
+    private RaceScriptData RaceScriptData => raceScriptData ??= Container.Inject<RaceScriptData>();
     private IUserDataRepository userDataRepository;
     private IUserDataRepository UserDataRepository => userDataRepository ??= Container.Inject<IUserDataRepository>();
     private MasterHorseContainer masterHorseContainer;
@@ -38,7 +38,7 @@ public class QuickRaceResultPresenter : IDisposable
         uiHorseQuickRaceResultList ??= await UILoader.Instantiate<UIHorseQuickRaceResultList>();
         uiHorseQuickRaceResultList.SetEntity(new UIHorseQuickRaceResultList.Entity()
         {
-            horseNames = RaceMatchData.HorseRaceInfos.Select(x => x.Name).ToArray(),
+            horseNames = RaceScriptData.HorseRaceInfos.Select(x => x.Name).ToArray(),
             outerBtn = new ButtonComponent.Entity(UniTask.Action(async () =>
             {
                 await uiHorseQuickRaceResultList.Out();
@@ -71,7 +71,7 @@ public class QuickRaceResultPresenter : IDisposable
 
     private UIComponentHorseResult.Entity[] GetResultList()
     {
-        return RaceMatchData.HorseRaceInfos.Select(x =>
+        return RaceScriptData.HorseRaceInfos.Select(x =>
                 (horseRaceTime: x, totalRaceTime: x.RaceSegments.Sum(raceSegment => raceSegment.Time)))
             .OrderBy(x => x.totalRaceTime)
             .Select((x, i) => new UIComponentHorseResult.Entity()

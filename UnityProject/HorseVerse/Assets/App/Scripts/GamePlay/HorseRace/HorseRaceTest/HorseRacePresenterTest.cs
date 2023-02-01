@@ -20,7 +20,7 @@ public class HorseRacePresenterTest : MonoBehaviour
         horsePresenter.StartGame();
     }
 
-    public RaceMatchData FindMatch(DIContainer container)
+    public RaceScriptData FindMatch(DIContainer container)
     {
         HorseRaceInfo[] GetAllMasterHorseIds()
         {
@@ -36,11 +36,11 @@ public class HorseRacePresenterTest : MonoBehaviour
                             .ToArray();
         }
 
-        return new RaceMatchData()
+        return new RaceScriptData()
         {
             HorseRaceInfos = GetAllMasterHorseIds(),
             MasterMapId = QuickRaceState.MasterMapId,
-            Mode = RaceMode.Race
+            Mode = HorseGameMode.Race
         };
     }
 }

@@ -43,6 +43,7 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.Bind(await UITouchDisablePresenter.InstantiateAsync(Container));
         this.Container.Bind(PingDomainService.Instantiate(Container));
         this.Container.Bind(new FeaturePresenter(Container));
+        this.Container.Bind(new HorseRaceContext());
         uiHeaderPresenter.OnLogOut += OnLogOut;
         base.Enter();
 
@@ -85,6 +86,7 @@ public class InitialState : InjectedBHState, IDisposable
     public void Dispose()
     {
         uiHeaderPresenter.OnLogOut -= OnLogOut;
+        this.Container.RemoveAndDisposeIfNeed<HorseRaceContext>();
         this.Container.RemoveAndDisposeIfNeed<FeaturePresenter>();
         this.Container.RemoveAndDisposeIfNeed<PingDomainService>();
         this.Container.RemoveAndDisposeIfNeed<UITouchDisablePresenter>();

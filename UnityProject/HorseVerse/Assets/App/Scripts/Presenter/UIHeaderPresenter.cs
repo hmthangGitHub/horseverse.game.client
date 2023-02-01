@@ -12,7 +12,7 @@ public class UIHeaderPresenter : IDisposable
     private CancellationTokenSource cts;
     private IDIContainer container;
     private IReadOnlyUserDataRepository userDataRepository = default;
-    public IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
+    private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
     public event Action OnBack = ActionUtility.EmptyAction.Instance;
     public event Action OnLogOut = ActionUtility.EmptyAction.Instance;
 
@@ -76,7 +76,7 @@ public class UIHeaderPresenter : IDisposable
         uiHeader.SetVisibleBackBtn(showBackBtn);
     }
 
-    public void SetTitle(string title)
+    private void SetTitle(string title)
     {
         uiHeader.SetTitle(title);
     }
