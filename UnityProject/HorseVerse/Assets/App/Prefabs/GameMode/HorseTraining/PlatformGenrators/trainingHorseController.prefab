@@ -520,12 +520,17 @@ MonoBehaviour:
   currentForwardVelocity: 0
   currentHorizontalVelocity: 0
   defaultGravity: -10
+  currentForwardAcceleration: 0
   cam1: {fileID: 1532857601560967223}
   cam2: {fileID: 1532857602895377302}
   cam3: {fileID: 1532857603614099802}
   horsePosition: {fileID: 9156934736356840812}
   groundVelocity: {x: 0, y: 0, z: 0}
   pivotPoint: {fileID: 1532857602256613053}
+  delayTimeForTouch: 0.05
+  delayTimeForReleaseTouch: 0.1
+  limitedForwardVelocity: 3
+  clampOffsetY: 25
   lastTapTimeStamp: 0
   index: 0
 --- !u!54 &1532857601942786513

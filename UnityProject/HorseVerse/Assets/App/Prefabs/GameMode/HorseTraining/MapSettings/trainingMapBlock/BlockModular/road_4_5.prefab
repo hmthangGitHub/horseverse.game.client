@@ -15,9 +15,17 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Platform
       objectReference: {fileID: 0}
+    - target: {fileID: 9366933449895322, guid: d2bb9115cd99c3c45a718f3f7b723761, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2402607924467969214, guid: d2bb9115cd99c3c45a718f3f7b723761, type: 3}
       propertyPath: m_Name
       value: road_4_5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402607924467969214, guid: d2bb9115cd99c3c45a718f3f7b723761, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3034326092208141828, guid: d2bb9115cd99c3c45a718f3f7b723761, type: 3}
       propertyPath: m_RootOrder
@@ -71,6 +79,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Obstacle
       objectReference: {fileID: 0}
+    - target: {fileID: 8296213317100222808, guid: d2bb9115cd99c3c45a718f3f7b723761, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2bb9115cd99c3c45a718f3f7b723761, type: 3}
 --- !u!1 &7974709931905458368 stripped
@@ -83,19 +95,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8296213317100222808, guid: d2bb9115cd99c3c45a718f3f7b723761, type: 3}
   m_PrefabInstance: {fileID: 7965349604145974618}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &627224216075772054
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7974709931905458368}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 9.614449, y: 0.7532294, z: 8.7}
-  m_Center: {x: -0.0000071525574, y: -0.3766147, z: 0.0037255287}
 --- !u!64 &5463690302366410972
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -110,3 +109,16 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5482436013768593812, guid: 2c624cb20e4e9f34c8e533bd142ac32f, type: 3}
+--- !u!65 &627224216075772054
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7974709931905458368}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 9.614449, y: 0.7532294, z: 8.7}
+  m_Center: {x: -0.0000071525574, y: -0.3766147, z: 0.0037255287}
