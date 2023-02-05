@@ -15,6 +15,8 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     public PlatformBase platformPrefab;
     public GameObject lastPlatform;
     public HorseTrainingControllerV2 horseTrainingControllerV2;
+    public PlatformGeneratorPool pool;
+
     private readonly Queue<GameObject> platformQueue = new Queue<GameObject>();
     private bool isFirstJump = true;
 
@@ -105,7 +107,9 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         }
         else
         {
-            Destroy(platformQueue.Dequeue());
+            var pp = platformQueue.Dequeue();
+            pp.GetComponent<PlatformModular>().Clear();
+            Destroy(pp);
         }
         Generate();
     }

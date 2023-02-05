@@ -15,6 +15,8 @@ public partial class PlatformModular : PlatformBase
     private BoxCollider paddingHeadCollider;
     [SerializeField]
     private BoxCollider paddingTailCollider;
+    
+    private PlatformGeneratorPool pool;
 
     private Vector3[] centers;
 
@@ -23,7 +25,9 @@ public partial class PlatformModular : PlatformBase
     public BoxCollider PaddingTailCollider => paddingTailCollider;
     public BoxCollider FirstCollider => allPlatformColliders.First();
     public BoxCollider LastCollider => allPlatformColliders.Last();
-    
+
+    private List<GameObject> _cacheObs = new List<GameObject>();
+    private List<GameObject> _cacheBlock = new List<GameObject>();
 
     [ContextMenu("Tiling")]
     private void Tiling()
@@ -129,8 +133,10 @@ public partial class PlatformModular : PlatformBase
                               float landingPoint,
                               MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo,
                               float coinRadius,
-                              GameObject[] obstaclesPrefab)
+                              GameObject[] obstaclesPrefab,
+                              PlatformGeneratorPool _pool)
     {
+        pool = _pool;
         GenerateBlock(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType);
         GenerateObstacle(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab);
         GenerateCoins(masterHorseTrainingBlockCombo.CoinList, coinRadius);
@@ -142,7 +148,7 @@ public partial class PlatformModular : PlatformBase
         {
             var coin = Instantiate(coinPrefab, this.transform);
             coin.transform.localPosition = x.localPosition.ToVector3();
-            coin.Init(x.numberOfCoin, x.benzierPointPositions.Select(x => x.ToVector3()).ToArray(), coinRadius);
+            coin.Init(x.numberOfCoin, x.benzierPointPositions.Select(x => x.ToVector3()).ToArray(), coinRadius, this.pool);
         });
      
     }
@@ -153,20 +159,21 @@ public partial class PlatformModular : PlatformBase
         obstacleList.ForEach(x =>
         {
             var obstaclesPrefabParent = obstaclesPrefab.FirstOrDefault(saveObstacles => saveObstacles.name == x.type);
-            CreatObstacle(obstaclesPrefabParent, x.localPosition);
+            _cacheObs.Add(CreatObstacle(obstaclesPrefabParent, x.localPosition));
         });
     }
     
-    private void CreatObstacle(GameObject obstaclesPrefabParent,
+    private GameObject CreatObstacle(GameObject obstaclesPrefabParent,
                                      Position localPosition)
     {
         var prefab = obstaclesPrefabParent
                      .transform.Cast<Transform>()
                      .Where(x => !x.gameObject.name.Contains("dummy"))
                      .RandomElement();
-        var obstacle = UnityEngine.Object.Instantiate(prefab, transform).gameObject;
+        var obstacle = (GameObject)pool.GetOrInstante(prefab.gameObject, transform);
         obstacle.name = prefab.name;
         obstacle.transform.localPosition = localPosition.ToVector3();
+        return obstacle;
     }
 
     private void InstantiateBlocks(GameObject[] gameObjects,
@@ -176,9 +183,24 @@ public partial class PlatformModular : PlatformBase
     {
         if (trainingBlockComboType == MasterTrainingBlockComboType.Modular)
         {
-            paddingHeadCollider = Instantiate(paddingHead, this.blockContainer)
+
+            //paddingHeadCollider = Instantiate(paddingHead, this.blockContainer)
+            //    .GetComponentInChildren<BoxCollider>();
+            if (pool != default)
+            {
+                var _paddingHead = ((GameObject)pool.GetOrInstante(paddingHead, this.blockContainer));
+                if (_paddingHead != default)
+                {
+                    paddingHeadCollider = _paddingHead.GetComponentInChildren<BoxCollider>();
+                    allPlatformColliders.Add(paddingHeadCollider);
+                }
+                _cacheBlock.Add(_paddingHead);
+            }
+            else
+            {
+                paddingHeadCollider = Instantiate(paddingHead, this.blockContainer)
                 .GetComponentInChildren<BoxCollider>();
-            allPlatformColliders.Add(paddingHeadCollider);
+            }
         }
 
         boxColliders = gameObjects.Select(x => Instantiate(x, this.blockContainer).GetComponentInChildren<BoxCollider>())
@@ -200,5 +222,22 @@ public partial class PlatformModular : PlatformBase
         var yObstacleOffset = -obstacleBounds.center.y + obstacleBounds.extents.y;
         objetToSnap.transform.position = floor.transform.position
                                          + Vector3.up * (yHeadOffset + yObstacleOffset);
+    }
+
+    public virtual void Clear()
+    {
+        if (_cacheObs.Count > 0)
+        {
+            var destroyObs = _cacheObs.ToArray();
+            destroyObs.ForEach(x => { if (this.pool != default) this.pool.AddToPool(x.name, x.gameObject); else Object.Destroy(x); });
+            _cacheObs.Clear();
+        }
+        if (_cacheBlock.Count > 0)
+        {
+            var destroyObs = _cacheBlock.ToArray();
+            destroyObs.ForEach(x => { if (this.pool != default) this.pool.AddToPool(x.name, x.gameObject); else Object.Destroy(x); });
+            _cacheBlock.Clear();
+        }
+        this.pool = default;
     }
 }
