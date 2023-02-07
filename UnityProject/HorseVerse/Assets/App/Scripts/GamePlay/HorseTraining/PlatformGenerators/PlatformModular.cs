@@ -29,6 +29,8 @@ public partial class PlatformModular : PlatformBase
     private List<GameObject> _cacheObs = new List<GameObject>();
     private List<GameObject> _cacheBlock = new List<GameObject>();
 
+    private List<BoxCollider> enableColliders = new List<BoxCollider>();
+
     [ContextMenu("Tiling")]
     private void Tiling()
     {
@@ -43,6 +45,23 @@ public partial class PlatformModular : PlatformBase
         {
             var baseCollider = BoxColliders[i - 1];
             var alignedCollider = BoxColliders[i];
+            
+            AlignCollider(baseCollider, alignedCollider, 1);
+        }
+    }
+
+    private void Tiling(BoxCollider[] _BoxColliders)
+    {
+        ChangePositionOfParentToMatchChildPosition(_BoxColliders[0].transform.parent,
+            _BoxColliders[0].transform,
+            new Vector3(0, 0, 0));
+
+        centers = _BoxColliders.Select(x => x.center)
+                                  .ToArray();
+        for (var i = 1; i < _BoxColliders.Length; i++)
+        {
+            var baseCollider = _BoxColliders[i - 1];
+            var alignedCollider = _BoxColliders[i];
             
             AlignCollider(baseCollider, alignedCollider, 1);
         }
@@ -81,8 +100,29 @@ public partial class PlatformModular : PlatformBase
         }
     }
 
+    private void TilingPaddingBlocks(BoxCollider[] _BoxColliders, BoxCollider _PaddingHeadCollider, BoxCollider _PaddingTailCollider, MasterTrainingBlockComboType masterTrainingBlockComboType)
+    {
+        if (masterTrainingBlockComboType != MasterTrainingBlockComboType.Modular) return;
+        if (!_BoxColliders.Any())
+        {
+            ChangePositionOfParentToMatchChildPosition(_PaddingHeadCollider.transform.parent,
+                _PaddingHeadCollider.transform,
+                new Vector3(0, 0, -(0 + _PaddingHeadCollider.bounds.extents.z)));
+
+            ChangePositionOfParentToMatchChildPosition(PaddingTailCollider.transform.parent,
+                PaddingTailCollider.transform,
+                new Vector3(0, 0, (_BoxColliders.Length - 1) * 0 * 2 + (0 + _PaddingHeadCollider.bounds.extents.z)));
+        }
+        else
+        {
+            AlignCollider(_BoxColliders.First(), _PaddingHeadCollider, -1);
+            AlignCollider(_BoxColliders.Last(), PaddingTailCollider, 1);
+        }
+    }
+
     private void PlaceStartObjectAtOffsetToFirstBlock(float offset)
     {
+        if (allPlatformColliders.Count == 0) return;
         var firstCollider = allPlatformColliders.First();
         var boundsExtents = firstCollider.bounds.extents;
         var localPosition = new Vector3(0, boundsExtents.y + firstCollider.center.y, -boundsExtents.z + offset);
@@ -91,10 +131,31 @@ public partial class PlatformModular : PlatformBase
     
     private void PlaceEndObjectAtOffsetToLastBlock(float offset)
     {
+        if (allPlatformColliders.Count == 0) return;
         var lastCollider = allPlatformColliders.Last();
         var boundsExtents = lastCollider.bounds.extents;
         var localPosition = new Vector3(0, boundsExtents.y + lastCollider.center.y, boundsExtents.z - offset);
         end.transform.position = localPosition + lastCollider.transform.position;
+    }
+
+    private void PlaceStartObjectAtOffsetToFirstBlock(List<BoxCollider> _allPlatformColliders, float offset)
+    {
+        if (_allPlatformColliders.Count == 0) return;
+        var firstCollider = _allPlatformColliders.First(); if (firstCollider == null) return;
+        var boundsExtents = firstCollider.bounds.extents;
+        var localPosition = new Vector3(0, boundsExtents.y + firstCollider.center.y, -boundsExtents.z + offset);
+        if (start.transform != null && firstCollider.transform != null)
+            start.transform.position = localPosition + firstCollider.transform.position;
+    }
+
+    private void PlaceEndObjectAtOffsetToLastBlock(List<BoxCollider> _allPlatformColliders, float offset)
+    {
+        if (_allPlatformColliders.Count == 0) return;
+        var lastCollider = _allPlatformColliders.Last();
+        var boundsExtents = lastCollider.bounds.extents;
+        var localPosition = new Vector3(0, boundsExtents.y + lastCollider.center.y, boundsExtents.z - offset);
+        if (lastCollider.gameObject != null)
+            end.transform.position = localPosition + lastCollider.transform.position;
     }
 
     private void AlignToStartPosition(Vector3 position)
@@ -107,6 +168,11 @@ public partial class PlatformModular : PlatformBase
                                                             Vector3 childWorldDestination)
     {
         parent.position += childWorldDestination - child.position;
+    }
+
+    private void EnableCollider(List<BoxCollider> colliders)
+    {
+        colliders.ForEach(x => x.enabled = true);
     }
 
     public void GenerateBlock(Vector3 startPosition,
@@ -124,7 +190,44 @@ public partial class PlatformModular : PlatformBase
         PlaceEndObjectAtOffsetToLastBlock(jumpingPoint);
         AlignToStartPosition(startPosition);
     }
-    
+
+    public IEnumerator GenerateBlockAsync(Vector3 startPosition,
+                             GameObject[] blockPrefabs,
+                             GameObject paddingStartPrefab,
+                             GameObject paddingEndPrefab,
+                             float jumpingPoint,
+                             float landingPoint,
+                             MasterTrainingBlockComboType masterTrainingBlockComboType)
+    {
+        List<BoxCollider> sss = new List<BoxCollider>();
+        enableColliders.Clear();
+        var paddingHead = Instantiate_PaddingHeadCollider(paddingStartPrefab, masterTrainingBlockComboType);
+        var paddingTail = Instantiate_PaddingTailCollider(paddingEndPrefab, masterTrainingBlockComboType);
+        var headCol = paddingHead.GetComponentInChildren<BoxCollider>();
+        var tailCol = paddingTail.GetComponentInChildren<BoxCollider>();
+        if (headCol.enabled) { enableColliders.Add(headCol); headCol.enabled = false; }
+        if (tailCol.enabled) { enableColliders.Add(tailCol); tailCol.enabled = false; }
+        yield return InstantiateBlocksAsync(blockPrefabs, (s1)=>{
+            paddingHeadCollider = headCol;
+            paddingTailCollider = tailCol;
+            paddingTail.transform.SetAsLastSibling();
+
+            sss.AddRange(s1);
+            boxColliders = sss.ToArray();
+            allPlatformColliders.Add(paddingHeadCollider);
+            allPlatformColliders.AddRange(sss);
+            allPlatformColliders.Add(paddingTailCollider);
+        });
+
+        Tiling(boxColliders);
+        TilingPaddingBlocks(boxColliders, paddingHeadCollider, paddingTailCollider, masterTrainingBlockComboType);
+        PlaceStartObjectAtOffsetToFirstBlock(allPlatformColliders, landingPoint);
+        PlaceEndObjectAtOffsetToLastBlock(allPlatformColliders, jumpingPoint);
+        AlignToStartPosition(startPosition);
+        yield return null;
+        EnableCollider(enableColliders);
+    }
+
     public void GenerateBlock(Vector3 startPosition,
                               GameObject[] blockPrefabs,
                               GameObject paddingStartPrefab,
@@ -137,9 +240,32 @@ public partial class PlatformModular : PlatformBase
                               PlatformGeneratorPool _pool)
     {
         pool = _pool;
+        IsReady = false; 
         GenerateBlock(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType);
-        GenerateObstacle(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab);
+        //StartCoroutine(GenerateBlockAsync(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType));
+        StartCoroutine(GenerateObstacle(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab));
         GenerateCoins(masterHorseTrainingBlockCombo.CoinList, coinRadius);
+        IsReady = true;
+    }
+
+    public IEnumerator GenerateBlockAsync(Vector3 startPosition,
+                              GameObject[] blockPrefabs,
+                              GameObject paddingStartPrefab,
+                              GameObject paddingEndPrefab,
+                              float jumpingPoint,
+                              float landingPoint,
+                              MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo,
+                              float coinRadius,
+                              GameObject[] obstaclesPrefab,
+                              PlatformGeneratorPool _pool)
+    {
+        pool = _pool;
+        IsReady = false;
+        //GenerateBlock(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType);
+        yield return GenerateBlockAsync(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType);
+        yield return GenerateObstacle(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab);
+        GenerateCoins(masterHorseTrainingBlockCombo.CoinList, coinRadius);
+        IsReady = true;
     }
 
     private void GenerateCoins(Coin[] coinsList, float coinRadius)
@@ -153,14 +279,23 @@ public partial class PlatformModular : PlatformBase
      
     }
 
-    private void GenerateObstacle(Obstacle[] obstacleList,
+    private IEnumerator GenerateObstacle(Obstacle[] obstacleList,
                                   GameObject[] obstaclesPrefab)
     {
-        obstacleList.ForEach(x =>
+        //obstacleList.ForEach(x =>
+        //{
+        //    var obstaclesPrefabParent = obstaclesPrefab.FirstOrDefault(saveObstacles => saveObstacles.name == x.type);
+        //    _cacheObs.Add(CreatObstacle(obstaclesPrefabParent, x.localPosition));
+        //});
+        int len = obstacleList.Length;
+        for (int i = 0; i < len; i++)
         {
+            var x = obstacleList[i];
             var obstaclesPrefabParent = obstaclesPrefab.FirstOrDefault(saveObstacles => saveObstacles.name == x.type);
             _cacheObs.Add(CreatObstacle(obstaclesPrefabParent, x.localPosition));
-        });
+
+            if (i % 5 == 0) yield return null;
+        }
     }
     
     private GameObject CreatObstacle(GameObject obstaclesPrefabParent,
@@ -170,7 +305,7 @@ public partial class PlatformModular : PlatformBase
                      .transform.Cast<Transform>()
                      .Where(x => !x.gameObject.name.Contains("dummy"))
                      .RandomElement();
-        var obstacle = (GameObject)pool.GetOrInstante(prefab.gameObject, transform);
+        var obstacle = Instantiate(prefab.gameObject, transform);//(GameObject)pool.GetOrInstante(prefab.gameObject, transform);
         obstacle.name = prefab.name;
         obstacle.transform.localPosition = localPosition.ToVector3();
         return obstacle;
@@ -183,20 +318,17 @@ public partial class PlatformModular : PlatformBase
     {
         if (trainingBlockComboType == MasterTrainingBlockComboType.Modular)
         {
-
-            //paddingHeadCollider = Instantiate(paddingHead, this.blockContainer)
-            //    .GetComponentInChildren<BoxCollider>();
-            if (pool != default)
-            {
-                var _paddingHead = ((GameObject)pool.GetOrInstante(paddingHead, this.blockContainer));
-                if (_paddingHead != default)
-                {
-                    paddingHeadCollider = _paddingHead.GetComponentInChildren<BoxCollider>();
-                    allPlatformColliders.Add(paddingHeadCollider);
-                }
-                _cacheBlock.Add(_paddingHead);
-            }
-            else
+            //if (pool != default)
+            //{
+            //    var _paddingHead = ((GameObject)pool.GetOrInstante(paddingHead, this.blockContainer));
+            //    if (_paddingHead != default)
+            //    {
+            //        paddingHeadCollider = _paddingHead.GetComponentInChildren<BoxCollider>();
+            //        allPlatformColliders.Add(paddingHeadCollider);
+            //    }
+            //    _cacheBlock.Add(_paddingHead);
+            //}
+            //else
             {
                 paddingHeadCollider = Instantiate(paddingHead, this.blockContainer)
                 .GetComponentInChildren<BoxCollider>();
@@ -213,7 +345,60 @@ public partial class PlatformModular : PlatformBase
             allPlatformColliders.Add(paddingTailCollider);
         }
     }
-    
+
+    private IEnumerator InstantiateBlocksAsync(GameObject[] gameObjects, System.Action<BoxCollider[]> finish)
+    {
+        var len = gameObjects.Length;
+        var BoxColliders = new List<BoxCollider>();
+        for (int i = 0; i < len; i++)
+        {
+            var x = gameObjects[i];
+            var ss = Instantiate(x, this.blockContainer).GetComponentInChildren<BoxCollider>();
+            if(ss.enabled)
+                enableColliders.Add(ss);
+            ss.enabled = false;
+            BoxColliders.Add(ss);
+            if (i % 5 == 0) yield return null;
+        }
+        finish?.Invoke(BoxColliders.ToArray());
+    }
+
+    private GameObject Instantiate_PaddingHeadCollider(GameObject paddingHead, MasterTrainingBlockComboType trainingBlockComboType)
+    {
+        if (trainingBlockComboType == MasterTrainingBlockComboType.Modular)
+        {
+            //if (pool != default)
+            //{
+            //    var _paddingHead = ((GameObject)pool.GetOrInstante(paddingHead, this.blockContainer));
+            //    _cacheBlock.Add(_paddingHead);
+            //    return _paddingHead.GetComponentInChildren<BoxCollider>();
+            //}
+            //else
+            {
+                return Instantiate(paddingHead, this.blockContainer);
+            }
+        }
+        return null;
+    }
+
+    private GameObject Instantiate_PaddingTailCollider(GameObject paddingTail, MasterTrainingBlockComboType trainingBlockComboType)
+    {
+        if (trainingBlockComboType == MasterTrainingBlockComboType.Modular)
+        {
+            //if (pool != default)
+            //{
+            //    var _paddingTail = ((GameObject)pool.GetOrInstante(paddingTail, this.blockContainer));
+            //    _cacheBlock.Add(_paddingTail);
+            //    return paddingTail.GetComponentInChildren<BoxCollider>();
+            //}
+            //else
+            {
+                return Instantiate(paddingTail, this.blockContainer);
+            }
+        }
+        return null;
+    }
+
     public static void Snap(BoxCollider floor, Collider objetToSnap)
     {
         var bounds = floor.bounds;

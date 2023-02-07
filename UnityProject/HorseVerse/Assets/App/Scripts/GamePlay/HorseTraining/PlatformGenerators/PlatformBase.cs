@@ -9,4 +9,6 @@ public class PlatformBase : MonoBehaviour
     
     [SerializeField]
     protected Transform blockContainer;
+
+    public bool IsReady { get; set; } = true;
 }

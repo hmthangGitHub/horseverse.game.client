@@ -36,6 +36,7 @@ public class PlatformGeneratorPool : MonoBehaviour
         if (!_pools.ContainsKey(prefabName))
             _pools.Add(prefabName, new Queue<GameObject>());
         var queue = _pools[prefabName];
+        if(queue.Count > 4) { Destroy(gameObject); return; }
         gameObject.SetActive(false);
         gameObject.transform.parent = this.transform;
         queue.Enqueue(gameObject);

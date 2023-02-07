@@ -122,7 +122,8 @@ public class CoinEditor : MonoBehaviour
             listCoin.AddRange(Enumerable.Range(0, number - listCoin.Count)
                                         .Select(x =>
                                         {
-                                            var coin = this.pool != default ? (GameObject)this.pool.GetOrInstante(coinPrefab, container.transform) : Instantiate(coinPrefab, container.transform);
+                                            var coin = Instantiate(coinPrefab, container.transform);
+                                            //var coin = this.pool != default ? (GameObject)this.pool.GetOrInstante(coinPrefab, container.transform) : Instantiate(coinPrefab, container.transform);
                                             //var coinTraining = coin.GetComponentInChildren<TrainingCoin>();
                                             //if (coinTraining != default) coinTraining.onDestroy = () => { if (this.pool != default) this.pool.AddToPool(coinPrefab.name, coin); };
                                             coin.GetComponentInChildren<SphereCollider>(true).radius = coinRadius;
