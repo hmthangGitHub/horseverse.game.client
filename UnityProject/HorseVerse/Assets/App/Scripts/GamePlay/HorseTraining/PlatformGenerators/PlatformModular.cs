@@ -62,7 +62,6 @@ public partial class PlatformModular : PlatformBase
         {
             var baseCollider = _BoxColliders[i - 1];
             var alignedCollider = _BoxColliders[i];
-            
             AlignCollider(baseCollider, alignedCollider, 1);
         }
     }
@@ -109,14 +108,14 @@ public partial class PlatformModular : PlatformBase
                 _PaddingHeadCollider.transform,
                 new Vector3(0, 0, -(0 + _PaddingHeadCollider.bounds.extents.z)));
 
-            ChangePositionOfParentToMatchChildPosition(PaddingTailCollider.transform.parent,
-                PaddingTailCollider.transform,
+            ChangePositionOfParentToMatchChildPosition(_PaddingTailCollider.transform.parent,
+                _PaddingTailCollider.transform,
                 new Vector3(0, 0, (_BoxColliders.Length - 1) * 0 * 2 + (0 + _PaddingHeadCollider.bounds.extents.z)));
         }
         else
         {
             AlignCollider(_BoxColliders.First(), _PaddingHeadCollider, -1);
-            AlignCollider(_BoxColliders.Last(), PaddingTailCollider, 1);
+            AlignCollider(_BoxColliders.Last(), _PaddingTailCollider, 1);
         }
     }
 
@@ -140,22 +139,18 @@ public partial class PlatformModular : PlatformBase
 
     private void PlaceStartObjectAtOffsetToFirstBlock(List<BoxCollider> _allPlatformColliders, float offset)
     {
-        if (_allPlatformColliders.Count == 0) return;
         var firstCollider = _allPlatformColliders.First(); if (firstCollider == null) return;
-        var boundsExtents = firstCollider.bounds.extents;
+        var boundsExtents = firstCollider.bounds.extents; Debug.Log("Bound " + boundsExtents);
         var localPosition = new Vector3(0, boundsExtents.y + firstCollider.center.y, -boundsExtents.z + offset);
-        if (start.transform != null && firstCollider.transform != null)
-            start.transform.position = localPosition + firstCollider.transform.position;
+        start.transform.position = localPosition + firstCollider.transform.position;
     }
 
     private void PlaceEndObjectAtOffsetToLastBlock(List<BoxCollider> _allPlatformColliders, float offset)
     {
-        if (_allPlatformColliders.Count == 0) return;
         var lastCollider = _allPlatformColliders.Last();
-        var boundsExtents = lastCollider.bounds.extents;
+        var boundsExtents = lastCollider.bounds.extents; Debug.Log("X Bound " + boundsExtents);
         var localPosition = new Vector3(0, boundsExtents.y + lastCollider.center.y, boundsExtents.z - offset);
-        if (lastCollider.gameObject != null)
-            end.transform.position = localPosition + lastCollider.transform.position;
+        end.transform.position = localPosition + lastCollider.transform.position;
     }
 
     private void AlignToStartPosition(Vector3 position)
@@ -205,8 +200,8 @@ public partial class PlatformModular : PlatformBase
         var paddingTail = Instantiate_PaddingTailCollider(paddingEndPrefab, masterTrainingBlockComboType);
         var headCol = paddingHead.GetComponentInChildren<BoxCollider>();
         var tailCol = paddingTail.GetComponentInChildren<BoxCollider>();
-        if (headCol.enabled) { enableColliders.Add(headCol); headCol.enabled = false; }
-        if (tailCol.enabled) { enableColliders.Add(tailCol); tailCol.enabled = false; }
+        //if (headCol.enabled) { enableColliders.Add(headCol); headCol.enabled = false; }
+        //if (tailCol.enabled) { enableColliders.Add(tailCol); tailCol.enabled = false; }
         yield return InstantiateBlocksAsync(blockPrefabs, (s1)=>{
             paddingHeadCollider = headCol;
             paddingTailCollider = tailCol;
@@ -354,9 +349,9 @@ public partial class PlatformModular : PlatformBase
         {
             var x = gameObjects[i];
             var ss = Instantiate(x, this.blockContainer).GetComponentInChildren<BoxCollider>();
-            if(ss.enabled)
-                enableColliders.Add(ss);
-            ss.enabled = false;
+            //if(ss.enabled)
+            //    enableColliders.Add(ss);
+            //ss.enabled = false;
             BoxColliders.Add(ss);
             if (i % 5 == 0) yield return null;
         }

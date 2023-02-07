@@ -24,6 +24,12 @@ public class PlatformGenerator : PlatformGeneratorBase
         return platformTest;
     }
 
+    protected override async UniTask<PlatformBase> CreatePlatformAsync(Vector3 relativePointToPlayer,
+                                                   Vector3 lastEndPosition)
+    {
+        return CreatePlatform(relativePointToPlayer, lastEndPosition);
+    }
+
     private void CreateDebugSphere(Vector3 position)
     {
 #if UNITY_EDITOR
