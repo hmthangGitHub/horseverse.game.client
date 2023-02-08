@@ -3198,7 +3198,7 @@ GameObject:
   - component: {fileID: 8356081588473194955}
   - component: {fileID: 7958442957020392860}
   m_Layer: 5
-  m_Name: dev
+  m_Name: production
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3558,8 +3558,9 @@ MonoBehaviour:
   cancelBtn: {fileID: 8089131783175338564}
   connectBtn: {fileID: 6730252307755614177}
   localBtn: {fileID: 2934153938522482328}
-  devBtn: {fileID: 8356081588473194955}
+  devBtn: {fileID: 0}
   stagingBtn: {fileID: 3570771377401587821}
+  productionBtn: {fileID: 8356081588473194955}
 --- !u!1 &6699050094166283001
 GameObject:
   m_ObjectHideFlags: 0
@@ -4524,7 +4525,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Dev
+  m_text: Production
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 063d9d21debc62c47ae1db59e24c1769, type: 2}
   m_sharedMaterial: {fileID: 860308009754018327, guid: 063d9d21debc62c47ae1db59e24c1769, type: 2}

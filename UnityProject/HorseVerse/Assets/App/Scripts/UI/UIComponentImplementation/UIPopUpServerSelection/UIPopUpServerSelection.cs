@@ -22,6 +22,7 @@ public class UIPopUpServerSelection : PopupEntity<UIPopUpServerSelection.Entity>
     public ButtonComponent localBtn;
     public ButtonComponent devBtn;
     public ButtonComponent stagingBtn;
+    public ButtonComponent productionBtn;
 
     protected override void OnSetEntity()
     {
@@ -30,7 +31,8 @@ public class UIPopUpServerSelection : PopupEntity<UIPopUpServerSelection.Entity>
         cancelBtn.SetEntity(this.entity.cancelBtn);
         connectBtn.SetEntity(this.entity.connectBtn);
         localBtn.SetEntity(new ButtonComponent.Entity(()=> OnBtnLocalClicked()));
-        devBtn.SetEntity(new ButtonComponent.Entity(() => OnBtnDevClicked()));
+        //devBtn.SetEntity(new ButtonComponent.Entity(() => OnBtnDevClicked()));
+        productionBtn.SetEntity(new ButtonComponent.Entity(() => OnBtnProductionClicked()));
         stagingBtn.SetEntity(new ButtonComponent.Entity(() => OnBtnMainClicked()));
     }
 
@@ -49,6 +51,12 @@ public class UIPopUpServerSelection : PopupEntity<UIPopUpServerSelection.Entity>
     {
         hostInput.inputField.text = this.entity.serverDefine.Dev.Host;
         portInput.inputField.text = this.entity.serverDefine.Dev.Port.ToString();
+    }
+
+    private void OnBtnProductionClicked()
+    {
+        hostInput.inputField.text = this.entity.serverDefine.Production.Host;
+        portInput.inputField.text = this.entity.serverDefine.Production.Port.ToString();
     }
 
     private void OnBtnMainClicked()
