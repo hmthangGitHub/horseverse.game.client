@@ -12,8 +12,12 @@ public class PlatformTrigger : MonoBehaviour
         if (other.CompareTag("TrainingHorse"))
         {
             var platform = GetComponentInParent<PlatformBase>();
-            platform.OnFinishPlatform.Invoke();
-            collider.enabled = false;
+            if (platform.IsReady)
+            {
+                Debug.Log("Trigger platform " + platform.name + " --- " + platform.GetHashCode());
+                platform.OnFinishPlatform.Invoke();
+                collider.enabled = false;
+            }
         }
     }
 }

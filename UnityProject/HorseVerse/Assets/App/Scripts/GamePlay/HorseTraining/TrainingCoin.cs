@@ -11,6 +11,7 @@ using Vector3 = UnityEngine.Vector3;
 public class TrainingCoin : MonoBehaviour
 {
     private Tween tween;
+    public System.Action onDestroy { get; set; }
 
     private void OnEnable()
     {
@@ -34,7 +35,7 @@ public class TrainingCoin : MonoBehaviour
             DOTween.Sequence()
                    .Append(MoveTo(other.transform, Vector3.up * 0.5f, 0.5f, Ease.InFlash))
                    .Append(MoveTo(other.transform, relative, 0.5f, Ease.Linear))
-                   .OnComplete(() => Destroy(this.gameObject));
+                   .OnComplete(() => DestroyThis());
         }
     }
 
@@ -48,5 +49,11 @@ public class TrainingCoin : MonoBehaviour
                           this.transform.position = Vector3.Lerp(this.transform.position, other.transform.position + relative, val);
                       }, 0.0f, 1.0f, duration)
                       .SetEase(ease);
+    }
+
+    public void DestroyThis()
+    {
+        if (onDestroy != default) onDestroy.Invoke();
+        else Destroy(this.gameObject);
     }
 }

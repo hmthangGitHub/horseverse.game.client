@@ -33,4 +33,10 @@ public class PlatformGeneratorPredefined : PlatformGeneratorBase
             masterHorseTrainingProperty);
         return platform;
     }
+
+    protected override async UniTask<PlatformBase> CreatePlatformAsync(Vector3 relativePointToPlayer,
+                                                   Vector3 lastEndPosition)
+    {
+        return CreatePlatform(relativePointToPlayer, lastEndPosition);
+    }
 }

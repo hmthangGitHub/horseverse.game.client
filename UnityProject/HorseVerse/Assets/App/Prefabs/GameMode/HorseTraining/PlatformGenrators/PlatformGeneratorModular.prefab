@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4878151728264031028}
   - component: {fileID: 4878151728264031031}
+  - component: {fileID: 1088967981609268890}
   m_Layer: 0
   m_Name: PlatformGeneratorModular
   m_TagString: Untagged
@@ -47,6 +48,19 @@ MonoBehaviour:
   platformPrefab: {fileID: 1265945211471292911, guid: bacf6baea54cea7478308b70d1f81793, type: 3}
   lastPlatform: {fileID: 7063951846833088584}
   horseTrainingControllerV2: {fileID: 0}
+  pool: {fileID: 1088967981609268890}
+--- !u!114 &1088967981609268890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4878151728264031029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ea53f2c19c6e4167b0169b8bada1a05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3494140709891065153
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54,6 +68,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4878151728264031028}
     m_Modifications:
+    - target: {fileID: 1265945211471292911, guid: bacf6baea54cea7478308b70d1f81793, type: 3}
+      propertyPath: pool
+      value: 
+      objectReference: {fileID: 1088967981609268890}
     - target: {fileID: 5941827569700069379, guid: bacf6baea54cea7478308b70d1f81793, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.05

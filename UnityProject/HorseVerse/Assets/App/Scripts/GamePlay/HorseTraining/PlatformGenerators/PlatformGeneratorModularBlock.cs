@@ -39,7 +39,31 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
             masterHorseTrainingProperty.LandingPoint,
             randomBlockCombo,
             masterHorseTrainingProperty.CoinColliderRadius,
-            trainingBlockSettings.obstacles);
+            trainingBlockSettings.obstacles,
+            pool);
+        return platform;
+    }
+
+    protected override async UniTask<PlatformBase> CreatePlatformAsync(Vector3 relativePointToPlayer,
+                                                   Vector3 lastEndPosition)
+    {
+        var randomBlockCombo = GetRandomBlockCombo();
+
+        var paddingStartBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(randomBlockCombo.MasterTrainingModularBlockIdStart);
+        var paddingEndBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(randomBlockCombo.MasterTrainingModularBlockIdEnd);
+
+        var modularBlockIds = randomBlockCombo.MasterHorseTrainingBlockIdList;
+        var platform = Instantiate(platformPrefab, this.transform);
+        var platformModular = platform.GetComponent<PlatformModular>();
+        await platformModular.GenerateBlockAsync(relativePointToPlayer + lastEndPosition, modularBlockIds.Select(x => trainingBlockSettings.BlocksLookUpTable[x].gameObject).ToArray(),
+            trainingBlockSettings.BlocksLookUpTable[paddingStartBlockId].gameObject,
+            trainingBlockSettings.BlocksLookUpTable[paddingEndBlockId].gameObject,
+            masterHorseTrainingProperty.JumpingPoint,
+            masterHorseTrainingProperty.LandingPoint,
+            randomBlockCombo,
+            masterHorseTrainingProperty.CoinColliderRadius,
+            trainingBlockSettings.obstacles,
+            pool);
         return platform;
     }
 

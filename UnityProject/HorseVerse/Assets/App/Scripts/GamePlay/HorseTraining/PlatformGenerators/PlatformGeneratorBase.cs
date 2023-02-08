@@ -15,6 +15,8 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     public PlatformBase platformPrefab;
     public GameObject lastPlatform;
     public HorseTrainingControllerV2 horseTrainingControllerV2;
+    public PlatformGeneratorPool pool;
+
     private readonly Queue<GameObject> platformQueue = new Queue<GameObject>();
     private bool isFirstJump = true;
 
@@ -30,10 +32,11 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         this.masterTrainingDifficultyContainer = masterTrainingDifficultyContainer;
         this.masterTrainingBlockDistributeContainer = masterTrainingBlockDistributeContainer;
         await InitializeInternal();
-        for (var i = 0; i < 4; i++)
-        {
-            Generate();
-        }
+        //for (var i = 0; i < 4; i++)
+        //{
+        //    Generate();
+        //}
+        GenerateMulti(2);
     }
 
     protected abstract UniTask InitializeInternal();
@@ -78,6 +81,29 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         platformQueue.Enqueue(platform);
     }
 
+    private async UniTask GenerateAsync()
+    {
+        var relativePointToPlayer = PredictRelativePointToPlayer();
+        var platformTest = lastPlatform.GetComponent<PlatformBase>();
+        var lastEndPosition = platformTest.end.position;
+        var platform = await CreateNewPlatformAsync(relativePointToPlayer, lastEndPosition);
+        lastPlatform = platform;
+        platformQueue.Enqueue(platform);
+    }
+
+    private void GenerateMulti(int number)
+    {
+        for(int i = 0; i < number; i++)
+        {
+            var relativePointToPlayer = PredictRelativePointToPlayer();
+            var platformTest = lastPlatform.GetComponent<PlatformBase>();
+            var lastEndPosition = platformTest.end.position;
+            var platform = CreateNewPlatform(relativePointToPlayer, lastEndPosition);
+            lastPlatform = platform;
+            platformQueue.Enqueue(platform);
+        }
+    }
+
     private void CreateDebugSphere(Vector3 position)
     {
 #if UNITY_EDITOR
@@ -97,6 +123,15 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         return platform.gameObject;
     }
 
+    private async UniTask<GameObject> CreateNewPlatformAsync(Vector3 relativePointToPlayer,
+                                         Vector3 lastEndPosition)
+    {
+        CreateDebugSphere(relativePointToPlayer + lastEndPosition);
+        var platform = await CreatePlatformAsync(relativePointToPlayer, lastEndPosition);
+        platform.OnFinishPlatform += OnCreateNewPlatform;
+        return platform.gameObject;
+    }
+
     private void OnCreateNewPlatform()
     {
         if (isFirstJump)
@@ -105,11 +140,19 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         }
         else
         {
-            Destroy(platformQueue.Dequeue());
+            var pp = platformQueue.Dequeue();
+            pp.GetComponent<PlatformModular>().Clear();
+            Destroy(pp);
         }
-        Generate();
+        GenerateAsync().AttachExternalCancellation(this.GetCancellationTokenOnDestroy()).Forget();
     }
 
     protected abstract PlatformBase CreatePlatform(Vector3 relativePointToPlayer,
                                                    Vector3 lastEndPosition);
+
+    protected virtual async UniTask<PlatformBase> CreatePlatformAsync(Vector3 relativePointToPlayer,
+                                                   Vector3 lastEndPosition)
+    {
+        return null;
+    }
 }

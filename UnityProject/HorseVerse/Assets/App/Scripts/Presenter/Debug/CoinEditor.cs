@@ -22,7 +22,7 @@ public class CoinEditor : MonoBehaviour
     public Vector3[] BenzierPointPositions => GetComponentsInChildren<BezierPoint>(true)
                                               .Select(x => x.localPosition)
                                               .ToArray();
-    
+    private PlatformGeneratorPool pool;
     public void OnToggleStatus()
     {
         status = status == UIComponentSplineEditorMode.Status.Edit ? UIComponentSplineEditorMode.Status.Normal : UIComponentSplineEditorMode.Status.Edit;
@@ -54,11 +54,24 @@ public class CoinEditor : MonoBehaviour
 
     public void Init(int coinNumber,
                      Vector3[] positions,
-                     float coinRadius)
+                     float coinRadius,
+                     PlatformGeneratorPool _pool)
     {
         this.coinRadius = coinRadius;
+        this.pool = _pool;
         OnChangeNumberOfCoin(coinNumber);
         InitBenzierPoints(positions);
+    }
+
+    public void Clear()
+    {
+        if (listCoin.Count > 0)
+        {
+            var destroyCoins = listCoin.ToArray();
+            destroyCoins.ForEach(x => { if (this.pool != default) this.pool.AddToPool(coinPrefab.name, x); else Object.Destroy(x); });
+            listCoin.Clear();
+        }
+        this.pool = default;
     }
 
     public void RemoveLastBenzierPoint()
@@ -99,7 +112,8 @@ public class CoinEditor : MonoBehaviour
         if (listCoin.Count > number)
         {
             var destroyCoins = listCoin.Skip(number).Take(listCoin.Count - number).ToArray();
-            destroyCoins.ForEach(x => Object.Destroy(x));
+            //destroyCoins.ForEach(x => { if (this.pool != default) this.pool.AddToPool(coinPrefab.name, x); else Object.Destroy(x); });
+            destroyCoins.ForEach(x =>  Object.Destroy(x));
             listCoin = listCoin.Except(destroyCoins)
                                .ToList();
         }
@@ -109,6 +123,9 @@ public class CoinEditor : MonoBehaviour
                                         .Select(x =>
                                         {
                                             var coin = Instantiate(coinPrefab, container.transform);
+                                            //var coin = this.pool != default ? (GameObject)this.pool.GetOrInstante(coinPrefab, container.transform) : Instantiate(coinPrefab, container.transform);
+                                            //var coinTraining = coin.GetComponentInChildren<TrainingCoin>();
+                                            //if (coinTraining != default) coinTraining.onDestroy = () => { if (this.pool != default) this.pool.AddToPool(coinPrefab.name, coin); };
                                             coin.GetComponentInChildren<SphereCollider>(true).radius = coinRadius;
                                             return coin;
                                         }));
@@ -137,7 +154,7 @@ public class CoinEditor : MonoBehaviour
     [ContextMenu("Init Test")]
     private void InitTest()
     {
-        Init(numberOfCoinTest, initPointsTest.Select(x => x.position).ToArray(), coinRadiusTest);
+        Init(numberOfCoinTest, initPointsTest.Select(x => x.position).ToArray(), coinRadiusTest, null);
     }
 #endif
 }

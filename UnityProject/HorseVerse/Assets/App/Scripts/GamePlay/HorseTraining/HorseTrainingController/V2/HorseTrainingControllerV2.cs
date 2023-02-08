@@ -469,6 +469,8 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!IsStart) return;
+
         if (other.CompareTag(Bridge))
         {
             cam1.SetActive(false);
