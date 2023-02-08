@@ -36,7 +36,7 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         //{
         //    Generate();
         //}
-        await GenerateMulti(4);
+        GenerateMulti(2);
     }
 
     protected abstract UniTask InitializeInternal();
@@ -81,14 +81,24 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         platformQueue.Enqueue(platform);
     }
 
-    private async UniTask GenerateMulti(int number)
+    private async UniTask GenerateAsync()
+    {
+        var relativePointToPlayer = PredictRelativePointToPlayer();
+        var platformTest = lastPlatform.GetComponent<PlatformBase>();
+        var lastEndPosition = platformTest.end.position;
+        var platform = await CreateNewPlatformAsync(relativePointToPlayer, lastEndPosition);
+        lastPlatform = platform;
+        platformQueue.Enqueue(platform);
+    }
+
+    private void GenerateMulti(int number)
     {
         for(int i = 0; i < number; i++)
         {
             var relativePointToPlayer = PredictRelativePointToPlayer();
             var platformTest = lastPlatform.GetComponent<PlatformBase>();
             var lastEndPosition = platformTest.end.position;
-            var platform = await CreateNewPlatformAsync(relativePointToPlayer, lastEndPosition);
+            var platform = CreateNewPlatform(relativePointToPlayer, lastEndPosition);
             lastPlatform = platform;
             platformQueue.Enqueue(platform);
         }
@@ -134,7 +144,7 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
             pp.GetComponent<PlatformModular>().Clear();
             Destroy(pp);
         }
-        Generate();
+        GenerateAsync().AttachExternalCancellation(this.GetCancellationTokenOnDestroy()).Forget();
     }
 
     protected abstract PlatformBase CreatePlatform(Vector3 relativePointToPlayer,

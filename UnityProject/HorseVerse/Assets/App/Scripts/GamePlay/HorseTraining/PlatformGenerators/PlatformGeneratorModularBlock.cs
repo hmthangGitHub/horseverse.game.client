@@ -32,7 +32,7 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
 
         var modularBlockIds = randomBlockCombo.MasterHorseTrainingBlockIdList; 
         var platform = Instantiate(platformPrefab, this.transform);
-        StartCoroutine(platform.GetComponent<PlatformModular>().GenerateBlockAsync(relativePointToPlayer + lastEndPosition, modularBlockIds.Select(x => trainingBlockSettings.BlocksLookUpTable[x].gameObject).ToArray(), 
+        platform.GetComponent<PlatformModular>().GenerateBlock(relativePointToPlayer + lastEndPosition, modularBlockIds.Select(x => trainingBlockSettings.BlocksLookUpTable[x].gameObject).ToArray(), 
             trainingBlockSettings.BlocksLookUpTable[paddingStartBlockId].gameObject,
             trainingBlockSettings.BlocksLookUpTable[paddingEndBlockId].gameObject,
             masterHorseTrainingProperty.JumpingPoint,
@@ -40,7 +40,7 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
             randomBlockCombo,
             masterHorseTrainingProperty.CoinColliderRadius,
             trainingBlockSettings.obstacles,
-            pool));
+            pool);
         return platform;
     }
 

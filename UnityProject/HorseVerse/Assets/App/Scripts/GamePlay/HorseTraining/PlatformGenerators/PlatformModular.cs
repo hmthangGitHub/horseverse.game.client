@@ -237,8 +237,7 @@ public partial class PlatformModular : PlatformBase
         pool = _pool;
         IsReady = false; 
         GenerateBlock(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType);
-        //StartCoroutine(GenerateBlockAsync(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType));
-        StartCoroutine(GenerateObstacle(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab));
+        GenerateObstacle(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab);
         GenerateCoins(masterHorseTrainingBlockCombo.CoinList, coinRadius);
         IsReady = true;
     }
@@ -258,7 +257,7 @@ public partial class PlatformModular : PlatformBase
         IsReady = false;
         //GenerateBlock(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType);
         yield return GenerateBlockAsync(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType);
-        yield return GenerateObstacle(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab);
+        yield return GenerateObstacleAsync(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab);
         GenerateCoins(masterHorseTrainingBlockCombo.CoinList, coinRadius);
         IsReady = true;
     }
@@ -274,7 +273,17 @@ public partial class PlatformModular : PlatformBase
      
     }
 
-    private IEnumerator GenerateObstacle(Obstacle[] obstacleList,
+    private void GenerateObstacle(Obstacle[] obstacleList,
+                                  GameObject[] obstaclesPrefab)
+    {
+        obstacleList.ForEach(x =>
+        {
+            var obstaclesPrefabParent = obstaclesPrefab.FirstOrDefault(saveObstacles => saveObstacles.name == x.type);
+            _cacheObs.Add(CreatObstacle(obstaclesPrefabParent, x.localPosition));
+        });
+    }
+
+    private IEnumerator GenerateObstacleAsync(Obstacle[] obstacleList,
                                   GameObject[] obstaclesPrefab)
     {
         //obstacleList.ForEach(x =>
@@ -292,7 +301,7 @@ public partial class PlatformModular : PlatformBase
             if (i % 5 == 0) yield return null;
         }
     }
-    
+
     private GameObject CreatObstacle(GameObject obstaclesPrefabParent,
                                      Position localPosition)
     {
