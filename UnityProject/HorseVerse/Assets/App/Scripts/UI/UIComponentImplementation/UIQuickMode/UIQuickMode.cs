@@ -17,6 +17,7 @@ public class UIQuickMode : PopupEntity<UIQuickMode.Entity>
         public UIComponentDuration.Entity findMatchTimer;
         public UIComponentHorseDetail.Entity horseDetail;
         public UIComponentTraningHorseSelectSumaryList.Entity horseSelectSumaryList;
+        public UIComponentRaceRoomInfo.Entity raceRoomInfo;
     }
 
     public ButtonComponent backBtn;
@@ -28,6 +29,7 @@ public class UIQuickMode : PopupEntity<UIQuickMode.Entity>
     public UIComponentDuration findMatchTimer;
     public UIComponentHorseDetail horseDetail;
     public UIComponentTraningHorseSelectSumaryList horseSelectSumaryList;
+    public UIComponentRaceRoomInfo raceRoomInfo;
 
     protected override void OnSetEntity()
     {
@@ -40,6 +42,7 @@ public class UIQuickMode : PopupEntity<UIQuickMode.Entity>
         horseSelectSumaryList.SetEntity(this.entity.horseSelectSumaryList);
         findMatchBtnVisible.SetEntity(this.entity.findMatchBtnVisible);
         cancelMatchBtnVisible.SetEntity(this.entity.cancelMatchBtnVisible);
+        raceRoomInfo.SetEntity(this.entity.raceRoomInfo);
     }
 
     public void SetHorseDetailEntity(UIComponentHorseDetail.Entity entityHorseDetail)

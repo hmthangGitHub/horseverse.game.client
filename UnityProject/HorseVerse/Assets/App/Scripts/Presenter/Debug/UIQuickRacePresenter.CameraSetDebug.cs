@@ -65,7 +65,7 @@ public class CameraInMapDebugPanel: IDisposable
     }
 }
 
-public partial class UIQuickRacePresenter
+public partial class UIRacePresenter
 {
     private void DebugSetUp()
     {

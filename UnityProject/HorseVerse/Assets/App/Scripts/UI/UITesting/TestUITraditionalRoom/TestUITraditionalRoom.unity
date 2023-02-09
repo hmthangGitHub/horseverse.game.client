@@ -314,7 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b36faaf820b821549b4b9bb642c1cf56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiTest: {fileID: 3484914625419228805}
+  uiTest: {fileID: 0}
   entity:
     noviceRoom:
       btn:
@@ -322,40 +322,35 @@ MonoBehaviour:
           m_PersistentCalls:
             m_Calls: []
         isInteractable: 1
-      isLock:
-        isVisible: 0
+      isLock: 0
     basicRoom:
       btn:
         onClickEvent:
           m_PersistentCalls:
             m_Calls: []
         isInteractable: 1
-      isLock:
-        isVisible: 0
+      isLock: 0
     advanceRoom:
       btn:
         onClickEvent:
           m_PersistentCalls:
             m_Calls: []
         isInteractable: 1
-      isLock:
-        isVisible: 0
+      isLock: 0
     expertRoom:
       btn:
         onClickEvent:
           m_PersistentCalls:
             m_Calls: []
         isInteractable: 1
-      isLock:
-        isVisible: 0
+      isLock: 0
     masterRoom:
       btn:
         onClickEvent:
           m_PersistentCalls:
             m_Calls: []
         isInteractable: 1
-      isLock:
-        isVisible: 0
+      isLock: 0
 --- !u!4 &1102286609
 Transform:
   m_ObjectHideFlags: 0
@@ -666,14 +661,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 640cfbd1a6933864fb54e231c4a35131, type: 3}
---- !u!114 &3484914625419228805 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2157775619395238948, guid: 640cfbd1a6933864fb54e231c4a35131, type: 3}
-  m_PrefabInstance: {fileID: 3484914625419228804}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26916856cfc4c5044b22f8dac252b5d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

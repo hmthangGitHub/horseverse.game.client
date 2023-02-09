@@ -46,7 +46,7 @@ public class ButtonComponent : UIComponent<ButtonComponent.Entity>
     protected override void OnSetEntity()
     {
         buttonEvent.RemoveAllListeners();
-        buttonEvent.AddListener(() => this.entity.onClickEvent.Invoke());
+        buttonEvent.AddListener(() => this.entity.onClickEvent?.Invoke());
         button.interactable = this.entity.isInteractable;
     }
 

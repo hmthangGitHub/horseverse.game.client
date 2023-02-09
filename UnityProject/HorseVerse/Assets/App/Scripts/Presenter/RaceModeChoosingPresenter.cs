@@ -15,6 +15,7 @@ internal class RaceModeChoosingPresenter : IDisposable
     private UIHeaderPresenter UIHeaderPresenter => uiHeaderPresenter ??= container.Inject<UIHeaderPresenter>();
     public event Action OnFinishChooseRaceMode = ActionUtility.EmptyAction.Instance;
     public event Action OnBack = ActionUtility.EmptyAction.Instance;
+    public event Action OnViewHistory = ActionUtility.EmptyAction.Instance;
     
     public RaceModeChoosingPresenter(IDIContainer container)
     {
@@ -37,7 +38,8 @@ internal class RaceModeChoosingPresenter : IDisposable
         else
         {
             await uiTraditionalRoom.Out();
-            await uiRacingMode.Out();
+            await uiRacingMode.In();
+            HorseRaceContext.RaceMatchDataContext.RaceMode = RaceMode.None;
             HorseRaceContext.RaceMatchDataContext.TraditionalRoomMasteryType = TraditionalRoomMasteryType.None;
         }
         await ChangeHeaderTitle();
@@ -47,9 +49,9 @@ internal class RaceModeChoosingPresenter : IDisposable
     {
         return HorseRaceContext.RaceMatchDataContext.TraditionalRoomMasteryType == TraditionalRoomMasteryType.None 
             ? HorseRaceContext.RaceMatchDataContext.RaceMode == RaceMode.None 
-            ? string.Empty
+            ? GetRaceModeTitle()
             : GetMasteryRoomTitle()
-            : GetRaceModeTitle();
+            : string.Empty;
     }
 
     private static string GetRaceModeTitle()
@@ -64,8 +66,6 @@ internal class RaceModeChoosingPresenter : IDisposable
 
     public async UniTaskVoid ChooseRaceModeAsync()
     {
-        await ChangeHeaderTitle();
-        
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         uiRacingMode = await UILoader.Instantiate<UIRacingMode>(token: cts.Token);
@@ -77,12 +77,26 @@ internal class RaceModeChoosingPresenter : IDisposable
             isTournamentLock = true,
             isStableVsStableLock = true,
             isTraditionalLock = false,
-            historyBtn = new ButtonComponent.Entity(),
+            historyBtn = new ButtonComponent.Entity(UniTask.Action(async() =>
+            {
+                await uiRacingMode.Out();
+                OnViewHistory.Invoke();
+            })),
             traditionalBtn = SelectRaceModeBtnEntity(RaceMode.Traditional),
             rankBtn = SelectRaceModeBtnEntity(RaceMode.Rank),
             tournamentBtn = SelectRaceModeBtnEntity(RaceMode.Tournament),
             stableVsStableBtn = SelectRaceModeBtnEntity(RaceMode.StableVsStable),
         });
+        
+        if (HorseRaceContext.RaceMatchDataContext.RaceMode == RaceMode.None)
+        {
+            await ChangeHeaderTitle();
+            await uiRacingMode.In();
+        }
+        else
+        {
+            await SelectRaceModeAsync();
+        }
     }
 
     private async UniTask ChangeHeaderTitle()
@@ -96,9 +110,15 @@ internal class RaceModeChoosingPresenter : IDisposable
         {
             await uiRacingMode.Out();
             HorseRaceContext.RaceMatchDataContext.RaceMode = raceMode;
-            await ChangeHeaderTitle();
-            SelectMasteryTypeForRaceMode(HorseRaceContext.RaceMatchDataContext.RaceMode);
+            await SelectRaceModeAsync();
         }));
+    }
+
+    private async UniTask SelectRaceModeAsync()
+    {
+        await ChangeHeaderTitle();
+        SelectMasteryTypeForRaceMode(HorseRaceContext.RaceMatchDataContext.RaceMode);
+        await uiTraditionalRoom.In();
     }
 
     private void SelectMasteryTypeForRaceMode(RaceMode raceMode)

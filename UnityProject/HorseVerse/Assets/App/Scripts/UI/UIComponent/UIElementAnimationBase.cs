@@ -16,7 +16,10 @@ public abstract class UIElementAnimationBase : UIAnimationBase
             animationTransform = transform;
         }
         button?.onClick.AddListener(OnClick);
-        toggle?.onValueChanged.AddListener(_ => OnClick());
+        toggle?.onValueChanged.AddListener(val =>
+        {
+            if (val) OnClick();
+        });
     }
 
     private void OnClick()

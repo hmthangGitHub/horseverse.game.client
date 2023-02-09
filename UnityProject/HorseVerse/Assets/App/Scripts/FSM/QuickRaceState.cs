@@ -11,17 +11,19 @@ public class QuickRaceState : InjectedBHState
     public override void AddStates()
     {
         base.AddStates();
-        AddState<QuickRaceMenuState>();
+        AddState<RacingMenuState>();
         AddState<RaceModeChoosingState>();
         AddState<HorseRaceState>();
         AddState<RaceState>();
+        AddState<RacingHistoryState>();
         SetInitialState<RaceModeChoosingState>();
     }
 
     public override void Enter()
     {
-        base.Enter();
         HorseRaceContext.GameMode = HorseGameMode.Race;
+        HorseRaceContext.RaceMatchDataContext = new RaceMatchDataContext();
+        base.Enter();
     }
 
     public override void Exit()

@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class HorseDetailEntityFactory
 {
-    private IDIContainer container;
+    private readonly IDIContainer container;
     private IReadOnlyHorseRepository horseRepository;
-    private IReadOnlyHorseRepository HorseRepository => horseRepository ??= container.Inject<IReadOnlyHorseRepository>();
     private MasterHorseContainer masterHorseContainer;
+    private IReadOnlyUserDataRepository userDataRepository;
+    private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
+    private IReadOnlyHorseRepository HorseRepository => horseRepository ??= container.Inject<IReadOnlyHorseRepository>();
     private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= container.Inject<MasterHorseContainer>();
     public HorseDetailEntityFactory(IDIContainer container)
     {
@@ -48,10 +50,14 @@ public class HorseDetailEntityFactory
             },
             happiness = userHorse.Happiness,
             maxHappiness = UserSettingLocalRepository.MasterDataModel.MaxHappinessNumber,
+            horseRace = new UIComponentHorseRace.Entity()
+            {
+                type = GetHorseRace(UserDataRepository.Current.CurrentHorseNftId)
+            }
         };
     }
 
-    public int GetHorseRace(long horseNtfId)
+    private int GetHorseRace(long horseNtfId)
     {
         var userHorse = HorseRepository.Models[horseNtfId];
         return userHorse.Type;
