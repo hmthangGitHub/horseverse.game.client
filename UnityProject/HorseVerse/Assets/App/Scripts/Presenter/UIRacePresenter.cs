@@ -10,12 +10,13 @@ using System.Threading.Tasks;
 
 public partial class UIRacePresenter : IDisposable
 {
-    private const int findMatchEnergyCost = 10;
-    private const int findMatchTimerInterval = 1000;
+    private const int FindMatchEnergyCost = 10;
+    private const int FindMatchTimerInterval = 1000;
+    
     private UIQuickMode uiQuickMode = default;
     private CancellationTokenSource cts;
     private readonly IDIContainer container;
-    private List<IDisposable> disposableList = new List<IDisposable>();
+    private readonly List<IDisposable> disposableList = new List<IDisposable>();
     public event Action<RaceScriptData> OnFoundMatch = ActionUtility.EmptyAction<RaceScriptData>.Instance;
     private IReadOnlyUserDataRepository userDataRepository;
     private IReadOnlyHorseRepository horseRepository;
@@ -24,6 +25,7 @@ public partial class UIRacePresenter : IDisposable
     private HorseDetailEntityFactory horseDetailEntityFactory;
     private HorseSumaryListEntityFactory horseSumaryListEntityFactory;
     private HorseRaceContext horseRaceContext;
+    public event Action OnFindMatch = ActionUtility.EmptyAction.Instance;
 
     private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
     private IReadOnlyHorseRepository HorseRepository => horseRepository ??= container.Inject<IReadOnlyHorseRepository>();
@@ -63,7 +65,8 @@ public partial class UIRacePresenter : IDisposable
                 isVisible = true
             },
             findMatchTimer = new UIComponentDuration.Entity(),
-            findMatchEnergyCost = findMatchEnergyCost,
+            findMatchLimit = FindMatchEnergyCost,
+            currentFindMatchLeft = FindMatchEnergyCost,
             horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.CurrentHorseNftId),
             horseSelectSumaryList = HorseSumaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(),
             raceRoomInfo = new UIComponentRaceRoomInfo.Entity()
@@ -111,19 +114,6 @@ public partial class UIRacePresenter : IDisposable
         }
     }
 
-    private void OnFindMatch()
-    {
-        OnFindMatchAsync().Forget();
-    }
-
-    private async UniTaskVoid OnFindMatchAsync()
-    {
-        StartFindMatchTimerAsync().Forget();
-        var raceMatchData = await QuickRaceDomainService.FindMatch(UserDataRepository.Current.CurrentHorseNftId);
-        StopFindMatchTimer();
-        OnFoundMatch.Invoke(raceMatchData);
-    }
-
     private void StopFindMatchTimer()
     {
         cts.SafeCancelAndDispose();
@@ -144,7 +134,7 @@ public partial class UIRacePresenter : IDisposable
         {
             uiQuickMode.entity.findMatchTimer.duration = timer;
             uiQuickMode.findMatchTimer.SetEntity(uiQuickMode.entity.findMatchTimer);
-            await UniTask.Delay(findMatchTimerInterval, cancellationToken: cts.Token);
+            await UniTask.Delay(FindMatchTimerInterval, cancellationToken: cts.Token);
             timer++;
         }
     }

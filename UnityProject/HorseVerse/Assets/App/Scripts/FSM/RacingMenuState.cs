@@ -4,18 +4,22 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class RacingMenuState : InjectedBState
+public class RacingMenuState : InjectedBHState
 {
     private UIRacePresenter uiRacePresenter;
     private UIHeaderPresenter uiHeaderPresenter;
-    private UIHorse3DViewPresenter uiHorse3DViewPresenter;
-    private UILoadingPresenter uiLoadingPresenter;
     private HorseRaceContext horseRaceContext;
     
     private UIHeaderPresenter UIHeaderPresenter => uiHeaderPresenter ??= Container.Inject<UIHeaderPresenter>();
-    private UIHorse3DViewPresenter UiHorse3DViewPresenter => uiHorse3DViewPresenter ??= Container.Inject<UIHorse3DViewPresenter>();
-    private UILoadingPresenter UILoadingPresenter => uiLoadingPresenter ??= this.Container.Inject<UILoadingPresenter>();
     private HorseRaceContext HorseRaceContext => horseRaceContext ??= Container.Inject<HorseRaceContext>();
+
+    public override void AddStates()
+    {
+        base.AddStates();
+        AddState<EmptyState>();
+        AddState<RacingMatchFindingState>();
+        SetInitialState<EmptyState>();
+    }
 
     public override void Enter()
     {
@@ -29,25 +33,15 @@ public class RacingMenuState : InjectedBState
         UIHeaderPresenter.ShowHeaderAsync(true, 
             HorseRaceContext.RaceMatchDataContext.TraditionalRoomMasteryType.ToString()).Forget();
         UIHeaderPresenter.OnBack += OnBack;
-        uiRacePresenter.OnFoundMatch += OnFoundMatch;
+        uiRacePresenter.OnFindMatch += OnFindMatch;
         await uiRacePresenter.ShowUIQuickRaceAsync();
     }
 
-    private void OnFoundMatch (RaceScriptData data)
+    private void OnFindMatch()
     {
-        OnFoundMatchAsync(data).Forget();
+        ChangeState<RacingMatchFindingState>();
     }
-
-    private async UniTaskVoid OnFoundMatchAsync (RaceScriptData data)
-    {
-        await UILoadingPresenter.ShowLoadingAsync();
-
-        UiHorse3DViewPresenter.Dispose();
-        UIHeaderPresenter.Dispose();
-        Container.Bind(data);
-        this.Machine.ChangeState<HorseRaceState>();
-    }
-
+    
     private void OnBack()
     {
         HorseRaceContext.RaceMatchDataContext.TraditionalRoomMasteryType = TraditionalRoomMasteryType.None;
@@ -62,15 +56,12 @@ public class RacingMenuState : InjectedBState
 
     void Release()
     {
-        uiRacePresenter.OnFoundMatch -= OnFoundMatch;
         UIHeaderPresenter.HideHeader();
         UIHeaderPresenter.OnBack -= OnBack;
         uiRacePresenter.Dispose();
         
         uiRacePresenter = default;
         uiHeaderPresenter = default;
-        uiHorse3DViewPresenter = default;
-        uiLoadingPresenter = default;
         horseRaceContext = default;
     }
 

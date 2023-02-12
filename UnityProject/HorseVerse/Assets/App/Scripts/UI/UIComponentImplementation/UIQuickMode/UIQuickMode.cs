@@ -13,7 +13,8 @@ public class UIQuickMode : PopupEntity<UIQuickMode.Entity>
         public ButtonComponent.Entity cancelMatchBtn;
         public IsVisibleComponent.Entity findMatchBtnVisible;
         public IsVisibleComponent.Entity cancelMatchBtnVisible;
-        public int findMatchEnergyCost;
+        public int currentFindMatchLeft;
+        public int findMatchLimit;
         public UIComponentDuration.Entity findMatchTimer;
         public UIComponentHorseDetail.Entity horseDetail;
         public UIComponentTraningHorseSelectSumaryList.Entity horseSelectSumaryList;
@@ -21,7 +22,7 @@ public class UIQuickMode : PopupEntity<UIQuickMode.Entity>
     }
 
     public ButtonComponent backBtn;
-    public FormattedTextComponent findMatchEnergyCost;
+    public FormattedTextComponent findMatchLimit;
     public ButtonComponent findMatchBtn;
     public ButtonComponent cancelMatchBtn;
     public IsVisibleComponent findMatchBtnVisible;
@@ -34,7 +35,7 @@ public class UIQuickMode : PopupEntity<UIQuickMode.Entity>
     protected override void OnSetEntity()
     {
         backBtn.SetEntity(this.entity.backBtn);
-        findMatchEnergyCost.SetEntity(this.entity.findMatchEnergyCost);
+        findMatchLimit.SetEntity(this.entity.currentFindMatchLeft, this.entity.findMatchLimit) ;
         findMatchBtn.SetEntity(this.entity.findMatchBtn);
         cancelMatchBtn.SetEntity(this.entity.cancelMatchBtn);
         findMatchTimer.SetEntity(this.entity.findMatchTimer);
