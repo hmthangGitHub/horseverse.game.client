@@ -34,19 +34,19 @@ namespace io.hverse.game.protogen {
             "NQoSUGxheWVySW5mb1Jlc3BvbnNlEh8KCnBsYXllckluZm8YASABKAsyCy5Q",
             "bGF5ZXJJbmZvIhgKFlBsYXllckludmVudG9yeVJlcXVlc3QiRAoXUGxheWVy",
             "SW52ZW50b3J5UmVzcG9uc2USKQoPcGxheWVySW52ZW50b3J5GAEgASgLMhAu",
-            "UGxheWVySW52ZW50b3J5IrUBCgpQbGF5ZXJJbmZvEgoKAmlkGAEgASgDEgwK",
+            "UGxheWVySW52ZW50b3J5Is8BCgpQbGF5ZXJJbmZvEgoKAmlkGAEgASgDEgwK",
             "BG5hbWUYAiABKAkSIQoLYWNjb3VudFR5cGUYAyABKA4yDC5BY2NvdW50VHlw",
             "ZRIVCg1wdWJsaWNBZGRyZXNzGAQgASgJEhMKC2FjY2Vzc1Rva2VuGAUgASgJ",
-            "EgwKBGNoaXAYBiABKAMSDgoGZW5lcmd5GAcgASgFEiAKDGN1cnJlbnRIb3Jz",
-            "ZRgIIAEoCzIKLkhvcnNlSW5mbyJNCg9QbGF5ZXJJbnZlbnRvcnkSHQoJaG9y",
-            "c2VMaXN0GAEgAygLMgouSG9yc2VJbmZvEhsKCGl0ZW1JbmZvGAIgAygLMgku",
-            "SXRlbUluZm8qgwEKEVBsYXllck1lc3NhZ2VUeXBlEhcKE1BMQVlFUl9JTkZP",
-            "X1JFUVVFU1QQABIYChRQTEFZRVJfSU5GT19SRVNQT05TRRABEhwKGFBMQVlF",
-            "Ul9JTlZFTlRPUllfUkVRVUVTVBACEh0KGVBMQVlFUl9JTlZFTlRPUllfUkVT",
-            "UE9OU0UQAyo+CgtBY2NvdW50VHlwZRIWChJBQ0NPVU5UX1RZUEVfR1VFU1QQ",
-            "ABIXChNBQ0NPVU5UX1RZUEVfTk9STUFMEAFCSQoXaW8uaHZlcnNlLmdhbWUu",
-            "cHJvdG9nZW5CFFBsYXllck1lc3NhZ2VGYWN0b3J5qgIXaW8uaHZlcnNlLmdh",
-            "bWUucHJvdG9nZW5iBnByb3RvMw=="));
+            "EgwKBGNoaXAYBiABKAMSDgoGZW5lcmd5GAcgASgFEhgKEGZyZWVSYWNpbmdO",
+            "dW1iZXIYCCABKAUSIAoMY3VycmVudEhvcnNlGAkgASgLMgouSG9yc2VJbmZv",
+            "Ik0KD1BsYXllckludmVudG9yeRIdCglob3JzZUxpc3QYASADKAsyCi5Ib3Jz",
+            "ZUluZm8SGwoIaXRlbUluZm8YAiADKAsyCS5JdGVtSW5mbyqDAQoRUGxheWVy",
+            "TWVzc2FnZVR5cGUSFwoTUExBWUVSX0lORk9fUkVRVUVTVBAAEhgKFFBMQVlF",
+            "Ul9JTkZPX1JFU1BPTlNFEAESHAoYUExBWUVSX0lOVkVOVE9SWV9SRVFVRVNU",
+            "EAISHQoZUExBWUVSX0lOVkVOVE9SWV9SRVNQT05TRRADKj4KC0FjY291bnRU",
+            "eXBlEhYKEkFDQ09VTlRfVFlQRV9HVUVTVBAAEhcKE0FDQ09VTlRfVFlQRV9O",
+            "T1JNQUwQAUJJChdpby5odmVyc2UuZ2FtZS5wcm90b2dlbkIUUGxheWVyTWVz",
+            "c2FnZUZhY3RvcnmqAhdpby5odmVyc2UuZ2FtZS5wcm90b2dlbmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::io.hverse.game.protogen.DataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.PlayerMessageType), typeof(global::io.hverse.game.protogen.AccountType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -55,7 +55,7 @@ namespace io.hverse.game.protogen {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInfoResponse), global::io.hverse.game.protogen.PlayerInfoResponse.Parser, new[]{ "PlayerInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInventoryRequest), global::io.hverse.game.protogen.PlayerInventoryRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInventoryResponse), global::io.hverse.game.protogen.PlayerInventoryResponse.Parser, new[]{ "PlayerInventory" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInfo), global::io.hverse.game.protogen.PlayerInfo.Parser, new[]{ "Id", "Name", "AccountType", "PublicAddress", "AccessToken", "Chip", "Energy", "CurrentHorse" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInfo), global::io.hverse.game.protogen.PlayerInfo.Parser, new[]{ "Id", "Name", "AccountType", "PublicAddress", "AccessToken", "Chip", "Energy", "FreeRacingNumber", "CurrentHorse" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInventory), global::io.hverse.game.protogen.PlayerInventory.Parser, new[]{ "HorseList", "ItemInfo" }, null, null, null, null)
           }));
     }
@@ -1192,6 +1192,7 @@ namespace io.hverse.game.protogen {
       accessToken_ = other.accessToken_;
       chip_ = other.chip_;
       energy_ = other.energy_;
+      freeRacingNumber_ = other.freeRacingNumber_;
       currentHorse_ = other.currentHorse_ != null ? other.currentHorse_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -1286,8 +1287,20 @@ namespace io.hverse.game.protogen {
       }
     }
 
+    /// <summary>Field number for the "freeRacingNumber" field.</summary>
+    public const int FreeRacingNumberFieldNumber = 8;
+    private int freeRacingNumber_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int FreeRacingNumber {
+      get { return freeRacingNumber_; }
+      set {
+        freeRacingNumber_ = value;
+      }
+    }
+
     /// <summary>Field number for the "currentHorse" field.</summary>
-    public const int CurrentHorseFieldNumber = 8;
+    public const int CurrentHorseFieldNumber = 9;
     private global::io.hverse.game.protogen.HorseInfo currentHorse_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1320,6 +1333,7 @@ namespace io.hverse.game.protogen {
       if (AccessToken != other.AccessToken) return false;
       if (Chip != other.Chip) return false;
       if (Energy != other.Energy) return false;
+      if (FreeRacingNumber != other.FreeRacingNumber) return false;
       if (!object.Equals(CurrentHorse, other.CurrentHorse)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -1335,6 +1349,7 @@ namespace io.hverse.game.protogen {
       if (AccessToken.Length != 0) hash ^= AccessToken.GetHashCode();
       if (Chip != 0L) hash ^= Chip.GetHashCode();
       if (Energy != 0) hash ^= Energy.GetHashCode();
+      if (FreeRacingNumber != 0) hash ^= FreeRacingNumber.GetHashCode();
       if (currentHorse_ != null) hash ^= CurrentHorse.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -1382,8 +1397,12 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(56);
         output.WriteInt32(Energy);
       }
+      if (FreeRacingNumber != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(FreeRacingNumber);
+      }
       if (currentHorse_ != null) {
-        output.WriteRawTag(66);
+        output.WriteRawTag(74);
         output.WriteMessage(CurrentHorse);
       }
       if (_unknownFields != null) {
@@ -1424,8 +1443,12 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(56);
         output.WriteInt32(Energy);
       }
+      if (FreeRacingNumber != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(FreeRacingNumber);
+      }
       if (currentHorse_ != null) {
-        output.WriteRawTag(66);
+        output.WriteRawTag(74);
         output.WriteMessage(CurrentHorse);
       }
       if (_unknownFields != null) {
@@ -1458,6 +1481,9 @@ namespace io.hverse.game.protogen {
       }
       if (Energy != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Energy);
+      }
+      if (FreeRacingNumber != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(FreeRacingNumber);
       }
       if (currentHorse_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(CurrentHorse);
@@ -1494,6 +1520,9 @@ namespace io.hverse.game.protogen {
       }
       if (other.Energy != 0) {
         Energy = other.Energy;
+      }
+      if (other.FreeRacingNumber != 0) {
+        FreeRacingNumber = other.FreeRacingNumber;
       }
       if (other.currentHorse_ != null) {
         if (currentHorse_ == null) {
@@ -1544,7 +1573,11 @@ namespace io.hverse.game.protogen {
             Energy = input.ReadInt32();
             break;
           }
-          case 66: {
+          case 64: {
+            FreeRacingNumber = input.ReadInt32();
+            break;
+          }
+          case 74: {
             if (currentHorse_ == null) {
               CurrentHorse = new global::io.hverse.game.protogen.HorseInfo();
             }
@@ -1594,7 +1627,11 @@ namespace io.hverse.game.protogen {
             Energy = input.ReadInt32();
             break;
           }
-          case 66: {
+          case 64: {
+            FreeRacingNumber = input.ReadInt32();
+            break;
+          }
+          case 74: {
             if (currentHorse_ == null) {
               CurrentHorse = new global::io.hverse.game.protogen.HorseInfo();
             }
