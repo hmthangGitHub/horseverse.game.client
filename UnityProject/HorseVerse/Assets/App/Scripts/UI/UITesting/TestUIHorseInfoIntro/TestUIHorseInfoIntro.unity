@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028377, g: 0.22571409, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -525,7 +525,25 @@ MonoBehaviour:
         m_PersistentCalls:
           m_Calls: []
       isInteractable: 1
-    horseName: Some Name
+    horseInfo:
+      horseRace:
+        type: 0
+      horseName: 
+      level: 0
+      speedProgressBarWithBonus:
+        progressBar:
+          progress: 0
+        bonus: 0
+      powerProgressBarWithBonus:
+        progressBar:
+          progress: 0
+        bonus: 0
+      technicallyProgressBarWithBonus:
+        progressBar:
+          progress: 0
+        bonus: 0
+      happiness: 0
+      maxHappiness: 0
     gate: 1
 --- !u!4 &1510095276
 Transform:
@@ -552,6 +570,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIHorseInfoIntro
       objectReference: {fileID: 0}
+    - target: {fileID: 2217906238974041210, guid: e887615e0ec67784db3926a8134a5f73, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2217906238974041210, guid: e887615e0ec67784db3926a8134a5f73, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3376459010866622757, guid: e887615e0ec67784db3926a8134a5f73, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3376459010866622757, guid: e887615e0ec67784db3926a8134a5f73, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3536235792321730018, guid: e887615e0ec67784db3926a8134a5f73, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -562,7 +596,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3536235792321730018, guid: e887615e0ec67784db3926a8134a5f73, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3536235792321730018, guid: e887615e0ec67784db3926a8134a5f73, type: 3}
       propertyPath: m_AnchorMax.x
@@ -634,6 +668,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3536235792321730018, guid: e887615e0ec67784db3926a8134a5f73, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7732269778269179260, guid: e887615e0ec67784db3926a8134a5f73, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7732269778269179260, guid: e887615e0ec67784db3926a8134a5f73, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

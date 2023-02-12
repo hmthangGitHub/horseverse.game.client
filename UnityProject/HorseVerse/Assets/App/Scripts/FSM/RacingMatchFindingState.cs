@@ -25,6 +25,7 @@ public class RacingMatchFindingState : InjectedBState
 
     private void OnFoundMatch(RaceScriptData raceScriptData)
     {
+        OnFoundMatchAsync(raceScriptData).Forget();
     }
     
     private async UniTaskVoid OnFoundMatchAsync (RaceScriptData data)

@@ -39,8 +39,6 @@ public class RacingMatchFindingPresenter : IDisposable
         });
         await uiRacingFindMatch.In();
         
-        StartFindMatchTimerAsync().Forget();
-        QuickRaceDomainService.OnConnectedPlayerChange += OnConnectedPlayerChange;
         await FindMatchInternalAsync();
     }
 
@@ -50,18 +48,33 @@ public class RacingMatchFindingPresenter : IDisposable
 
     private async UniTask FindMatchInternalAsync()
     {
-        var raceMatchData = await QuickRaceDomainService.FindMatch(UserDataRepository.Current.CurrentHorseNftId,
-            HorseRaceContext.RaceMatchDataContext.RaceMode switch
-            {
-                RaceMode.Rank => RacingMode.Rank,
-                RaceMode.Tournament => RacingMode.Tournament,
-                RaceMode.Traditional => RacingMode.Traditional,
-                RaceMode.StableVsStable => RacingMode.Stable,
-                _ => RacingMode.Traditional
-            });
+        QuickRaceDomainService.OnConnectedPlayerChange += OnConnectedPlayerChange;
+        StartFindMatchTimerAsync().Forget();
+        
+        var raceMatchData = await QuickRaceDomainService.FindMatch(UserDataRepository.Current.CurrentHorseNftId, GetRacingMode());
+        
         StopFindMatchTimer();
+        QuickRaceDomainService.OnConnectedPlayerChange -= OnConnectedPlayerChange;
+        
+        uiRacingFindMatch.ShowStartGamePopUp();
+
+        await uiRacingFindMatch.In();
+        await UITouchDisablePresenter.Delay(2);
         await uiRacingFindMatch.Out();
+        
         OnFoundMatch.Invoke(raceMatchData);
+    }
+
+    private RacingMode GetRacingMode()
+    {
+        return HorseRaceContext.RaceMatchDataContext.RaceMode switch
+        {
+            RaceMode.Rank => RacingMode.Rank,
+            RaceMode.Tournament => RacingMode.Tournament,
+            RaceMode.Traditional => RacingMode.Traditional,
+            RaceMode.StableVsStable => RacingMode.Stable,
+            _ => RacingMode.Traditional
+        };
     }
 
     private async UniTask InstantiateUI()

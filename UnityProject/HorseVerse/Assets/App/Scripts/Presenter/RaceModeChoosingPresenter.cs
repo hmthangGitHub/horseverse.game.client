@@ -40,14 +40,14 @@ internal class RaceModeChoosingPresenter : IDisposable
             await uiTraditionalRoom.Out();
             await uiRacingMode.In();
             HorseRaceContext.RaceMatchDataContext.RaceMode = RaceMode.None;
-            HorseRaceContext.RaceMatchDataContext.TraditionalRoomMasteryType = TraditionalRoomMasteryType.None;
+            HorseRaceContext.RaceMatchDataContext.RacingRoomType = RacingRoomType.None;
         }
         await ChangeHeaderTitle();
     }
 
     private string GetCurrentTitle()
     {
-        return HorseRaceContext.RaceMatchDataContext.TraditionalRoomMasteryType == TraditionalRoomMasteryType.None 
+        return HorseRaceContext.RaceMatchDataContext.RacingRoomType == RacingRoomType.None 
             ? HorseRaceContext.RaceMatchDataContext.RaceMode == RaceMode.None 
             ? GetRaceModeTitle()
             : GetMasteryRoomTitle()
@@ -130,27 +130,27 @@ internal class RaceModeChoosingPresenter : IDisposable
                 {
                     noviceRoom = new UITraditionalRoomType.Entity()
                     {
-                        btn = SelectMasteryBtnEntity(TraditionalRoomMasteryType.Novice),
+                        btn = SelectMasteryBtnEntity(RacingRoomType.Novice),
                         isLock = false
                     },
                     advanceRoom = new UITraditionalRoomType.Entity()
                     {
-                        btn = SelectMasteryBtnEntity(TraditionalRoomMasteryType.Advance),
+                        btn = SelectMasteryBtnEntity(RacingRoomType.Advance),
                         isLock = true
                     },
                     basicRoom = new UITraditionalRoomType.Entity()
                     {
-                        btn = SelectMasteryBtnEntity(TraditionalRoomMasteryType.Basic),
+                        btn = SelectMasteryBtnEntity(RacingRoomType.Basic),
                         isLock = true
                     },
                     expertRoom = new UITraditionalRoomType.Entity()
                     {
-                        btn = SelectMasteryBtnEntity(TraditionalRoomMasteryType.Expert),
+                        btn = SelectMasteryBtnEntity(RacingRoomType.Expert),
                         isLock = true
                     },
                     masterRoom = new UITraditionalRoomType.Entity()
                     {
-                        btn = SelectMasteryBtnEntity(TraditionalRoomMasteryType.Master),
+                        btn = SelectMasteryBtnEntity(RacingRoomType.Master),
                         isLock = true
                     },
                 });
@@ -163,11 +163,11 @@ internal class RaceModeChoosingPresenter : IDisposable
         }
     }
 
-    private ButtonComponent.Entity SelectMasteryBtnEntity(TraditionalRoomMasteryType traditionalRoomMasteryType)
+    private ButtonComponent.Entity SelectMasteryBtnEntity(RacingRoomType horseRarity)
     {
         return new ButtonComponent.Entity(UniTask.Action(async () =>
         {
-            HorseRaceContext.RaceMatchDataContext.TraditionalRoomMasteryType = traditionalRoomMasteryType;
+            HorseRaceContext.RaceMatchDataContext.RacingRoomType = horseRarity;
             await uiTraditionalRoom.Out();
             await ChangeHeaderTitle();
             OnFinishChooseRaceMode.Invoke();

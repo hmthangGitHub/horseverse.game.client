@@ -62,11 +62,6 @@ public class HorseRaceState : InjectedBHState
         horseRacePresenter.StartGame();
     }
 
-    private void ToMainState()
-    {
-        ToMainStateAsync().Forget();
-    }
-
     private async UniTaskVoid ToMainStateAsync()
     {
         await this.Container.Inject<UILoadingPresenter>().ShowLoadingAsync();
@@ -84,6 +79,5 @@ public class HorseRaceState : InjectedBHState
         horseRacePresenter.OnToQuickRaceModeResultState -= ToQuickRaceResultState;
         horseRacePresenter.Dispose();
         horseRacePresenter = default;
-        Container.RemoveAndDisposeIfNeed<RaceScriptData>();
     }
 }

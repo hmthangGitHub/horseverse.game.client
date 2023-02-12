@@ -1,4 +1,3 @@
-#define MOCK_DATA
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
@@ -29,17 +28,18 @@ public class UIBetModePresenter : IDisposable
     private UIHorse3DViewPresenter uiHorse3DViewPresenter;
     private UIHorseInfo3DViewPresenter uiHorseInfo3DViewPresenter;
     private UITouchDisablePresenter uiTouchDisablePresenter;
-    
-    public IBetRateRepository BetRateRepository => betRateRepository ??= container.Inject<IBetRateRepository>();
+    private MasterHorseContainer masterHorseContainer;
+    private HorseRaceContext horseRaceContext;
+
+    private IBetRateRepository BetRateRepository => betRateRepository ??= container.Inject<IBetRateRepository>();
     private IBetModeDomainService BetModeDomainService => betModeDomainService ??= container.Inject<IBetModeDomainService>();
     private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
     private IReadOnlyBetMatchRepository BetMatchRepository => betMatchRepository ??= container.Inject<IReadOnlyBetMatchRepository>();
     private UIHorse3DViewPresenter UiHorse3DViewPresenter => uiHorse3DViewPresenter ??= container.Inject<UIHorse3DViewPresenter>();
     private UIHorseInfo3DViewPresenter UiHorseInfo3DViewPresenter => uiHorseInfo3DViewPresenter ??= container.Inject<UIHorseInfo3DViewPresenter>();
-
     private UITouchDisablePresenter UITouchDisablePresenter => uiTouchDisablePresenter ??= container.Inject<UITouchDisablePresenter>();
-    private MasterHorseContainer masterHorseContainer;
     private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= container.Inject<MasterHorseContainer>();
+    private HorseRaceContext HorseRaceContext => horseRaceContext ??= container.Inject<HorseRaceContext>();
 
     private int CurrentBettingAmouth
     {
@@ -180,10 +180,11 @@ public class UIBetModePresenter : IDisposable
         await UITouchDisablePresenter.Delay(1.5f);
         if (BetRateRepository.Models.Any(x => x.Value.TotalBet > 0))
         {
-            var raceMatchData = await BetModeDomainService.GetCurrentBetModeRaceMatchData();
-            
-            container.Bind(raceMatchData);
+            var betMatchData = await BetModeDomainService.GetCurrentBetMatchData();
 
+            HorseRaceContext.RaceScriptData = betMatchData.raceScriptData;
+            HorseRaceContext.BetMatchDataContext = betMatchData.betMatchDataContext;
+            
             UiHorse3DViewPresenter.Dispose();
             UiHorseInfo3DViewPresenter.Dispose();
             TransitionAsync(OnToRaceMode).Forget();    
@@ -273,16 +274,7 @@ public class UIBetModePresenter : IDisposable
 
     private int[] GetBetAmouthEntities()
     {
-        if (UserSettingLocalRepository.MasterDataModel != default && UserSettingLocalRepository.MasterDataModel.BetNumberList.Count > 0)
-        {
-            return UserSettingLocalRepository.MasterDataModel.BetNumberList.ToArray();
-        }
-#if MOCK_DATA
-        return new int[]
-        {
-            10,20,30,40,50,60
-        };
-#endif
+        return UserSettingLocalRepository.MasterDataModel.BetNumberList.ToArray();
     }
 
     private async UniTaskVoid TransitionAsync(Action action)
@@ -294,12 +286,8 @@ public class UIBetModePresenter : IDisposable
 
     private void OnSelectBetAmouthAtIndex(int index)
     {
-#if MOCK_DATA
         CurrentBettingAmouth = uiBetMode.betAmouthsContainer.betAmounths
                                                             .entity.betAmouthList[index];
-#else
-        throw new NotImplementedException();
-#endif
     }
 
     private async UniTask OpenHorseList()
@@ -315,7 +303,7 @@ public class UIBetModePresenter : IDisposable
                 ucs.TrySetResult();
             }),
             horseList = new UIComponentBetModeHorseInfoList.Entity() { 
-                entities = getHorseInfo()
+                entities = GetHorseInfo()
             },
             horseDetail = new UIComponentHorseDetail.Entity(),
             horseDetailNumber = 1,
@@ -328,32 +316,7 @@ public class UIBetModePresenter : IDisposable
         await uiBetModeHorseInfo.Out();
     }
 
-    public void Dispose()
-    {
-        ctsInfo.SafeCancelAndDispose();
-        ctsInfo = default;
-        cts.SafeCancelAndDispose();
-        cts = default;
-        UILoader.SafeRelease(ref uiBetMode);
-        UILoader.SafeRelease(ref uiBetConfirmation);
-        UILoader.SafeRelease(ref uiBetModeHorseInfo);
-
-        uiHorseInfo3DViewPresenter?.Dispose();
-
-        BetRateRepository.OnModelUpdate -= BetRateRepositoryOnModelUpdate;
-        BetRateRepository.OnModelsUpdate -= BetRateRepositoryOnModelsUpdate;
-        UserDataRepository.OnModelUpdate -= OnModelUpdate;
-
-        userDataRepository = default;
-        betRateRepository = default;
-        betMatchRepository = default;
-        betModeDomainService = default;
-        currentBettingAmouth = default;
-        uiHorse3DViewPresenter = default;
-        uiHorseInfo3DViewPresenter = default;
-    }
-
-    private UIComponentBetModeHorseInfoItem.Entity[] getHorseInfo()
+    private UIComponentBetModeHorseInfoItem.Entity[] GetHorseInfo()
     {
         if(horseBetInfo != default && horseBetInfo.horseInfos != default)
         {
@@ -439,5 +402,31 @@ public class UIBetModePresenter : IDisposable
             else
                 await UiHorseInfo3DViewPresenter.UpdateMode(MasterHorseContainer.FromTypeToMasterHorse(horseInfo.Type).MasterHorseId, horseInfo.Color1, horseInfo.Color2, horseInfo.Color3, horseInfo.Color4).AttachExternalCancellation(ctsInfo.Token);
         }
+    }
+    
+    public void Dispose()
+    {
+        ctsInfo.SafeCancelAndDispose();
+        ctsInfo = default;
+        cts.SafeCancelAndDispose();
+        cts = default;
+        UILoader.SafeRelease(ref uiBetMode);
+        UILoader.SafeRelease(ref uiBetConfirmation);
+        UILoader.SafeRelease(ref uiBetModeHorseInfo);
+
+        uiHorseInfo3DViewPresenter?.Dispose();
+
+        BetRateRepository.OnModelUpdate -= BetRateRepositoryOnModelUpdate;
+        BetRateRepository.OnModelsUpdate -= BetRateRepositoryOnModelsUpdate;
+        UserDataRepository.OnModelUpdate -= OnModelUpdate;
+
+        userDataRepository = default;
+        betRateRepository = default;
+        betMatchRepository = default;
+        betModeDomainService = default;
+        currentBettingAmouth = default;
+        uiHorse3DViewPresenter = default;
+        uiHorseInfo3DViewPresenter = default;
+        horseRaceContext = default;
     }
 }

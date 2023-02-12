@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Sockets;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -316,8 +317,8 @@ public class LoginStatePresenter : IDisposable
         if (res?.ResultCode == 100)
         {
             // GetMasterData 
-            var data = await GetMasterData();
-            UpdateMasterData(data);
+            var masterData = await GetMasterData();
+            UpdateMasterData(masterData);
 
 
             var model = new UserDataModel()
@@ -325,13 +326,14 @@ public class LoginStatePresenter : IDisposable
                 Coin = res.PlayerInfo.Chip,
                 Energy = res.PlayerInfo.Energy,
                 CurrentHorseNftId = res.PlayerInfo.CurrentHorse.NftId,
-                MaxEnergy = (data != default) ? data.MaxHappinessNumber : 0,
+                MaxEnergy = masterData?.MaxHappinessNumber ?? 0,
                 UserId = res.PlayerInfo.Id,
                 UserName = res.PlayerInfo.Name,
                 Exp = 0,
                 Level = 1,
                 NextLevelExp = 1,
                 TraningTimeStamp = 0,
+                DailyRacingNumberLeft = res.PlayerInfo.FreeRacingNumber
             };
             await UserDataRepository.UpdateDataAsync(new UserDataModel[] { model });
             var featurePresent = this.container.Inject<FeaturePresenter>();
@@ -412,6 +414,9 @@ public class LoginStatePresenter : IDisposable
         UserSettingLocalRepository.MasterDataModel.TrainingHappinessCost = data.HappinessNumberPerTraining;
         UserSettingLocalRepository.MasterDataModel.BetNumberList.Clear();
         UserSettingLocalRepository.MasterDataModel.BetNumberList.AddRange(data.BetNumberList);
+        UserSettingLocalRepository.MasterDataModel.MaxDailyRacingNumber = data.MaxHappinessNumber;
+        UserSettingLocalRepository.MasterDataModel.RacingRewardInfos = data.RaceRewardInfos
+                                                                           .ToDictionary(x => ((RacingRoomType)(int)x.Level, x.Rank), x => x.Rewards.ToArray());
     }
 
     private FEATURE_TYPE[] GetFeatureList(LoginResponse res)

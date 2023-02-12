@@ -31,7 +31,7 @@ public class RacingMenuState : InjectedBHState
     {
         uiRacePresenter = new UIRacePresenter(this.Container);
         UIHeaderPresenter.ShowHeaderAsync(true, 
-            HorseRaceContext.RaceMatchDataContext.TraditionalRoomMasteryType.ToString()).Forget();
+            HorseRaceContext.RaceMatchDataContext.RacingRoomType.ToString()).Forget();
         UIHeaderPresenter.OnBack += OnBack;
         uiRacePresenter.OnFindMatch += OnFindMatch;
         await uiRacePresenter.ShowUIQuickRaceAsync();
@@ -44,7 +44,7 @@ public class RacingMenuState : InjectedBHState
     
     private void OnBack()
     {
-        HorseRaceContext.RaceMatchDataContext.TraditionalRoomMasteryType = TraditionalRoomMasteryType.None;
+        HorseRaceContext.RaceMatchDataContext.RacingRoomType = RacingRoomType.None;
         this.Machine.ChangeState<RaceModeChoosingState>();
     }
 

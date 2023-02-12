@@ -52,31 +52,28 @@ namespace io.hverse.game.protogen {
             "b21SZXNwb25zZRISCgpyZXN1bHRDb2RlGAEgASgFEhsKCHJhY2VSb29tGAIg",
             "ASgLMgkuUmFjZVJvb20iIgoPRXhpdFJvb21SZXF1ZXN0Eg8KB2hvcnNlSWQY",
             "ASABKAMiJgoQRXhpdFJvb21SZXNwb25zZRISCgpyZXN1bHRDb2RlGAEgASgF",
-            "IlEKEFN0YXJ0Um9vbVJlY2VpcHQSHwoKcmFjZVNjcmlwdBgBIAEoCzILLlJh",
-            "Y2VTY3JpcHQSHAoHcmV3YXJkcxgCIAMoCzILLlJld2FyZEluZm8inQEKClJh",
-            "Y2VSZWNvcmQSDgoGcm9vbUlkGAEgASgDEh0KBWxldmVsGAIgASgOMg4uUmFj",
-            "ZVJvb21MZXZlbBIVCg10aW1lU3RhcnRSYWNlGAMgASgDEh0KCWhvcnNlSW5m",
-            "bxgEIAEoCzIKLkhvcnNlSW5mbxIMCgRyYW5rGAUgASgFEhwKB3Jld2FyZHMY",
-            "BiADKAsyCy5SZXdhcmRJbmZvIiMKEUdldEhpc3RvcnlSZXF1ZXN0Eg4KBnJv",
-            "b21JZBgBIAEoAyJGChJHZXRIaXN0b3J5UmVzcG9uc2USEgoKcmVzdWx0Q29k",
-            "ZRgBIAEoBRIcCgdyZWNvcmRzGAIgAygLMgsuUmFjZVJlY29yZCIwChFVcGRh",
-            "dGVSb29tUmVjZWlwdBIbCghyYWNlUm9vbRgBIAEoCzIJLlJhY2VSb29tKogC",
-            "ChFSYWNpbmdNZXNzYWdlVHlwZRIXChNSQUNFX1NDUklQVF9SRVFVRVNUEAAS",
-            "GAoUUkFDRV9TQ1JJUFRfUkVTUE9OU0UQARIVChFKT0lOX1JPT01fUkVRVUVT",
-            "VBACEhYKEkpPSU5fUk9PTV9SRVNQT05TRRADEhUKEUVYSVRfUk9PTV9SRVFV",
-            "RVNUEAQSFgoSRVhJVF9ST09NX1JFU1BPTlNFEAUSFwoTVVBEQVRFX1JPT01f",
-            "UkVDRUlQVBAGEhYKElNUQVJUX1JPT01fUkVDRUlQVBAHEhcKE0dFVF9ISVNU",
-            "T1JZX1JFUVVFU1QQCBIYChRHRVRfSElTVE9SWV9SRVNQT05TRRAJKkMKClJh",
-            "Y2luZ01vZGUSDwoLVFJBRElUSU9OQUwQABIKCgZTVEFCTEUQARIICgRSQU5L",
-            "EAISDgoKVE9VUk5BTUVOVBADKp8BCg1SYWNlUm9vbUxldmVsEhsKF1JBQ0Vf",
-            "Uk9PTV9MRVZFTF9VTktOT1dOEAASFQoRUkFDRV9ST09NX0xFVkVMXzEQARIV",
-            "ChFSQUNFX1JPT01fTEVWRUxfMhACEhUKEVJBQ0VfUk9PTV9MRVZFTF8zEAMS",
-            "FQoRUkFDRV9ST09NX0xFVkVMXzQQBBIVChFSQUNFX1JPT01fTEVWRUxfNRAF",
-            "QkkKF2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuQhRSYWNpbmdNZXNzYWdlRmFj",
-            "dG9yeaoCF2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuYgZwcm90bzM="));
+            "ImsKEFN0YXJ0Um9vbVJlY2VpcHQSHwoKcmFjZVNjcmlwdBgBIAEoCzILLlJh",
+            "Y2VTY3JpcHQSHAoHcmV3YXJkcxgCIAMoCzILLlJld2FyZEluZm8SGAoQZnJl",
+            "ZVJhY2luZ051bWJlchgDIAEoBSKdAQoKUmFjZVJlY29yZBIOCgZyb29tSWQY",
+            "ASABKAMSHQoFbGV2ZWwYAiABKA4yDi5SYWNlUm9vbUxldmVsEhUKDXRpbWVT",
+            "dGFydFJhY2UYAyABKAMSHQoJaG9yc2VJbmZvGAQgASgLMgouSG9yc2VJbmZv",
+            "EgwKBHJhbmsYBSABKAUSHAoHcmV3YXJkcxgGIAMoCzILLlJld2FyZEluZm8i",
+            "IwoRR2V0SGlzdG9yeVJlcXVlc3QSDgoGcm9vbUlkGAEgASgDIkYKEkdldEhp",
+            "c3RvcnlSZXNwb25zZRISCgpyZXN1bHRDb2RlGAEgASgFEhwKB3JlY29yZHMY",
+            "AiADKAsyCy5SYWNlUmVjb3JkIjAKEVVwZGF0ZVJvb21SZWNlaXB0EhsKCHJh",
+            "Y2VSb29tGAEgASgLMgkuUmFjZVJvb20qiAIKEVJhY2luZ01lc3NhZ2VUeXBl",
+            "EhcKE1JBQ0VfU0NSSVBUX1JFUVVFU1QQABIYChRSQUNFX1NDUklQVF9SRVNQ",
+            "T05TRRABEhUKEUpPSU5fUk9PTV9SRVFVRVNUEAISFgoSSk9JTl9ST09NX1JF",
+            "U1BPTlNFEAMSFQoRRVhJVF9ST09NX1JFUVVFU1QQBBIWChJFWElUX1JPT01f",
+            "UkVTUE9OU0UQBRIXChNVUERBVEVfUk9PTV9SRUNFSVBUEAYSFgoSU1RBUlRf",
+            "Uk9PTV9SRUNFSVBUEAcSFwoTR0VUX0hJU1RPUllfUkVRVUVTVBAIEhgKFEdF",
+            "VF9ISVNUT1JZX1JFU1BPTlNFEAkqQwoKUmFjaW5nTW9kZRIPCgtUUkFESVRJ",
+            "T05BTBAAEgoKBlNUQUJMRRABEggKBFJBTksQAhIOCgpUT1VSTkFNRU5UEANC",
+            "SQoXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5CFFJhY2luZ01lc3NhZ2VGYWN0",
+            "b3J5qgIXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::io.hverse.game.protogen.DataReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.RacingMessageType), typeof(global::io.hverse.game.protogen.RacingMode), typeof(global::io.hverse.game.protogen.RaceRoomLevel), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.RacingMessageType), typeof(global::io.hverse.game.protogen.RacingMode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RacingMessage), global::io.hverse.game.protogen.RacingMessage.Parser, new[]{ "MsgType", "RaceScriptRequest", "RaceScriptResponse", "JoinRoomRequest", "JoinRoomResponse", "ExitRoomRequest", "ExitRoomResponse", "UpdateRoomReceipt", "StartRoomReceipt", "GetHistoryRequest", "GetHistoryResponse" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseStats), global::io.hverse.game.protogen.HorseStats.Parser, new[]{ "Time", "LaneStart", "LaneEnd", "DelayTime", "Stamina", "Position", "Rank", "HorseId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.Phase), global::io.hverse.game.protogen.Phase.Parser, new[]{ "Start", "End", "HorseStats" }, null, null, null, null),
@@ -88,7 +85,7 @@ namespace io.hverse.game.protogen {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.JoinRoomResponse), global::io.hverse.game.protogen.JoinRoomResponse.Parser, new[]{ "ResultCode", "RaceRoom" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ExitRoomRequest), global::io.hverse.game.protogen.ExitRoomRequest.Parser, new[]{ "HorseId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ExitRoomResponse), global::io.hverse.game.protogen.ExitRoomResponse.Parser, new[]{ "ResultCode" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.StartRoomReceipt), global::io.hverse.game.protogen.StartRoomReceipt.Parser, new[]{ "RaceScript", "Rewards" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.StartRoomReceipt), global::io.hverse.game.protogen.StartRoomReceipt.Parser, new[]{ "RaceScript", "Rewards", "FreeRacingNumber" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RaceRecord), global::io.hverse.game.protogen.RaceRecord.Parser, new[]{ "RoomId", "Level", "TimeStartRace", "HorseInfo", "Rank", "Rewards" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetHistoryRequest), global::io.hverse.game.protogen.GetHistoryRequest.Parser, new[]{ "RoomId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetHistoryResponse), global::io.hverse.game.protogen.GetHistoryResponse.Parser, new[]{ "ResultCode", "Records" }, null, null, null, null),
@@ -117,15 +114,6 @@ namespace io.hverse.game.protogen {
     [pbr::OriginalName("STABLE")] Stable = 1,
     [pbr::OriginalName("RANK")] Rank = 2,
     [pbr::OriginalName("TOURNAMENT")] Tournament = 3,
-  }
-
-  public enum RaceRoomLevel {
-    [pbr::OriginalName("RACE_ROOM_LEVEL_UNKNOWN")] Unknown = 0,
-    [pbr::OriginalName("RACE_ROOM_LEVEL_1")] _1 = 1,
-    [pbr::OriginalName("RACE_ROOM_LEVEL_2")] _2 = 2,
-    [pbr::OriginalName("RACE_ROOM_LEVEL_3")] _3 = 3,
-    [pbr::OriginalName("RACE_ROOM_LEVEL_4")] _4 = 4,
-    [pbr::OriginalName("RACE_ROOM_LEVEL_5")] _5 = 5,
   }
 
   #endregion
@@ -3235,6 +3223,7 @@ namespace io.hverse.game.protogen {
     public StartRoomReceipt(StartRoomReceipt other) : this() {
       raceScript_ = other.raceScript_ != null ? other.raceScript_.Clone() : null;
       rewards_ = other.rewards_.Clone();
+      freeRacingNumber_ = other.freeRacingNumber_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -3267,6 +3256,18 @@ namespace io.hverse.game.protogen {
       get { return rewards_; }
     }
 
+    /// <summary>Field number for the "freeRacingNumber" field.</summary>
+    public const int FreeRacingNumberFieldNumber = 3;
+    private int freeRacingNumber_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int FreeRacingNumber {
+      get { return freeRacingNumber_; }
+      set {
+        freeRacingNumber_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -3284,6 +3285,7 @@ namespace io.hverse.game.protogen {
       }
       if (!object.Equals(RaceScript, other.RaceScript)) return false;
       if(!rewards_.Equals(other.rewards_)) return false;
+      if (FreeRacingNumber != other.FreeRacingNumber) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -3293,6 +3295,7 @@ namespace io.hverse.game.protogen {
       int hash = 1;
       if (raceScript_ != null) hash ^= RaceScript.GetHashCode();
       hash ^= rewards_.GetHashCode();
+      if (FreeRacingNumber != 0) hash ^= FreeRacingNumber.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -3316,6 +3319,10 @@ namespace io.hverse.game.protogen {
         output.WriteMessage(RaceScript);
       }
       rewards_.WriteTo(output, _repeated_rewards_codec);
+      if (FreeRacingNumber != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(FreeRacingNumber);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -3331,6 +3338,10 @@ namespace io.hverse.game.protogen {
         output.WriteMessage(RaceScript);
       }
       rewards_.WriteTo(ref output, _repeated_rewards_codec);
+      if (FreeRacingNumber != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(FreeRacingNumber);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -3345,6 +3356,9 @@ namespace io.hverse.game.protogen {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(RaceScript);
       }
       size += rewards_.CalculateSize(_repeated_rewards_codec);
+      if (FreeRacingNumber != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(FreeRacingNumber);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -3364,6 +3378,9 @@ namespace io.hverse.game.protogen {
         RaceScript.MergeFrom(other.RaceScript);
       }
       rewards_.Add(other.rewards_);
+      if (other.FreeRacingNumber != 0) {
+        FreeRacingNumber = other.FreeRacingNumber;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -3390,6 +3407,10 @@ namespace io.hverse.game.protogen {
             rewards_.AddEntriesFrom(input, _repeated_rewards_codec);
             break;
           }
+          case 24: {
+            FreeRacingNumber = input.ReadInt32();
+            break;
+          }
         }
       }
     #endif
@@ -3414,6 +3435,10 @@ namespace io.hverse.game.protogen {
           }
           case 18: {
             rewards_.AddEntriesFrom(ref input, _repeated_rewards_codec);
+            break;
+          }
+          case 24: {
+            FreeRacingNumber = input.ReadInt32();
             break;
           }
         }

@@ -40,7 +40,6 @@ public class HorseRacePresenterTest : MonoBehaviour
         {
             HorseRaceInfos = GetAllMasterHorseIds(),
             MasterMapId = QuickRaceState.MasterMapId,
-            Mode = HorseGameMode.Race
         };
     }
 }

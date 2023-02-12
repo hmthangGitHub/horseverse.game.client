@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class UIRacingFindMatch : PopupEntity<UIRacingFindMatch.Entity>
@@ -17,7 +18,7 @@ public class UIRacingFindMatch : PopupEntity<UIRacingFindMatch.Entity>
 
     public IsVisibleComponent findMatchPopUpVisible;
     public IsVisibleComponent gameStartingPopupVisible;
-    public FormattedTextComponent waitingTime;
+    public UIComponentDuration waitingTime;
     public FormattedTextComponent numberConnectPlayer;
     public ButtonComponent cancelBtn;
     
@@ -32,7 +33,16 @@ public class UIRacingFindMatch : PopupEntity<UIRacingFindMatch.Entity>
 
     public void SetWaitingTime(int time)
     {
-	    var ts = TimeSpan.FromSeconds(time);
-	    waitingTime.SetEntity($"{ts.Minutes}:{ts.Seconds}");
+	    this.entity.waitingTime = time;
+	    waitingTime.SetEntity(new UIComponentDuration.Entity()
+	    {
+		    duration = this.entity.waitingTime
+	    });
+    }
+
+    public void ShowStartGamePopUp()
+    {
+	    findMatchPopUpVisible.SetEntity(false);
+	    gameStartingPopupVisible.SetEntity(true);
     }
 }	

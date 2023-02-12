@@ -6,7 +6,7 @@ public class RaceMatchDataContext
 {
     public RaceMode RaceMode { get; set; }
 
-    public TraditionalRoomMasteryType TraditionalRoomMasteryType { get; set; }
+    public RacingRoomType RacingRoomType { get; set; }
 }
 
 public enum RaceMode
@@ -16,14 +16,4 @@ public enum RaceMode
     StableVsStable,
     Rank,
     Tournament
-}
-
-public enum TraditionalRoomMasteryType
-{
-    None,
-    Novice,
-    Basic,
-    Advance,
-    Expert,
-    Master
 }

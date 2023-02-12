@@ -27,7 +27,7 @@ public class UIComponentHorseDetail : UIComponent<UIComponentHorseDetail.Entity>
 
     protected override void OnSetEntity()
     {
-        horseRace.SetEntity(this.entity.horseRace);
+        horseRace?.SetEntity(this.entity.horseRace);
         if(horseName != default)
             horseName.SetEntity(this.entity.horseName);
         speedProgressBarWithBonus.SetEntity(this.entity.speedProgressBarWithBonus);

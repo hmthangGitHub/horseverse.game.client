@@ -1,3 +1,10 @@
+
+public enum HorseGameMode
+{
+    Bet,
+    Race
+}
+
 public class HorseRaceContext
 {
     public HorseGameMode GameMode { get; set; }

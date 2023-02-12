@@ -18,7 +18,7 @@ public partial class HorseRacePresenter : IDisposable
     public event Action OnToBetModeResultState = ActionUtility.EmptyAction.Instance;
     public event Action OnToQuickRaceModeResultState = ActionUtility.EmptyAction.Instance;
     private int playerHorseIndex;
-    private RaceScriptData raceScriptData;
+    private HorseRaceContext horseRaceContext;
     private UIBackGroundPresenter uiBackGroundPresenter;
     private MasterMapContainer masterMapContainer;
     private MasterMap masterMap;
@@ -32,7 +32,7 @@ public partial class HorseRacePresenter : IDisposable
     
     private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= Container.Inject<IReadOnlyUserDataRepository>();
     private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= Container.Inject<MasterHorseContainer>();
-    private RaceScriptData RaceScriptData => raceScriptData ??= Container.Inject<RaceScriptData>();
+    private HorseRaceContext HorseRaceContext => horseRaceContext ??= Container.Inject<HorseRaceContext>();
     private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
 
     private IDIContainer Container { get; }
@@ -69,7 +69,7 @@ public partial class HorseRacePresenter : IDisposable
         await horseRaceManager.ShowFreeCamera();
         horseRaceManager.EnablePostProcessing(true);
         await (horseRaceManager.cameraBlendingAnimation.FadeOutAnimationAsync(),
-               raceModeHorseIntroPresenter.ShowHorsesInfoIntroAsync(RaceScriptData.HorseRaceInfos.ToArray(), 
+               raceModeHorseIntroPresenter.ShowHorsesInfoIntroAsync(HorseRaceContext.RaceScriptData.HorseRaceInfos.ToArray(), 
                                                                     targetGenerator.StartPosition, 
                                                                     Quaternion.identity)
                                           .AttachExternalCancellation(token));
@@ -84,21 +84,21 @@ public partial class HorseRacePresenter : IDisposable
     private async UniTask GetMasterMap()
     {
         masterMapContainer = await MasterLoader.LoadMasterAsync<MasterMapContainer>();
-        masterMap = masterMapContainer.MasterMapIndexer[RaceScriptData.MasterMapId];
+        masterMap = masterMapContainer.MasterMapIndexer[HorseRaceContext.RaceScriptData.MasterMapId];
     }
 
     private async UniTask InitHorseRaceAsync()
     {
         horseRaceManager ??= Object.Instantiate((await Resources.LoadAsync<HorseRaceManager>("GamePlay/HorseRaceManager") as HorseRaceManager));
         
-        playerHorseIndex = RaceScriptData.HorseRaceInfos.ToList().FindIndex(x => x.Name == UserDataRepository.Current.UserName);
-        await horseRaceManager.InitializeAsync(RaceScriptData.HorseRaceInfos.Select(x => MasterHorseContainer.GetHorseMeshInformation(x.MeshInformation, HorseModelMode.Race)).ToArray(),
+        playerHorseIndex = HorseRaceContext.RaceScriptData.HorseRaceInfos.ToList().FindIndex(x => x.Name == UserDataRepository.Current.UserName);
+        await horseRaceManager.InitializeAsync(HorseRaceContext.RaceScriptData.HorseRaceInfos.Select(x => MasterHorseContainer.GetHorseMeshInformation(x.MeshInformation, HorseModelMode.Race)).ToArray(),
                                                masterMap.MapSettings,
                                                masterMap.MapPath,
                                                playerHorseIndex,
-                                               RaceScriptData.HorseRaceInfos.Select(x => x.RaceSegments.Sum(segment => segment.Time)).ToArray(),
+                                               HorseRaceContext.RaceScriptData.HorseRaceInfos.Select(x => x.RaceSegments.Sum(segment => segment.Time)).ToArray(),
                                                1,
-                                               RaceScriptData.HorseRaceInfos,
+                                               HorseRaceContext.RaceScriptData.HorseRaceInfos,
                                                token);
     }
 
@@ -161,7 +161,7 @@ public partial class HorseRacePresenter : IDisposable
         uiHorseRaceStatus.Out()
                          .Forget();
         await UIBackGroundPresenter.ShowBackGroundAsync();
-        if (RaceScriptData.Mode == HorseGameMode.Race)
+        if (HorseRaceContext.GameMode == HorseGameMode.Race)
         {
             OnToQuickRaceModeResultState();
         }
@@ -181,14 +181,6 @@ public partial class HorseRacePresenter : IDisposable
         
         Time.timeScale = currentTimeScale;
         await uiFlashScreen.Out();
-    }
-
-    private async UniTaskVoid FreezeTimeWhenFinishTrack()
-    {
-        var currentTimeScale = Time.timeScale;
-        Time.timeScale = 0.0f;
-        await UniTask.Delay((int)(1.0f * 1000), ignoreTimeScale: true);
-        Time.timeScale = currentTimeScale;
     }
 
     private void UpdateRaceStatus()
@@ -225,7 +217,7 @@ public partial class HorseRacePresenter : IDisposable
 
     private int[] RandomHorseInLanes()
     {
-        return Enumerable.Range(0, RaceScriptData.HorseRaceInfos.Length).ToArray();
+        return Enumerable.Range(0,HorseRaceContext.RaceScriptData.HorseRaceInfos.Length).ToArray();
     }
 
     public void Dispose()
@@ -251,7 +243,7 @@ public partial class HorseRacePresenter : IDisposable
         }
 
         masterMap = default;
-        raceScriptData = default;
+        horseRaceContext = default;
 
         OnToBetModeResultState = ActionUtility.EmptyAction.Instance;
         OnToQuickRaceModeResultState = ActionUtility.EmptyAction.Instance;

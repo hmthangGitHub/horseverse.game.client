@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using io.hverse.game.protogen;
 using UnityEngine;
 
 public class MasterDataModel
@@ -7,9 +9,21 @@ public class MasterDataModel
     public int MaxHappinessNumber { get; set; }
     public int TrainingHappinessCost { get; set; }
     public List<int> BetNumberList { get; set; } = new List<int>();
-
+    public Dictionary<(RacingRoomType roomType, int rank), RewardInfo[]> RacingRewardInfos { get; set; }
+    public int MaxDailyRacingNumber { get; set; }
+    
     public MasterDataModel Clone()
     {
         return (MasterDataModel)this.MemberwiseClone();
     }
+}
+
+public enum RacingRoomType
+{
+    None,
+    Novice,
+    Basic,
+    Advance,
+    Expert,
+    Master
 }
