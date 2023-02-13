@@ -14,6 +14,7 @@ public class FormattedTextComponent : UIComponent<FormattedTextComponent.Entity>
     }
 
     public TextMeshProUGUI text;
+    [Multiline]
     public string format = "{0}";
 
     public void SetEntity(object value)

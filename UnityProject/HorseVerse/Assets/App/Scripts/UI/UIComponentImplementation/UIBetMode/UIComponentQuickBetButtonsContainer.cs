@@ -43,7 +43,7 @@ public class UIComponentQuickBetButtonsContainer : UIComponent<UIComponentQuickB
     public void SetInteractable(bool isInteractable)
     {
         transform.GetComponentsInChildren<UIComponentQuickBetButtons>()
-                 .ForEach(x => x.betAllBtn.SetInteractable(isInteractable));
+                 .ToList().ForEach(x => x.betAllBtn.SetInteractable(isInteractable));
     }
 
     private void OnEnable()

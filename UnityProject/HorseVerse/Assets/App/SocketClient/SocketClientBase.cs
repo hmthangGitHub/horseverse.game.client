@@ -22,6 +22,7 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
     protected void OnMessage(byte[] data)
     {
         var message = messageParser.Parse(data);
+        Debug.Log("Received response " + message);
         messageBroker.Publish(message);
     }
 
@@ -44,21 +45,9 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
         var cts = new CancellationTokenSource();
         void OnResponse(TResponse response)
         {
-            Debug.Log("Received response " + response);
             try
             {
-                if (response is IErrorCodeMessage errorCodeMessage
-                    && errorCodeMessage.ResultCode != this.errorCodeConfig.SuccessCode
-                    && !errorCodeConfig.HandleCode.Contains(errorCodeMessage.ResultCode))
-                {
-                    var message = errorCodeConfig.ErrorCodeMessage.TryGetValue(errorCodeMessage.ResultCode, out var msg)
-                        ? msg
-                        : "Unknown Message";
-                    throw new Exception($"Failed Response Exception Result Code:{errorCodeMessage.ResultCode} " +
-                                        $"- {message} \n" +
-                                        $"{response}");
-                }
-
+                VerifyErrorMessage(response);
                 ucs.TrySetResult(response);
             }
             catch
@@ -88,6 +77,21 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
             {
                 OnEndRequest.Invoke();
             }
+        }
+    }
+
+    private void VerifyErrorMessage<TResponse>(TResponse response) where TResponse : IMessage
+    {
+        if (response is IErrorCodeMessage errorCodeMessage
+            && errorCodeMessage.ResultCode != this.errorCodeConfig.SuccessCode
+            && !errorCodeConfig.HandleCode.Contains(errorCodeMessage.ResultCode))
+        {
+            var message = errorCodeConfig.ErrorCodeMessage.TryGetValue(errorCodeMessage.ResultCode, out var msg)
+                ? msg
+                : "Unknown Message";
+            throw new Exception($"Failed Response Exception Result Code:{errorCodeMessage.ResultCode} " +
+                                $"- {message} \n" +
+                                $"{response}");
         }
     }
 

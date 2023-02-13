@@ -6,26 +6,26 @@ using UnityEngine;
 
 namespace io.hverse.game.protogen
 {
-    public sealed partial class RaceMessage : ISubMessage<RaceMessageType>
+    public sealed partial class RacingMessage : ISubMessage<RacingMessageType>
     {
         Enum ISubMessage.MsgType => this.MsgType;
-        public GameMessageType GameMessageType => GameMessageType.RaceMessage;
-        public RaceMessage(RaceScriptRequest request)
+        public GameMessageType GameMessageType => GameMessageType.RacingMessage;
+        public RacingMessage(RaceScriptRequest request)
         {
-            this.msgType_ = RaceMessageType.RaceScriptRequest;
+            this.msgType_ = RacingMessageType.RaceScriptRequest;
             raceScriptRequest_ = request;
         }
         
-        public RaceMessage(JoinPoolRequest request)
+        public RacingMessage(JoinRoomRequest request)
         {
-            this.msgType_ = RaceMessageType.JoinPoolRequest;
-            joinPoolRequest_ = request;
+            this.msgType_ = RacingMessageType.JoinRoomRequest;
+            joinRoomRequest_ = request;
         }
 
-        public RaceMessage(ExitPoolRequest request)
+        public RacingMessage(ExitRoomRequest request)
         {
-            this.msgType_ = RaceMessageType.ExitPoolRequest;
-            exitPoolRequest_ = request;
+            this.msgType_ = RacingMessageType.ExitRoomRequest;
+            exitRoomRequest_ = request;
         }
     }
 }

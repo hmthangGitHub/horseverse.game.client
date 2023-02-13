@@ -14,7 +14,7 @@ public class HorseDataModel
     public float TechnicallyRatio { get; set; }
 
     public int Type { get; set; }
-    public int Rarity { get; set; }
+    public HorseRarity Rarity { get; set; }
     public int Level { get; set; }
 
     public Color Color1 { get; set; }
@@ -26,4 +26,14 @@ public class HorseDataModel
     public float AverageBettingRecord { get; set; }
     public float BestBettingRecord { get; set; }
     public float Rate { get; set; }
+}
+
+public enum HorseRarity
+{
+    None,
+    Common,
+    Uncommon,
+    Rare,
+    Epic,
+    Legend
 }

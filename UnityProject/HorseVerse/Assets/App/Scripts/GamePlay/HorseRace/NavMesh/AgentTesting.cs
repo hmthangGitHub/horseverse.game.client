@@ -60,7 +60,7 @@ public class AgentTesting : MonoBehaviour
         await dependency.LoadRepositoryIfNeedAsync();
         di.Bind(dependency);
         var iQuickRaceDomainService = new LocalQuickRaceDomainService(di);
-        var result = await iQuickRaceDomainService.FindMatch(0);
+        var result = await iQuickRaceDomainService.FindMatch(0, default);
         var targets = targetGenerator.GenerateTargets(result.HorseRaceInfos[0].RaceSegments).targets;
         for (int i = 0; i < targets.Length; i++)
         {

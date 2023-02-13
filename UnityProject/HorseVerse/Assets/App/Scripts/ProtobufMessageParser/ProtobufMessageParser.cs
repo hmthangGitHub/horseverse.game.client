@@ -13,8 +13,8 @@ public class ProtobufMessageParser : IMessageParser
     private readonly Dictionary<System.Type, Func<IMessage, byte[]>> serializeLookUpFunc = new Dictionary<System.Type, Func<IMessage, byte[]>>(); 
     public ProtobufMessageParser()
     {
-        AddToSerializeLookUpTable<RaceScriptRequest>(x => new RaceMessage(x));
-        AddToParseLookUpTable<RaceMessage, RaceMessageType>(RaceMessageType.RaceScriptResponse, x => x.RaceScriptResponse);
+        AddToSerializeLookUpTable<RaceScriptRequest>(x => new RacingMessage(x));
+        AddToParseLookUpTable<RacingMessage, RacingMessageType>(RacingMessageType.RaceScriptResponse, x => x.RaceScriptResponse);
         
         AddToSerializeLookUpTable<LoginRequest>(x => new LoginMessage(x));
         AddToParseLookUpTable<LoginMessage, LoginMessageType>(LoginMessageType.LoginResponse, x => x.LoginResponse);
@@ -55,11 +55,14 @@ public class ProtobufMessageParser : IMessageParser
         AddToSerializeLookUpTable<FinishTrainingRequest>(x => new TrainingMessage(x));
         AddToParseLookUpTable<TrainingMessage, TrainingMessageType>(TrainingMessageType.FinishTrainingResponse, x => x.FinishTrainingResponse);
         
-        AddToSerializeLookUpTable<JoinPoolRequest>(x => new RaceMessage(x));
-        AddToParseLookUpTable<RaceMessage, RaceMessageType>(RaceMessageType.JoinPoolResponse, x => x.JoinPoolResponse);
+        AddToSerializeLookUpTable<JoinRoomRequest>(x => new RacingMessage(x));
+        AddToParseLookUpTable<RacingMessage, RacingMessageType>(RacingMessageType.JoinRoomResponse, x => x.JoinRoomResponse);
         
-        AddToSerializeLookUpTable<ExitPoolRequest>(x => new RaceMessage(x));
-        AddToParseLookUpTable<RaceMessage, RaceMessageType>(RaceMessageType.ExitPoolResponse, x => x.ExitPoolResponse);
+        AddToSerializeLookUpTable<ExitRoomRequest>(x => new RacingMessage(x));
+        AddToParseLookUpTable<RacingMessage, RacingMessageType>(RacingMessageType.ExitRoomResponse, x => x.ExitRoomResponse);
+        
+        AddToParseLookUpTable<RacingMessage, RacingMessageType>(RacingMessageType.StartRoomReceipt, x => x.StartRoomReceipt);
+        AddToParseLookUpTable<RacingMessage, RacingMessageType>(RacingMessageType.UpdateRoomReceipt, x => x.UpdateRoomReceipt);
     }
     
     private void AddToParseLookUpTable<TSubMessage, TEnum>(TEnum enumMessage, Func<TSubMessage, IMessage> resultFactory) where TEnum : System.Enum

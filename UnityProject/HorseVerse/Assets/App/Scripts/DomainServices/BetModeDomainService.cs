@@ -10,7 +10,7 @@ public interface IBetModeDomainService
 {
     UniTask CancelBetAsync();
     UniTask BetAsync((int first, int second)[] keys, int amouth);
-    UniTask<RaceMatchData> GetCurrentBetModeRaceMatchData();
+    UniTask<(RaceScriptData raceScriptData, BetMatchDataContext betMatchDataContext)> GetCurrentBetMatchData();
     UniTask<HorseBetInfo> GetCurrentBetModeHorseData();
     UniTask RequestBetData();
 }
@@ -52,21 +52,22 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
         }
     }
 
-    public async UniTask<RaceMatchData> GetCurrentBetModeRaceMatchData()
+    public async UniTask<(RaceScriptData, BetMatchDataContext)> GetCurrentBetMatchData()
     {
         var bettingDetailResponse = await SocketClient.Send<GetBetHistoryDetailRequest, GetBetHistoryDetailResponse>(new GetBetHistoryDetailRequest()
         {
             MatchId = BetMatchRepository.Current.BetMatchId
         }, 5.0f);
 
-        return new RaceMatchData()
+        return (new RaceScriptData()
         {
             HorseRaceInfos = QuickRaceDomainService.GetHorseRaceInfos(BetMatchRepository.Current.RaceScript, MasterHorseContainer),
             MasterMapId = QuickRaceState.MasterMapId,
-            Mode = RaceMode.Bet,
+        }, new BetMatchDataContext()
+        {
             BetMatchId = BetMatchRepository.Current.BetMatchId,
             TotalBetWin = bettingDetailResponse.Records.Sum(item => item.WinMoney)
-        };
+        });
     }
 
     public async UniTask<HorseBetInfo> GetCurrentBetModeHorseData()
@@ -90,7 +91,7 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
                 SpeedRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
                 TechnicallyBonus = x.Acceleration,
                 TechnicallyRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
-                Rarity = (int)x.Rarity,
+                Rarity = (HorseRarity)x.Rarity,
                 Type = (int)x.HorseType,
                 Level = x.Level,
                 Color1 = HorseRepository.GetColorFromHexCode(x.Color1),
@@ -170,6 +171,11 @@ public class LocalBetModeDomainService : BetModeDomainServiceBase, IBetModeDomai
         await BetRateRepository.UpdateModelAsync(betRates);
     }
 
+    public UniTask<(RaceScriptData raceScriptData, BetMatchDataContext betMatchDataContext)> GetCurrentBetMatchData()
+    {
+        throw new NotImplementedException();
+    }
+
     public UniTask RequestBetData()
     {
         throw new System.NotImplementedException();
@@ -189,9 +195,9 @@ public class LocalBetModeDomainService : BetModeDomainServiceBase, IBetModeDomai
     }
 
 
-    public async UniTask<RaceMatchData> GetCurrentBetModeRaceMatchData()
+    public async UniTask<RaceScriptData> GetCurrentBetModeRaceMatchData()
     {
-        return await new LocalQuickRaceDomainService(container).FindMatch(0);
+        return await new LocalQuickRaceDomainService(container).FindMatch(0, default);
     }
 
     public async UniTask<HorseBetInfo> GetCurrentBetModeHorseData()

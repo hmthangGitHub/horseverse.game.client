@@ -10,13 +10,13 @@ public class HorsePickingState : InjectedBState
 {
     private UIHorsePicker uiHorsePicker = default;
     private CancellationTokenSource cts = default;
-    public int HorseId { get; private set; }
+    private int HorseId { get; set; }
 
     private UILoadingPresenter uiLoadingPresenter;
-    public UILoadingPresenter UiLoadingPresenter => uiLoadingPresenter ??= this.Container.Inject<UILoadingPresenter>();
+    private UILoadingPresenter UiLoadingPresenter => uiLoadingPresenter ??= this.Container.Inject<UILoadingPresenter>();
 
     private UIHeaderPresenter uiHeaderPresenter;
-    public UIHeaderPresenter UiHeaderPresenter => uiHeaderPresenter ??= this.Container.Inject<UIHeaderPresenter>();
+    private UIHeaderPresenter UiHeaderPresenter => uiHeaderPresenter ??= this.Container.Inject<UIHeaderPresenter>();
 
     public override async void Enter()
     {

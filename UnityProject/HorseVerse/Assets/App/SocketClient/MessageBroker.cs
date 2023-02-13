@@ -34,7 +34,7 @@ namespace MessageBroker
         public void Publish<T>(T message, int channel = default)
         {
             var invocationList = GetInvocationList(message, channel);
-            invocationList.ForEach(x => x.DynamicInvoke(message));
+            invocationList.ToList().ForEach(x => x.DynamicInvoke(message));
         }
 
         private Delegate[] GetInvocationList<T>(T message, int channel)

@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class BetModeState : InjectedBHState
 {
+    private HorseRaceContext horseRaceContext;
+    private HorseRaceContext HorseRaceContext => horseRaceContext ??= Container.Inject<HorseRaceContext>();
+    
     public override void AddStates()
     {
         base.AddStates();
@@ -16,12 +19,14 @@ public class BetModeState : InjectedBHState
         AddState<BetModeInitialState>();
         SetInitialState<BetModeInitialState>();
     }
+    
 
     public override void Enter()
     {
         base.Enter();
         Container.Bind(new BetModeDomainService(Container));
         Container.Bind(new BetMatchRepository(Container));
+        HorseRaceContext.GameMode = HorseGameMode.Bet;
 #if ENABLE_DEBUG_MODULE
         Container.Bind(new BetModeUIDebugMenuPresenter(Container));
 #endif
@@ -35,5 +40,6 @@ public class BetModeState : InjectedBHState
 #endif
         Container.RemoveAndDisposeIfNeed<BetMatchRepository>();
         Container.RemoveAndDisposeIfNeed<BetModeDomainService>();
+        HorseRaceContext.Reset();
     }
 }

@@ -7,6 +7,7 @@ public class UIComponentHorseDetail : UIComponent<UIComponentHorseDetail.Entity>
     [System.Serializable]
     public class Entity
     {
+        public UIComponentHorseRace.Entity horseRace;
         public string horseName;
         public int level;
         public UIComponentProgressBarWithBonus.Entity speedProgressBarWithBonus;
@@ -16,6 +17,7 @@ public class UIComponentHorseDetail : UIComponent<UIComponentHorseDetail.Entity>
         public int maxHappiness;
     }
 
+    public UIComponentHorseRace horseRace;
     public FormattedTextComponent horseName;
     public UIComponentProgressBarWithBonus speedProgressBarWithBonus;
     public UIComponentProgressBarWithBonus powerProgressBarWithBonus;
@@ -25,6 +27,7 @@ public class UIComponentHorseDetail : UIComponent<UIComponentHorseDetail.Entity>
 
     protected override void OnSetEntity()
     {
+        horseRace?.SetEntity(this.entity.horseRace);
         if(horseName != default)
             horseName.SetEntity(this.entity.horseName);
         speedProgressBarWithBonus.SetEntity(this.entity.speedProgressBarWithBonus);

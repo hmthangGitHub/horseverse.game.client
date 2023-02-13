@@ -12,7 +12,7 @@ public class HorseRacePresenterTest : MonoBehaviour
         await userDataRepository.LoadRepositoryIfNeedAsync();
         container.Bind(userDataRepository);
         container.Bind(await MasterLoader.LoadMasterAsync<MasterHorseContainer>());
-        var matchData = await new LocalQuickRaceDomainService(container).FindMatch(0);
+        var matchData = await new LocalQuickRaceDomainService(container).FindMatch(0, default);
         container.Bind(matchData);
         var horsePresenter = new HorseRacePresenter(container);
         await horsePresenter.LoadAssetAsync();
@@ -20,7 +20,7 @@ public class HorseRacePresenterTest : MonoBehaviour
         horsePresenter.StartGame();
     }
 
-    public RaceMatchData FindMatch(DIContainer container)
+    public RaceScriptData FindMatch(DIContainer container)
     {
         HorseRaceInfo[] GetAllMasterHorseIds()
         {
@@ -36,11 +36,10 @@ public class HorseRacePresenterTest : MonoBehaviour
                             .ToArray();
         }
 
-        return new RaceMatchData()
+        return new RaceScriptData()
         {
             HorseRaceInfos = GetAllMasterHorseIds(),
             MasterMapId = QuickRaceState.MasterMapId,
-            Mode = RaceMode.Race
         };
     }
 }

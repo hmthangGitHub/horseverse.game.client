@@ -12,6 +12,7 @@ public class UserDataRepository : Repository<long, UserDataModel, UserDataModel>
     }
 
     public UserDataModel Current { get { if (Models.Count == 0) return default; return Models.First().Value; } }
+    
     public async UniTask UpdateCoin(long coin)
     {
         var newModel = Current.Clone();
@@ -19,12 +20,24 @@ public class UserDataRepository : Repository<long, UserDataModel, UserDataModel>
         await UpdateModelAsync(new[] { newModel });
     }
 
+    public async UniTask UpdateHorse(long nftHorseId)
+    {
+        var newModel = Current.Clone();
+        newModel.CurrentHorseNftId = nftHorseId;
+        await UpdateModelAsync(new[] { newModel });
+    }
+    
+    public async UniTask UpdateDailyRacingNumber(int dailyRacingNumber)
+    {
+        var newModel = Current.Clone();
+        newModel.DailyRacingNumberLeft = dailyRacingNumber;
+        await UpdateModelAsync(new[] { newModel });
+    }
+
     private static UniTask<IEnumerable<UserDataModel>> GetUserDataModels()
     {
         return UniTask.FromResult(Enumerable.Empty<UserDataModel>());
     }
-
-
 }
 
 public interface IReadOnlyUserDataRepository : IReadOnlyRepository<long, UserDataModel>
@@ -36,4 +49,6 @@ public interface IUserDataRepository : IRepository<long, UserDataModel, UserData
 {
     UserDataModel Current { get; }
     UniTask UpdateCoin(long coin);
+    UniTask UpdateHorse(long nftHorseId);
+    UniTask UpdateDailyRacingNumber(int dailyRacingNumber);
 }

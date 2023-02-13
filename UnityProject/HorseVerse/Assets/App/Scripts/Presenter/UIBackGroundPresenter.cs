@@ -23,7 +23,7 @@ public class UIBackGroundPresenter : IDisposable
             uiBackGround.In().Forget();
         } 
     }
-
+    
     public void ReleaseBackGround()
     {
         UILoader.SafeRelease(ref uiBackGround);
