@@ -8,17 +8,19 @@ public class RacingMatchFindingPresenter : IDisposable
 {
     private HorseRaceContext horseRaceContext;
     private readonly IDIContainer container;
-    private HorseRaceContext HorseRaceContext => horseRaceContext ??= container.Inject<HorseRaceContext>();
-    public event Action<RaceScriptData> OnFoundMatch = ActionUtility.EmptyAction<RaceScriptData>.Instance;
-    public event Action OnCancelFindMatch = ActionUtility.EmptyAction.Instance;
+    
     private CancellationTokenSource cts;
     private IReadOnlyUserDataRepository userDataRepository;
     private IQuickRaceDomainService quickRaceDomainService;
     private UITouchDisablePresenter uiTouchDisablePresenter;
     private UIRacingFindMatch uiRacingFindMatch;
+    private HorseRaceContext HorseRaceContext => horseRaceContext ??= container.Inject<HorseRaceContext>();
     private IQuickRaceDomainService QuickRaceDomainService => quickRaceDomainService ??= container.Inject<IQuickRaceDomainService>();
     private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
     private UITouchDisablePresenter UITouchDisablePresenter => uiTouchDisablePresenter ??= container.Inject<UITouchDisablePresenter>();
+    
+    public event Action<RaceScriptData> OnFoundMatch = ActionUtility.EmptyAction<RaceScriptData>.Instance;
+    public event Action OnCancelFindMatch = ActionUtility.EmptyAction.Instance;
     
     public RacingMatchFindingPresenter(IDIContainer container)
     {
@@ -44,6 +46,8 @@ public class RacingMatchFindingPresenter : IDisposable
 
     private void OnConnectedPlayerChange(int connectedPlayerChange)
     {
+        uiRacingFindMatch.entity.numberConnectPlayer = connectedPlayerChange;
+        uiRacingFindMatch.numberConnectPlayer.SetEntity(uiRacingFindMatch.entity.numberConnectPlayer);
     }
 
     private async UniTask FindMatchInternalAsync()
@@ -79,7 +83,7 @@ public class RacingMatchFindingPresenter : IDisposable
 
     private async UniTask InstantiateUI()
     {
-        uiRacingFindMatch = await UILoader.Instantiate<UIRacingFindMatch>(token: cts.Token);
+        uiRacingFindMatch = await UILoader.Instantiate<UIRacingFindMatch>(UICanvas.UICanvasType.PopUp, token: cts.Token);
     }
 
     private async UniTaskVoid StartFindMatchTimerAsync()

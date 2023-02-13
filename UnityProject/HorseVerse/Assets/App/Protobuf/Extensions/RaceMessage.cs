@@ -27,5 +27,11 @@ namespace io.hverse.game.protogen
             this.msgType_ = RacingMessageType.ExitRoomRequest;
             exitRoomRequest_ = request;
         }
+
+        public RacingMessage(GetHistoryRequest request)
+        {
+            this.msgType_ = RacingMessageType.GetHistoryRequest;
+            getHistoryRequest_ = request;
+        }
     }
 }

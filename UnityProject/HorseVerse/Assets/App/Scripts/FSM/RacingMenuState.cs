@@ -1,17 +1,18 @@
 using Cysharp.Threading.Tasks;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using UnityEngine;
 
 public class RacingMenuState : InjectedBHState
 {
     private UIRacePresenter uiRacePresenter;
     private UIHeaderPresenter uiHeaderPresenter;
     private HorseRaceContext horseRaceContext;
+    private UIBackGroundPresenter uiBackGroundPresenter;
+    private UIHorse3DViewPresenter uiHorse3DViewPresenter ;
     
     private UIHeaderPresenter UIHeaderPresenter => uiHeaderPresenter ??= Container.Inject<UIHeaderPresenter>();
     private HorseRaceContext HorseRaceContext => horseRaceContext ??= Container.Inject<HorseRaceContext>();
+    private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
+    private UIHorse3DViewPresenter UIHorse3DViewPresenter => uiHorse3DViewPresenter ??= Container.Inject<UIHorse3DViewPresenter>();
+
 
     public override void AddStates()
     {
@@ -29,6 +30,8 @@ public class RacingMenuState : InjectedBHState
 
     private async UniTask OnEnterStateAsync()
     {
+        await UIHorse3DViewPresenter.ShowHorse3DViewAsync();
+        UIBackGroundPresenter.ReleaseBackGround();
         uiRacePresenter = new UIRacePresenter(this.Container);
         UIHeaderPresenter.ShowHeaderAsync(true, 
             HorseRaceContext.RaceMatchDataContext.RacingRoomType.ToString()).Forget();
@@ -51,11 +54,6 @@ public class RacingMenuState : InjectedBHState
     public override void Exit()
     {
         base.Exit();
-        Release();
-    }
-
-    void Release()
-    {
         UIHeaderPresenter.HideHeader();
         UIHeaderPresenter.OnBack -= OnBack;
         uiRacePresenter.Dispose();
@@ -64,5 +62,4 @@ public class RacingMenuState : InjectedBHState
         uiHeaderPresenter = default;
         horseRaceContext = default;
     }
-
 }

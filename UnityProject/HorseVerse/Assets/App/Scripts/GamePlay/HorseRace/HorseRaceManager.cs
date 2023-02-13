@@ -268,7 +268,8 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
                     OnFinishTrack = () => OnFinishTrack(topInRaceMatch[index]),
                     PredefineTargets = CalculatePredefineTarget(horseRaceTimes[i]),
                     MainCamera = mainCamera,
-                    Delay = x.DelayTime
+                    Delay = x.DelayTime,
+                    Name = x.Name
                 });
             });
     }

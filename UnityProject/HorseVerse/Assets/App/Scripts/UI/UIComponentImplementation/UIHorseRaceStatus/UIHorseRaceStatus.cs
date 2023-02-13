@@ -15,16 +15,21 @@ public class UIHorseRaceStatus : PopupEntity<UIHorseRaceStatus.Entity>
         public string secondHorseRankName;
         public UIComponentBetSlot.Entity betSlot;
         public bool betSlotVisible;
+        public int selfRaceRank;
+        public bool selfRaceRankGroup;
     }
 
     public HorseRaceStatusPlayerList playerList;
-    public Image timeLine;
-    public float currentTimer = 0.0f;
     public FormattedTextComponent singleRankHorseName;
     public FormattedTextComponent secondHorseRankName;
     public UIComponentTimeSpan timeText;
     public UIComponentBetSlot betSlot;
     public IsVisibleComponent isBetSlotVisible;
+    public IsVisibleComponent selfRaceRankGroup;
+    public FormattedTextComponent selfRaceRank;
+    
+    public Image timeLine;
+    public float currentTimer = 0.0f;
 
     protected override void OnSetEntity()
     {
@@ -34,6 +39,8 @@ public class UIHorseRaceStatus : PopupEntity<UIHorseRaceStatus.Entity>
         secondHorseRankName.SetEntity(this.entity.secondHorseRankName);
         betSlot.SetEntity(this.entity.betSlot);
         isBetSlotVisible.SetEntity(this.entity.betSlotVisible);
+        selfRaceRankGroup.SetEntity(this.entity.selfRaceRankGroup);
+        UpdateSelfRank(this.entity.selfRaceRank);
     }
 
     private void Update()
@@ -71,5 +78,17 @@ public class UIHorseRaceStatus : PopupEntity<UIHorseRaceStatus.Entity>
             this.entity.secondHorseRankName = text;
             secondHorseRankName.SetEntity(this.entity.secondHorseRankName);
         }
+    }
+    
+    public void UpdateSelfRank(int rank)
+    {
+        this.entity.selfRaceRank = rank + 1;
+        secondHorseRankName.SetEntity(this.entity.selfRaceRank, this.entity.selfRaceRank switch
+        {
+            1 => "st",
+            2 => "nd",
+            3 => "rd",
+            _ => "th"
+        });
     }
 }

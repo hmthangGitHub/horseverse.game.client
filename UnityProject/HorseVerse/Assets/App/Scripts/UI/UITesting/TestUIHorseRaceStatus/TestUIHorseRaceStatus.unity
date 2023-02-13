@@ -258,15 +258,17 @@ MonoBehaviour:
       playerId: 0
     finishTime: 100
     singleRankHorseName: YOO
-    firstHorseRankName: YOO2
     secondHorseRankName: YOO3
     betSlot:
-      horseNumber: 0
-      firstHorseNumber: 1
-      secondHorseNumber: 2
+      horseNumber:
+        Number: 1
+      firstHorseNumber:
+        Number: 2
+      secondHorseNumber:
+        Number: 3
       betType: 1
       betRatio: 2.2
-      totalBet: 5.5
+      totalBet: 5
       betBtn:
         onClickEvent:
           m_PersistentCalls:

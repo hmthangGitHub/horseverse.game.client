@@ -33,25 +33,6 @@ public class UIHorse3DViewPresenter : IDisposable
         await UniTask.WaitUntil(()=> UserDataRepository.Current != default).AttachExternalCancellation(cts.Token);
         await HorseRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
 
-        //uiHorse3DView ??= await UILoader.Instantiate<UIHorse3DView>(token: cts.Token);
-        //if (!isIn)
-        //{
-        //    uiHorse3DView.SetEntity(new UIHorse3DView.Entity()
-        //    {
-        //        horseLoader = new HorseLoader.Entity()
-        //        {
-        //            horse = MasterHorseContainer.MasterHorseIndexer[HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].MasterHorseId].ModelPath,
-        //            color1 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color1,
-        //            color2 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color2,
-        //            color3 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color3,
-        //            color4 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color4,
-        //        }
-        //    });
-        //    uiHorse3DView.transform.SetAsFirstSibling();
-        //    uiHorse3DView.In().Forget();
-        //    isIn = true;
-        //    UserDataRepository.OnModelUpdate += UserDataRepositoryOnModelUpdate;
-        //}
         objHorse3DView ??= await ObjectLoader.Instantiate<ObjectHorse3DView>("Object", ObjectHolder.Holder, token: cts.Token);
         if (!isIn)
         {
@@ -89,7 +70,6 @@ public class UIHorse3DViewPresenter : IDisposable
 
     private UniTask GetOutTask()
     {
-        //return uiHorse3DView?.Out() ?? UniTask.CompletedTask;
         return objHorse3DView?.Out() ?? UniTask.CompletedTask;
     }
 
@@ -122,7 +102,6 @@ public class UIHorse3DViewPresenter : IDisposable
     public void Dispose()
     {
         HideHorse3DViewAsync().Forget();
-        //UILoader.SafeRelease(ref uiHorse3DView);
         ObjectLoader.SafeRelease("Object", ref objHorse3DView);
     }
 }

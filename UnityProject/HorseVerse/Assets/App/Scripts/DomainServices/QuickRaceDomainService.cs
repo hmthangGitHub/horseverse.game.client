@@ -31,11 +31,9 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
 {
     private ISocketClient socketClient;
     private MasterHorseContainer masterHorseContainer;
-    private HorseRaceContext horseRaceContext;
     private UniTaskCompletionSource<StartRoomReceipt> findMatchUcs;
     private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= Container.Inject<MasterHorseContainer>();
     private ISocketClient SocketClient => socketClient ??= Container.Inject<ISocketClient>();
-    private HorseRaceContext HorseRaceContext => horseRaceContext ??= Container.Inject<HorseRaceContext>();
     public event Action<int> OnConnectedPlayerChange  = ActionUtility.EmptyAction<int>.Instance;
     
     public QuickRaceDomainService(IDIContainer container) : base(container){}
@@ -57,6 +55,7 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
 
     private async UniTaskVoid JoinPool(long ntfHorseId, RacingMode racingMode)
     {
+        
         findMatchUcs = new UniTaskCompletionSource<StartRoomReceipt>();
         var joinRoomResponse = await SocketClient.Send<JoinRoomRequest, JoinRoomResponse>(new JoinRoomRequest()
         {
@@ -78,6 +77,7 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
 
     private void StartRoomReceiptResponse(StartRoomReceipt raceScriptResponse)
     {
+        UserDataRepository.UpdateDailyRacingNumber(raceScriptResponse.FreeRacingNumber).Forget();
         findMatchUcs.TrySetResult(raceScriptResponse);
         SocketClient.UnSubscribe<StartRoomReceipt>(StartRoomReceiptResponse);
         SocketClient.UnSubscribe<UpdateRoomReceipt>(UpdateRoomReceiptResponse);

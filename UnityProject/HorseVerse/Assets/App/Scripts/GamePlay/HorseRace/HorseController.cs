@@ -37,6 +37,7 @@ public partial class HorseController : MonoBehaviour
     private float CurrentOffset => horseInGameData.CurrentOffset;
     private (Vector3 target, float time)[] PredefineTargets => horseInGameData?.PredefineTargets.targets;
     private int FinishIndex => horseInGameData.PredefineTargets.finishIndex;
+    public string Name => horseInGameData.Name;
 
     private void Start()
     {

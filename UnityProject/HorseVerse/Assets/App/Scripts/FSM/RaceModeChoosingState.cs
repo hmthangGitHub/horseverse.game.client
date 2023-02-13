@@ -60,7 +60,6 @@ public class RaceModeChoosingState : InjectedBState
     private async UniTask OnBeforeExitStateAsync()
     {
         UIBackGroundPresenter.ReleaseBackGround();
-        await UIHorse3DViewPresenter.ShowHorse3DViewAsync();
     }
 
     public override void Exit()

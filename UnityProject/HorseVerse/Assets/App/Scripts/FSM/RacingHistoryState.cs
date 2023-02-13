@@ -19,8 +19,11 @@ public class RacingHistoryState : InjectedBState
     {
         UIHeaderPresenter.OnBack += OnBack;
         await UIHeaderPresenter.ShowHeaderAsync(title: "HISTORY");
-        
+#if MOCK_DATA
         Container.Bind(new LocalRacingHistoryRepository(Container.Inject<IReadOnlyHorseRepository>()));
+#else
+        Container.Bind(new RacingHistoryRepository(Container.Inject<ISocketClient>()));
+#endif
         racingHistoryPresenter = new RacingHistoryPresenter(Container);
         racingHistoryPresenter.ShowHistoryAsync()
                               .Forget();
@@ -35,7 +38,11 @@ public class RacingHistoryState : InjectedBState
     {
         base.Exit();
         UIHeaderPresenter.OnBack -= OnBack;
+#if MOCK_DATA
         Container.RemoveAndDisposeIfNeed<LocalRacingHistoryRepository>();
+#else
+        Container.RemoveAndDisposeIfNeed<RacingHistoryRepository>();
+#endif
         DisposeUtility.SafeDispose(ref racingHistoryPresenter);
     }
 }
