@@ -41,18 +41,20 @@ public class HorseRaceState : InjectedBHState
         base.AddStates();
         AddState<EmptyState>();
         AddState<BetModeRaceResultState>();
-        AddState<QuickRaceResultState>();
+        AddState<RacingResultState>();
         SetInitialState<EmptyState>();
     }
 
     private void ToBetModeResultState()
     {
+        horseRacePresenter.Dispose();
         this.ChangeState<BetModeRaceResultState>();
     }
 
     private void ToQuickRaceResultState()
     {
-        this.ChangeState<QuickRaceResultState>();
+        horseRacePresenter.Dispose();
+        this.ChangeState<RacingResultState>();
     }
 
     private async UniTask StartRaceAsync()
@@ -60,13 +62,6 @@ public class HorseRaceState : InjectedBHState
         await horseRacePresenter.PlayIntro();
         isGameStart = true;
         horseRacePresenter.StartGame();
-    }
-
-    private async UniTaskVoid ToMainStateAsync()
-    {
-        await this.Container.Inject<UILoadingPresenter>().ShowLoadingAsync();
-        await UniTask.Delay(1000);
-        this.SuperMachine.GetState<StartUpState>().GetState<InitialState>().ChangeState<MainMenuState>();
     }
 
     public override void Exit()
@@ -77,7 +72,6 @@ public class HorseRaceState : InjectedBHState
         uiLoadingPresenter = default;
         horseRacePresenter.OnToBetModeResultState -= ToBetModeResultState;
         horseRacePresenter.OnToQuickRaceModeResultState -= ToQuickRaceResultState;
-        horseRacePresenter.Dispose();
-        horseRacePresenter = default;
+        DisposeUtility.SafeDispose(ref horseRacePresenter);
     }
 }

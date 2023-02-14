@@ -41,8 +41,8 @@ internal class RaceModeChoosingPresenter : IDisposable
             await uiRacingMode.In();
             HorseRaceContext.RaceMatchDataContext.RaceMode = RaceMode.None;
             HorseRaceContext.RaceMatchDataContext.RacingRoomType = RacingRoomType.None;
+            await ChangeHeaderTitle();
         }
-        await ChangeHeaderTitle();
     }
 
     private string GetCurrentTitle()

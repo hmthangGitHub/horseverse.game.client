@@ -12,7 +12,7 @@ public partial class HorseRacePresenter : IDisposable
     private UIHorseRaceStatus uiHorseRaceStatus;
     private UIFlashScreenAnimation uiFlashScreen;
 
-    private int[] cachePositions;
+    private int[] cachedPositions;
     private IReadOnlyUserDataRepository userDataRepository;
     private MasterHorseContainer masterHorseContainer;
     public event Action OnToBetModeResultState = ActionUtility.EmptyAction.Instance;
@@ -160,7 +160,6 @@ public partial class HorseRacePresenter : IDisposable
         horseRaceManager.OnFinishTrackEvent -= OnFinishTrack;
         uiHorseRaceStatus.Out()
                          .Forget();
-        await UIBackGroundPresenter.ShowBackGroundAsync();
         if (HorseRaceContext.GameMode == HorseGameMode.Race)
         {
             OnToQuickRaceModeResultState();
@@ -185,24 +184,26 @@ public partial class HorseRacePresenter : IDisposable
 
     private void UpdateRaceStatus()
     {
-        var positions = horseRaceManager.horseControllers.OrderByDescending(x => x.CurrentRaceProgressWeight)
+        var horseControllersOrderByRank = horseRaceManager.horseControllers.OrderByDescending(x => x.CurrentRaceProgressWeight)
                                                              .Select(x => x)
                                                              .ToArray();
-        for (int i = 0; i < positions.Length; i++)
+        for (var i = 0; i < horseControllersOrderByRank.Length; i++)
         {
-            if (cachePositions[i] != positions[i].InitialLane)
+            if (cachedPositions[i] != horseControllersOrderByRank[i].InitialLane)
             {
-                uiHorseRaceStatus.playerList.ChangePosition(positions[i].InitialLane, i);
-                cachePositions[i] = positions[i].InitialLane;
+                uiHorseRaceStatus.playerList.ChangePosition(horseControllersOrderByRank[i].InitialLane, i);
+                cachedPositions[i] = horseControllersOrderByRank[i].InitialLane;
             }
-            if (i == 0) uiHorseRaceStatus.UpdateFirstRank(uiHorseRaceStatus.playerList.GetName(positions[i].InitialLane));
-            if (i == 1) uiHorseRaceStatus.UpdateSecondRank(uiHorseRaceStatus.playerList.GetName(positions[i].InitialLane));
+            
+            if (i == 0) uiHorseRaceStatus.UpdateFirstRank(horseControllersOrderByRank[i].Name);
+            if (i == 1) uiHorseRaceStatus.UpdateSecondRank(horseControllersOrderByRank[i].Name);
+            if (horseControllersOrderByRank[i].IsPlayer) uiHorseRaceStatus.UpdateSelfRank(i);
         }
     }
 
     private void SetEntityUIHorseRaceStatus(int[] playerList, float timeToFinish)
     {
-        cachePositions = Enumerable.Repeat(-1, playerList.Length).ToArray();
+        cachedPositions = Enumerable.Repeat(-1, playerList.Length).ToArray();
         uiHorseRaceStatus.SetEntity(new UIHorseRaceStatus.Entity()
         {
             playerList = new HorseRaceStatusPlayerList.Entity()
@@ -210,7 +211,8 @@ public partial class HorseRacePresenter : IDisposable
                 horseIdInLane = playerList,
                 playerId = playerHorseIndex,
             },
-            finishTime = timeToFinish
+            finishTime = timeToFinish,
+            selfRaceRankGroup = HorseRaceContext.GameMode == HorseGameMode.Race
         });
         uiHorseRaceStatus.In().Forget();
     }
@@ -248,7 +250,7 @@ public partial class HorseRacePresenter : IDisposable
         OnToBetModeResultState = ActionUtility.EmptyAction.Instance;
         OnToQuickRaceModeResultState = ActionUtility.EmptyAction.Instance;
 
-        cachePositions = default;
+        cachedPositions = default;
         masterHorseContainer = default;
         
         DisposeUtility.SafeDispose(ref raceModeHorseIntroPresenter);

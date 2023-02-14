@@ -49,8 +49,8 @@ public class HorseRaceStatusPlayerList : UIComponent<HorseRaceStatusPlayerList.E
         }
 
         RectTransform lastPlayer = predefinePositions[(this.entity.horseIdInLane.Length - 1)];
-        distanceToMove = lastPlayer.anchoredPosition.x - lastPlayer.rect.width / 2;
-        destination = originalPos - new Vector2(distanceToMove, 0);
+        distanceToMove = lastPlayer.anchoredPosition.x + lastPlayer.rect.width / 2;
+        destination = originalPos + new Vector2(distanceToMove, 0);
     }
 
     private void CleanOldList()

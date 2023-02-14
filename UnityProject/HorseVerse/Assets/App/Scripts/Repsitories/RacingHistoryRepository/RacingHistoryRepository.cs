@@ -4,25 +4,36 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using io.hverse.game.protogen;
 using UnityEngine;
 
 public class RacingHistoryRepository : Repository<long , RacingHistory, RacingHistory>, IReadOnlyRacingHistoryRepository
 {
-
     public RacingHistoryRepository(ISocketClient socketClient) : base(x => x.MatchId, x => x, () => GetData(socketClient))
     {
     }
 
-    private static UniTask<IEnumerable<RacingHistory>> GetData(ISocketClient socketClient)
+    private static async UniTask<IEnumerable<RacingHistory>> GetData(ISocketClient socketClient)
     {
-        throw new NotImplementedException();
+        var historyResponse = await socketClient.Send<GetHistoryRequest, GetHistoryResponse>(new GetHistoryRequest());
+        return historyResponse.Records.Select(x => new RacingHistory()
+        {
+            Rank = x.Rank,
+            HorseIndex = x.Lane,
+            MatchId = x.RoomId,
+            TimeStamp = x.TimeStartRace / 1000,
+            ChestRewardNumber = (int)(x.Rewards.FirstOrDefault(reward => reward.Type == RewardType.Chest)?.Amount ?? 0),
+            CoinRewardNumber = (int)(x.Rewards.FirstOrDefault(reward => reward.Type == RewardType.Chip)?.Amount ?? 0),
+            NftHorseId = x.HorseInfo.NftId,
+        });
     }
 }
 
 public class LocalRacingHistoryRepository : Repository<long , RacingHistory, RacingHistory>, IReadOnlyRacingHistoryRepository
 {
-
-    public LocalRacingHistoryRepository(IReadOnlyHorseRepository horseRepository) : base(x => x.MatchId, x => x, () => GetData(horseRepository))
+    public LocalRacingHistoryRepository(IReadOnlyHorseRepository horseRepository) : base(x => x.MatchId, 
+        x => x,
+        () => GetData(horseRepository))
     {
     }
 

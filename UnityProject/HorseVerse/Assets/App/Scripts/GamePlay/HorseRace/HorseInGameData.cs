@@ -13,4 +13,5 @@ public class HorseInGameData
     public Action OnFinishTrack { get; set; }
     public GameObject MainCamera { get; set; }
     public float Delay { get; set; }
+    public string Name { get; set; }
 }
