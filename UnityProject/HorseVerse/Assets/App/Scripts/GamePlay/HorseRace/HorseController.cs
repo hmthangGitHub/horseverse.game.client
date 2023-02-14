@@ -8,7 +8,6 @@ using UnityEngine.AI;
 
 public partial class HorseController : MonoBehaviour
 {
-    [SerializeField] private GameObject playerIndicator;
     [SerializeField] NavMeshAgent navMeshAgent;
     [SerializeField] UIComponentEnumInt laneContainer;
     [SerializeField] private float angleMax;
@@ -35,7 +34,7 @@ public partial class HorseController : MonoBehaviour
     public float CurrentRaceProgressWeight => isStarted ? (progressiveTargetIndex + 1)* 10000 - DistanceToCurrentTarget() : default;
     public int InitialLane => horseInGameData.InitialLane;
     private float CurrentOffset => horseInGameData.CurrentOffset;
-    private (Vector3 target, float time)[] PredefineTargets => horseInGameData?.PredefineTargets.targets;
+    private (Vector3 target, Quaternion rotation, float time)[] PredefineTargets => horseInGameData?.PredefineTargets.targets;
     private int FinishIndex => horseInGameData.PredefineTargets.finishIndex;
     public string Name => horseInGameData.Name;
 
@@ -86,33 +85,48 @@ public partial class HorseController : MonoBehaviour
     {
         if (isStarted)
         {
-            if (IsReachTarget())
+            UpdatePosition();
+            UpdateAnimator();
+            UpdateLaneIndicator();
+        }
+    }
+
+    private void UpdatePosition()
+    {
+        if (IsReachTarget())
+        {
+            if (IsLastWayPoint())
             {
-                if (IsLastWayPoint())
-                {
-                    OnFinishTrackEvent();
-                    OnFinishTrackEvent -= horseInGameData.OnFinishTrack;
-                }
-                ChangeTarget();
+                OnFinishTrackEvent();
+                OnFinishTrackEvent -= horseInGameData.OnFinishTrack;
             }
 
-            
-            
-            animationSpeed = Mathf.Lerp(animationSpeed, targetAnimationSpeed, Time.deltaTime * 10.0f);
-            animator.SetFloat(Speed, animationSpeed);
-            
-            var delta = PredefineTargets[currentTargetIndex].target - transform.position;
-            var angle = Vector3.SignedAngle(delta, transform.forward, Vector3.up);
-            if (Math.Abs(angle) > 2.5f)
-            {
-                targetAnimationHorizontal = Vector3Extensions.Map( Mathf.Clamp(-angle, -angleMax, angleMax), -angleMax, angleMax, -1.0f, 1.0f);
-            }
-            animationHorizontal = Mathf.Lerp(animationHorizontal, targetAnimationHorizontal, Time.deltaTime * 5.0f);
-            animator.SetFloat(Horizontal, animationHorizontal);
-            
-            laneContainer.transform.rotation = Quaternion.LookRotation(laneContainer.transform.position - this.horseInGameData.MainCamera.transform.position);
+            ChangeTarget();
         }
-        
+    }
+
+    private void UpdateLaneIndicator()
+    {
+        laneContainer.transform.rotation = Quaternion.LookRotation(laneContainer.transform.position -
+                                                                   this.horseInGameData.MainCamera.transform.position);
+    }
+
+    private void UpdateAnimator()
+    {
+        animationSpeed = Mathf.Lerp(animationSpeed, targetAnimationSpeed, Time.deltaTime * 10.0f);
+        animator.SetFloat(Speed, animationSpeed);
+
+        var delta = PredefineTargets[currentTargetIndex]
+            .target - transform.position;
+        var angle = Vector3.SignedAngle(delta, transform.forward, Vector3.up);
+        if (Math.Abs(angle) > 2.5f)
+        {
+            targetAnimationHorizontal
+                = Vector3Extensions.Map(Mathf.Clamp(-angle, -angleMax, angleMax), -angleMax, angleMax, -1.0f, 1.0f);
+        }
+
+        animationHorizontal = Mathf.Lerp(animationHorizontal, targetAnimationHorizontal, Time.deltaTime * 5.0f);
+        animator.SetFloat(Horizontal, animationHorizontal);
     }
 
     private void FixedUpdate()
@@ -133,7 +147,10 @@ public partial class HorseController : MonoBehaviour
 
     private bool IsReachTarget()
     {
-        return DistanceToCurrentTarget() < 1f;
+        return Vector3.Dot((PredefineTargets[currentTargetIndex]
+                   .target - Transform.position), PredefineTargets[currentTargetIndex]
+                   .rotation * Vector3.forward) <= 0.0f
+               || DistanceToCurrentTarget() <= 0.5f;
     }
 
     private float DistanceToCurrentTarget()
@@ -156,6 +173,7 @@ public partial class HorseController : MonoBehaviour
         SetAnimation(PredefineTargets[currentTargetIndex].time);
 #if UNITY_EDITOR
         Target.transform.position = PredefineTargets[currentTargetIndex].target;
+        Target.transform.rotation = PredefineTargets[currentTargetIndex].rotation;
 #endif
     }
 
@@ -167,7 +185,6 @@ public partial class HorseController : MonoBehaviour
     public void SetHorseData(HorseInGameData horseInGameData)
     {
         this.horseInGameData = horseInGameData;
-        playerIndicator.SetActive(horseInGameData.IsPlayer);
         CalculateRotation();
         CalculatePosition();
         OnFinishTrackEvent += horseInGameData.OnFinishTrack;

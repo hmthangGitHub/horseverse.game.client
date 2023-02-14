@@ -18,11 +18,17 @@ public class TargetGenerator : MonoBehaviour
             .Select(x => FromTimeToPoint(x, 0))
             .ToArray();
     }
-
+    
     private Vector3 FromTimeToPoint(float t, float offset)
     {
         Vector3 rightV = Quaternion.Euler(0, SimplyPath.path.GetRotation(t).eulerAngles.y, 0) * Vector3.right;
         return SimplyPath.path.GetPointAtTime(t) + rightV.X0Z() * offset;
+    }
+
+    private (Vector3 position, Quaternion rotation) FromTimeToPositionAndRotation(float t, float offset)
+    {
+        Vector3 rightV = Quaternion.Euler(0, SimplyPath.path.GetRotation(t).eulerAngles.y, 0) * Vector3.right;
+        return (SimplyPath.path.GetPointAtTime(t) + rightV.X0Z() * offset , SimplyPath.path.GetRotation(t) * Quaternion.Euler(0, 180, 0));
     }
 
     private float GetOffsetFromLane(int lane)
@@ -31,7 +37,7 @@ public class TargetGenerator : MonoBehaviour
         return start + spacing * lane;
     }
 
-    public ((Vector3 target, float time)[] targets,int finishIndex) GenerateTargets(RaceSegmentTime[] raceSegments)
+    public ((Vector3 target, Quaternion, float time)[] targets,int finishIndex) GenerateTargets(RaceSegmentTime[] raceSegments)
     {
         var firstPoint = SimplyPath.bezierPath.GetPoint(predefinePath.PredefinedWayPointIndices.First());
         var tFirst = SimplyPath.path.GetClosestTimeOnPath(firstPoint);
@@ -39,7 +45,14 @@ public class TargetGenerator : MonoBehaviour
         var lastPoint = SimplyPath.bezierPath.GetPoint(predefinePath.PredefinedWayPointIndices.Last());
         var tLast = SimplyPath.path.GetClosestTimeOnPath(lastPoint);
         
-        var paddingTargets = raceSegments.Select(x => (FromTimeToPoint(  Mathf.Lerp(tFirst, tLast, x.Percentage), GetOffsetFromLane(x.ToLane)), x.Time)).ToArray();
+        var paddingTargets = raceSegments.Select(x =>
+        {
+            var fromTimeToPositionAndRotation = FromTimeToPositionAndRotation(Mathf.Lerp(tFirst, tLast, x.Percentage), GetOffsetFromLane(x.ToLane));
+            return (
+                    fromTimeToPositionAndRotation.position,
+                    fromTimeToPositionAndRotation.rotation,
+                    x.Time);
+        }).ToArray();
         return (paddingTargets, raceSegments.Length - 1);
     }
 }

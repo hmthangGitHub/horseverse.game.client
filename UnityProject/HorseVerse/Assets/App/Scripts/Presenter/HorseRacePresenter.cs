@@ -17,9 +17,8 @@ public partial class HorseRacePresenter : IDisposable
     private MasterHorseContainer masterHorseContainer;
     public event Action OnToBetModeResultState = ActionUtility.EmptyAction.Instance;
     public event Action OnToQuickRaceModeResultState = ActionUtility.EmptyAction.Instance;
-    private int playerHorseIndex;
+    private int playerHorseIndex = -1;
     private HorseRaceContext horseRaceContext;
-    private UIBackGroundPresenter uiBackGroundPresenter;
     private MasterMapContainer masterMapContainer;
     private MasterMap masterMap;
     private MapSettings mapSettings;
@@ -29,12 +28,12 @@ public partial class HorseRacePresenter : IDisposable
     private readonly CancellationToken token;
     private RaceModeHorseIntroPresenter raceModeHorseIntroPresenter;
     private int numberOfHorseFinishTheRace = 0;
-    
+    private IReadOnlyHorseRepository horseRepository;
+
     private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= Container.Inject<IReadOnlyUserDataRepository>();
     private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= Container.Inject<MasterHorseContainer>();
     private HorseRaceContext HorseRaceContext => horseRaceContext ??= Container.Inject<HorseRaceContext>();
-    private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
-
+    private IReadOnlyHorseRepository HorseRepository => horseRepository ??= Container.Inject<HorseRepository>();
     private IDIContainer Container { get; }
 
     public HorseRacePresenter(IDIContainer container)
@@ -90,8 +89,15 @@ public partial class HorseRacePresenter : IDisposable
     private async UniTask InitHorseRaceAsync()
     {
         horseRaceManager ??= Object.Instantiate((await Resources.LoadAsync<HorseRaceManager>("GamePlay/HorseRaceManager") as HorseRaceManager));
+
+        if (HorseRaceContext.GameMode == HorseGameMode.Race)
+        {
+            playerHorseIndex = HorseRaceContext.RaceScriptData.
+                                                HorseRaceInfos.
+                                                ToList().
+                                                FindIndex(x => x.Name == HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Name);
+        }
         
-        playerHorseIndex = HorseRaceContext.RaceScriptData.HorseRaceInfos.ToList().FindIndex(x => x.Name == UserDataRepository.Current.UserName);
         await horseRaceManager.InitializeAsync(HorseRaceContext.RaceScriptData.HorseRaceInfos.Select(x => MasterHorseContainer.GetHorseMeshInformation(x.MeshInformation, HorseModelMode.Race)).ToArray(),
                                                masterMap.MapSettings,
                                                masterMap.MapPath,

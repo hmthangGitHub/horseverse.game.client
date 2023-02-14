@@ -13,19 +13,34 @@ public partial class HorseController
     {
         if (Application.isPlaying && UnityEditor.Selection.gameObjects.Contains(this.gameObject))
         {
-            if (PredefineTargets != default)
-            {
-                for (int i = 0; i < PredefineTargets.Length; i++)
-                {
-                    Gizmos.color = i <= FinishIndex ? Color : Color.red;
-                    var x = PredefineTargets[i];
-                    Gizmos.DrawSphere(x.target, 0.5f);
-                }
-                
-                UnityEditor.Handles.color = Color;
-                UnityEditor.Handles.Label(this.transform.position, $"Total Time {totalTime}");
-            }
+            DrawAllTargets();
+            DrawLineToCurrentTarget();
+        }
+    }
 
+    private void DrawAllTargets()
+    {
+        if (PredefineTargets != default)
+        {
+            for (int i = 0; i < PredefineTargets.Length; i++)
+            {
+                Gizmos.color = i <= FinishIndex ? Color : Color.red;
+                var x = PredefineTargets[i];
+                Gizmos.DrawSphere(x.target, 0.5f);
+                
+                Gizmos.color = Color.blue;
+                Gizmos.DrawLine(x.target, x.target + x.rotation * Vector3.forward * 1.0f);
+
+                UnityEditor.Handles.color = Color;
+                UnityEditor.Handles.Label(this.transform.position, $"{i}");
+            }
+        }
+    }
+
+    private void DrawLineToCurrentTarget()
+    {
+        if (currentTargetIndex >= 0)
+        {
             var delta = PredefineTargets[currentTargetIndex]
                 .target - transform.position;
             var angle = Vector3.SignedAngle(delta, transform.forward, Vector3.up);

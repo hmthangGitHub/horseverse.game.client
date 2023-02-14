@@ -271,6 +271,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
                     Delay = x.DelayTime,
                     Name = x.Name
                 });
+                horseController.gameObject.name = x.Name;
             });
     }
 
@@ -279,7 +280,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         return horseRaceTimes.Min(x => x.RaceSegments.Sum(raceSegment => raceSegment.Time));
     }
 
-    private ((Vector3 , float)[], int finishIndex) CalculatePredefineTarget(HorseRaceInfo horseRaceInfo)
+    private ((Vector3 , Quaternion, float)[], int finishIndex) CalculatePredefineTarget(HorseRaceInfo horseRaceInfo)
     {
         return targetGenerator.GenerateTargets(horseRaceInfo.RaceSegments);
     }

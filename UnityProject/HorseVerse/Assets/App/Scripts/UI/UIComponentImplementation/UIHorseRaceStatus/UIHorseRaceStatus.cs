@@ -83,7 +83,7 @@ public class UIHorseRaceStatus : PopupEntity<UIHorseRaceStatus.Entity>
     public void UpdateSelfRank(int rank)
     {
         this.entity.selfRaceRank = rank + 1;
-        secondHorseRankName.SetEntity(this.entity.selfRaceRank, this.entity.selfRaceRank switch
+        selfRaceRank.SetEntity(this.entity.selfRaceRank, this.entity.selfRaceRank switch
         {
             1 => "st",
             2 => "nd",
