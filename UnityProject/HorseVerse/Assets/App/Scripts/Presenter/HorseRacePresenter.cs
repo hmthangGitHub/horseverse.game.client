@@ -157,9 +157,11 @@ public partial class HorseRacePresenter : IDisposable
     private async UniTask OnShowResult()
     {
         statusCts.SafeCancelAndDispose();
-        horseRaceManager.OnFinishTrackEvent -= OnFinishTrack;
-        uiHorseRaceStatus.Out()
-                         .Forget();
+        if(horseRaceManager != default)
+            horseRaceManager.OnFinishTrackEvent -= OnFinishTrack;
+        if(uiHorseRaceStatus != default)
+            uiHorseRaceStatus.Out()
+                             .Forget();
         if (HorseRaceContext.GameMode == HorseGameMode.Race)
         {
             OnToQuickRaceModeResultState();
@@ -175,11 +177,13 @@ public partial class HorseRacePresenter : IDisposable
         var currentTimeScale = Time.timeScale;
         Time.timeScale = 0.0f;
         await UniTask.Delay(TimeSpan.FromSeconds(0.5f), ignoreTimeScale: true);
-        await uiFlashScreen.In();
+        if(uiFlashScreen != default)
+            await uiFlashScreen.In();
         await UniTask.Delay(TimeSpan.FromSeconds(0.5f), ignoreTimeScale: true);
         
         Time.timeScale = currentTimeScale;
-        await uiFlashScreen.Out();
+        if (uiFlashScreen != default)
+            await uiFlashScreen.Out();
     }
 
     private void UpdateRaceStatus()

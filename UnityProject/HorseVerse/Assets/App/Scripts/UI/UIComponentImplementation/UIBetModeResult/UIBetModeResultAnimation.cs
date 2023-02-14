@@ -5,11 +5,15 @@ using DG.Tweening;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using Cysharp.Threading.Tasks;
 
 public class UIBetModeResultAnimation : UISequenceAnimationBase
 {
     public RectTransform container;
+    public UIBetModeResultPanel uIBetModeResultPanel;
     public UIComponentBetModeResultList uiComponentBetModeResultList;
+    public UIBetModeMyResultPanel uIBetModeMyResultPanel;
+    public UIComponentBetModeMyResultList uiComponentBetModeMyResultList;
     public LayoutGroup layoutGroup;
     public RectTransform nextButton;
     protected override Tween CreateInAnimation()
@@ -17,9 +21,6 @@ public class UIBetModeResultAnimation : UISequenceAnimationBase
         layoutGroup.enabled = false;
         return DOTween.Sequence()
             .Append(container.DOFade(0.0f, 1.0f, 0.35f))
-            .Append(uiComponentBetModeResultList.instanceList.Select(x => x.RectTransform().DOAnchorPosYFrom(-800, 0.1f))
-                .ToArray()
-                .AsSequence())
             .Append(nextButton.DOFade(0.0f, 1.0f, 0.15f))
             .OnKill(() => layoutGroup.enabled = true)
             .SetUpdate(true);
@@ -28,5 +29,41 @@ public class UIBetModeResultAnimation : UISequenceAnimationBase
     protected override Tween CreateOutAnimation()
     {
         return container.DOFade(1.0f, 0.0f, 0.35f, true);
+    }
+
+    protected Tween doShowBetList()
+    {
+        return DOTween.Sequence().Append(uiComponentBetModeResultList.instanceList.Select(x => x.RectTransform().DOAnchorPosYFrom(-800, 0.1f))
+                .ToArray()
+                .AsSequence());
+    }
+
+    protected Tween doShowMyBetList()
+    {
+        return DOTween.Sequence().Append(uiComponentBetModeMyResultList.instanceList.Select(x => x.RectTransform().DOAnchorPosYFrom(-800, 0.1f))
+                .ToArray()
+                .AsSequence());
+    }
+
+    public async UniTask AnimationBetPanelIn()
+    {
+        await uIBetModeResultPanel.In();
+        await PlayAnimationAsync(doShowBetList);
+    }
+
+    public async UniTask AnimationBetPanelOut()
+    {
+        await uIBetModeResultPanel.Out();
+    }
+
+    public async UniTask AnimationMyBetPanelIn()
+    {
+        await uIBetModeResultPanel.In();
+        await PlayAnimationAsync(doShowBetList);
+    }
+
+    public async UniTask AnimationMyBetPanelOut()
+    {
+        await uIBetModeResultPanel.Out();
     }
 }

@@ -185,6 +185,7 @@ public class LevelEditorFreeCam : MonoBehaviour
 
     private void OnDestroy()
     {
-        originalCamera.gameObject.SetActive(true);
+        if(originalCamera.gameObject != null)
+            originalCamera.gameObject.SetActive(true);
     }
 }

@@ -11,6 +11,7 @@ public interface IBetModeDomainService
     UniTask CancelBetAsync();
     UniTask BetAsync((int first, int second)[] keys, int amouth);
     UniTask<(RaceScriptData raceScriptData, BetMatchDataContext betMatchDataContext)> GetCurrentBetMatchData();
+    UniTask<BetMatchFullDataContext> GetCurrentBetMatchRawData();
     UniTask<HorseBetInfo> GetCurrentBetModeHorseData();
     UniTask RequestBetData();
 }
@@ -58,7 +59,17 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
         {
             MatchId = BetMatchRepository.Current.BetMatchId
         }, 5.0f);
-
+        BetMatchDataDetail[] data = default;
+        data = bettingDetailResponse.Records.Select(x =>
+        {
+            UnityEngine.Debug.Log("POOL " + x.Pool);
+            return new BetMatchDataDetail()
+            {
+                betMoney = x.BettingMoney,
+                rate = x.WinRate,
+                winMoney = x.WinMoney,
+            };
+        }).ToArray();
         return (new RaceScriptData()
         {
             HorseRaceInfos = QuickRaceDomainService.GetHorseRaceInfos(BetMatchRepository.Current.RaceScript, MasterHorseContainer),
@@ -68,6 +79,48 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
             BetMatchId = BetMatchRepository.Current.BetMatchId,
             TotalBetWin = bettingDetailResponse.Records.Sum(item => item.WinMoney)
         });
+    }
+
+    public async UniTask<BetMatchFullDataContext> GetCurrentBetMatchRawData()
+    {
+        var bettingDetailResponse = await SocketClient.Send<GetBetHistoryDetailRequest, GetBetHistoryDetailResponse>(new GetBetHistoryDetailRequest()
+        {
+            MatchId = BetMatchRepository.Current.BetMatchId
+        }, 5.0f);
+
+        BetMatchDataDetail[] data = default;
+        data = bettingDetailResponse.Records.Select(x =>
+        {
+            string[] s = x.Pool.Trim().Split('-');
+            int first = 0;
+            int second = 0;
+            bool isDouble = false;
+            if (s.Length == 1)
+            {
+                first = Convert.ToInt32(s[0]);
+            }
+            else if(s.Length == 2)
+            {
+                isDouble = true;
+                first = Convert.ToInt32(s[0]);
+                second = Convert.ToInt32(s[1]);
+            }
+            
+            return new BetMatchDataDetail()
+            {
+                doubleBet = isDouble,
+                pool_1 = first,
+                pool_2 = second,
+                betMoney = x.BettingMoney,
+                rate = x.WinRate,
+                winMoney = x.WinMoney,
+            };
+        }).ToArray();
+        return new BetMatchFullDataContext()
+        {
+            BetMatchId = BetMatchRepository.Current.BetMatchId,
+            Record = data
+        };
     }
 
     public async UniTask<HorseBetInfo> GetCurrentBetModeHorseData()
@@ -172,6 +225,11 @@ public class LocalBetModeDomainService : BetModeDomainServiceBase, IBetModeDomai
     }
 
     public UniTask<(RaceScriptData raceScriptData, BetMatchDataContext betMatchDataContext)> GetCurrentBetMatchData()
+    {
+        throw new NotImplementedException();
+    }
+
+    public UniTask<BetMatchFullDataContext> GetCurrentBetMatchRawData()
     {
         throw new NotImplementedException();
     }
