@@ -107,8 +107,7 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
                 var masterHorse = masterHorseContainer.FromTypeToMasterHorse((int)horseInfo.HorseType);
                 return new HorseRaceInfo()
                 {
-                    DelayTime = x.First()
-                                 .stat.DelayTime,
+                    DelayTime = x.First().stat.DelayTime,
                     RaceSegments = x.Select(info => new RaceSegmentTime()
                                     {
                                         CurrentLane = info.stat.LaneStart,

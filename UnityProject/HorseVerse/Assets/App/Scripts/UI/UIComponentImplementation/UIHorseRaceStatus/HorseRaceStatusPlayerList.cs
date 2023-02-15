@@ -18,7 +18,7 @@ public class HorseRaceStatusPlayerList : UIComponent<HorseRaceStatusPlayerList.E
     public List<HorseRaceStatusPlayer> horseRaceStatusPlayerList = new List<HorseRaceStatusPlayer>();
     public float distanceToMove = 0.0f;
     public Vector2 destination = Vector2.zero;
-    private Vector2 originalPos;
+    public Vector2 originalPos;
     public RectTransform rectTransform;
 
     private void Awake()
@@ -48,8 +48,8 @@ public class HorseRaceStatusPlayerList : UIComponent<HorseRaceStatusPlayerList.E
             ChangePosition(this.entity.horseIdInLane[i], this.entity.horseIdInLane[i]);
         }
 
-        RectTransform lastPlayer = predefinePositions[(this.entity.horseIdInLane.Length - 1)];
-        distanceToMove = lastPlayer.anchoredPosition.x + lastPlayer.rect.width / 2;
+        var lastPlayer = predefinePositions[(this.entity.horseIdInLane.Length - 1)];
+        distanceToMove = this.rectTransform.sizeDelta.x - (lastPlayer.anchoredPosition.x + lastPlayer.rect.width / 2);
         destination = originalPos + new Vector2(distanceToMove, 0);
     }
 
