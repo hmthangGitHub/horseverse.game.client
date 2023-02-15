@@ -11,6 +11,9 @@ public class UIComponentBetModeResult : UIComponent<UIComponentBetModeResult.Ent
         public string horseName;
         public int horseNumber;
         public float time;
+        public UIComponentRaceRewardGroup.Entity rewardGroup;
+        public bool rewardGroupVisible;
+        public bool isSelfHorse;
     }
 
     public IsVisibleComponent bg;
@@ -18,6 +21,9 @@ public class UIComponentBetModeResult : UIComponent<UIComponentBetModeResult.Ent
     public FormattedTextComponent horseName;
     public UIComponentEnumInt horseNumber;
     public UIComponentTimeSpan time;
+    public UIComponentRaceRewardGroup rewardGroup;
+    public IsVisibleComponent rewardGroupVisible;
+    public IsVisibleComponent isSelfHorse;
 
     protected override void OnSetEntity()
     {
@@ -25,6 +31,9 @@ public class UIComponentBetModeResult : UIComponent<UIComponentBetModeResult.Ent
         horseName.SetEntity(this.entity.horseName);
         time.SetEntity(this.entity.time);
         horseNumber.SetEntity(this.entity.horseNumber);
+        rewardGroup.SetEntity(this.entity.rewardGroup);
+        rewardGroupVisible.SetEntity(this.entity.rewardGroupVisible);
+        isSelfHorse.SetEntity(this.entity.isSelfHorse);
         bg.SetEntity(this.transform.GetSiblingIndex() % 2 == 1);
     }
 }	
