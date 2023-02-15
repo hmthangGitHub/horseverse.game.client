@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 public class QuickRaceResultPresenter : IDisposable
 {
     private IDIContainer Container { get; }
-    private RaceSummaryResultPresenter raceSummaryResultPresenter;
+    private RacingModeSummaryResultPresenter racingSummaryResultPresenter;
 
     public QuickRaceResultPresenter(IDIContainer container)
     {
         Container = container;
-        raceSummaryResultPresenter = new RaceSummaryResultPresenter(Container);
+        racingSummaryResultPresenter = new RacingModeSummaryResultPresenter(Container);
     }
 
     public async UniTask ShowResultAsync()
     {
-        await raceSummaryResultPresenter.ShowSummaryResultAsync();
+        await racingSummaryResultPresenter.ShowSummaryResultAsync();
     }
     
     public void Dispose()
     {
-        DisposeUtility.SafeDispose(ref raceSummaryResultPresenter);
+        DisposeUtility.SafeDispose(ref racingSummaryResultPresenter);
     }
 }
