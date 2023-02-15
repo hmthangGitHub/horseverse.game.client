@@ -6,7 +6,7 @@ using Cysharp.Threading.Tasks;
 internal class RacingModeSummaryResultPresenter : IDisposable
 {
     private CancellationTokenSource cts;
-    private UIBetModeResult uiBetModeResult;
+    private UIRaceModeResult uiRaceModeResult;
     private HorseRaceContext horseRaceContext;
     private HorseRaceContext HorseRaceContext => horseRaceContext ??= Container.Inject<HorseRaceContext>();
     private IReadOnlyHorseRepository horseRepository;
@@ -24,9 +24,9 @@ internal class RacingModeSummaryResultPresenter : IDisposable
         cts = new CancellationTokenSource();
         
         var ucs = new UniTaskCompletionSource();
-        uiBetModeResult ??= await UILoader.Instantiate<UIBetModeResult>();
+        uiRaceModeResult ??= await UILoader.Instantiate<UIRaceModeResult>();
 
-        uiBetModeResult.SetEntity(new UIBetModeResult.Entity()
+        uiRaceModeResult.SetEntity(new UIRaceModeResult.Entity()
         {
             betModeResultList = new UIComponentBetModeResultList.Entity()
             {
@@ -54,15 +54,15 @@ internal class RacingModeSummaryResultPresenter : IDisposable
                 ucs.TrySetResult();
             })
         });
-        await uiBetModeResult.In();
+        await uiRaceModeResult.In();
         await ucs.Task.AttachExternalCancellation(cts.Token);
-        await uiBetModeResult.Out();
+        await uiRaceModeResult.Out();
     }
     
     public void Dispose()
     {
         DisposeUtility.SafeDispose(ref cts);
-        UILoader.SafeRelease(ref uiBetModeResult);
+        UILoader.SafeRelease(ref uiRaceModeResult);
         
         horseRaceContext = default;
     }
