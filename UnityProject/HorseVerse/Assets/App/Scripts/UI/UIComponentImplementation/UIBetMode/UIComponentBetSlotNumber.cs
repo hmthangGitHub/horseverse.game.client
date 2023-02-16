@@ -19,6 +19,7 @@ public class UIComponentBetSlotNumber : UIComponent<UIComponentBetSlotNumber.Ent
     {
         Number.SetEntity(this.entity.Number);
         var index = (this.entity.Number - 1) < BackgroundSprites.Count ? (this.entity.Number - 1) : 0;
+        index = Mathf.Clamp(index, 0, BackgroundSprites.Count - 1);
         var sprite = BackgroundSprites[index];
         Background.sprite = sprite;
     }
