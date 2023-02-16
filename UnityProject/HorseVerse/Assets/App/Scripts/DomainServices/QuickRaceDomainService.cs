@@ -125,6 +125,7 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
                         color4 = HorseRepository.GetColorFromHexCode(horseInfo.Color4),
                     },
                     Name = horseInfo.Name,
+                    NftHorseId = horseInfo.NftId,
                     PowerBonus = horseInfo.Bms,
                     PowerRatio = 1,
                     SpeedBonus = horseInfo.Mms,

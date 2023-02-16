@@ -23,6 +23,7 @@ public class HorseTrainingPresenter : IDisposable
     private UITrainingCoinCounting uiTrainingCoinCounting;
     private UITrainingPressAnyKey uiTrainingPressAnyKey;
     private UIHorseTrainingInput uiHorseTrainingInput;
+    private UITrainingTutorial uiTrainingTutorial;
 
     private ITrainingDomainService trainingDomainService;
 
@@ -62,6 +63,7 @@ public class HorseTrainingPresenter : IDisposable
         uiTrainingCoinCounting = await UILoader.Instantiate<UITrainingCoinCounting>(token: cts.Token);
         uiTrainingPressAnyKey = await UILoader.Instantiate<UITrainingPressAnyKey>(token: cts.Token);
         uiHorseTrainingInput = await UILoader.Instantiate<UIHorseTrainingInput>(token: cts.Token);
+        uiTrainingTutorial = await UILoader.Instantiate<UITrainingTutorial>(token: cts.Token);
         
         await horseTrainingManager.Initialize(
             masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.MasterMapId].MapPath,
@@ -74,28 +76,19 @@ public class HorseTrainingPresenter : IDisposable
             masterTrainingBlockDistributeContainer, 
             masterTrainingDifficultyContainer, 
             horseTrainingDataContext.HorseMeshInformation);
-        
-        uiTrainingPressAnyKey.SetEntity(new UITrainingPressAnyKey.Entity()
+    }
+
+    private void OnStartRunning()
+    {
+        uiTrainingCoinCounting.SetEntity(new UITrainingCoinCounting.Entity()
         {
-            outerBtn = new ButtonComponent.Entity(() =>
-            {
-                uiTrainingCoinCounting.SetEntity(new UITrainingCoinCounting.Entity()
-                {
-                    coin = 0,
-                    btnSetting = new ButtonComponent.Entity(UniTask.Action(async () => await OnBtnPauseClicked()))
-                });
-                uiTrainingCoinCounting.In().Forget();
-                uiTrainingPressAnyKey.Out().Forget();
-                horseTrainingManager.StartGame();
-                //uiHorseTrainingInput.SetEntity(new UIHorseTrainingInput.Entity()
-                //{
-                //    turning = horseTrainingManager.HorseTrainingController.ManualTurn,
-                //    jumpRight = new ButtonComponent.Entity(horseTrainingManager.HorseTrainingController.ManualJump),
-                //});
-                //uiHorseTrainingInput.In().Forget();
-                AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunTraining);
-            })
+            coin = 0,
+            btnSetting = new ButtonComponent.Entity(UniTask.Action(async () => await OnBtnPauseClicked()))
         });
+        uiTrainingCoinCounting.In().Forget();
+        
+        horseTrainingManager.StartGame();
+        AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunTraining);
     }
 
     private void OnUpdateRuntime()
@@ -107,7 +100,7 @@ public class HorseTrainingPresenter : IDisposable
     {
         await UniTask.Delay(1500, cancellationToken: cts.Token);
         SoundController.PlayMusicTrainingInGame();
-        uiTrainingPressAnyKey.In().Forget();
+        ShowInformationBeforeRunning();
         trainingUcsRetry = new UniTaskCompletionSource<bool>();
         var isNeedRetry =  await trainingUcsRetry.Task.AttachExternalCancellation(cts.Token);
 
@@ -128,6 +121,35 @@ public class HorseTrainingPresenter : IDisposable
 
         AudioManager.Instance.StopSound();
         return isNeedRetry;
+    }
+
+    private void ShowInformationBeforeRunning()
+    {
+        if (UserSettingLocalRepository.IsShownTrainingTutorial)
+        {
+            uiTrainingPressAnyKey.SetEntity(new UITrainingPressAnyKey.Entity()
+            {
+                outerBtn = new ButtonComponent.Entity(() =>
+                {
+                    uiTrainingPressAnyKey.Out().Forget();
+                    OnStartRunning();
+                })
+            });
+            uiTrainingPressAnyKey.In().Forget();
+        }
+        else
+        {
+            uiTrainingTutorial.SetEntity(new UITrainingTutorial.Entity()
+            {
+                runBtn = new ButtonComponent.Entity(() =>
+                {
+                    uiTrainingTutorial.Out().Forget();
+                    UserSettingLocalRepository.IsShownTrainingTutorial = true;
+                    OnStartRunning();
+                })
+            });
+            uiTrainingTutorial.In().Forget();
+        }
     }
 
     private async UniTask OnBtnPauseClicked()

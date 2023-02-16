@@ -8,6 +8,7 @@ public class RaceScriptData
 
 public class HorseRaceInfo
 {
+    public long NftHorseId { get; set; }
     public string Name { get; set; }
     public float DelayTime { get; set; }
     public MasterHorseMeshInformation MeshInformation { get; set; }
@@ -27,7 +28,7 @@ public class HorseRaceInfo
 
 public class HorseBetInfo
 {
-    public HorseDataModel[] horseInfos { get; set; }
+    public HorseDataModel[] HorseInfos { get; set; }
 }
 
 public class RaceSegmentTime

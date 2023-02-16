@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 
-internal class RaceSummaryResultPresenter : IDisposable
+internal class BetModeSummaryResultPresenter : IDisposable
 {
     private CancellationTokenSource cts;
     private UIBetModeResult uiBetModeResult;
@@ -16,7 +16,7 @@ internal class RaceSummaryResultPresenter : IDisposable
 
     BetMatchFullDataContext betMatchFullDataContext = default;
 
-    public RaceSummaryResultPresenter(IDIContainer container)
+    public BetModeSummaryResultPresenter(IDIContainer container)
     {
         this.Container = container;
     }

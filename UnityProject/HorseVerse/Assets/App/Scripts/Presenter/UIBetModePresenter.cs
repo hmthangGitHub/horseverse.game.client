@@ -318,9 +318,9 @@ public class UIBetModePresenter : IDisposable
 
     private UIComponentBetModeHorseInfoItem.Entity[] GetHorseInfo()
     {
-        if(horseBetInfo != default && horseBetInfo.horseInfos != default)
+        if(horseBetInfo != default && horseBetInfo.HorseInfos != default)
         {
-            int len = horseBetInfo.horseInfos.Length;
+            int len = horseBetInfo.HorseInfos.Length;
             var data = new List<UIComponentBetModeHorseInfoItem.Entity>();
             for(int i = 0; i < len; i++)
             {
@@ -329,10 +329,10 @@ public class UIBetModePresenter : IDisposable
                 var item = new UIComponentBetModeHorseInfoItem.Entity()
                 {
                     no = i + 1,
-                    horseName = horseBetInfo.horseInfos[i].Name,
-                    avgRec = horseBetInfo.horseInfos[i].AverageBettingRecord,
-                    bestRec = horseBetInfo.horseInfos[i].BestBettingRecord,
-                    lastMatch = horseBetInfo.horseInfos[i].LastBettingRecord,
+                    horseName = horseBetInfo.HorseInfos[i].Name,
+                    avgRec = horseBetInfo.HorseInfos[i].AverageBettingRecord,
+                    bestRec = horseBetInfo.HorseInfos[i].BestBettingRecord,
+                    lastMatch = horseBetInfo.HorseInfos[i].LastBettingRecord,
                     rate = BetRateRepository.Models[(i + 1, default)].Rate,
                     button = new ButtonSelectedComponent.Entity(()=> { OnUpdateHorseInfoView(index).Forget();}, index == 0)
                 };
@@ -359,7 +359,7 @@ public class UIBetModePresenter : IDisposable
             var curr = uiBetModeHorseInfo.horseList.instanceList[index];
             curr.button.SetSelected(true);
             currentHorseInfoView = index;
-            var horseInfo = horseBetInfo.horseInfos[index];
+            var horseInfo = horseBetInfo.HorseInfos[index];
             var entity = uiBetModeHorseInfo.entity;
             entity.horseDetail = new UIComponentHorseDetail.Entity()
             {

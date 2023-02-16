@@ -15,7 +15,7 @@ internal class BetModeRaceResultPresenter : IDisposable
     
     private HorseRaceContext horseRaceContext;
     private UserDataRepository userDataRepository;
-    private RaceSummaryResultPresenter raceSummaryResultPresenter;
+    private BetModeSummaryResultPresenter betModeSummaryResultPresenter;
 
     private HorseRaceContext HorseRaceContext => horseRaceContext ??= Container.Inject<HorseRaceContext>();
     private UserDataRepository UserDataRepository => userDataRepository ??= Container.Inject<UserDataRepository>();
@@ -23,14 +23,14 @@ internal class BetModeRaceResultPresenter : IDisposable
     public BetModeRaceResultPresenter(IDIContainer container)
     {
         this.Container = container;
-        raceSummaryResultPresenter = new RaceSummaryResultPresenter(Container);
+        betModeSummaryResultPresenter = new BetModeSummaryResultPresenter(Container);
     }
 
     public async UniTask ShowResultAsync()
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
-        await raceSummaryResultPresenter.ShowSummaryResultAsync();
+        await betModeSummaryResultPresenter.ShowSummaryResultAsync();
         await ShowRewardAsync();
         if (HorseRaceContext.BetMatchDataContext.TotalBetWin >= 0)
         {
@@ -65,6 +65,6 @@ internal class BetModeRaceResultPresenter : IDisposable
         UILoader.SafeRelease(ref uiBetModeResult);
         UILoader.SafeRelease(ref uiPricePoolAndTime);
         UILoader.SafeRelease(ref uiBetReward);
-        DisposeUtility.SafeDispose(ref raceSummaryResultPresenter);
+        DisposeUtility.SafeDispose(ref betModeSummaryResultPresenter);
     }
 }

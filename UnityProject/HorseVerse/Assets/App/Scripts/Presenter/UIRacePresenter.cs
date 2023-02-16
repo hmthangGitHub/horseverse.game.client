@@ -65,27 +65,12 @@ public partial class UIRacePresenter : IDisposable
             raceRoomInfo = new UIComponentRaceRoomInfo.Entity()
             {
                 horseRankRequirement = GetRankRequirement(),
-                rewardGroup1st = CreateRewardGroup(1),
-                rewardGroup2nd = CreateRewardGroup(2),
-                rewardGroup3rd = CreateRewardGroup(3),
+                rewardGroup1st = UIComponentRaceRewardGroupFactory.CreateRewardGroup(1, HorseRaceContext.RaceMatchDataContext.RacingRoomType),
+                rewardGroup2nd = UIComponentRaceRewardGroupFactory.CreateRewardGroup(2, HorseRaceContext.RaceMatchDataContext.RacingRoomType),
+                rewardGroup3rd = UIComponentRaceRewardGroupFactory.CreateRewardGroup(3, HorseRaceContext.RaceMatchDataContext.RacingRoomType),
             }
         });
         uiQuickMode.In().Forget();
-    }
-
-    private UIComponentRaceRewardGroup.Entity CreateRewardGroup(int rank)
-    {
-        return new UIComponentRaceRewardGroup.Entity()
-        {
-            chestNumber = GetRewardAmount(RewardType.Chest, rank),
-            coinNumber = GetRewardAmount(RewardType.Chip, rank)
-        };
-    }
-
-    private int GetRewardAmount(RewardType rewardType, int rank)
-    {
-        return (int)(UserSettingLocalRepository.MasterDataModel.RacingRewardInfos[(HorseRaceContext.RaceMatchDataContext.RacingRoomType, rank)]
-                                               .FirstOrDefault(x => x.Type == rewardType)?.Amount ?? 0);
     }
 
     private UIComponentHorseRankRequirement.HorseRank GetRankRequirement()

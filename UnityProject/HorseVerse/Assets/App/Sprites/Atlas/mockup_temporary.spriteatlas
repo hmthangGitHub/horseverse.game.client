@@ -37,6 +37,7 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 2d91b9105c621674fac1a0e46e4c8a14, type: 3}
   - {fileID: 21300000, guid: 87dc6c307d0ce934ab01e08279b99769, type: 3}
   - {fileID: 21300000, guid: a1d04870d9b44e4499ed45797cc16521, type: 3}
   - {fileID: 21300000, guid: b60680c0d7f5f2b4081f23156fff02b6, type: 3}
@@ -44,17 +45,20 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 3a596042322d6ce469f64a3f0b109ea9, type: 3}
   - {fileID: 21300000, guid: cdad9552f064d394da69105390c0b17a, type: 3}
   - {fileID: 21300000, guid: 97245bf226e0de4468e39a61052838e4, type: 3}
+  - {fileID: 21300000, guid: 97ec7214b4644604a9dfc16535515ee7, type: 3}
   - {fileID: 21300000, guid: 923118159d52b6a40b35a251902ca982, type: 3}
   - {fileID: 21300000, guid: 0a85c546f4c1a484e97c1431e6e74578, type: 3}
   - {fileID: 21300000, guid: 130c6a463bbd94d42900ecc70a488920, type: 3}
   - {fileID: 21300000, guid: 6e0fffa7cfd50ec4cba7000fc1a800ad, type: 3}
   - {fileID: 21300000, guid: 30aaf868ee0e6d94ca1e07624b80b459, type: 3}
   - {fileID: 21300000, guid: 3421cd88b77b38a44afe3e6baee866ee, type: 3}
+  - {fileID: 21300000, guid: e15a7b2e8c01d7b49b86d565e0f16392, type: 3}
   - {fileID: 21300000, guid: 27819a5ea9b130b4693452cc0f3bc6e4, type: 3}
   - {fileID: 21300000, guid: 5a29dccef2970444dac5f781f73ec162, type: 3}
   - {fileID: 21300000, guid: 9d9df93f1ac1a4640b07a75657aea2c5, type: 3}
   - {fileID: 21300000, guid: dc036c4f1f76f574cab40da3573f8f6a, type: 3}
   m_PackedSpriteNamesToIndex:
+  - jump_point
   - 1x1 bg
   - back_btn
   - image 1
@@ -62,12 +66,14 @@ SpriteAtlas:
   - goal
   - Rectangle 4
   - search_icon
+  - swipeUp
   - duplicate
   - energy
   - coin_icon
   - shuffle
   - sport-g2bf86e501_640
   - find_match_btn
+  - hand
   - border
   - 1x1 bg 1
   - race_type

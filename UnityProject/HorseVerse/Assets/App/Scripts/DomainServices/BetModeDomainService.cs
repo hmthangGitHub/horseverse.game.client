@@ -159,7 +159,7 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
         }).ToArray();
         return new HorseBetInfo()
         {
-            horseInfos = data
+            HorseInfos = data
         };
     }
          
