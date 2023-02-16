@@ -13,6 +13,7 @@ public class UIBetModePresenter : IDisposable
     private UIBetMode uiBetMode = default;
     private UIBetConfirmation uiBetConfirmation = default;
     private CancellationTokenSource cts = default;
+    private CancellationTokenSource askForConfirmCts = default;
     private readonly IDIContainer container = default;
     private UIBetModeHorseInfo uiBetModeHorseInfo = default;
 
@@ -127,9 +128,13 @@ public class UIBetModePresenter : IDisposable
                 changeRaceBtn = new ButtonComponent.Entity(ChangeRaceBtn),
                 timeCountDown = new UIComponentCountDownTimer.Entity()
                 {
-                    outDatedEvent = () => OnChangeToRaceModeAsync().Forget(),
-                    utcEndTimeStamp = (int)BetMatchRepository.Current.BetMatchTimeStamp
-                    // utcEndTimeStamp = 1671611174
+                    outDatedEvent = () =>
+                    {
+                        askForConfirmCts.SafeCancelAndDispose();
+                        OnChangeToRaceModeAsync()
+                            .Forget();
+                    },
+                    utcEndTimeStamp = (int)BetMatchRepository.Current.BetMatchTimeStamp - 1,
                 },
                 header = new UIHeader.Entity()
                 {
@@ -177,7 +182,7 @@ public class UIBetModePresenter : IDisposable
 
     private async UniTaskVoid OnChangeToRaceModeAsync()
     {
-        await UITouchDisablePresenter.Delay(1.5f);
+        await UITouchDisablePresenter.Delay(2.5f);
         if (BetRateRepository.Models.Any(x => x.Value.TotalBet > 0))
         {
             var betMatchData = await BetModeDomainService.GetCurrentBetMatchData();
@@ -248,27 +253,30 @@ public class UIBetModePresenter : IDisposable
         }
         else
         {
-            var ucs = new UniTaskCompletionSource<bool>();
-            uiBetConfirmation.SetEntity(new UIBetConfirmation.Entity()
+            askForConfirmCts.SafeCancelAndDispose();
+            askForConfirmCts = new CancellationTokenSource();
+            try
             {
-                cancelBtn = new ButtonComponent.Entity(() =>
+                var ucs = new UniTaskCompletionSource<bool>();
+                uiBetConfirmation.SetEntity(new UIBetConfirmation.Entity()
                 {
-                    ucs.TrySetResult(false);
-                }),
-                confirmBtn = new ButtonComponent.Entity(() =>
-                {
-                    ucs.TrySetResult(true);
-                }),
-                showAgain = new UIComponentToggle.Entity()
-                {
-                    isOn = UserSettingLocalRepository.IsSkipConfirmBet,
-                    onActiveToggle = val => UserSettingLocalRepository.IsSkipConfirmBet = val
-                }
-            });
-            await uiBetConfirmation.In().AttachExternalCancellation(cts.Token);
-            await ucs.Task.AttachExternalCancellation(cts.Token);
-            await uiBetConfirmation.Out().AttachExternalCancellation(cts.Token);
-            return ucs.Task.GetAwaiter().GetResult();
+                    cancelBtn = new ButtonComponent.Entity(() => { ucs.TrySetResult(false); }),
+                    confirmBtn = new ButtonComponent.Entity(() => { ucs.TrySetResult(true); }),
+                    showAgain = new UIComponentToggle.Entity()
+                    {
+                        isOn = UserSettingLocalRepository.IsSkipConfirmBet,
+                        onActiveToggle = val => UserSettingLocalRepository.IsSkipConfirmBet = val
+                    }
+                });
+                await uiBetConfirmation.In()
+                                       .AttachExternalCancellation(askForConfirmCts.Token);
+                await ucs.Task.AttachExternalCancellation(askForConfirmCts.Token);
+                return ucs.Task.GetAwaiter().GetResult();
+            }
+            finally
+            {
+                await uiBetConfirmation.Out().AttachExternalCancellation(cts.Token);
+            }
         }
     }
 
@@ -406,10 +414,9 @@ public class UIBetModePresenter : IDisposable
     
     public void Dispose()
     {
-        ctsInfo.SafeCancelAndDispose();
-        ctsInfo = default;
-        cts.SafeCancelAndDispose();
-        cts = default;
+        DisposeUtility.SafeDispose(ref askForConfirmCts);
+        DisposeUtility.SafeDispose(ref ctsInfo);
+        DisposeUtility.SafeDispose(ref cts);
         UILoader.SafeRelease(ref uiBetMode);
         UILoader.SafeRelease(ref uiBetConfirmation);
         UILoader.SafeRelease(ref uiBetModeHorseInfo);

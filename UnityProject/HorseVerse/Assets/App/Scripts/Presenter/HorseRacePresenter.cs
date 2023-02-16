@@ -265,5 +265,6 @@ public partial class HorseRacePresenter : IDisposable
         
         DisposeUtility.SafeDispose(ref raceModeHorseIntroPresenter);
         AudioManager.Instance.StopSound();
+        Time.timeScale = 1.0f;
     }
 }
