@@ -293,6 +293,7 @@ public class HorseTrainingPresenter : IDisposable
         UILoader.SafeRelease(ref uiTrainingCoinCounting);
         UILoader.SafeRelease(ref uiTrainingPressAnyKey);
         UILoader.SafeRelease(ref uiHorseTrainingInput);
+        UILoader.SafeRelease(ref uiTrainingTutorial);
         MasterLoader.SafeRelease(ref masterMapContainer);
         MasterLoader.SafeRelease(ref masterHorseContainer);
         MasterLoader.SafeRelease(ref masterHorseTrainingPropertyContainer);

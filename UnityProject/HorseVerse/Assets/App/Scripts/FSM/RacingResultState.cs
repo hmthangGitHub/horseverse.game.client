@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 public class RacingResultState : InjectedBState
 {
     private UIBackGroundPresenter uiBackGroundPresenter;
+    private QuickRaceResultPresenter presenter;
     private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
     public override void Enter()
     {
@@ -15,8 +16,14 @@ public class RacingResultState : InjectedBState
     private async UniTask OnStateEnterAsync()
     {
         await UIBackGroundPresenter.ShowBackGroundAsync();
-        using var presenter = new QuickRaceResultPresenter(Container);
+        presenter = new QuickRaceResultPresenter(Container);
         await presenter.ShowResultAsync();
         this.GetSuperMachine<RootFSM>().ChangeToChildStateRecursive<RacingMenuState>();
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        DisposeUtility.SafeDispose(ref presenter);
     }
 }

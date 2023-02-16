@@ -27,7 +27,7 @@ public class HorseRaceState : InjectedBHState
     {
         horseRacePresenter = new HorseRacePresenter(Container);
         horseRacePresenter.OnToBetModeResultState += ToBetModeResultState;
-        horseRacePresenter.OnToQuickRaceModeResultState += ToQuickRaceResultState;
+        horseRacePresenter.OnToQuickRaceModeResultState += ToRacingResultState;
         UIBackGroundPresenter.ReleaseBackGround();
 
         await horseRacePresenter.LoadAssetAsync();
@@ -51,7 +51,7 @@ public class HorseRaceState : InjectedBHState
         this.ChangeState<BetModeRaceResultState>();
     }
 
-    private void ToQuickRaceResultState()
+    private void ToRacingResultState()
     {
         horseRacePresenter.Dispose();
         this.ChangeState<RacingResultState>();
@@ -71,7 +71,7 @@ public class HorseRaceState : InjectedBHState
 
         uiLoadingPresenter = default;
         horseRacePresenter.OnToBetModeResultState -= ToBetModeResultState;
-        horseRacePresenter.OnToQuickRaceModeResultState -= ToQuickRaceResultState;
+        horseRacePresenter.OnToQuickRaceModeResultState -= ToRacingResultState;
         DisposeUtility.SafeDispose(ref horseRacePresenter);
     }
 }
