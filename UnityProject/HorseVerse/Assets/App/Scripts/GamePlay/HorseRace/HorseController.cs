@@ -147,10 +147,8 @@ public partial class HorseController : MonoBehaviour
 
     private bool IsReachTarget()
     {
-        return Vector3.Dot((PredefineTargets[currentTargetIndex]
-                   .target - Transform.position), PredefineTargets[currentTargetIndex]
-                   .rotation * Vector3.forward) <= 0.0f
-               || DistanceToCurrentTarget() <= 0.5f;
+        return Vector3.Dot((PredefineTargets[currentTargetIndex].target - Transform.position), PredefineTargets[currentTargetIndex].rotation * Vector3.forward) <= 0.0f
+               || DistanceToCurrentTarget() <= 1.0f;
     }
 
     private float DistanceToCurrentTarget()
