@@ -94,7 +94,7 @@ public class UIHeaderPresenter : IDisposable
     private async UniTask OnSetting()
     {
         var ucs = new UniTaskCompletionSource();
-        uiSetting ??= await UILoader.Instantiate<UIPopUpSettings>(token: cts.Token);
+        uiSetting ??= await UILoader.Instantiate<UIPopUpSettings>(UICanvas.UICanvasType.PopUp, token: cts.Token);
         bool _LogOut = false;
         uiSetting.SetEntity(new UIPopUpSettings.Entity()
         {
