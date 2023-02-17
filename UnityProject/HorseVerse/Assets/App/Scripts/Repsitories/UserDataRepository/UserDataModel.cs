@@ -4,7 +4,6 @@
     public long Coin { get; set; }
     public string UserName { get; set; }
     public int AccountType { get; set; }
-    public int MaxEnergy { get; set; }
     public int Energy { get; set; }
     public long CurrentHorseNftId { get; set; }
     public long TraningTimeStamp { get; set; }

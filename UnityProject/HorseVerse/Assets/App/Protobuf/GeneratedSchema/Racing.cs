@@ -24,55 +24,56 @@ namespace io.hverse.game.protogen {
     static RacingReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgxyYWNpbmcucHJvdG8aCmRhdGEucHJvdG8igAQKDVJhY2luZ01lc3NhZ2US",
-            "IwoHbXNnVHlwZRgBIAEoDjISLlJhY2luZ01lc3NhZ2VUeXBlEi0KEXJhY2VT",
-            "Y3JpcHRSZXF1ZXN0GAIgASgLMhIuUmFjZVNjcmlwdFJlcXVlc3QSLwoScmFj",
-            "ZVNjcmlwdFJlc3BvbnNlGAMgASgLMhMuUmFjZVNjcmlwdFJlc3BvbnNlEikK",
-            "D2pvaW5Sb29tUmVxdWVzdBgEIAEoCzIQLkpvaW5Sb29tUmVxdWVzdBIrChBq",
-            "b2luUm9vbVJlc3BvbnNlGAUgASgLMhEuSm9pblJvb21SZXNwb25zZRIpCg9l",
-            "eGl0Um9vbVJlcXVlc3QYBiABKAsyEC5FeGl0Um9vbVJlcXVlc3QSKwoQZXhp",
-            "dFJvb21SZXNwb25zZRgHIAEoCzIRLkV4aXRSb29tUmVzcG9uc2USLQoRdXBk",
-            "YXRlUm9vbVJlY2VpcHQYCCABKAsyEi5VcGRhdGVSb29tUmVjZWlwdBIrChBz",
-            "dGFydFJvb21SZWNlaXB0GAkgASgLMhEuU3RhcnRSb29tUmVjZWlwdBItChFn",
-            "ZXRIaXN0b3J5UmVxdWVzdBgKIAEoCzISLkdldEhpc3RvcnlSZXF1ZXN0Ei8K",
-            "EmdldEhpc3RvcnlSZXNwb25zZRgLIAEoCzITLkdldEhpc3RvcnlSZXNwb25z",
-            "ZSKTAQoKSG9yc2VTdGF0cxIMCgR0aW1lGAEgASgCEhEKCWxhbmVTdGFydBgC",
-            "IAEoBRIPCgdsYW5lRW5kGAMgASgFEhEKCWRlbGF5VGltZRgEIAEoAhIPCgdz",
-            "dGFtaW5hGAUgASgFEhAKCHBvc2l0aW9uGAYgASgFEgwKBHJhbmsYByABKAUS",
-            "DwoHaG9yc2VJZBgIIAEoAyJECgVQaGFzZRINCgVzdGFydBgBIAEoBRILCgNl",
-            "bmQYAiABKAUSHwoKaG9yc2VTdGF0cxgDIAMoCzILLkhvcnNlU3RhdHMiWQoK",
-            "UmFjZVNjcmlwdBIWCgZwaGFzZXMYASADKAsyBi5QaGFzZRITCgt0b3RhbExl",
-            "bmd0aBgCIAEoBRIeCgpob3JzZUluZm9zGAMgAygLMgouSG9yc2VJbmZvIhMK",
-            "EVJhY2VTY3JpcHRSZXF1ZXN0IjUKElJhY2VTY3JpcHRSZXNwb25zZRIfCgpy",
-            "YWNlU2NyaXB0GAEgASgLMgsuUmFjZVNjcmlwdCJ0CghSYWNlUm9vbRIOCgZy",
-            "b29tSWQYASABKAMSHQoFbGV2ZWwYAiABKA4yDi5SYWNlUm9vbUxldmVsEhkK",
-            "EXRpbWVUb1N0YXJ0UmFjaW5nGAMgASgDEh4KCmhvcnNlSW5mb3MYBCADKAsy",
-            "Ci5Ib3JzZUluZm8iQwoPSm9pblJvb21SZXF1ZXN0Eh8KCnJhY2luZ01vZGUY",
-            "ASABKA4yCy5SYWNpbmdNb2RlEg8KB2hvcnNlSWQYAiABKAMiQwoQSm9pblJv",
-            "b21SZXNwb25zZRISCgpyZXN1bHRDb2RlGAEgASgFEhsKCHJhY2VSb29tGAIg",
-            "ASgLMgkuUmFjZVJvb20iIgoPRXhpdFJvb21SZXF1ZXN0Eg8KB2hvcnNlSWQY",
-            "ASABKAMiJgoQRXhpdFJvb21SZXNwb25zZRISCgpyZXN1bHRDb2RlGAEgASgF",
-            "ImsKEFN0YXJ0Um9vbVJlY2VpcHQSHwoKcmFjZVNjcmlwdBgBIAEoCzILLlJh",
-            "Y2VTY3JpcHQSHAoHcmV3YXJkcxgCIAMoCzILLlJld2FyZEluZm8SGAoQZnJl",
-            "ZVJhY2luZ051bWJlchgDIAEoBSKrAQoKUmFjZVJlY29yZBIOCgZyb29tSWQY",
-            "ASABKAMSHQoFbGV2ZWwYAiABKA4yDi5SYWNlUm9vbUxldmVsEhUKDXRpbWVT",
-            "dGFydFJhY2UYAyABKAMSHQoJaG9yc2VJbmZvGAQgASgLMgouSG9yc2VJbmZv",
-            "EgwKBHJhbmsYBSABKAUSDAoEbGFuZRgGIAEoBRIcCgdyZXdhcmRzGAcgAygL",
-            "MgsuUmV3YXJkSW5mbyITChFHZXRIaXN0b3J5UmVxdWVzdCJGChJHZXRIaXN0",
-            "b3J5UmVzcG9uc2USEgoKcmVzdWx0Q29kZRgBIAEoBRIcCgdyZWNvcmRzGAIg",
-            "AygLMgsuUmFjZVJlY29yZCIwChFVcGRhdGVSb29tUmVjZWlwdBIbCghyYWNl",
-            "Um9vbRgBIAEoCzIJLlJhY2VSb29tKogCChFSYWNpbmdNZXNzYWdlVHlwZRIX",
-            "ChNSQUNFX1NDUklQVF9SRVFVRVNUEAASGAoUUkFDRV9TQ1JJUFRfUkVTUE9O",
-            "U0UQARIVChFKT0lOX1JPT01fUkVRVUVTVBACEhYKEkpPSU5fUk9PTV9SRVNQ",
-            "T05TRRADEhUKEUVYSVRfUk9PTV9SRVFVRVNUEAQSFgoSRVhJVF9ST09NX1JF",
-            "U1BPTlNFEAUSFwoTVVBEQVRFX1JPT01fUkVDRUlQVBAGEhYKElNUQVJUX1JP",
-            "T01fUkVDRUlQVBAHEhcKE0dFVF9ISVNUT1JZX1JFUVVFU1QQCBIYChRHRVRf",
-            "SElTVE9SWV9SRVNQT05TRRAJKkMKClJhY2luZ01vZGUSDwoLVFJBRElUSU9O",
-            "QUwQABIKCgZTVEFCTEUQARIICgRSQU5LEAISDgoKVE9VUk5BTUVOVBADQkkK",
-            "F2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuQhRSYWNpbmdNZXNzYWdlRmFjdG9y",
-            "eaoCF2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuYgZwcm90bzM="));
+            "CgxyYWNpbmcucHJvdG8aCmRhdGEucHJvdG8aDHBsYXllci5wcm90byKABAoN",
+            "UmFjaW5nTWVzc2FnZRIjCgdtc2dUeXBlGAEgASgOMhIuUmFjaW5nTWVzc2Fn",
+            "ZVR5cGUSLQoRcmFjZVNjcmlwdFJlcXVlc3QYAiABKAsyEi5SYWNlU2NyaXB0",
+            "UmVxdWVzdBIvChJyYWNlU2NyaXB0UmVzcG9uc2UYAyABKAsyEy5SYWNlU2Ny",
+            "aXB0UmVzcG9uc2USKQoPam9pblJvb21SZXF1ZXN0GAQgASgLMhAuSm9pblJv",
+            "b21SZXF1ZXN0EisKEGpvaW5Sb29tUmVzcG9uc2UYBSABKAsyES5Kb2luUm9v",
+            "bVJlc3BvbnNlEikKD2V4aXRSb29tUmVxdWVzdBgGIAEoCzIQLkV4aXRSb29t",
+            "UmVxdWVzdBIrChBleGl0Um9vbVJlc3BvbnNlGAcgASgLMhEuRXhpdFJvb21S",
+            "ZXNwb25zZRItChF1cGRhdGVSb29tUmVjZWlwdBgIIAEoCzISLlVwZGF0ZVJv",
+            "b21SZWNlaXB0EisKEHN0YXJ0Um9vbVJlY2VpcHQYCSABKAsyES5TdGFydFJv",
+            "b21SZWNlaXB0Ei0KEWdldEhpc3RvcnlSZXF1ZXN0GAogASgLMhIuR2V0SGlz",
+            "dG9yeVJlcXVlc3QSLwoSZ2V0SGlzdG9yeVJlc3BvbnNlGAsgASgLMhMuR2V0",
+            "SGlzdG9yeVJlc3BvbnNlIpMBCgpIb3JzZVN0YXRzEgwKBHRpbWUYASABKAIS",
+            "EQoJbGFuZVN0YXJ0GAIgASgFEg8KB2xhbmVFbmQYAyABKAUSEQoJZGVsYXlU",
+            "aW1lGAQgASgCEg8KB3N0YW1pbmEYBSABKAUSEAoIcG9zaXRpb24YBiABKAUS",
+            "DAoEcmFuaxgHIAEoBRIPCgdob3JzZUlkGAggASgDIkQKBVBoYXNlEg0KBXN0",
+            "YXJ0GAEgASgFEgsKA2VuZBgCIAEoBRIfCgpob3JzZVN0YXRzGAMgAygLMgsu",
+            "SG9yc2VTdGF0cyJZCgpSYWNlU2NyaXB0EhYKBnBoYXNlcxgBIAMoCzIGLlBo",
+            "YXNlEhMKC3RvdGFsTGVuZ3RoGAIgASgFEh4KCmhvcnNlSW5mb3MYAyADKAsy",
+            "Ci5Ib3JzZUluZm8iEwoRUmFjZVNjcmlwdFJlcXVlc3QiNQoSUmFjZVNjcmlw",
+            "dFJlc3BvbnNlEh8KCnJhY2VTY3JpcHQYASABKAsyCy5SYWNlU2NyaXB0InQK",
+            "CFJhY2VSb29tEg4KBnJvb21JZBgBIAEoAxIdCgVsZXZlbBgCIAEoDjIOLlJh",
+            "Y2VSb29tTGV2ZWwSGQoRdGltZVRvU3RhcnRSYWNpbmcYAyABKAMSHgoKaG9y",
+            "c2VJbmZvcxgEIAMoCzIKLkhvcnNlSW5mbyJDCg9Kb2luUm9vbVJlcXVlc3QS",
+            "HwoKcmFjaW5nTW9kZRgBIAEoDjILLlJhY2luZ01vZGUSDwoHaG9yc2VJZBgC",
+            "IAEoAyJDChBKb2luUm9vbVJlc3BvbnNlEhIKCnJlc3VsdENvZGUYASABKAUS",
+            "GwoIcmFjZVJvb20YAiABKAsyCS5SYWNlUm9vbSIiCg9FeGl0Um9vbVJlcXVl",
+            "c3QSDwoHaG9yc2VJZBgBIAEoAyImChBFeGl0Um9vbVJlc3BvbnNlEhIKCnJl",
+            "c3VsdENvZGUYASABKAUicgoQU3RhcnRSb29tUmVjZWlwdBIfCgpyYWNlU2Ny",
+            "aXB0GAEgASgLMgsuUmFjZVNjcmlwdBIcCgdyZXdhcmRzGAIgAygLMgsuUmV3",
+            "YXJkSW5mbxIfCgpwbGF5ZXJJbmZvGAMgASgLMgsuUGxheWVySW5mbyKrAQoK",
+            "UmFjZVJlY29yZBIOCgZyb29tSWQYASABKAMSHQoFbGV2ZWwYAiABKA4yDi5S",
+            "YWNlUm9vbUxldmVsEhUKDXRpbWVTdGFydFJhY2UYAyABKAMSHQoJaG9yc2VJ",
+            "bmZvGAQgASgLMgouSG9yc2VJbmZvEgwKBHJhbmsYBSABKAUSDAoEbGFuZRgG",
+            "IAEoBRIcCgdyZXdhcmRzGAcgAygLMgsuUmV3YXJkSW5mbyITChFHZXRIaXN0",
+            "b3J5UmVxdWVzdCJGChJHZXRIaXN0b3J5UmVzcG9uc2USEgoKcmVzdWx0Q29k",
+            "ZRgBIAEoBRIcCgdyZWNvcmRzGAIgAygLMgsuUmFjZVJlY29yZCIwChFVcGRh",
+            "dGVSb29tUmVjZWlwdBIbCghyYWNlUm9vbRgBIAEoCzIJLlJhY2VSb29tKogC",
+            "ChFSYWNpbmdNZXNzYWdlVHlwZRIXChNSQUNFX1NDUklQVF9SRVFVRVNUEAAS",
+            "GAoUUkFDRV9TQ1JJUFRfUkVTUE9OU0UQARIVChFKT0lOX1JPT01fUkVRVUVT",
+            "VBACEhYKEkpPSU5fUk9PTV9SRVNQT05TRRADEhUKEUVYSVRfUk9PTV9SRVFV",
+            "RVNUEAQSFgoSRVhJVF9ST09NX1JFU1BPTlNFEAUSFwoTVVBEQVRFX1JPT01f",
+            "UkVDRUlQVBAGEhYKElNUQVJUX1JPT01fUkVDRUlQVBAHEhcKE0dFVF9ISVNU",
+            "T1JZX1JFUVVFU1QQCBIYChRHRVRfSElTVE9SWV9SRVNQT05TRRAJKkMKClJh",
+            "Y2luZ01vZGUSDwoLVFJBRElUSU9OQUwQABIKCgZTVEFCTEUQARIICgRSQU5L",
+            "EAISDgoKVE9VUk5BTUVOVBADQkkKF2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2Vu",
+            "QhRSYWNpbmdNZXNzYWdlRmFjdG9yeaoCF2lvLmh2ZXJzZS5nYW1lLnByb3Rv",
+            "Z2VuYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::io.hverse.game.protogen.DataReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::io.hverse.game.protogen.DataReflection.Descriptor, global::io.hverse.game.protogen.PlayerReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.RacingMessageType), typeof(global::io.hverse.game.protogen.RacingMode), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RacingMessage), global::io.hverse.game.protogen.RacingMessage.Parser, new[]{ "MsgType", "RaceScriptRequest", "RaceScriptResponse", "JoinRoomRequest", "JoinRoomResponse", "ExitRoomRequest", "ExitRoomResponse", "UpdateRoomReceipt", "StartRoomReceipt", "GetHistoryRequest", "GetHistoryResponse" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseStats), global::io.hverse.game.protogen.HorseStats.Parser, new[]{ "Time", "LaneStart", "LaneEnd", "DelayTime", "Stamina", "Position", "Rank", "HorseId" }, null, null, null, null),
@@ -85,7 +86,7 @@ namespace io.hverse.game.protogen {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.JoinRoomResponse), global::io.hverse.game.protogen.JoinRoomResponse.Parser, new[]{ "ResultCode", "RaceRoom" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ExitRoomRequest), global::io.hverse.game.protogen.ExitRoomRequest.Parser, new[]{ "HorseId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ExitRoomResponse), global::io.hverse.game.protogen.ExitRoomResponse.Parser, new[]{ "ResultCode" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.StartRoomReceipt), global::io.hverse.game.protogen.StartRoomReceipt.Parser, new[]{ "RaceScript", "Rewards", "FreeRacingNumber" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.StartRoomReceipt), global::io.hverse.game.protogen.StartRoomReceipt.Parser, new[]{ "RaceScript", "Rewards", "PlayerInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RaceRecord), global::io.hverse.game.protogen.RaceRecord.Parser, new[]{ "RoomId", "Level", "TimeStartRace", "HorseInfo", "Rank", "Lane", "Rewards" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetHistoryRequest), global::io.hverse.game.protogen.GetHistoryRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetHistoryResponse), global::io.hverse.game.protogen.GetHistoryResponse.Parser, new[]{ "ResultCode", "Records" }, null, null, null, null),
@@ -3223,7 +3224,7 @@ namespace io.hverse.game.protogen {
     public StartRoomReceipt(StartRoomReceipt other) : this() {
       raceScript_ = other.raceScript_ != null ? other.raceScript_.Clone() : null;
       rewards_ = other.rewards_.Clone();
-      freeRacingNumber_ = other.freeRacingNumber_;
+      playerInfo_ = other.playerInfo_ != null ? other.playerInfo_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -3256,15 +3257,15 @@ namespace io.hverse.game.protogen {
       get { return rewards_; }
     }
 
-    /// <summary>Field number for the "freeRacingNumber" field.</summary>
-    public const int FreeRacingNumberFieldNumber = 3;
-    private int freeRacingNumber_;
+    /// <summary>Field number for the "playerInfo" field.</summary>
+    public const int PlayerInfoFieldNumber = 3;
+    private global::io.hverse.game.protogen.PlayerInfo playerInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int FreeRacingNumber {
-      get { return freeRacingNumber_; }
+    public global::io.hverse.game.protogen.PlayerInfo PlayerInfo {
+      get { return playerInfo_; }
       set {
-        freeRacingNumber_ = value;
+        playerInfo_ = value;
       }
     }
 
@@ -3285,7 +3286,7 @@ namespace io.hverse.game.protogen {
       }
       if (!object.Equals(RaceScript, other.RaceScript)) return false;
       if(!rewards_.Equals(other.rewards_)) return false;
-      if (FreeRacingNumber != other.FreeRacingNumber) return false;
+      if (!object.Equals(PlayerInfo, other.PlayerInfo)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -3295,7 +3296,7 @@ namespace io.hverse.game.protogen {
       int hash = 1;
       if (raceScript_ != null) hash ^= RaceScript.GetHashCode();
       hash ^= rewards_.GetHashCode();
-      if (FreeRacingNumber != 0) hash ^= FreeRacingNumber.GetHashCode();
+      if (playerInfo_ != null) hash ^= PlayerInfo.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -3319,9 +3320,9 @@ namespace io.hverse.game.protogen {
         output.WriteMessage(RaceScript);
       }
       rewards_.WriteTo(output, _repeated_rewards_codec);
-      if (FreeRacingNumber != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(FreeRacingNumber);
+      if (playerInfo_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(PlayerInfo);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -3338,9 +3339,9 @@ namespace io.hverse.game.protogen {
         output.WriteMessage(RaceScript);
       }
       rewards_.WriteTo(ref output, _repeated_rewards_codec);
-      if (FreeRacingNumber != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(FreeRacingNumber);
+      if (playerInfo_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(PlayerInfo);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -3356,8 +3357,8 @@ namespace io.hverse.game.protogen {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(RaceScript);
       }
       size += rewards_.CalculateSize(_repeated_rewards_codec);
-      if (FreeRacingNumber != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(FreeRacingNumber);
+      if (playerInfo_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayerInfo);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -3378,8 +3379,11 @@ namespace io.hverse.game.protogen {
         RaceScript.MergeFrom(other.RaceScript);
       }
       rewards_.Add(other.rewards_);
-      if (other.FreeRacingNumber != 0) {
-        FreeRacingNumber = other.FreeRacingNumber;
+      if (other.playerInfo_ != null) {
+        if (playerInfo_ == null) {
+          PlayerInfo = new global::io.hverse.game.protogen.PlayerInfo();
+        }
+        PlayerInfo.MergeFrom(other.PlayerInfo);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -3407,8 +3411,11 @@ namespace io.hverse.game.protogen {
             rewards_.AddEntriesFrom(input, _repeated_rewards_codec);
             break;
           }
-          case 24: {
-            FreeRacingNumber = input.ReadInt32();
+          case 26: {
+            if (playerInfo_ == null) {
+              PlayerInfo = new global::io.hverse.game.protogen.PlayerInfo();
+            }
+            input.ReadMessage(PlayerInfo);
             break;
           }
         }
@@ -3437,8 +3444,11 @@ namespace io.hverse.game.protogen {
             rewards_.AddEntriesFrom(ref input, _repeated_rewards_codec);
             break;
           }
-          case 24: {
-            FreeRacingNumber = input.ReadInt32();
+          case 26: {
+            if (playerInfo_ == null) {
+              PlayerInfo = new global::io.hverse.game.protogen.PlayerInfo();
+            }
+            input.ReadMessage(PlayerInfo);
             break;
           }
         }
