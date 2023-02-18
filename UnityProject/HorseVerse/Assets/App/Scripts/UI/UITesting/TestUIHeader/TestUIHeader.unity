@@ -254,6 +254,7 @@ MonoBehaviour:
         m_PersistentCalls:
           m_Calls: []
       isInteractable: 1
+    energyVisible: 0
 --- !u!1 &594668833
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,18 +599,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4850524477555049944, guid: 3807de52fe7bc8646ab855f86510e266, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4850524478756745440, guid: 3807de52fe7bc8646ab855f86510e266, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -858.1001
-      objectReference: {fileID: 0}
-    - target: {fileID: 4850524478756745440, guid: 3807de52fe7bc8646ab855f86510e266, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 4.000061
-      objectReference: {fileID: 0}
-    - target: {fileID: 5581939920355114008, guid: 3807de52fe7bc8646ab855f86510e266, type: 3}
-      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
