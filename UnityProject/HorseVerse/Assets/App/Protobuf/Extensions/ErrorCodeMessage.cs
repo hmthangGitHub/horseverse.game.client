@@ -7,7 +7,7 @@ namespace io.hverse.game.protogen
     public sealed partial class CombinePiecesResponse : IErrorCodeMessage {}
     public sealed partial class EmailCodeResponse : IErrorCodeMessage {}
     public sealed partial class ExitRoomResponse : IErrorCodeMessage {}
-    public sealed partial class GetHistoryResponse : IErrorCodeMessage {}
+    public sealed partial class GetRaceHistoryResponse : IErrorCodeMessage {}
     public sealed partial class JoinRoomResponse : IErrorCodeMessage {}
     public sealed partial class MailboxInfoResponse : IErrorCodeMessage {}
     public sealed partial class MailRewardsResponse : IErrorCodeMessage {}

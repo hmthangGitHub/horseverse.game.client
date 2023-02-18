@@ -13,25 +13,25 @@ namespace io.hverse.game.protogen
         public RacingMessage(RaceScriptRequest request)
         {
             this.msgType_ = RacingMessageType.RaceScriptRequest;
-            raceScriptRequest_ = request;
+            RaceScriptRequest = request;
         }
         
         public RacingMessage(JoinRoomRequest request)
         {
             this.msgType_ = RacingMessageType.JoinRoomRequest;
-            joinRoomRequest_ = request;
+            JoinRoomRequest = request;
         }
 
         public RacingMessage(ExitRoomRequest request)
         {
             this.msgType_ = RacingMessageType.ExitRoomRequest;
-            exitRoomRequest_ = request;
+            ExitRoomRequest = request;
         }
 
-        public RacingMessage(GetHistoryRequest request)
+        public RacingMessage(GetRaceHistoryRequest request)
         {
-            this.msgType_ = RacingMessageType.GetHistoryRequest;
-            getHistoryRequest_ = request;
+            this.msgType_ = RacingMessageType.GetRaceHistoryRequest;
+            GetRaceHistoryRequest = request;
         }
     }
 }
