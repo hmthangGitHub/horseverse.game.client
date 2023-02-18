@@ -128,7 +128,7 @@ public partial class HorseRacePresenter : IDisposable
         using var linkedToken = CancellationTokenSource.CreateLinkedTokenSource(statusCts.Token, token);
         while (!linkedToken.Token.IsCancellationRequested)
         {
-            await UniTask.WaitForFixedUpdate(cancellationToken : linkedToken.Token);
+            await UniTask.Yield(cancellationToken : linkedToken.Token);
             UpdateRaceStatus();
         }
     }

@@ -17,7 +17,7 @@ public class UserDataRepository : Repository<long, PlayerInfo, UserDataModel>, I
         return new UserDataModel()
         {
             Coin = x.Chip,
-            Energy = x.Energy,
+            Energy = 0,
             CurrentHorseNftId = x.CurrentHorse.NftId,
             UserId = x.Id,
             UserName = x.Name,
@@ -44,7 +44,15 @@ public class UserDataRepository : Repository<long, PlayerInfo, UserDataModel>, I
         newModel.CurrentHorseNftId = nftHorseId;
         await UpdateModelAsync(new[] { newModel });
     }
-    
+
+    public async UniTask UpdateLightPlayerInfoAsync(LitePlayerInfo litePlayerInfo)
+    {
+        var newModel = Current.Clone();
+        newModel.Coin = litePlayerInfo.Chip;
+        newModel.DailyRacingNumberLeft = litePlayerInfo.FreeRacingNumber;
+        await UpdateModelAsync(new[] { newModel });
+    }
+
     private static UniTask<IEnumerable<PlayerInfo>> GetUserDataModels()
     {
         return UniTask.FromResult(Enumerable.Empty<PlayerInfo>());
@@ -61,4 +69,5 @@ public interface IUserDataRepository : IRepository<long, PlayerInfo, UserDataMod
     UserDataModel Current { get; }
     UniTask UpdateCoin(long coin);
     UniTask UpdateHorse(long nftHorseId);
+    UniTask UpdateLightPlayerInfoAsync(LitePlayerInfo litePlayerInfo);
 }

@@ -15,7 +15,7 @@ public class RacingHistoryRepository : Repository<long , RacingHistory, RacingHi
 
     private static async UniTask<IEnumerable<RacingHistory>> GetData(ISocketClient socketClient)
     {
-        var historyResponse = await socketClient.Send<GetHistoryRequest, GetHistoryResponse>(new GetHistoryRequest());
+        var historyResponse = await socketClient.Send<GetRaceHistoryRequest, GetRaceHistoryResponse>(new GetRaceHistoryRequest());
         return historyResponse.Records.Select(x => new RacingHistory()
         {
             Rank = x.Rank,
