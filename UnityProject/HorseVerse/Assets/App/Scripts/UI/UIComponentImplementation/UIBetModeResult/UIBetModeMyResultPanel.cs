@@ -12,9 +12,9 @@ public class UIBetModeMyResultPanel : UIComponent<UIBetModeMyResultPanel.Entity>
     {
         public UIComponentBetModeMyResultList.Entity betModeMyResultList;
         public int horseNumberFirst;
-        public int horseNameFirst;
+        public string horseNameFirst;
         public int horseNumberSecond;
-        public int horseNameSecond;
+        public string horseNameSecond;
     }
 
     public CanvasGroup canvasGroup;
