@@ -319,23 +319,7 @@ public class LoginStatePresenter : IDisposable
             // GetMasterData 
             var masterData = await GetMasterData();
             UpdateMasterData(masterData);
-
-
-            var model = new UserDataModel()
-            {
-                Coin = res.PlayerInfo.Chip,
-                Energy = res.PlayerInfo.Energy,
-                CurrentHorseNftId = res.PlayerInfo.CurrentHorse.NftId,
-                MaxEnergy = masterData?.MaxHappinessNumber ?? 0,
-                UserId = res.PlayerInfo.Id,
-                UserName = res.PlayerInfo.Name,
-                Exp = 0,
-                Level = 1,
-                NextLevelExp = 1,
-                TraningTimeStamp = 0,
-                DailyRacingNumberLeft = res.PlayerInfo.FreeRacingNumber
-            };
-            await UserDataRepository.UpdateDataAsync(new UserDataModel[] { model });
+            await UserDataRepository.UpdateDataAsync(new[] { res.PlayerInfo });
             var featurePresent = this.container.Inject<FeaturePresenter>();
             featurePresent.SetFeatureList(GetFeatureList(res));
 #if MULTI_ACCOUNT
@@ -348,7 +332,6 @@ public class LoginStatePresenter : IDisposable
         }
         else
         {
-            //throw new Exception("Login Failed");
             await ShowMessagePopUp("NOTICE", LanguageManager.GetText($"RESULT_CODE_{res.ResultCode}"));
             return false;
         }

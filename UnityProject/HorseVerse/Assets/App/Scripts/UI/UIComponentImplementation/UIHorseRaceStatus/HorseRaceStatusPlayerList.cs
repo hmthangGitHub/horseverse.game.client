@@ -67,10 +67,12 @@ public class HorseRaceStatusPlayerList : UIComponent<HorseRaceStatusPlayerList.E
 
     public void ChangePosition(int lane, int toPosition)
     {
-        var rectTransfrom = horseRaceStatusPlayerList[lane].transform as RectTransform;
-        rectTransfrom.DOKill(false);
+        var rectTransform = horseRaceStatusPlayerList[lane].transform as RectTransform;
+        rectTransform.DOKill(false);
         var destination = predefinePositions[(this.entity.horseIdInLane.Length - 1) - toPosition].anchoredPosition;
-        rectTransfrom.DOAnchorPos(destination, 0.25f).SetEase(Ease.InOutSine);
+        rectTransform.DOAnchorPos(destination, 0.25f)
+                     .SetEase(Ease.InOutSine)
+                     .SetUpdate(true);
     }
 
     public string GetName(int lane)

@@ -3,12 +3,30 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using io.hverse.game.protogen;
 using UnityEngine;
 
-public class UserDataRepository : Repository<long, UserDataModel, UserDataModel>, IReadOnlyUserDataRepository, IUserDataRepository
+public class UserDataRepository : Repository<long, PlayerInfo, UserDataModel>, IReadOnlyUserDataRepository, IUserDataRepository
 {
-    public UserDataRepository() : base(x => x.UserId, x => x, GetUserDataModels)
+    public UserDataRepository() : base(x => x.UserId, FromPlayerInfoToUserDataModel, GetUserDataModels)
     {
+    }
+
+    private static UserDataModel FromPlayerInfoToUserDataModel(PlayerInfo x)
+    {
+        return new UserDataModel()
+        {
+            Coin = x.Chip,
+            Energy = x.Energy,
+            CurrentHorseNftId = x.CurrentHorse.NftId,
+            UserId = x.Id,
+            UserName = x.Name,
+            Exp = 0,
+            Level = 1,
+            NextLevelExp = 1,
+            TraningTimeStamp = 0,
+            DailyRacingNumberLeft = x.FreeRacingNumber
+        };
     }
 
     public UserDataModel Current { get { if (Models.Count == 0) return default; return Models.First().Value; } }
@@ -27,16 +45,9 @@ public class UserDataRepository : Repository<long, UserDataModel, UserDataModel>
         await UpdateModelAsync(new[] { newModel });
     }
     
-    public async UniTask UpdateDailyRacingNumber(int dailyRacingNumber)
+    private static UniTask<IEnumerable<PlayerInfo>> GetUserDataModels()
     {
-        var newModel = Current.Clone();
-        newModel.DailyRacingNumberLeft = dailyRacingNumber;
-        await UpdateModelAsync(new[] { newModel });
-    }
-
-    private static UniTask<IEnumerable<UserDataModel>> GetUserDataModels()
-    {
-        return UniTask.FromResult(Enumerable.Empty<UserDataModel>());
+        return UniTask.FromResult(Enumerable.Empty<PlayerInfo>());
     }
 }
 
@@ -45,10 +56,9 @@ public interface IReadOnlyUserDataRepository : IReadOnlyRepository<long, UserDat
     UserDataModel Current { get; }
 }
 
-public interface IUserDataRepository : IRepository<long, UserDataModel, UserDataModel> 
+public interface IUserDataRepository : IRepository<long, PlayerInfo, UserDataModel> 
 {
     UserDataModel Current { get; }
     UniTask UpdateCoin(long coin);
     UniTask UpdateHorse(long nftHorseId);
-    UniTask UpdateDailyRacingNumber(int dailyRacingNumber);
 }

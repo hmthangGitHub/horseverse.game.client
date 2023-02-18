@@ -56,7 +56,7 @@ public class UIHeaderPresenter : IDisposable
             {
                 coin = UserDataRepository.Current.Coin,
                 energy = UserDataRepository.Current.Energy,
-                maxEnergy = UserDataRepository.Current.MaxEnergy,
+                maxEnergy = UserSettingLocalRepository.MasterDataModel.MaxHappinessNumber,
                 userName = UserDataRepository.Current.UserName,
                 backBtn = new ButtonComponent.Entity(() => OnBack()),
                 settingBtn = new ButtonComponent.Entity(() => OnSetting().Forget())

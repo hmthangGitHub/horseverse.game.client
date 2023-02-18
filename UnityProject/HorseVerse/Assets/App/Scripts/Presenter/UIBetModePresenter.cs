@@ -141,7 +141,7 @@ public class UIBetModePresenter : IDisposable
                     coin = userDataRepository.Current.Coin,
                     userName = userDataRepository.Current.UserName,
                     energy = UserDataRepository.Current.Energy,
-                    maxEnergy = UserDataRepository.Current.MaxEnergy,
+                    maxEnergy = UserSettingLocalRepository.MasterDataModel.MaxHappinessNumber,
                     backBtn = new ButtonComponent.Entity(() => TransitionAsync(OnBack).Forget()),
                 }
             },

@@ -37,7 +37,7 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
         messageBroker.UnSubscribe(callback);
     }
 
-    public async UniTask<TResponse> Send<TRequest, TResponse>(TRequest request, float timeOut = 3.0f, CancellationToken token = default(CancellationToken)) where TRequest : IMessage
+    public async UniTask<TResponse> Send<TRequest, TResponse>(TRequest request, float timeOut = 10.0f, CancellationToken token = default(CancellationToken)) where TRequest : IMessage
                                                                                 where TResponse : IMessage
     {
         Debug.Log($"Sending request {request.GetType()} {request}");
