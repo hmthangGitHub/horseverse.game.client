@@ -32,10 +32,7 @@ internal class BetModeRaceResultPresenter : IDisposable
         cts = new CancellationTokenSource();
         await betModeSummaryResultPresenter.ShowSummaryResultAsync();
         await ShowRewardAsync();
-        if (HorseRaceContext.BetMatchDataContext.TotalBetWin >= 0)
-        {
-            await UserDataRepository.UpdateCoin(UserDataRepository.Current.Coin + HorseRaceContext.BetMatchDataContext.TotalBetWin);
-        }
+        await UserDataRepository.UpdateCoin(UserDataRepository.Current.Coin + HorseRaceContext.BetMatchDataContext.TotalBetWin);
     }
 
     private async UniTask ShowRewardAsync()

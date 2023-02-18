@@ -31,6 +31,7 @@ public class StartUpState : InjectedBHState
         errorHandler.OnError += OnReboot;
         startUpStateHandler = new StartUpStatePresenter();
         startUpStateHandler.OnReboot += OnReboot;
+        await startUpStateHandler.ShowClientInfoAsync();
         Container.Bind(startUpStateHandler);
     }
 

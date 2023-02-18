@@ -13,6 +13,7 @@ public class UICanvas : MonoBehaviour
         Loading,
         Debug,
         Error,
+        Info
     }
 
     public static Canvas GetCanvas(UICanvasType canvasType)
@@ -26,6 +27,7 @@ public class UICanvas : MonoBehaviour
             UICanvasType.Loading => LoadingCanvas,
             UICanvasType.Debug => DebugCanvas,
             UICanvasType.Error => ErrorCanvas,
+            UICanvasType.Info => ClientInfoCanvas,
             _ => DefaultCanvas
         };
     }
@@ -44,6 +46,8 @@ public class UICanvas : MonoBehaviour
     private Canvas debugUICanvas;
     [SerializeField]
     private Canvas errorUICanvas;
+    [SerializeField]
+    private Canvas clientInfoCanvas;
 
     private static Canvas BackgroundCanvas { get; set; }
     private static Canvas DefaultCanvas { get; set; }
@@ -52,6 +56,7 @@ public class UICanvas : MonoBehaviour
     private static Canvas LoadingCanvas { get; set; }
     private static Canvas DebugCanvas { get; set; }
     private static Canvas ErrorCanvas { get; set; }
+    private static Canvas ClientInfoCanvas { get; set; }
 
     private void Awake()
     {
@@ -62,5 +67,6 @@ public class UICanvas : MonoBehaviour
         PopUpUICanvas = popUpUICanvas;
         DebugCanvas = debugUICanvas;
         ErrorCanvas = errorUICanvas;
+        ClientInfoCanvas = clientInfoCanvas;
     }
 }

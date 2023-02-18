@@ -59,7 +59,8 @@ public class UIHeaderPresenter : IDisposable
                 maxEnergy = UserSettingLocalRepository.MasterDataModel.MaxHappinessNumber,
                 userName = UserDataRepository.Current.UserName,
                 backBtn = new ButtonComponent.Entity(() => OnBack()),
-                settingBtn = new ButtonComponent.Entity(() => OnSetting().Forget())
+                settingBtn = new ButtonComponent.Entity(() => OnSetting().Forget()),
+                energyVisible = false
             });
         }
     }

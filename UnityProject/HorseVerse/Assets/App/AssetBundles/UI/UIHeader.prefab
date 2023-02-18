@@ -594,6 +594,7 @@ MonoBehaviour:
   settingBtn: {fileID: 4850524477576259708}
   backBtnVisible: {fileID: 3182468608603480501}
   title: {fileID: 7592625091639893065}
+  energyVisible: {fileID: 4850524477724623118}
 --- !u!114 &666211247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1329,8 +1330,9 @@ GameObject:
   - component: {fileID: 4850524478756745440}
   - component: {fileID: 4850524478756745446}
   - component: {fileID: 4850524478756745447}
+  - component: {fileID: 4850524477724623118}
   m_Layer: 5
-  m_Name: energyContainer
+  m_Name: energyVisible
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1354,7 +1356,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -858.1, y: 4.0000534}
+  m_AnchoredPosition: {x: -858.1001, y: 4.000061}
   m_SizeDelta: {x: 356, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4850524478756745446
@@ -1395,6 +1397,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4850524477724623118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4850524478756745441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7271959bb393bd542b9b33c6cf6ce36e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObject: {fileID: 4850524478756745441}
 --- !u!1 &4850524478846466196
 GameObject:
   m_ObjectHideFlags: 0

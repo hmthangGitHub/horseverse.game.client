@@ -17,6 +17,7 @@ public class UIHeader : PopupEntity<UIHeader.Entity>
         public string title;
         public ButtonComponent.Entity backBtn;
         public ButtonComponent.Entity settingBtn;
+        public bool energyVisible;
     }
 
     public IsVisibleComponent userNameVisible;
@@ -27,6 +28,7 @@ public class UIHeader : PopupEntity<UIHeader.Entity>
     public ButtonComponent settingBtn;
     public IsVisibleComponent backBtnVisible;
     public FormattedTextComponent title;
+    public IsVisibleComponent energyVisible;
     
     protected override void OnSetEntity()
     {
@@ -38,6 +40,7 @@ public class UIHeader : PopupEntity<UIHeader.Entity>
         settingBtn.SetEntity(this.entity.settingBtn);
         backBtnVisible.SetEntity(this.entity.backBtnVisible);
         userNameVisible.SetEntity(!this.entity.backBtnVisible);
+        energyVisible.SetEntity(this.entity.energyVisible);
     }
 
     public void SetVisibleBackBtn(bool visible)

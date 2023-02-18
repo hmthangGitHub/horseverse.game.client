@@ -40,15 +40,17 @@ internal class BetModeSummaryResultPresenter : IDisposable
     {
         var ucs = new UniTaskCompletionSource();
 
+        var horseRaceWithOrdered = HorseRaceContext.RaceScriptData.HorseRaceInfos
+                                                .Select((horseRaceInfo, index) => (horseRaceInfo, index))
+                                                .OrderBy(x => x.horseRaceInfo.RaceSegments.Sum(segment => segment.Time) + x.horseRaceInfo.DelayTime)
+                                                .ToArray();
         uiBetModeResult.SetEntity(new UIBetModeResult.Entity()
         {
             betModeResultPanel = new UIBetModeResultPanel.Entity()
             {
                 betModeResultList = new UIComponentBetModeResultList.Entity()
                 {
-                    entities = HorseRaceContext.RaceScriptData.HorseRaceInfos
-                                        .Select((horseRaceInfo, index) => (horseRaceInfo, index))
-                    .OrderBy(x => x.horseRaceInfo.RaceSegments.Sum(segment => segment.Time) + x.horseRaceInfo.DelayTime)
+                    entities = horseRaceWithOrdered
                     .Select((x, i) => new UIComponentBetModeResult.Entity()
                     {
                         horseName = x.horseRaceInfo.Name,
@@ -67,12 +69,16 @@ internal class BetModeSummaryResultPresenter : IDisposable
                     {
                         rate = x.rate,
                         isDoubleBet = x.doubleBet,
-                        horseNumberPrediction = x.pool_1 - 1, // Convert from server value to client value
-                        horseNumberSecondPrediction = x.pool_2 - 1,
+                        horseNumberFirst = x.pool_1, // Convert from server value to client value
+                        horseNumberSecond = x.pool_2,
                         result = x.winMoney,
                         spend = x.betMoney,
                     }).ToArray()
                 },
+                horseNameFirst = horseRaceWithOrdered[0].horseRaceInfo.Name,
+                horseNumberFirst = horseRaceWithOrdered[0].horseRaceInfo.RaceSegments[0].ToLane,
+                horseNameSecond = horseRaceWithOrdered[1].horseRaceInfo.Name,
+                horseNumberSecond = horseRaceWithOrdered[1].horseRaceInfo.RaceSegments[0].ToLane
             },
             nextBtn = new ButtonComponent.Entity(() =>
             {

@@ -15,6 +15,14 @@ public class UIComponentBetSlotNumber : UIComponent<UIComponentBetSlotNumber.Ent
     public Image Background; 
     public List<Sprite> BackgroundSprites;
 
+    public void SetEntity(int number)
+    {
+        SetEntity(new Entity()
+        {
+            Number = number
+        });
+    }
+    
     protected override void OnSetEntity()
     {
         Number.SetEntity(this.entity.Number);

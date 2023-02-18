@@ -77,7 +77,7 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
 
     private void StartRoomReceiptResponse(StartRoomReceipt raceScriptResponse)
     {
-        UserDataRepository.UpdateDataAsync(new [] {raceScriptResponse.PlayerInfo}).Forget();
+        UserDataRepository.UpdateLightPlayerInfoAsync(raceScriptResponse.PlayerInfo).Forget();
         findMatchUcs.TrySetResult(raceScriptResponse);
         SocketClient.UnSubscribe<StartRoomReceipt>(StartRoomReceiptResponse);
         SocketClient.UnSubscribe<UpdateRoomReceipt>(UpdateRoomReceiptResponse);

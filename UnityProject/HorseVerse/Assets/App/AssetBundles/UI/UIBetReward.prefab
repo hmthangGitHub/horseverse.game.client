@@ -284,6 +284,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 2730768823091179519}
+  sfxName: Click
+  enableSFX: 1
 --- !u!1 &5193662561270913864
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,7 +578,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: YOUR REWARD
+  m_text: RESULT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 063d9d21debc62c47ae1db59e24c1769, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e7ef32816d0c1144a9484869306a025d, type: 2}
@@ -609,7 +611,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 30
   m_fontSizeMax: 82
-  m_fontStyle: 3
+  m_fontStyle: 19
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
