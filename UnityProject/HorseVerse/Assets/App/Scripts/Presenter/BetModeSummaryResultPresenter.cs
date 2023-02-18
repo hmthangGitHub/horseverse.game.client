@@ -67,8 +67,8 @@ internal class BetModeSummaryResultPresenter : IDisposable
                     {
                         rate = x.rate,
                         isDoubleBet = x.doubleBet,
-                        horseNumberPrediction = x.pool_1 - 1, // Convert from server value to client value
-                        horseNumberSecondPrediction = x.pool_2 - 1,
+                        horseNumberFirst = x.pool_1, // Convert from server value to client value
+                        horseNumberSecond = x.pool_2,
                         result = x.winMoney,
                         spend = x.betMoney,
                     }).ToArray()

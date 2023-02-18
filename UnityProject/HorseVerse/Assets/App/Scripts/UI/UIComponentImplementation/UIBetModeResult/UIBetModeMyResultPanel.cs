@@ -19,9 +19,9 @@ public class UIBetModeMyResultPanel : UIComponent<UIBetModeMyResultPanel.Entity>
 
     public CanvasGroup canvasGroup;
     public UIComponentBetModeMyResultList betModeMyResultList;
-    public UIComponentEnumInt horseNumberFirst;
+    public UIComponentBetSlotNumber horseNumberFirst;
     public FormattedTextComponent horseNameFirst;
-    public UIComponentEnumInt horseNumberSecond;
+    public UIComponentBetSlotNumber horseNumberSecond;
     public FormattedTextComponent horseNameSecond;
 
     protected override void OnSetEntity()

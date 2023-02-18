@@ -8,8 +8,8 @@ public class UIComponentBetModeMyResult : UIComponent<UIComponentBetModeMyResult
     public class Entity
     {
         public bool isDoubleBet;
-        public int horseNumberPrediction;
-        public int horseNumberSecondPrediction;
+        public int horseNumberFirst;
+        public int horseNumberSecond;
         public float rate;
         public int spend;
         public int result;
@@ -18,8 +18,8 @@ public class UIComponentBetModeMyResult : UIComponent<UIComponentBetModeMyResult
     public IsVisibleComponent bg;
     public FormattedTextComponent rate;
     public FormattedTextComponent spend;
-    public UIComponentEnumInt horseNumberPrediction;
-    public UIComponentEnumInt horseNumberSecondPrediction;
+    public UIComponentBetSlotNumber horseNumberFirst;
+    public UIComponentBetSlotNumber horseNumberSecond;
     public FormattedTextComponent result;
 
     protected override void OnSetEntity()
@@ -27,14 +27,14 @@ public class UIComponentBetModeMyResult : UIComponent<UIComponentBetModeMyResult
         rate.SetEntity(this.entity.rate);
         spend.SetEntity(this.entity.spend);
         result.SetEntity(this.entity.result);
-        horseNumberPrediction.SetEntity(this.entity.horseNumberPrediction);
+        horseNumberFirst.SetEntity(this.entity.horseNumberFirst);
         if (this.entity.isDoubleBet)
         {
-            horseNumberSecondPrediction.gameObject.SetActive(true);
-            horseNumberSecondPrediction.SetEntity(this.entity.horseNumberSecondPrediction);
+            horseNumberSecond.gameObject.SetActive(true);
+            horseNumberSecond.SetEntity(this.entity.horseNumberSecond);
         }
         else
-            horseNumberSecondPrediction.gameObject.SetActive(false);
+            horseNumberSecond.gameObject.SetActive(false);
         bg.SetEntity(this.transform.GetSiblingIndex() % 2 == 1);
     }
 }
