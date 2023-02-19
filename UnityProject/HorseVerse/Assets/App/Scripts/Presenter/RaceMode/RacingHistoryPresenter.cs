@@ -1,19 +1,24 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
+using io.hverse.game.protogen;
 
 public class RacingHistoryPresenter : IDisposable
 {
     private readonly IDIContainer container;
     private UIRacingHistory uiRacingHistory;
     private CancellationTokenSource cts;
+    private RaceHistoryResultDetailPresenter raceHistoryResultDetailPresenter;
+    private HorseRaceInfoFactory horseRaceInfoFactory;
+    private ISocketClient socketClient;
+    
     private IReadOnlyRacingHistoryRepository racingHistoryRepository;
     private IReadOnlyRacingHistoryRepository RacingHistoryRepository => racingHistoryRepository ??= container.Inject<IReadOnlyRacingHistoryRepository>();
-
+    private HorseRaceInfoFactory HorseRaceInfoFactory => horseRaceInfoFactory ??= container.Inject<HorseRaceInfoFactory>();
+    private ISocketClient SocketClient => socketClient ??= container.Inject<ISocketClient>();
+    public Action<RaceScriptData> OnReplay = ActionUtility.EmptyAction<RaceScriptData>.Instance; 
+    
     public RacingHistoryPresenter(IDIContainer container)
     {
         this.container = container;
@@ -42,12 +47,24 @@ public class RacingHistoryPresenter : IDisposable
                     matchId = x.MatchId,
                     viewResultBtn = new ButtonComponent.Entity(() =>
                     {
-                        
+                        raceHistoryResultDetailPresenter ??= new RaceHistoryResultDetailPresenter(container);
+                        raceHistoryResultDetailPresenter.ShowResultDetail(x.MatchId).Forget();
                     }),
-                    viewRaceScriptBtn = new ButtonComponent.Entity(() =>
+                    viewRaceScriptBtn = new ButtonComponent.Entity(UniTask.Action(async () =>
                     {
+                        var response = await SocketClient.Send<GetRaceReplayRequest, GetRaceReplayResponse>(new GetRaceReplayRequest()
+                        {
+                            RoomId = x.MatchId
+                        });
                         
-                    })
+                        await uiRacingHistory.Out();
+                        
+                        OnReplay.Invoke(new RaceScriptData()
+                        {
+                            HorseRaceInfos = HorseRaceInfoFactory.GetHorseRaceInfos(response.Script),
+                            MasterMapId = RacingState.MasterMapId
+                        });
+                    }))
                 }).ToArray()
             }
         });
@@ -58,6 +75,7 @@ public class RacingHistoryPresenter : IDisposable
     public void Dispose()
     {
         DisposeUtility.SafeDispose(ref cts);
+        DisposeUtility.SafeDispose(ref raceHistoryResultDetailPresenter);
         UILoader.SafeRelease(ref uiRacingHistory);
     }
 }
