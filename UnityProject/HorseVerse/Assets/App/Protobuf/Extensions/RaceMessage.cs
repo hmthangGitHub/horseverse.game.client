@@ -33,5 +33,17 @@ namespace io.hverse.game.protogen
             this.msgType_ = RacingMessageType.GetRaceHistoryRequest;
             GetRaceHistoryRequest = request;
         }
+
+        public RacingMessage(GetRaceDetailRequest request)
+        {
+            this.msgType_ = RacingMessageType.GetRaceDetailRequest;
+            GetRaceDetailRequest = request;
+        }
+
+        public RacingMessage(GetRaceReplayRequest request)
+        {
+            this.msgType_ = RacingMessageType.GetRaceReplayRequest;
+            GetRaceReplayRequest = request;
+        }
     }
 }

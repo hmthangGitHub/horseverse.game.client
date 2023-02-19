@@ -35,7 +35,8 @@ public class RacingMatchFindingState : InjectedBState
         UiHorse3DViewPresenter.Dispose();
         UIHeaderPresenter.Dispose();
         HorseRaceContext.RaceScriptData = data;
-        ((IState)Machine).Machine.ChangeState<HorseRaceState>();
+        HorseRaceContext.RaceMatchDataContext.IsReplay = false;
+        ((IState)Machine).Machine.ChangeState<HorseRaceActionState>();
     }
 
     private void OnCancelFindMatch()

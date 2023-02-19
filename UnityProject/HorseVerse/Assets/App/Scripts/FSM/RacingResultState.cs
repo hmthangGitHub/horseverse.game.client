@@ -7,6 +7,9 @@ public class RacingResultState : InjectedBState
     private UIBackGroundPresenter uiBackGroundPresenter;
     private QuickRaceResultPresenter presenter;
     private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
+    private HorseRaceContext horseRaceContext;
+    private HorseRaceContext HorseRaceContext => horseRaceContext ??= Container.Inject<HorseRaceContext>();
+    
     public override void Enter()
     {
         base.Enter();
@@ -16,9 +19,16 @@ public class RacingResultState : InjectedBState
     private async UniTask OnStateEnterAsync()
     {
         await UIBackGroundPresenter.ShowBackGroundAsync();
-        presenter = new QuickRaceResultPresenter(Container);
-        await presenter.ShowResultAsync();
-        this.GetSuperMachine<RootFSM>().ChangeToChildStateRecursive<RacingMenuState>();
+        if (HorseRaceContext.RaceMatchDataContext.IsReplay == false)
+        {
+            presenter = new QuickRaceResultPresenter(Container);
+            await presenter.ShowResultAsync();
+            this.GetSuperMachine<RootFSM>().ChangeToChildStateRecursive<RacingMenuState>();
+        }
+        else
+        {
+            this.GetSuperMachine<RootFSM>().ChangeToChildStateRecursive<RacingHistoryState>();
+        }
     }
 
     public override void Exit()

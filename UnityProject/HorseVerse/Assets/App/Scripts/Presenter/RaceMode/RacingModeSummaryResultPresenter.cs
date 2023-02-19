@@ -31,7 +31,7 @@ internal class RacingModeSummaryResultPresenter : IDisposable
             betModeResultList = new UIComponentBetModeResultList.Entity()
             {
                 entities = HorseRaceContext.RaceScriptData.HorseRaceInfos
-                                             .Select((horseRaceInfo, index) => (horseRaceInfo , index))
+                                             .Select(horseRaceInfo => (horseRaceInfo , lane : horseRaceInfo.RaceSegments.First().ToLane))
                                              .OrderBy(x => x.horseRaceInfo.RaceSegments.Sum(segment => segment.Time) + x.horseRaceInfo.DelayTime)
                                              .Select((x, i) =>
                                              {
@@ -41,7 +41,7 @@ internal class RacingModeSummaryResultPresenter : IDisposable
                                                      horseName = x.horseRaceInfo.Name,
                                                      time = x.horseRaceInfo.RaceSegments.Sum(segment => segment.Time) + x.horseRaceInfo.DelayTime,
                                                      no = rank,
-                                                     horseNumber = x.index,
+                                                     horseNumber = x.lane,
                                                      rewardGroupVisible = HorseRaceContext.GameMode == HorseGameMode.Race,
                                                      rewardGroup = UIComponentRaceRewardGroupFactory.CreateRewardGroup(rank, HorseRaceContext.RaceMatchDataContext.RacingRoomType),
                                                      isSelfHorse = HorseRepository.Models.ContainsKey(x.horseRaceInfo.NftHorseId)

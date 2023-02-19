@@ -44,6 +44,7 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.Bind(PingDomainService.Instantiate(Container));
         this.Container.Bind(new FeaturePresenter(Container));
         this.Container.Bind(new HorseRaceContext());
+        this.Container.Bind(new HorseRaceInfoFactory(Container));
         uiHeaderPresenter.OnLogOut += OnLogOut;
         base.Enter();
 
@@ -68,8 +69,8 @@ public class InitialState : InjectedBHState, IDisposable
 
         AddState<LoadingState>();
         AddState<LoginState>();
-        AddState<QuickRaceState>();
-        AddState<HorseRaceState>();
+        AddState<RacingState>();
+        AddState<HorseRaceActionState>();
         AddState<BetModeState>();
         AddState<MainMenuState>();
         AddState<TrainingState>();
@@ -86,6 +87,7 @@ public class InitialState : InjectedBHState, IDisposable
     public void Dispose()
     {
         uiHeaderPresenter.OnLogOut -= OnLogOut;
+        this.Container.RemoveAndDisposeIfNeed<HorseRaceInfoFactory>();
         this.Container.RemoveAndDisposeIfNeed<HorseRaceContext>();
         this.Container.RemoveAndDisposeIfNeed<FeaturePresenter>();
         this.Container.RemoveAndDisposeIfNeed<PingDomainService>();

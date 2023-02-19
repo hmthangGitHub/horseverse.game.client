@@ -20,7 +20,7 @@ public partial class MasterDataGenerator
                                                                  bool valueAsFormatted,
                                                                  CancellationToken ct = default)
     {
-        if (string.IsNullOrEmpty(SpreadsheetManager.Config.gdr?.refresh_token))
+        if (string.IsNullOrEmpty(SpreadsheetManager.Config.gdr?.refresh_token) || string.IsNullOrEmpty(SpreadsheetManager.Config.gdr?.access_token))
         {
             GoogleAuthrisationHelper.BuildHttpListener();
         }

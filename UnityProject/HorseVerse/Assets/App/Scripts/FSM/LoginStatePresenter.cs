@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Threading;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using io.hverse.game.protogen;
 using UnityEngine;
-using ClientInfo = io.hverse.game.protogen.ClientInfo;
+using UnityEngine.ResourceManagement.Exceptions;
+using UnityEngine.UI;
+using ProtoClientInfo = io.hverse.game.protogen.ClientInfo;
 using Platform = io.hverse.game.protogen.Platform;
 
 public class LoginStatePresenter : IDisposable
@@ -18,6 +21,7 @@ public class LoginStatePresenter : IDisposable
     private CancellationTokenSource cts;
     private UILoginOTP uiLoginOTP;
     private UILogin uiLogin;
+    private UIPopupMessage uiPopupMessage;
     private UILoadingPresenter uiLoadingPresenter;
     private UILoadingPresenter UILoadingPresenter => uiLoadingPresenter ??=container.Inject<UILoadingPresenter>();
 
@@ -25,6 +29,7 @@ public class LoginStatePresenter : IDisposable
     private UserDataRepository UserDataRepository => userDataRepository ??= container.Inject<UserDataRepository>();
 
     private ServerDefine serverDefine;
+    private const string ClientVersionScripableObjectPath = "ClientInfo/ClientInfo";
 
     public LoginStatePresenter(IDIContainer container)
     {
@@ -35,7 +40,37 @@ public class LoginStatePresenter : IDisposable
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
-        await doLoadServerSetting();
+        
+        await ConnectToServerAsync();
+        await LoginAsync();
+    }
+
+    private async UniTask LoginAsync()
+    {
+        var kq = await DoLoginWithAccessToken();
+        UILoadingPresenter.HideLoading();
+
+        if (kq == false)
+        {
+            int type = 0;
+            bool res = false;
+
+            while (!res)
+            {
+                type = await DoSelectLoginType();
+                if (type == 1)
+                    res = await DoLoginWithOTP();
+                else
+                    res = await DoLoginWithEmail();
+            }
+        }
+
+        await UniTask.Delay(1000, cancellationToken: cts.Token);
+    }
+
+    private async UniTask ConnectToServerAsync()
+    {
+        await DoLoadServerSetting();
 #if UNITY_WEBGL || WEB_SOCKET
         string host = "ws://tcp.prod.game.horsesoflegends.com";
         int port = 8669;
@@ -51,26 +86,33 @@ public class LoginStatePresenter : IDisposable
         await doInitLocalLocalization();
 #if CUSTOM_SERVER
         var uiSV = await UILoader.Instantiate<UIPopUpServerSelection>(token: cts.Token);
+        uiPopupMessage = await UILoader.Instantiate<UIPopupMessage>(UICanvas.UICanvasType.PopUp, token: cts.Token);
         bool wait = true;
         int currentProfileIndex = 0;
         uiSV.SetEntity(new UIPopUpServerSelection.Entity()
         {
-            cancelBtn = new ButtonComponent.Entity(()=> { wait = false; currentProfileIndex = uiSV.entity.CurrentProfileIndex; }),
-            connectBtn = new ButtonComponent.Entity(()=> { 
-                host = uiSV.hostInput.inputField.text; 
-                port = System.Convert.ToInt32(uiSV.portInput.inputField.text); 
+            cancelBtn = new ButtonComponent.Entity(() =>
+            {
                 wait = false;
                 currentProfileIndex = uiSV.entity.CurrentProfileIndex;
             }),
-            hostInput = new UIComponentInputField.Entity() { defaultValue = host, interactable = true},
+            connectBtn = new ButtonComponent.Entity(() =>
+            {
+                host = uiSV.hostInput.inputField.text;
+                port = System.Convert.ToInt32(uiSV.portInput.inputField.text);
+                wait = false;
+                currentProfileIndex = uiSV.entity.CurrentProfileIndex;
+            }),
+            hostInput = new UIComponentInputField.Entity() { defaultValue = host, interactable = true },
             portInput = new UIComponentInputField.Entity() { defaultValue = port.ToString(), interactable = true },
             CurrentProfileIndex = currentProfileIndex,
             serverDefine = this.serverDefine,
         });
-        uiSV.In().Forget();
+        uiSV.In()
+            .Forget();
         UILoadingPresenter.HideLoading();
-        await UniTask.WaitUntil(() => wait == false);
-        
+        await UniTask.WaitUntil(() => wait == false, cancellationToken: cts.Token);
+
         UILoader.SafeRelease(ref uiSV);
 #endif
 
@@ -83,27 +125,9 @@ public class LoginStatePresenter : IDisposable
 #else
         await SocketClient.Connect(host, port);
 #endif
-        var kq = await doLoginWithAccessToken();
-
-        UILoadingPresenter.HideLoading();
-        if (kq == false)
-        {
-            int type = 0;
-            bool res = false;
-
-            while (!res)
-            {
-                type = await doSelectLoginType();
-                if (type == 1)
-                    res = await doLoginWithOTP();
-                else
-                    res = await doLoginWithEmail();
-            }
-        }
-        await UniTask.Delay(1000);
     }
 
-    private async UniTask<bool> LoginAsync()
+    private async UniTask<bool> LoginWithEmailAsync()
     {
         var res = await SocketClient.Send<LoginRequest, LoginResponse>(new LoginRequest()
         {
@@ -115,7 +139,7 @@ public class LoginStatePresenter : IDisposable
                 Platform = GetCurrentPlatform(),
                 DeviceId = SystemInfo.deviceUniqueIdentifier,
                 Model = SystemInfo.deviceModel,
-                Version = Application.version,
+                Version = GetClientVersion(),
             }
         }, 5.0f);
         return await HandleLoginResponse(res);
@@ -140,6 +164,7 @@ public class LoginStatePresenter : IDisposable
         cts.SafeCancelAndDispose();
         cts = default;
         UILoader.SafeRelease(ref uiLogin);
+        UILoader.SafeRelease(ref uiPopupMessage);
         if(uiLoginOTP != default) UILoader.SafeRelease(ref uiLoginOTP);
         uiLogin = default;
         uiLoginOTP = default;
@@ -147,7 +172,7 @@ public class LoginStatePresenter : IDisposable
         uiLoadingPresenter = default;
     }
 
-    private async UniTask<bool> doLoginWithAccessToken()
+    private async UniTask<bool> DoLoginWithAccessToken()
     {
 #if MULTI_ACCOUNT
         var indexToken = PlayerPrefs.GetString(GameDefine.TOKEN_CURRENT_KEY_INDEX, "");
@@ -166,23 +191,21 @@ public class LoginStatePresenter : IDisposable
                     Platform = GetCurrentPlatform(),
                     DeviceId = SystemInfo.deviceUniqueIdentifier,
                     Model = SystemInfo.deviceModel,
-                    Version = Application.version,
+                    Version = GetClientVersion(),
                 }
             }, 10.0f);
-            if (res.ResultCode == 100)
+
+            if (res.ResultCode == MasterErrorCodeDefine.SUCCESS || res.ResultCode == MasterErrorCodeDefine.NEED_TO_UPDATE_CLIENT)
             {
-                await HandleLoginResponse(res);
-                return true;
+                return await HandleLoginResponse(res);
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
         return false;
     }
 
-    private async UniTask<int> doSelectLoginType()
+    private async UniTask<int> DoSelectLoginType()
     {
         var ui = await UILoader.Instantiate<UILoginSelection>(token: cts.Token);
         bool wait = true;
@@ -198,7 +221,7 @@ public class LoginStatePresenter : IDisposable
         return type;
     }
 
-    private async UniTask<bool> doLoginWithEmail()
+    private async UniTask<bool> DoLoginWithEmail()
     {
         uiLogin ??= await UILoader.Instantiate<UILogin>(token: cts.Token);
         bool closed = false;
@@ -213,7 +236,7 @@ public class LoginStatePresenter : IDisposable
                 closed = true;
             }),
             cancelBtn = new ButtonComponent.Entity(()=> {
-                closeAccount().Forget(); closed = true; result = false;
+                CloseAccount().Forget(); closed = true; result = false;
             }), 
             registerBtn = new ButtonComponent.Entity(()=> { 
                 
@@ -222,18 +245,18 @@ public class LoginStatePresenter : IDisposable
         uiLogin.In().Forget();
         await UniTask.WaitUntil(() => closed == true);
         if (result)
-            return await LoginAsync();
+            return await LoginWithEmailAsync();
         return false;
     }
 
-    private async UniTask closeAccount()
+    private async UniTask CloseAccount()
     {
         await uiLogin.Out();
         UILoader.SafeRelease(ref uiLogin);
         uiLogin = default;
     }
 
-    private async UniTask<bool> doLoginWithOTP()
+    private async UniTask<bool> DoLoginWithOTP()
     {
         uiLoginOTP ??= await UILoader.Instantiate<UILoginOTP>(token: cts.Token);
         bool closed = false;
@@ -272,16 +295,19 @@ public class LoginStatePresenter : IDisposable
                 Platform = GetCurrentPlatform(),
                 DeviceId = SystemInfo.deviceUniqueIdentifier,
                 Model = SystemInfo.deviceModel,
-                Version = Application.version,
+                Version = GetClientVersion(),
             }
         });
         return await HandleLoginResponse(res);
     }
 
+    private static string GetClientVersion()
+    {
+        return Resources.Load<ClientInfo>(ClientVersionScripableObjectPath).Version;
+    }
+
     private async UniTask GetCodeOTPAsync()
     {
-        if (SocketClient == null) Debug.Log("socket is null");
-        else Debug.Log("Try to get code");
         var res = await SocketClient.Send<EmailCodeRequest, EmailCodeResponse>(new EmailCodeRequest()
         {
             Email = uiLoginOTP.id.inputField.text,
@@ -292,10 +318,11 @@ public class LoginStatePresenter : IDisposable
                 Platform = GetCurrentPlatform(),
                 DeviceId = SystemInfo.deviceUniqueIdentifier,
                 Model = SystemInfo.deviceModel,
-                Version = Application.version,
+                Version = GetClientVersion(),
             }
         });
-        if (res != null && res.ResultCode == 100)
+        
+        if (res.ResultCode == MasterErrorCodeDefine.SUCCESS)
         {
             var uiConfirm = await UILoader.Instantiate<UIPopupMessage>(token: cts.Token);
             bool wait = true;
@@ -307,34 +334,68 @@ public class LoginStatePresenter : IDisposable
                 confirmBtn = new ButtonComponent.Entity(() => { wait = false; })
             });
             await uiConfirm.In();
-            await UniTask.WaitUntil(() => wait == false);
+            await UniTask.WaitUntil(() => wait == false, cancellationToken: cts.Token);
             UILoader.SafeRelease(ref uiConfirm);
+        }
+        else
+        {
+            await HandleLoginError(res.ResultCode, res.UpdateClientLink);
         }
     }
 
     private async UniTask<bool> HandleLoginResponse(LoginResponse res)
     {
-        if (res?.ResultCode == 100)
+        if (res.ResultCode == MasterErrorCodeDefine.SUCCESS)
         {
-            // GetMasterData 
-            var masterData = await GetMasterData();
-            UpdateMasterData(masterData);
-            await UserDataRepository.UpdateDataAsync(new[] { res.PlayerInfo });
-            var featurePresent = this.container.Inject<FeaturePresenter>();
-            featurePresent.SetFeatureList(GetFeatureList(res));
-#if MULTI_ACCOUNT
-            var indexToken = PlayerPrefs.GetString(GameDefine.TOKEN_CURRENT_KEY_INDEX, "");
-            PlayerPrefs.SetString(GameDefine.TOKEN_STORAGE + indexToken, res.PlayerInfo.AccessToken);
-#else
-            PlayerPrefs.SetString(GameDefine.TOKEN_STORAGE, res.PlayerInfo.AccessToken);
-#endif
+            await LoginSucessAsync(res);
             return true;
         }
         else
         {
-            await ShowMessagePopUp("NOTICE", LanguageManager.GetText($"RESULT_CODE_{res.ResultCode}"));
+            return await HandleLoginError(res.ResultCode, res.UpdateClientLink);
+        }
+    }
+
+    private async UniTask<bool> HandleLoginError(int resResultCode,
+                                                 string resUpdateClientLink)
+    {
+        if (resResultCode == MasterErrorCodeDefine.NEED_TO_UPDATE_CLIENT)
+        {
+            ShowNewVersionPopUp(resUpdateClientLink);
+            throw new OperationCanceledException("Client need update");
+        }
+        else
+        {
+            await ShowMessagePopUp("NOTICE", LanguageManager.GetText($"RESULT_CODE_{resResultCode}"));
             return false;
         }
+    }
+
+    private async Task LoginSucessAsync(LoginResponse res)
+    {
+        // GetMasterData 
+        var masterData = await GetMasterData();
+        UpdateMasterData(masterData);
+        await UserDataRepository.UpdateDataAsync(new[] { res.PlayerInfo });
+        var featurePresent = this.container.Inject<FeaturePresenter>();
+        featurePresent.SetFeatureList(GetFeatureList(res));
+#if MULTI_ACCOUNT
+            var indexToken = PlayerPrefs.GetString(GameDefine.TOKEN_CURRENT_KEY_INDEX, "");
+            PlayerPrefs.SetString(GameDefine.TOKEN_STORAGE + indexToken, res.PlayerInfo.AccessToken);
+#else
+        PlayerPrefs.SetString(GameDefine.TOKEN_STORAGE, res.PlayerInfo.AccessToken);
+#endif
+    }
+
+    private void ShowNewVersionPopUp(string updateLink)
+    {
+        uiPopupMessage.SetEntity(new UIPopupMessage.Entity()
+        {
+            message = "There is a new version available. Please download the new version to experience more features",
+            title = "NOTICE",
+            confirmBtn = new ButtonComponent.Entity(() => Application.OpenURL(updateLink))
+        });
+        uiPopupMessage.In().Forget();
     }
 
     private async UniTask ShowMessagePopUp(string title, string message)
@@ -372,7 +433,7 @@ public class LoginStatePresenter : IDisposable
         onFinish?.Invoke();
     }
 
-    IEnumerator doLoadServerSetting()
+    IEnumerator DoLoadServerSetting()
     {
 #if UNITY_WEBGL || WEB_SOCKET
         var rq = Resources.LoadAsync<ServerDefine>("Settings/WSServerDefine");

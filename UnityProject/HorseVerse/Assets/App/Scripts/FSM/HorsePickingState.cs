@@ -46,7 +46,7 @@ public class HorsePickingState : InjectedBState
             race = new ButtonComponent.Entity(() =>
             {
                 UiLoadingPresenter.ShowLoadingAsync().Forget();
-                this.Machine.ChangeState<HorseRaceState>();
+                this.Machine.ChangeState<HorseRaceActionState>();
             })
         });
         uiHorsePicker.In().Forget();

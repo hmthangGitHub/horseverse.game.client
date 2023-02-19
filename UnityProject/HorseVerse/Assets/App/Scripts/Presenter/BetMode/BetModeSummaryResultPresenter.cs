@@ -36,7 +36,7 @@ internal class BetModeSummaryResultPresenter : IDisposable
         await uiBetModeResult.Out();
     }
 
-    public async UniTask ShowBetModeResultAsync()
+    private async UniTask ShowBetModeResultAsync()
     {
         var ucs = new UniTaskCompletionSource();
 

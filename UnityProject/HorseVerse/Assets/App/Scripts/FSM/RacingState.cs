@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuickRaceState : InjectedBHState
+public class RacingState : InjectedBHState
 {
     public static long MasterMapId = 10001004;
     private HorseRaceContext horseRaceContext;
@@ -13,8 +13,7 @@ public class QuickRaceState : InjectedBHState
         base.AddStates();
         AddState<RacingMenuState>();
         AddState<RaceModeChoosingState>();
-        AddState<HorseRaceState>();
-        AddState<RaceState>();
+        AddState<HorseRaceActionState>();
         AddState<RacingHistoryState>();
         SetInitialState<RaceModeChoosingState>();
     }
