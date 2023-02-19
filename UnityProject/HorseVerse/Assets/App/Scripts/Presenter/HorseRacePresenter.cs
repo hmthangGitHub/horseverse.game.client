@@ -166,8 +166,7 @@ public partial class HorseRacePresenter : IDisposable
         if(horseRaceManager != default)
             horseRaceManager.OnFinishTrackEvent -= OnFinishTrack;
         if(uiHorseRaceStatus != default)
-            uiHorseRaceStatus.Out()
-                             .Forget();
+            uiHorseRaceStatus.Out().Forget();
         if (HorseRaceContext.GameMode == HorseGameMode.Race)
         {
             OnToQuickRaceModeResultState();
@@ -222,7 +221,9 @@ public partial class HorseRacePresenter : IDisposable
                 playerId = playerHorseIndex,
             },
             finishTime = timeToFinish,
-            selfRaceRankGroup = HorseRaceContext.GameMode == HorseGameMode.Race
+            selfRaceRankGroup = HorseRaceContext.GameMode == HorseGameMode.Race,
+            isReplay = horseRaceContext.GameMode == HorseGameMode.Race && horseRaceContext.RaceMatchDataContext.IsReplay,
+            skipBtn = new ButtonComponent.Entity(()=> OnShowResult().Forget())
         });
         uiHorseRaceStatus.In().Forget();
     }

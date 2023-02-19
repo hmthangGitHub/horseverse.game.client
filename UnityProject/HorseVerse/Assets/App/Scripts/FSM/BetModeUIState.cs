@@ -43,7 +43,7 @@ public class BetModeUIState : InjectedBState
     {
         await UILoadingPresenter.ShowLoadingAsync();
         UIHeaderPresenter.Dispose();
-        this.Machine.ChangeState<HorseRaceState>();
+        this.Machine.ChangeState<HorseRaceActionState>();
     }
 
     private void OnBackToMainMenu()

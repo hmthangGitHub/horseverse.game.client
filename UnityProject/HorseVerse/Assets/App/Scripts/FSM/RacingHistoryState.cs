@@ -7,7 +7,10 @@ public class RacingHistoryState : InjectedBState
 {
     private RacingHistoryPresenter racingHistoryPresenter;
     private UIHeaderPresenter uiHeaderPresenter;
+    private HorseRaceContext horseRaceContext;
+    
     private UIHeaderPresenter UIHeaderPresenter => uiHeaderPresenter ??= Container.Inject<UIHeaderPresenter>();
+    private HorseRaceContext HorseRaceContext => horseRaceContext ??= Container.Inject<HorseRaceContext>();
     
     public override void Enter()
     {
@@ -25,8 +28,17 @@ public class RacingHistoryState : InjectedBState
         Container.Bind(new RacingHistoryRepository(Container.Inject<ISocketClient>()));
 #endif
         racingHistoryPresenter = new RacingHistoryPresenter(Container);
+        racingHistoryPresenter.OnReplay += OnReplay;
         racingHistoryPresenter.ShowHistoryAsync()
                               .Forget();
+    }
+
+    private void OnReplay(RaceScriptData raceScriptData)
+    {
+        HorseRaceContext.RaceScriptData = raceScriptData;
+        HorseRaceContext.RaceMatchDataContext.IsReplay = true;
+        
+        Machine.ChangeState<HorseRaceActionState>();
     }
 
     private void OnBack()
@@ -38,6 +50,7 @@ public class RacingHistoryState : InjectedBState
     {
         base.Exit();
         UIHeaderPresenter.OnBack -= OnBack;
+        racingHistoryPresenter.OnReplay -= OnReplay;
 #if MOCK_DATA
         Container.RemoveAndDisposeIfNeed<LocalRacingHistoryRepository>();
 #else

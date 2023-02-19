@@ -19,16 +19,14 @@ public interface IBetModeDomainService
 public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainService, IDisposable
 {
     private IUserDataRepository userDataRepository;
-    private MasterHorseContainer masterHorseContainer;
     private ISocketClient socketClient;
     private IBetMatchRepository betMatchRepository;
+    private HorseRaceInfoFactory horseRaceInfoFactory;
 
     private IUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<UserDataRepository>();
     private ISocketClient SocketClient => socketClient ??= container.Inject<ISocketClient>();
     private IBetMatchRepository BetMatchRepository => betMatchRepository ??= container.Inject<IBetMatchRepository>();
-
-    private MasterHorseContainer MasterHorseContainer =>
-        masterHorseContainer ??= container.Inject<MasterHorseContainer>();
+    private HorseRaceInfoFactory HorseRaceInfoFactory => horseRaceInfoFactory ??= container.Inject<HorseRaceInfoFactory>();
 
     public BetModeDomainService(IDIContainer container) : base(container)
     {
@@ -72,8 +70,8 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
         }).ToArray();
         return (new RaceScriptData()
         {
-            HorseRaceInfos = QuickRaceDomainService.GetHorseRaceInfos(BetMatchRepository.Current.RaceScript, MasterHorseContainer),
-            MasterMapId = QuickRaceState.MasterMapId,
+            HorseRaceInfos = HorseRaceInfoFactory.GetHorseRaceInfos(BetMatchRepository.Current.RaceScript),
+            MasterMapId = RacingState.MasterMapId,
         }, new BetMatchDataContext()
         {
             BetMatchId = BetMatchRepository.Current.BetMatchId,
@@ -203,7 +201,6 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
     public void Dispose()
     {
         userDataRepository = default;
-        masterHorseContainer = default;
         socketClient = default;
         betMatchRepository = default;
     }

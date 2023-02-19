@@ -95,7 +95,7 @@ public class MainMenuState : InjectedBState
 
     private void ToQuickRaceState()
     {
-        this.Machine.ChangeState<QuickRaceState>();
+        this.Machine.ChangeState<RacingState>();
     }
 
     private void ToTrainingState()

@@ -33,8 +33,7 @@ public class RacingMenuState : InjectedBHState
         await UIHorse3DViewPresenter.ShowHorse3DViewAsync();
         UIBackGroundPresenter.ReleaseBackGround();
         uiRacePresenter = new UIRacePresenter(this.Container);
-        UIHeaderPresenter.ShowHeaderAsync(true, 
-            HorseRaceContext.RaceMatchDataContext.RacingRoomType.ToString()).Forget();
+        UIHeaderPresenter.ShowHeaderAsync(true, HorseRaceContext.RaceMatchDataContext.RacingRoomType.ToString()).Forget();
         UIHeaderPresenter.OnBack += OnBack;
         uiRacePresenter.OnFindMatch += OnFindMatch;
         await uiRacePresenter.ShowUIQuickRaceAsync();

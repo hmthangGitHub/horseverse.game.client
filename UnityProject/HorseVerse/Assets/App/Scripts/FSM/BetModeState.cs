@@ -14,7 +14,7 @@ public class BetModeState : InjectedBHState
         base.AddStates();
         AddState<BetModeUIState>();
         AddState<BetModeInProgressState>();
-        AddState<HorseRaceState>();
+        AddState<HorseRaceActionState>();
         AddState<EmptyState>();
         AddState<BetModeInitialState>();
         SetInitialState<BetModeInitialState>();

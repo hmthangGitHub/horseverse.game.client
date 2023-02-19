@@ -30,10 +30,10 @@ public class QuickRaceDomainServiceBase
 public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDomainService
 {
     private ISocketClient socketClient;
-    private MasterHorseContainer masterHorseContainer;
     private UniTaskCompletionSource<StartRoomReceipt> findMatchUcs;
-    private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= Container.Inject<MasterHorseContainer>();
+    private HorseRaceInfoFactory horseRaceInfoFactory;
     private ISocketClient SocketClient => socketClient ??= Container.Inject<ISocketClient>();
+    private HorseRaceInfoFactory HorseRaceInfoFactory => horseRaceInfoFactory ??= Container.Inject<HorseRaceInfoFactory>();
     public event Action<int> OnConnectedPlayerChange  = ActionUtility.EmptyAction<int>.Instance;
     
     public QuickRaceDomainService(IDIContainer container) : base(container){}
@@ -48,8 +48,8 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
         JoinPool(ntfHorseId, racingMode).Forget();
         return new RaceScriptData()
         {
-            HorseRaceInfos = GetHorseRaceInfos((await findMatchUcs.Task).RaceScript, MasterHorseContainer),
-            MasterMapId = QuickRaceState.MasterMapId,
+            HorseRaceInfos = HorseRaceInfoFactory.GetHorseRaceInfos((await findMatchUcs.Task).RaceScript),
+            MasterMapId = RacingState.MasterMapId,
         };
     }
 
@@ -95,51 +95,6 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
         SocketClient.UnSubscribe<StartRoomReceipt>(StartRoomReceiptResponse);
         SocketClient.UnSubscribe<UpdateRoomReceipt>(UpdateRoomReceiptResponse);
     }
-
-    public static HorseRaceInfo[] GetHorseRaceInfos(RaceScript responseRaceScript, MasterHorseContainer masterHorseContainer)
-    {
-        return responseRaceScript.Phases.SelectMany(x =>
-                x.HorseStats.Select((stat, i) => (stat: stat, horseId: stat.HorseId, start: x.Start, end: x.End)))
-            .GroupBy(x => x.horseId)
-            .Select(x =>
-            {
-                var horseInfo = responseRaceScript.HorseInfos.First(info => info.NftId == x.Key);
-                var masterHorse = masterHorseContainer.FromTypeToMasterHorse((int)horseInfo.HorseType);
-                return new HorseRaceInfo()
-                {
-                    DelayTime = x.First().stat.DelayTime,
-                    RaceSegments = x.Select(info => new RaceSegmentTime()
-                                    {
-                                        CurrentLane = info.stat.LaneStart,
-                                        ToLane = info.stat.LaneEnd,
-                                        Time = info.stat.Time,
-                                        Percentage = (float)(info.end) / responseRaceScript.TotalLength
-                                    })
-                                    .ToArray(),
-                    MeshInformation = new MasterHorseMeshInformation()
-                    {
-                        masterHorseId = masterHorse.MasterHorseId,
-                        color1 = HorseRepository.GetColorFromHexCode(horseInfo.Color1),
-                        color2 = HorseRepository.GetColorFromHexCode(horseInfo.Color2),
-                        color3 = HorseRepository.GetColorFromHexCode(horseInfo.Color3),
-                        color4 = HorseRepository.GetColorFromHexCode(horseInfo.Color4),
-                    },
-                    Name = horseInfo.Name,
-                    NftHorseId = horseInfo.NftId,
-                    PowerBonus = horseInfo.Bms,
-                    PowerRatio = 1,
-                    SpeedBonus = horseInfo.Mms,
-                    SpeedRatio = 1,
-                    TechnicallyBonus = horseInfo.Acceleration,
-                    TechnicallyRatio = 1,
-                    Rarity = (int)horseInfo.Rarity,
-                    Type = (int)horseInfo.HorseType,
-                    Level = horseInfo.Level,
-                };
-            })
-            .OrderBy(x => x.RaceSegments.First().CurrentLane)
-            .ToArray();
-    }
 }
 
 public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDomainService
@@ -178,7 +133,7 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
         return new RaceScriptData()
         {
             HorseRaceInfos = GetAllMasterHorseIds(),
-            MasterMapId = QuickRaceState.MasterMapId,
+            MasterMapId = RacingState.MasterMapId,
         };
     }
 

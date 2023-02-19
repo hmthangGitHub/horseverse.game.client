@@ -8,13 +8,16 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class HorseRaceState : InjectedBHState
+public class HorseRaceActionState : InjectedBHState
 {
     private bool isGameStart = false;
     private HorseRacePresenter horseRacePresenter;
     private UILoadingPresenter uiLoadingPresenter;
+    private UIHeaderPresenter uiHeaderPresenter;
+
     private UILoadingPresenter UiLoadingPresenter => uiLoadingPresenter ??= Container.Inject<UILoadingPresenter>();
     private UIBackGroundPresenter uiBackGroundPresenter;
+    private UIHeaderPresenter UIHeaderPresenter => uiHeaderPresenter ??= Container.Inject<UIHeaderPresenter>();
     private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
 
     public override void Enter()
@@ -25,6 +28,9 @@ public class HorseRaceState : InjectedBHState
 
     private async UniTask OnEnterAsync()
     {
+        await UiLoadingPresenter.ShowLoadingAsync();
+        UIHeaderPresenter.Dispose();
+        
         horseRacePresenter = new HorseRacePresenter(Container);
         horseRacePresenter.OnToBetModeResultState += ToBetModeResultState;
         horseRacePresenter.OnToQuickRaceModeResultState += ToRacingResultState;

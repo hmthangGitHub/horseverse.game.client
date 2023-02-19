@@ -3,8 +3,8 @@
     public override void AddStates()
     {
         base.AddStates();
-        AddState<HorseRaceState>();
+        AddState<HorseRaceActionState>();
         AddState<BetModeRaceResultState>();
-        SetInitialState<HorseRaceState>();
+        SetInitialState<HorseRaceActionState>();
     }
 }
