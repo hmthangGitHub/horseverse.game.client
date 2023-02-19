@@ -13,8 +13,7 @@ public class QuickRaceState : InjectedBHState
         base.AddStates();
         AddState<RacingMenuState>();
         AddState<RaceModeChoosingState>();
-        AddState<HorseRaceState>();
-        AddState<RaceState>();
+        AddState<HorseRaceActionState>();
         AddState<RacingHistoryState>();
         SetInitialState<RaceModeChoosingState>();
     }
