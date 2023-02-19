@@ -17,6 +17,8 @@ public class UIHorseRaceStatus : PopupEntity<UIHorseRaceStatus.Entity>
         public bool betSlotVisible;
         public int selfRaceRank;
         public bool selfRaceRankGroup;
+        public bool isReplay;
+        public ButtonComponent.Entity skipBtn;
     }
 
     public HorseRaceStatusPlayerList playerList;
@@ -26,7 +28,9 @@ public class UIHorseRaceStatus : PopupEntity<UIHorseRaceStatus.Entity>
     public UIComponentBetSlot betSlot;
     public IsVisibleComponent isBetSlotVisible;
     public IsVisibleComponent selfRaceRankGroup;
+    public IsVisibleComponent isReplay;
     public FormattedTextComponent selfRaceRank;
+    public ButtonComponent skipBtn;
     
     public Image timeLine;
     public float currentTimer = 0.0f;
@@ -40,6 +44,8 @@ public class UIHorseRaceStatus : PopupEntity<UIHorseRaceStatus.Entity>
         betSlot.SetEntity(this.entity.betSlot);
         isBetSlotVisible.SetEntity(this.entity.betSlotVisible);
         selfRaceRankGroup.SetEntity(this.entity.selfRaceRankGroup);
+        isReplay.SetEntity(this.entity.isReplay);
+        skipBtn.SetEntity(this.entity.skipBtn);
         UpdateSelfRank(this.entity.selfRaceRank);
     }
 
