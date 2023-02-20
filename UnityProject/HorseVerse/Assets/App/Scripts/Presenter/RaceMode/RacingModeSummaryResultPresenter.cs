@@ -41,7 +41,7 @@ internal class RacingModeSummaryResultPresenter : IDisposable
                                                      horseName = x.horseRaceInfo.Name,
                                                      time = x.horseRaceInfo.RaceSegments.Sum(segment => segment.Time) + x.horseRaceInfo.DelayTime,
                                                      no = rank,
-                                                     horseNumber = x.lane,
+                                                     horseNumber = x.lane - 1,
                                                      rewardGroupVisible = HorseRaceContext.GameMode == HorseGameMode.Race,
                                                      rewardGroup = UIComponentRaceRewardGroupFactory.CreateRewardGroup(rank, HorseRaceContext.RaceMatchDataContext.RacingRoomType),
                                                      isSelfHorse = HorseRepository.Models.ContainsKey(x.horseRaceInfo.NftHorseId)

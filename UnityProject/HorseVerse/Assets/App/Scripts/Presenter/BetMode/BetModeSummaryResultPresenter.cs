@@ -41,7 +41,7 @@ internal class BetModeSummaryResultPresenter : IDisposable
         var ucs = new UniTaskCompletionSource();
 
         var horseRaceWithOrdered = HorseRaceContext.RaceScriptData.HorseRaceInfos
-                                                .Select((horseRaceInfo, index) => (horseRaceInfo, index))
+                                                .Select((horseRaceInfo, index) => (horseRaceInfo, lane: horseRaceInfo.RaceSegments.First().ToLane))
                                                 .OrderBy(x => x.horseRaceInfo.RaceSegments.Sum(segment => segment.Time) + x.horseRaceInfo.DelayTime)
                                                 .ToArray();
         uiBetModeResult.SetEntity(new UIBetModeResult.Entity()
@@ -56,7 +56,7 @@ internal class BetModeSummaryResultPresenter : IDisposable
                         horseName = x.horseRaceInfo.Name,
                         time = x.horseRaceInfo.RaceSegments.Sum(segment => segment.Time) + x.horseRaceInfo.DelayTime,
                         no = i + 1,
-                        horseNumber = x.index
+                        horseNumber = x.lane - 1
                     }).ToArray()
                 },
             },
