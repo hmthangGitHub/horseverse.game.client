@@ -12,9 +12,11 @@ public class RacingHistoryPresenter : IDisposable
     private RaceHistoryResultDetailPresenter raceHistoryResultDetailPresenter;
     private HorseRaceInfoFactory horseRaceInfoFactory;
     private ISocketClient socketClient;
+    private IReadOnlyHorseRepository horseRepository;
     
     private IReadOnlyRacingHistoryRepository racingHistoryRepository;
     private IReadOnlyRacingHistoryRepository RacingHistoryRepository => racingHistoryRepository ??= container.Inject<IReadOnlyRacingHistoryRepository>();
+    private IReadOnlyHorseRepository HorseRepository => horseRepository ??= container.Inject<IReadOnlyHorseRepository>();
     private HorseRaceInfoFactory HorseRaceInfoFactory => horseRaceInfoFactory ??= container.Inject<HorseRaceInfoFactory>();
     private ISocketClient SocketClient => socketClient ??= container.Inject<ISocketClient>();
     public Action<RaceScriptData> OnReplay = ActionUtility.EmptyAction<RaceScriptData>.Instance; 
@@ -64,7 +66,8 @@ public class RacingHistoryPresenter : IDisposable
                             HorseRaceInfos = HorseRaceInfoFactory.GetHorseRaceInfos(response.Script),
                             MasterMapId = RacingState.MasterMapId
                         });
-                    }))
+                    })),
+                    horseName = HorseRepository.Models[x.NftHorseId].Name
                 }).ToArray()
             }
         });

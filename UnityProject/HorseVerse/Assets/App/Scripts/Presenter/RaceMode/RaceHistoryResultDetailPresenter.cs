@@ -53,7 +53,7 @@ public class RaceHistoryResultDetailPresenter : IDisposable
                                                      horseName = x.HorseName,
                                                      time = x.RaceTime,
                                                      no = rank,
-                                                     horseNumber = x.Lane,
+                                                     horseNumber = x.Lane - 1,
                                                      rewardGroupVisible = true,
                                                      rewardGroup = new UIComponentRaceRewardGroup.Entity()
                                                      {

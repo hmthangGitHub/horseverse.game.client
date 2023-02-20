@@ -13,6 +13,7 @@ public class UIComponentHistoryRecord : UIComponent<UIComponentHistoryRecord.Ent
 	    public int chestNumber;
 	    public UIComponentHistoryRecordHorseRank.Entity horseRank;
 	    public int horseIndex;
+	    public string horseName;
 	    public ButtonComponent.Entity viewRaceScriptBtn;
 	    public ButtonComponent.Entity viewResultBtn;
     }
@@ -21,6 +22,7 @@ public class UIComponentHistoryRecord : UIComponent<UIComponentHistoryRecord.Ent
     public UIComponentHistoryRecordTimeStamp time;
     public FormattedTextComponent coinNumber;
     public FormattedTextComponent chestNumber;
+    public FormattedTextComponent horseName;
     public UIComponentHistoryRecordHorseRank horseRank;
     public UIComponentEnumInt horseIndex;
     public ButtonComponent viewRaceScriptBtn;
@@ -36,5 +38,6 @@ public class UIComponentHistoryRecord : UIComponent<UIComponentHistoryRecord.Ent
 	    horseIndex.SetEntity(this.entity.horseIndex);
 	    viewRaceScriptBtn.SetEntity(this.entity.viewRaceScriptBtn);
 	    viewResultBtn.SetEntity(this.entity.viewResultBtn);
+	    horseName.SetEntity(this.entity.horseName);
     }
 }	
