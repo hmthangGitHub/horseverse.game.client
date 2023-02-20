@@ -9,6 +9,7 @@ public class RacingMatchFindingPresenter : IDisposable
     private HorseRaceContext horseRaceContext;
     private readonly IDIContainer container;
     
+    private const int MaxNumberOfPlayer = 8;
     private CancellationTokenSource cts;
     private IReadOnlyUserDataRepository userDataRepository;
     private IQuickRaceDomainService quickRaceDomainService;
@@ -48,7 +49,9 @@ public class RacingMatchFindingPresenter : IDisposable
     {
         uiRacingFindMatch.entity.numberConnectPlayer = connectedPlayerChange;
         uiRacingFindMatch.numberConnectPlayer.SetEntity(uiRacingFindMatch.entity.numberConnectPlayer);
+        uiRacingFindMatch.cancelBtn.SetInteractable(connectedPlayerChange < MaxNumberOfPlayer);
     }
+
 
     private async UniTask FindMatchInternalAsync()
     {
