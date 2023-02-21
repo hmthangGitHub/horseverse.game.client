@@ -41,7 +41,7 @@ public class RacingHistoryPresenter : IDisposable
                     time = x.TimeStamp,
                     chestNumber = x.ChestRewardNumber,
                     coinNumber = x.CoinRewardNumber,
-                    horseIndex = x.HorseIndex,
+                    horseIndex = x.HorseIndex - 1,
                     horseRank = new UIComponentHistoryRecordHorseRank.Entity()
                     {
                         rank = x.Rank
