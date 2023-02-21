@@ -23,7 +23,15 @@ public class UIBackGroundPresenter : IDisposable
             uiBackGround.In().Forget();
         } 
     }
-    
+
+    public async UniTask HideBackground()
+    {
+        if (uiBackGround != null)
+        {   
+            await uiBackGround.Out();
+        }
+    }
+
     public void ReleaseBackGround()
     {
         UILoader.SafeRelease(ref uiBackGround);

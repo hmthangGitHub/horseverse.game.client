@@ -30,8 +30,8 @@ public class MainMenuState : InjectedBState
         base.Enter();
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
-        
-        ShowBackGrounAsync().Forget();
+
+        HideBackgroundAsync().Forget();
         UIHorse3DViewPresenter.ShowHorse3DViewAsync().Forget();
         UiHeaderPresenter.ShowHeaderAsync(false).Forget();
         uiMainMenuPresenter ??= new UIMainMenuPresenter(this.Container);
@@ -43,6 +43,12 @@ public class MainMenuState : InjectedBState
     private async UniTask ShowBackGrounAsync()
     {
         await UIBackGroundPresenter.ShowBackGroundAsync().AttachExternalCancellation(cts.Token);
+        UiLoadingPresenter.HideLoading();
+    }
+
+    private async UniTask HideBackgroundAsync()
+    {
+        await UIBackGroundPresenter.HideBackground();
         UiLoadingPresenter.HideLoading();
     }
 
