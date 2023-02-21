@@ -19,7 +19,8 @@ public partial class LevelEditorPresenter
 
     private readonly List<GameObject> trapPinList = new List<GameObject>();
 
-    UIDebugLevelEditorTrap.Entity trapEditorEntity = default;
+    private UIDebugLevelEditorTrap.Entity trapEditorEntity = default;
+    private TrapEditor currentTrap = default;
 
     public bool IsEditingTrap
     {
@@ -183,6 +184,7 @@ public partial class LevelEditorPresenter
             isSelectBtnVisible = true,
             selectedBtn = new ButtonComponent.Entity(()=>
             {
+                currentTrap = trap;
                 uiDebugLevelEditor.isTrapEditorVisible.SetEntity(true);
                 uiDebugLevelEditor.trapEditor.SetEntity(GetEntity());
             })
@@ -203,7 +205,7 @@ public partial class LevelEditorPresenter
 
     private UIDebugLevelEditorTrap.Entity GetEntity()
     {
-        if (trapEditorEntity == default) trapEditorEntity = new UIDebugLevelEditorTrap.Entity()
+        trapEditorEntity = new UIDebugLevelEditorTrap.Entity()
         {
             editTargetToggle = new UIComponentToggle.Entity()
             {
@@ -220,7 +222,7 @@ public partial class LevelEditorPresenter
                 isOn = false,
                 onActiveToggle = val => IsEditingTrap = val
             },
-            extraBtn = new ButtonComponent.Entity(()=> OnExtraBtnClicked()),
+            extraBtn = new ButtonComponent.Entity(() => OnExtraBtnClicked()),
 
         };
         return trapEditorEntity;
