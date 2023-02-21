@@ -17,7 +17,9 @@ public class UIDebugLevelDesignBlockTransformPin : PopupEntity<UIDebugLevelDesig
 	    public bool isDeleteBtnVisible;
 	    public bool isAddBtnVisible;
 	    public bool isDuplicateBtnVisible;
-	    public UIComponentInputField.Entity coinNumber;
+		public bool isSelectBtnVisible;
+
+		public UIComponentInputField.Entity coinNumber;
 	    public UIComponentInputField.Entity blockName;
 	    public ButtonComponent.Entity shuffleBtn;
 	    public ButtonComponent.Entity leftBtn;
@@ -25,6 +27,7 @@ public class UIDebugLevelDesignBlockTransformPin : PopupEntity<UIDebugLevelDesig
 	    public ButtonComponent.Entity deleteBtn;
 	    public ButtonComponent.Entity addBtn;
 	    public ButtonComponent.Entity duplicateBtn;
+		public ButtonComponent.Entity selectedBtn;
     }
     
     public IsVisibleComponent isCoinNumberVisible;
@@ -34,6 +37,7 @@ public class UIDebugLevelDesignBlockTransformPin : PopupEntity<UIDebugLevelDesig
     public IsVisibleComponent isDeleteBtnVisible;
     public IsVisibleComponent isAddBtnVisible;
     public IsVisibleComponent isDuplicateBtnVisible;
+	public IsVisibleComponent isSelectBtnVisible;
     public UIComponentInputField coinNumber;
     public UIComponentInputField blockName;
     public ButtonComponent shuffleBtn;
@@ -42,7 +46,9 @@ public class UIDebugLevelDesignBlockTransformPin : PopupEntity<UIDebugLevelDesig
     public ButtonComponent deleteBtn;
     public ButtonComponent addBtn;
     public ButtonComponent duplicateBtn;
-    public RectTransform container;
+	public ButtonComponent selectedBtn;
+
+	public RectTransform container;
 
     protected override void OnSetEntity()
     {
@@ -53,7 +59,9 @@ public class UIDebugLevelDesignBlockTransformPin : PopupEntity<UIDebugLevelDesig
 		isDeleteBtnVisible.SetEntity(entity.isDeleteBtnVisible);
 	    isAddBtnVisible.SetEntity(entity.isAddBtnVisible);
 	    isDuplicateBtnVisible.SetEntity(entity.isDuplicateBtnVisible);
-	    coinNumber.SetEntity(entity.coinNumber);
+		isSelectBtnVisible.SetEntity(entity.isSelectBtnVisible);
+
+		coinNumber.SetEntity(entity.coinNumber);
 	    blockName.SetEntity(entity.blockName);
 	    shuffleBtn.SetEntity(entity.shuffleBtn);
 		leftBtn.SetEntity(entity.leftBtn);
@@ -61,7 +69,9 @@ public class UIDebugLevelDesignBlockTransformPin : PopupEntity<UIDebugLevelDesig
 		deleteBtn.SetEntity(entity.deleteBtn);
 		addBtn.SetEntity(entity.addBtn);
 		duplicateBtn.SetEntity(entity.duplicateBtn);
-    }	
+		selectedBtn.SetEntity(entity.selectedBtn);
+
+	}	
 
     private void Update()
     {
