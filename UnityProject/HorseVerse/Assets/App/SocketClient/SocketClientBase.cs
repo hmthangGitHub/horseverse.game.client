@@ -22,7 +22,7 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
     protected void OnMessage(byte[] data)
     {
         var message = messageParser.Parse(data);
-        Debug.Log("Received response " + message);
+        Debug.Log($"Received response {message.GetType()} {message}");
         messageBroker.Publish(message);
     }
 
