@@ -45,6 +45,7 @@ public class Trap
 {
     [JsonProperty]
     public string type;
+    public string id;
     public Position localPosition;
 
     public Trap Clone()

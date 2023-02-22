@@ -82,14 +82,16 @@ public partial class LevelEditorPresenter
 
     private void SaveTrapToBlockAndRemove()
     {
-        currentSelectingBlockCombo.masterHorseTrainingBlockCombo.TrapList = trapInBlocks.Select(x =>
-                new Trap()
-                {
-                    type = trainingBlockSettings.traps[x.index]
-                                                .name,
-                    localPosition = Position.FromVector3(x.trap.transform.localPosition)
-                })
-            .ToArray();
+        currentSelectingBlockCombo.masterHorseTrainingBlockCombo.TrapList = trapInBlocks.Select(x => {
+            var trap = trainingBlockSettings.traps[x.index];
+            var trapEdi = trap.GetComponent<TrapEditor>();
+            return new Trap()
+            {
+                type = trapEdi.Type.ToString(),
+                id = trapEdi.TrapID,
+                localPosition = Position.FromVector3(x.trap.transform.localPosition)
+            };
+        }).ToArray();
 
         trapInBlocks.ForEach(x => Object.Destroy(x.trap));
         trapInBlocks.Clear();
@@ -104,8 +106,9 @@ public partial class LevelEditorPresenter
         currentSelectingBlockCombo.masterHorseTrainingBlockCombo.TrapList
                                   .ForEach(x =>
                                   {
+                                      Debug.LogError("Find Trap Name " + $"{x.type}_{x.id}");
                                       CreateTrapAtPosition(
-                                          traps.FindIndex(saveTraps => saveTraps.name == x.type),
+                                          traps.FindIndex(saveTraps => saveTraps.name == $"{x.type}_{x.id}"),
                                           x.localPosition.ToVector3());
                                   });
     }
@@ -140,6 +143,7 @@ public partial class LevelEditorPresenter
             Debug.LogError("Null Trap Editor");
             return null;
         }
+        Debug.LogError("Trap Editor index " + index);
         var prefab = trainingBlockSettings.traps[index]
                              .transform;
         var trapDummy = UnityEngine.Object.Instantiate(prefab, currentPlatformObject.transform).gameObject;
@@ -156,7 +160,7 @@ public partial class LevelEditorPresenter
     private void AddPinToTrap(TrapEditor trap,
                                   int index)
     {
-        var pin = CreateUiPin(obstaclePinList);
+        var pin = CreateUiPin(trapPinList);
         pin.SetEntity(new UIDebugLevelDesignBlockTransformPin.Entity()
         {
             isDeleteBtnVisible = true,
@@ -210,17 +214,17 @@ public partial class LevelEditorPresenter
             editTargetToggle = new UIComponentToggle.Entity()
             {
                 isOn = false,
-                onActiveToggle = val => IsEditingTrap = val
+                onActiveToggle = val => IsEditingTrapTarget = val
             },
             editDirectionToggle = new UIComponentToggle.Entity()
             {
                 isOn = false,
-                onActiveToggle = val => IsEditingTrap = val
+                onActiveToggle = val => IsEditingTrapDirection = val
             },
             editTriggerToggle = new UIComponentToggle.Entity()
             {
                 isOn = false,
-                onActiveToggle = val => IsEditingTrap = val
+                onActiveToggle = val => IsEditingTrapTrigger = val
             },
             extraBtn = new ButtonComponent.Entity(() => OnExtraBtnClicked()),
 
@@ -232,7 +236,12 @@ public partial class LevelEditorPresenter
     {
         if (IsEditingTrapTarget)
         {
-            
+            if (currentTrap == default) return;
+            if (currentTrap.Type == TrapEditor.TYPE.ROLLING_ROCK)
+            {
+                var comp = currentTrap.gameObject.GetComponent<TrapEditorRollingStone>();
+                comp.RestoreToDefault();
+            }
         }
         else
         {
@@ -246,7 +255,11 @@ public partial class LevelEditorPresenter
     {
         if (IsEditingTrapDirection)
         {
-
+            if (currentTrap == default) return;
+            if (currentTrap.Type == TrapEditor.TYPE.ROLLING_ROCK)
+            {
+                currentTrap.gameObject.GetComponent<TrapEditorRollingStone>().ActiveDirection();
+            }
         }
         else
         {
@@ -260,7 +273,11 @@ public partial class LevelEditorPresenter
     {
         if (IsEditingTrapTrigger)
         {
-
+            if (currentTrap == default) return;
+            if (currentTrap.Type == TrapEditor.TYPE.ROLLING_ROCK)
+            {
+                currentTrap.gameObject.GetComponent<TrapEditorRollingStone>().ActiveTrigger();
+            }
         }
         else
         {
@@ -272,17 +289,21 @@ public partial class LevelEditorPresenter
 
     private void OnExtraBtnClicked()
     {
-        if (IsEditingTrapTarget)
+        if (currentTrap == default) return;
+        if (currentTrap.Type == TrapEditor.TYPE.ROLLING_ROCK)
         {
-            Debug.Log("1");
-        }
-        else if (IsEditingTrapDirection)
-        {
-            Debug.Log("2");
-        }
-        else if (IsEditingTrapTrigger)
-        {
-            Debug.Log("3");
+            if (IsEditingTrapTarget)
+            {
+                Debug.Log("1");
+            }
+            else if (IsEditingTrapDirection)
+            {
+                Debug.Log("2");
+            }
+            else if (IsEditingTrapTrigger)
+            {
+                Debug.Log("3");
+            }
         }
     }
 
