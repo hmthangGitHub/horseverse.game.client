@@ -33,10 +33,10 @@ RectTransform:
   m_Father: {fileID: 3942938331769152503}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -5.3713, y: -5.371277}
-  m_SizeDelta: {x: 194.6287, y: 44.6287}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 225.5, y: 87.2}
+  m_SizeDelta: {x: 194.62866, y: 44.628662}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &4454237188227173531
 CanvasRenderer:
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 7361626141205731996}
-  format: 'Hverse version: {0}'
+  format: 'HOL version: {0}'
 --- !u!1 &6549195616262625741
 GameObject:
   m_ObjectHideFlags: 0

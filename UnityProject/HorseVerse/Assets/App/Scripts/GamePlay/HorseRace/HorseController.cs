@@ -31,11 +31,12 @@ public partial class HorseController : MonoBehaviour
     private Animator animator;
     
     public bool IsPlayer => horseInGameData.IsPlayer;
-    public float CurrentRaceProgressWeight => isStarted ? (progressiveTargetIndex + 1)* 10000 - DistanceToCurrentTarget() : default;
+    public float CurrentRaceProgressWeight => isStarted ? IsFinishRace ? 1000000.0f - totalTime : (progressiveTargetIndex + 1)* 1000 - DistanceToCurrentTarget() : default;
     public int InitialLane => horseInGameData.InitialLane;
     private float CurrentOffset => horseInGameData.CurrentOffset;
     private (Vector3 target, Quaternion rotation, float time)[] PredefineTargets => horseInGameData?.PredefineTargets.targets;
     private int FinishIndex => horseInGameData.PredefineTargets.finishIndex;
+    private bool IsFinishRace => progressiveTargetIndex >= FinishIndex; 
     public string Name => horseInGameData.Name;
 
     private void Start()
@@ -51,6 +52,9 @@ public partial class HorseController : MonoBehaviour
         laneContainer.gameObject.SetActive(true);
         timeRange = new Vector2(this.horseInGameData.PredefineTargets.targets.Min(x => x.time),
             this.horseInGameData.PredefineTargets.targets.Max(x => x.time));
+        
+        
+        
         ChangeTarget();
         DOTween.To(val =>
         {
@@ -192,6 +196,6 @@ public partial class HorseController : MonoBehaviour
         });
         laneContainer.gameObject.SetActive(false);
         laneContainer.GetComponent<Canvas>().worldCamera = this.horseInGameData.MainCamera.GetComponent<Camera>();
-        totalTime = PredefineTargets.Sum(x => x.time);
+        totalTime = PredefineTargets.Sum(x => x.time) + horseInGameData.Delay;
     }
 }
