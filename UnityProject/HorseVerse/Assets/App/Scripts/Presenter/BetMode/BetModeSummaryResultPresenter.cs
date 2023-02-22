@@ -90,7 +90,7 @@ internal class BetModeSummaryResultPresenter : IDisposable
         await ucs.Task.AttachExternalCancellation(cts.Token);
     }
 
-    public async UniTask ShowBetModeMyResultAsync()
+    private async UniTask ShowBetModeMyResultAsync()
     {
         var ucs = new UniTaskCompletionSource();
         if (uiBetModeResult != default)

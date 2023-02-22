@@ -15,8 +15,12 @@ public class BetModeUIState : InjectedBState
     public override void Enter()
     {
         base.Enter();
+#if MOCK_DATA
+        Container.Bind(new LocalBetHistoryRepository());
+#else
+        Container.Bind(new BetHistoryRepository(Container.Inject<ISocketClient>()));
+#endif
         OnEnterStateAsync().Forget();
-
     }
 
     private async UniTaskVoid OnEnterStateAsync()
@@ -31,6 +35,11 @@ public class BetModeUIState : InjectedBState
         
         await UIBackGroundPresenter.ShowBackGroundAsync();
         await uiBetModePresenter.ShowUIBetModeAsync();
+    }
+
+    private void OnViewHistory()
+    {
+        
     }
 
     private void OnTimeOut()
@@ -63,5 +72,11 @@ public class BetModeUIState : InjectedBState
         uiBetModePresenter.OnTimeOut -= OnBackToMainMenu;
         uiBetModePresenter?.Dispose();
         uiBetModePresenter = default;
+        
+#if MOCK_DATA
+        Container.RemoveAndDisposeIfNeed<LocalBetHistoryRepository>();
+#else
+        Container.RemoveAndDisposeIfNeed<BetHistoryRepository>();
+#endif
     }
 }

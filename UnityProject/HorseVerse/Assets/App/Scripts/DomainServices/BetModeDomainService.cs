@@ -12,6 +12,7 @@ public interface IBetModeDomainService
     UniTask BetAsync((int first, int second)[] keys, int amouth);
     UniTask<(RaceScriptData raceScriptData, BetMatchDataContext betMatchDataContext)> GetCurrentBetMatchData();
     UniTask<BetMatchFullDataContext> GetCurrentBetMatchRawData();
+    UniTask<BetMatchFullDataContext> GetCurrentBetMatchRawData(long matchId);
     UniTask<HorseBetInfo> GetCurrentBetModeHorseData();
     UniTask RequestBetData();
 }
@@ -57,16 +58,12 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
         {
             MatchId = BetMatchRepository.Current.BetMatchId
         }, 5.0f);
-        BetMatchDataDetail[] data = default;
-        data = bettingDetailResponse.Records.Select(x =>
+        
+        var data = bettingDetailResponse.Records.Select(x => new BetMatchDataDetail()
         {
-            UnityEngine.Debug.Log("POOL " + x.Pool);
-            return new BetMatchDataDetail()
-            {
-                betMoney = x.BettingMoney,
-                rate = x.WinRate,
-                winMoney = x.WinMoney,
-            };
+            betMoney = x.BettingMoney,
+            rate = x.WinRate,
+            winMoney = x.WinMoney,
         }).ToArray();
         return (new RaceScriptData()
         {
@@ -79,15 +76,15 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
         });
     }
 
-    public async UniTask<BetMatchFullDataContext> GetCurrentBetMatchRawData()
+    public async UniTask<BetMatchFullDataContext> GetCurrentBetMatchRawData(long matchId)
     {
-        var bettingDetailResponse = await SocketClient.Send<GetBetHistoryDetailRequest, GetBetHistoryDetailResponse>(new GetBetHistoryDetailRequest()
+        var bettingDetailResponse = await SocketClient.Send<GetBetHistoryDetailRequest, GetBetHistoryDetailResponse>(
+        new GetBetHistoryDetailRequest()
         {
-            MatchId = BetMatchRepository.Current.BetMatchId
-        }, 5.0f);
+            MatchId = matchId
+        });
 
-        BetMatchDataDetail[] data = default;
-        data = bettingDetailResponse.Records.Select(x =>
+        var data = bettingDetailResponse.Records.Select(x =>
         {
             string[] s = x.Pool.Trim().Split('-');
             int first = 0;
@@ -119,6 +116,11 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
             BetMatchId = BetMatchRepository.Current.BetMatchId,
             Record = data
         };
+    }
+    
+    public async UniTask<BetMatchFullDataContext> GetCurrentBetMatchRawData()
+    {
+        return await GetCurrentBetMatchRawData(BetMatchRepository.Current.BetMatchId);
     }
 
     public async UniTask<HorseBetInfo> GetCurrentBetModeHorseData()
@@ -227,6 +229,11 @@ public class LocalBetModeDomainService : BetModeDomainServiceBase, IBetModeDomai
     }
 
     public UniTask<BetMatchFullDataContext> GetCurrentBetMatchRawData()
+    {
+        throw new NotImplementedException();
+    }
+
+    public UniTask<BetMatchFullDataContext> GetCurrentBetMatchRawData(long matchId)
     {
         throw new NotImplementedException();
     }

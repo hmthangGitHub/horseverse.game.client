@@ -23,5 +23,8 @@ public class BetMatchDataDetail
     public float rate { get; set; }
     public int betMoney { get; set; }
     public int winMoney { get; set; }
+}
 
+public class BetHistoryRecord
+{
 }

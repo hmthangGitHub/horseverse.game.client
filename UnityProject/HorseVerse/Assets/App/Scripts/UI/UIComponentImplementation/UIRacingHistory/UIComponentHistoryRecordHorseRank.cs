@@ -18,4 +18,12 @@ public class UIComponentHistoryRecordHorseRank : UIComponent<UIComponentHistoryR
 	    otherRankText.SetEntity(this.entity.rank);
 	    horseRank.SetEntity( Mathf.Min(this.entity.rank, 3) - 1);
     }
+
+    public void SetEntity(int rank)
+    {
+	    SetEntity(new Entity()
+	    {
+		    rank = rank
+	    });
+    }
 }	
