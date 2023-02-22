@@ -8,4 +8,5 @@ public class TrainingTrapBase : MonoBehaviour
 
     public System.Action OnFinishPlatform = ActionUtility.EmptyAction.Instance;
 
+    public virtual void Active () { }
 }

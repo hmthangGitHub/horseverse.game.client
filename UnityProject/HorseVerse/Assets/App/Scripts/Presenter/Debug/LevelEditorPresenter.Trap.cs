@@ -83,7 +83,7 @@ public partial class LevelEditorPresenter
     private void SaveTrapToBlockAndRemove()
     {
         currentSelectingBlockCombo.masterHorseTrainingBlockCombo.TrapList = trapInBlocks.Select(x => {
-            var trap = trainingBlockSettings.traps[x.index];
+            var trap = trainingBlockSettings.trapEditors[x.index];
             var trapEdi = trap.GetComponent<TrapEditor>();
             return new Trap()
             {
@@ -103,7 +103,7 @@ public partial class LevelEditorPresenter
     private async UniTaskVoid GenerateTrap()
     {
         await UniTask.Yield();
-        var traps = trainingBlockSettings.traps.ToList();
+        var traps = trainingBlockSettings.trapEditors.ToList();
         currentSelectingBlockCombo.masterHorseTrainingBlockCombo.TrapList
                                   .ForEach(x =>
                                   {
@@ -139,13 +139,13 @@ public partial class LevelEditorPresenter
     private TrapEditor CreatTrap(int index)
     {
         var currentPlatformObject = (PlatformModular)currentEditingPlatformObject;
-        if (trainingBlockSettings.traps.Length == 0)
+        if (trainingBlockSettings.trapEditors.Length == 0)
         {
             Debug.LogError("Null Trap Editor");
             return null;
         }
         Debug.LogError("Trap Editor index " + index);
-        var prefab = trainingBlockSettings.traps[index]
+        var prefab = trainingBlockSettings.trapEditors[index]
                              .transform;
         var trapDummy = UnityEngine.Object.Instantiate(prefab, currentPlatformObject.transform).gameObject;
         trapDummy.name = prefab.name;
@@ -201,10 +201,10 @@ public partial class LevelEditorPresenter
     private void ChangeTrap(string trapName,
                                 Vector3 localPosition)
     {
-        var trapIndex = trainingBlockSettings.traps.ToList()
+        var trapIndex = trainingBlockSettings.trapEditors.ToList()
                                                  .FindIndex(x => x.transform.Cast<Transform>()
                                                                   .Any(child => child.gameObject.name == trapName));
-        trapIndex = (trapIndex + 1) % trainingBlockSettings.traps.Length;
+        trapIndex = (trapIndex + 1) % trainingBlockSettings.trapEditors.Length;
         CreateTrapAtPosition(trapIndex, localPosition);
     }
 

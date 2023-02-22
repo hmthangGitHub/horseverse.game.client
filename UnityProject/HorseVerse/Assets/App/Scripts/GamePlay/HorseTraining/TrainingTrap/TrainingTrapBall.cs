@@ -23,10 +23,11 @@ public class TrainingTrapBall : TrainingTrap
         
     }
 
-    public void Active()
+    public override void Active()
     {
         isStart = true;
         isReachedTarget = false;
+        Collider.enabled = true;
         TriggerPoint.gameObject.SetActive(false);
         Rigid.useGravity = false;
         OnActiveToDropPoint();
@@ -34,10 +35,6 @@ public class TrainingTrapBall : TrainingTrap
 
     private void Update()
     {
-        //Test
-        if (Input.GetKeyDown(KeyCode.Space)) Active();
-        //
-
         if (!isStart) return;
         UpdatePosition();
     }
@@ -46,7 +43,7 @@ public class TrainingTrapBall : TrainingTrap
     {
         if (IsReachTarget() && !isReachedTarget)
         {
-            isReachedTarget = true;
+            isReachedTarget = true; 
             TriggerTarget();
         }
 
@@ -58,14 +55,15 @@ public class TrainingTrapBall : TrainingTrap
 
     protected virtual void OnActiveToDropPoint()
     {
-        direction = Collider.transform.position - DropPoint.position;
-        direction = direction.normalized;
-        Rigid.velocity = -direction * ExposeSpeed;
+        //direction = Collider.transform.localPosition - DropPoint.localPosition;
+        //direction = direction.normalized;
+        //Rigid.velocity = -direction * ExposeSpeed;
+        Rigid.transform.localPosition = DropPoint.localPosition;
     }
 
     protected virtual bool IsReachTarget()
     {
-        if (Vector3.Distance(Collider.transform.position, DropPoint.position) <= Collider.radius + 1.0f)
+        if (Vector3.Distance(Collider.transform.localPosition, DropPoint.localPosition) <= Collider.radius + 1.0f)
             return true;
         return false;
     }
@@ -77,11 +75,13 @@ public class TrainingTrapBall : TrainingTrap
 
     private void TriggerTarget()
     {
-        direction = MovingPoint.position - DropPoint.position;
-        direction = direction.normalized;
+        direction = MovingPoint.localPosition - DropPoint.localPosition;
+        direction = direction.normalized; Debug.Log("Trigger Target " + direction);
         Rigid.useGravity = true;
         Rigid.velocity = Vector3.zero;
-        Rigid.AddForce(direction * RollingSpeed, ForceMode.Impulse);
+        Rigid.WakeUp();
+        Rigid.AddForce(direction * RollingSpeed , ForceMode.Impulse);
+        
     }
 
     private void OnFinishEvent()

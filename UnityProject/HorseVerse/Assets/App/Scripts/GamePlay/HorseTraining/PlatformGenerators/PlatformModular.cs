@@ -28,6 +28,7 @@ public partial class PlatformModular : PlatformBase
 
     private List<GameObject> _cacheObs = new List<GameObject>();
     private List<GameObject> _cacheBlock = new List<GameObject>();
+    private List<GameObject> _cacheTrap = new List<GameObject>();
 
     private List<BoxCollider> enableColliders = new List<BoxCollider>();
 
@@ -140,7 +141,7 @@ public partial class PlatformModular : PlatformBase
     private void PlaceStartObjectAtOffsetToFirstBlock(List<BoxCollider> _allPlatformColliders, float offset)
     {
         var firstCollider = _allPlatformColliders.First(); if (firstCollider == null) return;
-        var boundsExtents = firstCollider.bounds.extents; Debug.Log("Bound " + boundsExtents);
+        var boundsExtents = firstCollider.bounds.extents;
         var localPosition = new Vector3(0, boundsExtents.y + firstCollider.center.y, -boundsExtents.z + offset);
         start.transform.position = localPosition + firstCollider.transform.position;
     }
@@ -148,7 +149,7 @@ public partial class PlatformModular : PlatformBase
     private void PlaceEndObjectAtOffsetToLastBlock(List<BoxCollider> _allPlatformColliders, float offset)
     {
         var lastCollider = _allPlatformColliders.Last();
-        var boundsExtents = lastCollider.bounds.extents; Debug.Log("X Bound " + boundsExtents);
+        var boundsExtents = lastCollider.bounds.extents;
         var localPosition = new Vector3(0, boundsExtents.y + lastCollider.center.y, boundsExtents.z - offset);
         end.transform.position = localPosition + lastCollider.transform.position;
     }
@@ -232,6 +233,7 @@ public partial class PlatformModular : PlatformBase
                               MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo,
                               float coinRadius,
                               GameObject[] obstaclesPrefab,
+                              GameObject[] trapsPrefab,
                               PlatformGeneratorPool _pool)
     {
         pool = _pool;
@@ -239,6 +241,7 @@ public partial class PlatformModular : PlatformBase
         GenerateBlock(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType);
         GenerateObstacle(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab);
         GenerateCoins(masterHorseTrainingBlockCombo.CoinList, coinRadius);
+        GenerateTraps(masterHorseTrainingBlockCombo.TrapList, trapsPrefab);
         IsReady = true;
     }
 
@@ -251,6 +254,7 @@ public partial class PlatformModular : PlatformBase
                               MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo,
                               float coinRadius,
                               GameObject[] obstaclesPrefab,
+                              GameObject[] trapsPrefab,
                               PlatformGeneratorPool _pool)
     {
         pool = _pool;
@@ -259,6 +263,7 @@ public partial class PlatformModular : PlatformBase
         yield return GenerateBlockAsync(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType);
         yield return GenerateObstacleAsync(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab);
         GenerateCoins(masterHorseTrainingBlockCombo.CoinList, coinRadius);
+        yield return GenerateTrapAsync(masterHorseTrainingBlockCombo.TrapList, trapsPrefab);
         IsReady = true;
     }
 
@@ -314,6 +319,7 @@ public partial class PlatformModular : PlatformBase
         obstacle.transform.localPosition = localPosition.ToVector3();
         return obstacle;
     }
+
 
     private void InstantiateBlocks(GameObject[] gameObjects,
                                    GameObject paddingHead,

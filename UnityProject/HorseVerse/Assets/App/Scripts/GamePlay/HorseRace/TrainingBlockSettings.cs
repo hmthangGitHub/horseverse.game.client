@@ -10,7 +10,8 @@ public class TrainingBlockSettings : ScriptableObject
     public GameObject[] sceneryObjects;
     public GameObject[] blocks;
     public GameObject[] traps;
- 
+    public GameObject[] trapEditors;
+
     private Dictionary<string, GameObject> blocksLookUpTable;
     public IReadOnlyDictionary<string, GameObject> BlocksLookUpTable => blocksLookUpTable ??= blocks.ToDictionary(x => x.name);
 }

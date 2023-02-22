@@ -15,6 +15,9 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private const string Obstacle = "Obstacle";
     private const string Coin = "Coin";
     private const string Bridge = "Bridge";
+    private const string TrapTrigger = "TrainingTrapTrigger";
+    private const string TrapObject = "TrainingTrap";
+
     private static readonly int Speed = Animator.StringToHash("Speed");
     private static readonly int Horizontal = Animator.StringToHash("Horizontal");
     private static readonly int Jumping = Animator.StringToHash("IsJumping");
@@ -491,6 +494,22 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
             takeCoinVFX.gameObject.SetActive(false);
             takeCoinVFX.gameObject.SetActive(true);
             SoundController.PlayHitCoin();
+        }
+
+        if (other.CompareTag(TrapObject) && !isDead)
+        {
+            OnDead();
+            cam1.transform.DOShakePosition(0.35f, 2.5f);
+            cam2.transform.DOShakePosition(0.35f, 2.5f);
+        }
+
+        if (other.CompareTag(TrapTrigger))
+        {
+            var comp = other.GetComponentInParent<TrainingTrapBase>();
+            if(comp)
+            {
+                comp.Active();
+            }
         }
     }
 

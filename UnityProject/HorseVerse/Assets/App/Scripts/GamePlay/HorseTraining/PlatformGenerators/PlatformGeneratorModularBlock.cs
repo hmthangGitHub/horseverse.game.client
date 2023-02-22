@@ -40,6 +40,7 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
             randomBlockCombo,
             masterHorseTrainingProperty.CoinColliderRadius,
             trainingBlockSettings.obstacles,
+            trainingBlockSettings.traps,
             pool);
         return platform;
     }
@@ -63,6 +64,7 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
             randomBlockCombo,
             masterHorseTrainingProperty.CoinColliderRadius,
             trainingBlockSettings.obstacles,
+            trainingBlockSettings.traps,
             pool);
         return platform;
     }
@@ -70,8 +72,9 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
     private MasterHorseTrainingBlockCombo GetRandomBlockCombo()
     {
         var masterHorseTrainingBlockGroupId = GetMasterHorseTrainingBlockGroupId();
-        return masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer[masterHorseTrainingBlockGroupId]
-                                                     .RandomElement();
+        //return masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer[masterHorseTrainingBlockGroupId]
+        //                                             .RandomElement();
+        return masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer[masterHorseTrainingBlockGroupId].Where(x => x.Traps.Length > 0).RandomElement();
     }
 
     private int GetMasterHorseTrainingBlockGroupId()
