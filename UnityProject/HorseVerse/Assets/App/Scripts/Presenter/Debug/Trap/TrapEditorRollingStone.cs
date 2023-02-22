@@ -1,10 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using RuntimeHandle;
 using UnityEngine;
 
-public class TrapEditorRollingStone : MonoBehaviour
+public class TrapEditorRollingStone : TrapEditorBase
 {
+    [System.Serializable]
+    public class Entity
+    {
+        public Position Target;
+        public Position Direction;
+        public Position Trigger;
+        public int TriggerSize;
+        public bool TriggerZoneFullBlock;
+    }
+
+    private Entity entity;
+
     public GameObject Target;
     public GameObject Direction;
     public GameObject Trigger;
@@ -47,5 +60,21 @@ public class TrapEditorRollingStone : MonoBehaviour
         Trigger.SetActive(true);
         var comp = Trigger.AddComponent<RuntimeTransformHandle>();
         comp.axes = HandleAxes.XZ;
+    }
+
+    private Entity getEntity()
+    {
+        if (entity == default) entity = new Entity();
+        entity.Target = Position.FromVector3(Target.transform.localPosition);
+        entity.Direction = Position.FromVector3(Direction.transform.localPosition);
+        entity.Trigger = Position.FromVector3(Trigger.transform.localPosition);
+        entity.TriggerSize = TriggerSize;
+        entity.TriggerZoneFullBlock = TriggerZoneFullBlock;
+        return entity;
+    }
+
+    public override string GetExtraData()
+    {
+        return JsonConvert.SerializeObject(getEntity()).Replace(",", "..."); ;
     }
 }

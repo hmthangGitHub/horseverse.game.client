@@ -89,7 +89,8 @@ public partial class LevelEditorPresenter
             {
                 type = trapEdi.Type.ToString(),
                 id = trapEdi.TrapID,
-                localPosition = Position.FromVector3(x.trap.transform.localPosition)
+                localPosition = Position.FromVector3(x.trap.transform.localPosition),
+                extraData = trapEdi.getExtraData(),
             };
         }).ToArray();
 

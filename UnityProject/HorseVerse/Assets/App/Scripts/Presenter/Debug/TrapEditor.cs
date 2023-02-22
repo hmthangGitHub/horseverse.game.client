@@ -11,4 +11,5 @@ public class TrapEditor : MonoBehaviour
     }
 
     public string TrapID;
-    public TYPE Type;}
+    public TYPE Type;    public string getExtraData()     {
+        var comp = GetComponent<TrapEditorBase>();        if (comp != default) return comp.GetExtraData();        return "";    }}

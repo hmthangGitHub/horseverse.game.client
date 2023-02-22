@@ -7,4 +7,5 @@ public class TrainingTrapBase : MonoBehaviour
     public bool IsReady { get; set; }
 
     public System.Action OnFinishPlatform = ActionUtility.EmptyAction.Instance;
+
 }
