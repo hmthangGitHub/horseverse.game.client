@@ -5,6 +5,7 @@ using UnityEngine;
 public class TrainingTrapBall : TrainingTrap
 {
     [SerializeField] public float RollingSpeed;
+    [SerializeField] TrainingTrapBallObjectController ball;
     [SerializeField] public SphereCollider Collider;
     [SerializeField] public Rigidbody Rigid;
     [SerializeField] Transform DropPoint;
@@ -20,7 +21,7 @@ public class TrainingTrapBall : TrainingTrap
 
     public void OnEnable()
     {
-        
+        ball.Reset();
     }
 
     public override void Active()
@@ -30,6 +31,7 @@ public class TrainingTrapBall : TrainingTrap
         Collider.enabled = true;
         TriggerPoint.gameObject.SetActive(false);
         Rigid.useGravity = false;
+        ball.OnDeadEvent = OnDead;
         OnActiveToDropPoint();
     }
 
@@ -78,11 +80,10 @@ public class TrainingTrapBall : TrainingTrap
 
     private void TriggerTarget()
     {
+        ball.IsReady = true;
         direction = MovingPoint.localPosition - DropPoint.localPosition;
         direction = direction.normalized; 
         Rigid.useGravity = true;
-        Rigid.velocity = Vector3.zero;
-        //Rigid.AddForce(direction * RollingSpeed , ForceMode.Impulse);
         Rigid.velocity = direction * RollingSpeed;
         Rigid.WakeUp();
 
@@ -92,6 +93,11 @@ public class TrainingTrapBall : TrainingTrap
     private void OnFinishEvent()
     {
         isStart = false;
+    }
+
+    private void OnDead()
+    {
+        Destroy(this.gameObject);
     }
 
 }
