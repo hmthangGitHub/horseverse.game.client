@@ -35,6 +35,9 @@ public class TrainingTrapBall : TrainingTrap
 
     private void Update()
     {
+        //Test 
+        if (Input.GetKeyDown(KeyCode.J)) Active();
+
         if (!isStart) return;
         UpdatePosition();
     }
@@ -76,12 +79,14 @@ public class TrainingTrapBall : TrainingTrap
     private void TriggerTarget()
     {
         direction = MovingPoint.localPosition - DropPoint.localPosition;
-        direction = direction.normalized; Debug.Log("Trigger Target " + direction);
+        direction = direction.normalized; 
         Rigid.useGravity = true;
         Rigid.velocity = Vector3.zero;
+        //Rigid.AddForce(direction * RollingSpeed , ForceMode.Impulse);
+        Rigid.velocity = direction * RollingSpeed;
         Rigid.WakeUp();
-        Rigid.AddForce(direction * RollingSpeed , ForceMode.Impulse);
-        
+
+
     }
 
     private void OnFinishEvent()
