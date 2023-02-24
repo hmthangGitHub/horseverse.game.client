@@ -14,7 +14,6 @@ public class PlatformTrigger : MonoBehaviour
             var platform = GetComponentInParent<PlatformBase>();
             if (platform.IsReady)
             {
-                Debug.Log("Trigger platform " + platform.name + " --- " + platform.GetHashCode());
                 platform.OnFinishPlatform.Invoke();
                 collider.enabled = false;
             }

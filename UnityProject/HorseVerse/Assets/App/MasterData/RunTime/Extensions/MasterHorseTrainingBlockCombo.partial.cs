@@ -40,6 +40,27 @@ public class Coin
     }
 }
 
+[Serializable]
+public class Trap
+{
+    [JsonProperty]
+    public string type;
+    [JsonProperty]
+    public int eType;
+    [JsonProperty]
+    public string id;
+    [JsonProperty]
+    public Position localPosition;
+    [JsonProperty]
+    public string extraData;
+
+    public Trap Clone()
+    {
+        return (Trap)this.MemberwiseClone();
+    }
+
+}
+
 public class Position
 {
     [JsonProperty] public float x;
@@ -128,7 +149,21 @@ public partial class MasterHorseTrainingBlockCombo
         }
 #endif
     }
-    
+
+    public Trap[] TrapList
+    {
+        get
+        {
+            return JsonConvert.DeserializeObject(FormatCustomData(Traps), typeof(Trap[])) as Trap[] ?? Array.Empty<Trap>();
+        }
+#if ENABLE_DEBUG_MODULE
+        set
+        {
+            traps = JsonConvert.SerializeObject(value).Replace(",", "...");
+        }
+#endif
+    }
+
 #if ENABLE_DEBUG_MODULE
     public void SetMasterTrainingModularBlockIdStart(string blockId)
     {

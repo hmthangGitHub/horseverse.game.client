@@ -162,8 +162,11 @@ public partial class AudioManager : MonoBehaviour
 			if (sound.clips.Count == 0)
 				return;
 			mixBuffer.Add (clip);
-            sfx.PlayOneShot (sound.clips
-				.GetRandom ()); // Randomly Play Sound Each Time Through The Array Of clip
+			if (sound.clips != default)
+			{
+				sfx.PlayOneShot(sound.clips
+					.GetRandom()); // Randomly Play Sound Each Time Through The Array Of clip
+			}
 		}
 	}
 

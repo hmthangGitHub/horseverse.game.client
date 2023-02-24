@@ -142,8 +142,14 @@ public partial class LevelEditorPresenter : IDisposable
                 isOn = false,
                 onActiveToggle = val => IsEditingCoin = val
             },
+            editTrapToggle = new UIComponentToggle.Entity()
+            {
+                isOn = false,
+                onActiveToggle = val => IsEditingTrap = val
+            },
             addObstacleBtn = new ButtonComponent.Entity(CreateNewObstacle),
             addCoinBtn = new ButtonComponent.Entity(CreateNewCoinEditor),
+            addTrapBtn = new ButtonComponent.Entity(CreateNewTrap),
             blockComboType = new UIComponentBlockComboType.Entity()
             {
                 defaultValue = UIComponentBlockComboType.BlockComboType.Modular,
