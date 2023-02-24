@@ -31,6 +31,8 @@ public class LoginStatePresenter : IDisposable
     private ServerDefine serverDefine;
     private const string ClientVersionScripableObjectPath = "ClientInfo/ClientInfo";
 
+    private int currentProfileIndex = 0;
+
     public LoginStatePresenter(IDIContainer container)
     {
         this.container = container;
@@ -88,7 +90,7 @@ public class LoginStatePresenter : IDisposable
         var uiSV = await UILoader.Instantiate<UIPopUpServerSelection>(token: cts.Token);
         uiPopupMessage = await UILoader.Instantiate<UIPopupMessage>(UICanvas.UICanvasType.PopUp, token: cts.Token);
         bool wait = true;
-        int currentProfileIndex = 0;
+        currentProfileIndex = 0;
         uiSV.SetEntity(new UIPopUpServerSelection.Entity()
         {
             cancelBtn = new ButtonComponent.Entity(() =>
@@ -137,7 +139,11 @@ public class LoginStatePresenter : IDisposable
                 Email = uiLogin.id.inputField.text,
                 Password = uiLogin.passWord.inputField.text,
                 Platform = GetCurrentPlatform(),
+#if MULTI_ACCOUNT
+                DeviceId = $"{SystemInfo.deviceUniqueIdentifier}_{currentProfileIndex}",
+#else
                 DeviceId = SystemInfo.deviceUniqueIdentifier,
+#endif
                 Model = SystemInfo.deviceModel,
                 Version = GetClientVersion(),
             }
@@ -189,7 +195,11 @@ public class LoginStatePresenter : IDisposable
                 {
                     AccessToken = token,
                     Platform = GetCurrentPlatform(),
+#if MULTI_ACCOUNT
+                    DeviceId = $"{SystemInfo.deviceUniqueIdentifier}_{currentProfileIndex}",
+#else
                     DeviceId = SystemInfo.deviceUniqueIdentifier,
+#endif
                     Model = SystemInfo.deviceModel,
                     Version = GetClientVersion(),
                 }
@@ -293,7 +303,11 @@ public class LoginStatePresenter : IDisposable
                 Email = uiLoginOTP.id.inputField.text,
                 EmailCode = uiLoginOTP.code.inputField.text,
                 Platform = GetCurrentPlatform(),
+#if MULTI_ACCOUNT
+                DeviceId = $"{SystemInfo.deviceUniqueIdentifier}_{currentProfileIndex}",
+#else
                 DeviceId = SystemInfo.deviceUniqueIdentifier,
+#endif
                 Model = SystemInfo.deviceModel,
                 Version = GetClientVersion(),
             }
@@ -316,7 +330,11 @@ public class LoginStatePresenter : IDisposable
                 Email = uiLoginOTP.id.inputField.text,
                 Password = "",
                 Platform = GetCurrentPlatform(),
+#if MULTI_ACCOUNT
+                DeviceId = $"{SystemInfo.deviceUniqueIdentifier}_{currentProfileIndex}",
+#else
                 DeviceId = SystemInfo.deviceUniqueIdentifier,
+#endif
                 Model = SystemInfo.deviceModel,
                 Version = GetClientVersion(),
             }

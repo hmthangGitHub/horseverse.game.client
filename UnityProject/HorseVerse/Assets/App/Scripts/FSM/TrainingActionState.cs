@@ -52,7 +52,7 @@ public class TrainingActionState : InjectedBState
     {
         await UILoadingPresenter.ShowLoadingAsync();
         await UIHorse3DViewPresenter.ShowHorse3DViewAsync();
-        await UIBackGroundPresenter.ShowBackGroundAsync();
+        await UIBackGroundPresenter.HideBackground();
     }
 
     private async UniTask HideHorseAndBackGround()

@@ -19,7 +19,6 @@ public partial class LevelEditorPresenter
 
     private readonly List<GameObject> trapPinList = new List<GameObject>();
 
-    private UIDebugLevelEditorTrap.Entity trapEditorEntity = default;
     private TrapEditor currentTrap = default;
 
     public bool IsEditingTrap
@@ -76,7 +75,6 @@ public partial class LevelEditorPresenter
         {
             SaveTrapToBlockAndRemove();
         }
-
         uiDebugLevelEditor.isAddTrapBtnVisible.SetEntity(IsEditingTrap);
     }
 
@@ -178,6 +176,7 @@ public partial class LevelEditorPresenter
                 RemovePin(pin);
                 trapInBlocks.RemoveAll(x => x.trap == trap);
                 Object.Destroy(trap.gameObject);
+                uiDebugLevelEditor.isTrapEditorVisible.SetEntity(false);
             }),
             shuffleBtn = new ButtonComponent.Entity(() =>
             {
@@ -197,9 +196,17 @@ public partial class LevelEditorPresenter
             isSelectBtnVisible = true,
             selectedBtn = new ButtonComponent.Entity(()=>
             {
-                currentTrap = trap;
-                uiDebugLevelEditor.isTrapEditorVisible.SetEntity(true);
-                uiDebugLevelEditor.trapEditor.SetEntity(GetEntity());
+                if(currentTrap != trap)
+                { 
+                    currentTrap = trap;
+                    uiDebugLevelEditor.isTrapEditorVisible.SetEntity(true);
+                    uiDebugLevelEditor.trapEditor.SetEntity(GetEntity());
+                }
+                else
+                {
+                    uiDebugLevelEditor.isTrapEditorVisible.SetEntity(false);
+                    currentTrap = default;
+                }
             })
         });
         
@@ -219,7 +226,7 @@ public partial class LevelEditorPresenter
 
     private UIDebugLevelEditorTrap.Entity GetEntity()
     {
-        trapEditorEntity = new UIDebugLevelEditorTrap.Entity()
+        var strapEditorEntity = new UIDebugLevelEditorTrap.Entity()
         {
             editTargetToggle = new UIComponentToggle.Entity()
             {
@@ -239,7 +246,7 @@ public partial class LevelEditorPresenter
             extraBtn = new ButtonComponent.Entity(() => OnExtraBtnClicked()),
 
         };
-        return trapEditorEntity;
+        return strapEditorEntity;
     }
 
     private void OnChangeEditingTrapTarget()

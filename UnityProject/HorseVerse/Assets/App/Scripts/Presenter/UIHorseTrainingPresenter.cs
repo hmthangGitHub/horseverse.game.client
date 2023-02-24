@@ -27,6 +27,9 @@ public class UIHorseTrainingPresenter : IDisposable
     private IReadOnlyHorseRepository HorseRepository => horseRepository ??= container.Inject<IReadOnlyHorseRepository>();
     private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= container.Inject<MasterHorseContainer>();
 
+    private UIBackGroundPresenter uiBackGroundPresenter;
+    private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= container.Inject<UIBackGroundPresenter>();
+
     private long currentSelectHorseId = -1;
     public UIHorseTrainingPresenter(IDIContainer container)
     {
@@ -37,6 +40,7 @@ public class UIHorseTrainingPresenter : IDisposable
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
+        await HideBackgroundAsync();
         await HorseRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
         uiHorseTraining ??= await UILoader.Instantiate<UIHorseTraining>(token : cts.Token);
         var currentState = UserDataRepository.Current.TraningTimeStamp <= DateTimeOffset.UtcNow.ToUnixTimeSeconds() ? UIComponentTraningState.TraningState.Prepare 
@@ -77,6 +81,11 @@ public class UIHorseTrainingPresenter : IDisposable
             },
         });
         uiHorseTraining.In().Forget();
+    }
+
+    private async UniTask HideBackgroundAsync()
+    {
+        await UIBackGroundPresenter.HideBackground();
     }
 
     private async UniTask ToTrainingAsync()
