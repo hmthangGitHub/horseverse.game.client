@@ -72,9 +72,9 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
     private MasterHorseTrainingBlockCombo GetRandomBlockCombo()
     {
         var masterHorseTrainingBlockGroupId = GetMasterHorseTrainingBlockGroupId();
-        //return masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer[masterHorseTrainingBlockGroupId]
-        //                                             .RandomElement();
-        return masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer[masterHorseTrainingBlockGroupId].Where(x => x.Traps.Length > 0).RandomElement();
+        return masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer[masterHorseTrainingBlockGroupId]
+                                                     .RandomElement();
+        //return masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer[masterHorseTrainingBlockGroupId].Where(x => x.Traps.Length > 0).RandomElement();
     }
 
     private int GetMasterHorseTrainingBlockGroupId()
