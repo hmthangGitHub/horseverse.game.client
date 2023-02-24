@@ -6,17 +6,7 @@ using UnityEngine;
 
 public class TrapEditorRollingStone : TrapEditorBase
 {
-    [System.Serializable]
-    public class Entity
-    {
-        public Position Target;
-        public Position Direction;
-        public Position Trigger;
-        public int TriggerSize;
-        public bool TriggerZoneFullBlock;
-    }
-
-    private Entity entity;
+    private TrainingTrapBall.Entity entity;
 
     public GameObject Target;
     public GameObject Direction;
@@ -62,19 +52,30 @@ public class TrapEditorRollingStone : TrapEditorBase
         comp.axes = HandleAxes.XZ;
     }
 
-    private Entity getEntity()
+    private TrainingTrapBall.Entity getEntity()
     {
-        if (entity == default) entity = new Entity();
+        if (entity == default) entity = new TrainingTrapBall.Entity();
         entity.Target = Position.FromVector3(Target.transform.localPosition);
         entity.Direction = Position.FromVector3(Direction.transform.localPosition);
         entity.Trigger = Position.FromVector3(Trigger.transform.localPosition);
         entity.TriggerSize = TriggerSize;
-        entity.TriggerZoneFullBlock = TriggerZoneFullBlock;
+        entity.TriggerZoneFullBlock = TriggerZoneFullBlock; Debug.Log("Save Data " + entity.Trigger.ToVector3());
         return entity;
     }
 
     public override string GetExtraData()
     {
         return JsonConvert.SerializeObject(getEntity()).Replace(",", "..."); ;
+    }
+
+    public void SetExtraData(string data)
+    {
+        entity = TrainingTrapBall.Entity.Parse(data);
+        Target.transform.localPosition = entity.Target.ToVector3();
+        Direction.transform.localPosition = entity.Direction.ToVector3();
+        Trigger.transform.localPosition = entity.Trigger.ToVector3();
+        TriggerSize = entity.TriggerSize;
+        TriggerZoneFullBlock = entity.TriggerZoneFullBlock;
+        Debug.Log("SET EXTRA " + entity.Trigger.ToVector3());
     }
 }

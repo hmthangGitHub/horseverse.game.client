@@ -83,18 +83,19 @@ public partial class LevelEditorPresenter
     private void SaveTrapToBlockAndRemove()
     {
         currentSelectingBlockCombo.masterHorseTrainingBlockCombo.TrapList = trapInBlocks.Select(x => {
-            var trap = trainingBlockSettings.trapEditors[x.index];
+            var trap = x.trap;
             var trapEdi = trap.GetComponent<TrapEditor>();
             return new Trap()
             {
                 type = trapEdi.Type.ToString(),
+                eType = (int)trapEdi.Type,
                 id = trapEdi.TrapID,
                 localPosition = Position.FromVector3(x.trap.transform.localPosition),
                 extraData = trapEdi.getExtraData(),
             };
         }).ToArray();
 
-        trapInBlocks.ForEach(x => Object.Destroy(x.trap));
+        trapInBlocks.ForEach(x => Object.Destroy(x.trap.gameObject));
         trapInBlocks.Clear();
         trapPinList.ForEach(x => Object.Destroy(x.gameObject));
         trapPinList.Clear();
@@ -110,7 +111,7 @@ public partial class LevelEditorPresenter
                                       Debug.LogError("Find Trap Name " + $"{x.type}_{x.id}");
                                       CreateTrapAtPosition(
                                           traps.FindIndex(saveTraps => saveTraps.name == $"{x.type}_{x.id}"),
-                                          x.localPosition.ToVector3());
+                                          x.localPosition.ToVector3(),x.extraData);
                                   });
     }
 
@@ -120,10 +121,18 @@ public partial class LevelEditorPresenter
         AddPinToTrap(trapDummy, 0);
     }
 
-    private void CreateTrapAtPosition(int index, Vector3 localPosition)
+    private void CreateTrapAtPosition(int index, Vector3 localPosition, string extraData = "")
     {
         var trap = CreatTrap(index);
         trap.transform.localPosition = new Vector3(localPosition.x, trap.transform.localPosition.y, localPosition.z);
+        if (!string.IsNullOrEmpty(extraData))
+        {
+            if (trap.Type == TrapEditor.TYPE.ROLLING_ROCK)
+            {
+                var comp = trap.gameObject.GetComponent<TrapEditorRollingStone>();
+                comp.SetExtraData(extraData);
+            }
+        }
         AddPinToTrap(trap, index);
     }
 
@@ -154,7 +163,6 @@ public partial class LevelEditorPresenter
         var trapEditor = trapDummy.GetComponent<TrapEditor>();
         PlatformModular.Snap(currentPlatformObject.FirstCollider, trapDummy.GetComponent<Collider>());
         trapInBlocks.Add((index, trapEditor));
-
         return trapEditor;
     }
 
@@ -201,9 +209,10 @@ public partial class LevelEditorPresenter
     private void ChangeTrap(string trapName,
                                 Vector3 localPosition)
     {
-        var trapIndex = trainingBlockSettings.trapEditors.ToList()
-                                                 .FindIndex(x => x.transform.Cast<Transform>()
-                                                                  .Any(child => child.gameObject.name == trapName));
+        var trapIndex = trainingBlockSettings.trapEditors.ToList().FindIndex(saveTraps => saveTraps.name == trapName);
+        //var trapIndex = trainingBlockSettings.trapEditors.ToList()
+        //                                         .FindIndex(x => x.transform.Cast<Transform>()
+        //                                                          .Any(child => child.gameObject.name == trapName));
         trapIndex = (trapIndex + 1) % trainingBlockSettings.trapEditors.Length;
         CreateTrapAtPosition(trapIndex, localPosition);
     }

@@ -1,9 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 
-public class TrainingTrapBall : TrainingTrap
+public class TrainingTrapBall : TrainingTrap<TrainingTrapBall.Entity>
 {
+    [System.Serializable]
+    public class Entity
+    {
+        public Position Target;
+        public Position Direction;
+        public Position Trigger;
+        public int TriggerSize;
+        public bool TriggerZoneFullBlock;
+
+        public static Entity Parse(string data)
+        {
+            return JsonConvert.DeserializeObject(data, typeof(Entity)) as Entity ?? null;
+        }
+    }
+
     [SerializeField] public float RollingSpeed;
     [SerializeField] TrainingTrapBallObjectController ball;
     [SerializeField] public SphereCollider Collider;
@@ -18,6 +34,18 @@ public class TrainingTrapBall : TrainingTrap
 
     private bool isStart;
     private bool isReachedTarget;
+
+    protected override void OnSetEntity()
+    {
+        MovingPoint.localPosition = entity.Direction.ToVector3();
+        TriggerPoint.localPosition = entity.Trigger.ToVector3();
+        Debug.Log("SET ENTITY " + entity.Trigger.ToVector3());
+    }
+
+    public override Entity ParseData(string data)
+    {
+        return Entity.Parse(data);
+    }
 
     public void OnEnable()
     {
@@ -100,4 +128,5 @@ public class TrainingTrapBall : TrainingTrap
         Destroy(this.gameObject);
     }
 
+    
 }

@@ -13,7 +13,7 @@ public partial class PlatformModular
         trapList.ForEach(x =>
         {
             var trapPrefab = trapPrefabs.FirstOrDefault(trapP => trapP.name == $"{x.type}_{x.id}");
-            _cacheTrap.Add(CreateTrap(trapPrefab, x.localPosition));
+            _cacheTrap.Add(CreateTrap(x.type, x.extraData, trapPrefab, x.localPosition));
         });
     }
 
@@ -26,13 +26,13 @@ public partial class PlatformModular
         {
             var x = trapList[i];
             var trapPrefab = trapPrefabs.FirstOrDefault(trapP => trapP.name == $"{x.type}_{x.id}");
-            _cacheTrap.Add(CreateTrap(trapPrefab, x.localPosition));
+            _cacheTrap.Add(CreateTrap(x.type ,x.extraData, trapPrefab, x.localPosition));
             
             if (i % 5 == 0) yield return null;
         }
     }
 
-    private GameObject CreateTrap(GameObject trapPrefab,
+    private GameObject CreateTrap(string type, string data, GameObject trapPrefab,
                                      Position localPosition)
     {
         var prefab = trapPrefab
@@ -41,6 +41,18 @@ public partial class PlatformModular
         var trap = Instantiate(prefab.gameObject, transform);//(GameObject)pool.GetOrInstante(prefab.gameObject, transform);
         trap.name = prefab.name;
         trap.transform.localPosition = localPosition.ToVector3();
+        if (string.Equals(type, TrapEditor.TYPE.ROLLING_ROCK.ToString()))
+        {
+            var comp = trap.GetComponent<TrainingTrapBall>();
+            if (comp != default)
+            {
+                comp.SetEntity(comp.ParseData(data));
+            }
+        }
+        else if (string.Equals(type, TrapEditor.TYPE.WOODEN_PILE.ToString()))
+        {
+
+        }
         return trap;
     }
 

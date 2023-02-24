@@ -505,7 +505,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
         if (other.CompareTag(TrapTrigger))
         {
-            var comp = other.GetComponentInParent<TrainingTrapBase>();
+            var comp = other.GetComponentInParent<TrainingTrap>();
             if(comp)
             {
                 comp.Active();

@@ -46,6 +46,8 @@ public class Trap
     [JsonProperty]
     public string type;
     [JsonProperty]
+    public int eType;
+    [JsonProperty]
     public string id;
     [JsonProperty]
     public Position localPosition;
