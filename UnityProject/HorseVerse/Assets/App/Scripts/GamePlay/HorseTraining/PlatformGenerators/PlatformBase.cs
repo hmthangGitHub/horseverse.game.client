@@ -9,6 +9,12 @@ public class PlatformBase : MonoBehaviour
     
     [SerializeField]
     protected Transform blockContainer;
+    [SerializeField]
+    protected Transform sceneryContainer;
 
     public bool IsReady { get; set; } = true;
+
+    public virtual void Clear()
+    {
+    }
 }

@@ -1,10 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public partial class PlatformModular : PlatformBase
 {
+#if ENABLE_DEBUG_MODULE
+    public TextMeshPro blockName;
+    public void SetBlockName(string name)
+    {
+        blockName.transform.position = FirstCollider.transform.position + Vector3.up * 2.0f;
+        blockName.text = name;
+        this.gameObject.name = name;
+    }
+#endif
+    
     [SerializeField]
     private CoinEditor coinPrefab;
     [SerializeField]
@@ -15,6 +26,10 @@ public partial class PlatformModular : PlatformBase
     private BoxCollider paddingHeadCollider;
     [SerializeField]
     private BoxCollider paddingTailCollider;
+    [SerializeField]
+    public BoxCollider sceneryBoxContainer;
+    [SerializeField]
+    public BoxCollider sceneryConflictRegion;
     
     private PlatformGeneratorPool pool;
 
@@ -26,6 +41,7 @@ public partial class PlatformModular : PlatformBase
     public BoxCollider FirstCollider => allPlatformColliders.First();
     public BoxCollider LastCollider => allPlatformColliders.Last();
 
+    private readonly List<IPoolableDisposableObject> poolingObjectList = new List<IPoolableDisposableObject>();
     private List<GameObject> _cacheObs = new List<GameObject>();
     private List<GameObject> _cacheBlock = new List<GameObject>();
     private List<GameObject> _cacheTrap = new List<GameObject>();
@@ -177,7 +193,9 @@ public partial class PlatformModular : PlatformBase
                               GameObject paddingEndPrefab,
                               float jumpingPoint,
                               float landingPoint,
-                              MasterTrainingBlockComboType masterTrainingBlockComboType)
+                              MasterTrainingBlockComboType masterTrainingBlockComboType,
+                              GameObject[] sceneryObjects,
+                              GameObjectPoolList gameObjectPoolList)
     {
         InstantiateBlocks(blockPrefabs, paddingStartPrefab, paddingEndPrefab, masterTrainingBlockComboType);
         Tiling();
@@ -185,15 +203,16 @@ public partial class PlatformModular : PlatformBase
         PlaceStartObjectAtOffsetToFirstBlock(landingPoint);
         PlaceEndObjectAtOffsetToLastBlock(jumpingPoint);
         AlignToStartPosition(startPosition);
+        GenerateSceneryObjects(sceneryObjects, gameObjectPoolList);
     }
 
-    public IEnumerator GenerateBlockAsync(Vector3 startPosition,
-                             GameObject[] blockPrefabs,
-                             GameObject paddingStartPrefab,
-                             GameObject paddingEndPrefab,
-                             float jumpingPoint,
-                             float landingPoint,
-                             MasterTrainingBlockComboType masterTrainingBlockComboType)
+    private IEnumerator GenerateBlockAsync(Vector3 startPosition,
+                                           GameObject[] blockPrefabs,
+                                           GameObject paddingStartPrefab,
+                                           GameObject paddingEndPrefab,
+                                           float jumpingPoint,
+                                           float landingPoint,
+                                           MasterTrainingBlockComboType masterTrainingBlockComboType)
     {
         List<BoxCollider> sss = new List<BoxCollider>();
         enableColliders.Clear();
@@ -234,11 +253,11 @@ public partial class PlatformModular : PlatformBase
                               float coinRadius,
                               GameObject[] obstaclesPrefab,
                               GameObject[] trapsPrefab,
-                              PlatformGeneratorPool _pool)
+                              GameObject[] sceneryObjects,
+                              GameObjectPoolList gameObjectPoolList)
     {
-        pool = _pool;
         IsReady = false; 
-        GenerateBlock(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType);
+        GenerateBlock(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType, sceneryObjects, gameObjectPoolList);
         GenerateObstacle(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab);
         GenerateCoins(masterHorseTrainingBlockCombo.CoinList, coinRadius);
         GenerateTraps(masterHorseTrainingBlockCombo.TrapList, trapsPrefab);
@@ -255,7 +274,9 @@ public partial class PlatformModular : PlatformBase
                               float coinRadius,
                               GameObject[] obstaclesPrefab,
                               GameObject[] trapsPrefab,
-                              PlatformGeneratorPool _pool)
+                              GameObject[] sceneryObjectPrefabs,
+                              PlatformGeneratorPool _pool,
+                              GameObjectPoolList gameObjectPoolList)
     {
         pool = _pool;
         IsReady = false;
@@ -264,6 +285,7 @@ public partial class PlatformModular : PlatformBase
         yield return GenerateObstacleAsync(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab);
         GenerateCoins(masterHorseTrainingBlockCombo.CoinList, coinRadius);
         yield return GenerateTrapAsync(masterHorseTrainingBlockCombo.TrapList, trapsPrefab);
+        GenerateSceneryObjects(sceneryObjectPrefabs, gameObjectPoolList);
         IsReady = true;
     }
 
@@ -275,7 +297,14 @@ public partial class PlatformModular : PlatformBase
             coin.transform.localPosition = x.localPosition.ToVector3();
             coin.Init(x.numberOfCoin, x.benzierPointPositions.Select(x => x.ToVector3()).ToArray(), coinRadius, this.pool);
         });
-     
+    }
+
+    private GameObject InstantiateGameObject(GameObjectPoolList gameObjectPoolList,
+                                             GameObject prefab)
+    {
+        var gameObjectWrapper = gameObjectPoolList.Get(prefab);
+        poolingObjectList.Add(gameObjectWrapper);
+        return gameObjectWrapper.GameObject;
     }
 
     private void GenerateObstacle(Obstacle[] obstacleList,
@@ -328,21 +357,8 @@ public partial class PlatformModular : PlatformBase
     {
         if (trainingBlockComboType == MasterTrainingBlockComboType.Modular)
         {
-            //if (pool != default)
-            //{
-            //    var _paddingHead = ((GameObject)pool.GetOrInstante(paddingHead, this.blockContainer));
-            //    if (_paddingHead != default)
-            //    {
-            //        paddingHeadCollider = _paddingHead.GetComponentInChildren<BoxCollider>();
-            //        allPlatformColliders.Add(paddingHeadCollider);
-            //    }
-            //    _cacheBlock.Add(_paddingHead);
-            //}
-            //else
-            {
-                paddingHeadCollider = Instantiate(paddingHead, this.blockContainer)
-                .GetComponentInChildren<BoxCollider>();
-            }
+            paddingHeadCollider = Instantiate(paddingHead, this.blockContainer).GetComponentInChildren<BoxCollider>();
+            allPlatformColliders.Add(paddingHeadCollider);
         }
 
         boxColliders = gameObjects.Select(x => Instantiate(x, this.blockContainer).GetComponentInChildren<BoxCollider>())
@@ -419,7 +435,7 @@ public partial class PlatformModular : PlatformBase
                                          + Vector3.up * (yHeadOffset + yObstacleOffset);
     }
 
-    public virtual void Clear()
+    public override void Clear()
     {
         if (_cacheObs.Count > 0)
         {
@@ -434,5 +450,8 @@ public partial class PlatformModular : PlatformBase
             _cacheBlock.Clear();
         }
         this.pool = default;
+        
+        poolingObjectList.ForEach(x => x.ReturnToPool());
+        poolingObjectList.Clear();
     }
 }

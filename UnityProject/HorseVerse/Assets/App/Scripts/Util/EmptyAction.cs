@@ -21,4 +21,9 @@ namespace ActionUtility
     {
         public static readonly Action<T1, T2, T3> Instance = (_, __, ___) => { };
     } 
+    
+    public static class EmptyFunc<T>
+    {
+        public static readonly Func<T> Instance = () => default(T);
+    } 
 }

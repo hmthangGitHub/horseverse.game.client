@@ -13,6 +13,7 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
     private TrainingBlockSettings trainingBlockSettings;
     private CancellationTokenSource cts;
     private MasterTrainingModularBlockContainer masterTrainingModularBlockContainer;
+    private GameObjectPoolList gameObjectPoolList = new GameObjectPoolList();
 
     protected override async UniTask InitializeInternal()
     {
@@ -32,7 +33,8 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
 
         var modularBlockIds = randomBlockCombo.MasterHorseTrainingBlockIdList; 
         var platform = Instantiate(platformPrefab, this.transform);
-        platform.GetComponent<PlatformModular>().GenerateBlock(relativePointToPlayer + lastEndPosition, modularBlockIds.Select(x => trainingBlockSettings.BlocksLookUpTable[x].gameObject).ToArray(), 
+        platform.GetComponent<PlatformModular>().GenerateBlock(relativePointToPlayer + lastEndPosition, 
+            modularBlockIds.Select(x => trainingBlockSettings.BlocksLookUpTable[x].gameObject).ToArray(), 
             trainingBlockSettings.BlocksLookUpTable[paddingStartBlockId].gameObject,
             trainingBlockSettings.BlocksLookUpTable[paddingEndBlockId].gameObject,
             masterHorseTrainingProperty.JumpingPoint,
@@ -41,7 +43,12 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
             masterHorseTrainingProperty.CoinColliderRadius,
             trainingBlockSettings.obstacles,
             trainingBlockSettings.traps,
-            pool);
+            trainingBlockSettings.sceneryObjects,
+            gameObjectPoolList);
+        
+#if ENABLE_DEBUG_MODULE
+        platform.GetComponent<PlatformModular>().SetBlockName(randomBlockCombo.Name);
+#endif
         return platform;
     }
 
@@ -56,7 +63,8 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
         var modularBlockIds = randomBlockCombo.MasterHorseTrainingBlockIdList;
         var platform = Instantiate(platformPrefab, this.transform);
         var platformModular = platform.GetComponent<PlatformModular>();
-        await platformModular.GenerateBlockAsync(relativePointToPlayer + lastEndPosition, modularBlockIds.Select(x => trainingBlockSettings.BlocksLookUpTable[x].gameObject).ToArray(),
+        await platformModular.GenerateBlockAsync(relativePointToPlayer + lastEndPosition, 
+            modularBlockIds.Select(x => trainingBlockSettings.BlocksLookUpTable[x].gameObject).ToArray(),
             trainingBlockSettings.BlocksLookUpTable[paddingStartBlockId].gameObject,
             trainingBlockSettings.BlocksLookUpTable[paddingEndBlockId].gameObject,
             masterHorseTrainingProperty.JumpingPoint,
@@ -65,7 +73,12 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
             masterHorseTrainingProperty.CoinColliderRadius,
             trainingBlockSettings.obstacles,
             trainingBlockSettings.traps,
-            pool);
+            trainingBlockSettings.sceneryObjects,
+            pool,
+            gameObjectPoolList);
+#if ENABLE_DEBUG_MODULE
+        platform.GetComponent<PlatformModular>().SetBlockName(randomBlockCombo.Name);
+#endif
         return platform;
     }
 
@@ -111,5 +124,6 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
         trainingBlockSettings = default;
         PrimitiveAssetLoader.UnloadAssetAtPath(TrainingBlockSettingPath);
         MasterLoader.Unload<MasterTrainingModularBlockContainer>();
+        DisposeUtility.SafeDispose(ref gameObjectPoolList);
     }
 }

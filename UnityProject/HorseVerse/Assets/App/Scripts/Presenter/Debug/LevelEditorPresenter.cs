@@ -260,6 +260,7 @@ public partial class LevelEditorPresenter : IDisposable
             
             PrimitiveAssetLoader.UnloadAssetAtPath(TrainingBlockSettingPath);
             trainingBlockSettings = default;
+            DisposeUtility.SafeDispose(ref gameObjectPoolList);
         }
     }
 }

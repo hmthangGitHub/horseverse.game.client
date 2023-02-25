@@ -54,6 +54,18 @@ public static class Vector3Extensions
             UnityEngine.Random.Range(bounds.min.z, bounds.max.z)
         );
     }
+    
+    public static Vector3 RandomPointInBounds(this BoxCollider boxCollider)
+    {
+        var size = Vector3.Scale(boxCollider.size , boxCollider.transform.lossyScale);
+        var boxColliderCenter = boxCollider.transform.position + boxCollider.center;
+        var min = boxColliderCenter - size / 2;
+        var max = boxColliderCenter + size / 2;
+        return new Vector3(
+            UnityEngine.Random.Range(min.x, max.x),
+            UnityEngine.Random.Range(min.y, max.y),
+            UnityEngine.Random.Range(min.z, max.z));
+    }
 
     public static float Random(this Vector2 range)
     {

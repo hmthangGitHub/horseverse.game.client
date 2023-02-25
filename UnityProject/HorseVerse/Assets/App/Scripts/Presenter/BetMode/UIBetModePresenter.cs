@@ -31,6 +31,7 @@ public class UIBetModePresenter : IDisposable
     private UITouchDisablePresenter uiTouchDisablePresenter;
     private MasterHorseContainer masterHorseContainer;
     private HorseRaceContext horseRaceContext;
+    private UIHeaderPresenter uiHeaderPresenter;
 
     private IBetRateRepository BetRateRepository => betRateRepository ??= container.Inject<IBetRateRepository>();
     private IBetModeDomainService BetModeDomainService => betModeDomainService ??= container.Inject<IBetModeDomainService>();
@@ -41,6 +42,7 @@ public class UIBetModePresenter : IDisposable
     private UITouchDisablePresenter UITouchDisablePresenter => uiTouchDisablePresenter ??= container.Inject<UITouchDisablePresenter>();
     private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= container.Inject<MasterHorseContainer>();
     private HorseRaceContext HorseRaceContext => horseRaceContext ??= container.Inject<HorseRaceContext>();
+    private UIHeaderPresenter UIHeaderPresenter => uiHeaderPresenter ??= container.Inject<UIHeaderPresenter>();
 
     private int CurrentBettingAmouth
     {
@@ -136,14 +138,6 @@ public class UIBetModePresenter : IDisposable
                     },
                     utcEndTimeStamp = (int)BetMatchRepository.Current.BetMatchTimeStamp - 1,
                 },
-                header = new UIHeader.Entity()
-                {
-                    coin = userDataRepository.Current.Coin,
-                    userName = userDataRepository.Current.UserName,
-                    energy = UserDataRepository.Current.Energy,
-                    maxEnergy = UserSettingLocalRepository.MasterDataModel.MaxHappinessNumber,
-                    backBtn = new ButtonComponent.Entity(() => TransitionAsync(OnBack).Forget()),
-                }
             },
             quickBetButtonsContainer = new UIComponentQuickBetButtonsContainer.Entity()
             {
@@ -151,17 +145,23 @@ public class UIBetModePresenter : IDisposable
             },
             btnHorseList = new ButtonComponent.Entity(()=> OpenHorseList().Forget()),
         });
+        
+        
 
         if (uiBetMode)
         {
-            uiBetMode.header.header.SetVisibleBackBtn(true);
-            uiBetMode.header.header.SetTitle("ARENA");
-            uiBetMode.header.header.In().Forget();
+            UIHeaderPresenter.OnBack += OnBackBtn;
+            await UIHeaderPresenter.ShowHeaderAsync(true, "ARENA");
             await uiBetMode.In();
         }
 
         SoundController.PlayMusicBetModePrepare();
         OnUpdateBettingButtons();
+    }
+
+    private void OnBackBtn()
+    {
+        TransitionAsync(OnBack).Forget();
     }
 
     private void OnUpdateBettingButtons()
@@ -175,7 +175,6 @@ public class UIBetModePresenter : IDisposable
     {
         if (model.after.Coin != model.before?.Coin)
         {
-            uiBetMode?.header.header.coin.SetEntity(model.after.Coin);
             OnUpdateBettingButtons();
         }
     }
@@ -288,6 +287,7 @@ public class UIBetModePresenter : IDisposable
     private async UniTaskVoid TransitionAsync(Action action)
     {
         SoundController.PlayMusicBase();
+        UIHeaderPresenter.HideHeader();
         await uiBetMode.Out();
         action();
     }
@@ -417,15 +417,16 @@ public class UIBetModePresenter : IDisposable
         DisposeUtility.SafeDispose(ref askForConfirmCts);
         DisposeUtility.SafeDispose(ref ctsInfo);
         DisposeUtility.SafeDispose(ref cts);
+        DisposeUtility.SafeDispose(ref uiHorseInfo3DViewPresenter);
+        
         UILoader.SafeRelease(ref uiBetMode);
         UILoader.SafeRelease(ref uiBetConfirmation);
         UILoader.SafeRelease(ref uiBetModeHorseInfo);
 
-        uiHorseInfo3DViewPresenter?.Dispose();
-
         BetRateRepository.OnModelUpdate -= BetRateRepositoryOnModelUpdate;
         BetRateRepository.OnModelsUpdate -= BetRateRepositoryOnModelsUpdate;
         UserDataRepository.OnModelUpdate -= OnModelUpdate;
+        UIHeaderPresenter.OnBack -= OnBackBtn;
 
         userDataRepository = default;
         betRateRepository = default;
@@ -435,5 +436,6 @@ public class UIBetModePresenter : IDisposable
         uiHorse3DViewPresenter = default;
         uiHorseInfo3DViewPresenter = default;
         horseRaceContext = default;
+        uiHeaderPresenter = default;
     }
 }
