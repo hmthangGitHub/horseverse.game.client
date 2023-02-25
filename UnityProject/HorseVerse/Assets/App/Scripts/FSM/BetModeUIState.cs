@@ -9,6 +9,8 @@ public class BetModeUIState : InjectedBState
     private UILoadingPresenter uiLoadingPresenter;
     private UILoadingPresenter UILoadingPresenter => uiLoadingPresenter ??= Container.Inject<UILoadingPresenter>();
     private UIHeaderPresenter UIHeaderPresenter => uiHeaderPresenter ??= Container.Inject<UIHeaderPresenter>();
+    private UIBackGroundPresenter uiBackGroundPresenter;
+    private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
     
     public override void Enter()
     {
@@ -26,6 +28,8 @@ public class BetModeUIState : InjectedBState
         uiBetModePresenter.OnBack += OnBackToMainMenu;
         uiBetModePresenter.OnToRaceMode += OnToRaceMode;
         uiBetModePresenter.OnTimeOut += OnTimeOut;
+        
+        await UIBackGroundPresenter.ShowBackGroundAsync();
         await uiBetModePresenter.ShowUIBetModeAsync();
     }
 
