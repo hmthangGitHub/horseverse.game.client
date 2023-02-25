@@ -55,6 +55,9 @@ public partial class PlatformModular
         }
         
         GenerateBlock(testStartPosition.position, testBlocks, testPaddingHead, testPaddingTail, testOffset, testOffset, masterTrainingBlockComboTypeTest, sceneryObjectsTest, gameObjectPoolTest);
+    #if ENABLE_DEBUG_MODULE
+        this.SetBlockName("BLOCK SOME THING I DON KNOW");
+    #endif
     }
     
     [ContextMenu("CreateSceneryContainer")]

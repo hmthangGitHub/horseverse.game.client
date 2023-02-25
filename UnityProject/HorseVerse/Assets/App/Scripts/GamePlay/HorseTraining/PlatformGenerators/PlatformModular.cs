@@ -1,10 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public partial class PlatformModular : PlatformBase
 {
+#if ENABLE_DEBUG_MODULE
+    public TextMeshPro blockName;
+    public void SetBlockName(string name)
+    {
+        blockName.transform.position = FirstCollider.transform.position + Vector3.up * 2.0f;
+        blockName.text = name;
+        this.gameObject.name = name;
+    }
+#endif
+    
     [SerializeField]
     private CoinEditor coinPrefab;
     [SerializeField]

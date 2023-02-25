@@ -45,6 +45,10 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
             trainingBlockSettings.traps,
             trainingBlockSettings.sceneryObjects,
             gameObjectPoolList);
+        
+#if ENABLE_DEBUG_MODULE
+        platform.GetComponent<PlatformModular>().SetBlockName(randomBlockCombo.Name);
+#endif
         return platform;
     }
 
@@ -72,6 +76,9 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
             trainingBlockSettings.sceneryObjects,
             pool,
             gameObjectPoolList);
+#if ENABLE_DEBUG_MODULE
+        platform.GetComponent<PlatformModular>().SetBlockName(randomBlockCombo.Name);
+#endif
         return platform;
     }
 
