@@ -83,6 +83,7 @@ public class HorseTrainingPresenter : IDisposable
         uiTrainingCoinCounting.SetEntity(new UITrainingCoinCounting.Entity()
         {
             coin = 0,
+            point = 0,
             btnSetting = new ButtonComponent.Entity(UniTask.Action(async () => await OnBtnPauseClicked()))
         });
         uiTrainingCoinCounting.In().Forget();
@@ -247,12 +248,16 @@ public class HorseTrainingPresenter : IDisposable
 
     private void UpdateScoreUI()
     {
-        uiTrainingCoinCounting.coin.SetEntity(CurrentPoint);
+        uiTrainingCoinCounting.coin.SetEntity(CurrentCoin);
+        uiTrainingCoinCounting.point.SetEntity(CurrentPoint);
     }
 
     private int CurrentPoint =>
-        horseTrainingManager.HorseTrainingController.TotalCoinEncrypt.Value +
+        //horseTrainingManager.HorseTrainingController.TotalCoinEncrypt.Value +
         (int)(horseTrainingManager.HorseTrainingController.TotalRunTimeEncrypt.Value * 2);
+
+    private int CurrentCoin => horseTrainingManager.HorseTrainingController.TotalCoinEncrypt.Value;
+
 
     private void UpdateBGM(float f)
     {
