@@ -12,7 +12,6 @@ internal class PingDomainService : IDisposable, IPingDomainService
 {
     private readonly IDIContainer container;
     private CancellationTokenSource cts;
-    private CancellationToken token;
     private ISocketClient socketClient;
     private ISocketClient SocketClient => socketClient ??= container.Inject<ISocketClient>();
 
@@ -25,15 +24,14 @@ internal class PingDomainService : IDisposable, IPingDomainService
     {
         DisposeUtility.SafeDispose(ref cts);
         cts = new CancellationTokenSource();
-        token = cts.Token;
         
         while (!cts.IsCancellationRequested)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(5), cancellationToken : token);
+            await UniTask.Delay(TimeSpan.FromSeconds(5), cancellationToken : cts.Token);
             await SocketClient.Send<GameMessage, GameMessage>(new GameMessage()
             {
                 MsgType = GameMessageType.PingMessage
-            }, token : token);
+            }, token : cts.Token);
         }
     }
     
@@ -46,7 +44,6 @@ internal class PingDomainService : IDisposable, IPingDomainService
     public void Dispose()
     {
         DisposeUtility.SafeDispose(ref cts);
-        token = default;
         socketClient = default;
     }
 }

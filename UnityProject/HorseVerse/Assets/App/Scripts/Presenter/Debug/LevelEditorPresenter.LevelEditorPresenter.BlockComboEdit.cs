@@ -15,6 +15,7 @@ public partial class LevelEditorPresenter
     private readonly List<GameObject> blockComboPinList = new List<GameObject>();
     private MasterHorseTrainingProperty masterHorseTrainingProperty;
     private bool isEditingBlock;
+    private GameObjectPoolList gameObjectPoolList = new GameObjectPoolList();
 
     public bool IsEditingBlock
     {
@@ -211,7 +212,10 @@ public partial class LevelEditorPresenter
         trainingBlockSettings.BlocksLookUpTable[paddingEndBlockId].gameObject,
         masterHorseTrainingProperty.JumpingPoint,
         masterHorseTrainingProperty.LandingPoint,
-        CurrentBlockComboType);
+        CurrentBlockComboType,
+        trainingBlockSettings.sceneryObjects,
+        gameObjectPoolList);
+        
         OnChangeEditingBlock();
         
         if (IsEditingObstacle)
@@ -368,6 +372,7 @@ public partial class LevelEditorPresenter
 
         if (currentEditingPlatformObject != default)
         {
+            currentEditingPlatformObject.Clear();
             Object.Destroy(currentEditingPlatformObject.gameObject);
             currentEditingPlatformObject = default;
             

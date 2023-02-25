@@ -113,9 +113,15 @@ public class LoginStatePresenter : IDisposable
         uiSV.In()
             .Forget();
         UILoadingPresenter.HideLoading();
-        await UniTask.WaitUntil(() => wait == false, cancellationToken: cts.Token);
+        try
+        {
+            await UniTask.WaitUntil(() => wait == false, cancellationToken: cts.Token);
+        }
+        finally
+        {
+            UILoader.SafeRelease(ref uiSV);
+        }
 
-        UILoader.SafeRelease(ref uiSV);
 #endif
 
 #if MULTI_ACCOUNT
