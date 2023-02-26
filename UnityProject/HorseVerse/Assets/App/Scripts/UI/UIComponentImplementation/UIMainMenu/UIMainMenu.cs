@@ -17,6 +17,9 @@ public class UIMainMenu : PopupEntity<UIMainMenu.Entity>
         public ButtonComponent.Entity inventoryBtn;
         public ButtonComponent.Entity trainingBtn;
         public UIComponentHorseBreedInfoAndDetail.Entity horseInfo;
+        public int highScore;
+        public int totalScoreBonus;
+        public bool totalScoreBonusVisible;
     }
 
     public ButtonComponent breedingBtn;
@@ -27,7 +30,9 @@ public class UIMainMenu : PopupEntity<UIMainMenu.Entity>
     public ButtonComponent inventoryBtn;
     public ButtonComponent trainingBtn;
     public UIComponentHorseBreedInfoAndDetail horseInfo;
-    public UIMainMenuAnimation mainMenuAnimation;
+    public FormattedTextComponent highScore;
+    public FormattedTextComponent totalScoreBonus;
+    public IsVisibleComponent totalScoreBonusVisible;
 
     protected override void OnSetEntity()
     {
@@ -39,15 +44,8 @@ public class UIMainMenu : PopupEntity<UIMainMenu.Entity>
         inventoryBtn.SetEntity(this.entity.inventoryBtn);
         trainingBtn.SetEntity(this.entity.trainingBtn);
         horseInfo.SetEntity(this.entity.horseInfo);
-    }
-
-    protected override UniTask AnimationIn()
-    {
-        return mainMenuAnimation.AnimationIn();
-    }
-
-    protected override UniTask AnimationOut()
-    {
-        return mainMenuAnimation.AnimationOut();
+        highScore.SetEntity(this.entity.highScore);
+        totalScoreBonus.SetEntity(this.entity.totalScoreBonus);
+        totalScoreBonusVisible.SetEntity(this.entity.totalScoreBonusVisible);
     }
 }
