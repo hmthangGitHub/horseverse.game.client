@@ -10,6 +10,7 @@ using Vector3 = UnityEngine.Vector3;
 
 public class TrainingCoin : MonoBehaviour
 {
+    [SerializeField] private Collider collider;
     private Tween tween;
     public System.Action onDestroy { get; set; }
 
@@ -31,11 +32,17 @@ public class TrainingCoin : MonoBehaviour
         if (other.CompareTag("TrainingHorse"))
         {
             tween?.Kill();
-            var relative = other.GetComponent<HorseTrainingControllerV2>().GetRelativePoint();
+            collider.enabled = false;
+            var horseTrainingControllerV2 = other.GetComponent<HorseTrainingControllerV2>();
             DOTween.Sequence()
-                   .Append(MoveTo(other.transform, Vector3.up * 0.5f, 0.5f, Ease.InFlash))
-                   .Append(MoveTo(other.transform, relative, 0.5f, Ease.Linear))
-                   .OnComplete(() => DestroyThis());
+                   .Append(MoveTo(other.transform, Vector3.up * 0.5f, 0.3f, Ease.InFlash))
+                   .Append(DOTween.To(val =>
+                   {
+                       this.transform.position = horseTrainingControllerV2.GetCoinAnimationPoint(val);
+                   }, 0.0f, 1.0f, 0.3f)
+                                  .SetUpdate(UpdateType.Late)
+                                  .SetEase(Ease.Linear))
+                   .OnComplete(DestroyThis);
         }
     }
 

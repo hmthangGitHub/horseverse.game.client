@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+using BezierSolution;
 using Cinemachine;
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
@@ -42,6 +43,8 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     [SerializeField] private Transform horsePosition;
     [SerializeField] private Vector3 groundVelocity;
     [SerializeField] private Transform pivotPoint;
+    [SerializeField] private Transform coinBenzierEndPoint;
+    [SerializeField] private BezierSpline benzierSpline;
 
     [Space, Header("INPUT SETTINGS")]
     [SerializeField, Range(0, 1)] private float delayTimeForTouch = 0.05f;
@@ -95,7 +98,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private int horizontalDirection = 0;
     private int currentDifficulty = 0;
 
-    public bool IsGrounded
+    private bool IsGrounded
     {
         get => isGrounded;
         set
@@ -113,11 +116,9 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         get => isStart;
         set
         {
-            if (isStart != value)
-            {
-                isStart = value;
-                OnStart(value);
-            }
+            if (isStart == value) return;
+            isStart = value;
+            OnStart(value);
         }
     }
 
@@ -178,6 +179,10 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
             if (!IsStart) return;
             DetectSwideJump(f);
         });
+    }
+
+    private void Start()
+    {
     }
 
     private void DetectDoubleTap(LeanFinger finger)
@@ -278,6 +283,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
             {
                 Animator.SetFloat(Speed, val);
                 currentHorizontalVelocity = Mathf.Lerp(0.0f, HorizontalVelocity, val);
+                UpdateCoinPoint();
             }, 0.0f, 1.0f, 2.0f).SetEase(Ease.Linear);
             AddInputEvents();
         }
@@ -301,6 +307,16 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
             cinemachineOrbitalTransposer ??= cam3.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineOrbitalTransposer>();
             cinemachineOrbitalTransposer.m_XAxis.m_InputAxisValue = 0.03f;
         }
+    }
+
+    private void LateUpdate()
+    {
+        // UpdateCoinPoint();
+    }
+
+    private void UpdateCoinPoint()
+    {
+        coinBenzierEndPoint.position = GetRelativePoint();
     }
 
     private void UpdateForwardVelocity()
@@ -333,7 +349,12 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         var hitPoint = ray.GetPoint(enter);
         var relative = hitPoint - transform.position;
         Debug.DrawLine(transform.position, hitPoint);
-        return relative;
+        return hitPoint;
+    }
+
+    public Vector3 GetCoinAnimationPoint(float t)
+    {
+        return benzierSpline.GetPoint(t);
     }
 
     private void UpdateJumpAnimation()
