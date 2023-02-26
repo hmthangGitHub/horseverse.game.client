@@ -342,7 +342,7 @@ public class HorseTrainingPresenter : IDisposable
             currentEnergy = userHorse.Happiness,
             totalEnergy = UserSettingLocalRepository.MasterDataModel.MaxHappinessNumber,
             costEnergy = UserSettingLocalRepository.MasterDataModel.TrainingHappinessCost,
-            score = result.PointNumber,
+            score = result.Score,
         });
         await popup.In();
     }

@@ -27,7 +27,9 @@ public class StartUpState : InjectedBHState
 
     private async UniTaskVoid OnEnterStateAsync()
     {
-        errorHandler = await ErrorHandler.Instantiate();
+        this.Container.Bind(await MasterLoader.LoadMasterAsync<MasterLocalizeContainer>());
+        this.Container.Bind(await MasterLoader.LoadMasterAsync<MasterErrorCodeContainer>());
+        errorHandler = await ErrorHandler.Instantiate(Container);
         errorHandler.OnError += OnReboot;
         startUpStateHandler = new StartUpStatePresenter();
         startUpStateHandler.OnReboot += OnReboot;
@@ -78,6 +80,10 @@ public class StartUpState : InjectedBHState
 #endif
             startUpStateHandler.OnReboot -= OnReboot;
             Container.RemoveAndDisposeIfNeed<StartUpStatePresenter>();
+            Container.RemoveAndDisposeIfNeed<MasterLocalizeContainer>();
+            Container.RemoveAndDisposeIfNeed<MasterErrorCodeContainer>();
+            MasterLoader.Unload<MasterErrorCodeContainer>();
+            MasterLoader.Unload<MasterLocalizeContainer>();
         }
         finally
         {

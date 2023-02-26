@@ -72,6 +72,9 @@ public class ProtobufMessageParser : IMessageParser
         
         AddToSerializeLookUpTable<GetRaceReplayRequest>(x => new RacingMessage(x));
         AddToParseLookUpTable<RacingMessage, RacingMessageType>(RacingMessageType.GetRaceReplayResponse, x => x.GetRaceReplayResponse);
+        
+        AddToParseLookUpTable<CommonMessage, CommonMessageType>(CommonMessageType.RestartGamePopUpMessage, x => x.RestartGamePopUpMessage);
+        AddToParseLookUpTable<CommonMessage, CommonMessageType>(CommonMessageType.BroadcastMessage, x => x.BroadcastMessage);
     }
     
     private void AddToParseLookUpTable<TSubMessage, TEnum>(TEnum enumMessage, Func<TSubMessage, IMessage> resultFactory) where TEnum : System.Enum
@@ -99,30 +102,23 @@ public class ProtobufMessageParser : IMessageParser
     public IMessage Parse(byte[] rawMessage)
     {
         var dataFromRawMessageWithSizeAppendAhead = rawMessage.GetDataFromRawMessageWithSizeAppendAhead();
-        try
+        
+        var message = GameMessage.Parser.ParseFrom(dataFromRawMessageWithSizeAppendAhead);
+        if (message.MsgType == GameMessageType.PingMessage)
         {
-            var message = GameMessage.Parser.ParseFrom(dataFromRawMessageWithSizeAppendAhead);
-            if (message.MsgType == GameMessageType.PingMessage)
+            return message;
+        }
+        else
+        {
+            if (lookUpToISubMessageFunc.TryGetValue(Any.GetTypeName(message.MsgData.TypeUrl),out var parser))
             {
-                return message;
+                var iSubMessage = parser(message.MsgData);
+                return lookUpToMessageFunc[iSubMessage.MsgType](iSubMessage);
             }
             else
             {
-                if (lookUpToISubMessageFunc.TryGetValue(Any.GetTypeName(message.MsgData.TypeUrl),out var parser))
-                {
-                    var iSubMessage = parser(message.MsgData);
-                    return lookUpToMessageFunc[iSubMessage.MsgType](iSubMessage);
-                }
-                else
-                {
-                    throw new UnKnownServerMessageTypeException(message.ToString());
-                }
+                throw new UnKnownServerMessageTypeException(message.ToString());
             }
-        }
-        catch (InvalidProtocolBufferException)
-        {
-            var message = SystemMessage.Parser.ParseFrom(dataFromRawMessageWithSizeAppendAhead);
-            throw new Exception(message.Message);
         }
     }
 

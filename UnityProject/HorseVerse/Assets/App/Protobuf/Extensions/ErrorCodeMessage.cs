@@ -27,4 +27,5 @@ namespace io.hverse.game.protogen
     public sealed partial class GetBetHistoryDetailResponse : IErrorCodeMessage {}
     // public sealed partial class GetCurrentBetMatchResponse : IErrorCodeMessage {}
     public sealed partial class GetCurrentRaceScriptResponse : IErrorCodeMessage {}
+    public sealed partial class RestartGamePopUpMessage : IErrorCodeMessage {}
 }

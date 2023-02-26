@@ -16,4 +16,6 @@ public interface ISocketClient : IDisposable
     
     void Subscribe<T>(Action<T> callback) where T : IMessage;
     void UnSubscribe<T>(Action<T> callback) where T : IMessage;
+
+    FailedResponseException LatestException { get; }
 }

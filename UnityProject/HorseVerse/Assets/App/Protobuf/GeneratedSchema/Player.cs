@@ -34,21 +34,22 @@ namespace io.hverse.game.protogen {
             "NQoSUGxheWVySW5mb1Jlc3BvbnNlEh8KCnBsYXllckluZm8YASABKAsyCy5Q",
             "bGF5ZXJJbmZvIhgKFlBsYXllckludmVudG9yeVJlcXVlc3QiRAoXUGxheWVy",
             "SW52ZW50b3J5UmVzcG9uc2USKQoPcGxheWVySW52ZW50b3J5GAEgASgLMhAu",
-            "UGxheWVySW52ZW50b3J5Ir8BCgpQbGF5ZXJJbmZvEgoKAmlkGAEgASgDEgwK",
+            "UGxheWVySW52ZW50b3J5It0BCgpQbGF5ZXJJbmZvEgoKAmlkGAEgASgDEgwK",
             "BG5hbWUYAiABKAkSIQoLYWNjb3VudFR5cGUYAyABKA4yDC5BY2NvdW50VHlw",
             "ZRIVCg1wdWJsaWNBZGRyZXNzGAQgASgJEhMKC2FjY2Vzc1Rva2VuGAUgASgJ",
-            "EgwKBGNoaXAYBiABKAMSGAoQZnJlZVJhY2luZ051bWJlchgHIAEoBRIgCgxj",
-            "dXJyZW50SG9yc2UYCCABKAsyCi5Ib3JzZUluZm8iRAoOTGl0ZVBsYXllcklu",
-            "Zm8SCgoCaWQYASABKAMSDAoEY2hpcBgCIAEoAxIYChBmcmVlUmFjaW5nTnVt",
-            "YmVyGAMgASgFIk0KD1BsYXllckludmVudG9yeRIdCglob3JzZUxpc3QYASAD",
-            "KAsyCi5Ib3JzZUluZm8SGwoIaXRlbUluZm8YAiADKAsyCS5JdGVtSW5mbyqD",
-            "AQoRUGxheWVyTWVzc2FnZVR5cGUSFwoTUExBWUVSX0lORk9fUkVRVUVTVBAA",
-            "EhgKFFBMQVlFUl9JTkZPX1JFU1BPTlNFEAESHAoYUExBWUVSX0lOVkVOVE9S",
-            "WV9SRVFVRVNUEAISHQoZUExBWUVSX0lOVkVOVE9SWV9SRVNQT05TRRADKj4K",
-            "C0FjY291bnRUeXBlEhYKEkFDQ09VTlRfVFlQRV9HVUVTVBAAEhcKE0FDQ09V",
-            "TlRfVFlQRV9OT1JNQUwQAUJJChdpby5odmVyc2UuZ2FtZS5wcm90b2dlbkIU",
-            "UGxheWVyTWVzc2FnZUZhY3RvcnmqAhdpby5odmVyc2UuZ2FtZS5wcm90b2dl",
-            "bmIGcHJvdG8z"));
+            "EgwKBGNoaXAYBiABKAMSGAoQZnJlZVJhY2luZ051bWJlchgHIAEoBRIcChR0",
+            "cmFpbmluZ0hpZ2hlc3RTY29yZRgIIAEoAxIgCgxjdXJyZW50SG9yc2UYCSAB",
+            "KAsyCi5Ib3JzZUluZm8iYgoOTGl0ZVBsYXllckluZm8SCgoCaWQYASABKAMS",
+            "DAoEY2hpcBgCIAEoAxIYChBmcmVlUmFjaW5nTnVtYmVyGAMgASgFEhwKFHRy",
+            "YWluaW5nSGlnaGVzdFNjb3JlGAQgASgDIk0KD1BsYXllckludmVudG9yeRId",
+            "Cglob3JzZUxpc3QYASADKAsyCi5Ib3JzZUluZm8SGwoIaXRlbUluZm8YAiAD",
+            "KAsyCS5JdGVtSW5mbyqDAQoRUGxheWVyTWVzc2FnZVR5cGUSFwoTUExBWUVS",
+            "X0lORk9fUkVRVUVTVBAAEhgKFFBMQVlFUl9JTkZPX1JFU1BPTlNFEAESHAoY",
+            "UExBWUVSX0lOVkVOVE9SWV9SRVFVRVNUEAISHQoZUExBWUVSX0lOVkVOVE9S",
+            "WV9SRVNQT05TRRADKj4KC0FjY291bnRUeXBlEhYKEkFDQ09VTlRfVFlQRV9H",
+            "VUVTVBAAEhcKE0FDQ09VTlRfVFlQRV9OT1JNQUwQAUJJChdpby5odmVyc2Uu",
+            "Z2FtZS5wcm90b2dlbkIUUGxheWVyTWVzc2FnZUZhY3RvcnmqAhdpby5odmVy",
+            "c2UuZ2FtZS5wcm90b2dlbmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::io.hverse.game.protogen.DataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.PlayerMessageType), typeof(global::io.hverse.game.protogen.AccountType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -57,8 +58,8 @@ namespace io.hverse.game.protogen {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInfoResponse), global::io.hverse.game.protogen.PlayerInfoResponse.Parser, new[]{ "PlayerInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInventoryRequest), global::io.hverse.game.protogen.PlayerInventoryRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInventoryResponse), global::io.hverse.game.protogen.PlayerInventoryResponse.Parser, new[]{ "PlayerInventory" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInfo), global::io.hverse.game.protogen.PlayerInfo.Parser, new[]{ "Id", "Name", "AccountType", "PublicAddress", "AccessToken", "Chip", "FreeRacingNumber", "CurrentHorse" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LitePlayerInfo), global::io.hverse.game.protogen.LitePlayerInfo.Parser, new[]{ "Id", "Chip", "FreeRacingNumber" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInfo), global::io.hverse.game.protogen.PlayerInfo.Parser, new[]{ "Id", "Name", "AccountType", "PublicAddress", "AccessToken", "Chip", "FreeRacingNumber", "TrainingHighestScore", "CurrentHorse" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LitePlayerInfo), global::io.hverse.game.protogen.LitePlayerInfo.Parser, new[]{ "Id", "Chip", "FreeRacingNumber", "TrainingHighestScore" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInventory), global::io.hverse.game.protogen.PlayerInventory.Parser, new[]{ "HorseList", "ItemInfo" }, null, null, null, null)
           }));
     }
@@ -1195,6 +1196,7 @@ namespace io.hverse.game.protogen {
       accessToken_ = other.accessToken_;
       chip_ = other.chip_;
       freeRacingNumber_ = other.freeRacingNumber_;
+      trainingHighestScore_ = other.trainingHighestScore_;
       currentHorse_ = other.currentHorse_ != null ? other.currentHorse_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -1289,8 +1291,20 @@ namespace io.hverse.game.protogen {
       }
     }
 
+    /// <summary>Field number for the "trainingHighestScore" field.</summary>
+    public const int TrainingHighestScoreFieldNumber = 8;
+    private long trainingHighestScore_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public long TrainingHighestScore {
+      get { return trainingHighestScore_; }
+      set {
+        trainingHighestScore_ = value;
+      }
+    }
+
     /// <summary>Field number for the "currentHorse" field.</summary>
-    public const int CurrentHorseFieldNumber = 8;
+    public const int CurrentHorseFieldNumber = 9;
     private global::io.hverse.game.protogen.HorseInfo currentHorse_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1323,6 +1337,7 @@ namespace io.hverse.game.protogen {
       if (AccessToken != other.AccessToken) return false;
       if (Chip != other.Chip) return false;
       if (FreeRacingNumber != other.FreeRacingNumber) return false;
+      if (TrainingHighestScore != other.TrainingHighestScore) return false;
       if (!object.Equals(CurrentHorse, other.CurrentHorse)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -1338,6 +1353,7 @@ namespace io.hverse.game.protogen {
       if (AccessToken.Length != 0) hash ^= AccessToken.GetHashCode();
       if (Chip != 0L) hash ^= Chip.GetHashCode();
       if (FreeRacingNumber != 0) hash ^= FreeRacingNumber.GetHashCode();
+      if (TrainingHighestScore != 0L) hash ^= TrainingHighestScore.GetHashCode();
       if (currentHorse_ != null) hash ^= CurrentHorse.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -1385,8 +1401,12 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(56);
         output.WriteInt32(FreeRacingNumber);
       }
+      if (TrainingHighestScore != 0L) {
+        output.WriteRawTag(64);
+        output.WriteInt64(TrainingHighestScore);
+      }
       if (currentHorse_ != null) {
-        output.WriteRawTag(66);
+        output.WriteRawTag(74);
         output.WriteMessage(CurrentHorse);
       }
       if (_unknownFields != null) {
@@ -1427,8 +1447,12 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(56);
         output.WriteInt32(FreeRacingNumber);
       }
+      if (TrainingHighestScore != 0L) {
+        output.WriteRawTag(64);
+        output.WriteInt64(TrainingHighestScore);
+      }
       if (currentHorse_ != null) {
-        output.WriteRawTag(66);
+        output.WriteRawTag(74);
         output.WriteMessage(CurrentHorse);
       }
       if (_unknownFields != null) {
@@ -1461,6 +1485,9 @@ namespace io.hverse.game.protogen {
       }
       if (FreeRacingNumber != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(FreeRacingNumber);
+      }
+      if (TrainingHighestScore != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(TrainingHighestScore);
       }
       if (currentHorse_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(CurrentHorse);
@@ -1497,6 +1524,9 @@ namespace io.hverse.game.protogen {
       }
       if (other.FreeRacingNumber != 0) {
         FreeRacingNumber = other.FreeRacingNumber;
+      }
+      if (other.TrainingHighestScore != 0L) {
+        TrainingHighestScore = other.TrainingHighestScore;
       }
       if (other.currentHorse_ != null) {
         if (currentHorse_ == null) {
@@ -1547,7 +1577,11 @@ namespace io.hverse.game.protogen {
             FreeRacingNumber = input.ReadInt32();
             break;
           }
-          case 66: {
+          case 64: {
+            TrainingHighestScore = input.ReadInt64();
+            break;
+          }
+          case 74: {
             if (currentHorse_ == null) {
               CurrentHorse = new global::io.hverse.game.protogen.HorseInfo();
             }
@@ -1597,7 +1631,11 @@ namespace io.hverse.game.protogen {
             FreeRacingNumber = input.ReadInt32();
             break;
           }
-          case 66: {
+          case 64: {
+            TrainingHighestScore = input.ReadInt64();
+            break;
+          }
+          case 74: {
             if (currentHorse_ == null) {
               CurrentHorse = new global::io.hverse.game.protogen.HorseInfo();
             }
@@ -1648,6 +1686,7 @@ namespace io.hverse.game.protogen {
       id_ = other.id_;
       chip_ = other.chip_;
       freeRacingNumber_ = other.freeRacingNumber_;
+      trainingHighestScore_ = other.trainingHighestScore_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1693,6 +1732,18 @@ namespace io.hverse.game.protogen {
       }
     }
 
+    /// <summary>Field number for the "trainingHighestScore" field.</summary>
+    public const int TrainingHighestScoreFieldNumber = 4;
+    private long trainingHighestScore_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public long TrainingHighestScore {
+      get { return trainingHighestScore_; }
+      set {
+        trainingHighestScore_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1711,6 +1762,7 @@ namespace io.hverse.game.protogen {
       if (Id != other.Id) return false;
       if (Chip != other.Chip) return false;
       if (FreeRacingNumber != other.FreeRacingNumber) return false;
+      if (TrainingHighestScore != other.TrainingHighestScore) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1721,6 +1773,7 @@ namespace io.hverse.game.protogen {
       if (Id != 0L) hash ^= Id.GetHashCode();
       if (Chip != 0L) hash ^= Chip.GetHashCode();
       if (FreeRacingNumber != 0) hash ^= FreeRacingNumber.GetHashCode();
+      if (TrainingHighestScore != 0L) hash ^= TrainingHighestScore.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1751,6 +1804,10 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(24);
         output.WriteInt32(FreeRacingNumber);
       }
+      if (TrainingHighestScore != 0L) {
+        output.WriteRawTag(32);
+        output.WriteInt64(TrainingHighestScore);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1773,6 +1830,10 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(24);
         output.WriteInt32(FreeRacingNumber);
       }
+      if (TrainingHighestScore != 0L) {
+        output.WriteRawTag(32);
+        output.WriteInt64(TrainingHighestScore);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1791,6 +1852,9 @@ namespace io.hverse.game.protogen {
       }
       if (FreeRacingNumber != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(FreeRacingNumber);
+      }
+      if (TrainingHighestScore != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(TrainingHighestScore);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1812,6 +1876,9 @@ namespace io.hverse.game.protogen {
       }
       if (other.FreeRacingNumber != 0) {
         FreeRacingNumber = other.FreeRacingNumber;
+      }
+      if (other.TrainingHighestScore != 0L) {
+        TrainingHighestScore = other.TrainingHighestScore;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1840,6 +1907,10 @@ namespace io.hverse.game.protogen {
             FreeRacingNumber = input.ReadInt32();
             break;
           }
+          case 32: {
+            TrainingHighestScore = input.ReadInt64();
+            break;
+          }
         }
       }
     #endif
@@ -1865,6 +1936,10 @@ namespace io.hverse.game.protogen {
           }
           case 24: {
             FreeRacingNumber = input.ReadInt32();
+            break;
+          }
+          case 32: {
+            TrainingHighestScore = input.ReadInt64();
             break;
           }
         }
