@@ -14,6 +14,7 @@ public class TrainingTrapWoodSpike : TrainingTrap<TrainingTrapWoodSpike.Entity>
         public Position Trigger;
         public int TriggerSize;
         public bool TriggerZoneFullBlock;
+        public bool IsPingPong;
 
         public static Entity Parse(string data)
         {
@@ -22,15 +23,18 @@ public class TrainingTrapWoodSpike : TrainingTrap<TrainingTrapWoodSpike.Entity>
     }
 
     [SerializeField] public float MovingSpeed;
+    [SerializeField] public TrainingTrapWoodenSpikeController spike;
     [SerializeField] public CapsuleCollider Collider;
     [SerializeField] public Rigidbody rigid;
     [SerializeField] Transform TriggerPoint;
     [SerializeField] public List<Vector3> Directions;
+    [SerializeField] public bool IsPingPong;
 
     private bool isStart;
     private bool isReachedTarget;
     private bool isReachedEnd;
     private int currentTarget = 0;
+    private bool isTweenBack = false;
     public override Entity ParseData(string data)
     {
         return Entity.Parse(data);
@@ -49,7 +53,9 @@ public class TrainingTrapWoodSpike : TrainingTrap<TrainingTrapWoodSpike.Entity>
         Collider.enabled = true;
         currentTarget = 0;
         isReachedEnd = false;
+        isTweenBack = false;
         TriggerPoint.gameObject.SetActive(false);
+        spike.IsReady = true;
         //OnActiveToDropPoint();
     }
 
@@ -93,12 +99,44 @@ public class TrainingTrapWoodSpike : TrainingTrap<TrainingTrapWoodSpike.Entity>
 
     private void TriggerTarget()
     {
-        if (currentTarget < Directions.Count - 1)
+        if (Directions.Count == 0) return;
+        if (IsPingPong)
         {
-            currentTarget++;
+            if(isTweenBack)
+            {
+                if (currentTarget > 0)
+                {
+                    currentTarget--;
+                }
+                else
+                {
+                    isTweenBack = false;
+                    currentTarget++;
+                }
+            }
+            else
+            {
+                if (currentTarget < Directions.Count - 1)
+                {
+                    currentTarget++;
+                }
+                else
+                {
+                    isTweenBack = true;
+                    currentTarget--;
+                }
+            }
             isReachedTarget = false;
         }
-        else isReachedEnd = true;
+        else
+        {
+            if (currentTarget < Directions.Count - 1)
+            {
+                currentTarget++;
+                isReachedTarget = false;
+            }
+            else isReachedEnd = true;
+        }
     }
 
     private bool IsLastWayPoint()
