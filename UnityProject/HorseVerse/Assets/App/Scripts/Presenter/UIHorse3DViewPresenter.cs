@@ -50,12 +50,20 @@ public class UIHorse3DViewPresenter : IDisposable
             });
             objHorse3DView.transform.SetAsFirstSibling();
             objHorse3DView.In(backgroundType).Forget();
+            if(backgroundType == 0)
+                MainMenuCameraController.Instance.SetPosition(1);
+            else
+                MainMenuCameraController.Instance.SetPosition(0);
             isIn = true;
             UserDataRepository.OnModelUpdate += UserDataRepositoryOnModelUpdate;
         }
         else
         {
             objHorse3DView.horseLoader.SetBackgroundType(backgroundType);
+            if (backgroundType == 0)
+                MainMenuCameraController.Instance.SetPosition(1);
+            else
+                MainMenuCameraController.Instance.SetPosition(0);
         }
     }
 
@@ -97,6 +105,10 @@ public class UIHorse3DViewPresenter : IDisposable
         };
         objHorse3DView.horseLoader.SetEntity(objHorse3DView.entity.horseLoader);
         await objHorse3DView.In(backgroundType);
+        if (backgroundType == 0)
+            MainMenuCameraController.Instance.SetPosition(1);
+        else
+            MainMenuCameraController.Instance.SetPosition(0);
     }
 
     public void Dispose()

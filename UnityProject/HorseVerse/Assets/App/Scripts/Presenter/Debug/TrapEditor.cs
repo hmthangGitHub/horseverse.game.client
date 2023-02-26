@@ -7,7 +7,7 @@ public class TrapEditor : MonoBehaviour
     public enum TYPE
     {
         ROLLING_ROCK,
-        WOODEN_PILE,
+        WOODEN_SPIKE,
     }
 
     public string TrapID;

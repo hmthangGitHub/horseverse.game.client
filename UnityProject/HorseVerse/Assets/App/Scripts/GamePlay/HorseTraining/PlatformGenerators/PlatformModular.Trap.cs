@@ -49,7 +49,7 @@ public partial class PlatformModular
                 comp.SetEntity(comp.ParseData(data));
             }
         }
-        else if (string.Equals(type, TrapEditor.TYPE.WOODEN_PILE.ToString()))
+        else if (string.Equals(type, TrapEditor.TYPE.WOODEN_SPIKE.ToString()))
         {
 
         }
