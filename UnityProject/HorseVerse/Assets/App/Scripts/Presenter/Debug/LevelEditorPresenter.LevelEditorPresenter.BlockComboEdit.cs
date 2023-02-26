@@ -216,6 +216,8 @@ public partial class LevelEditorPresenter
         trainingBlockSettings.sceneryObjects,
         gameObjectPoolList);
         
+        editingPlatformObject.SetBlockName(currentSelectingBlockCombo.masterHorseTrainingBlockCombo.Name);
+        
         OnChangeEditingBlock();
         
         if (IsEditingObstacle)
@@ -225,6 +227,11 @@ public partial class LevelEditorPresenter
         if (IsEditingCoin)
         {
             GenerateCoinEditors().Forget();
+        }
+
+        if (IsEditingTrap)
+        {
+            GenerateTrap().Forget();
         }
     }
 
@@ -364,6 +371,11 @@ public partial class LevelEditorPresenter
             if (IsEditingCoin)
             {
                 SaveCoinsToBlockAndRemove();
+            }
+
+            if (IsEditingTrap)
+            {
+                SaveTrapToBlockAndRemove();
             }
             
             uiDebugLevelEditor.blockComboList.blockList.instanceList[currentSelectingBlockCombo.index].Select(false);
