@@ -3,11 +3,16 @@ using UnityEngine;
 
 public partial class PlatformModular
 {
+    [SerializeField]
+    private Vector3 sceneryConflictRegionScale = new Vector3(2.5f, 20.0f, 1);
+    [SerializeField]
+    private Vector3 sceneryContainerScale = new Vector3(14.0f, 20.0f, 1.0f);
+
     private void CreateSceneryRegions()
     {
         var bounds = CreatePlatformBound();
-        sceneryConflictRegion = CreateSceneryContainerBoxCollider(bounds.center, bounds, "SceneryConflictRegion", new Vector3(1.5f, 20.0f, 1));
-        sceneryBoxContainer = CreateSceneryContainerBoxCollider(bounds.center, bounds, "SceneryContainer", new Vector3(14.0f, 20.0f, 1.0f));
+        sceneryConflictRegion = CreateSceneryContainerBoxCollider(bounds.center, bounds, "SceneryConflictRegion", sceneryConflictRegionScale);
+        sceneryBoxContainer = CreateSceneryContainerBoxCollider(bounds.center, bounds, "SceneryContainer", sceneryContainerScale);
     }
     
     private void GenerateSceneryObjects(GameObject[] sceneryObjectPrefabs,

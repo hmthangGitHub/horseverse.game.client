@@ -237,15 +237,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8993483876949355948, guid: 55dc9c2553832884cafbb8978427d61c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0026917458
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8993483876949355948, guid: 55dc9c2553832884cafbb8978427d61c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -14.622172
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8993483876949355948, guid: 55dc9c2553832884cafbb8978427d61c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1072.2914
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8993483876949355948, guid: 55dc9c2553832884cafbb8978427d61c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -364,6 +364,8 @@ MonoBehaviour:
   end: {fileID: 5941827569700069379}
   blockContainer: {fileID: 6434063920842633243}
   sceneryContainer: {fileID: 1651026050602926669}
+  sceneryConflictRegionScale: {x: 3.8, y: 20, z: 1}
+  sceneryContainerScale: {x: 14, y: 20, z: 1}
   testBlocks: []
   testPaddingHead: {fileID: 4686279130270008544, guid: 9cbbb23c00d88064089a56e6bb0d1c7d, type: 3}
   testPaddingTail: {fileID: 4686279130270008544, guid: 9cbbb23c00d88064089a56e6bb0d1c7d, type: 3}
