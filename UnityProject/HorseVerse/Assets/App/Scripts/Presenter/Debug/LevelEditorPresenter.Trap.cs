@@ -97,6 +97,9 @@ public partial class LevelEditorPresenter
         trapInBlocks.Clear();
         trapPinList.ForEach(x => Object.Destroy(x.gameObject));
         trapPinList.Clear();
+
+        uiDebugLevelEditor.isTrapEditorVisible.SetEntity(false);
+        currentTrap = default;
     }
 
     private async UniTaskVoid GenerateTrap()

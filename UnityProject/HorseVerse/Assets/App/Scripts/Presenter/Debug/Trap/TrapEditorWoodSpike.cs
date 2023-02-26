@@ -139,7 +139,7 @@ public class TrapEditorWoodSpike : TrapEditorBase
 
         for ( int i =0; i < Points.Count; i++)
         {
-            Points[i].transform.position = positions[i];
+            Points[i].transform.localPosition = positions[i];
         }
     }
 
