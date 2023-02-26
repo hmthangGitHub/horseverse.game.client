@@ -9,12 +9,12 @@ public class TrapEditorWoodSpike : TrapEditorBase
 {
     private TrainingTrapWoodSpike.Entity entity;
 
-    public GameObject Target;
     public GameObject Direction;
     public List<GameObject> Points;
     public GameObject Trigger;
     public int TriggerSize;
     public bool TriggerZoneFullBlock;
+    public GameObject PointPrefab;
 
 
     private GameObject _currentPoint = default;
@@ -28,7 +28,6 @@ public class TrapEditorWoodSpike : TrapEditorBase
     public void RestoreToDefault()
     {
         OffAll();
-        Target.SetActive(true);
     }
 
     private void OffAll()
@@ -53,10 +52,8 @@ public class TrapEditorWoodSpike : TrapEditorBase
 
     public void AddNewPoint()
     {
-        var point = new GameObject("point");
-        point.transform.parent = Direction.transform;
-        point.transform.localPosition = Vector3.zero;
-        point.transform.localRotation = Quaternion.identity;
+        var point = AddPoint("point", new Vector3(0, 0, -2));
+        Points.Add(point);
     }
 
     public void DeleteSelectedPoint()
@@ -69,10 +66,25 @@ public class TrapEditorWoodSpike : TrapEditorBase
         }
     }
 
+    public void SelectPoint(int index)
+    {
+        if (index < Points.Count)
+        {
+            if (_currentPoint == Points[index]) return;
+            if (_currentPoint != default)
+            {
+                var x = _currentPoint.GetComponent<RuntimeTransformHandle>();
+                Destroy(x);
+            }
+            _currentPoint = Points[index];
+            var comp = _currentPoint.AddComponent<RuntimeTransformHandle>();
+            comp.axes = HandleAxes.XZ;
+        }
+    }
+
     private TrainingTrapWoodSpike.Entity getEntity()
     {
         if (entity == default) entity = new TrainingTrapWoodSpike.Entity();
-        entity.Target = Position.FromVector3(Target.transform.localPosition);
         entity.Direction = new List<Position>();
         entity.Direction.AddRange(Points.Select( x => Position.FromVector3(x.transform.localPosition)).ToArray());
         entity.Trigger = Position.FromVector3(Trigger.transform.localPosition);
@@ -90,7 +102,6 @@ public class TrapEditorWoodSpike : TrapEditorBase
     {
         //ClearPoints();
         entity = TrainingTrapWoodSpike.Entity.Parse(data);
-        Target.transform.localPosition = entity.Target.ToVector3();
         Trigger.transform.localPosition = entity.Trigger.ToVector3();
         TriggerSize = entity.TriggerSize;
         TriggerZoneFullBlock = entity.TriggerZoneFullBlock;
@@ -121,10 +132,7 @@ public class TrapEditorWoodSpike : TrapEditorBase
             Points.AddRange(Enumerable.Range(0, number - Points.Count)
                                         .Select(x =>
                                         {
-                                            var point = new GameObject("point");
-                                            point.transform.parent = Direction.transform;
-                                            point.transform.localPosition = Vector3.zero;
-                                            point.transform.localRotation = Quaternion.identity;
+                                            var point = AddPoint("point");
                                             return point;
                                         }));
         }
@@ -133,5 +141,19 @@ public class TrapEditorWoodSpike : TrapEditorBase
         {
             Points[i].transform.position = positions[i];
         }
+    }
+
+    private GameObject AddPoint(string name)
+    {
+        var point = Instantiate(PointPrefab, Direction.transform);
+        point.name = name;
+        return point;
+    }
+
+    private GameObject AddPoint(string name, Vector3 pos)
+    {
+        var point = AddPoint(name);
+        point.transform.localPosition = pos;
+        return point;
     }
 }

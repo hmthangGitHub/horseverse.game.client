@@ -130,6 +130,11 @@ public partial class LevelEditorPresenter
                 var comp = trap.gameObject.GetComponent<TrapEditorRollingStone>();
                 comp.SetExtraData(extraData);
             }
+            else if (trap.Type == TrapEditor.TYPE.WOODEN_SPIKE)
+            {
+                var comp = trap.gameObject.GetComponent<TrapEditorWoodSpike>();
+                comp.SetExtraData(extraData);
+            }
         }
         AddPinToTrap(trap, index);
     }
@@ -244,7 +249,8 @@ public partial class LevelEditorPresenter
                 onActiveToggle = val => IsEditingTrapTrigger = val
             },
             extraBtn = new ButtonComponent.Entity(() => OnExtraBtnClicked()),
-
+            btnAddChild = new ButtonComponent.Entity(() => OnAddChild()),
+            btnDeleteChild = new ButtonComponent.Entity(() => OnDeleteChild()),
         };
         return strapEditorEntity;
     }
@@ -257,6 +263,11 @@ public partial class LevelEditorPresenter
             if (currentTrap.Type == TrapEditor.TYPE.ROLLING_ROCK)
             {
                 var comp = currentTrap.gameObject.GetComponent<TrapEditorRollingStone>();
+                comp.RestoreToDefault();
+            }
+            else if (currentTrap.Type == TrapEditor.TYPE.WOODEN_SPIKE)
+            {
+                var comp = currentTrap.gameObject.GetComponent<TrapEditorWoodSpike>();
                 comp.RestoreToDefault();
             }
         }
@@ -277,10 +288,21 @@ public partial class LevelEditorPresenter
             {
                 currentTrap.gameObject.GetComponent<TrapEditorRollingStone>().ActiveDirection();
             }
+            else if (currentTrap.Type == TrapEditor.TYPE.WOODEN_SPIKE)
+            {
+                if (uiDebugLevelEditor.trapEditor.entity.isVisibleChildrenPanel)
+                    uiDebugLevelEditor.trapEditor.isVisibleChildrenPanel.SetEntity(false);
+                currentTrap.gameObject.GetComponent<TrapEditorWoodSpike>().ActiveDirection();
+            }
         }
         else
         {
-
+            if (currentTrap == default) return;
+            if (currentTrap.Type == TrapEditor.TYPE.WOODEN_SPIKE)
+            {
+                if (uiDebugLevelEditor.trapEditor.entity.isVisibleChildrenPanel)
+                    uiDebugLevelEditor.trapEditor.isVisibleChildrenPanel.SetEntity(false);
+            }
         }
 
 
@@ -294,6 +316,10 @@ public partial class LevelEditorPresenter
             if (currentTrap.Type == TrapEditor.TYPE.ROLLING_ROCK)
             {
                 currentTrap.gameObject.GetComponent<TrapEditorRollingStone>().ActiveTrigger();
+            }
+            else if (currentTrap.Type == TrapEditor.TYPE.WOODEN_SPIKE)
+            {
+                currentTrap.gameObject.GetComponent<TrapEditorWoodSpike>().ActiveTrigger();
             }
         }
         else
@@ -321,6 +347,102 @@ public partial class LevelEditorPresenter
             {
                 Debug.Log("3");
             }
+        }
+        else if (currentTrap.Type == TrapEditor.TYPE.WOODEN_SPIKE)
+        {
+            
+            if (IsEditingTrapDirection)
+            {
+                if (uiDebugLevelEditor.trapEditor.entity.isVisibleChildrenPanel)
+                    uiDebugLevelEditor.trapEditor.SetVisiblePanelChildren(false);
+                else
+                {
+                    uiDebugLevelEditor.trapEditor.SetVisiblePanelChildren(true);
+                    var comp = currentTrap.GetComponent<TrapEditorWoodSpike>();
+                    uiDebugLevelEditor.trapEditor.SetChildren(new UIDebugLevelEditorTrapToggleList.Entity()
+                    {
+                        entities = GetListToggleWoodSpike(comp)
+                    });
+
+                }
+                
+            }
+            else
+            {
+                if (uiDebugLevelEditor.trapEditor.entity.isVisibleChildrenPanel)
+                    uiDebugLevelEditor.trapEditor.SetVisiblePanelChildren(false);
+            }
+
+        }
+
+    }
+
+    private UIDebugLevelEditorTrapToggleItem.Entity[] GetListToggleWoodSpike(TrapEditorWoodSpike comp)
+    {
+        var x = comp.Points.Select(x => new UIDebugLevelEditorTrapToggleItem.Entity()
+        {
+            toggle = new UIComponentToggle.Entity()
+            {
+                isOn = false,
+                onActiveToggle = val => IsEditingTrapTarget = val
+            }
+        }).ToArray();
+        List<UIDebugLevelEditorTrapToggleItem.Entity> mL = new List<UIDebugLevelEditorTrapToggleItem.Entity>();
+        for (int i = 0; i < comp.Points.Count; i++)
+        {
+            int index = i;
+            var ss = new UIDebugLevelEditorTrapToggleItem.Entity()
+            {
+                toggle = new UIComponentToggle.Entity()
+                {
+                    isOn = false,
+                    onActiveToggle = val => OnChangeChildrenTarget(val, index)
+                },
+                title = $"Item_{index}",
+            };
+            mL.Add(ss);
+        }
+        return mL.ToArray();
+    }
+
+    private void OnChangeChildrenTarget(bool val, int index)
+    {
+        if (currentTrap == default) return;
+        if (currentTrap.Type == TrapEditor.TYPE.WOODEN_SPIKE)
+        {
+            if (val)
+            {
+                var comp = currentTrap.GetComponent<TrapEditorWoodSpike>();
+                comp.SelectPoint(index);
+            }
+        }
+    }
+
+    private void OnAddChild()
+    {
+        if (currentTrap == default) return;
+        if (currentTrap.Type == TrapEditor.TYPE.WOODEN_SPIKE)
+        {
+            var comp = currentTrap.GetComponent<TrapEditorWoodSpike>();
+            comp.AddNewPoint();
+            uiDebugLevelEditor.trapEditor.SetChildren(new UIDebugLevelEditorTrapToggleList.Entity()
+            {
+                entities = GetListToggleWoodSpike(comp)
+            });
+        }
+    }
+
+    private void OnDeleteChild()
+    {
+        if (currentTrap == default) return;
+        if (currentTrap.Type == TrapEditor.TYPE.WOODEN_SPIKE)
+        {
+            var comp = currentTrap.GetComponent<TrapEditorWoodSpike>();
+            comp.DeleteSelectedPoint();
+            uiDebugLevelEditor.trapEditor.SetChildren(new UIDebugLevelEditorTrapToggleList.Entity()
+            {
+                entities = GetListToggleWoodSpike(comp)
+            });
         }
     }
 

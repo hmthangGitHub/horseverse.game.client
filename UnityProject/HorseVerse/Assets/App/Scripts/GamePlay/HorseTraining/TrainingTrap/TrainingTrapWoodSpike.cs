@@ -9,7 +9,6 @@ public class TrainingTrapWoodSpike : TrainingTrap<TrainingTrapWoodSpike.Entity>
     [System.Serializable]
     public class Entity
     {
-        public Position Target;
         public List<Position> Direction;
         public Position Trigger;
         public int TriggerSize;
