@@ -344,6 +344,7 @@ public class HorseTrainingPresenter : IDisposable
             costEnergy = UserSettingLocalRepository.MasterDataModel.TrainingHappinessCost,
             score = result.Score,
         });
+        
         await popup.In();
     }
 }

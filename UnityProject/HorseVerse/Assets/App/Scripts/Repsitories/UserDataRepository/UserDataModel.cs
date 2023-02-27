@@ -11,6 +11,7 @@
     public int Exp { get; set; }
     public int NextLevelExp { get; set; }
     public int DailyRacingNumberLeft { get; set; }
+    public long TrainingHighScore { get; set; }
 
 
     public UserDataModel Clone()

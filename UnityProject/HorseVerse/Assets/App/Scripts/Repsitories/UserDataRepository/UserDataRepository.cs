@@ -25,7 +25,8 @@ public class UserDataRepository : Repository<long, PlayerInfo, UserDataModel>, I
             Level = 1,
             NextLevelExp = 1,
             TraningTimeStamp = 0,
-            DailyRacingNumberLeft = x.FreeRacingNumber
+            DailyRacingNumberLeft = x.FreeRacingNumber,
+            TrainingHighScore = x.TrainingHighestScore
         };
     }
 

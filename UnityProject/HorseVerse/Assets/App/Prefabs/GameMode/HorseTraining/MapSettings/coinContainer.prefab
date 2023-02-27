@@ -86,10 +86,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: coin
       objectReference: {fileID: 0}
+    - target: {fileID: 2342296183655528524, guid: 8b9668838ab9bc549a1350298e954bc6, type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 704965245499351137}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b9668838ab9bc549a1350298e954bc6, type: 3}
 --- !u!4 &704965245499351132 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 480508427205789505, guid: 8b9668838ab9bc549a1350298e954bc6, type: 3}
+  m_PrefabInstance: {fileID: 1108890435114428189}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &704965245499351137 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 480508427205789564, guid: 8b9668838ab9bc549a1350298e954bc6, type: 3}
   m_PrefabInstance: {fileID: 1108890435114428189}
   m_PrefabAsset: {fileID: 0}
