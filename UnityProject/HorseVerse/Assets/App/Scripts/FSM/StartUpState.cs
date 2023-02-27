@@ -11,18 +11,7 @@ public class StartUpState : InjectedBHState
     
     public override void Enter()
     {
-        base.Enter();
         OnEnterStateAsync().Forget();
-#if ENABLE_DEBUG_MODULE
-        if (uiDebugMenuPresenter == default)
-        {
-            uiDebugMenuPresenter ??= new UIDebugMenuPresenter(Container);
-            uiDebugMenuPresenter.InitializeAsync().Forget();
-            uiDebugMenuPresenter.OnToLevelEditorState += ToLevelEditorState;
-            uiDebugMenuPresenter.OnToTrainingState += ToTrainingState;
-            Container.Bind(uiDebugMenuPresenter);
-        }
-#endif
     }
 
     private async UniTaskVoid OnEnterStateAsync()
@@ -35,6 +24,18 @@ public class StartUpState : InjectedBHState
         startUpStateHandler.OnReboot += OnReboot;
         await startUpStateHandler.ShowClientInfoAsync();
         Container.Bind(startUpStateHandler);
+        
+#if ENABLE_DEBUG_MODULE
+        if (uiDebugMenuPresenter == default)
+        {
+            uiDebugMenuPresenter ??= new UIDebugMenuPresenter(Container);
+            uiDebugMenuPresenter.InitializeAsync().Forget();
+            uiDebugMenuPresenter.OnToLevelEditorState += ToLevelEditorState;
+            uiDebugMenuPresenter.OnToTrainingState += ToTrainingState;
+            Container.Bind(uiDebugMenuPresenter);
+        }
+#endif
+        base.Enter();
     }
 
 #if ENABLE_DEBUG_MODULE
@@ -98,6 +99,5 @@ public class StartUpState : InjectedBHState
             }
             isNeedResetState = false;
         }
-        
     }
 }
