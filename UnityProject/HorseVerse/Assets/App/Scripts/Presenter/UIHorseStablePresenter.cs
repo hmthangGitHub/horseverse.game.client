@@ -89,8 +89,8 @@ public class UIHorseStablePresenter : IDisposable
         currentSelectHorseId = current;
         await uiHorseStable.In();
         await UniTask.Delay(500);
-        uiHorseStable.breedingBtn.SetInteractable(false);
-        uiHorseStable.upgradeBtn.SetInteractable(false);
+        uiHorseStable.breedingBtn?.SetInteractable(false);
+        uiHorseStable.upgradeBtn?.SetInteractable(false);
     }
 
     private async UniTaskVoid OnSelectHorseAsync(long masterHorseId)

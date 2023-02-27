@@ -62,6 +62,7 @@ public class UIMainMenuPresenter : IDisposable
 
     private async UniTask TransitionToAsync(Action action)
     {
+        await UniTask.Delay(200);
         await uiMainMenu.Out();
         action();
     }
