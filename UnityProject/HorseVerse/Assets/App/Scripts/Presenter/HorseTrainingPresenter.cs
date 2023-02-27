@@ -279,7 +279,7 @@ public class HorseTrainingPresenter : IDisposable
         Time.timeScale = 0.0f;
         AudioManager.Instance.StopSound();
         SoundController.PlayHitObstance();
-        var data = await TrainingDomainService.GetTrainingRewardData(distanceOfRunning, CurrentPoint);
+        var data = await TrainingDomainService.GetTrainingRewardData(distanceOfRunning, CurrentCoin);
         if (data.ResultCode == 100) {
             await ShowUIHorseTrainingResultAsync(data);
         }
