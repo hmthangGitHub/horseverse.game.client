@@ -1,8 +1,9 @@
-﻿using Cysharp.Threading.Tasks;
+﻿#define MOCK_DATA
+using Cysharp.Threading.Tasks;
 using RobustFSM.Base;
 using System;
 
-public class BetModeUIState : InjectedBState
+public class BetModeUIState : InjectedBHState
 {
     private UIBetModePresenter uiBetModePresenter;
     private UIHeaderPresenter uiHeaderPresenter;
@@ -20,18 +21,25 @@ public class BetModeUIState : InjectedBState
 #else
         Container.Bind(new BetHistoryRepository(Container.Inject<ISocketClient>()));
 #endif
+        Container.Bind(new BetModeHistoryPresenter(Container));
         OnEnterStateAsync().Forget();
+    }
+
+    public override void AddStates()
+    {
+        base.AddStates();
+        AddState<BetModeUIEntryState>();
+        AddState<BetModeHistoryState>();
+        SetInitialState<BetModeUIEntryState>();
     }
 
     private async UniTaskVoid OnEnterStateAsync()
     {
-        uiHeaderPresenter = Container.Inject<UIHeaderPresenter>();
-        uiHeaderPresenter.HideHeader();
-        
         uiBetModePresenter = new UIBetModePresenter(Container);
         uiBetModePresenter.OnBack += OnBackToMainMenu;
         uiBetModePresenter.OnToRaceMode += OnToRaceMode;
         uiBetModePresenter.OnTimeOut += OnTimeOut;
+        uiBetModePresenter.OnViewHistory += OnViewHistory;
         
         await UIBackGroundPresenter.ShowBackGroundAsync();
         await uiBetModePresenter.ShowUIBetModeAsync();
@@ -39,7 +47,7 @@ public class BetModeUIState : InjectedBState
 
     private void OnViewHistory()
     {
-        
+        ChangeState<BetModeHistoryState>();
     }
 
     private void OnTimeOut()
@@ -70,6 +78,7 @@ public class BetModeUIState : InjectedBState
         uiBetModePresenter.OnBack -= OnBackToMainMenu;
         uiBetModePresenter.OnToRaceMode -= OnToRaceMode;
         uiBetModePresenter.OnTimeOut -= OnBackToMainMenu;
+        uiBetModePresenter.OnViewHistory -= OnViewHistory;
         uiBetModePresenter?.Dispose();
         uiBetModePresenter = default;
         
@@ -78,5 +87,68 @@ public class BetModeUIState : InjectedBState
 #else
         Container.RemoveAndDisposeIfNeed<BetHistoryRepository>();
 #endif
+        Container.RemoveAndDisposeIfNeed<BetModeHistoryPresenter>();
+    }
+}
+
+public class BetModeHistoryState : InjectedBState
+{
+    private UIHeaderPresenter uiHeaderPresenter;
+    private UIHeaderPresenter UIHeaderPresenter => uiHeaderPresenter ??= Container.Inject<UIHeaderPresenter>();
+    private BetModeHistoryPresenter betModeHistoryPresenter;
+    private BetModeHistoryPresenter BetModeHistoryPresenter => betModeHistoryPresenter ??= Container.Inject<BetModeHistoryPresenter>();
+    
+    public override void Enter()
+    {
+        base.Enter();
+        UIHeaderPresenter.OnBack += OnBackBtn;
+        UIHeaderPresenter.ShowHeaderAsync(true, "ARENA HISTORY").Forget();
+        BetModeHistoryPresenter.ShowHistoryAsync().Forget();
+    }
+
+    private void OnBackBtn()
+    {
+        OnBackBtnAsync().Forget();
+    }
+
+    private async UniTask OnBackBtnAsync()
+    {
+        await BetModeHistoryPresenter.Out();
+        Machine.ChangeState<BetModeUIEntryState>();
+    }
+
+    public override void Exit()
+    {
+        UIHeaderPresenter.OnBack -= OnBackBtn;
+        betModeHistoryPresenter = default;
+    }
+}
+
+public class BetModeUIEntryState : InjectedBState
+{
+    private UIHeaderPresenter uiHeaderPresenter;
+    private UIHeaderPresenter UIHeaderPresenter => uiHeaderPresenter ??= Container.Inject<UIHeaderPresenter>();
+
+    public override void Enter()
+    {
+        base.Enter();
+        UIHeaderPresenter.OnBack += OnBackBtn;
+        UIHeaderPresenter.ShowHeaderAsync(true, "ARENA").Forget();
+    }
+    
+    private void OnBackBtn()
+    {
+        OnBackToMainMenu();
+    }
+    
+    private void OnBackToMainMenu()
+    {
+        this.GetSuperMachine<RootFSM>().ChangeToChildStateRecursive<MainMenuState>();
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        UIHeaderPresenter.OnBack -= OnBackBtn;
     }
 }

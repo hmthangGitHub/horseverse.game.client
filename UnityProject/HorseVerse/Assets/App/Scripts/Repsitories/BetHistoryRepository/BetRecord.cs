@@ -8,8 +8,6 @@ public class BetRecord
     public long TimeStamp { get; set; }
     public int FirstHorseIndex { get; set; }
     public string FirstHorseName { get; set; }
-    public int FirstHorseRank { get; set; }
     public int SecondHorseIndex { get; set; }
     public string SecondHorseName { get; set; }
-    public int SecondHorseRank { get; set; }
 }

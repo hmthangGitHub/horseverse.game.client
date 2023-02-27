@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -141,24 +142,13 @@ public class UIBetModePresenter : IDisposable
                 onBetAll = val => OnBetAllAtHorseNumber(val).Forget()
             },
             btnHorseList = new ButtonComponent.Entity(()=> OpenHorseList().Forget()),
+            historyBtn = new ButtonComponent.Entity(OnViewHistory)
         });
-        
-        
 
-        if (uiBetMode)
-        {
-            UIHeaderPresenter.OnBack += OnBackBtn;
-            await UIHeaderPresenter.ShowHeaderAsync(true, "ARENA");
-            await uiBetMode.In();
-        }
+        await uiBetMode.In();
 
         SoundController.PlayMusicBetModePrepare();
         OnUpdateBettingButtons();
-    }
-
-    private void OnBackBtn()
-    {
-        TransitionAsync(OnBack).Forget();
     }
 
     private void OnUpdateBettingButtons()
@@ -423,7 +413,6 @@ public class UIBetModePresenter : IDisposable
         BetRateRepository.OnModelUpdate -= BetRateRepositoryOnModelUpdate;
         BetRateRepository.OnModelsUpdate -= BetRateRepositoryOnModelsUpdate;
         UserDataRepository.OnModelUpdate -= OnModelUpdate;
-        UIHeaderPresenter.OnBack -= OnBackBtn;
 
         userDataRepository = default;
         betRateRepository = default;

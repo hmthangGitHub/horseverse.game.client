@@ -7,15 +7,24 @@ using Cysharp.Threading.Tasks;
 using io.hverse.game.protogen;
 using UnityEngine;
 
-public class BetHistoryRepository : Repository<long , BetRecord, BetRecord>, IReadOnlyBetHistoryRepository
+public class BetHistoryRepository : Repository<long , BettingMatch, BetRecord>, IReadOnlyBetHistoryRepository
 {
-    public BetHistoryRepository(ISocketClient socketClient) : base(x => x.MatchId, x => x, () => GetData(socketClient))
+    public BetHistoryRepository(ISocketClient socketClient) : base(x => x.MatchId, x => new BetRecord()
+    {
+        MatchId = x.MatchId,
+        TimeStamp = x.TimeToStart,
+        FirstHorseIndex = x.FirstRankHorseLane,
+        FirstHorseName = x.FirstRankHorse.Name,
+        SecondHorseIndex = x.SecondRankHorseLane,
+        SecondHorseName = x.SecondRankHorse.Name,
+    }, () => GetData(socketClient))
     {
     }
 
-    private static async UniTask<IEnumerable<BetRecord>> GetData(ISocketClient socketClient)
+    private static async UniTask<IEnumerable<BettingMatch>> GetData(ISocketClient socketClient)
     {
-        throw new NotImplementedException();
+        var response = await socketClient.Send<GetBetHistoryRequest, GetBetHistoryResponse>(new GetBetHistoryRequest());
+        return response.Records;
     }
 }
 
