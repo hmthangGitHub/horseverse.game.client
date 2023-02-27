@@ -27,7 +27,7 @@ namespace io.hverse.game.protogen {
             "CgxodmVyc2UucHJvdG8aGWdvb2dsZS9wcm90b2J1Zi9hbnkucHJvdG8iVwoL",
             "R2FtZU1lc3NhZ2USIQoHbXNnVHlwZRgBIAEoDjIQLkdhbWVNZXNzYWdlVHlw",
             "ZRIlCgdtc2dEYXRhGAIgASgLMhQuZ29vZ2xlLnByb3RvYnVmLkFueSrpAQoP",
-            "R2FtZU1lc3NhZ2VUeXBlEhIKDlNZU1RFTV9NRVNTQUdFEAASEAoMUElOR19N",
+            "R2FtZU1lc3NhZ2VUeXBlEhIKDkNPTU1PTl9NRVNTQUdFEAASEAoMUElOR19N",
             "RVNTQUdFEAESEAoMREFUQV9NRVNTQUdFEAISEQoNTE9HSU5fTUVTU0FHRRAD",
             "EhIKDlBMQVlFUl9NRVNTQUdFEAQSEgoOUkFDSU5HX01FU1NBR0UQBRITCg9C",
             "RVRUSU5HX01FU1NBR0UQBhIQCgxDSEFUX01FU1NBR0UQBxITCg9NQUlMQk9Y",
@@ -45,7 +45,7 @@ namespace io.hverse.game.protogen {
   }
   #region Enums
   public enum GameMessageType {
-    [pbr::OriginalName("SYSTEM_MESSAGE")] SystemMessage = 0,
+    [pbr::OriginalName("COMMON_MESSAGE")] CommonMessage = 0,
     [pbr::OriginalName("PING_MESSAGE")] PingMessage = 1,
     [pbr::OriginalName("DATA_MESSAGE")] DataMessage = 2,
     [pbr::OriginalName("LOGIN_MESSAGE")] LoginMessage = 3,
@@ -108,7 +108,7 @@ namespace io.hverse.game.protogen {
 
     /// <summary>Field number for the "msgType" field.</summary>
     public const int MsgTypeFieldNumber = 1;
-    private global::io.hverse.game.protogen.GameMessageType msgType_ = global::io.hverse.game.protogen.GameMessageType.SystemMessage;
+    private global::io.hverse.game.protogen.GameMessageType msgType_ = global::io.hverse.game.protogen.GameMessageType.CommonMessage;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::io.hverse.game.protogen.GameMessageType MsgType {
@@ -154,7 +154,7 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (MsgType != global::io.hverse.game.protogen.GameMessageType.SystemMessage) hash ^= MsgType.GetHashCode();
+      if (MsgType != global::io.hverse.game.protogen.GameMessageType.CommonMessage) hash ^= MsgType.GetHashCode();
       if (msgData_ != null) hash ^= MsgData.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -174,7 +174,7 @@ namespace io.hverse.game.protogen {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (MsgType != global::io.hverse.game.protogen.GameMessageType.SystemMessage) {
+      if (MsgType != global::io.hverse.game.protogen.GameMessageType.CommonMessage) {
         output.WriteRawTag(8);
         output.WriteEnum((int) MsgType);
       }
@@ -192,7 +192,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (MsgType != global::io.hverse.game.protogen.GameMessageType.SystemMessage) {
+      if (MsgType != global::io.hverse.game.protogen.GameMessageType.CommonMessage) {
         output.WriteRawTag(8);
         output.WriteEnum((int) MsgType);
       }
@@ -210,7 +210,7 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (MsgType != global::io.hverse.game.protogen.GameMessageType.SystemMessage) {
+      if (MsgType != global::io.hverse.game.protogen.GameMessageType.CommonMessage) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) MsgType);
       }
       if (msgData_ != null) {
@@ -228,7 +228,7 @@ namespace io.hverse.game.protogen {
       if (other == null) {
         return;
       }
-      if (other.MsgType != global::io.hverse.game.protogen.GameMessageType.SystemMessage) {
+      if (other.MsgType != global::io.hverse.game.protogen.GameMessageType.CommonMessage) {
         MsgType = other.MsgType;
       }
       if (other.msgData_ != null) {

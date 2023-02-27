@@ -10,6 +10,8 @@ namespace MessageBroker
         void Publish<T>(T message, int channel = default);
         void Subscribe<T>(Action<T> callback, int channel = default);
         void UnSubscribe<T>(Action<T> callback, int channel = default);
+        bool Any<T>(int channel = default);
+        bool Any(Type type, int channel = default);
     }
 
     public class ChannelMessageBroker : IMessageBroker
@@ -78,6 +80,16 @@ namespace MessageBroker
                 delegates.Remove(subscription);
             if (delegates.Count == 0)
                 subscribers.Remove(typeof(T));
+        }
+
+        public bool Any<T>(int channel = default)
+        {
+            return Any(typeof(T));
+        }
+
+        public bool Any(Type type, int channel = default)
+        {
+            return channelsubscribers.TryGetValue(channel, out var subscribers) && subscribers.ContainsKey(type);
         }
 
         public void Dispose()

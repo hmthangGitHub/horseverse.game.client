@@ -8,25 +8,33 @@ using UnityEngine.Rendering;
 
 public class ErrorHandler : IDisposable
 {
+    private readonly IDIContainer container;
+    private MasterLocalizeContainer masterLocalizeContainer;
+    private MasterErrorCodeContainer masterErrorCodeContainer;
+    private ISocketClient socketClient;
+    private ISocketClient SocketClient => socketClient ??= container.Inject<ISocketClient>();
+    private MasterLocalizeContainer MasterLocalizeContainer => masterLocalizeContainer ??= container.Inject<MasterLocalizeContainer>();
+    private MasterErrorCodeContainer MasterErrorCodeContainer => masterErrorCodeContainer ??= container.Inject<MasterErrorCodeContainer>();
     public event Action OnError = ActionUtility.EmptyAction.Instance;
     private UIPopupMessage uiPopupMessage;
     private CancellationTokenSource cts;
 #if ENABLE_DEBUG_MODULE
-    private string error => errorList[currentErrorIndex].error;
-    private string stackTrace => errorList[currentErrorIndex].stackTrace;
-    private List<(string error, string stackTrace)> errorList = new List<(string error, string stackTrace)>();
+    private string Error => errorList[currentErrorIndex].error;
+    private string StackTrace => errorList[currentErrorIndex].stackTrace;
+    private readonly List<(string error, string stackTrace)> errorList = new List<(string error, string stackTrace)>();
     private int currentErrorIndex = 0;
 #endif
 
-    private ErrorHandler()
+    private ErrorHandler(IDIContainer container)
     {
+        this.container = container;
         SubscribeEvents();
         cts = new CancellationTokenSource();
     }
 
-    public static async UniTask<ErrorHandler> Instantiate()
+    public static async UniTask<ErrorHandler> Instantiate(IDIContainer container)
     {
-        var errorHandler = new ErrorHandler();
+        var errorHandler = new ErrorHandler(container);
         await errorHandler.InitializeInternal();
         return errorHandler;
     }
@@ -48,7 +56,7 @@ public class ErrorHandler : IDisposable
 
     private void OnGUIFunction()
     {
-        if (!string.IsNullOrEmpty(error))
+        if (!string.IsNullOrEmpty(Error))
         {
             GUI.skin.label.fontSize = 30;
             GUI.skin.button.fontSize = 30;
@@ -58,8 +66,8 @@ public class ErrorHandler : IDisposable
             GUILayout.BeginVertical();
             scrollPos = GUILayout.BeginScrollView(scrollPos);
             GUI.backgroundColor = new Color(0, 0, 0, 1.0f);
-            GUILayout.Label($"Error : {error}");
-            GUILayout.Label(stackTrace);
+            GUILayout.Label($"Error : {Error}");
+            GUILayout.Label(StackTrace);
             GUILayout.EndScrollView();
             GUILayout.BeginHorizontal();
             if (GUILayout.Button($"<{currentErrorIndex}"))
@@ -76,7 +84,7 @@ public class ErrorHandler : IDisposable
 
             if (GUILayout.Button("Copy error"))
             {
-                GUIUtility.systemCopyBuffer = stackTrace;
+                GUIUtility.systemCopyBuffer = StackTrace;
             }
 
             if (GUILayout.Button("Quit"))
@@ -112,6 +120,7 @@ public class ErrorHandler : IDisposable
         {
             var socketException when socketException.Contains("SocketException") => "Network Error",
             var timeOutException when timeOutException.Contains("TimeoutException") => "Network Error",
+            var failedResponseException when failedResponseException.Contains(nameof(FailedResponseException)) => MasterLocalizeContainer.GetString(MasterErrorCodeContainer.MasterErrorCodeIndexer[SocketClient.LatestException.ErrorCode].DescriptionKey),
             _ => "Unknown Error"
         };
         ShowErrorMessageAsync(message);

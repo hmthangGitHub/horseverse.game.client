@@ -33,8 +33,7 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.Bind(new QuickRaceDomainService(Container));
         this.Container.Bind(new LocalTraningDomainService(Container));
         this.Container.Bind(new HorseSumaryListEntityFactory(Container));
-        var masterErrorCodeContainer = await MasterLoader.LoadMasterAsync<MasterErrorCodeContainer>();
-        this.Container.Bind(masterErrorCodeContainer);
+        var masterErrorCodeContainer = Container.Inject<MasterErrorCodeContainer>();
 #if UNITY_WEBGL || WEB_SOCKET
         this.Container.Bind(WebSocketClient.Initialize(new ProtobufMessageParser(), ErrorCodeConfiguration.Initialize(masterErrorCodeContainer)));
 #else
@@ -97,7 +96,6 @@ public class InitialState : InjectedBHState, IDisposable
 #else
         this.Container.RemoveAndDisposeIfNeed<TCPSocketClient>();
 #endif
-        this.Container.RemoveAndDisposeIfNeed<MasterErrorCodeContainer>();
         this.Container.RemoveAndDisposeIfNeed<AudioPresenter>();
         this.Container.RemoveAndDisposeIfNeed<UILoadingPresenter>();
         this.Container.RemoveAndDisposeIfNeed<UIHeaderPresenter>();

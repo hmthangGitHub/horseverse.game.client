@@ -10,6 +10,8 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
     private readonly MessageBroker.IMessageBroker messageBroker = new MessageBroker.ChannelMessageBroker();
     protected IMessageParser messageParser;
     protected IErrorCodeConfiguration errorCodeConfig;
+    public FailedResponseException LatestException { get; private set; }
+    
     public event Action OnStartRequest = ActionUtility.EmptyAction.Instance;
     public event Action OnEndRequest = ActionUtility.EmptyAction.Instance;
 
@@ -23,7 +25,14 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
     {
         var message = messageParser.Parse(data);
         Debug.Log($"Received response {message.GetType()} {message}");
-        messageBroker.Publish(message);
+        if (!messageBroker.Any(message.GetType()))
+        {
+            VerifyErrorMessage(message);
+        }
+        else
+        {
+            messageBroker.Publish(message);
+        }
     }
 
 
@@ -36,6 +45,7 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
     {
         messageBroker.UnSubscribe(callback);
     }
+
 
     public async UniTask<TResponse> Send<TRequest, TResponse>(TRequest request, float timeOut = 10.0f, CancellationToken token = default(CancellationToken)) where TRequest : IMessage
                                                                                 where TResponse : IMessage
@@ -89,9 +99,12 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
             var message = errorCodeConfig.ErrorCodeMessage.TryGetValue(errorCodeMessage.ResultCode, out var msg)
                 ? msg
                 : "Unknown Message";
-            throw new Exception($"Failed Response Exception Result Code:{errorCodeMessage.ResultCode} " +
-                                $"- {message} \n" +
-                                $"{response}");
+            
+            LatestException = new FailedResponseException($"Result Code:{errorCodeMessage.ResultCode} " +
+                                                          $" - {message} \n" +
+                                                          $" {response}", 
+                errorCodeMessage.ResultCode);
+            throw LatestException;
         }
     }
 

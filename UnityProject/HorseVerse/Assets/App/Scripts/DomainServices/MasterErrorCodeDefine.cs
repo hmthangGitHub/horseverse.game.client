@@ -19,4 +19,5 @@ public static class MasterErrorCodeDefine
     public static int EXPIRED_TOKEN = 204;
     public static int LOGIN_MULTIPLE_DEVICES = 205;
     public static int NEED_TO_UPDATE_CLIENT = 206;
+    public static int ANOTHER_USER_CONNECT = 303;
 }
