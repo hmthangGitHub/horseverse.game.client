@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -12,10 +13,13 @@ public class BetModeHistoryPresenter : IDisposable
     private CancellationTokenSource cts;
     private UIBetHistory uiBetHistory;
     private UIBackGround uiBackGround;
-    private UIUserBetSumary uiUserBetSummary;
+    private UIBetModeResult uiBetModeResult;
     private IReadOnlyBetHistoryRepository betHistoryRepository;
     private ISocketClient socketClient;
     private IBetModeDomainService betModeDomainService;
+    private UITouchDisablePresenter uiTouchDisablePresenter;
+    private UserBetSummaryPresenter userBetSummaryPresenter;
+    private UITouchDisablePresenter UITouchDisablePresenter => uiTouchDisablePresenter ??= container.Inject<UITouchDisablePresenter>();
 
     private IReadOnlyBetHistoryRepository BetHistoryRepository =>
         betHistoryRepository ??= container.Inject<IReadOnlyBetHistoryRepository>();
@@ -28,14 +32,15 @@ public class BetModeHistoryPresenter : IDisposable
     public BetModeHistoryPresenter(IDIContainer container)
     {
         this.container = container;
+        userBetSummaryPresenter = new UserBetSummaryPresenter(container);
     }
 
     public async UniTask ShowHistoryAsync()
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
-        uiBackGround ??= await UILoader.Instantiate<UIBackGround>(UICanvas.UICanvasType.BackGround, token: cts.Token);
-        uiBetHistory ??= await UILoader.Instantiate<UIBetHistory>(token: cts.Token);
+
+        await UITouchDisablePresenter.ShowTillFinishTaskAsync(InstantiateUIAsync());
         await BetHistoryRepository.LoadRepositoryIfNeedAsync()
                                   .AttachExternalCancellation(cancellationToken: cts.Token);
         uiBetHistory.SetEntity(new UIBetHistory.Entity()
@@ -64,9 +69,8 @@ public class BetModeHistoryPresenter : IDisposable
                                                            {
                                                                isInteractable = false
                                                            },
-                                                           viewBetDetailBtn = new ButtonComponent.Entity(() =>
-                                                               OnViewBetDetailAsync(x.MatchId, 
-                                                                       x.TimeStamp, 
+                                                           viewBetDetailBtn = new ButtonComponent.Entity(() => userBetSummaryPresenter.ShowUserBetSummaryAsync(x.MatchId,
+                                                                       x.TimeStamp,
                                                                        firstHorse,
                                                                        secondHorse)
                                                                    .Forget()),
@@ -80,54 +84,49 @@ public class BetModeHistoryPresenter : IDisposable
         await uiBetHistory.In();
     }
 
-    private async UniTaskVoid OnViewBetResultAsync()
+    private async UniTask InstantiateUIAsync()
     {
+        uiBackGround ??= await UILoader.Instantiate<UIBackGround>(token: cts.Token);
+        uiBetHistory ??= await UILoader.Instantiate<UIBetHistory>(token: cts.Token);
+        uiBetModeResult ??= await UILoader.Instantiate<UIBetModeResult>(UICanvas.UICanvasType.PopUp, token: cts.Token);
     }
 
-    private async UniTaskVoid OnViewBetDetailAsync(long matchId,
-                                                   long time,
-                                                   UIComponentHorseInfoHistory.Entity firstHorse,
-                                                   UIComponentHorseInfoHistory.Entity secondHorse)
+    private async UniTaskVoid OnViewBetResultAsync()
     {
-        var userBets = await BetModeDomainService.GetCurrentBetMatchRawData(matchId).AttachExternalCancellation(cancellationToken: cts.Token);
-        await uiBetHistory.Out();
-        uiUserBetSummary ??= await UILoader.Instantiate<UIUserBetSumary>(token: cts.Token);
-        uiUserBetSummary.SetEntity(new UIUserBetSumary.Entity()
+        uiBetModeResult.SetEntity(new UIBetModeResult.Entity()
         {
-            time = time,
-            matchId = matchId,
-            firstHorse = firstHorse,
-            secondHorse = secondHorse,
-            userBetRecordList = userBets.Record.Select(x => new UIComponentBetModeMyResult.Entity()
+            betModeResultPanel = new UIBetModeResultPanel.Entity()
             {
-                rate = x.rate,
-                result = x.winMoney,
-                spend = x.betMoney,
-                isDoubleBet = x.doubleBet,
-                horseNumberFirst = x.pool_1,
-                horseNumberSecond = x.pool_2,
-            }).ToArray(),
-            closeBtn = new ButtonComponent.Entity(UniTask.Action(async() =>
-            {
-                await uiUserBetSummary.Out();
-                await uiBetHistory.In();
-            }))
+                betModeResultList = Enumerable.Range(0, 8)
+                                              .Select(x => new UIComponentBetModeResult.Entity()
+                                              {
+                                                  no = x + 1,
+                                                  time = UnityEngine.Random.Range(40.0f, 50.0f),
+                                                  horseName = "Horse Name" + x,
+                                                  horseNumber = UnityEngine.Random.Range(0, 8),
+                                                  rewardGroupVisible = false,
+                                                  isSelfHorse = false
+                                              }).ToArray(),
+                
+            },
+            nextBtn = new ButtonComponent.Entity(() => uiBetModeResult.Out().Forget())
         });
-        
-        await uiUserBetSummary.In().AttachExternalCancellation(cts.Token);
+
+        uiBetModeResult.In().Forget();
     }
 
     public async UniTask Out()
     {
-        await uiBetHistory.Out()
-                          .AttachExternalCancellation(cts.Token);
+        await uiBetHistory.Out();
+        await uiBackGround.Out();
     }
 
     public void Dispose()
     {
         DisposeUtility.SafeDispose(ref cts);
         UILoader.SafeRelease(ref uiBetHistory);
-        UILoader.SafeRelease(ref uiUserBetSummary);
         UILoader.SafeRelease(ref uiBackGround);
+        UILoader.SafeRelease(ref uiBetModeResult);
+        DisposeUtility.SafeDispose(ref userBetSummaryPresenter);
     }
 }

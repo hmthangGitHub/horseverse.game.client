@@ -16,12 +16,14 @@ public class UIBetModeResultAnimation : UISequenceAnimationBase
     public UIComponentBetModeMyResultList uiComponentBetModeMyResultList;
     public LayoutGroup layoutGroup;
     public RectTransform nextButton;
+    
     protected override Tween CreateInAnimation()
     {
         layoutGroup.enabled = false;
         return DOTween.Sequence()
             .Append(container.DOFade(0.0f, 1.0f, 0.35f))
             .Append(nextButton.DOFade(0.0f, 1.0f, 0.15f))
+            .Append(DoShowBetList())
             .OnKill(() => layoutGroup.enabled = true)
             .SetUpdate(true);
     }
@@ -31,39 +33,10 @@ public class UIBetModeResultAnimation : UISequenceAnimationBase
         return container.DOFade(1.0f, 0.0f, 0.35f, true);
     }
 
-    protected Tween doShowBetList()
+    private Tween DoShowBetList()
     {
         return DOTween.Sequence().Append(uiComponentBetModeResultList.instanceList.Select(x => x.RectTransform().DOAnchorPosYFrom(-800, 0.1f))
                 .ToArray()
                 .AsSequence());
-    }
-
-    protected Tween doShowMyBetList()
-    {
-        return DOTween.Sequence().Append(uiComponentBetModeMyResultList.instanceList.Select(x => x.RectTransform().DOAnchorPosYFrom(-800, 0.1f))
-                .ToArray()
-                .AsSequence());
-    }
-
-    public async UniTask AnimationBetPanelIn()
-    {
-        await uIBetModeResultPanel.In();
-        await PlayAnimationAsync(doShowBetList);
-    }
-
-    public async UniTask AnimationBetPanelOut()
-    {
-        await uIBetModeResultPanel.Out();
-    }
-
-    public async UniTask AnimationMyBetPanelIn()
-    {
-        await uIBetModeResultPanel.In();
-        await PlayAnimationAsync(doShowBetList);
-    }
-
-    public async UniTask AnimationMyBetPanelOut()
-    {
-        await uIBetModeResultPanel.Out();
     }
 }

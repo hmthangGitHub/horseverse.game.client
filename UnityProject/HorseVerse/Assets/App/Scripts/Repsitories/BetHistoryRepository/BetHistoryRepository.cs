@@ -14,9 +14,9 @@ public class BetHistoryRepository : Repository<long , BettingMatch, BetRecord>, 
         MatchId = x.MatchId,
         TimeStamp = x.TimeToStart,
         FirstHorseIndex = x.FirstRankHorseLane,
-        FirstHorseName = x.FirstRankHorse.Name,
+        FirstHorseName = x.FirstRankHorseName,
         SecondHorseIndex = x.SecondRankHorseLane,
-        SecondHorseName = x.SecondRankHorse.Name,
+        SecondHorseName = x.SecondRankHorseName,
     }, () => GetData(socketClient))
     {
     }

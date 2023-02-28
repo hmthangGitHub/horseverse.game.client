@@ -1,4 +1,4 @@
-﻿#define MOCK_DATA
+﻿// #define MOCK_DATA
 using Cysharp.Threading.Tasks;
 using RobustFSM.Base;
 using System;
@@ -88,67 +88,5 @@ public class BetModeUIState : InjectedBHState
         Container.RemoveAndDisposeIfNeed<BetHistoryRepository>();
 #endif
         Container.RemoveAndDisposeIfNeed<BetModeHistoryPresenter>();
-    }
-}
-
-public class BetModeHistoryState : InjectedBState
-{
-    private UIHeaderPresenter uiHeaderPresenter;
-    private UIHeaderPresenter UIHeaderPresenter => uiHeaderPresenter ??= Container.Inject<UIHeaderPresenter>();
-    private BetModeHistoryPresenter betModeHistoryPresenter;
-    private BetModeHistoryPresenter BetModeHistoryPresenter => betModeHistoryPresenter ??= Container.Inject<BetModeHistoryPresenter>();
-    
-    public override void Enter()
-    {
-        base.Enter();
-        UIHeaderPresenter.OnBack += OnBackBtn;
-        UIHeaderPresenter.ShowHeaderAsync(true, "ARENA HISTORY").Forget();
-        BetModeHistoryPresenter.ShowHistoryAsync().Forget();
-    }
-
-    private void OnBackBtn()
-    {
-        OnBackBtnAsync().Forget();
-    }
-
-    private async UniTask OnBackBtnAsync()
-    {
-        await BetModeHistoryPresenter.Out();
-        Machine.ChangeState<BetModeUIEntryState>();
-    }
-
-    public override void Exit()
-    {
-        UIHeaderPresenter.OnBack -= OnBackBtn;
-        betModeHistoryPresenter = default;
-    }
-}
-
-public class BetModeUIEntryState : InjectedBState
-{
-    private UIHeaderPresenter uiHeaderPresenter;
-    private UIHeaderPresenter UIHeaderPresenter => uiHeaderPresenter ??= Container.Inject<UIHeaderPresenter>();
-
-    public override void Enter()
-    {
-        base.Enter();
-        UIHeaderPresenter.OnBack += OnBackBtn;
-        UIHeaderPresenter.ShowHeaderAsync(true, "ARENA").Forget();
-    }
-    
-    private void OnBackBtn()
-    {
-        OnBackToMainMenu();
-    }
-    
-    private void OnBackToMainMenu()
-    {
-        this.GetSuperMachine<RootFSM>().ChangeToChildStateRecursive<MainMenuState>();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-        UIHeaderPresenter.OnBack -= OnBackBtn;
     }
 }

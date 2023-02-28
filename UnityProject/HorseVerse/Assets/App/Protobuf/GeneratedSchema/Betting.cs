@@ -68,33 +68,34 @@ namespace io.hverse.game.protogen {
             "IAEoAxIUCgxpbmRleE9mSG9yc2UYAiADKAkSEwoLaXNDYW5jZWxBbGwYAyAB",
             "KAgiWwoVQ2FuY2VsQmV0dGluZ1Jlc3BvbnNlEhIKCnJlc3VsdENvZGUYASAB",
             "KAUSFAoMZXJyb3JNZXNzYWdlGAIgASgJEhgKEHRvdGFsUHJlc2VudENoaXAY",
-            "AyABKAMitgEKDEJldHRpbmdNYXRjaBIPCgdtYXRjaElkGAEgASgDEhMKC3Rp",
-            "bWVUb1N0YXJ0GAIgASgDEiIKDmZpcnN0UmFua0hvcnNlGAMgASgLMgouSG9y",
-            "c2VJbmZvEhoKEmZpcnN0UmFua0hvcnNlTGFuZRgEIAEoBRIjCg9zZWNvbmRS",
-            "YW5rSG9yc2UYBSABKAsyCi5Ib3JzZUluZm8SGwoTc2Vjb25kUmFua0hvcnNl",
-            "TGFuZRgGIAEoBSIWChRHZXRCZXRIaXN0b3J5UmVxdWVzdCJLChVHZXRCZXRI",
-            "aXN0b3J5UmVzcG9uc2USEgoKcmVzdWx0Q29kZRgBIAEoBRIeCgdyZWNvcmRz",
-            "GAIgAygLMg0uQmV0dGluZ01hdGNoIm4KEkJldHRpbmdNYXRjaERldGFpbBIM",
-            "CgRwb29sGAEgASgJEhEKCWhvcnNlTmFtZRgCIAEoCRIPCgd3aW5SYXRlGAMg",
-            "ASgCEhQKDGJldHRpbmdNb25leRgEIAEoBRIQCgh3aW5Nb25leRgFIAEoBSIt",
-            "ChpHZXRCZXRIaXN0b3J5RGV0YWlsUmVxdWVzdBIPCgdtYXRjaElkGAEgASgD",
-            "IlcKG0dldEJldEhpc3RvcnlEZXRhaWxSZXNwb25zZRISCgpyZXN1bHRDb2Rl",
-            "GAEgASgFEiQKB3JlY29yZHMYAiADKAsyEy5CZXR0aW5nTWF0Y2hEZXRhaWwq",
-            "4wMKEkJldHRpbmdNZXNzYWdlVHlwZRIhCh1HRVRfQ1VSUkVOVF9CRVRfTUFU",
-            "Q0hfUkVRVUVTVBAAEiIKHkdFVF9DVVJSRU5UX0JFVF9NQVRDSF9SRVNQT05T",
-            "RRABEiMKH0dFVF9DVVJSRU5UX1JBQ0VfU0NSSVBUX1JFUVVFU1QQAhIkCiBH",
-            "RVRfQ1VSUkVOVF9SQUNFX1NDUklQVF9SRVNQT05TRRADEh0KGVNFTkRfQkVU",
-            "VElOR19JTkZPX1JFUVVFU1QQBBIeChpTRU5EX0JFVFRJTkdfSU5GT19SRVNQ",
-            "T05TRRAFEhoKFkNBTkNFTF9CRVRUSU5HX1JFUVVFU1QQBhIbChdDQU5DRUxf",
-            "QkVUVElOR19SRVNQT05TRRAHEhsKF0dFVF9CRVRfSElTVE9SWV9SRVFVRVNU",
-            "EAgSHAoYR0VUX0JFVF9ISVNUT1JZX1JFU1BPTlNFEAkSJgoiR0VUX0JFVFRJ",
-            "TkdfSElTVE9SWV9ERVRBSUxfUkVRVUVTVBAKEicKI0dFVF9CRVRUSU5HX0hJ",
-            "U1RPUllfREVUQUlMX1JFU1BPTlNFEAsSGgoWR0VUX0hPUlNFX0xJU1RfUkVR",
-            "VUVTVBAMEhsKF0dFVF9IT1JTRV9MSVNUX1JFU1BPTlNFEA0qKAoLTWF0Y2hT",
-            "dGF0dXMSDQoJUFJFUEFSSU5HEAASCgoGQUNUSU5HEAEqJQoLQmV0dGluZ1R5",
-            "cGUSCgoGU0lOR0xFEAASCgoGRE9VQkxFEAFCSgoXaW8uaHZlcnNlLmdhbWUu",
-            "cHJvdG9nZW5CFUJldHRpbmdNZXNzYWdlRmFjdG9yeaoCF2lvLmh2ZXJzZS5n",
-            "YW1lLnByb3RvZ2VuYgZwcm90bzM="));
+            "AyABKAMi2wEKDEJldHRpbmdNYXRjaBIPCgdtYXRjaElkGAEgASgDEhMKC3Rp",
+            "bWVUb1N0YXJ0GAIgASgDEhgKEGZpcnN0UmFua0hvcnNlSWQYAyABKAMSGgoS",
+            "Zmlyc3RSYW5rSG9yc2VOYW1lGAQgASgJEhoKEmZpcnN0UmFua0hvcnNlTGFu",
+            "ZRgFIAEoBRIZChFzZWNvbmRSYW5rSG9yc2VJZBgGIAEoAxIbChNzZWNvbmRS",
+            "YW5rSG9yc2VOYW1lGAcgASgJEhsKE3NlY29uZFJhbmtIb3JzZUxhbmUYCCAB",
+            "KAUiFgoUR2V0QmV0SGlzdG9yeVJlcXVlc3QiSwoVR2V0QmV0SGlzdG9yeVJl",
+            "c3BvbnNlEhIKCnJlc3VsdENvZGUYASABKAUSHgoHcmVjb3JkcxgCIAMoCzIN",
+            "LkJldHRpbmdNYXRjaCJuChJCZXR0aW5nTWF0Y2hEZXRhaWwSDAoEcG9vbBgB",
+            "IAEoCRIRCglob3JzZU5hbWUYAiABKAkSDwoHd2luUmF0ZRgDIAEoAhIUCgxi",
+            "ZXR0aW5nTW9uZXkYBCABKAUSEAoId2luTW9uZXkYBSABKAUiLQoaR2V0QmV0",
+            "SGlzdG9yeURldGFpbFJlcXVlc3QSDwoHbWF0Y2hJZBgBIAEoAyJXChtHZXRC",
+            "ZXRIaXN0b3J5RGV0YWlsUmVzcG9uc2USEgoKcmVzdWx0Q29kZRgBIAEoBRIk",
+            "CgdyZWNvcmRzGAIgAygLMhMuQmV0dGluZ01hdGNoRGV0YWlsKuMDChJCZXR0",
+            "aW5nTWVzc2FnZVR5cGUSIQodR0VUX0NVUlJFTlRfQkVUX01BVENIX1JFUVVF",
+            "U1QQABIiCh5HRVRfQ1VSUkVOVF9CRVRfTUFUQ0hfUkVTUE9OU0UQARIjCh9H",
+            "RVRfQ1VSUkVOVF9SQUNFX1NDUklQVF9SRVFVRVNUEAISJAogR0VUX0NVUlJF",
+            "TlRfUkFDRV9TQ1JJUFRfUkVTUE9OU0UQAxIdChlTRU5EX0JFVFRJTkdfSU5G",
+            "T19SRVFVRVNUEAQSHgoaU0VORF9CRVRUSU5HX0lORk9fUkVTUE9OU0UQBRIa",
+            "ChZDQU5DRUxfQkVUVElOR19SRVFVRVNUEAYSGwoXQ0FOQ0VMX0JFVFRJTkdf",
+            "UkVTUE9OU0UQBxIbChdHRVRfQkVUX0hJU1RPUllfUkVRVUVTVBAIEhwKGEdF",
+            "VF9CRVRfSElTVE9SWV9SRVNQT05TRRAJEiYKIkdFVF9CRVRUSU5HX0hJU1RP",
+            "UllfREVUQUlMX1JFUVVFU1QQChInCiNHRVRfQkVUVElOR19ISVNUT1JZX0RF",
+            "VEFJTF9SRVNQT05TRRALEhoKFkdFVF9IT1JTRV9MSVNUX1JFUVVFU1QQDBIb",
+            "ChdHRVRfSE9SU0VfTElTVF9SRVNQT05TRRANKigKC01hdGNoU3RhdHVzEg0K",
+            "CVBSRVBBUklORxAAEgoKBkFDVElORxABKiUKC0JldHRpbmdUeXBlEgoKBlNJ",
+            "TkdMRRAAEgoKBkRPVUJMRRABQkoKF2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2Vu",
+            "QhVCZXR0aW5nTWVzc2FnZUZhY3RvcnmqAhdpby5odmVyc2UuZ2FtZS5wcm90",
+            "b2dlbmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::io.hverse.game.protogen.RacingReflection.Descriptor, global::io.hverse.game.protogen.DataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.BettingMessageType), typeof(global::io.hverse.game.protogen.MatchStatus), typeof(global::io.hverse.game.protogen.BettingType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -110,7 +111,7 @@ namespace io.hverse.game.protogen {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.SendBettingInfoResponse), global::io.hverse.game.protogen.SendBettingInfoResponse.Parser, new[]{ "ResultCode", "MatchId", "IndexOfHouse", "TotalAmountOfBet", "PlayerPresentChip" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.CancelBettingRequest), global::io.hverse.game.protogen.CancelBettingRequest.Parser, new[]{ "MatchId", "IndexOfHorse", "IsCancelAll" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.CancelBettingResponse), global::io.hverse.game.protogen.CancelBettingResponse.Parser, new[]{ "ResultCode", "ErrorMessage", "TotalPresentChip" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.BettingMatch), global::io.hverse.game.protogen.BettingMatch.Parser, new[]{ "MatchId", "TimeToStart", "FirstRankHorse", "FirstRankHorseLane", "SecondRankHorse", "SecondRankHorseLane" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.BettingMatch), global::io.hverse.game.protogen.BettingMatch.Parser, new[]{ "MatchId", "TimeToStart", "FirstRankHorseId", "FirstRankHorseName", "FirstRankHorseLane", "SecondRankHorseId", "SecondRankHorseName", "SecondRankHorseLane" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetBetHistoryRequest), global::io.hverse.game.protogen.GetBetHistoryRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetBetHistoryResponse), global::io.hverse.game.protogen.GetBetHistoryResponse.Parser, new[]{ "ResultCode", "Records" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.BettingMatchDetail), global::io.hverse.game.protogen.BettingMatchDetail.Parser, new[]{ "Pool", "HorseName", "WinRate", "BettingMoney", "WinMoney" }, null, null, null, null),
@@ -3926,9 +3927,11 @@ namespace io.hverse.game.protogen {
     public BettingMatch(BettingMatch other) : this() {
       matchId_ = other.matchId_;
       timeToStart_ = other.timeToStart_;
-      firstRankHorse_ = other.firstRankHorse_ != null ? other.firstRankHorse_.Clone() : null;
+      firstRankHorseId_ = other.firstRankHorseId_;
+      firstRankHorseName_ = other.firstRankHorseName_;
       firstRankHorseLane_ = other.firstRankHorseLane_;
-      secondRankHorse_ = other.secondRankHorse_ != null ? other.secondRankHorse_.Clone() : null;
+      secondRankHorseId_ = other.secondRankHorseId_;
+      secondRankHorseName_ = other.secondRankHorseName_;
       secondRankHorseLane_ = other.secondRankHorseLane_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -3963,20 +3966,32 @@ namespace io.hverse.game.protogen {
       }
     }
 
-    /// <summary>Field number for the "firstRankHorse" field.</summary>
-    public const int FirstRankHorseFieldNumber = 3;
-    private global::io.hverse.game.protogen.HorseInfo firstRankHorse_;
+    /// <summary>Field number for the "firstRankHorseId" field.</summary>
+    public const int FirstRankHorseIdFieldNumber = 3;
+    private long firstRankHorseId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.HorseInfo FirstRankHorse {
-      get { return firstRankHorse_; }
+    public long FirstRankHorseId {
+      get { return firstRankHorseId_; }
       set {
-        firstRankHorse_ = value;
+        firstRankHorseId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "firstRankHorseName" field.</summary>
+    public const int FirstRankHorseNameFieldNumber = 4;
+    private string firstRankHorseName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string FirstRankHorseName {
+      get { return firstRankHorseName_; }
+      set {
+        firstRankHorseName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
     /// <summary>Field number for the "firstRankHorseLane" field.</summary>
-    public const int FirstRankHorseLaneFieldNumber = 4;
+    public const int FirstRankHorseLaneFieldNumber = 5;
     private int firstRankHorseLane_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3987,20 +4002,32 @@ namespace io.hverse.game.protogen {
       }
     }
 
-    /// <summary>Field number for the "secondRankHorse" field.</summary>
-    public const int SecondRankHorseFieldNumber = 5;
-    private global::io.hverse.game.protogen.HorseInfo secondRankHorse_;
+    /// <summary>Field number for the "secondRankHorseId" field.</summary>
+    public const int SecondRankHorseIdFieldNumber = 6;
+    private long secondRankHorseId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.HorseInfo SecondRankHorse {
-      get { return secondRankHorse_; }
+    public long SecondRankHorseId {
+      get { return secondRankHorseId_; }
       set {
-        secondRankHorse_ = value;
+        secondRankHorseId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "secondRankHorseName" field.</summary>
+    public const int SecondRankHorseNameFieldNumber = 7;
+    private string secondRankHorseName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string SecondRankHorseName {
+      get { return secondRankHorseName_; }
+      set {
+        secondRankHorseName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
     /// <summary>Field number for the "secondRankHorseLane" field.</summary>
-    public const int SecondRankHorseLaneFieldNumber = 6;
+    public const int SecondRankHorseLaneFieldNumber = 8;
     private int secondRankHorseLane_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -4028,9 +4055,11 @@ namespace io.hverse.game.protogen {
       }
       if (MatchId != other.MatchId) return false;
       if (TimeToStart != other.TimeToStart) return false;
-      if (!object.Equals(FirstRankHorse, other.FirstRankHorse)) return false;
+      if (FirstRankHorseId != other.FirstRankHorseId) return false;
+      if (FirstRankHorseName != other.FirstRankHorseName) return false;
       if (FirstRankHorseLane != other.FirstRankHorseLane) return false;
-      if (!object.Equals(SecondRankHorse, other.SecondRankHorse)) return false;
+      if (SecondRankHorseId != other.SecondRankHorseId) return false;
+      if (SecondRankHorseName != other.SecondRankHorseName) return false;
       if (SecondRankHorseLane != other.SecondRankHorseLane) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -4041,9 +4070,11 @@ namespace io.hverse.game.protogen {
       int hash = 1;
       if (MatchId != 0L) hash ^= MatchId.GetHashCode();
       if (TimeToStart != 0L) hash ^= TimeToStart.GetHashCode();
-      if (firstRankHorse_ != null) hash ^= FirstRankHorse.GetHashCode();
+      if (FirstRankHorseId != 0L) hash ^= FirstRankHorseId.GetHashCode();
+      if (FirstRankHorseName.Length != 0) hash ^= FirstRankHorseName.GetHashCode();
       if (FirstRankHorseLane != 0) hash ^= FirstRankHorseLane.GetHashCode();
-      if (secondRankHorse_ != null) hash ^= SecondRankHorse.GetHashCode();
+      if (SecondRankHorseId != 0L) hash ^= SecondRankHorseId.GetHashCode();
+      if (SecondRankHorseName.Length != 0) hash ^= SecondRankHorseName.GetHashCode();
       if (SecondRankHorseLane != 0) hash ^= SecondRankHorseLane.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -4071,20 +4102,28 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(16);
         output.WriteInt64(TimeToStart);
       }
-      if (firstRankHorse_ != null) {
-        output.WriteRawTag(26);
-        output.WriteMessage(FirstRankHorse);
+      if (FirstRankHorseId != 0L) {
+        output.WriteRawTag(24);
+        output.WriteInt64(FirstRankHorseId);
+      }
+      if (FirstRankHorseName.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(FirstRankHorseName);
       }
       if (FirstRankHorseLane != 0) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(40);
         output.WriteInt32(FirstRankHorseLane);
       }
-      if (secondRankHorse_ != null) {
-        output.WriteRawTag(42);
-        output.WriteMessage(SecondRankHorse);
+      if (SecondRankHorseId != 0L) {
+        output.WriteRawTag(48);
+        output.WriteInt64(SecondRankHorseId);
+      }
+      if (SecondRankHorseName.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteString(SecondRankHorseName);
       }
       if (SecondRankHorseLane != 0) {
-        output.WriteRawTag(48);
+        output.WriteRawTag(64);
         output.WriteInt32(SecondRankHorseLane);
       }
       if (_unknownFields != null) {
@@ -4105,20 +4144,28 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(16);
         output.WriteInt64(TimeToStart);
       }
-      if (firstRankHorse_ != null) {
-        output.WriteRawTag(26);
-        output.WriteMessage(FirstRankHorse);
+      if (FirstRankHorseId != 0L) {
+        output.WriteRawTag(24);
+        output.WriteInt64(FirstRankHorseId);
+      }
+      if (FirstRankHorseName.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(FirstRankHorseName);
       }
       if (FirstRankHorseLane != 0) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(40);
         output.WriteInt32(FirstRankHorseLane);
       }
-      if (secondRankHorse_ != null) {
-        output.WriteRawTag(42);
-        output.WriteMessage(SecondRankHorse);
+      if (SecondRankHorseId != 0L) {
+        output.WriteRawTag(48);
+        output.WriteInt64(SecondRankHorseId);
+      }
+      if (SecondRankHorseName.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteString(SecondRankHorseName);
       }
       if (SecondRankHorseLane != 0) {
-        output.WriteRawTag(48);
+        output.WriteRawTag(64);
         output.WriteInt32(SecondRankHorseLane);
       }
       if (_unknownFields != null) {
@@ -4137,14 +4184,20 @@ namespace io.hverse.game.protogen {
       if (TimeToStart != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(TimeToStart);
       }
-      if (firstRankHorse_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(FirstRankHorse);
+      if (FirstRankHorseId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(FirstRankHorseId);
+      }
+      if (FirstRankHorseName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(FirstRankHorseName);
       }
       if (FirstRankHorseLane != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(FirstRankHorseLane);
       }
-      if (secondRankHorse_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(SecondRankHorse);
+      if (SecondRankHorseId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(SecondRankHorseId);
+      }
+      if (SecondRankHorseName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(SecondRankHorseName);
       }
       if (SecondRankHorseLane != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(SecondRankHorseLane);
@@ -4167,20 +4220,20 @@ namespace io.hverse.game.protogen {
       if (other.TimeToStart != 0L) {
         TimeToStart = other.TimeToStart;
       }
-      if (other.firstRankHorse_ != null) {
-        if (firstRankHorse_ == null) {
-          FirstRankHorse = new global::io.hverse.game.protogen.HorseInfo();
-        }
-        FirstRankHorse.MergeFrom(other.FirstRankHorse);
+      if (other.FirstRankHorseId != 0L) {
+        FirstRankHorseId = other.FirstRankHorseId;
+      }
+      if (other.FirstRankHorseName.Length != 0) {
+        FirstRankHorseName = other.FirstRankHorseName;
       }
       if (other.FirstRankHorseLane != 0) {
         FirstRankHorseLane = other.FirstRankHorseLane;
       }
-      if (other.secondRankHorse_ != null) {
-        if (secondRankHorse_ == null) {
-          SecondRankHorse = new global::io.hverse.game.protogen.HorseInfo();
-        }
-        SecondRankHorse.MergeFrom(other.SecondRankHorse);
+      if (other.SecondRankHorseId != 0L) {
+        SecondRankHorseId = other.SecondRankHorseId;
+      }
+      if (other.SecondRankHorseName.Length != 0) {
+        SecondRankHorseName = other.SecondRankHorseName;
       }
       if (other.SecondRankHorseLane != 0) {
         SecondRankHorseLane = other.SecondRankHorseLane;
@@ -4208,25 +4261,27 @@ namespace io.hverse.game.protogen {
             TimeToStart = input.ReadInt64();
             break;
           }
-          case 26: {
-            if (firstRankHorse_ == null) {
-              FirstRankHorse = new global::io.hverse.game.protogen.HorseInfo();
-            }
-            input.ReadMessage(FirstRankHorse);
+          case 24: {
+            FirstRankHorseId = input.ReadInt64();
             break;
           }
-          case 32: {
+          case 34: {
+            FirstRankHorseName = input.ReadString();
+            break;
+          }
+          case 40: {
             FirstRankHorseLane = input.ReadInt32();
             break;
           }
-          case 42: {
-            if (secondRankHorse_ == null) {
-              SecondRankHorse = new global::io.hverse.game.protogen.HorseInfo();
-            }
-            input.ReadMessage(SecondRankHorse);
+          case 48: {
+            SecondRankHorseId = input.ReadInt64();
             break;
           }
-          case 48: {
+          case 58: {
+            SecondRankHorseName = input.ReadString();
+            break;
+          }
+          case 64: {
             SecondRankHorseLane = input.ReadInt32();
             break;
           }
@@ -4253,25 +4308,27 @@ namespace io.hverse.game.protogen {
             TimeToStart = input.ReadInt64();
             break;
           }
-          case 26: {
-            if (firstRankHorse_ == null) {
-              FirstRankHorse = new global::io.hverse.game.protogen.HorseInfo();
-            }
-            input.ReadMessage(FirstRankHorse);
+          case 24: {
+            FirstRankHorseId = input.ReadInt64();
             break;
           }
-          case 32: {
+          case 34: {
+            FirstRankHorseName = input.ReadString();
+            break;
+          }
+          case 40: {
             FirstRankHorseLane = input.ReadInt32();
             break;
           }
-          case 42: {
-            if (secondRankHorse_ == null) {
-              SecondRankHorse = new global::io.hverse.game.protogen.HorseInfo();
-            }
-            input.ReadMessage(SecondRankHorse);
+          case 48: {
+            SecondRankHorseId = input.ReadInt64();
             break;
           }
-          case 48: {
+          case 58: {
+            SecondRankHorseName = input.ReadString();
+            break;
+          }
+          case 64: {
             SecondRankHorseLane = input.ReadInt32();
             break;
           }

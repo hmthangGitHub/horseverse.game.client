@@ -391,8 +391,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7054519539590716267}
   - {fileID: 452656922138736023}
+  - {fileID: 7054519539590716267}
   m_Father: {fileID: 7086559897914741732}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2241,8 +2241,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 24.5}
-  m_SizeDelta: {x: 340, y: 33}
+  m_AnchoredPosition: {x: 79.13681, y: 24.5}
+  m_SizeDelta: {x: 498.2736, y: 33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8739325093992608266
 CanvasRenderer:
@@ -2306,7 +2306,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2582,7 +2582,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1001748563725017970, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1001748563725017970, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2602,11 +2602,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1001748563725017970, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 490.5
+      value: 568.8728
       objectReference: {fileID: 0}
     - target: {fileID: 1001748563725017970, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 67
+      value: 162
       objectReference: {fileID: 0}
     - target: {fileID: 1001748563725017970, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2638,7 +2638,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1001748563725017970, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 351
+      value: 252
       objectReference: {fileID: 0}
     - target: {fileID: 1001748563725017970, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2660,8 +2660,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: secondHorse
       objectReference: {fileID: 0}
+    - target: {fileID: 2241871321592792554, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
+--- !u!224 &452656922138736023 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1001748563725017970, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
+  m_PrefabInstance: {fileID: 841825754808653541}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8892853693216111678 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8126472028796463835, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
@@ -2673,11 +2682,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bff9302286b1f9d47891c5c29d851714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &452656922138736023 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1001748563725017970, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
-  m_PrefabInstance: {fileID: 841825754808653541}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7782322581625714713
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2695,7 +2699,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1001748563725017970, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1001748563725017970, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2715,11 +2719,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1001748563725017970, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 490.5
+      value: 568.8728
       objectReference: {fileID: 0}
     - target: {fileID: 1001748563725017970, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 67
+      value: 162
       objectReference: {fileID: 0}
     - target: {fileID: 1001748563725017970, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2751,7 +2755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1001748563725017970, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -351.625
+      value: -388.6886
       objectReference: {fileID: 0}
     - target: {fileID: 1001748563725017970, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2773,13 +2777,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: firstHorse
       objectReference: {fileID: 0}
+    - target: {fileID: 2241871321592792554, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
---- !u!224 &7054519539590716267 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1001748563725017970, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
-  m_PrefabInstance: {fileID: 7782322581625714713}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2073725551130088130 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8126472028796463835, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
@@ -2791,3 +2794,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bff9302286b1f9d47891c5c29d851714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &7054519539590716267 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1001748563725017970, guid: 5e407e9b93610d1409089e84fe14d17f, type: 3}
+  m_PrefabInstance: {fileID: 7782322581625714713}
+  m_PrefabAsset: {fileID: 0}
