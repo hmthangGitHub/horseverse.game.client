@@ -258,6 +258,9 @@ public class HorseTrainingPresenter : IDisposable
 
     private int CurrentCoin => horseTrainingManager.HorseTrainingController.TotalCoinEncrypt.Value;
 
+    private int ServerPoint => horseTrainingManager.HorseTrainingController.TotalCoinEncrypt.Value +
+        (int)(horseTrainingManager.HorseTrainingController.TotalRunTimeEncrypt.Value * 2);
+
 
     private void UpdateBGM(float f)
     {
@@ -279,7 +282,7 @@ public class HorseTrainingPresenter : IDisposable
         Time.timeScale = 0.0f;
         AudioManager.Instance.StopSound();
         SoundController.PlayHitObstance();
-        var data = await TrainingDomainService.GetTrainingRewardData(distanceOfRunning, CurrentCoin);
+        var data = await TrainingDomainService.GetTrainingRewardData(CurrentPoint, CurrentCoin);
         if (data.ResultCode == 100) {
             await ShowUIHorseTrainingResultAsync(data);
         }
@@ -316,7 +319,6 @@ public class HorseTrainingPresenter : IDisposable
         var popup = await UILoader.Instantiate<UITrainingResult>(token: cts.Token);
         long numbox = 0;
         long numcoin = 0;
-
         foreach(var item in result.Rewards)
         {
             if (item.Type == io.hverse.game.protogen.RewardType.Chip)
@@ -343,8 +345,8 @@ public class HorseTrainingPresenter : IDisposable
             totalEnergy = UserSettingLocalRepository.MasterDataModel.MaxHappinessNumber,
             costEnergy = UserSettingLocalRepository.MasterDataModel.TrainingHappinessCost,
             score = result.Score,
+            highestScore = result.HighestScore,
         });
-        
         await popup.In();
     }
 }

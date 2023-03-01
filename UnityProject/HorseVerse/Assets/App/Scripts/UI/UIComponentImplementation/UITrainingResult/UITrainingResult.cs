@@ -18,9 +18,12 @@ public class UITrainingResult : PopupEntity<UITrainingResult.Entity>
         public int costEnergy;
         public UITrainingResultRewardComponent.Entity boxReward;
         public UITrainingResultRewardComponent.Entity coinReward;
+        public long highestScore;
+
     }
 
     public FormattedTextComponent score;
+    public FormattedTextComponent highestScore;
     public ButtonComponent confirmBtn;
     public ButtonComponent retryBtn;
     public FormattedTextComponent cost;
@@ -32,6 +35,7 @@ public class UITrainingResult : PopupEntity<UITrainingResult.Entity>
     protected override void OnSetEntity()
     {
         score.SetEntity(this.entity.score.ToString());
+        highestScore.SetEntity(this.entity.highestScore);
         confirmBtn.SetEntity(this.entity.confirmBtn);
         retryBtn.SetEntity(this.entity.retryBtn);
         energy.SetEntity(this.entity.currentEnergy.ToString(), this.entity.totalEnergy.ToString());

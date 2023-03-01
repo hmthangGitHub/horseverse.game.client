@@ -96,12 +96,12 @@ public class LocalTraningDomainService : TrainingDomainServiceBase, ITrainingDom
         return response;
     }
 
-    public async UniTask<FinishTrainingResponse> GetTrainingRewardData(int distance, int coin)
+    public async UniTask<FinishTrainingResponse> GetTrainingRewardData(int duration, int coin)
     {
         var trainingRewardsResponse = await SocketClient.Send<FinishTrainingRequest, FinishTrainingResponse>(new FinishTrainingRequest()
         {
             CoinNumber = coin,
-            Distance = distance,
+            TrainingTime = duration,
         }, 5.0f);
 
         return trainingRewardsResponse;
