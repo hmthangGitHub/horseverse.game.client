@@ -1705,7 +1705,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1000M
+  m_text: History
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 063d9d21debc62c47ae1db59e24c1769, type: 2}
   m_sharedMaterial: {fileID: 860308009754018327, guid: 063d9d21debc62c47ae1db59e24c1769, type: 2}
@@ -1732,10 +1732,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45
+  m_fontSize: 40.55
   m_fontSizeBase: 45
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
@@ -1922,6 +1922,7 @@ MonoBehaviour:
   betAmouthsContainer: {fileID: 6242800676213789270}
   uiBetModeAnimation: {fileID: 243975649}
   btnHorseList: {fileID: 3142288593286143942}
+  historyBtn: {fileID: 7027765688702874236}
 --- !u!114 &243975649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2935,7 +2936,7 @@ GameObject:
   - component: {fileID: 7027765688702874236}
   - component: {fileID: 5708375740550387879}
   m_Layer: 5
-  m_Name: changeRaceBtn
+  m_Name: historyBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3660,7 +3661,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 66, y: 0.000022891}
-  m_SizeDelta: {x: 120, y: 100}
+  m_SizeDelta: {x: 97, y: 84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1312847805392313244
 CanvasRenderer:
@@ -3690,7 +3691,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5b32b9e3a66b80944aba20363821eacf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 27ed0f35a304ab049bc10a89c9231758, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

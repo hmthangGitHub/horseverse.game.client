@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,12 +17,6 @@ public class UIBetModePresenter : IDisposable
     private CancellationTokenSource askForConfirmCts = default;
     private readonly IDIContainer container = default;
     private UIBetModeHorseInfo uiBetModeHorseInfo = default;
-
-
-    public event Action OnBack = ActionUtility.EmptyAction.Instance;
-    public event Action OnToRaceMode = ActionUtility.EmptyAction.Instance;
-    public event Action OnTimeOut = ActionUtility.EmptyAction.Instance;
-    
     private IBetRateRepository betRateRepository = default;
     private IBetModeDomainService betModeDomainService = default;
     private IReadOnlyUserDataRepository userDataRepository = default;
@@ -32,6 +27,10 @@ public class UIBetModePresenter : IDisposable
     private MasterHorseContainer masterHorseContainer;
     private HorseRaceContext horseRaceContext;
     private UIHeaderPresenter uiHeaderPresenter;
+    private HorseBetInfo horseBetInfo = default;
+    private int currentBettingAmouth = 0;
+    private int currentHorseInfoView = -1;
+    private CancellationTokenSource ctsInfo;
 
     private IBetRateRepository BetRateRepository => betRateRepository ??= container.Inject<IBetRateRepository>();
     private IBetModeDomainService BetModeDomainService => betModeDomainService ??= container.Inject<IBetModeDomainService>();
@@ -54,12 +53,11 @@ public class UIBetModePresenter : IDisposable
             OnUpdateBettingButtons();
         }
     }
-
-    private HorseBetInfo horseBetInfo = default;
-
-    private int currentBettingAmouth = 0;
-    private int currentHorseInfoView = -1;
-    private CancellationTokenSource ctsInfo;
+    
+    public event Action OnViewHistory = ActionUtility.EmptyAction.Instance;
+    public event Action OnBack = ActionUtility.EmptyAction.Instance;
+    public event Action OnToRaceMode = ActionUtility.EmptyAction.Instance;
+    public event Action OnTimeOut = ActionUtility.EmptyAction.Instance;
 
     public UIBetModePresenter(IDIContainer container)
     {
@@ -144,24 +142,13 @@ public class UIBetModePresenter : IDisposable
                 onBetAll = val => OnBetAllAtHorseNumber(val).Forget()
             },
             btnHorseList = new ButtonComponent.Entity(()=> OpenHorseList().Forget()),
+            historyBtn = new ButtonComponent.Entity(OnViewHistory)
         });
-        
-        
 
-        if (uiBetMode)
-        {
-            UIHeaderPresenter.OnBack += OnBackBtn;
-            await UIHeaderPresenter.ShowHeaderAsync(true, "ARENA");
-            await uiBetMode.In();
-        }
+        await uiBetMode.In();
 
         SoundController.PlayMusicBetModePrepare();
         OnUpdateBettingButtons();
-    }
-
-    private void OnBackBtn()
-    {
-        TransitionAsync(OnBack).Forget();
     }
 
     private void OnUpdateBettingButtons()
@@ -426,7 +413,6 @@ public class UIBetModePresenter : IDisposable
         BetRateRepository.OnModelUpdate -= BetRateRepositoryOnModelUpdate;
         BetRateRepository.OnModelsUpdate -= BetRateRepositoryOnModelsUpdate;
         UserDataRepository.OnModelUpdate -= OnModelUpdate;
-        UIHeaderPresenter.OnBack -= OnBackBtn;
 
         userDataRepository = default;
         betRateRepository = default;

@@ -319,24 +319,6 @@ MonoBehaviour:
     header:
       timeCountDown:
         utcEndTimeStamp: 1686855975
-      header:
-        userName: 
-        coin: 0
-        maxEnergy: 0
-        energy: 0
-        backBtnVisible: 0
-        title: 
-        backBtn:
-          onClickEvent:
-            m_PersistentCalls:
-              m_Calls: []
-          isInteractable: 1
-        settingBtn:
-          onClickEvent:
-            m_PersistentCalls:
-              m_Calls: []
-          isInteractable: 1
-        energyVisible: 0
       changeRaceBtn:
         onClickEvent:
           m_PersistentCalls:
@@ -1368,6 +1350,11 @@ MonoBehaviour:
         m_PersistentCalls:
           m_Calls: []
       isInteractable: 1
+    historyBtn:
+      onClickEvent:
+        m_PersistentCalls:
+          m_Calls: []
+      isInteractable: 1
 --- !u!4 &971917695
 Transform:
   m_ObjectHideFlags: 0
@@ -1750,10 +1737,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5616573104561835996, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7707168100080081703, guid: c9bd18317771ee0489208c5255a0e637, type: 3}
-      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8691749915216793640, guid: c9bd18317771ee0489208c5255a0e637, type: 3}

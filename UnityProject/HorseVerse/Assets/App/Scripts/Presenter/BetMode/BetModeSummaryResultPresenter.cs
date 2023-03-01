@@ -7,14 +7,14 @@ internal class BetModeSummaryResultPresenter : IDisposable
 {
     private CancellationTokenSource cts;
     private UIBetModeResult uiBetModeResult;
+    private UIUserBetSumary uiUserBetSummary;
     private HorseRaceContext horseRaceContext;
-    private IBetModeDomainService betModeDomainService = default;
+    private IReadOnlyBetMatchRepository betMatchRepository = default;
 
     private HorseRaceContext HorseRaceContext => horseRaceContext ??= Container.Inject<HorseRaceContext>();
-    private IBetModeDomainService BetModeDomainService => betModeDomainService ??= Container.Inject<IBetModeDomainService>();
+    private IReadOnlyBetMatchRepository BetMatchRepository => betMatchRepository ??= Container.Inject<IReadOnlyBetMatchRepository>();
     private IDIContainer Container { get;}
-
-    BetMatchFullDataContext betMatchFullDataContext = default;
+    private UserBetSummaryPresenter userBetSummaryPresenter;
 
     public BetModeSummaryResultPresenter(IDIContainer container)
     {
@@ -25,60 +25,37 @@ internal class BetModeSummaryResultPresenter : IDisposable
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
-        
-        this.betMatchFullDataContext = await BetModeDomainService.GetCurrentBetMatchRawData();
 
         uiBetModeResult ??= await UILoader.Instantiate<UIBetModeResult>();
+        uiUserBetSummary ??= await UILoader.Instantiate<UIUserBetSumary>();
 
-        await ShowBetModeResultAsync();
-        await ShowBetModeMyResultAsync();
+        var horseRaceWithOrdered = HorseRaceContext.RaceScriptData.HorseRaceInfos
+                                                   .Select((horseRaceInfo, index) => (horseRaceInfo, lane: horseRaceInfo.RaceSegments.First().ToLane))
+                                                   .OrderBy(x => x.horseRaceInfo.RaceSegments.Sum(segment => segment.Time) + x.horseRaceInfo.DelayTime)
+                                                   .ToArray();
+        await ShowBetModeResultAsync(horseRaceWithOrdered);
+        await ShowBetModeMyResultAsync(horseRaceWithOrdered);
 
         await uiBetModeResult.Out();
     }
 
-    private async UniTask ShowBetModeResultAsync()
+    private async UniTask ShowBetModeResultAsync((HorseRaceInfo horseRaceInfo, int lane)[] horseRaceWithOrdered)
     {
         var ucs = new UniTaskCompletionSource();
 
-        var horseRaceWithOrdered = HorseRaceContext.RaceScriptData.HorseRaceInfos
-                                                .Select((horseRaceInfo, index) => (horseRaceInfo, lane: horseRaceInfo.RaceSegments.First().ToLane))
-                                                .OrderBy(x => x.horseRaceInfo.RaceSegments.Sum(segment => segment.Time) + x.horseRaceInfo.DelayTime)
-                                                .ToArray();
+        
         uiBetModeResult.SetEntity(new UIBetModeResult.Entity()
         {
             betModeResultPanel = new UIBetModeResultPanel.Entity()
             {
-                betModeResultList = new UIComponentBetModeResultList.Entity()
-                {
-                    entities = horseRaceWithOrdered
-                    .Select((x, i) => new UIComponentBetModeResult.Entity()
-                    {
-                        horseName = x.horseRaceInfo.Name,
-                        time = x.horseRaceInfo.RaceSegments.Sum(segment => segment.Time) + x.horseRaceInfo.DelayTime,
-                        no = i + 1,
-                        horseNumber = x.lane - 1
-                    }).ToArray()
-                },
-            },
-            betModeMyResultPanel = new UIBetModeMyResultPanel.Entity()
-            {
-                betModeMyResultList = new UIComponentBetModeMyResultList.Entity()
-                {
-                    entities = betMatchFullDataContext.Record
-                    .Select(x => new UIComponentBetModeMyResult.Entity()
-                    {
-                        rate = x.rate,
-                        isDoubleBet = x.doubleBet,
-                        horseNumberFirst = x.pool_1, // Convert from server value to client value
-                        horseNumberSecond = x.pool_2,
-                        result = x.winMoney,
-                        spend = x.betMoney,
-                    }).ToArray()
-                },
-                horseNameFirst = horseRaceWithOrdered[0].horseRaceInfo.Name,
-                horseNumberFirst = horseRaceWithOrdered[0].horseRaceInfo.RaceSegments[0].ToLane,
-                horseNameSecond = horseRaceWithOrdered[1].horseRaceInfo.Name,
-                horseNumberSecond = horseRaceWithOrdered[1].horseRaceInfo.RaceSegments[0].ToLane
+                betModeResultList = horseRaceWithOrdered
+                                    .Select((x, i) => new UIComponentBetModeResult.Entity()
+                                    {
+                                        horseName = x.horseRaceInfo.Name,
+                                        time = x.horseRaceInfo.RaceSegments.Sum(segment => segment.Time) + x.horseRaceInfo.DelayTime,
+                                        no = i + 1,
+                                        horseNumber = x.lane - 1
+                                    }).ToArray(),
             },
             nextBtn = new ButtonComponent.Entity(() =>
             {
@@ -86,27 +63,30 @@ internal class BetModeSummaryResultPresenter : IDisposable
             })
         });
         await uiBetModeResult.In();
-        await uiBetModeResult.showResultPanel();
         await ucs.Task.AttachExternalCancellation(cts.Token);
     }
 
-    public async UniTask ShowBetModeMyResultAsync()
+    private async UniTask ShowBetModeMyResultAsync((HorseRaceInfo horseRaceInfo, int lane)[] horseRaceWithOrdered)
     {
-        var ucs = new UniTaskCompletionSource();
-        if (uiBetModeResult != default)
-        {
-            uiBetModeResult.nextBtn.SetEntity(() =>
+        userBetSummaryPresenter ??= new UserBetSummaryPresenter(Container);
+        await userBetSummaryPresenter.ShowUserBetSummaryAsync(BetMatchRepository.Current.BetMatchId,
+            BetMatchRepository.Current.BetMatchTimeStamp, new UIComponentHorseInfoHistory.Entity()
             {
-                ucs.TrySetResult();
+                horseIndex = horseRaceWithOrdered[0].lane - 1,
+                horseName = horseRaceWithOrdered[0].horseRaceInfo.Name,
+                horseRank = 1
+            }, new UIComponentHorseInfoHistory.Entity()
+            {
+                horseIndex = horseRaceWithOrdered[1].lane - 1,
+                horseName = horseRaceWithOrdered[1].horseRaceInfo.Name,
+                horseRank = 2
             });
-        }
-        await uiBetModeResult.showMyResultPanel();
-        await ucs.Task.AttachExternalCancellation(cts.Token);
     }
 
     public void Dispose()
     {
         DisposeUtility.SafeDispose(ref cts);
+        DisposeUtility.SafeDispose(ref userBetSummaryPresenter);
         UILoader.SafeRelease(ref uiBetModeResult);
         
         horseRaceContext = default;

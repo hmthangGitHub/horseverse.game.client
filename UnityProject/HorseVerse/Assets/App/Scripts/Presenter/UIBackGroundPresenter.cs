@@ -20,21 +20,20 @@ public class UIBackGroundPresenter : IDisposable
             cts = new CancellationTokenSource();
             uiBackGround ??= await UILoader.InstantiateInSpace<UIBackGround>(ObjectCanvas.UICanvasType.BackGround, token: cts.Token);
             uiBackGround.SetEntity(new UIBackGround.Entity());
-            uiBackGround.In().Forget();
-        } 
+        }
+
+        await uiBackGround.In();
     }
 
-    public async UniTask HideBackground()
+    public UniTask HideBackground()
     {
-        if (uiBackGround != null)
-        {   
-            await uiBackGround.Out();
-        }
+        return uiBackGround?.Out() ?? UniTask.CompletedTask;
     }
 
     public void ReleaseBackGround()
     {
         UILoader.SafeRelease(ref uiBackGround);
+        DisposeUtility.SafeDispose(ref cts);
     }
 
     public void Dispose()

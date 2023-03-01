@@ -32,6 +32,7 @@ public class Repository<TKey, TData, TModel> : IRepository<TKey, TData, TModel>
     public void Reset()
     {
         cts.SafeCancelAndDispose();
+        cts = default;
         isInitilized = false;
         models.Clear();
     }

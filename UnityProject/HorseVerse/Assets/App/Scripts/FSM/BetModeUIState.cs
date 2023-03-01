@@ -1,8 +1,9 @@
-﻿using Cysharp.Threading.Tasks;
+﻿// #define MOCK_DATA
+using Cysharp.Threading.Tasks;
 using RobustFSM.Base;
 using System;
 
-public class BetModeUIState : InjectedBState
+public class BetModeUIState : InjectedBHState
 {
     private UIBetModePresenter uiBetModePresenter;
     private UIHeaderPresenter uiHeaderPresenter;
@@ -15,22 +16,38 @@ public class BetModeUIState : InjectedBState
     public override void Enter()
     {
         base.Enter();
+#if MOCK_DATA
+        Container.Bind(new LocalBetHistoryRepository());
+#else
+        Container.Bind(new BetHistoryRepository(Container.Inject<ISocketClient>()));
+#endif
+        Container.Bind(new BetModeHistoryPresenter(Container));
         OnEnterStateAsync().Forget();
+    }
 
+    public override void AddStates()
+    {
+        base.AddStates();
+        AddState<BetModeUIEntryState>();
+        AddState<BetModeHistoryState>();
+        SetInitialState<BetModeUIEntryState>();
     }
 
     private async UniTaskVoid OnEnterStateAsync()
     {
-        uiHeaderPresenter = Container.Inject<UIHeaderPresenter>();
-        uiHeaderPresenter.HideHeader();
-        
         uiBetModePresenter = new UIBetModePresenter(Container);
         uiBetModePresenter.OnBack += OnBackToMainMenu;
         uiBetModePresenter.OnToRaceMode += OnToRaceMode;
         uiBetModePresenter.OnTimeOut += OnTimeOut;
+        uiBetModePresenter.OnViewHistory += OnViewHistory;
         
         await UIBackGroundPresenter.ShowBackGroundAsync();
         await uiBetModePresenter.ShowUIBetModeAsync();
+    }
+
+    private void OnViewHistory()
+    {
+        ChangeState<BetModeHistoryState>();
     }
 
     private void OnTimeOut()
@@ -61,7 +78,15 @@ public class BetModeUIState : InjectedBState
         uiBetModePresenter.OnBack -= OnBackToMainMenu;
         uiBetModePresenter.OnToRaceMode -= OnToRaceMode;
         uiBetModePresenter.OnTimeOut -= OnBackToMainMenu;
+        uiBetModePresenter.OnViewHistory -= OnViewHistory;
         uiBetModePresenter?.Dispose();
         uiBetModePresenter = default;
+        
+#if MOCK_DATA
+        Container.RemoveAndDisposeIfNeed<LocalBetHistoryRepository>();
+#else
+        Container.RemoveAndDisposeIfNeed<BetHistoryRepository>();
+#endif
+        Container.RemoveAndDisposeIfNeed<BetModeHistoryPresenter>();
     }
 }
