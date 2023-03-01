@@ -9,7 +9,7 @@ public class BetModeHistoryState : InjectedBState
     
     public override void Enter()
     {
-        Enter();
+        base.Enter();
         UIHeaderPresenter.OnBack += OnBackBtn;
         UIHeaderPresenter.ShowHeaderAsync(true, "ARENA HISTORY").Forget();
         BetModeHistoryPresenter.ShowHistoryAsync().Forget();
@@ -28,6 +28,7 @@ public class BetModeHistoryState : InjectedBState
 
     public override void Exit()
     {
+        base.Exit();
         UIHeaderPresenter.OnBack -= OnBackBtn;
         betModeHistoryPresenter = default;
     }

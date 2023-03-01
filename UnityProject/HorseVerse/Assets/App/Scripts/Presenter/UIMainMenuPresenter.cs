@@ -27,7 +27,9 @@ public class UIMainMenuPresenter : IDisposable
     private IHorseRepository HorseRepository => horseRepository ??= Container.Inject<IHorseRepository>();
 
     private FeaturePresenter featurePresenter;
-    public FeaturePresenter FeaturePresenter => featurePresenter ?? Container.Inject<FeaturePresenter>();
+    private UITouchDisablePresenter uiTouchDisablePresenter;
+    private FeaturePresenter FeaturePresenter => featurePresenter ?? Container.Inject<FeaturePresenter>();
+    private UITouchDisablePresenter UITouchDisablePresenter => uiTouchDisablePresenter ?? Container.Inject<UITouchDisablePresenter>();
     public UIMainMenuPresenter(IDIContainer container)
     {
         Container = container;
@@ -61,8 +63,8 @@ public class UIMainMenuPresenter : IDisposable
     }
 
     private async UniTask TransitionToAsync(Action action)
-    {
-        await UniTask.Delay(200);
+    {  
+        await UITouchDisablePresenter.Delay(0.2f);
         await uiMainMenu.Out();
         action();
     }
