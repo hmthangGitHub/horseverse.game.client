@@ -7,7 +7,7 @@ public class BetModeUIEntryState : InjectedBState
 
     public override void Enter()
     {
-        Enter();
+        base.Enter();
         UIHeaderPresenter.OnBack += OnBackBtn;
         UIHeaderPresenter.ShowHeaderAsync(true, "ARENA").Forget();
     }
@@ -24,7 +24,7 @@ public class BetModeUIEntryState : InjectedBState
 
     public override void Exit()
     {
-        Exit();
+        base.Exit();
         UIHeaderPresenter.OnBack -= OnBackBtn;
     }
 }

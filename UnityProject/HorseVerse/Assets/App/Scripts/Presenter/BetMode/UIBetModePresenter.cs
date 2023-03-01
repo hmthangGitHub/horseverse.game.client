@@ -31,6 +31,7 @@ public class UIBetModePresenter : IDisposable
     private int currentBettingAmouth = 0;
     private int currentHorseInfoView = -1;
     private CancellationTokenSource ctsInfo;
+    private const int BetModeBufferTime = 2;
 
     private IBetRateRepository BetRateRepository => betRateRepository ??= container.Inject<IBetRateRepository>();
     private IBetModeDomainService BetModeDomainService => betModeDomainService ??= container.Inject<IBetModeDomainService>();
@@ -78,7 +79,6 @@ public class UIBetModePresenter : IDisposable
         uiBetModeHorseInfo ??= await UILoader.Instantiate<UIBetModeHorseInfo>(token: cts.Token);
 
         horseBetInfo = await BetModeDomainService.GetCurrentBetModeHorseData();
-
 
         uiBetMode.SetEntity(new UIBetMode.Entity()
         {
@@ -134,7 +134,7 @@ public class UIBetModePresenter : IDisposable
                         OnChangeToRaceModeAsync()
                             .Forget();
                     },
-                    utcEndTimeStamp = (int)BetMatchRepository.Current.BetMatchTimeStamp - 1,
+                    utcEndTimeStamp = (int)BetMatchRepository.Current.BetMatchTimeStamp - BetModeBufferTime,
                 },
             },
             quickBetButtonsContainer = new UIComponentQuickBetButtonsContainer.Entity()
@@ -168,7 +168,7 @@ public class UIBetModePresenter : IDisposable
 
     private async UniTaskVoid OnChangeToRaceModeAsync()
     {
-        await UITouchDisablePresenter.Delay(2.5f);
+        await UITouchDisablePresenter.Delay(BetModeBufferTime + 1.5f);
         if (BetRateRepository.Models.Any(x => x.Value.TotalBet > 0))
         {
             var betMatchData = await BetModeDomainService.GetCurrentBetMatchData();
