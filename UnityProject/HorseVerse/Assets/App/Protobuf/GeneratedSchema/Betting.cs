@@ -24,78 +24,80 @@ namespace io.hverse.game.protogen {
     static BettingReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cg1iZXR0aW5nLnByb3RvGgpyYWNlLnByb3RvGgpkYXRhLnByb3RvIvYGCg5C",
-            "ZXR0aW5nTWVzc2FnZRIkCgdtc2dUeXBlGAEgASgOMhMuQmV0dGluZ01lc3Nh",
-            "Z2VUeXBlEj0KGWdldEN1cnJlbnRCZXRNYXRjaFJlcXVlc3QYAiABKAsyGi5H",
-            "ZXRDdXJyZW50QmV0TWF0Y2hSZXF1ZXN0Ej8KGmdldEN1cnJlbnRCZXRNYXRj",
-            "aFJlc3BvbnNlGAMgASgLMhsuR2V0Q3VycmVudEJldE1hdGNoUmVzcG9uc2US",
-            "QQobZ2V0Q3VycmVudFJhY2VTY3JpcHRSZXF1ZXN0GAQgASgLMhwuR2V0Q3Vy",
-            "cmVudFJhY2VTY3JpcHRSZXF1ZXN0EkMKHGdldEN1cnJlbnRSYWNlU2NyaXB0",
-            "UmVzcG9uc2UYBSABKAsyHS5HZXRDdXJyZW50UmFjZVNjcmlwdFJlc3BvbnNl",
-            "EjcKFnNlbmRCZXR0aW5nSW5mb1JlcXVlc3QYBiABKAsyFy5TZW5kQmV0dGlu",
-            "Z0luZm9SZXF1ZXN0EjkKF3NlbmRCZXR0aW5nSW5mb1Jlc3BvbnNlGAcgASgL",
-            "MhguU2VuZEJldHRpbmdJbmZvUmVzcG9uc2USMwoUY2FuY2VsQmV0dGluZ1Jl",
-            "cXVlc3QYCCABKAsyFS5DYW5jZWxCZXR0aW5nUmVxdWVzdBI1ChVjYW5jZWxC",
-            "ZXR0aW5nUmVzcG9uc2UYCSABKAsyFi5DYW5jZWxCZXR0aW5nUmVzcG9uc2US",
-            "MwoUZ2V0QmV0SGlzdG9yeVJlcXVlc3QYCiABKAsyFS5HZXRCZXRIaXN0b3J5",
-            "UmVxdWVzdBI1ChVnZXRCZXRIaXN0b3J5UmVzcG9uc2UYCyABKAsyFi5HZXRC",
-            "ZXRIaXN0b3J5UmVzcG9uc2USPwoaZ2V0QmV0SGlzdG9yeURldGFpbFJlcXVl",
-            "c3QYDCABKAsyGy5HZXRCZXRIaXN0b3J5RGV0YWlsUmVxdWVzdBJBChtnZXRC",
-            "ZXRIaXN0b3J5RGV0YWlsUmVzcG9uc2UYDSABKAsyHC5HZXRCZXRIaXN0b3J5",
-            "RGV0YWlsUmVzcG9uc2USMQoTZ2V0SG9yc2VMaXN0UmVxdWVzdBgOIAEoCzIU",
-            "LkdldEhvcnNlTGlzdFJlcXVlc3QSMwoUZ2V0SG9yc2VMaXN0UmVzcG9uc2UY",
-            "DyABKAsyFS5HZXRIb3JzZUxpc3RSZXNwb25zZSImChNHZXRIb3JzZUxpc3RS",
-            "ZXF1ZXN0Eg8KB21hdGNoSWQYASABKAMiYAoUR2V0SG9yc2VMaXN0UmVzcG9u",
-            "c2USEgoKcmVzdWx0Q29kZRgBIAEoBRIeCgpob3JzZUluZm9zGAIgAygLMgou",
-            "SG9yc2VJbmZvEhQKDGVycm9yTWVzc2FnZRgDIAEoCSJ6CgdXaW5SYXRlEiEK",
-            "C2JldHRpbmdUeXBlGAEgASgOMgwuQmV0dGluZ1R5cGUSFAoMaW5kZXhPZkhv",
-            "cnNlGAIgASgJEgwKBHJhdGUYAyABKAISDgoGdXNlcklkGAQgASgDEhgKEHRv",
-            "dGFsQW1vdW50T2ZCZXQYBSABKAUiGwoZR2V0Q3VycmVudEJldE1hdGNoUmVx",
-            "dWVzdCK+AQoaR2V0Q3VycmVudEJldE1hdGNoUmVzcG9uc2USDwoHbWF0Y2hJ",
-            "ZBgBIAEoAxIhCgttYXRjaFN0YXR1cxgCIAEoDjIMLk1hdGNoU3RhdHVzEhMK",
-            "C3RpbWVUb1N0YXJ0GAMgASgDEh0KC3dpblJhdGVMaXN0GAQgAygLMgguV2lu",
-            "UmF0ZRIXCg90aW1lVG9OZXh0TWF0Y2gYBSABKAMSHwoKcmFjZVNjcmlwdBgG",
-            "IAEoCzILLlJhY2VTY3JpcHQiLgobR2V0Q3VycmVudFJhY2VTY3JpcHRSZXF1",
-            "ZXN0Eg8KB21hdGNoSWQYASABKAMiUwocR2V0Q3VycmVudFJhY2VTY3JpcHRS",
-            "ZXNwb25zZRISCgpyZXN1bHRDb2RlGAEgASgFEh8KCnJhY2VTY3JpcHQYAiAB",
-            "KAsyCy5SYWNlU2NyaXB0IncKFlNlbmRCZXR0aW5nSW5mb1JlcXVlc3QSDwoH",
-            "bWF0Y2hJZBgBIAEoAxITCgthbW91bnRPZkJldBgCIAEoBRIUCgxpbmRleE9m",
-            "SG91c2UYAyABKAkSIQoLYmV0dGluZ1R5cGUYBCABKA4yDC5CZXR0aW5nVHlw",
-            "ZSKJAQoXU2VuZEJldHRpbmdJbmZvUmVzcG9uc2USEgoKcmVzdWx0Q29kZRgB",
-            "IAEoBRIPCgdtYXRjaElkGAIgASgDEhQKDGluZGV4T2ZIb3VzZRgDIAEoCRIY",
-            "ChB0b3RhbEFtb3VudE9mQmV0GAQgASgFEhkKEXBsYXllclByZXNlbnRDaGlw",
-            "GAUgASgDIlIKFENhbmNlbEJldHRpbmdSZXF1ZXN0Eg8KB21hdGNoSWQYASAB",
-            "KAMSFAoMaW5kZXhPZkhvcnNlGAIgAygJEhMKC2lzQ2FuY2VsQWxsGAMgASgI",
-            "IlsKFUNhbmNlbEJldHRpbmdSZXNwb25zZRISCgpyZXN1bHRDb2RlGAEgASgF",
-            "EhQKDGVycm9yTWVzc2FnZRgCIAEoCRIYChB0b3RhbFByZXNlbnRDaGlwGAMg",
-            "ASgDIpkBCgxCZXR0aW5nTWF0Y2gSDwoHbWF0Y2hJZBgBIAEoAxITCgt0aW1l",
-            "VG9TdGFydBgCIAEoAxIaChJ0b3RhbEFtb3VudEJldHRpbmcYAyABKAUSDgoG",
-            "cmVzdWx0GAQgASgJEhYKDnRvdGFsQW1vdW50V2luGAUgASgFEh8KCnJhY2VT",
-            "Y3JpcHQYBiABKAsyCy5SYWNlU2NyaXB0IhYKFEdldEJldEhpc3RvcnlSZXF1",
-            "ZXN0IksKFUdldEJldEhpc3RvcnlSZXNwb25zZRISCgpyZXN1bHRDb2RlGAEg",
-            "ASgFEh4KB3JlY29yZHMYAiADKAsyDS5CZXR0aW5nTWF0Y2gibgoSQmV0dGlu",
-            "Z01hdGNoRGV0YWlsEgwKBHBvb2wYASABKAkSEQoJaG9yc2VOYW1lGAIgASgJ",
-            "Eg8KB3dpblJhdGUYAyABKAISFAoMYmV0dGluZ01vbmV5GAQgASgFEhAKCHdp",
-            "bk1vbmV5GAUgASgFIi0KGkdldEJldEhpc3RvcnlEZXRhaWxSZXF1ZXN0Eg8K",
-            "B21hdGNoSWQYASABKAMiVwobR2V0QmV0SGlzdG9yeURldGFpbFJlc3BvbnNl",
-            "EhIKCnJlc3VsdENvZGUYASABKAUSJAoHcmVjb3JkcxgCIAMoCzITLkJldHRp",
-            "bmdNYXRjaERldGFpbCrjAwoSQmV0dGluZ01lc3NhZ2VUeXBlEiEKHUdFVF9D",
-            "VVJSRU5UX0JFVF9NQVRDSF9SRVFVRVNUEAASIgoeR0VUX0NVUlJFTlRfQkVU",
-            "X01BVENIX1JFU1BPTlNFEAESIwofR0VUX0NVUlJFTlRfUkFDRV9TQ1JJUFRf",
-            "UkVRVUVTVBACEiQKIEdFVF9DVVJSRU5UX1JBQ0VfU0NSSVBUX1JFU1BPTlNF",
-            "EAMSHQoZU0VORF9CRVRUSU5HX0lORk9fUkVRVUVTVBAEEh4KGlNFTkRfQkVU",
-            "VElOR19JTkZPX1JFU1BPTlNFEAUSGgoWQ0FOQ0VMX0JFVFRJTkdfUkVRVUVT",
-            "VBAGEhsKF0NBTkNFTF9CRVRUSU5HX1JFU1BPTlNFEAcSGwoXR0VUX0JFVF9I",
-            "SVNUT1JZX1JFUVVFU1QQCBIcChhHRVRfQkVUX0hJU1RPUllfUkVTUE9OU0UQ",
-            "CRImCiJHRVRfQkVUVElOR19ISVNUT1JZX0RFVEFJTF9SRVFVRVNUEAoSJwoj",
-            "R0VUX0JFVFRJTkdfSElTVE9SWV9ERVRBSUxfUkVTUE9OU0UQCxIaChZHRVRf",
-            "SE9SU0VfTElTVF9SRVFVRVNUEAwSGwoXR0VUX0hPUlNFX0xJU1RfUkVTUE9O",
-            "U0UQDSooCgtNYXRjaFN0YXR1cxINCglQUkVQQVJJTkcQABIKCgZBQ1RJTkcQ",
-            "ASolCgtCZXR0aW5nVHlwZRIKCgZTSU5HTEUQABIKCgZET1VCTEUQAUJKChdp",
-            "by5odmVyc2UuZ2FtZS5wcm90b2dlbkIVQmV0dGluZ01lc3NhZ2VGYWN0b3J5",
-            "qgIXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5iBnByb3RvMw=="));
+            "Cg1iZXR0aW5nLnByb3RvGgxyYWNpbmcucHJvdG8aCmRhdGEucHJvdG8i9gYK",
+            "DkJldHRpbmdNZXNzYWdlEiQKB21zZ1R5cGUYASABKA4yEy5CZXR0aW5nTWVz",
+            "c2FnZVR5cGUSPQoZZ2V0Q3VycmVudEJldE1hdGNoUmVxdWVzdBgCIAEoCzIa",
+            "LkdldEN1cnJlbnRCZXRNYXRjaFJlcXVlc3QSPwoaZ2V0Q3VycmVudEJldE1h",
+            "dGNoUmVzcG9uc2UYAyABKAsyGy5HZXRDdXJyZW50QmV0TWF0Y2hSZXNwb25z",
+            "ZRJBChtnZXRDdXJyZW50UmFjZVNjcmlwdFJlcXVlc3QYBCABKAsyHC5HZXRD",
+            "dXJyZW50UmFjZVNjcmlwdFJlcXVlc3QSQwocZ2V0Q3VycmVudFJhY2VTY3Jp",
+            "cHRSZXNwb25zZRgFIAEoCzIdLkdldEN1cnJlbnRSYWNlU2NyaXB0UmVzcG9u",
+            "c2USNwoWc2VuZEJldHRpbmdJbmZvUmVxdWVzdBgGIAEoCzIXLlNlbmRCZXR0",
+            "aW5nSW5mb1JlcXVlc3QSOQoXc2VuZEJldHRpbmdJbmZvUmVzcG9uc2UYByAB",
+            "KAsyGC5TZW5kQmV0dGluZ0luZm9SZXNwb25zZRIzChRjYW5jZWxCZXR0aW5n",
+            "UmVxdWVzdBgIIAEoCzIVLkNhbmNlbEJldHRpbmdSZXF1ZXN0EjUKFWNhbmNl",
+            "bEJldHRpbmdSZXNwb25zZRgJIAEoCzIWLkNhbmNlbEJldHRpbmdSZXNwb25z",
+            "ZRIzChRnZXRCZXRIaXN0b3J5UmVxdWVzdBgKIAEoCzIVLkdldEJldEhpc3Rv",
+            "cnlSZXF1ZXN0EjUKFWdldEJldEhpc3RvcnlSZXNwb25zZRgLIAEoCzIWLkdl",
+            "dEJldEhpc3RvcnlSZXNwb25zZRI/ChpnZXRCZXRIaXN0b3J5RGV0YWlsUmVx",
+            "dWVzdBgMIAEoCzIbLkdldEJldEhpc3RvcnlEZXRhaWxSZXF1ZXN0EkEKG2dl",
+            "dEJldEhpc3RvcnlEZXRhaWxSZXNwb25zZRgNIAEoCzIcLkdldEJldEhpc3Rv",
+            "cnlEZXRhaWxSZXNwb25zZRIxChNnZXRIb3JzZUxpc3RSZXF1ZXN0GA4gASgL",
+            "MhQuR2V0SG9yc2VMaXN0UmVxdWVzdBIzChRnZXRIb3JzZUxpc3RSZXNwb25z",
+            "ZRgPIAEoCzIVLkdldEhvcnNlTGlzdFJlc3BvbnNlIiYKE0dldEhvcnNlTGlz",
+            "dFJlcXVlc3QSDwoHbWF0Y2hJZBgBIAEoAyJgChRHZXRIb3JzZUxpc3RSZXNw",
+            "b25zZRISCgpyZXN1bHRDb2RlGAEgASgFEh4KCmhvcnNlSW5mb3MYAiADKAsy",
+            "Ci5Ib3JzZUluZm8SFAoMZXJyb3JNZXNzYWdlGAMgASgJInoKB1dpblJhdGUS",
+            "IQoLYmV0dGluZ1R5cGUYASABKA4yDC5CZXR0aW5nVHlwZRIUCgxpbmRleE9m",
+            "SG9yc2UYAiABKAkSDAoEcmF0ZRgDIAEoAhIOCgZ1c2VySWQYBCABKAMSGAoQ",
+            "dG90YWxBbW91bnRPZkJldBgFIAEoBSIbChlHZXRDdXJyZW50QmV0TWF0Y2hS",
+            "ZXF1ZXN0Ir4BChpHZXRDdXJyZW50QmV0TWF0Y2hSZXNwb25zZRIPCgdtYXRj",
+            "aElkGAEgASgDEiEKC21hdGNoU3RhdHVzGAIgASgOMgwuTWF0Y2hTdGF0dXMS",
+            "EwoLdGltZVRvU3RhcnQYAyABKAMSHQoLd2luUmF0ZUxpc3QYBCADKAsyCC5X",
+            "aW5SYXRlEhcKD3RpbWVUb05leHRNYXRjaBgFIAEoAxIfCgpyYWNlU2NyaXB0",
+            "GAYgASgLMgsuUmFjZVNjcmlwdCIuChtHZXRDdXJyZW50UmFjZVNjcmlwdFJl",
+            "cXVlc3QSDwoHbWF0Y2hJZBgBIAEoAyJTChxHZXRDdXJyZW50UmFjZVNjcmlw",
+            "dFJlc3BvbnNlEhIKCnJlc3VsdENvZGUYASABKAUSHwoKcmFjZVNjcmlwdBgC",
+            "IAEoCzILLlJhY2VTY3JpcHQidwoWU2VuZEJldHRpbmdJbmZvUmVxdWVzdBIP",
+            "CgdtYXRjaElkGAEgASgDEhMKC2Ftb3VudE9mQmV0GAIgASgFEhQKDGluZGV4",
+            "T2ZIb3VzZRgDIAEoCRIhCgtiZXR0aW5nVHlwZRgEIAEoDjIMLkJldHRpbmdU",
+            "eXBlIokBChdTZW5kQmV0dGluZ0luZm9SZXNwb25zZRISCgpyZXN1bHRDb2Rl",
+            "GAEgASgFEg8KB21hdGNoSWQYAiABKAMSFAoMaW5kZXhPZkhvdXNlGAMgASgJ",
+            "EhgKEHRvdGFsQW1vdW50T2ZCZXQYBCABKAUSGQoRcGxheWVyUHJlc2VudENo",
+            "aXAYBSABKAMiUgoUQ2FuY2VsQmV0dGluZ1JlcXVlc3QSDwoHbWF0Y2hJZBgB",
+            "IAEoAxIUCgxpbmRleE9mSG9yc2UYAiADKAkSEwoLaXNDYW5jZWxBbGwYAyAB",
+            "KAgiWwoVQ2FuY2VsQmV0dGluZ1Jlc3BvbnNlEhIKCnJlc3VsdENvZGUYASAB",
+            "KAUSFAoMZXJyb3JNZXNzYWdlGAIgASgJEhgKEHRvdGFsUHJlc2VudENoaXAY",
+            "AyABKAMi2wEKDEJldHRpbmdNYXRjaBIPCgdtYXRjaElkGAEgASgDEhMKC3Rp",
+            "bWVUb1N0YXJ0GAIgASgDEhgKEGZpcnN0UmFua0hvcnNlSWQYAyABKAMSGgoS",
+            "Zmlyc3RSYW5rSG9yc2VOYW1lGAQgASgJEhoKEmZpcnN0UmFua0hvcnNlTGFu",
+            "ZRgFIAEoBRIZChFzZWNvbmRSYW5rSG9yc2VJZBgGIAEoAxIbChNzZWNvbmRS",
+            "YW5rSG9yc2VOYW1lGAcgASgJEhsKE3NlY29uZFJhbmtIb3JzZUxhbmUYCCAB",
+            "KAUiFgoUR2V0QmV0SGlzdG9yeVJlcXVlc3QiSwoVR2V0QmV0SGlzdG9yeVJl",
+            "c3BvbnNlEhIKCnJlc3VsdENvZGUYASABKAUSHgoHcmVjb3JkcxgCIAMoCzIN",
+            "LkJldHRpbmdNYXRjaCJuChJCZXR0aW5nTWF0Y2hEZXRhaWwSDAoEcG9vbBgB",
+            "IAEoCRIRCglob3JzZU5hbWUYAiABKAkSDwoHd2luUmF0ZRgDIAEoAhIUCgxi",
+            "ZXR0aW5nTW9uZXkYBCABKAUSEAoId2luTW9uZXkYBSABKAUiLQoaR2V0QmV0",
+            "SGlzdG9yeURldGFpbFJlcXVlc3QSDwoHbWF0Y2hJZBgBIAEoAyJXChtHZXRC",
+            "ZXRIaXN0b3J5RGV0YWlsUmVzcG9uc2USEgoKcmVzdWx0Q29kZRgBIAEoBRIk",
+            "CgdyZWNvcmRzGAIgAygLMhMuQmV0dGluZ01hdGNoRGV0YWlsKuMDChJCZXR0",
+            "aW5nTWVzc2FnZVR5cGUSIQodR0VUX0NVUlJFTlRfQkVUX01BVENIX1JFUVVF",
+            "U1QQABIiCh5HRVRfQ1VSUkVOVF9CRVRfTUFUQ0hfUkVTUE9OU0UQARIjCh9H",
+            "RVRfQ1VSUkVOVF9SQUNFX1NDUklQVF9SRVFVRVNUEAISJAogR0VUX0NVUlJF",
+            "TlRfUkFDRV9TQ1JJUFRfUkVTUE9OU0UQAxIdChlTRU5EX0JFVFRJTkdfSU5G",
+            "T19SRVFVRVNUEAQSHgoaU0VORF9CRVRUSU5HX0lORk9fUkVTUE9OU0UQBRIa",
+            "ChZDQU5DRUxfQkVUVElOR19SRVFVRVNUEAYSGwoXQ0FOQ0VMX0JFVFRJTkdf",
+            "UkVTUE9OU0UQBxIbChdHRVRfQkVUX0hJU1RPUllfUkVRVUVTVBAIEhwKGEdF",
+            "VF9CRVRfSElTVE9SWV9SRVNQT05TRRAJEiYKIkdFVF9CRVRUSU5HX0hJU1RP",
+            "UllfREVUQUlMX1JFUVVFU1QQChInCiNHRVRfQkVUVElOR19ISVNUT1JZX0RF",
+            "VEFJTF9SRVNQT05TRRALEhoKFkdFVF9IT1JTRV9MSVNUX1JFUVVFU1QQDBIb",
+            "ChdHRVRfSE9SU0VfTElTVF9SRVNQT05TRRANKigKC01hdGNoU3RhdHVzEg0K",
+            "CVBSRVBBUklORxAAEgoKBkFDVElORxABKiUKC0JldHRpbmdUeXBlEgoKBlNJ",
+            "TkdMRRAAEgoKBkRPVUJMRRABQkoKF2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2Vu",
+            "QhVCZXR0aW5nTWVzc2FnZUZhY3RvcnmqAhdpby5odmVyc2UuZ2FtZS5wcm90",
+            "b2dlbmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::io.hverse.game.protogen.RaceReflection.Descriptor, global::io.hverse.game.protogen.DataReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::io.hverse.game.protogen.RacingReflection.Descriptor, global::io.hverse.game.protogen.DataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.BettingMessageType), typeof(global::io.hverse.game.protogen.MatchStatus), typeof(global::io.hverse.game.protogen.BettingType), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.BettingMessage), global::io.hverse.game.protogen.BettingMessage.Parser, new[]{ "MsgType", "GetCurrentBetMatchRequest", "GetCurrentBetMatchResponse", "GetCurrentRaceScriptRequest", "GetCurrentRaceScriptResponse", "SendBettingInfoRequest", "SendBettingInfoResponse", "CancelBettingRequest", "CancelBettingResponse", "GetBetHistoryRequest", "GetBetHistoryResponse", "GetBetHistoryDetailRequest", "GetBetHistoryDetailResponse", "GetHorseListRequest", "GetHorseListResponse" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetHorseListRequest), global::io.hverse.game.protogen.GetHorseListRequest.Parser, new[]{ "MatchId" }, null, null, null, null),
@@ -109,7 +111,7 @@ namespace io.hverse.game.protogen {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.SendBettingInfoResponse), global::io.hverse.game.protogen.SendBettingInfoResponse.Parser, new[]{ "ResultCode", "MatchId", "IndexOfHouse", "TotalAmountOfBet", "PlayerPresentChip" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.CancelBettingRequest), global::io.hverse.game.protogen.CancelBettingRequest.Parser, new[]{ "MatchId", "IndexOfHorse", "IsCancelAll" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.CancelBettingResponse), global::io.hverse.game.protogen.CancelBettingResponse.Parser, new[]{ "ResultCode", "ErrorMessage", "TotalPresentChip" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.BettingMatch), global::io.hverse.game.protogen.BettingMatch.Parser, new[]{ "MatchId", "TimeToStart", "TotalAmountBetting", "Result", "TotalAmountWin", "RaceScript" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.BettingMatch), global::io.hverse.game.protogen.BettingMatch.Parser, new[]{ "MatchId", "TimeToStart", "FirstRankHorseId", "FirstRankHorseName", "FirstRankHorseLane", "SecondRankHorseId", "SecondRankHorseName", "SecondRankHorseLane" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetBetHistoryRequest), global::io.hverse.game.protogen.GetBetHistoryRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetBetHistoryResponse), global::io.hverse.game.protogen.GetBetHistoryResponse.Parser, new[]{ "ResultCode", "Records" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.BettingMatchDetail), global::io.hverse.game.protogen.BettingMatchDetail.Parser, new[]{ "Pool", "HorseName", "WinRate", "BettingMoney", "WinMoney" }, null, null, null, null),
@@ -3925,10 +3927,12 @@ namespace io.hverse.game.protogen {
     public BettingMatch(BettingMatch other) : this() {
       matchId_ = other.matchId_;
       timeToStart_ = other.timeToStart_;
-      totalAmountBetting_ = other.totalAmountBetting_;
-      result_ = other.result_;
-      totalAmountWin_ = other.totalAmountWin_;
-      raceScript_ = other.raceScript_ != null ? other.raceScript_.Clone() : null;
+      firstRankHorseId_ = other.firstRankHorseId_;
+      firstRankHorseName_ = other.firstRankHorseName_;
+      firstRankHorseLane_ = other.firstRankHorseLane_;
+      secondRankHorseId_ = other.secondRankHorseId_;
+      secondRankHorseName_ = other.secondRankHorseName_;
+      secondRankHorseLane_ = other.secondRankHorseLane_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -3962,51 +3966,75 @@ namespace io.hverse.game.protogen {
       }
     }
 
-    /// <summary>Field number for the "totalAmountBetting" field.</summary>
-    public const int TotalAmountBettingFieldNumber = 3;
-    private int totalAmountBetting_;
+    /// <summary>Field number for the "firstRankHorseId" field.</summary>
+    public const int FirstRankHorseIdFieldNumber = 3;
+    private long firstRankHorseId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int TotalAmountBetting {
-      get { return totalAmountBetting_; }
+    public long FirstRankHorseId {
+      get { return firstRankHorseId_; }
       set {
-        totalAmountBetting_ = value;
+        firstRankHorseId_ = value;
       }
     }
 
-    /// <summary>Field number for the "result" field.</summary>
-    public const int ResultFieldNumber = 4;
-    private string result_ = "";
+    /// <summary>Field number for the "firstRankHorseName" field.</summary>
+    public const int FirstRankHorseNameFieldNumber = 4;
+    private string firstRankHorseName_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Result {
-      get { return result_; }
+    public string FirstRankHorseName {
+      get { return firstRankHorseName_; }
       set {
-        result_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        firstRankHorseName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
-    /// <summary>Field number for the "totalAmountWin" field.</summary>
-    public const int TotalAmountWinFieldNumber = 5;
-    private int totalAmountWin_;
+    /// <summary>Field number for the "firstRankHorseLane" field.</summary>
+    public const int FirstRankHorseLaneFieldNumber = 5;
+    private int firstRankHorseLane_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int TotalAmountWin {
-      get { return totalAmountWin_; }
+    public int FirstRankHorseLane {
+      get { return firstRankHorseLane_; }
       set {
-        totalAmountWin_ = value;
+        firstRankHorseLane_ = value;
       }
     }
 
-    /// <summary>Field number for the "raceScript" field.</summary>
-    public const int RaceScriptFieldNumber = 6;
-    private global::io.hverse.game.protogen.RaceScript raceScript_;
+    /// <summary>Field number for the "secondRankHorseId" field.</summary>
+    public const int SecondRankHorseIdFieldNumber = 6;
+    private long secondRankHorseId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.RaceScript RaceScript {
-      get { return raceScript_; }
+    public long SecondRankHorseId {
+      get { return secondRankHorseId_; }
       set {
-        raceScript_ = value;
+        secondRankHorseId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "secondRankHorseName" field.</summary>
+    public const int SecondRankHorseNameFieldNumber = 7;
+    private string secondRankHorseName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string SecondRankHorseName {
+      get { return secondRankHorseName_; }
+      set {
+        secondRankHorseName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "secondRankHorseLane" field.</summary>
+    public const int SecondRankHorseLaneFieldNumber = 8;
+    private int secondRankHorseLane_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int SecondRankHorseLane {
+      get { return secondRankHorseLane_; }
+      set {
+        secondRankHorseLane_ = value;
       }
     }
 
@@ -4027,10 +4055,12 @@ namespace io.hverse.game.protogen {
       }
       if (MatchId != other.MatchId) return false;
       if (TimeToStart != other.TimeToStart) return false;
-      if (TotalAmountBetting != other.TotalAmountBetting) return false;
-      if (Result != other.Result) return false;
-      if (TotalAmountWin != other.TotalAmountWin) return false;
-      if (!object.Equals(RaceScript, other.RaceScript)) return false;
+      if (FirstRankHorseId != other.FirstRankHorseId) return false;
+      if (FirstRankHorseName != other.FirstRankHorseName) return false;
+      if (FirstRankHorseLane != other.FirstRankHorseLane) return false;
+      if (SecondRankHorseId != other.SecondRankHorseId) return false;
+      if (SecondRankHorseName != other.SecondRankHorseName) return false;
+      if (SecondRankHorseLane != other.SecondRankHorseLane) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -4040,10 +4070,12 @@ namespace io.hverse.game.protogen {
       int hash = 1;
       if (MatchId != 0L) hash ^= MatchId.GetHashCode();
       if (TimeToStart != 0L) hash ^= TimeToStart.GetHashCode();
-      if (TotalAmountBetting != 0) hash ^= TotalAmountBetting.GetHashCode();
-      if (Result.Length != 0) hash ^= Result.GetHashCode();
-      if (TotalAmountWin != 0) hash ^= TotalAmountWin.GetHashCode();
-      if (raceScript_ != null) hash ^= RaceScript.GetHashCode();
+      if (FirstRankHorseId != 0L) hash ^= FirstRankHorseId.GetHashCode();
+      if (FirstRankHorseName.Length != 0) hash ^= FirstRankHorseName.GetHashCode();
+      if (FirstRankHorseLane != 0) hash ^= FirstRankHorseLane.GetHashCode();
+      if (SecondRankHorseId != 0L) hash ^= SecondRankHorseId.GetHashCode();
+      if (SecondRankHorseName.Length != 0) hash ^= SecondRankHorseName.GetHashCode();
+      if (SecondRankHorseLane != 0) hash ^= SecondRankHorseLane.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -4070,21 +4102,29 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(16);
         output.WriteInt64(TimeToStart);
       }
-      if (TotalAmountBetting != 0) {
+      if (FirstRankHorseId != 0L) {
         output.WriteRawTag(24);
-        output.WriteInt32(TotalAmountBetting);
+        output.WriteInt64(FirstRankHorseId);
       }
-      if (Result.Length != 0) {
+      if (FirstRankHorseName.Length != 0) {
         output.WriteRawTag(34);
-        output.WriteString(Result);
+        output.WriteString(FirstRankHorseName);
       }
-      if (TotalAmountWin != 0) {
+      if (FirstRankHorseLane != 0) {
         output.WriteRawTag(40);
-        output.WriteInt32(TotalAmountWin);
+        output.WriteInt32(FirstRankHorseLane);
       }
-      if (raceScript_ != null) {
-        output.WriteRawTag(50);
-        output.WriteMessage(RaceScript);
+      if (SecondRankHorseId != 0L) {
+        output.WriteRawTag(48);
+        output.WriteInt64(SecondRankHorseId);
+      }
+      if (SecondRankHorseName.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteString(SecondRankHorseName);
+      }
+      if (SecondRankHorseLane != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(SecondRankHorseLane);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -4104,21 +4144,29 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(16);
         output.WriteInt64(TimeToStart);
       }
-      if (TotalAmountBetting != 0) {
+      if (FirstRankHorseId != 0L) {
         output.WriteRawTag(24);
-        output.WriteInt32(TotalAmountBetting);
+        output.WriteInt64(FirstRankHorseId);
       }
-      if (Result.Length != 0) {
+      if (FirstRankHorseName.Length != 0) {
         output.WriteRawTag(34);
-        output.WriteString(Result);
+        output.WriteString(FirstRankHorseName);
       }
-      if (TotalAmountWin != 0) {
+      if (FirstRankHorseLane != 0) {
         output.WriteRawTag(40);
-        output.WriteInt32(TotalAmountWin);
+        output.WriteInt32(FirstRankHorseLane);
       }
-      if (raceScript_ != null) {
-        output.WriteRawTag(50);
-        output.WriteMessage(RaceScript);
+      if (SecondRankHorseId != 0L) {
+        output.WriteRawTag(48);
+        output.WriteInt64(SecondRankHorseId);
+      }
+      if (SecondRankHorseName.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteString(SecondRankHorseName);
+      }
+      if (SecondRankHorseLane != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(SecondRankHorseLane);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -4136,17 +4184,23 @@ namespace io.hverse.game.protogen {
       if (TimeToStart != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(TimeToStart);
       }
-      if (TotalAmountBetting != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TotalAmountBetting);
+      if (FirstRankHorseId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(FirstRankHorseId);
       }
-      if (Result.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Result);
+      if (FirstRankHorseName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(FirstRankHorseName);
       }
-      if (TotalAmountWin != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TotalAmountWin);
+      if (FirstRankHorseLane != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(FirstRankHorseLane);
       }
-      if (raceScript_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(RaceScript);
+      if (SecondRankHorseId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(SecondRankHorseId);
+      }
+      if (SecondRankHorseName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(SecondRankHorseName);
+      }
+      if (SecondRankHorseLane != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SecondRankHorseLane);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -4166,20 +4220,23 @@ namespace io.hverse.game.protogen {
       if (other.TimeToStart != 0L) {
         TimeToStart = other.TimeToStart;
       }
-      if (other.TotalAmountBetting != 0) {
-        TotalAmountBetting = other.TotalAmountBetting;
+      if (other.FirstRankHorseId != 0L) {
+        FirstRankHorseId = other.FirstRankHorseId;
       }
-      if (other.Result.Length != 0) {
-        Result = other.Result;
+      if (other.FirstRankHorseName.Length != 0) {
+        FirstRankHorseName = other.FirstRankHorseName;
       }
-      if (other.TotalAmountWin != 0) {
-        TotalAmountWin = other.TotalAmountWin;
+      if (other.FirstRankHorseLane != 0) {
+        FirstRankHorseLane = other.FirstRankHorseLane;
       }
-      if (other.raceScript_ != null) {
-        if (raceScript_ == null) {
-          RaceScript = new global::io.hverse.game.protogen.RaceScript();
-        }
-        RaceScript.MergeFrom(other.RaceScript);
+      if (other.SecondRankHorseId != 0L) {
+        SecondRankHorseId = other.SecondRankHorseId;
+      }
+      if (other.SecondRankHorseName.Length != 0) {
+        SecondRankHorseName = other.SecondRankHorseName;
+      }
+      if (other.SecondRankHorseLane != 0) {
+        SecondRankHorseLane = other.SecondRankHorseLane;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -4205,22 +4262,27 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 24: {
-            TotalAmountBetting = input.ReadInt32();
+            FirstRankHorseId = input.ReadInt64();
             break;
           }
           case 34: {
-            Result = input.ReadString();
+            FirstRankHorseName = input.ReadString();
             break;
           }
           case 40: {
-            TotalAmountWin = input.ReadInt32();
+            FirstRankHorseLane = input.ReadInt32();
             break;
           }
-          case 50: {
-            if (raceScript_ == null) {
-              RaceScript = new global::io.hverse.game.protogen.RaceScript();
-            }
-            input.ReadMessage(RaceScript);
+          case 48: {
+            SecondRankHorseId = input.ReadInt64();
+            break;
+          }
+          case 58: {
+            SecondRankHorseName = input.ReadString();
+            break;
+          }
+          case 64: {
+            SecondRankHorseLane = input.ReadInt32();
             break;
           }
         }
@@ -4247,22 +4309,27 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 24: {
-            TotalAmountBetting = input.ReadInt32();
+            FirstRankHorseId = input.ReadInt64();
             break;
           }
           case 34: {
-            Result = input.ReadString();
+            FirstRankHorseName = input.ReadString();
             break;
           }
           case 40: {
-            TotalAmountWin = input.ReadInt32();
+            FirstRankHorseLane = input.ReadInt32();
             break;
           }
-          case 50: {
-            if (raceScript_ == null) {
-              RaceScript = new global::io.hverse.game.protogen.RaceScript();
-            }
-            input.ReadMessage(RaceScript);
+          case 48: {
+            SecondRankHorseId = input.ReadInt64();
+            break;
+          }
+          case 58: {
+            SecondRankHorseName = input.ReadString();
+            break;
+          }
+          case 64: {
+            SecondRankHorseLane = input.ReadInt32();
             break;
           }
         }
