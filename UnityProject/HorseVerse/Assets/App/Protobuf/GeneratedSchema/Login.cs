@@ -35,30 +35,29 @@ namespace io.hverse.game.protogen {
             "IAEoCRIQCghkZXZpY2VJZBgGIAEoCRIbCghwbGF0Zm9ybRgHIAEoDjIJLlBs",
             "YXRmb3JtEg0KBW1vZGVsGAggASgJEhEKCWVtYWlsQ29kZRgJIAEoCSJOCgxM",
             "b2dpblJlcXVlc3QSHwoKY2xpZW50SW5mbxgBIAEoCzILLkNsaWVudEluZm8S",
-            "HQoJbG9naW5UeXBlGAIgASgOMgouTG9naW5UeXBlIoEBCg1Mb2dpblJlc3Bv",
-            "bnNlEhIKCnJlc3VsdENvZGUYASABKAUSHwoKcGxheWVySW5mbxgCIAEoCzIL",
-            "LlBsYXllckluZm8SIQoLZmVhdHVyZUxpc3QYAyADKA4yDC5GZWF0dXJlVHlw",
-            "ZRIYChB1cGRhdGVDbGllbnRMaW5rGAQgASgJIkIKEEVtYWlsQ29kZVJlcXVl",
-            "c3QSDQoFZW1haWwYASABKAkSHwoKY2xpZW50SW5mbxgCIAEoCzILLkNsaWVu",
-            "dEluZm8iQQoRRW1haWxDb2RlUmVzcG9uc2USEgoKcmVzdWx0Q29kZRgBIAEo",
-            "BRIYChB1cGRhdGVDbGllbnRMaW5rGAQgASgJKmoKEExvZ2luTWVzc2FnZVR5",
-            "cGUSEQoNTE9HSU5fUkVRVUVTVBAAEhIKDkxPR0lOX1JFU1BPTlNFEAESFgoS",
-            "RU1BSUxfQ09ERV9SRVFVRVNUEAISFwoTRU1BSUxfQ09ERV9SRVNQT05TRRAD",
-            "KmsKCUxvZ2luVHlwZRIUChBMT0dJTl9UWVBFX0VNQUlMEAASFQoRTE9HSU5f",
-            "VFlQRV9RUkNPREUQARIbChdMT0dJTl9UWVBFX0FDQ0VTU19UT0tFThACEhQK",
-            "EExPR0lOX0VNQUlMX0NPREUQAyopCghQbGF0Zm9ybRILCgdBTkRST0lEEAAS",
-            "BwoDSU9TEAESBwoDV0VCEAJCSAoXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5C",
-            "E0xvZ2luTWVzc2FnZUZhY3RvcnmqAhdpby5odmVyc2UuZ2FtZS5wcm90b2dl",
-            "bmIGcHJvdG8z"));
+            "HQoJbG9naW5UeXBlGAIgASgOMgouTG9naW5UeXBlImcKDUxvZ2luUmVzcG9u",
+            "c2USEgoKcmVzdWx0Q29kZRgBIAEoBRIfCgpwbGF5ZXJJbmZvGAIgASgLMgsu",
+            "UGxheWVySW5mbxIhCgtmZWF0dXJlTGlzdBgDIAMoDjIMLkZlYXR1cmVUeXBl",
+            "IkIKEEVtYWlsQ29kZVJlcXVlc3QSDQoFZW1haWwYASABKAkSHwoKY2xpZW50",
+            "SW5mbxgCIAEoCzILLkNsaWVudEluZm8iJwoRRW1haWxDb2RlUmVzcG9uc2US",
+            "EgoKcmVzdWx0Q29kZRgBIAEoBSpqChBMb2dpbk1lc3NhZ2VUeXBlEhEKDUxP",
+            "R0lOX1JFUVVFU1QQABISCg5MT0dJTl9SRVNQT05TRRABEhYKEkVNQUlMX0NP",
+            "REVfUkVRVUVTVBACEhcKE0VNQUlMX0NPREVfUkVTUE9OU0UQAyprCglMb2dp",
+            "blR5cGUSFAoQTE9HSU5fVFlQRV9FTUFJTBAAEhUKEUxPR0lOX1RZUEVfUVJD",
+            "T0RFEAESGwoXTE9HSU5fVFlQRV9BQ0NFU1NfVE9LRU4QAhIUChBMT0dJTl9F",
+            "TUFJTF9DT0RFEAMqKQoIUGxhdGZvcm0SCwoHQU5EUk9JRBAAEgcKA0lPUxAB",
+            "EgcKA1dFQhACQkgKF2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuQhNMb2dpbk1l",
+            "c3NhZ2VGYWN0b3J5qgIXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5iBnByb3Rv",
+            "Mw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::io.hverse.game.protogen.PlayerReflection.Descriptor, global::io.hverse.game.protogen.DataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.LoginMessageType), typeof(global::io.hverse.game.protogen.LoginType), typeof(global::io.hverse.game.protogen.Platform), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginMessage), global::io.hverse.game.protogen.LoginMessage.Parser, new[]{ "MsgType", "LoginRequest", "LoginResponse", "EmailCodeRequest", "EmailCodeResponse" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ClientInfo), global::io.hverse.game.protogen.ClientInfo.Parser, new[]{ "QrCodeId", "AccessToken", "Email", "Password", "Version", "DeviceId", "Platform", "Model", "EmailCode" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginRequest), global::io.hverse.game.protogen.LoginRequest.Parser, new[]{ "ClientInfo", "LoginType" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginResponse), global::io.hverse.game.protogen.LoginResponse.Parser, new[]{ "ResultCode", "PlayerInfo", "FeatureList", "UpdateClientLink" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginResponse), global::io.hverse.game.protogen.LoginResponse.Parser, new[]{ "ResultCode", "PlayerInfo", "FeatureList" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.EmailCodeRequest), global::io.hverse.game.protogen.EmailCodeRequest.Parser, new[]{ "Email", "ClientInfo" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.EmailCodeResponse), global::io.hverse.game.protogen.EmailCodeResponse.Parser, new[]{ "ResultCode", "UpdateClientLink" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.EmailCodeResponse), global::io.hverse.game.protogen.EmailCodeResponse.Parser, new[]{ "ResultCode" }, null, null, null, null)
           }));
     }
     #endregion
@@ -1218,7 +1217,6 @@ namespace io.hverse.game.protogen {
       resultCode_ = other.resultCode_;
       playerInfo_ = other.playerInfo_ != null ? other.playerInfo_.Clone() : null;
       featureList_ = other.featureList_.Clone();
-      updateClientLink_ = other.updateClientLink_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1263,18 +1261,6 @@ namespace io.hverse.game.protogen {
       get { return featureList_; }
     }
 
-    /// <summary>Field number for the "updateClientLink" field.</summary>
-    public const int UpdateClientLinkFieldNumber = 4;
-    private string updateClientLink_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string UpdateClientLink {
-      get { return updateClientLink_; }
-      set {
-        updateClientLink_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1293,7 +1279,6 @@ namespace io.hverse.game.protogen {
       if (ResultCode != other.ResultCode) return false;
       if (!object.Equals(PlayerInfo, other.PlayerInfo)) return false;
       if(!featureList_.Equals(other.featureList_)) return false;
-      if (UpdateClientLink != other.UpdateClientLink) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1304,7 +1289,6 @@ namespace io.hverse.game.protogen {
       if (ResultCode != 0) hash ^= ResultCode.GetHashCode();
       if (playerInfo_ != null) hash ^= PlayerInfo.GetHashCode();
       hash ^= featureList_.GetHashCode();
-      if (UpdateClientLink.Length != 0) hash ^= UpdateClientLink.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1332,10 +1316,6 @@ namespace io.hverse.game.protogen {
         output.WriteMessage(PlayerInfo);
       }
       featureList_.WriteTo(output, _repeated_featureList_codec);
-      if (UpdateClientLink.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(UpdateClientLink);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1355,10 +1335,6 @@ namespace io.hverse.game.protogen {
         output.WriteMessage(PlayerInfo);
       }
       featureList_.WriteTo(ref output, _repeated_featureList_codec);
-      if (UpdateClientLink.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(UpdateClientLink);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1376,9 +1352,6 @@ namespace io.hverse.game.protogen {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayerInfo);
       }
       size += featureList_.CalculateSize(_repeated_featureList_codec);
-      if (UpdateClientLink.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(UpdateClientLink);
-      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1401,9 +1374,6 @@ namespace io.hverse.game.protogen {
         PlayerInfo.MergeFrom(other.PlayerInfo);
       }
       featureList_.Add(other.featureList_);
-      if (other.UpdateClientLink.Length != 0) {
-        UpdateClientLink = other.UpdateClientLink;
-      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -1435,10 +1405,6 @@ namespace io.hverse.game.protogen {
             featureList_.AddEntriesFrom(input, _repeated_featureList_codec);
             break;
           }
-          case 34: {
-            UpdateClientLink = input.ReadString();
-            break;
-          }
         }
       }
     #endif
@@ -1468,10 +1434,6 @@ namespace io.hverse.game.protogen {
           case 26:
           case 24: {
             featureList_.AddEntriesFrom(ref input, _repeated_featureList_codec);
-            break;
-          }
-          case 34: {
-            UpdateClientLink = input.ReadString();
             break;
           }
         }
@@ -1751,7 +1713,6 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public EmailCodeResponse(EmailCodeResponse other) : this() {
       resultCode_ = other.resultCode_;
-      updateClientLink_ = other.updateClientLink_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1773,18 +1734,6 @@ namespace io.hverse.game.protogen {
       }
     }
 
-    /// <summary>Field number for the "updateClientLink" field.</summary>
-    public const int UpdateClientLinkFieldNumber = 4;
-    private string updateClientLink_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string UpdateClientLink {
-      get { return updateClientLink_; }
-      set {
-        updateClientLink_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1801,7 +1750,6 @@ namespace io.hverse.game.protogen {
         return true;
       }
       if (ResultCode != other.ResultCode) return false;
-      if (UpdateClientLink != other.UpdateClientLink) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1810,7 +1758,6 @@ namespace io.hverse.game.protogen {
     public override int GetHashCode() {
       int hash = 1;
       if (ResultCode != 0) hash ^= ResultCode.GetHashCode();
-      if (UpdateClientLink.Length != 0) hash ^= UpdateClientLink.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1833,10 +1780,6 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(8);
         output.WriteInt32(ResultCode);
       }
-      if (UpdateClientLink.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(UpdateClientLink);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1851,10 +1794,6 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(8);
         output.WriteInt32(ResultCode);
       }
-      if (UpdateClientLink.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(UpdateClientLink);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1867,9 +1806,6 @@ namespace io.hverse.game.protogen {
       int size = 0;
       if (ResultCode != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(ResultCode);
-      }
-      if (UpdateClientLink.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(UpdateClientLink);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1885,9 +1821,6 @@ namespace io.hverse.game.protogen {
       }
       if (other.ResultCode != 0) {
         ResultCode = other.ResultCode;
-      }
-      if (other.UpdateClientLink.Length != 0) {
-        UpdateClientLink = other.UpdateClientLink;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1908,10 +1841,6 @@ namespace io.hverse.game.protogen {
             ResultCode = input.ReadInt32();
             break;
           }
-          case 34: {
-            UpdateClientLink = input.ReadString();
-            break;
-          }
         }
       }
     #endif
@@ -1929,10 +1858,6 @@ namespace io.hverse.game.protogen {
             break;
           case 8: {
             ResultCode = input.ReadInt32();
-            break;
-          }
-          case 34: {
-            UpdateClientLink = input.ReadString();
             break;
           }
         }
