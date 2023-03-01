@@ -30,6 +30,7 @@ public abstract class UIComponent<T> : UIComponent, IUIComponent<T> where T : ne
         {
             this.gameObject.SetActive(true);
             OnSetEntity();
+            OnAfterSetEntity();
         }
         else
         {
@@ -38,4 +39,5 @@ public abstract class UIComponent<T> : UIComponent, IUIComponent<T> where T : ne
     }
 
     protected abstract void OnSetEntity();
+    protected virtual void OnAfterSetEntity() {}
 }
