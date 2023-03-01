@@ -22,9 +22,10 @@ namespace io.hverse.game.protogen
     public sealed partial class FinishTrainingResponse : IErrorCodeMessage { }
     // public sealed partial class AcceptPrivateChatResponse : IErrorCodeMessage {}
     public sealed partial class ExchangeChestKeyResponse : IErrorCodeMessage {}
-    public sealed partial class GetBetHistoryResponse : IErrorCodeMessage {}
+    public sealed partial class BetHistoryResponse : IErrorCodeMessage {}
     public sealed partial class SendBettingInfoResponse : IErrorCodeMessage {}
-    public sealed partial class GetBetHistoryDetailResponse : IErrorCodeMessage {}
+    public sealed partial class BetHistoryDetailResponse : IErrorCodeMessage {}
+    public sealed partial class BetHorseListResponse : IErrorCodeMessage {}
     // public sealed partial class GetCurrentBetMatchResponse : IErrorCodeMessage {}
     public sealed partial class GetCurrentRaceScriptResponse : IErrorCodeMessage {}
     public sealed partial class RestartGamePopUpMessage : IErrorCodeMessage {}

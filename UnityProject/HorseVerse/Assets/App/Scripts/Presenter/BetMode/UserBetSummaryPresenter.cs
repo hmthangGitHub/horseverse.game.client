@@ -26,7 +26,7 @@ public class UserBetSummaryPresenter : IDisposable
         cts = new CancellationTokenSource();
         var ucs = new UniTaskCompletionSource();
         var userBets = await BetModeDomainService.GetCurrentBetMatchRawData(matchId).AttachExternalCancellation(cancellationToken: cts.Token);
-        uiUserBetSummary ??= await UILoader.Instantiate<UIUserBetSumary>(token: cts.Token);
+        uiUserBetSummary ??= await UILoader.Instantiate<UIUserBetSumary>(UICanvas.UICanvasType.PopUp, token: cts.Token);
         uiUserBetSummary.SetEntity(new UIUserBetSumary.Entity()
         {
             time = time,

@@ -23,7 +23,7 @@ public class BetHistoryRepository : Repository<long , BettingMatch, BetRecord>, 
 
     private static async UniTask<IEnumerable<BettingMatch>> GetData(ISocketClient socketClient)
     {
-        var response = await socketClient.Send<GetBetHistoryRequest, GetBetHistoryResponse>(new GetBetHistoryRequest());
+        var response = await socketClient.Send<BetHistoryRequest, BetHistoryResponse>(new BetHistoryRequest());
         return response.Records;
     }
 }

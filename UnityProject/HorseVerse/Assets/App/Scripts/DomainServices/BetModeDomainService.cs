@@ -54,7 +54,7 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
 
     public async UniTask<(RaceScriptData, BetMatchDataContext)> GetCurrentBetMatchData()
     {
-        var bettingDetailResponse = await SocketClient.Send<GetBetHistoryDetailRequest, GetBetHistoryDetailResponse>(new GetBetHistoryDetailRequest()
+        var bettingDetailResponse = await SocketClient.Send<BetHistoryDetailRequest, BetHistoryDetailResponse>(new BetHistoryDetailRequest()
         {
             MatchId = BetMatchRepository.Current.BetMatchId
         }, 5.0f);
@@ -78,8 +78,8 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
 
     public async UniTask<BetMatchFullDataContext> GetCurrentBetMatchRawData(long matchId)
     {
-        var bettingDetailResponse = await SocketClient.Send<GetBetHistoryDetailRequest, GetBetHistoryDetailResponse>(
-        new GetBetHistoryDetailRequest()
+        var bettingDetailResponse = await SocketClient.Send<BetHistoryDetailRequest, BetHistoryDetailResponse>(
+        new BetHistoryDetailRequest()
         {
             MatchId = matchId
         });
@@ -125,8 +125,7 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
 
     public async UniTask<HorseBetInfo> GetCurrentBetModeHorseData()
     {
-
-        var horseResponse = await SocketClient.Send<GetHorseListRequest, GetHorseListResponse>(new GetHorseListRequest()
+        var horseResponse = await SocketClient.Send<BetHorseListRequest, BetHorseListResponse>(new BetHorseListRequest()
         {
             MatchId = BetMatchRepository.Current.BetMatchId
         }, 5.0f);
