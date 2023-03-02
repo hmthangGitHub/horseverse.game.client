@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using UnityEngine;
+using System.Collections;
 
 public partial class PlatformModular
 {
@@ -19,24 +20,50 @@ public partial class PlatformModular
                                         GameObjectPoolList gameObjectPoolList)
     {
         CreateSceneryRegions();
-        Enumerable.Range(0, Random.Range(0, 20))
-                  .ForEach(x =>
-                  {
-                      var attempt = 100;
-                      var randomPoint = sceneryBoxContainer.RandomPointInBounds();
-                      while (sceneryConflictRegion.bounds.Contains(randomPoint) && attempt > 0)
-                      {
-                          randomPoint = sceneryBoxContainer.RandomPointInBounds();
-                          attempt--;
-                      }
+        StartCoroutine(GenerateSceneryObjectsAsync(sceneryObjectPrefabs, gameObjectPoolList));
+        //Enumerable.Range(0, Random.Range(0, 20))
+        //          .ForEach(x =>
+        //          {
+        //              var attempt = 100;
+        //              var randomPoint = sceneryBoxContainer.RandomPointInBounds();
+        //              while (sceneryConflictRegion.bounds.Contains(randomPoint) && attempt > 0)
+        //              {
+        //                  randomPoint = sceneryBoxContainer.RandomPointInBounds();
+        //                  attempt--;
+        //              }
 
-                      if (attempt > 0)
-                      {
-                          var sceneryGameObject = InstantiateGameObject(gameObjectPoolList, sceneryObjectPrefabs.RandomElement());
-                          sceneryGameObject.transform.position = randomPoint;
-                          sceneryGameObject.transform.localScale = UnityEngine.Random.Range(0.2f, 3.5f) * Vector3.one;
-                      }
-                  });
+        //              if (attempt > 0)
+        //              {
+        //                  var sceneryGameObject = InstantiateGameObject(gameObjectPoolList, sceneryObjectPrefabs.RandomElement());
+        //                  sceneryGameObject.transform.position = randomPoint;
+        //                  sceneryGameObject.transform.localScale = UnityEngine.Random.Range(0.2f, 3.5f) * Vector3.one;
+        //              }
+        //          });
+    }
+
+    private IEnumerator GenerateSceneryObjectsAsync(GameObject[] sceneryObjectPrefabs,
+                                        GameObjectPoolList gameObjectPoolList)
+    {
+        int rand = Random.Range(0, 20);
+        for(int i = 0; i < rand; i++)
+        {
+            var attempt = 100;
+            var randomPoint = sceneryBoxContainer.RandomPointInBounds();
+            while (sceneryConflictRegion.bounds.Contains(randomPoint) && attempt > 0)
+            {
+                randomPoint = sceneryBoxContainer.RandomPointInBounds();
+                attempt--;
+            }
+
+            if (attempt > 0)
+            {
+                var sceneryGameObject = InstantiateGameObject(gameObjectPoolList, sceneryObjectPrefabs.RandomElement());
+                sceneryGameObject.transform.position = randomPoint;
+                sceneryGameObject.transform.localScale = UnityEngine.Random.Range(0.2f, 3.5f) * Vector3.one;
+            }
+
+            if (i % 5 == 0) yield return null;
+        }
     }
 
     private Bounds CreatePlatformBound()
