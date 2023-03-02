@@ -87,12 +87,12 @@ public class TrainingTrapWoodSpike : TrainingTrap<TrainingTrapWoodSpike.Entity>
     protected virtual bool IsReachTarget()
     {
         var pos = Directions[currentTarget];
-        if (Vector3.Distance(rigid.transform.localPosition, pos) < 1.0f)
+        if (Vector3.Distance(rigid.transform.localPosition, pos) < 1)
         {
             return true;
         }
         var dir = pos - rigid.transform.localPosition;
-        rigid.velocity = dir.normalized * Time.deltaTime * MovingSpeed;
+        rigid.velocity = dir.normalized * MovingSpeed;
         return false;
     }
 
