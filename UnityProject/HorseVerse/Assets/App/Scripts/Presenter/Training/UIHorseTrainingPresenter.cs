@@ -18,6 +18,7 @@ public class UIHorseTrainingPresenter : IDisposable
     private ITrainingDomainService trainingDomainService;
     private IReadOnlyHorseRepository horseRepository;
     private MasterHorseContainer masterHorseContainer;
+    private UITrainingLeaderBoardPresenter uiTrainingLeaderBoardPresenter;
     public event Action ToTrainingActionState = ActionUtility.EmptyAction.Instance;
     
     private HorseDetailEntityFactory HorseDetailEntityFactory => horseDetailEntityFactory ??= container.Inject<HorseDetailEntityFactory>();
@@ -79,6 +80,11 @@ public class UIHorseTrainingPresenter : IDisposable
             {
                 enumEntity = UserDataRepository.Current.TraningTimeStamp <= DateTimeOffset.UtcNow.ToUnixTimeSeconds() ? UIComponentTraningState.TraningState.Prepare : UIComponentTraningState.TraningState.Processing
             },
+            leaderBoardBtn = new ButtonComponent.Entity(() =>
+            {
+                uiTrainingLeaderBoardPresenter ??= new UITrainingLeaderBoardPresenter(this.container);
+                uiTrainingLeaderBoardPresenter.ShowLeaderBoardAsync().Forget();
+            })
         });
         uiHorseTraining.In().Forget();
     }
@@ -163,6 +169,7 @@ public class UIHorseTrainingPresenter : IDisposable
         cts.SafeCancelAndDispose();
         cts = default;
         UILoader.SafeRelease(ref uiHorseTraining);
+        DisposeUtility.SafeDispose(ref uiTrainingLeaderBoardPresenter);
         UserDataRepository.OnModelUpdate -= UserDataRepositoryOnModelUpdate;
     }
 
