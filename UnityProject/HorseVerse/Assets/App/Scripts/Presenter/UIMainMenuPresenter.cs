@@ -57,7 +57,7 @@ public class UIMainMenuPresenter : IDisposable
             {
                 horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.CurrentHorseNftId),
             },
-            
+            highScore = (int)UserDataRepository.Current.TrainingHighScore,
         });
         uiMainMenu.In().Forget();
     }

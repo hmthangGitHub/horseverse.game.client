@@ -35,11 +35,11 @@ public class HorseTrainingPresenter : IDisposable
     private HorseTrainingDataContext HorseTrainingDataContext => horseTrainingDataContext ??= Container.Inject<HorseTrainingDataContext>();
     private ITrainingDomainService TrainingDomainService => trainingDomainService ??= Container.Inject<ITrainingDomainService>();
 
-    private IReadOnlyUserDataRepository userDataRepository;
-    private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= Container.Inject<IReadOnlyUserDataRepository>();
+    private IUserDataRepository userDataRepository;
+    private IUserDataRepository UserDataRepository => userDataRepository ??= Container.Inject<UserDataRepository>();
     private IReadOnlyHorseRepository horseRepository;
     private IReadOnlyHorseRepository HorseRepository => horseRepository ??= Container.Inject<IReadOnlyHorseRepository>();
-    
+
     public HorseTrainingPresenter(IDIContainer container)
     {
         Container = container;
@@ -284,6 +284,7 @@ public class HorseTrainingPresenter : IDisposable
         SoundController.PlayHitObstance();
         var data = await TrainingDomainService.GetTrainingRewardData(CurrentPoint, CurrentCoin);
         if (data.ResultCode == 100) {
+            await UserDataRepository.UpdateTrainingHighestScore(data.HighestScore);
             await ShowUIHorseTrainingResultAsync(data);
         }
     }

@@ -46,6 +46,13 @@ public class UserDataRepository : Repository<long, PlayerInfo, UserDataModel>, I
         await UpdateModelAsync(new[] { newModel });
     }
 
+    public async UniTask UpdateTrainingHighestScore(long score)
+    {
+        var newModel = Current.Clone();
+        newModel.TrainingHighScore = score;
+        await UpdateModelAsync(new[] { newModel });
+    }
+
     public async UniTask UpdateLightPlayerInfoAsync(LitePlayerInfo litePlayerInfo)
     {
         var newModel = Current.Clone();
@@ -71,4 +78,5 @@ public interface IUserDataRepository : IRepository<long, PlayerInfo, UserDataMod
     UniTask UpdateCoin(long coin);
     UniTask UpdateHorse(long nftHorseId);
     UniTask UpdateLightPlayerInfoAsync(LitePlayerInfo litePlayerInfo);
+    UniTask UpdateTrainingHighestScore(long score);
 }
