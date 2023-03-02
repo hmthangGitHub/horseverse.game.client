@@ -31,22 +31,28 @@ namespace io.hverse.game.protogen
             CancelBettingRequest = x;
         }
         
-        public BettingMessage(GetBetHistoryDetailRequest x)
+        public BettingMessage(BetHistoryDetailRequest x)
         {
-            MsgType = BettingMessageType.GetBettingHistoryDetailRequest;
-            GetBetHistoryDetailRequest = x;
+            MsgType = BettingMessageType.BetHistoryDetailRequest;
+            BetHistoryDetailRequest = x;
         }
         
-        public BettingMessage(GetBetHistoryRequest x)
+        public BettingMessage(BetHistoryRequest x)
         {
-            MsgType = BettingMessageType.GetBetHistoryRequest;
-            GetBetHistoryRequest = x;
+            MsgType = BettingMessageType.BetHistoryRequest;
+            BetHistoryRequest = x;
         }
 
-        public BettingMessage(GetHorseListRequest x)
+        public BettingMessage(BetHistoryHorseInfoRequest x)
         {
-            MsgType = BettingMessageType.GetHorseListRequest;
-            GetHorseListRequest = x;
+            MsgType = BettingMessageType.BetHistoryHorseInfoRequest;
+            BetHistoryHorseInfoRequest = x;
+        }
+
+        public BettingMessage(BetHorseListRequest x)
+        {
+            MsgType = BettingMessageType.BetHorseListRequest;
+            BetHorseListRequest = x;
         }
     }    
 }

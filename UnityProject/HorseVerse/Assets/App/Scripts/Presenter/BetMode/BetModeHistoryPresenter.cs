@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using io.hverse.game.protogen;
 using UnityEngine;
 
 public class BetModeHistoryPresenter : IDisposable
@@ -74,7 +76,7 @@ public class BetModeHistoryPresenter : IDisposable
                                                                        firstHorse,
                                                                        secondHorse)
                                                                    .Forget()),
-                                                           viewResultBtn = new ButtonComponent.Entity(() => OnViewBetResultAsync().Forget())
+                                                           viewResultBtn = new ButtonComponent.Entity(() => OnViewHorseRaceResultAsync(x.MatchId).Forget())
                                                        };
                                                    })
                                                    .ToArray()
@@ -91,23 +93,24 @@ public class BetModeHistoryPresenter : IDisposable
         uiBetModeResult ??= await UILoader.Instantiate<UIBetModeResult>(UICanvas.UICanvasType.PopUp, token: cts.Token);
     }
 
-    private async UniTaskVoid OnViewBetResultAsync()
+    private async UniTaskVoid OnViewHorseRaceResultAsync(long matchId)
     {
+        var response = await SocketClient.Send<BetHistoryHorseInfoRequest, BetHistoryHorseInfoResponse>(new BetHistoryHorseInfoRequest()
+        {
+                MatchId = matchId
+        });
         uiBetModeResult.SetEntity(new UIBetModeResult.Entity()
         {
             betModeResultPanel = new UIBetModeResultPanel.Entity()
             {
-                betModeResultList = Enumerable.Range(0, 8)
-                                              .Select(x => new UIComponentBetModeResult.Entity()
-                                              {
-                                                  no = x + 1,
-                                                  time = UnityEngine.Random.Range(40.0f, 50.0f),
-                                                  horseName = "Horse Name" + x,
-                                                  horseNumber = UnityEngine.Random.Range(0, 8),
-                                                  rewardGroupVisible = false,
-                                                  isSelfHorse = false
-                                              }).ToArray(),
-                
+                betModeResultList = response.Records.Select(x => new UIComponentBetModeResult.Entity()
+                {
+                    no = x.Rank,
+                    time = x.RaceTime,
+                    horseName = x.HorseName,
+                    horseNumber = x.Lane - 1,
+                    rewardGroupVisible = false
+                }).ToArray()
             },
             nextBtn = new ButtonComponent.Entity(() => uiBetModeResult.Out().Forget())
         });

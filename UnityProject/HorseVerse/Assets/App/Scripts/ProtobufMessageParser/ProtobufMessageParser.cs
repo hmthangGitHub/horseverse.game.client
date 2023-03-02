@@ -37,17 +37,20 @@ public class ProtobufMessageParser : IMessageParser
         AddToSerializeLookUpTable<SendBettingInfoRequest>(x => new BettingMessage(x));
         AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.SendBettingInfoResponse, x => x.SendBettingInfoResponse);
         
+        AddToSerializeLookUpTable<BetHorseListRequest>(x => new BettingMessage(x));
+        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.BetHorseListResponse, x => x.BetHorseListResponse);
+        
         AddToSerializeLookUpTable<CancelBettingRequest>(x => new BettingMessage(x));
         AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.CancelBettingResponse, x => x.CancelBettingResponse);
         
-        AddToSerializeLookUpTable<GetBetHistoryDetailRequest>(x => new BettingMessage(x));
-        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.GetBettingHistoryDetailResponse, x => x.GetBetHistoryDetailResponse);
+        AddToSerializeLookUpTable<BetHistoryDetailRequest>(x => new BettingMessage(x));
+        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.BetHistoryDetailResponse, x => x.BetHistoryDetailResponse);
         
-        AddToSerializeLookUpTable<GetBetHistoryRequest>(x => new BettingMessage(x));
-        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.GetBetHistoryResponse, x => x.GetBetHistoryResponse);
+        AddToSerializeLookUpTable<BetHistoryRequest>(x => new BettingMessage(x));
+        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.BetHistoryResponse, x => x.BetHistoryResponse);
 
-        AddToSerializeLookUpTable<GetHorseListRequest>(x => new BettingMessage(x));
-        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.GetHorseListResponse, x => x.GetHorseListResponse);
+        AddToSerializeLookUpTable<BetHistoryHorseInfoRequest>(x => new BettingMessage(x));
+        AddToParseLookUpTable<BettingMessage, BettingMessageType>(BettingMessageType.BetHistoryHorseInfoResponse, x => x.BetHistoryHorseInfoResponse);
 
         AddToSerializeLookUpTable<StartTrainingRequest>(x => new TrainingMessage(x));
         AddToParseLookUpTable<TrainingMessage, TrainingMessageType>(TrainingMessageType.StartTrainingResponse, x => x.StartTrainingResponse);
