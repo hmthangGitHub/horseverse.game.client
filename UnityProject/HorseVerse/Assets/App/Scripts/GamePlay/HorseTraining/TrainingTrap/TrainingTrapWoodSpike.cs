@@ -40,6 +40,7 @@ public class TrainingTrapWoodSpike : TrainingTrap<TrainingTrapWoodSpike.Entity>
 
     protected override void OnSetEntity()
     {
+        Directions.Clear();
         Directions.AddRange(entity.Direction.Select(x => x.ToVector3()).ToArray());
         TriggerPoint.localPosition = entity.Trigger.ToVector3();
     }
