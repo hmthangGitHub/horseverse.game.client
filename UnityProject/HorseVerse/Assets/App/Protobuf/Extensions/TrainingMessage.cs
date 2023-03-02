@@ -18,5 +18,11 @@ namespace io.hverse.game.protogen
             MsgType = TrainingMessageType.FinishTrainingRequest;
             FinishTrainingRequest = x;
         }
+
+        public TrainingMessage(TrainingLeaderBoardRequest x)
+        {
+            MsgType = TrainingMessageType.TrainingLeaderBoardRequest;
+            TrainingLeaderBoardRequest = TrainingLeaderBoardRequest;
+        }
     }
 }

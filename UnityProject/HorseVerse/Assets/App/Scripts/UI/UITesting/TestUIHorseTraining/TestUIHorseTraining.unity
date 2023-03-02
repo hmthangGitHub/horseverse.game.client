@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028377, g: 0.22571409, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -326,7 +326,10 @@ MonoBehaviour:
   uiTest: {fileID: 662452181691786522}
   entity:
     horseDetail:
+      horseRace:
+        type: 0
       horseName: my name is
+      level: 0
       speedProgressBarWithBonus:
         progressBar:
           progress: 0.5
@@ -339,7 +342,10 @@ MonoBehaviour:
         progressBar:
           progress: 0.2
         bonus: 0.2
-      earning: 100
+      happiness: 0
+      maxHappiness: 0
+    horseRace:
+      type: 0
     traningStates:
       enumEntity: 0
     prepareState:
@@ -349,60 +355,104 @@ MonoBehaviour:
             m_Calls: []
         isInteractable: 1
       traningCost: 0
-      mapSelection: {}
     processingState:
       timer:
         utcEndTimeStamp: 1685614519
     horseSelectSumaryList:
       entities:
-      - horseName: AAAAAAAAAA
+      - horseNFTId: 0
+        horseName: AAAAAAAAAA
+        horseLevel: 0
+        horseRace:
+          type: 0
         selectBtn:
           onClickEvent:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseName: AAAAAAAAAA
+          isSelected: 0
+      - horseNFTId: 0
+        horseName: AAAAAAAAAA
+        horseLevel: 0
+        horseRace:
+          type: 0
         selectBtn:
           onClickEvent:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseName: AAAAAAAAAA
+          isSelected: 0
+      - horseNFTId: 0
+        horseName: AAAAAAAAAA
+        horseLevel: 0
+        horseRace:
+          type: 0
         selectBtn:
           onClickEvent:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseName: BBBBBBBBBBBBBBB
+          isSelected: 0
+      - horseNFTId: 0
+        horseName: BBBBBBBBBBBBBBB
+        horseLevel: 0
+        horseRace:
+          type: 0
         selectBtn:
           onClickEvent:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseName: BBBBBBBBBBBBBBB
+          isSelected: 0
+      - horseNFTId: 0
+        horseName: BBBBBBBBBBBBBBB
+        horseLevel: 0
+        horseRace:
+          type: 0
         selectBtn:
           onClickEvent:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseName: BBBBBBBBBBBBBBB
+          isSelected: 0
+      - horseNFTId: 0
+        horseName: BBBBBBBBBBBBBBB
+        horseLevel: 0
+        horseRace:
+          type: 0
         selectBtn:
           onClickEvent:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseName: BBBBBBBBBBBBBBB
+          isSelected: 0
+      - horseNFTId: 0
+        horseName: BBBBBBBBBBBBBBB
+        horseLevel: 0
+        horseRace:
+          type: 0
         selectBtn:
           onClickEvent:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
-      - horseName: BBBBBBBBBBBBBBB
+          isSelected: 0
+      - horseNFTId: 0
+        horseName: BBBBBBBBBBBBBBB
+        horseLevel: 0
+        horseRace:
+          type: 0
         selectBtn:
           onClickEvent:
             m_PersistentCalls:
               m_Calls: []
           isInteractable: 1
+          isSelected: 0
+    leaderBoardBtn:
+      onClickEvent:
+        m_PersistentCalls:
+          m_Calls: []
+      isInteractable: 1
 --- !u!4 &882540765
 Transform:
   m_ObjectHideFlags: 0
@@ -490,6 +540,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7134344885237779008, guid: eb446aacf1469894c8d6f00892d0addd, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1512
+      objectReference: {fileID: 0}
     - target: {fileID: 7134344885237779009, guid: eb446aacf1469894c8d6f00892d0addd, type: 3}
       propertyPath: m_Camera
       value: 
@@ -821,11 +875,27 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6164619729701027128, guid: a035d5d43e39d454f96fc2e1ff97b6c5, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164619729701027128, guid: a035d5d43e39d454f96fc2e1ff97b6c5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6386150737050903407, guid: a035d5d43e39d454f96fc2e1ff97b6c5, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6386150737050903407, guid: a035d5d43e39d454f96fc2e1ff97b6c5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123144211678304484, guid: a035d5d43e39d454f96fc2e1ff97b6c5, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123144211678304484, guid: a035d5d43e39d454f96fc2e1ff97b6c5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
