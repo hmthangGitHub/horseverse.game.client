@@ -24,7 +24,6 @@ public class TrainingTrapWoodSpike : TrainingTrap<TrainingTrapWoodSpike.Entity>
     [SerializeField] public float MovingSpeed;
     [SerializeField] public TrainingTrapWoodenSpikeController spike;
     [SerializeField] public CapsuleCollider Collider;
-    [SerializeField] public Rigidbody rigid;
     [SerializeField] Transform TriggerPoint;
     [SerializeField] public List<Vector3> Directions;
     [SerializeField] public bool IsPingPong;
@@ -87,12 +86,14 @@ public class TrainingTrapWoodSpike : TrainingTrap<TrainingTrapWoodSpike.Entity>
     protected virtual bool IsReachTarget()
     {
         var pos = Directions[currentTarget];
-        if (Vector3.Distance(rigid.transform.localPosition, pos) < 1)
+        if (Vector3.Distance(spike.transform.localPosition, pos) < 1)
         {
             return true;
         }
-        var dir = pos - rigid.transform.localPosition;
-        rigid.velocity = dir.normalized * MovingSpeed;
+        //var dir = pos - rigid.transform.localPosition;
+        //rigid.velocity = dir.normalized * MovingSpeed;
+        var dir = pos - spike.transform.localPosition;
+        spike.transform.localPosition += dir.normalized * MovingSpeed * Time.deltaTime;
         return false;
     }
 
