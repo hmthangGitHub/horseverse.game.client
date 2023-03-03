@@ -179,12 +179,18 @@ public partial class AudioManager : MonoBehaviour
             if (sound.clips.Count == 0)
                 return;
             mixBuffer.Add(clip);
-            sfx.loop = true;
+			sfx.loop = true;
             sfx.clip = sound.clips
                 .GetRandom();
             sfx.Play();
         }
     }
+
+	public bool IsPlayingSoundLoop(string clip)
+    {
+		if (mixBuffer.Contains(clip) && sfx.loop) return true;
+		return false;
+	}
 
     public float GetDurationOfSound(string clip)
     {
@@ -200,7 +206,17 @@ public partial class AudioManager : MonoBehaviour
 
 	public void StopMusic()
     {
-		if (music) music.Stop();
+		if (music != default) music.Stop();
+    }
+
+	public void PauseMusic()
+    {
+		music?.Pause();
+	}
+
+	public void ResumeMusic()
+    {
+		music?.Play();
     }
 
 	private void setMasterVolume(float value)

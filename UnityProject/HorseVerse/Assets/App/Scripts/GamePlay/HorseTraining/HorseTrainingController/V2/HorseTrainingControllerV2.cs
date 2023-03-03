@@ -54,7 +54,12 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private bool isDead;
     private bool isGrounded = true;
     private bool isJumping;
-    
+
+    public bool IsLanding => isGrounded;
+    public bool IsJumping => isJumping;
+    public bool IsDead => isDead;
+
+
     private Animator animator;
     private Animator Animator => animator ??= GetComponentInChildren<Animator>();
     private float currentAirTime;

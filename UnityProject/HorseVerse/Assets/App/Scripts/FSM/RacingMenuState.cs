@@ -30,7 +30,7 @@ public class RacingMenuState : InjectedBHState
 
     private async UniTask OnEnterStateAsync()
     {
-        await UIHorse3DViewPresenter.ShowHorse3DViewAsync();
+        await UIHorse3DViewPresenter.ShowHorse3DViewAsync(1);
         UIBackGroundPresenter.ReleaseBackGround();
         uiRacePresenter = new UIRacePresenter(this.Container);
         UIHeaderPresenter.ShowHeaderAsync(true, HorseRaceContext.RaceMatchDataContext.RacingRoomType.ToString()).Forget();

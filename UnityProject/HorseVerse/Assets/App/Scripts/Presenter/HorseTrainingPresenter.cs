@@ -155,6 +155,11 @@ public class HorseTrainingPresenter : IDisposable
 
     private async UniTask OnBtnPauseClicked()
     {
+        bool isResumeHorseRaceSound = !horseTrainingManager.HorseTrainingController.IsJumping
+                                        && horseTrainingManager.HorseTrainingController.IsLanding
+                                        && !horseTrainingManager.HorseTrainingController.IsDead;
+        SoundController.PauseMusic();
+        AudioManager.Instance.StopSound();
         Time.timeScale = 0.0f;
         var uiConfirm = await UILoader.Instantiate<UIPopUpPause>(token: cts.Token);
         var exitBtnEntity = new ButtonComponent.Entity(UniTask.Action(async() =>
@@ -185,6 +190,11 @@ public class HorseTrainingPresenter : IDisposable
                 await uiConfirm.Out();
                 UILoader.SafeRelease(ref uiConfirm);
                 Time.timeScale = 1.0f;
+                SoundController.ResumeMusic();
+                if (isResumeHorseRaceSound)
+                {
+                    AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunTraining);
+                }
             })),
             exitBtn = exitBtnEntity,
         });

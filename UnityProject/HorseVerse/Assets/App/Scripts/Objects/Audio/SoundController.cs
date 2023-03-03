@@ -82,4 +82,14 @@ public static class SoundController
     {
         AudioManager.Instance?.PlaySound("EarnCoin");
     }
+
+    public static void PauseMusic()
+    {
+        AudioManager.Instance?.PauseMusic();
+    }
+
+    public static void ResumeMusic()
+    {
+        AudioManager.Instance?.ResumeMusic();
+    }
 }
