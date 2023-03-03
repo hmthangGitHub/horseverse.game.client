@@ -85,6 +85,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3abdc734a2b0eb4fadf460527b46476, type: 3}
+--- !u!1 &4974236945522488484 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1965226216978585473, guid: b3abdc734a2b0eb4fadf460527b46476, type: 3}
+  m_PrefabInstance: {fileID: 6795343533218128677}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2385330940691840318 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9175957979728027163, guid: b3abdc734a2b0eb4fadf460527b46476, type: 3}
@@ -122,3 +127,26 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5482436013768593812, guid: bb7516d53ade107468cb2f7441a9488b, type: 3}
+--- !u!114 &777042783787369994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4974236945522488484}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d60fe6e3ac659854388b967d3a7f25cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoCatchCamera: 1
+  mainCam: {fileID: 0}
+  cameraLeftPad: -0.3
+  cameraRightPad: 1.3
+  cameraTopPad: -0.3
+  cameraBottomPad: 1.3
+  autoBuildObjects: 1
+  distanceCull: 0
+  distanceToCull: 0
+  prioritizeDistance: 0
+  distanceCullOnly: 0

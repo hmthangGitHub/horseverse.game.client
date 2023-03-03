@@ -85,6 +85,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc9b9877217d39245966c95e6e201fe4, type: 3}
+--- !u!1 &6291787391748369406 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9037271080503761052, guid: dc9b9877217d39245966c95e6e201fe4, type: 3}
+  m_PrefabInstance: {fileID: 3042812009409622882}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4413359412527910559 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1658831432341880317, guid: dc9b9877217d39245966c95e6e201fe4, type: 3}
@@ -95,19 +100,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 504416387276943840, guid: dc9b9877217d39245966c95e6e201fe4, type: 3}
   m_PrefabInstance: {fileID: 3042812009409622882}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &6957654169037718727
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4413359412527910559}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 14.5, y: 1, z: 11.55}
-  m_Center: {x: 0, y: -0.5, z: -0.75}
 --- !u!64 &299655799129901208
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -122,3 +114,39 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5482436013768593812, guid: 17efd6ff1f0e2af4c97f7dadadf93714, type: 3}
+--- !u!65 &6957654169037718727
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4413359412527910559}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 14.5, y: 1, z: 11.55}
+  m_Center: {x: 0, y: -0.5, z: -0.75}
+--- !u!114 &8269067683727442724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6291787391748369406}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d60fe6e3ac659854388b967d3a7f25cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoCatchCamera: 1
+  mainCam: {fileID: 0}
+  cameraLeftPad: -0.3
+  cameraRightPad: 1.3
+  cameraTopPad: -0.3
+  cameraBottomPad: 1.3
+  autoBuildObjects: 1
+  distanceCull: 0
+  distanceToCull: 0
+  prioritizeDistance: 0
+  distanceCullOnly: 0

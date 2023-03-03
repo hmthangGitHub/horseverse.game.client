@@ -81,6 +81,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10a124b3334c0db48bb6361b201842e6, type: 3}
+--- !u!1 &1284789597925773330 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1552572328250993051, guid: 10a124b3334c0db48bb6361b201842e6, type: 3}
+  m_PrefabInstance: {fileID: 315152036653693321}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4707397957590398221 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4975259999047044228, guid: 10a124b3334c0db48bb6361b201842e6, type: 3}
@@ -91,6 +96,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8164992352248405708, guid: 10a124b3334c0db48bb6361b201842e6, type: 3}
   m_PrefabInstance: {fileID: 315152036653693321}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &-2145361272815501139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1284789597925773330}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d60fe6e3ac659854388b967d3a7f25cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoCatchCamera: 1
+  mainCam: {fileID: 0}
+  cameraLeftPad: -0.3
+  cameraRightPad: 1.3
+  cameraTopPad: -0.3
+  cameraBottomPad: 1.3
+  autoBuildObjects: 1
+  distanceCull: 0
+  distanceToCull: 0
+  prioritizeDistance: 0
+  distanceCullOnly: 0
 --- !u!65 &5367016538675372095
 BoxCollider:
   m_ObjectHideFlags: 0

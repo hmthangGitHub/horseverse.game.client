@@ -85,6 +85,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d83fd913f73301a4bb937dc282f6e7ac, type: 3}
+--- !u!1 &4965979990408507055 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6359427030338984915, guid: d83fd913f73301a4bb937dc282f6e7ac, type: 3}
+  m_PrefabInstance: {fileID: 2065900216864765308}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6780956086388095674 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4805700270112575430, guid: d83fd913f73301a4bb937dc282f6e7ac, type: 3}
@@ -95,19 +100,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1408485006288556195, guid: d83fd913f73301a4bb937dc282f6e7ac, type: 3}
   m_PrefabInstance: {fileID: 2065900216864765308}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &2981126493879168707
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6780956086388095674}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 14.5, y: 1, z: 9}
-  m_Center: {x: 0, y: -0.5, z: 2.025}
 --- !u!64 &2462701737141783682
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -122,3 +114,39 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5482436013768593812, guid: 3260f0b7faaf8c748a9a687f6f83fa97, type: 3}
+--- !u!114 &5369235193227819982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4965979990408507055}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d60fe6e3ac659854388b967d3a7f25cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoCatchCamera: 1
+  mainCam: {fileID: 0}
+  cameraLeftPad: -0.3
+  cameraRightPad: 1.3
+  cameraTopPad: -0.3
+  cameraBottomPad: 1.3
+  autoBuildObjects: 1
+  distanceCull: 0
+  distanceToCull: 0
+  prioritizeDistance: 0
+  distanceCullOnly: 0
+--- !u!65 &2981126493879168707
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6780956086388095674}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 14.5, y: 1, z: 9}
+  m_Center: {x: 0, y: -0.5, z: 2.025}
