@@ -37,18 +37,25 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
     {
         foreach (var bet in keys)
         {
-            var response = await SocketClient.Send<SendBettingInfoRequest, SendBettingInfoResponse>(
-                new SendBettingInfoRequest()
-                {
-                    BettingType = bet.second == default ? BettingType.Single : BettingType.Double,
-                    MatchId = BetMatchRepository.Current.BetMatchId,
-                    AmountOfBet = amouth,
-                    IndexOfHouse = bet.ToIndexOfHorse()
-                });
-            var model = BetRateRepository.Models[response.IndexOfHouse.ToKey()].Clone();
-            model.TotalBet = response.TotalAmountOfBet;
-            await BetRateRepository.UpdateModelAsync(new[] { model });
-            await UserDataRepository.UpdateCoin(response.PlayerPresentChip);
+            try
+            {
+                var response = await SocketClient.Send<SendBettingInfoRequest, SendBettingInfoResponse>(
+                    new SendBettingInfoRequest()
+                    {
+                        BettingType = bet.second == default ? BettingType.Single : BettingType.Double,
+                        MatchId = BetMatchRepository.Current.BetMatchId,
+                        AmountOfBet = amouth,
+                        IndexOfHouse = bet.ToIndexOfHorse()
+                    }, retryWhenTimeOut: false);
+           
+                var model = BetRateRepository.Models[response.IndexOfHouse.ToKey()].Clone();
+                model.TotalBet = response.TotalAmountOfBet;
+                await BetRateRepository.UpdateModelAsync(new[] { model });
+                await UserDataRepository.UpdateCoin(response.PlayerPresentChip);
+            }
+            catch (TimeoutException)
+            {
+            }
         }
     }
 

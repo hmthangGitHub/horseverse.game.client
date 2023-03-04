@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using io.hverse.game.protogen;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
@@ -293,10 +294,10 @@ public class HorseTrainingPresenter : IDisposable
         AudioManager.Instance.StopSound();
         SoundController.PlayHitObstance();
         var data = await TrainingDomainService.GetTrainingRewardData(CurrentPoint, CurrentCoin);
-        if (data.ResultCode == 100) {
-            await UserDataRepository.UpdateTrainingHighestScore(data.HighestScore);
-            await ShowUIHorseTrainingResultAsync(data);
-        }
+        await UserDataRepository.UpdateTrainingHighestScore(data.HighestScore);
+        await UserDataRepository.UpdateCoin(UserDataRepository.Current.Coin + 
+            data.Rewards.FirstOrDefault(x => x.Type == RewardType.Chip)?.Amount ?? 0);
+        await ShowUIHorseTrainingResultAsync(data);
     }
 
     public void Dispose()

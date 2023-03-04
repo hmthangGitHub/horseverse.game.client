@@ -96,6 +96,7 @@ public class WebSocketClient : SocketClientBase, ISocketClient
 
     public override async void Dispose()
     {
+        base.Dispose();
         cts.SafeCancelAndDispose();
         cts = default;
         GameObject.Destroy(gameObject);

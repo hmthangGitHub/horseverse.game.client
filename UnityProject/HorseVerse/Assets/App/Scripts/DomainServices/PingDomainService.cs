@@ -27,7 +27,7 @@ internal class PingDomainService : IDisposable, IPingDomainService
         
         while (!cts.IsCancellationRequested)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(5), cancellationToken : cts.Token);
+            await UniTask.Delay(TimeSpan.FromSeconds(5), ignoreTimeScale : true, cancellationToken : cts.Token);
             await SocketClient.Send<GameMessage, GameMessage>(new GameMessage()
             {
                 MsgType = GameMessageType.PingMessage
