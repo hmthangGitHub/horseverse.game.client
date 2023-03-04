@@ -86,6 +86,7 @@ public class TrainingTrapWoodSpike : TrainingTrap<TrainingTrapWoodSpike.Entity>
 
     protected virtual bool IsReachTarget()
     {
+        if (Directions.Count == 0) return true;
         var pos = Directions[currentTarget];
         if (Vector3.Distance(spike.transform.localPosition, pos) < 1)
         {
@@ -100,7 +101,12 @@ public class TrainingTrapWoodSpike : TrainingTrap<TrainingTrapWoodSpike.Entity>
 
     private void TriggerTarget()
     {
-        if (Directions.Count == 0) return;
+        if (Directions.Count < 2)
+        {
+            isReachedEnd = true;
+            return;
+        }
+
         if (IsPingPong)
         {
             if(isTweenBack)
