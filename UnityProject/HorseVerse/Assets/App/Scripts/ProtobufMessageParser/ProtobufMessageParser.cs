@@ -64,7 +64,9 @@ public class ProtobufMessageParser : IMessageParser
         AddToSerializeLookUpTable<ExitRoomRequest>(x => new RacingMessage(x));
         AddToParseLookUpTable<RacingMessage, RacingMessageType>(RacingMessageType.ExitRoomResponse, x => x.ExitRoomResponse);
         
-        AddToParseLookUpTable<RacingMessage, RacingMessageType>(RacingMessageType.StartRoomReceipt, x => x.StartRoomReceipt);
+        AddToSerializeLookUpTable<StartRoomRequest>(x => new RacingMessage(x));
+        AddToParseLookUpTable<RacingMessage, RacingMessageType>(RacingMessageType.StartRoomResponse, x => x.StartRoomResponse);
+        
         AddToParseLookUpTable<RacingMessage, RacingMessageType>(RacingMessageType.UpdateRoomReceipt, x => x.UpdateRoomReceipt);
         
         AddToSerializeLookUpTable<GetRaceHistoryRequest>(x => new RacingMessage(x));
