@@ -15,11 +15,13 @@ public class UITrainingLeaderBoardRecord : UIComponent<UITrainingLeaderBoardReco
     }
 
     public FormattedTextComponent horseName;
-    public FormattedTextComponent rank;
-    public FormattedTextComponent userRank;
+    public UIComponentOrdinalNumber rank;
+    public UIComponentOrdinalNumber userRank;
     public FormattedTextComponent highestScore;
-    public FormattedTextComponent maxRank;
+    public UIComponentOrdinalNumber maxRank;
     public UITrainingLeaderBoardRankType rankContainer;
+    public IsVisibleComponent leaderBoardRecord1stBorder;
+    public IsVisibleComponent leaderBoardRecordBorder;
     
     protected override void OnSetEntity()
     {
@@ -27,7 +29,9 @@ public class UITrainingLeaderBoardRecord : UIComponent<UITrainingLeaderBoardReco
 	    rank.SetEntity(this.entity.rank);
 	    userRank.SetEntity(this.entity.rank);
 	    highestScore.SetEntity(this.entity.highestScore);
-	    rankContainer.SetEntity(this.entity.rankContainer);
 	    maxRank.SetEntity(this.entity.maxRank);
+	    leaderBoardRecord1stBorder.SetEntity(this.entity.rank != 1);
+	    leaderBoardRecord1stBorder.SetEntity(this.entity.rank == 1);
+	    rankContainer.SetEntity(this.entity.rankContainer);
     }
 }	

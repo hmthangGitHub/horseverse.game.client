@@ -63,7 +63,7 @@ public class UITrainingLeaderBoardPresenter : IDisposable
 
     private async UniTask InstantiateUI()
     {
-        uiTrainingLeaderBoard ??= await UILoader.Instantiate<UITrainingLeaderBoard>(token: cts.Token);
+        uiTrainingLeaderBoard ??= await UILoader.Instantiate<UITrainingLeaderBoard>(UICanvas.UICanvasType.PopUp, token: cts.Token);
     }
 
     public void Dispose()
