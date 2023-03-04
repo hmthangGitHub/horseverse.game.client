@@ -95,7 +95,7 @@ public partial class HorseRacePresenter : IDisposable
             playerHorseIndex = HorseRaceContext.RaceScriptData.
                                                 HorseRaceInfos.
                                                 ToList().
-                                                FindIndex(x => x.Name == HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Name);
+                                                FindIndex(x => HorseRepository.Models.ContainsKey(x.NftHorseId));
         }
         
         await horseRaceManager.InitializeAsync(HorseRaceContext.RaceScriptData.HorseRaceInfos.Select(x => MasterHorseContainer.GetHorseMeshInformation(x.MeshInformation, HorseModelMode.Race)).ToArray(),
