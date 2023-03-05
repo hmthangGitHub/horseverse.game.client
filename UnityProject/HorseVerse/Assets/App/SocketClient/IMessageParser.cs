@@ -1,7 +1,10 @@
-﻿using Google.Protobuf;
+﻿using System.IO;
+using Cysharp.Threading.Tasks;
+using Google.Protobuf;
 
 public interface IMessageParser
 {
-    public IMessage Parse(byte[] rawMessage);
-    public byte[] ToByteArray(IMessage message);
+    IMessage Parse(byte[] rawMessage);
+    byte[] ToByteArray(IMessage message);
+    UniTask<(int size, byte[] sizeByteArray)> GetNextMessageSize(Stream stream);
 }

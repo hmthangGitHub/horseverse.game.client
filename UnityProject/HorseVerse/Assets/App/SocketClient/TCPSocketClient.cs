@@ -14,7 +14,6 @@ public class TCPSocketClient : SocketClientBase
     private NetworkStream stream;
 
 	private TcpClient socketConnection;
-    private int dataBufferSize = 4096;
     #endregion
 
     public static TCPSocketClient Initialize(IMessageParser messageParser, IErrorCodeConfiguration errorCodeConfig)
@@ -76,13 +75,12 @@ public class TCPSocketClient : SocketClientBase
     private async UniTask ReadMessageAsync(TcpClient socketConnection)
     {
         stream = socketConnection.GetStream();
-        var buffer = new byte[dataBufferSize];
         socketSessionCts?.Cancel();
         socketSessionCts = new CancellationTokenSource();
         var cancellationToken = socketSessionCts.Token;
         while (!cancellationToken.IsCancellationRequested)
         {
-            var rawMessage = await stream.ReadRawMessage(buffer).AttachExternalCancellation(cancellationToken : cancellationToken);
+            var rawMessage = await stream.ReadRawMessage(messageParser).AttachExternalCancellation(cancellationToken : cancellationToken);
             OnMessage(rawMessage);
         }
     }

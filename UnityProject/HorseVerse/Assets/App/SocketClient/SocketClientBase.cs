@@ -19,6 +19,7 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
     private int maxRequestTime = 4;
     public event Action OnStartRequest = ActionUtility.EmptyAction.Instance;
     public event Action OnEndRequest = ActionUtility.EmptyAction.Instance;
+    private event Action OnParseMessageError = ActionUtility.EmptyAction.Instance;
     public event Func<UniTask> OnReconnect = () => UniTask.CompletedTask;
     public string Url { get; protected set; }
     public int Port { get; protected set; }
@@ -33,8 +34,18 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
 
     protected void OnMessage(byte[] data)
     {
-        var message = messageParser.Parse(data);
-        Debug.Log($"Received response {message.GetType()} {message}");
+        IMessage message = default;
+        try
+        {
+            message = messageParser.Parse(data);
+            Debug.Log($"Received response {message.GetType()} {message}");
+        }
+        catch
+        {
+            OnParseMessageError.Invoke();
+            throw;
+        }
+        
         if (!messageBroker.Any(message.GetType()))
         {
             VerifyErrorMessage(message);
@@ -44,7 +55,7 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
             messageBroker.Publish(message);
         }
     }
-
+    
     public void Subscribe<T>(Action<T> callback) where T : IMessage
     {
         messageBroker.Subscribe(callback);
@@ -132,6 +143,7 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
         where TResponse : IMessage
     {
         Debug.Log($"Sending request {request.GetType()} {request}");
+        
         var requestUcs = new UniTaskCompletionSource<TResponse>();
         var cts = new CancellationTokenSource();
 
@@ -148,6 +160,11 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
                 throw;
             }
         }
+        
+        void OnParseMessageErrorInternal()
+        {
+            cts.SafeCancelAndDispose();
+        }
 
         messageBroker.Subscribe<TResponse>(OnResponse);
         
@@ -157,6 +174,7 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
         }
 
         await Send<TRequest>(request);
+        OnParseMessageError += OnParseMessageErrorInternal;
         try
         {
             return token == default
@@ -166,6 +184,7 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
         finally
         {
             messageBroker.UnSubscribe<TResponse>(OnResponse);
+            OnParseMessageError -= OnParseMessageErrorInternal;
             cts.SafeCancelAndDispose();
             if (token == default)
             {
@@ -173,6 +192,8 @@ public abstract class SocketClientBase : MonoBehaviour, ISocketClient
             }
         }
     }
+
+    
 
     private void VerifyErrorMessage<TResponse>(TResponse response) where TResponse : IMessage
     {

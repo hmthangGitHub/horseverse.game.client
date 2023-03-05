@@ -9,16 +9,21 @@ using UnityEngine;
 
 public static class StreamExtensions
 {
-    public static async UniTask<byte[]> ReadRawMessage(this Stream stream, byte[] buffer)
+    public static async UniTask<byte[]> ReadRawMessage(this Stream stream, IMessageParser messageParser)
     {
         await UniTask.SwitchToTaskPool();
+        
+        var (size, sizeMessageArray) = await messageParser.GetNextMessageSize(stream);
+        var buffer = new byte [size];
+        
         var length = 0;
         while (length == 0)
         {
-            length = await stream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
+            length = await stream.ReadAsync(buffer, 0, size).ConfigureAwait(false);
         }
+        
         await UniTask.SwitchToMainThread();
-        return buffer.Take(length).ToArray();
+        return buffer;
     }
 
     public static async UniTask SendRawMessage(this Stream stream, byte[] data)
