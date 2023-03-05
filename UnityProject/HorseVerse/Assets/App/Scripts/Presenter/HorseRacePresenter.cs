@@ -181,14 +181,11 @@ public partial class HorseRacePresenter : IDisposable
     {
         var currentTimeScale = Time.timeScale;
         Time.timeScale = 0.0f;
-        await UniTask.Delay(TimeSpan.FromSeconds(0.5f), ignoreTimeScale: true);
-        if(uiFlashScreen != default)
-            await uiFlashScreen.In();
-        await UniTask.Delay(TimeSpan.FromSeconds(0.5f), ignoreTimeScale: true);
-        
+        await UniTask.Delay(TimeSpan.FromSeconds(0.5f), ignoreTimeScale: true, cancellationToken: cts.Token);
+        await uiFlashScreen.In().AttachExternalCancellation(cts.Token);
+        await UniTask.Delay(TimeSpan.FromSeconds(0.5f), ignoreTimeScale: true, cancellationToken: cts.Token);
         Time.timeScale = currentTimeScale;
-        if (uiFlashScreen != default)
-            await uiFlashScreen.Out();
+        await uiFlashScreen.Out().AttachExternalCancellation(cts.Token);
     }
 
     private void UpdateRaceStatus()

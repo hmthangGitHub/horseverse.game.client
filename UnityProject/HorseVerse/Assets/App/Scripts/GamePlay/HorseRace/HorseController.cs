@@ -47,7 +47,7 @@ public partial class HorseController : MonoBehaviour
 
     public async UniTask StartRaceAsync()
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(this.horseInGameData.Delay));
+        await UniTask.Delay(TimeSpan.FromSeconds(this.horseInGameData.Delay), cancellationToken: this.GetCancellationTokenOnDestroy());
         isStarted = true;
         laneContainer.gameObject.SetActive(true);
         timeRange = new Vector2(this.horseInGameData.PredefineTargets.targets.Min(x => x.time),
