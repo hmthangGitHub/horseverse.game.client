@@ -11,8 +11,10 @@ internal class RaceModeChoosingPresenter : IDisposable
     private CancellationTokenSource cts;
     private HorseRaceContext horseRaceContext;
     private UIHeaderPresenter uiHeaderPresenter;
+    private UITouchDisablePresenter uiTouchDisablePresenter;
     private HorseRaceContext HorseRaceContext => horseRaceContext ??= container.Inject<HorseRaceContext>();
     private UIHeaderPresenter UIHeaderPresenter => uiHeaderPresenter ??= container.Inject<UIHeaderPresenter>();
+    private UITouchDisablePresenter UITouchDisablePresenter => uiTouchDisablePresenter ??= container.Inject<UITouchDisablePresenter>();
     public event Action OnFinishChooseRaceMode = ActionUtility.EmptyAction.Instance;
     public event Action OnBack = ActionUtility.EmptyAction.Instance;
     public event Action OnViewHistory = ActionUtility.EmptyAction.Instance;
@@ -68,9 +70,9 @@ internal class RaceModeChoosingPresenter : IDisposable
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
-        uiRacingMode = await UILoader.Instantiate<UIRacingMode>(token: cts.Token);
-        uiTraditionalRoom = await UILoader.Instantiate<UITraditionalRoom>(token: cts.Token);
-        
+
+        await UITouchDisablePresenter.ShowTillFinishTaskAsync(InstantiateUIAsync());
+
         uiRacingMode.SetEntity(new UIRacingMode.Entity()
         {
             isRankLock = true,
@@ -97,6 +99,12 @@ internal class RaceModeChoosingPresenter : IDisposable
         {
             await SelectRaceModeAsync();
         }
+    }
+
+    private async UniTask InstantiateUIAsync()
+    {
+        uiRacingMode = await UILoader.Instantiate<UIRacingMode>(token: cts.Token);
+        uiTraditionalRoom = await UILoader.Instantiate<UITraditionalRoom>(token: cts.Token);
     }
 
     private async UniTask ChangeHeaderTitle()

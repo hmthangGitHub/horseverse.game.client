@@ -1,3 +1,4 @@
+using System;
 using Cinemachine;
 using DG.Tweening;
 using System.Collections;
@@ -46,5 +47,10 @@ public class OnSlowMotion : MonoBehaviour
                 finishSlowMotion = true;
             });
         }    
+    }
+
+    private void OnDestroy()
+    {
+        tween?.Kill(false);
     }
 }
