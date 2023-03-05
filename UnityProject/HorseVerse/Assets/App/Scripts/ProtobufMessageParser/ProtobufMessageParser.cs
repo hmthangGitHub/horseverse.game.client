@@ -5,8 +5,11 @@ using UnityEngine;
 using Google.Protobuf;
 using Google.Protobuf.WellKnownTypes;
 using System;
+using System.IO;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
-public class ProtobufMessageParser : IMessageParser
+public partial class ProtobufMessageParser : IMessageParser
 {
     private readonly Dictionary<System.Enum, Func<ISubMessage, IMessage>> lookUpToMessageFunc = new Dictionary<System.Enum, Func<ISubMessage, IMessage>>();
     private readonly Dictionary<string, Func<Any, ISubMessage>> lookUpToISubMessageFunc = new Dictionary<string, Func<Any, ISubMessage>>();
@@ -109,9 +112,7 @@ public class ProtobufMessageParser : IMessageParser
 
     public IMessage Parse(byte[] rawMessage)
     {
-        var dataFromRawMessageWithSizeAppendAhead = rawMessage.GetDataFromRawMessageWithSizeAppendAhead();
-        
-        var message = GameMessage.Parser.ParseFrom(dataFromRawMessageWithSizeAppendAhead);
+        var message = GameMessage.Parser.ParseFrom(rawMessage);
         if (message.MsgType == GameMessageType.PingMessage)
         {
             return message;
