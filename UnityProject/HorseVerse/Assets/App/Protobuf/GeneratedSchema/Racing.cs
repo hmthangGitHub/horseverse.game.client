@@ -24,7 +24,7 @@ namespace io.hverse.game.protogen {
     static RacingReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgxyYWNpbmcucHJvdG8aCmRhdGEucHJvdG8aDHBsYXllci5wcm90byKXBgoN",
+            "CgxyYWNpbmcucHJvdG8aCmRhdGEucHJvdG8aDHBsYXllci5wcm90byLoBQoN",
             "UmFjaW5nTWVzc2FnZRIjCgdtc2dUeXBlGAEgASgOMhIuUmFjaW5nTWVzc2Fn",
             "ZVR5cGUSLQoRcmFjZVNjcmlwdFJlcXVlc3QYAiABKAsyEi5SYWNlU2NyaXB0",
             "UmVxdWVzdBIvChJyYWNlU2NyaXB0UmVzcG9uc2UYAyABKAsyEy5SYWNlU2Ny",
@@ -33,68 +33,65 @@ namespace io.hverse.game.protogen {
             "bVJlc3BvbnNlEikKD2V4aXRSb29tUmVxdWVzdBgGIAEoCzIQLkV4aXRSb29t",
             "UmVxdWVzdBIrChBleGl0Um9vbVJlc3BvbnNlGAcgASgLMhEuRXhpdFJvb21S",
             "ZXNwb25zZRItChF1cGRhdGVSb29tUmVjZWlwdBgIIAEoCzISLlVwZGF0ZVJv",
-            "b21SZWNlaXB0EisKEHN0YXJ0Um9vbVJlcXVlc3QYCSABKAsyES5TdGFydFJv",
-            "b21SZXF1ZXN0Ei0KEXN0YXJ0Um9vbVJlc3BvbnNlGAogASgLMhIuU3RhcnRS",
-            "b29tUmVzcG9uc2USNQoVZ2V0UmFjZUhpc3RvcnlSZXF1ZXN0GAsgASgLMhYu",
-            "R2V0UmFjZUhpc3RvcnlSZXF1ZXN0EjcKFmdldFJhY2VIaXN0b3J5UmVzcG9u",
-            "c2UYDCABKAsyFy5HZXRSYWNlSGlzdG9yeVJlc3BvbnNlEjMKFGdldFJhY2VE",
-            "ZXRhaWxSZXF1ZXN0GA0gASgLMhUuR2V0UmFjZURldGFpbFJlcXVlc3QSNQoV",
-            "Z2V0UmFjZURldGFpbFJlc3BvbnNlGA4gASgLMhYuR2V0UmFjZURldGFpbFJl",
-            "c3BvbnNlEjMKFGdldFJhY2VSZXBsYXlSZXF1ZXN0GA8gASgLMhUuR2V0UmFj",
-            "ZVJlcGxheVJlcXVlc3QSNQoVZ2V0UmFjZVJlcGxheVJlc3BvbnNlGBAgASgL",
-            "MhYuR2V0UmFjZVJlcGxheVJlc3BvbnNlIpMBCgpIb3JzZVN0YXRzEgwKBHRp",
-            "bWUYASABKAISEQoJbGFuZVN0YXJ0GAIgASgFEg8KB2xhbmVFbmQYAyABKAUS",
-            "EQoJZGVsYXlUaW1lGAQgASgCEg8KB3N0YW1pbmEYBSABKAUSEAoIcG9zaXRp",
-            "b24YBiABKAUSDAoEcmFuaxgHIAEoBRIPCgdob3JzZUlkGAggASgDIkQKBVBo",
-            "YXNlEg0KBXN0YXJ0GAEgASgFEgsKA2VuZBgCIAEoBRIfCgpob3JzZVN0YXRz",
-            "GAMgAygLMgsuSG9yc2VTdGF0cyJZCgpSYWNlU2NyaXB0EhYKBnBoYXNlcxgB",
-            "IAMoCzIGLlBoYXNlEhMKC3RvdGFsTGVuZ3RoGAIgASgFEh4KCmhvcnNlSW5m",
-            "b3MYAyADKAsyCi5Ib3JzZUluZm8iEwoRUmFjZVNjcmlwdFJlcXVlc3QiNQoS",
-            "UmFjZVNjcmlwdFJlc3BvbnNlEh8KCnJhY2VTY3JpcHQYASABKAsyCy5SYWNl",
-            "U2NyaXB0InQKCFJhY2VSb29tEg4KBnJvb21JZBgBIAEoAxIdCgVsZXZlbBgC",
-            "IAEoDjIOLlJhY2VSb29tTGV2ZWwSGQoRdGltZVRvU3RhcnRSYWNpbmcYAyAB",
-            "KAMSHgoKaG9yc2VJbmZvcxgEIAMoCzIKLkhvcnNlSW5mbyJDCg9Kb2luUm9v",
-            "bVJlcXVlc3QSHwoKcmFjaW5nTW9kZRgBIAEoDjILLlJhY2luZ01vZGUSDwoH",
-            "aG9yc2VJZBgCIAEoAyJDChBKb2luUm9vbVJlc3BvbnNlEhIKCnJlc3VsdENv",
-            "ZGUYASABKAUSGwoIcmFjZVJvb20YAiABKAsyCS5SYWNlUm9vbSIiCg9FeGl0",
-            "Um9vbVJlcXVlc3QSDwoHaG9yc2VJZBgBIAEoAyImChBFeGl0Um9vbVJlc3Bv",
-            "bnNlEhIKCnJlc3VsdENvZGUYASABKAUiMAoRVXBkYXRlUm9vbVJlY2VpcHQS",
-            "GwoIcmFjZVJvb20YASABKAsyCS5SYWNlUm9vbSIiChBTdGFydFJvb21SZXF1",
-            "ZXN0Eg4KBnJvb21JZBgBIAEoAyKLAQoRU3RhcnRSb29tUmVzcG9uc2USEgoK",
-            "cmVzdWx0Q29kZRgBIAEoBRIfCgpyYWNlU2NyaXB0GAIgASgLMgsuUmFjZVNj",
-            "cmlwdBIcCgdyZXdhcmRzGAMgAygLMgsuUmV3YXJkSW5mbxIjCgpwbGF5ZXJJ",
-            "bmZvGAQgASgLMg8uTGl0ZVBsYXllckluZm8iqwEKClJhY2VSZWNvcmQSDgoG",
-            "cm9vbUlkGAEgASgDEh0KBWxldmVsGAIgASgOMg4uUmFjZVJvb21MZXZlbBIV",
-            "Cg10aW1lU3RhcnRSYWNlGAMgASgDEh0KCWhvcnNlSW5mbxgEIAEoCzIKLkhv",
-            "cnNlSW5mbxIMCgRsYW5lGAUgASgFEgwKBHJhbmsYBiABKAUSHAoHcmV3YXJk",
-            "cxgHIAMoCzILLlJld2FyZEluZm8ihAEKEFJhY2VEZXRhaWxSZWNvcmQSDgoG",
-            "cm9vbUlkGAEgASgDEg8KB2hvcnNlSWQYAiABKAMSEQoJaG9yc2VOYW1lGAMg",
-            "ASgJEgwKBGxhbmUYBCABKAUSEAoIcmFjZVRpbWUYBSABKAISHAoHcmV3YXJk",
-            "cxgGIAMoCzILLlJld2FyZEluZm8iFwoVR2V0UmFjZUhpc3RvcnlSZXF1ZXN0",
-            "IkoKFkdldFJhY2VIaXN0b3J5UmVzcG9uc2USEgoKcmVzdWx0Q29kZRgBIAEo",
-            "BRIcCgdyZWNvcmRzGAIgAygLMgsuUmFjZVJlY29yZCImChRHZXRSYWNlRGV0",
-            "YWlsUmVxdWVzdBIOCgZyb29tSWQYASABKAMiTwoVR2V0UmFjZURldGFpbFJl",
-            "c3BvbnNlEhIKCnJlc3VsdENvZGUYASABKAUSIgoHcmVjb3JkcxgCIAMoCzIR",
-            "LlJhY2VEZXRhaWxSZWNvcmQiJgoUR2V0UmFjZVJlcGxheVJlcXVlc3QSDgoG",
-            "cm9vbUlkGAEgASgDIkgKFUdldFJhY2VSZXBsYXlSZXNwb25zZRISCgpyZXN1",
-            "bHRDb2RlGAEgASgFEhsKBnNjcmlwdBgCIAEoCzILLlJhY2VTY3JpcHQqoQMK",
-            "EVJhY2luZ01lc3NhZ2VUeXBlEhcKE1JBQ0VfU0NSSVBUX1JFUVVFU1QQABIY",
-            "ChRSQUNFX1NDUklQVF9SRVNQT05TRRABEhUKEUpPSU5fUk9PTV9SRVFVRVNU",
-            "EAISFgoSSk9JTl9ST09NX1JFU1BPTlNFEAMSFQoRRVhJVF9ST09NX1JFUVVF",
-            "U1QQBBIWChJFWElUX1JPT01fUkVTUE9OU0UQBRIXChNVUERBVEVfUk9PTV9S",
-            "RUNFSVBUEAYSFgoSU1RBUlRfUk9PTV9SRVFVRVNUEAcSFwoTU1RBUlRfUk9P",
-            "TV9SRVNQT05TRRAIEhwKGEdFVF9SQUNFX0hJU1RPUllfUkVRVUVTVBAJEh0K",
-            "GUdFVF9SQUNFX0hJU1RPUllfUkVTUE9OU0UQChIbChdHRVRfUkFDRV9ERVRB",
-            "SUxfUkVRVUVTVBALEhwKGEdFVF9SQUNFX0RFVEFJTF9SRVNQT05TRRAMEhsK",
-            "F0dFVF9SQUNFX1JFUExBWV9SRVFVRVNUEA0SHAoYR0VUX1JBQ0VfUkVQTEFZ",
-            "X1JFU1BPTlNFEA4qQwoKUmFjaW5nTW9kZRIPCgtUUkFESVRJT05BTBAAEgoK",
-            "BlNUQUJMRRABEggKBFJBTksQAhIOCgpUT1VSTkFNRU5UEANCSQoXaW8uaHZl",
-            "cnNlLmdhbWUucHJvdG9nZW5CFFJhY2luZ01lc3NhZ2VGYWN0b3J5qgIXaW8u",
-            "aHZlcnNlLmdhbWUucHJvdG9nZW5iBnByb3RvMw=="));
+            "b21SZWNlaXB0EisKEHN0YXJ0Um9vbVJlY2VpcHQYCSABKAsyES5TdGFydFJv",
+            "b21SZWNlaXB0EjUKFWdldFJhY2VIaXN0b3J5UmVxdWVzdBgKIAEoCzIWLkdl",
+            "dFJhY2VIaXN0b3J5UmVxdWVzdBI3ChZnZXRSYWNlSGlzdG9yeVJlc3BvbnNl",
+            "GAsgASgLMhcuR2V0UmFjZUhpc3RvcnlSZXNwb25zZRIzChRnZXRSYWNlRGV0",
+            "YWlsUmVxdWVzdBgMIAEoCzIVLkdldFJhY2VEZXRhaWxSZXF1ZXN0EjUKFWdl",
+            "dFJhY2VEZXRhaWxSZXNwb25zZRgNIAEoCzIWLkdldFJhY2VEZXRhaWxSZXNw",
+            "b25zZRIzChRnZXRSYWNlUmVwbGF5UmVxdWVzdBgOIAEoCzIVLkdldFJhY2VS",
+            "ZXBsYXlSZXF1ZXN0EjUKFWdldFJhY2VSZXBsYXlSZXNwb25zZRgPIAEoCzIW",
+            "LkdldFJhY2VSZXBsYXlSZXNwb25zZSKTAQoKSG9yc2VTdGF0cxIMCgR0aW1l",
+            "GAEgASgCEhEKCWxhbmVTdGFydBgCIAEoBRIPCgdsYW5lRW5kGAMgASgFEhEK",
+            "CWRlbGF5VGltZRgEIAEoAhIPCgdzdGFtaW5hGAUgASgFEhAKCHBvc2l0aW9u",
+            "GAYgASgFEgwKBHJhbmsYByABKAUSDwoHaG9yc2VJZBgIIAEoAyJECgVQaGFz",
+            "ZRINCgVzdGFydBgBIAEoBRILCgNlbmQYAiABKAUSHwoKaG9yc2VTdGF0cxgD",
+            "IAMoCzILLkhvcnNlU3RhdHMiWQoKUmFjZVNjcmlwdBIWCgZwaGFzZXMYASAD",
+            "KAsyBi5QaGFzZRITCgt0b3RhbExlbmd0aBgCIAEoBRIeCgpob3JzZUluZm9z",
+            "GAMgAygLMgouSG9yc2VJbmZvIhMKEVJhY2VTY3JpcHRSZXF1ZXN0IjUKElJh",
+            "Y2VTY3JpcHRSZXNwb25zZRIfCgpyYWNlU2NyaXB0GAEgASgLMgsuUmFjZVNj",
+            "cmlwdCJ0CghSYWNlUm9vbRIOCgZyb29tSWQYASABKAMSHQoFbGV2ZWwYAiAB",
+            "KA4yDi5SYWNlUm9vbUxldmVsEhkKEXRpbWVUb1N0YXJ0UmFjaW5nGAMgASgD",
+            "Eh4KCmhvcnNlSW5mb3MYBCADKAsyCi5Ib3JzZUluZm8iQwoPSm9pblJvb21S",
+            "ZXF1ZXN0Eh8KCnJhY2luZ01vZGUYASABKA4yCy5SYWNpbmdNb2RlEg8KB2hv",
+            "cnNlSWQYAiABKAMiQwoQSm9pblJvb21SZXNwb25zZRISCgpyZXN1bHRDb2Rl",
+            "GAEgASgFEhsKCHJhY2VSb29tGAIgASgLMgkuUmFjZVJvb20iIgoPRXhpdFJv",
+            "b21SZXF1ZXN0Eg8KB2hvcnNlSWQYASABKAMiJgoQRXhpdFJvb21SZXNwb25z",
+            "ZRISCgpyZXN1bHRDb2RlGAEgASgFIjAKEVVwZGF0ZVJvb21SZWNlaXB0EhsK",
+            "CHJhY2VSb29tGAEgASgLMgkuUmFjZVJvb20idgoQU3RhcnRSb29tUmVjZWlw",
+            "dBIfCgpyYWNlU2NyaXB0GAEgASgLMgsuUmFjZVNjcmlwdBIcCgdyZXdhcmRz",
+            "GAIgAygLMgsuUmV3YXJkSW5mbxIjCgpwbGF5ZXJJbmZvGAMgASgLMg8uTGl0",
+            "ZVBsYXllckluZm8iqwEKClJhY2VSZWNvcmQSDgoGcm9vbUlkGAEgASgDEh0K",
+            "BWxldmVsGAIgASgOMg4uUmFjZVJvb21MZXZlbBIVCg10aW1lU3RhcnRSYWNl",
+            "GAMgASgDEh0KCWhvcnNlSW5mbxgEIAEoCzIKLkhvcnNlSW5mbxIMCgRsYW5l",
+            "GAUgASgFEgwKBHJhbmsYBiABKAUSHAoHcmV3YXJkcxgHIAMoCzILLlJld2Fy",
+            "ZEluZm8ihAEKEFJhY2VEZXRhaWxSZWNvcmQSDgoGcm9vbUlkGAEgASgDEg8K",
+            "B2hvcnNlSWQYAiABKAMSEQoJaG9yc2VOYW1lGAMgASgJEgwKBGxhbmUYBCAB",
+            "KAUSEAoIcmFjZVRpbWUYBSABKAISHAoHcmV3YXJkcxgGIAMoCzILLlJld2Fy",
+            "ZEluZm8iFwoVR2V0UmFjZUhpc3RvcnlSZXF1ZXN0IkoKFkdldFJhY2VIaXN0",
+            "b3J5UmVzcG9uc2USEgoKcmVzdWx0Q29kZRgBIAEoBRIcCgdyZWNvcmRzGAIg",
+            "AygLMgsuUmFjZVJlY29yZCImChRHZXRSYWNlRGV0YWlsUmVxdWVzdBIOCgZy",
+            "b29tSWQYASABKAMiTwoVR2V0UmFjZURldGFpbFJlc3BvbnNlEhIKCnJlc3Vs",
+            "dENvZGUYASABKAUSIgoHcmVjb3JkcxgCIAMoCzIRLlJhY2VEZXRhaWxSZWNv",
+            "cmQiJgoUR2V0UmFjZVJlcGxheVJlcXVlc3QSDgoGcm9vbUlkGAEgASgDIkgK",
+            "FUdldFJhY2VSZXBsYXlSZXNwb25zZRISCgpyZXN1bHRDb2RlGAEgASgFEhsK",
+            "BnNjcmlwdBgCIAEoCzILLlJhY2VTY3JpcHQqiAMKEVJhY2luZ01lc3NhZ2VU",
+            "eXBlEhcKE1JBQ0VfU0NSSVBUX1JFUVVFU1QQABIYChRSQUNFX1NDUklQVF9S",
+            "RVNQT05TRRABEhUKEUpPSU5fUk9PTV9SRVFVRVNUEAISFgoSSk9JTl9ST09N",
+            "X1JFU1BPTlNFEAMSFQoRRVhJVF9ST09NX1JFUVVFU1QQBBIWChJFWElUX1JP",
+            "T01fUkVTUE9OU0UQBRIXChNVUERBVEVfUk9PTV9SRUNFSVBUEAYSFgoSU1RB",
+            "UlRfUk9PTV9SRUNFSVBUEAcSHAoYR0VUX1JBQ0VfSElTVE9SWV9SRVFVRVNU",
+            "EAgSHQoZR0VUX1JBQ0VfSElTVE9SWV9SRVNQT05TRRAJEhsKF0dFVF9SQUNF",
+            "X0RFVEFJTF9SRVFVRVNUEAoSHAoYR0VUX1JBQ0VfREVUQUlMX1JFU1BPTlNF",
+            "EAsSGwoXR0VUX1JBQ0VfUkVQTEFZX1JFUVVFU1QQDBIcChhHRVRfUkFDRV9S",
+            "RVBMQVlfUkVTUE9OU0UQDSpDCgpSYWNpbmdNb2RlEg8KC1RSQURJVElPTkFM",
+            "EAASCgoGU1RBQkxFEAESCAoEUkFOSxACEg4KClRPVVJOQU1FTlQQA0JJChdp",
+            "by5odmVyc2UuZ2FtZS5wcm90b2dlbkIUUmFjaW5nTWVzc2FnZUZhY3Rvcnmq",
+            "Ahdpby5odmVyc2UuZ2FtZS5wcm90b2dlbmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::io.hverse.game.protogen.DataReflection.Descriptor, global::io.hverse.game.protogen.PlayerReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.RacingMessageType), typeof(global::io.hverse.game.protogen.RacingMode), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RacingMessage), global::io.hverse.game.protogen.RacingMessage.Parser, new[]{ "MsgType", "RaceScriptRequest", "RaceScriptResponse", "JoinRoomRequest", "JoinRoomResponse", "ExitRoomRequest", "ExitRoomResponse", "UpdateRoomReceipt", "StartRoomRequest", "StartRoomResponse", "GetRaceHistoryRequest", "GetRaceHistoryResponse", "GetRaceDetailRequest", "GetRaceDetailResponse", "GetRaceReplayRequest", "GetRaceReplayResponse" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RacingMessage), global::io.hverse.game.protogen.RacingMessage.Parser, new[]{ "MsgType", "RaceScriptRequest", "RaceScriptResponse", "JoinRoomRequest", "JoinRoomResponse", "ExitRoomRequest", "ExitRoomResponse", "UpdateRoomReceipt", "StartRoomReceipt", "GetRaceHistoryRequest", "GetRaceHistoryResponse", "GetRaceDetailRequest", "GetRaceDetailResponse", "GetRaceReplayRequest", "GetRaceReplayResponse" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseStats), global::io.hverse.game.protogen.HorseStats.Parser, new[]{ "Time", "LaneStart", "LaneEnd", "DelayTime", "Stamina", "Position", "Rank", "HorseId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.Phase), global::io.hverse.game.protogen.Phase.Parser, new[]{ "Start", "End", "HorseStats" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RaceScript), global::io.hverse.game.protogen.RaceScript.Parser, new[]{ "Phases", "TotalLength", "HorseInfos" }, null, null, null, null),
@@ -106,8 +103,7 @@ namespace io.hverse.game.protogen {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ExitRoomRequest), global::io.hverse.game.protogen.ExitRoomRequest.Parser, new[]{ "HorseId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ExitRoomResponse), global::io.hverse.game.protogen.ExitRoomResponse.Parser, new[]{ "ResultCode" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.UpdateRoomReceipt), global::io.hverse.game.protogen.UpdateRoomReceipt.Parser, new[]{ "RaceRoom" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.StartRoomRequest), global::io.hverse.game.protogen.StartRoomRequest.Parser, new[]{ "RoomId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.StartRoomResponse), global::io.hverse.game.protogen.StartRoomResponse.Parser, new[]{ "ResultCode", "RaceScript", "Rewards", "PlayerInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.StartRoomReceipt), global::io.hverse.game.protogen.StartRoomReceipt.Parser, new[]{ "RaceScript", "Rewards", "PlayerInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RaceRecord), global::io.hverse.game.protogen.RaceRecord.Parser, new[]{ "RoomId", "Level", "TimeStartRace", "HorseInfo", "Lane", "Rank", "Rewards" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RaceDetailRecord), global::io.hverse.game.protogen.RaceDetailRecord.Parser, new[]{ "RoomId", "HorseId", "HorseName", "Lane", "RaceTime", "Rewards" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.GetRaceHistoryRequest), global::io.hverse.game.protogen.GetRaceHistoryRequest.Parser, null, null, null, null, null),
@@ -130,14 +126,13 @@ namespace io.hverse.game.protogen {
     [pbr::OriginalName("EXIT_ROOM_REQUEST")] ExitRoomRequest = 4,
     [pbr::OriginalName("EXIT_ROOM_RESPONSE")] ExitRoomResponse = 5,
     [pbr::OriginalName("UPDATE_ROOM_RECEIPT")] UpdateRoomReceipt = 6,
-    [pbr::OriginalName("START_ROOM_REQUEST")] StartRoomRequest = 7,
-    [pbr::OriginalName("START_ROOM_RESPONSE")] StartRoomResponse = 8,
-    [pbr::OriginalName("GET_RACE_HISTORY_REQUEST")] GetRaceHistoryRequest = 9,
-    [pbr::OriginalName("GET_RACE_HISTORY_RESPONSE")] GetRaceHistoryResponse = 10,
-    [pbr::OriginalName("GET_RACE_DETAIL_REQUEST")] GetRaceDetailRequest = 11,
-    [pbr::OriginalName("GET_RACE_DETAIL_RESPONSE")] GetRaceDetailResponse = 12,
-    [pbr::OriginalName("GET_RACE_REPLAY_REQUEST")] GetRaceReplayRequest = 13,
-    [pbr::OriginalName("GET_RACE_REPLAY_RESPONSE")] GetRaceReplayResponse = 14,
+    [pbr::OriginalName("START_ROOM_RECEIPT")] StartRoomReceipt = 7,
+    [pbr::OriginalName("GET_RACE_HISTORY_REQUEST")] GetRaceHistoryRequest = 8,
+    [pbr::OriginalName("GET_RACE_HISTORY_RESPONSE")] GetRaceHistoryResponse = 9,
+    [pbr::OriginalName("GET_RACE_DETAIL_REQUEST")] GetRaceDetailRequest = 10,
+    [pbr::OriginalName("GET_RACE_DETAIL_RESPONSE")] GetRaceDetailResponse = 11,
+    [pbr::OriginalName("GET_RACE_REPLAY_REQUEST")] GetRaceReplayRequest = 12,
+    [pbr::OriginalName("GET_RACE_REPLAY_RESPONSE")] GetRaceReplayResponse = 13,
   }
 
   public enum RacingMode {
@@ -192,8 +187,7 @@ namespace io.hverse.game.protogen {
       exitRoomRequest_ = other.exitRoomRequest_ != null ? other.exitRoomRequest_.Clone() : null;
       exitRoomResponse_ = other.exitRoomResponse_ != null ? other.exitRoomResponse_.Clone() : null;
       updateRoomReceipt_ = other.updateRoomReceipt_ != null ? other.updateRoomReceipt_.Clone() : null;
-      startRoomRequest_ = other.startRoomRequest_ != null ? other.startRoomRequest_.Clone() : null;
-      startRoomResponse_ = other.startRoomResponse_ != null ? other.startRoomResponse_.Clone() : null;
+      startRoomReceipt_ = other.startRoomReceipt_ != null ? other.startRoomReceipt_.Clone() : null;
       getRaceHistoryRequest_ = other.getRaceHistoryRequest_ != null ? other.getRaceHistoryRequest_.Clone() : null;
       getRaceHistoryResponse_ = other.getRaceHistoryResponse_ != null ? other.getRaceHistoryResponse_.Clone() : null;
       getRaceDetailRequest_ = other.getRaceDetailRequest_ != null ? other.getRaceDetailRequest_.Clone() : null;
@@ -305,32 +299,20 @@ namespace io.hverse.game.protogen {
       }
     }
 
-    /// <summary>Field number for the "startRoomRequest" field.</summary>
-    public const int StartRoomRequestFieldNumber = 9;
-    private global::io.hverse.game.protogen.StartRoomRequest startRoomRequest_;
+    /// <summary>Field number for the "startRoomReceipt" field.</summary>
+    public const int StartRoomReceiptFieldNumber = 9;
+    private global::io.hverse.game.protogen.StartRoomReceipt startRoomReceipt_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.StartRoomRequest StartRoomRequest {
-      get { return startRoomRequest_; }
+    public global::io.hverse.game.protogen.StartRoomReceipt StartRoomReceipt {
+      get { return startRoomReceipt_; }
       set {
-        startRoomRequest_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "startRoomResponse" field.</summary>
-    public const int StartRoomResponseFieldNumber = 10;
-    private global::io.hverse.game.protogen.StartRoomResponse startRoomResponse_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::io.hverse.game.protogen.StartRoomResponse StartRoomResponse {
-      get { return startRoomResponse_; }
-      set {
-        startRoomResponse_ = value;
+        startRoomReceipt_ = value;
       }
     }
 
     /// <summary>Field number for the "getRaceHistoryRequest" field.</summary>
-    public const int GetRaceHistoryRequestFieldNumber = 11;
+    public const int GetRaceHistoryRequestFieldNumber = 10;
     private global::io.hverse.game.protogen.GetRaceHistoryRequest getRaceHistoryRequest_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -342,7 +324,7 @@ namespace io.hverse.game.protogen {
     }
 
     /// <summary>Field number for the "getRaceHistoryResponse" field.</summary>
-    public const int GetRaceHistoryResponseFieldNumber = 12;
+    public const int GetRaceHistoryResponseFieldNumber = 11;
     private global::io.hverse.game.protogen.GetRaceHistoryResponse getRaceHistoryResponse_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -354,7 +336,7 @@ namespace io.hverse.game.protogen {
     }
 
     /// <summary>Field number for the "getRaceDetailRequest" field.</summary>
-    public const int GetRaceDetailRequestFieldNumber = 13;
+    public const int GetRaceDetailRequestFieldNumber = 12;
     private global::io.hverse.game.protogen.GetRaceDetailRequest getRaceDetailRequest_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -366,7 +348,7 @@ namespace io.hverse.game.protogen {
     }
 
     /// <summary>Field number for the "getRaceDetailResponse" field.</summary>
-    public const int GetRaceDetailResponseFieldNumber = 14;
+    public const int GetRaceDetailResponseFieldNumber = 13;
     private global::io.hverse.game.protogen.GetRaceDetailResponse getRaceDetailResponse_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -378,7 +360,7 @@ namespace io.hverse.game.protogen {
     }
 
     /// <summary>Field number for the "getRaceReplayRequest" field.</summary>
-    public const int GetRaceReplayRequestFieldNumber = 15;
+    public const int GetRaceReplayRequestFieldNumber = 14;
     private global::io.hverse.game.protogen.GetRaceReplayRequest getRaceReplayRequest_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -390,7 +372,7 @@ namespace io.hverse.game.protogen {
     }
 
     /// <summary>Field number for the "getRaceReplayResponse" field.</summary>
-    public const int GetRaceReplayResponseFieldNumber = 16;
+    public const int GetRaceReplayResponseFieldNumber = 15;
     private global::io.hverse.game.protogen.GetRaceReplayResponse getRaceReplayResponse_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -424,8 +406,7 @@ namespace io.hverse.game.protogen {
       if (!object.Equals(ExitRoomRequest, other.ExitRoomRequest)) return false;
       if (!object.Equals(ExitRoomResponse, other.ExitRoomResponse)) return false;
       if (!object.Equals(UpdateRoomReceipt, other.UpdateRoomReceipt)) return false;
-      if (!object.Equals(StartRoomRequest, other.StartRoomRequest)) return false;
-      if (!object.Equals(StartRoomResponse, other.StartRoomResponse)) return false;
+      if (!object.Equals(StartRoomReceipt, other.StartRoomReceipt)) return false;
       if (!object.Equals(GetRaceHistoryRequest, other.GetRaceHistoryRequest)) return false;
       if (!object.Equals(GetRaceHistoryResponse, other.GetRaceHistoryResponse)) return false;
       if (!object.Equals(GetRaceDetailRequest, other.GetRaceDetailRequest)) return false;
@@ -447,8 +428,7 @@ namespace io.hverse.game.protogen {
       if (exitRoomRequest_ != null) hash ^= ExitRoomRequest.GetHashCode();
       if (exitRoomResponse_ != null) hash ^= ExitRoomResponse.GetHashCode();
       if (updateRoomReceipt_ != null) hash ^= UpdateRoomReceipt.GetHashCode();
-      if (startRoomRequest_ != null) hash ^= StartRoomRequest.GetHashCode();
-      if (startRoomResponse_ != null) hash ^= StartRoomResponse.GetHashCode();
+      if (startRoomReceipt_ != null) hash ^= StartRoomReceipt.GetHashCode();
       if (getRaceHistoryRequest_ != null) hash ^= GetRaceHistoryRequest.GetHashCode();
       if (getRaceHistoryResponse_ != null) hash ^= GetRaceHistoryResponse.GetHashCode();
       if (getRaceDetailRequest_ != null) hash ^= GetRaceDetailRequest.GetHashCode();
@@ -505,36 +485,32 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(66);
         output.WriteMessage(UpdateRoomReceipt);
       }
-      if (startRoomRequest_ != null) {
+      if (startRoomReceipt_ != null) {
         output.WriteRawTag(74);
-        output.WriteMessage(StartRoomRequest);
-      }
-      if (startRoomResponse_ != null) {
-        output.WriteRawTag(82);
-        output.WriteMessage(StartRoomResponse);
+        output.WriteMessage(StartRoomReceipt);
       }
       if (getRaceHistoryRequest_ != null) {
-        output.WriteRawTag(90);
+        output.WriteRawTag(82);
         output.WriteMessage(GetRaceHistoryRequest);
       }
       if (getRaceHistoryResponse_ != null) {
-        output.WriteRawTag(98);
+        output.WriteRawTag(90);
         output.WriteMessage(GetRaceHistoryResponse);
       }
       if (getRaceDetailRequest_ != null) {
-        output.WriteRawTag(106);
+        output.WriteRawTag(98);
         output.WriteMessage(GetRaceDetailRequest);
       }
       if (getRaceDetailResponse_ != null) {
-        output.WriteRawTag(114);
+        output.WriteRawTag(106);
         output.WriteMessage(GetRaceDetailResponse);
       }
       if (getRaceReplayRequest_ != null) {
-        output.WriteRawTag(122);
+        output.WriteRawTag(114);
         output.WriteMessage(GetRaceReplayRequest);
       }
       if (getRaceReplayResponse_ != null) {
-        output.WriteRawTag(130, 1);
+        output.WriteRawTag(122);
         output.WriteMessage(GetRaceReplayResponse);
       }
       if (_unknownFields != null) {
@@ -579,36 +555,32 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(66);
         output.WriteMessage(UpdateRoomReceipt);
       }
-      if (startRoomRequest_ != null) {
+      if (startRoomReceipt_ != null) {
         output.WriteRawTag(74);
-        output.WriteMessage(StartRoomRequest);
-      }
-      if (startRoomResponse_ != null) {
-        output.WriteRawTag(82);
-        output.WriteMessage(StartRoomResponse);
+        output.WriteMessage(StartRoomReceipt);
       }
       if (getRaceHistoryRequest_ != null) {
-        output.WriteRawTag(90);
+        output.WriteRawTag(82);
         output.WriteMessage(GetRaceHistoryRequest);
       }
       if (getRaceHistoryResponse_ != null) {
-        output.WriteRawTag(98);
+        output.WriteRawTag(90);
         output.WriteMessage(GetRaceHistoryResponse);
       }
       if (getRaceDetailRequest_ != null) {
-        output.WriteRawTag(106);
+        output.WriteRawTag(98);
         output.WriteMessage(GetRaceDetailRequest);
       }
       if (getRaceDetailResponse_ != null) {
-        output.WriteRawTag(114);
+        output.WriteRawTag(106);
         output.WriteMessage(GetRaceDetailResponse);
       }
       if (getRaceReplayRequest_ != null) {
-        output.WriteRawTag(122);
+        output.WriteRawTag(114);
         output.WriteMessage(GetRaceReplayRequest);
       }
       if (getRaceReplayResponse_ != null) {
-        output.WriteRawTag(130, 1);
+        output.WriteRawTag(122);
         output.WriteMessage(GetRaceReplayResponse);
       }
       if (_unknownFields != null) {
@@ -645,11 +617,8 @@ namespace io.hverse.game.protogen {
       if (updateRoomReceipt_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(UpdateRoomReceipt);
       }
-      if (startRoomRequest_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(StartRoomRequest);
-      }
-      if (startRoomResponse_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(StartRoomResponse);
+      if (startRoomReceipt_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(StartRoomReceipt);
       }
       if (getRaceHistoryRequest_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetRaceHistoryRequest);
@@ -667,7 +636,7 @@ namespace io.hverse.game.protogen {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetRaceReplayRequest);
       }
       if (getRaceReplayResponse_ != null) {
-        size += 2 + pb::CodedOutputStream.ComputeMessageSize(GetRaceReplayResponse);
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GetRaceReplayResponse);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -726,17 +695,11 @@ namespace io.hverse.game.protogen {
         }
         UpdateRoomReceipt.MergeFrom(other.UpdateRoomReceipt);
       }
-      if (other.startRoomRequest_ != null) {
-        if (startRoomRequest_ == null) {
-          StartRoomRequest = new global::io.hverse.game.protogen.StartRoomRequest();
+      if (other.startRoomReceipt_ != null) {
+        if (startRoomReceipt_ == null) {
+          StartRoomReceipt = new global::io.hverse.game.protogen.StartRoomReceipt();
         }
-        StartRoomRequest.MergeFrom(other.StartRoomRequest);
-      }
-      if (other.startRoomResponse_ != null) {
-        if (startRoomResponse_ == null) {
-          StartRoomResponse = new global::io.hverse.game.protogen.StartRoomResponse();
-        }
-        StartRoomResponse.MergeFrom(other.StartRoomResponse);
+        StartRoomReceipt.MergeFrom(other.StartRoomReceipt);
       }
       if (other.getRaceHistoryRequest_ != null) {
         if (getRaceHistoryRequest_ == null) {
@@ -843,55 +806,48 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 74: {
-            if (startRoomRequest_ == null) {
-              StartRoomRequest = new global::io.hverse.game.protogen.StartRoomRequest();
+            if (startRoomReceipt_ == null) {
+              StartRoomReceipt = new global::io.hverse.game.protogen.StartRoomReceipt();
             }
-            input.ReadMessage(StartRoomRequest);
+            input.ReadMessage(StartRoomReceipt);
             break;
           }
           case 82: {
-            if (startRoomResponse_ == null) {
-              StartRoomResponse = new global::io.hverse.game.protogen.StartRoomResponse();
-            }
-            input.ReadMessage(StartRoomResponse);
-            break;
-          }
-          case 90: {
             if (getRaceHistoryRequest_ == null) {
               GetRaceHistoryRequest = new global::io.hverse.game.protogen.GetRaceHistoryRequest();
             }
             input.ReadMessage(GetRaceHistoryRequest);
             break;
           }
-          case 98: {
+          case 90: {
             if (getRaceHistoryResponse_ == null) {
               GetRaceHistoryResponse = new global::io.hverse.game.protogen.GetRaceHistoryResponse();
             }
             input.ReadMessage(GetRaceHistoryResponse);
             break;
           }
-          case 106: {
+          case 98: {
             if (getRaceDetailRequest_ == null) {
               GetRaceDetailRequest = new global::io.hverse.game.protogen.GetRaceDetailRequest();
             }
             input.ReadMessage(GetRaceDetailRequest);
             break;
           }
-          case 114: {
+          case 106: {
             if (getRaceDetailResponse_ == null) {
               GetRaceDetailResponse = new global::io.hverse.game.protogen.GetRaceDetailResponse();
             }
             input.ReadMessage(GetRaceDetailResponse);
             break;
           }
-          case 122: {
+          case 114: {
             if (getRaceReplayRequest_ == null) {
               GetRaceReplayRequest = new global::io.hverse.game.protogen.GetRaceReplayRequest();
             }
             input.ReadMessage(GetRaceReplayRequest);
             break;
           }
-          case 130: {
+          case 122: {
             if (getRaceReplayResponse_ == null) {
               GetRaceReplayResponse = new global::io.hverse.game.protogen.GetRaceReplayResponse();
             }
@@ -967,55 +923,48 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 74: {
-            if (startRoomRequest_ == null) {
-              StartRoomRequest = new global::io.hverse.game.protogen.StartRoomRequest();
+            if (startRoomReceipt_ == null) {
+              StartRoomReceipt = new global::io.hverse.game.protogen.StartRoomReceipt();
             }
-            input.ReadMessage(StartRoomRequest);
+            input.ReadMessage(StartRoomReceipt);
             break;
           }
           case 82: {
-            if (startRoomResponse_ == null) {
-              StartRoomResponse = new global::io.hverse.game.protogen.StartRoomResponse();
-            }
-            input.ReadMessage(StartRoomResponse);
-            break;
-          }
-          case 90: {
             if (getRaceHistoryRequest_ == null) {
               GetRaceHistoryRequest = new global::io.hverse.game.protogen.GetRaceHistoryRequest();
             }
             input.ReadMessage(GetRaceHistoryRequest);
             break;
           }
-          case 98: {
+          case 90: {
             if (getRaceHistoryResponse_ == null) {
               GetRaceHistoryResponse = new global::io.hverse.game.protogen.GetRaceHistoryResponse();
             }
             input.ReadMessage(GetRaceHistoryResponse);
             break;
           }
-          case 106: {
+          case 98: {
             if (getRaceDetailRequest_ == null) {
               GetRaceDetailRequest = new global::io.hverse.game.protogen.GetRaceDetailRequest();
             }
             input.ReadMessage(GetRaceDetailRequest);
             break;
           }
-          case 114: {
+          case 106: {
             if (getRaceDetailResponse_ == null) {
               GetRaceDetailResponse = new global::io.hverse.game.protogen.GetRaceDetailResponse();
             }
             input.ReadMessage(GetRaceDetailResponse);
             break;
           }
-          case 122: {
+          case 114: {
             if (getRaceReplayRequest_ == null) {
               GetRaceReplayRequest = new global::io.hverse.game.protogen.GetRaceReplayRequest();
             }
             input.ReadMessage(GetRaceReplayRequest);
             break;
           }
-          case 130: {
+          case 122: {
             if (getRaceReplayResponse_ == null) {
               GetRaceReplayResponse = new global::io.hverse.game.protogen.GetRaceReplayResponse();
             }
@@ -3646,16 +3595,16 @@ namespace io.hverse.game.protogen {
 
   }
 
-  public sealed partial class StartRoomRequest : pb::IMessage<StartRoomRequest>
+  public sealed partial class StartRoomReceipt : pb::IMessage<StartRoomReceipt>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<StartRoomRequest> _parser = new pb::MessageParser<StartRoomRequest>(() => new StartRoomRequest());
+    private static readonly pb::MessageParser<StartRoomReceipt> _parser = new pb::MessageParser<StartRoomReceipt>(() => new StartRoomReceipt());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<StartRoomRequest> Parser { get { return _parser; } }
+    public static pb::MessageParser<StartRoomReceipt> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3671,7 +3620,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public StartRoomRequest() {
+    public StartRoomReceipt() {
       OnConstruction();
     }
 
@@ -3679,197 +3628,7 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public StartRoomRequest(StartRoomRequest other) : this() {
-      roomId_ = other.roomId_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public StartRoomRequest Clone() {
-      return new StartRoomRequest(this);
-    }
-
-    /// <summary>Field number for the "roomId" field.</summary>
-    public const int RoomIdFieldNumber = 1;
-    private long roomId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public long RoomId {
-      get { return roomId_; }
-      set {
-        roomId_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as StartRoomRequest);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(StartRoomRequest other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (RoomId != other.RoomId) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (RoomId != 0L) hash ^= RoomId.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (RoomId != 0L) {
-        output.WriteRawTag(8);
-        output.WriteInt64(RoomId);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (RoomId != 0L) {
-        output.WriteRawTag(8);
-        output.WriteInt64(RoomId);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (RoomId != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(RoomId);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(StartRoomRequest other) {
-      if (other == null) {
-        return;
-      }
-      if (other.RoomId != 0L) {
-        RoomId = other.RoomId;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 8: {
-            RoomId = input.ReadInt64();
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 8: {
-            RoomId = input.ReadInt64();
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  public sealed partial class StartRoomResponse : pb::IMessage<StartRoomResponse>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<StartRoomResponse> _parser = new pb::MessageParser<StartRoomResponse>(() => new StartRoomResponse());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<StartRoomResponse> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.RacingReflection.Descriptor.MessageTypes[13]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public StartRoomResponse() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public StartRoomResponse(StartRoomResponse other) : this() {
-      resultCode_ = other.resultCode_;
+    public StartRoomReceipt(StartRoomReceipt other) : this() {
       raceScript_ = other.raceScript_ != null ? other.raceScript_.Clone() : null;
       rewards_ = other.rewards_.Clone();
       playerInfo_ = other.playerInfo_ != null ? other.playerInfo_.Clone() : null;
@@ -3878,24 +3637,12 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public StartRoomResponse Clone() {
-      return new StartRoomResponse(this);
-    }
-
-    /// <summary>Field number for the "resultCode" field.</summary>
-    public const int ResultCodeFieldNumber = 1;
-    private int resultCode_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int ResultCode {
-      get { return resultCode_; }
-      set {
-        resultCode_ = value;
-      }
+    public StartRoomReceipt Clone() {
+      return new StartRoomReceipt(this);
     }
 
     /// <summary>Field number for the "raceScript" field.</summary>
-    public const int RaceScriptFieldNumber = 2;
+    public const int RaceScriptFieldNumber = 1;
     private global::io.hverse.game.protogen.RaceScript raceScript_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3907,9 +3654,9 @@ namespace io.hverse.game.protogen {
     }
 
     /// <summary>Field number for the "rewards" field.</summary>
-    public const int RewardsFieldNumber = 3;
+    public const int RewardsFieldNumber = 2;
     private static readonly pb::FieldCodec<global::io.hverse.game.protogen.RewardInfo> _repeated_rewards_codec
-        = pb::FieldCodec.ForMessage(26, global::io.hverse.game.protogen.RewardInfo.Parser);
+        = pb::FieldCodec.ForMessage(18, global::io.hverse.game.protogen.RewardInfo.Parser);
     private readonly pbc::RepeatedField<global::io.hverse.game.protogen.RewardInfo> rewards_ = new pbc::RepeatedField<global::io.hverse.game.protogen.RewardInfo>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3918,7 +3665,7 @@ namespace io.hverse.game.protogen {
     }
 
     /// <summary>Field number for the "playerInfo" field.</summary>
-    public const int PlayerInfoFieldNumber = 4;
+    public const int PlayerInfoFieldNumber = 3;
     private global::io.hverse.game.protogen.LitePlayerInfo playerInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3932,19 +3679,18 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as StartRoomResponse);
+      return Equals(other as StartRoomReceipt);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(StartRoomResponse other) {
+    public bool Equals(StartRoomReceipt other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (ResultCode != other.ResultCode) return false;
       if (!object.Equals(RaceScript, other.RaceScript)) return false;
       if(!rewards_.Equals(other.rewards_)) return false;
       if (!object.Equals(PlayerInfo, other.PlayerInfo)) return false;
@@ -3955,7 +3701,6 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (ResultCode != 0) hash ^= ResultCode.GetHashCode();
       if (raceScript_ != null) hash ^= RaceScript.GetHashCode();
       hash ^= rewards_.GetHashCode();
       if (playerInfo_ != null) hash ^= PlayerInfo.GetHashCode();
@@ -3977,17 +3722,13 @@ namespace io.hverse.game.protogen {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (ResultCode != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(ResultCode);
-      }
       if (raceScript_ != null) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(10);
         output.WriteMessage(RaceScript);
       }
       rewards_.WriteTo(output, _repeated_rewards_codec);
       if (playerInfo_ != null) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(26);
         output.WriteMessage(PlayerInfo);
       }
       if (_unknownFields != null) {
@@ -4000,17 +3741,13 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (ResultCode != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(ResultCode);
-      }
       if (raceScript_ != null) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(10);
         output.WriteMessage(RaceScript);
       }
       rewards_.WriteTo(ref output, _repeated_rewards_codec);
       if (playerInfo_ != null) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(26);
         output.WriteMessage(PlayerInfo);
       }
       if (_unknownFields != null) {
@@ -4023,9 +3760,6 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (ResultCode != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ResultCode);
-      }
       if (raceScript_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(RaceScript);
       }
@@ -4041,12 +3775,9 @@ namespace io.hverse.game.protogen {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(StartRoomResponse other) {
+    public void MergeFrom(StartRoomReceipt other) {
       if (other == null) {
         return;
-      }
-      if (other.ResultCode != 0) {
-        ResultCode = other.ResultCode;
       }
       if (other.raceScript_ != null) {
         if (raceScript_ == null) {
@@ -4076,22 +3807,18 @@ namespace io.hverse.game.protogen {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            ResultCode = input.ReadInt32();
-            break;
-          }
-          case 18: {
+          case 10: {
             if (raceScript_ == null) {
               RaceScript = new global::io.hverse.game.protogen.RaceScript();
             }
             input.ReadMessage(RaceScript);
             break;
           }
-          case 26: {
+          case 18: {
             rewards_.AddEntriesFrom(input, _repeated_rewards_codec);
             break;
           }
-          case 34: {
+          case 26: {
             if (playerInfo_ == null) {
               PlayerInfo = new global::io.hverse.game.protogen.LitePlayerInfo();
             }
@@ -4113,22 +3840,18 @@ namespace io.hverse.game.protogen {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            ResultCode = input.ReadInt32();
-            break;
-          }
-          case 18: {
+          case 10: {
             if (raceScript_ == null) {
               RaceScript = new global::io.hverse.game.protogen.RaceScript();
             }
             input.ReadMessage(RaceScript);
             break;
           }
-          case 26: {
+          case 18: {
             rewards_.AddEntriesFrom(ref input, _repeated_rewards_codec);
             break;
           }
-          case 34: {
+          case 26: {
             if (playerInfo_ == null) {
               PlayerInfo = new global::io.hverse.game.protogen.LitePlayerInfo();
             }
@@ -4156,7 +3879,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.RacingReflection.Descriptor.MessageTypes[14]; }
+      get { return global::io.hverse.game.protogen.RacingReflection.Descriptor.MessageTypes[13]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4565,7 +4288,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.RacingReflection.Descriptor.MessageTypes[15]; }
+      get { return global::io.hverse.game.protogen.RacingReflection.Descriptor.MessageTypes[14]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4928,7 +4651,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.RacingReflection.Descriptor.MessageTypes[16]; }
+      get { return global::io.hverse.game.protogen.RacingReflection.Descriptor.MessageTypes[15]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5080,7 +4803,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.RacingReflection.Descriptor.MessageTypes[17]; }
+      get { return global::io.hverse.game.protogen.RacingReflection.Descriptor.MessageTypes[16]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5295,7 +5018,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.RacingReflection.Descriptor.MessageTypes[18]; }
+      get { return global::io.hverse.game.protogen.RacingReflection.Descriptor.MessageTypes[17]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5484,7 +5207,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.RacingReflection.Descriptor.MessageTypes[19]; }
+      get { return global::io.hverse.game.protogen.RacingReflection.Descriptor.MessageTypes[18]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5699,7 +5422,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.RacingReflection.Descriptor.MessageTypes[20]; }
+      get { return global::io.hverse.game.protogen.RacingReflection.Descriptor.MessageTypes[19]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5888,7 +5611,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.RacingReflection.Descriptor.MessageTypes[21]; }
+      get { return global::io.hverse.game.protogen.RacingReflection.Descriptor.MessageTypes[20]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
