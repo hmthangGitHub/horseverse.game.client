@@ -30,7 +30,7 @@ public class QuickRaceDomainServiceBase
 public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDomainService
 {
     private ISocketClient socketClient;
-    private UniTaskCompletionSource<StartRoomResponse> findMatchUcs;
+    private UniTaskCompletionSource<StartRoomReceipt> findMatchUcs;
     private HorseRaceInfoFactory horseRaceInfoFactory;
     private ISocketClient SocketClient => socketClient ??= Container.Inject<ISocketClient>();
     private HorseRaceInfoFactory HorseRaceInfoFactory => horseRaceInfoFactory ??= Container.Inject<HorseRaceInfoFactory>();
@@ -56,7 +56,7 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
     private async UniTaskVoid JoinPool(long ntfHorseId, RacingMode racingMode)
     {
         
-        findMatchUcs = new UniTaskCompletionSource<StartRoomResponse>();
+        findMatchUcs = new UniTaskCompletionSource<StartRoomReceipt>();
         var joinRoomResponse = await SocketClient.Send<JoinRoomRequest, JoinRoomResponse>(new JoinRoomRequest()
         {
             HorseId = ntfHorseId,
@@ -66,28 +66,21 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
         
         OnConnectedPlayerChange.Invoke(joinRoomResponse.RaceRoom.HorseInfos.Count);
         
+        SocketClient.Subscribe<StartRoomReceipt>(StartRoomReceiptResponse);
         SocketClient.Subscribe<UpdateRoomReceipt>(UpdateRoomReceiptResponse);
     }
 
     private void UpdateRoomReceiptResponse(UpdateRoomReceipt response)
     {
         OnConnectedPlayerChange.Invoke(response.RaceRoom.HorseInfos.Count);
-        if (response.RaceRoom.HorseInfos.Count == 8)
-        {
-            StartGameRequest(response.RaceRoom.RoomId).Forget();
-        }
     }
 
-    private async UniTaskVoid StartGameRequest(long raceRoomRoomId)
+    private void StartRoomReceiptResponse(StartRoomReceipt raceScriptResponse)
     {
+        UserDataRepository.UpdateLightPlayerInfoAsync(raceScriptResponse.PlayerInfo).Forget();
+        findMatchUcs.TrySetResult(raceScriptResponse);
+        SocketClient.UnSubscribe<StartRoomReceipt>(StartRoomReceiptResponse);
         SocketClient.UnSubscribe<UpdateRoomReceipt>(UpdateRoomReceiptResponse);
-        await UniTask.Delay(TimeSpan.FromSeconds(2));
-        var response = await SocketClient.Send<StartRoomRequest, StartRoomResponse>(new StartRoomRequest()
-        {
-            RoomId = raceRoomRoomId
-        });
-        UserDataRepository.UpdateLightPlayerInfoAsync(response.PlayerInfo).Forget();
-        findMatchUcs.TrySetResult(response);
         findMatchUcs = default;
     }
 
@@ -99,6 +92,7 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
         });
         findMatchUcs.TrySetCanceled();
         findMatchUcs = default;
+        SocketClient.UnSubscribe<StartRoomReceipt>(StartRoomReceiptResponse);
         SocketClient.UnSubscribe<UpdateRoomReceipt>(UpdateRoomReceiptResponse);
     }
 }
