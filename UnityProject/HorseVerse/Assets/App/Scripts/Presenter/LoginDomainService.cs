@@ -40,7 +40,7 @@ public class LoginDomainService
                     Platform = LoginStatePresenter.GetCurrentPlatform(),
                     DeviceId = SystemInfo.deviceUniqueIdentifier,
                     Model = SystemInfo.deviceModel,
-                    Version = Application.version,
+                    Version = LoginStatePresenter.GetClientVersion(),
                 }
             }, isHighPriority: true);
             return res.ResultCode == 100;

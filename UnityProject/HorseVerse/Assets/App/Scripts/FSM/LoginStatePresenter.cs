@@ -321,7 +321,7 @@ public class LoginStatePresenter : IDisposable
         return await HandleLoginResponse(res);
     }
 
-    private static string GetClientVersion()
+    public static string GetClientVersion()
     {
         return Resources.Load<ClientInfo>(ClientVersionScripableObjectPath).Version;
     }
