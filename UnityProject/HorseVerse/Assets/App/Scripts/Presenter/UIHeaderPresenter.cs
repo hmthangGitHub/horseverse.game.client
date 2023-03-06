@@ -25,7 +25,6 @@ public class UIHeaderPresenter : IDisposable
     public UIHeaderPresenter(IDIContainer container)
     {
         this.container = container;
-        UserDataRepository.OnModelUpdate += OnModelUpdate;
     }
 
     private void OnModelUpdate((UserDataModel before, UserDataModel after) model)
@@ -62,6 +61,8 @@ public class UIHeaderPresenter : IDisposable
                 settingBtn = new ButtonComponent.Entity(() => OnSetting().Forget()),
                 energyVisible = false
             });
+            
+            UserDataRepository.OnModelUpdate += OnModelUpdate;
         }
     }
 
@@ -84,12 +85,16 @@ public class UIHeaderPresenter : IDisposable
 
     public void Dispose()
     {
+        ReleaseHeaderUI();
+    }
+
+    public void ReleaseHeaderUI()
+    {
         cts.SafeCancelAndDispose();
         cts = default;
         UserDataRepository.OnModelUpdate -= OnModelUpdate;
         UILoader.SafeRelease(ref uiSetting);
         UILoader.SafeRelease(ref uiHeader);
-       
     }
 
     private async UniTask OnSetting()

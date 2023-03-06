@@ -63,7 +63,7 @@ public class BetModeUIState : InjectedBHState
     private async UniTask OnToRaceModeAsync()
     {
         await UILoadingPresenter.ShowLoadingAsync();
-        UIHeaderPresenter.Dispose();
+        UIHeaderPresenter.ReleaseHeaderUI();
         this.Machine.ChangeState<HorseRaceActionState>();
     }
 
