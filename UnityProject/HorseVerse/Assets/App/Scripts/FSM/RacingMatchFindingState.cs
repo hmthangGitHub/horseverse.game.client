@@ -33,7 +33,7 @@ public class RacingMatchFindingState : InjectedBState
         await UILoadingPresenter.ShowLoadingAsync();
 
         UiHorse3DViewPresenter.Dispose();
-        UIHeaderPresenter.Dispose();
+        UIHeaderPresenter.ReleaseHeaderUI();
         HorseRaceContext.RaceScriptData = data;
         HorseRaceContext.RaceMatchDataContext.IsReplay = false;
         ((IState)Machine).Machine.ChangeState<HorseRaceActionState>();

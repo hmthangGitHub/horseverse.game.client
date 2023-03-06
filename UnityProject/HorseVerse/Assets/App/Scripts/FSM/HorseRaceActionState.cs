@@ -29,7 +29,7 @@ public class HorseRaceActionState : InjectedBHState
     private async UniTask OnEnterAsync()
     {
         await UiLoadingPresenter.ShowLoadingAsync();
-        UIHeaderPresenter.Dispose();
+        UIHeaderPresenter.ReleaseHeaderUI();
         
         horseRacePresenter = new HorseRacePresenter(Container);
         horseRacePresenter.OnToBetModeResultState += ToBetModeResultState;
