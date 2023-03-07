@@ -5,6 +5,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using io.hverse.game.protogen;
 
 public interface IQuickRaceDomainService
@@ -12,7 +13,8 @@ public interface IQuickRaceDomainService
     UniTask ChangeHorse(long horseNtfId);
     UniTask<RaceScriptData> FindMatch(long ntfHorseId, RacingMode racingMode);
     UniTask CancelFindMatch(long ntfHorseId);
-    event Action<int> OnConnectedPlayerChange;
+    event Action<long, int>  OnConnectedPlayerChange;
+    void OnResumeFromSoftClose(long matchId, int numberCurrentPlayer, int maxNumberPlayer);
 }
 
 public class QuickRaceDomainServiceBase
@@ -30,12 +32,61 @@ public class QuickRaceDomainServiceBase
 public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDomainService
 {
     private ISocketClient socketClient;
-    private UniTaskCompletionSource<StartRoomReceipt> findMatchUcs;
+    private UniTaskCompletionSource<RaceScript> findMatchUcs;
     private HorseRaceInfoFactory horseRaceInfoFactory;
     private ISocketClient SocketClient => socketClient ??= Container.Inject<ISocketClient>();
     private HorseRaceInfoFactory HorseRaceInfoFactory => horseRaceInfoFactory ??= Container.Inject<HorseRaceInfoFactory>();
-    public event Action<int> OnConnectedPlayerChange  = ActionUtility.EmptyAction<int>.Instance;
+    public event Action<long, int> OnConnectedPlayerChange  = ActionUtility.EmptyAction<long, int>.Instance;
     
+    public void OnResumeFromSoftClose(long matchId,
+                                      int numberCurrentPlayer,
+                                      int maxNumberPlayer)
+    {
+        OnResumeFromSoftCloseAsync(matchId, numberCurrentPlayer, maxNumberPlayer).Forget();
+    }
+
+    private async UniTaskVoid OnResumeFromSoftCloseAsync(long matchId,
+                                                         int numberCurrentPlayer,
+                                                         int maxNumberPlayer)
+    {
+        if (numberCurrentPlayer < maxNumberPlayer)
+        {
+            SocketClient.UnSubscribe<UpdateRoomReceipt>(UpdateRoomReceiptResponse);
+            SocketClient.UnSubscribe<StartRoomReceipt>(OnStartRoomReceiptResponse);
+            
+            var updateResponse = await SocketClient.Send<UpdateRoomRequest, UpdateRoomResponse>(new UpdateRoomRequest()
+            {
+                RoomId = matchId
+            });
+            
+            if (updateResponse.RaceRoom.HorseInfos.Count == maxNumberPlayer)
+            {
+                await RequestToStartRoom(matchId);
+            }
+            else
+            {
+                SocketClient.Subscribe<UpdateRoomReceipt>(UpdateRoomReceiptResponse);
+                SocketClient.Subscribe<StartRoomReceipt>(OnStartRoomReceiptResponse);
+            }
+        }
+        else
+        {
+            SocketClient.UnSubscribe<UpdateRoomReceipt>(UpdateRoomReceiptResponse);
+            SocketClient.UnSubscribe<StartRoomReceipt>(OnStartRoomReceiptResponse);
+            
+            await RequestToStartRoom(matchId);
+        }
+    }
+
+    private async UniTask RequestToStartRoom(long matchId)
+    {
+        var startRoomResponse = await SocketClient.Send<StartRoomRequest, StartRoomResponse>(new StartRoomRequest()
+        {
+            RoomId = matchId
+        });
+        OnStartMatch(startRoomResponse.PlayerInfo, startRoomResponse.RaceScript);
+    }
+
     public QuickRaceDomainService(IDIContainer container) : base(container){}
 
     public async UniTask ChangeHorse(long horseNtfId)
@@ -48,7 +99,7 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
         JoinPool(ntfHorseId, racingMode).Forget();
         return new RaceScriptData()
         {
-            HorseRaceInfos = HorseRaceInfoFactory.GetHorseRaceInfos((await findMatchUcs.Task).RaceScript),
+            HorseRaceInfos = HorseRaceInfoFactory.GetHorseRaceInfos((await findMatchUcs.Task)),
             MasterMapId = RacingState.MasterMapId,
         };
     }
@@ -56,7 +107,7 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
     private async UniTaskVoid JoinPool(long ntfHorseId, RacingMode racingMode)
     {
         
-        findMatchUcs = new UniTaskCompletionSource<StartRoomReceipt>();
+        findMatchUcs = new UniTaskCompletionSource<RaceScript>();
         var joinRoomResponse = await SocketClient.Send<JoinRoomRequest, JoinRoomResponse>(new JoinRoomRequest()
         {
             HorseId = ntfHorseId,
@@ -64,22 +115,27 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
             
         });
         
-        OnConnectedPlayerChange.Invoke(joinRoomResponse.RaceRoom.HorseInfos.Count);
+        OnConnectedPlayerChange.Invoke(joinRoomResponse.RaceRoom.RoomId, joinRoomResponse.RaceRoom.HorseInfos.Count);
         
-        SocketClient.Subscribe<StartRoomReceipt>(StartRoomReceiptResponse);
+        SocketClient.Subscribe<StartRoomReceipt>(OnStartRoomReceiptResponse);
         SocketClient.Subscribe<UpdateRoomReceipt>(UpdateRoomReceiptResponse);
     }
 
     private void UpdateRoomReceiptResponse(UpdateRoomReceipt response)
     {
-        OnConnectedPlayerChange.Invoke(response.RaceRoom.HorseInfos.Count);
+        OnConnectedPlayerChange.Invoke(response.RaceRoom.RoomId, response.RaceRoom.HorseInfos.Count);
     }
 
-    private void StartRoomReceiptResponse(StartRoomReceipt raceScriptResponse)
+    private void OnStartRoomReceiptResponse(StartRoomReceipt receipt)
     {
-        UserDataRepository.UpdateLightPlayerInfoAsync(raceScriptResponse.PlayerInfo).Forget();
-        findMatchUcs.TrySetResult(raceScriptResponse);
-        SocketClient.UnSubscribe<StartRoomReceipt>(StartRoomReceiptResponse);
+        OnStartMatch(receipt.PlayerInfo, receipt.RaceScript);
+    }
+
+    private void OnStartMatch(LitePlayerInfo litePlayerInfo, RaceScript raceScript)
+    {
+        UserDataRepository.UpdateLightPlayerInfoAsync(litePlayerInfo).Forget();
+        findMatchUcs.TrySetResult(raceScript);
+        SocketClient.UnSubscribe<StartRoomReceipt>(raceScriptResponse1 => OnStartMatch(raceScriptResponse1.PlayerInfo, raceScriptResponse1.RaceScript));
         SocketClient.UnSubscribe<UpdateRoomReceipt>(UpdateRoomReceiptResponse);
         findMatchUcs = default;
     }
@@ -92,7 +148,7 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
         });
         findMatchUcs.TrySetCanceled();
         findMatchUcs = default;
-        SocketClient.UnSubscribe<StartRoomReceipt>(StartRoomReceiptResponse);
+        SocketClient.UnSubscribe<StartRoomReceipt>(raceScriptResponse => OnStartMatch(raceScriptResponse.PlayerInfo, raceScriptResponse.RaceScript));
         SocketClient.UnSubscribe<UpdateRoomReceipt>(UpdateRoomReceiptResponse);
     }
 }
@@ -106,7 +162,14 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
         await UniTask.CompletedTask;
     }
 
-    public event Action<int> OnConnectedPlayerChange;
+    public event Action<long, int> OnConnectedPlayerChange;
+
+    public void OnResumeFromSoftClose(long matchId,
+                                      int numberCurrentPlayer,
+                                      int maxNumberPlayer)
+    {
+        throw new NotImplementedException();
+    }
 
     public async UniTask ChangeHorse(long horseNtfId)
     {
@@ -124,7 +187,6 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
                             .Take(8)
                             .Select(x => new HorseRaceInfo()
                             {
-                                // masterHorseId = x,
                                 RaceSegments = GenerateRandomSegment()
                             })
                             .ToArray();

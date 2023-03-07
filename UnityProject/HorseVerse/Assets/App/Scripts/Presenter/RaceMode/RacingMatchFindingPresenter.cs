@@ -22,7 +22,10 @@ public class RacingMatchFindingPresenter : IDisposable
     
     public event Action<RaceScriptData> OnFoundMatch = ActionUtility.EmptyAction<RaceScriptData>.Instance;
     public event Action OnCancelFindMatch = ActionUtility.EmptyAction.Instance;
-    
+
+    private long currentMatchId;
+    private int connectedPlayerChange;
+
     public RacingMatchFindingPresenter(IDIContainer container)
     {
         this.container = container;
@@ -45,8 +48,10 @@ public class RacingMatchFindingPresenter : IDisposable
         await FindMatchInternalAsync();
     }
 
-    private void OnConnectedPlayerChange(int connectedPlayerChange)
+    private void OnConnectedPlayerChange(long matchId, int connectedPlayerChange)
     {
+        currentMatchId = matchId;
+        this.connectedPlayerChange = connectedPlayerChange;
         uiRacingFindMatch.entity.numberConnectPlayer = connectedPlayerChange;
         uiRacingFindMatch.numberConnectPlayer.SetEntity(uiRacingFindMatch.entity.numberConnectPlayer);
         uiRacingFindMatch.cancelBtn.SetInteractable(connectedPlayerChange < MaxNumberOfPlayer);
@@ -107,6 +112,11 @@ public class RacingMatchFindingPresenter : IDisposable
         await uiRacingFindMatch.Out();
         OnCancelFindMatch();
     }
+    
+    public void OnResumeFromSoftClose()
+    {
+        QuickRaceDomainService.OnResumeFromSoftClose(currentMatchId, connectedPlayerChange, MaxNumberOfPlayer);
+    }
 
     private void StopFindMatchTimer()
     {
@@ -116,6 +126,7 @@ public class RacingMatchFindingPresenter : IDisposable
 
     public void Dispose()
     {
+        currentMatchId = default;
         DisposeUtility.SafeDispose(ref cts);
         UILoader.SafeRelease(ref uiRacingFindMatch);
         QuickRaceDomainService.OnConnectedPlayerChange -= OnConnectedPlayerChange;
