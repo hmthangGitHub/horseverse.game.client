@@ -17,5 +17,11 @@ namespace io.hverse.game.protogen
             playerInventoryRequest_ = request;
         }
 
+        public PlayerMessage(PlayerInfoRequest request)
+        {
+            this.msgType_ = PlayerMessageType.PlayerInfoRequest;
+            playerInfoRequest_ = request;
+        }
+
     }
 }

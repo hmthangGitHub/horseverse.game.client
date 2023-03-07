@@ -28,6 +28,9 @@ public partial class ProtobufMessageParser : IMessageParser
         AddToSerializeLookUpTable<MasterDataRequest>(x => new DataMessage(x));
         AddToParseLookUpTable<DataMessage, DataMessageType>(DataMessageType.MasterDataResponse, x => x.MasterDataResponse);
 
+        AddToSerializeLookUpTable<PlayerInfoRequest>(x => new PlayerMessage(x));
+        AddToParseLookUpTable<PlayerMessage, PlayerMessageType>(PlayerMessageType.PlayerInfoResponse, x => x.PlayerInfoResponse);
+
         AddToSerializeLookUpTable<PlayerInventoryRequest>(x => new PlayerMessage(x));
         AddToParseLookUpTable<PlayerMessage, PlayerMessageType>(PlayerMessageType.PlayerInventoryResponse, x => x.PlayerInventoryResponse);
         

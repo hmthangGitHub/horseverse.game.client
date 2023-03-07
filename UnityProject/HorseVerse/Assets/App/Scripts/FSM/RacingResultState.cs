@@ -9,7 +9,6 @@ public class RacingResultState : InjectedBState
     private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
     private HorseRaceContext horseRaceContext;
     private HorseRaceContext HorseRaceContext => horseRaceContext ??= Container.Inject<HorseRaceContext>();
-    
     public override void Enter()
     {
         base.Enter();
@@ -23,6 +22,7 @@ public class RacingResultState : InjectedBState
         {
             presenter = new QuickRaceResultPresenter(Container);
             await presenter.ShowResultAsync();
+            await presenter.UpdatePlayerInfo();
             this.GetSuperMachine<RootFSM>().ChangeToChildStateRecursive<RacingMenuState>();
         }
         else

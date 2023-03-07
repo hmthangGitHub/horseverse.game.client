@@ -287,6 +287,7 @@ public partial class PlatformModular : PlatformBase
         GenerateCoins(masterHorseTrainingBlockCombo.CoinList, coinRadius);
         yield return GenerateTrapAsync(masterHorseTrainingBlockCombo.TrapList, trapsPrefab);
         GenerateSceneryObjects(sceneryObjectPrefabs, gameObjectPoolList);
+        yield return AlignObstacle(masterHorseTrainingBlockCombo.ObstacleList);
         IsReady = true;
     }
 
@@ -332,7 +333,17 @@ public partial class PlatformModular : PlatformBase
             var x = obstacleList[i];
             var obstaclesPrefabParent = obstaclesPrefab.FirstOrDefault(saveObstacles => saveObstacles.name == x.type);
             _cacheObs.Add(CreatObstacle(obstaclesPrefabParent, x.localPosition));
+            if (i % 5 == 0) yield return null;
+        }
+    }
 
+    private IEnumerator AlignObstacle(Obstacle[] obstacleList)
+    {
+        int len = obstacleList.Length;
+        for (int i = 0; i < len; i++)
+        {
+            var x = obstacleList[i];
+            _cacheObs[i].transform.localPosition = x.localPosition.ToVector3();
             if (i % 5 == 0) yield return null;
         }
     }
