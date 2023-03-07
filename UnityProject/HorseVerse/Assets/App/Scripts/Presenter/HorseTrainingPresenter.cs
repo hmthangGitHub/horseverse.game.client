@@ -294,9 +294,7 @@ public class HorseTrainingPresenter : IDisposable
         AudioManager.Instance.StopSound();
         SoundController.PlayHitObstance();
         var data = await TrainingDomainService.GetTrainingRewardData(CurrentPoint, CurrentCoin);
-        await UserDataRepository.UpdateTrainingHighestScore(data.HighestScore);
-        await UserDataRepository.UpdateCoin(UserDataRepository.Current.Coin + 
-            data.Rewards.FirstOrDefault(x => x.Type == RewardType.Chip)?.Amount ?? 0);
+        await UserDataRepository.UpdateLightPlayerInfoAsync(data.PlayerInfo);
         await ShowUIHorseTrainingResultAsync(data);
     }
 
@@ -357,7 +355,7 @@ public class HorseTrainingPresenter : IDisposable
             totalEnergy = UserSettingLocalRepository.MasterDataModel.MaxHappinessNumber,
             costEnergy = UserSettingLocalRepository.MasterDataModel.TrainingHappinessCost,
             score = result.Score,
-            highestScore = result.HighestScore,
+            highestScore = result.PlayerInfo.TrainingHighestScore,
         });
         await popup.In();
     }
