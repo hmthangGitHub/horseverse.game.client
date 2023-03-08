@@ -33,7 +33,7 @@ public class RetryHandler : IDisposable
         {
             throw new Exception("Failed to retry connect by login with access token");
         }
-        await UITouchDisablePresenter.Delay(1.0f);
+        await UITouchDisablePresenter.Delay(1.0f, ignoreTimeScale: true);
         PingDomainService.StartPingService().Forget();
     }
 

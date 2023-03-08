@@ -30,7 +30,7 @@ public partial class LevelEditorPresenter
     {
         var coinEditor = CreateCoinEditor();
         var coinEditorTransform = coinEditor.transform;
-        coinEditorTransform.localPosition = new Vector3(coin.localPosition.x, coinEditorTransform.localPosition.y, coin.localPosition.z);
+        coinEditorTransform.localPosition = coin.localPosition.ToVector3();
         coinEditor.Init(coin.numberOfCoin, coin.benzierPointPositions.Select(x => x.ToVector3()).ToArray(), 0, null);
     }
     
