@@ -27,7 +27,6 @@ public class RootFSM : MonoFSMContainer
 
     public void ChangeToChildStateRecursive<T>() where T : IState
     {
-        var states = this.States;
         var state = States.FirstOrDefault(x => x.Key == typeof(T)).Value;
         var currentState = this.CurrentState;
         while (state == default)
@@ -43,5 +42,26 @@ public class RootFSM : MonoFSMContainer
             }
         }
         state.Machine.ChangeState<T>();
-    }    
+    }
+
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        var currentState = this.CurrentState;
+        PassPauseEvent(pauseStatus, currentState);
+        
+        while (currentState is IHState hState)
+        {
+            currentState = hState.CurrentState;
+            PassPauseEvent(pauseStatus, currentState);
+        }
+    }
+
+    private static void PassPauseEvent(bool pauseStatus,
+                                       IState currentState)
+    {
+        if (currentState is IOnApplicationPauseState pauseState)
+        {
+            pauseState.OnApplicationPause(pauseStatus);
+        }
+    }
 }

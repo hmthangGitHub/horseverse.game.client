@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using RobustFSM.Interfaces;
 
-public class RacingMatchFindingState : InjectedBState
+public class RacingMatchFindingState : InjectedBState, IOnApplicationPauseState
 {
     private RacingMatchFindingPresenter presenter;
     private UIHorse3DViewPresenter uiHorse3DViewPresenter;
@@ -52,5 +52,13 @@ public class RacingMatchFindingState : InjectedBState
         DisposeUtility.SafeDispose(ref presenter);
         uiHorse3DViewPresenter = default;
         uiLoadingPresenter = default;
+    }
+
+    public void OnApplicationPause(bool pauseState)
+    {
+        if (!pauseState)
+        {
+            presenter.OnResumeFromSoftClose();
+        }
     }
 }
