@@ -13,7 +13,7 @@ public partial class PlatformModular : PlatformBase
         blockName.transform.position = FirstCollider.transform.position + Vector3.up * 5.0f;
         blockName.text = name;
         this.gameObject.name = name;
-        this.gameObject.SetActive(true);
+        this.blockName.gameObject.SetActive(true);
     }
 #endif
     

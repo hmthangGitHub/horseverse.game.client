@@ -87,9 +87,9 @@ public class UITouchDisablePresenter : IDisposable
         }
     }
 
-    public async UniTask Delay(float second, CancellationToken token = default)
+    public async UniTask Delay(float second, CancellationToken token = default, bool ignoreTimeScale = false)
     {
-        await ShowTillFinishTaskAsync(UniTask.Delay(TimeSpan.FromSeconds(second), cancellationToken : token));
+        await ShowTillFinishTaskAsync(UniTask.Delay(TimeSpan.FromSeconds(second), cancellationToken : token, ignoreTimeScale: ignoreTimeScale));
     }
     
     public async UniTask Hide()
