@@ -6,6 +6,7 @@ using io.hverse.game.protogen;
 public interface IPingDomainService
 {
     UniTaskVoid StartPingService();
+    void StopService();
 }
 
 internal class PingDomainService : IDisposable, IPingDomainService
@@ -22,7 +23,7 @@ internal class PingDomainService : IDisposable, IPingDomainService
 
     public async UniTaskVoid StartPingService()
     {
-        DisposeUtility.SafeDispose(ref cts);
+        cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         
         while (!cts.IsCancellationRequested)
@@ -34,11 +35,15 @@ internal class PingDomainService : IDisposable, IPingDomainService
             }, token : cts.Token);
         }
     }
+
+    public void StopService()
+    {
+        cts.SafeCancelAndDispose();
+    }
     
     private PingDomainService(IDIContainer container)
     {
         this.container = container;
-        
     }
 
     public void Dispose()

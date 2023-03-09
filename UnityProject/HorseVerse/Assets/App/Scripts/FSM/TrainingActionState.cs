@@ -12,6 +12,8 @@ public class TrainingActionState : InjectedBState
     private UIHorse3DViewPresenter UIHorse3DViewPresenter => uiHorse3DViewPresenter ??= Container.Inject<UIHorse3DViewPresenter>();
     private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
     private CancellationTokenSource cts;
+    private IPingDomainService pingDomainService;
+    private IPingDomainService PingDomainService => pingDomainService ??= Container.Inject<IPingDomainService>();
 
     public override void Enter()
     {
@@ -34,6 +36,7 @@ public class TrainingActionState : InjectedBState
     {
         while (true)
         {
+            PingDomainService.StopService();
             using var horseTrainingPresenter = new HorseTrainingPresenter(Container);
             await horseTrainingPresenter.LoadAssetsAsync().AttachExternalCancellation(cts.Token);
             UILoadingPresenter.HideLoading();
@@ -66,10 +69,11 @@ public class TrainingActionState : InjectedBState
     public override void Exit()
     {
         base.Exit();
-        OnEditStateAsync().Forget();
+        OnExitStateAsync().Forget();
+        PingDomainService.StartPingService().Forget();
     }
 
-    private async UniTask OnEditStateAsync()
+    private async UniTask OnExitStateAsync()
     {
         DisposeUtility.SafeDispose(ref cts);
         Container.RemoveAndDisposeIfNeed<HorseTrainingDataContext>();

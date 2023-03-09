@@ -14,10 +14,15 @@ public class SceneryObjectAnimation : MonoBehaviour
 
     private void Start()
     {
-        transform
+        tween = transform
             .DOLocalRotate(new Vector3(0, 360.0f), rotateDuration.Random(), RotateMode.FastBeyond360)
             .SetEase(Ease.Linear)
             .SetLoops(-1)
             .SetDelay(delayRange.Random());
+    }
+
+    private void OnDestroy()
+    {
+        tween?.Kill();
     }
 }
