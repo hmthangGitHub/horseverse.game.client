@@ -63,8 +63,8 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private Animator animator;
     private Animator Animator => animator ??= GetComponentInChildren<Animator>();
     private float currentAirTime;
-    public CryptoField<float> TotalRunTimeEncrypt { get; } = new CryptoField<float>();
-    public CryptoField<int> TotalCoinEncrypt { get; } = new CryptoField<int>();
+    public ScrambleField<float> TotalRunTimeEncrypt { get; } = new ScrambleField<float>();
+    public ScrambleField<int> TotalCoinEncrypt { get; } = new ScrambleField<int>();
     private float MaxAirTime => Mathf.Abs(JumpVelocity / DefaultGravity) + masterHorseTrainingProperty.FallAirTimeMax;
     public Vector2 AirTime => new Vector2(masterHorseTrainingProperty.FallAirTimeMin, masterHorseTrainingProperty.FallAirTimeMax);
     public event Action OnTakeCoin = ActionUtility.EmptyAction.Instance;

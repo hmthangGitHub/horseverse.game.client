@@ -23,6 +23,9 @@ public class CoinEditor : MonoBehaviour
                                               .Select(x => x.localPosition)
                                               .ToArray();
     private PlatformGeneratorPool pool;
+    private bool isEditing;
+    private bool isInitialized;
+
     public void OnToggleStatus()
     {
         status = status == UIComponentSplineEditorMode.Status.Edit ? UIComponentSplineEditorMode.Status.Normal : UIComponentSplineEditorMode.Status.Edit;
@@ -55,12 +58,15 @@ public class CoinEditor : MonoBehaviour
     public void Init(int coinNumber,
                      Vector3[] positions,
                      float coinRadius,
-                     PlatformGeneratorPool _pool)
+                     PlatformGeneratorPool _pool,
+                     bool isEditing = true)
     {
         this.coinRadius = coinRadius;
         this.pool = _pool;
         OnChangeNumberOfCoin(coinNumber);
         InitBenzierPoints(positions);
+        UpdateCoinPosition();
+        this.isEditing = isEditing;
     }
 
     public void Clear()
@@ -113,7 +119,7 @@ public class CoinEditor : MonoBehaviour
         {
             var destroyCoins = listCoin.Skip(number).Take(listCoin.Count - number).ToArray();
             //destroyCoins.ForEach(x => { if (this.pool != default) this.pool.AddToPool(coinPrefab.name, x); else Object.Destroy(x); });
-            destroyCoins.ForEach(x =>  Object.Destroy(x));
+            foreach (var x in destroyCoins) Object.Destroy(x);
             listCoin = listCoin.Except(destroyCoins)
                                .ToList();
         }
@@ -134,6 +140,9 @@ public class CoinEditor : MonoBehaviour
 
     private void Update()
     {
+        if (!isEditing && isInitialized) return;
+        
+        isInitialized = true;
         UpdateCoinPosition();
     }
     

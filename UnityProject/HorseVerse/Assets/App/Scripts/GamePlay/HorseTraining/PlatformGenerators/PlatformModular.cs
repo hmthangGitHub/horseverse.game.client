@@ -297,7 +297,7 @@ public partial class PlatformModular : PlatformBase
         {
             var coin = Instantiate(coinPrefab, this.transform);
             coin.transform.localPosition = x.localPosition.ToVector3();
-            coin.Init(x.numberOfCoin, x.benzierPointPositions.Select(x => x.ToVector3()).ToArray(), coinRadius, this.pool);
+            coin.Init(x.numberOfCoin, x.benzierPointPositions.Select(x => x.ToVector3()).ToArray(), coinRadius, this.pool, false);
         });
     }
 

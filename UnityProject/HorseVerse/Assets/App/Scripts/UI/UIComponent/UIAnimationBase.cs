@@ -22,4 +22,9 @@ public class UIAnimationBase : MonoBehaviour
         cts = new CancellationTokenSource();
         tweenAnimation?.Kill(true);
     }
+
+    private void OnDestroy()
+    {
+        tweenAnimation?.Kill();
+    }
 }
