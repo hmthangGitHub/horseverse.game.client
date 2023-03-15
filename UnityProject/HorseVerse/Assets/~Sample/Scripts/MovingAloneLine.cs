@@ -35,16 +35,18 @@ public class MovingAloneLine : MonoBehaviour
 
     bool IsReachTarget()
     {
-        if (duration >= 1  && !isMovingBack) return true;
-        if (duration <= 0 && isMovingBack) return true;
+        if (totalLen > 0)
+        {
+            if (currentDistance == totalLen && !isMovingBack) return true;
+            if (currentDistance == 0 && isMovingBack) return true;
+        }
         return false;
     }
-
 
     void StartMoving()
     {
         isMoving = !isMoving;
-        duration = 0; Debug.Log("Moving " + isMoving + " -- " + totalLen);
+        duration = 0;
         currentDistance = 0;
     }
 
@@ -65,16 +67,18 @@ public class MovingAloneLine : MonoBehaviour
     {
         if(curse != default)
         {
-            totalLen = curse.GetTotalLength();
-            if (isMovingBack)
-                duration -= delta;
-            else
-                duration += delta;
-            if (duration > 1) duration = 1;
-            if (duration < 0) duration = 0;
+            if(totalLen == 0)
+                totalLen = curse.GetTotalLength();
             float distance = Speed * delta;
-            currentDistance += distance;
+            if (isMovingBack)
+                currentDistance -= distance;
+            else
+                currentDistance += distance;
+            if (currentDistance > totalLen) currentDistance = totalLen;
+            if (currentDistance < 0) currentDistance = 0;
             Vector3 v = curse.DeCasteljausAlgorithmWithDistance(currentDistance, totalLen);
+            Vector3 direction = curse.GetTangent(currentDistance, totalLen);
+            this.transform.forward = direction;
             return v;
         }
         return Vector3.zero;
