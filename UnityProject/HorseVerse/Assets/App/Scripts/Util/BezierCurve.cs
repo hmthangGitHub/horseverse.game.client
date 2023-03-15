@@ -115,7 +115,7 @@ public class BezierCurve : MonoBehaviour
 
         for (int i = 1; i <= parts; i++)
         {
-            //Use Newton–Raphsons method to find the t value from the start of the curve 
+            //Use Newton?Raphsons method to find the t value from the start of the curve 
             //to the end of the distance we have
             float t = FindTValue(currentDistance, totalLength);
 
@@ -184,7 +184,7 @@ public class BezierCurve : MonoBehaviour
         return length;
     }
 
-    Vector3 DeCasteljausAlgorithmDerivative(float t)
+    public Vector3 DeCasteljausAlgorithmDerivative(float t)
     {
         Vector3 dU = t * t * (-3f * (A - 3f * (B - C) - D));
 
@@ -267,5 +267,14 @@ public class BezierCurve : MonoBehaviour
     {
         float totalLength = GetLengthSimpsons(0f, 1f);
         return totalLength;
+    }
+
+    public Vector3 GetTangent(float distance, float total)
+    {
+        if (total == 0) return Vector3.zero;
+        float t = distance / total;
+        var p0 = DeCasteljausAlgorithm(t == 1f ? 0.99999f : t);
+        var p1 = DeCasteljausAlgorithm(t == 1f ? 1f : t + 0.00001f);
+        return (p1 - p0).normalized;
     }
 }
