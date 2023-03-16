@@ -12,10 +12,21 @@ public class BezierCurve : MonoBehaviour
 
     //Easier to use ABCD for the positions of the points so they are the same as in the tutorial image
     Vector3 A, B, C, D;
+    Part[] currentParts = default;
+    private struct Part
+    {
+        public Vector3 A;
+        public Vector3 B;
+    }
 
     public void init()
     {
-        OnDrawGizmos();
+        if (startPoint == default || controlPointStart == default || endPoint == default || controlPointEnd == default) return;
+        A = startPoint.position;
+        B = controlPointStart.position;
+        C = controlPointEnd.position;
+        D = endPoint.position;
+        currentParts = DivideCurveIntoParts();
     }
 
     //Display without having to press play
@@ -94,9 +105,9 @@ public class BezierCurve : MonoBehaviour
     {
         //Find the total length of the curve
         float totalLength = GetLengthSimpsons(0f, 1f);
-        
+
         //How many sections do we want to divide the curve into
-        int parts = 10;
+        int parts = 100;
 
         //What's the length of one section?
         float sectionLength = totalLength / (float)parts;
@@ -145,6 +156,37 @@ public class BezierCurve : MonoBehaviour
             //Add to the distance traveled on the line so far
             currentDistance += sectionLength;
         }
+    }
+
+    Part[] DivideCurveIntoParts()
+    {
+        List<Part> parts = new List<Part>();
+        int part = 100;
+        float totalLength = GetLengthSimpsons(0f, 1f);
+        if (totalLength > 0)
+        {
+            float sectionLength = totalLength / (float)part;
+            //Init the variables we need in the loop
+            float currentDistance = 0f + sectionLength;
+            //The curve's start position
+            Vector3 lastPos = A;
+            for (int i = 1; i <= part; i++)
+            {
+                //Use Newton?Raphsons method to find the t value from the start of the curve 
+                //to the end of the distance we have
+                float t = FindTValue(currentDistance, totalLength);
+
+                //Get the coordinate on the Bezier curve at this t value
+                Vector3 pos = DeCasteljausAlgorithm(t);
+                parts.Add(new Part() { A = lastPos, B = pos });
+                //Save the last position
+                lastPos = pos;
+
+                //Add to the distance traveled on the line so far
+                currentDistance += sectionLength;
+            }
+        }
+        return parts.ToArray();
     }
 
     float GetLengthSimpsons(float tStart, float tEnd)
@@ -276,5 +318,47 @@ public class BezierCurve : MonoBehaviour
         var p0 = DeCasteljausAlgorithm(t == 1f ? 0.99999f : t);
         var p1 = DeCasteljausAlgorithm(t == 1f ? 1f : t + 0.00001f);
         return (p1 - p0).normalized;
+    }
+
+    public Vector3 findTheClosedPoint(Vector3 point, out Vector3 direction, out bool isEnd)
+    {
+        var index = 0;
+        var part = findTheClosedPart(point, index);
+        var _point = (part.B + part.A) * 0.5f;
+        direction = part.B - part.A;
+        isEnd = false;
+        if(index == currentParts.Length - 1)
+        {
+            float db = (point - part.B).magnitude;
+            float dd = (point - ((part.B + part.A) * 0.5f)).magnitude;
+            if (db < dd) isEnd = true;
+        }
+        return _point;
+    }
+
+    private Part findTheClosedPart(Vector3 point, int index)
+    {
+        int lastIndex = 0;
+        float distance = distanceFromPointToPart(point, currentParts[lastIndex]);
+        for(int i = 1; i < currentParts.Length; i++) 
+        {
+            var distance_ = distanceFromPointToPart(point, currentParts[i]);
+            if(distance_ < distance)
+            {
+                distance = distance_;
+                lastIndex = i;
+            }
+        }
+        index = lastIndex;
+        return currentParts[lastIndex];
+    }
+
+    private float distanceFromPointToPart(Vector3 point, Part part)
+    {
+        float da = (point - part.A).magnitude;
+        float db = (point - part.B).magnitude;
+        float dd = (point - ((part.B + part.A) * 0.5f)).magnitude;
+        if (da > db) return db < dd ? db : dd;
+        return da < dd ? da : dd;
     }
 }

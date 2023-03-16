@@ -6,6 +6,7 @@ public class MovingAloneLine : MonoBehaviour
 {
     [SerializeField] BezierCurve curse;
     [SerializeField] float Speed;
+    [SerializeField] GameObject sphere;
 
     private bool isMovingBack = false;
     private bool isMoving = false;
@@ -13,6 +14,9 @@ public class MovingAloneLine : MonoBehaviour
 
     private float totalLen = 0;
     private float currentDistance = 0;
+
+    private Vector3 tangenPoint;
+    private bool isEnd;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +52,10 @@ public class MovingAloneLine : MonoBehaviour
         isMoving = !isMoving;
         duration = 0;
         currentDistance = 0;
+        Vector3 dir;
+        bool isEnd;
+        tangenPoint = curse.findTheClosedPoint(this.transform.position, out dir, out isEnd);
+        sphere.transform.position = tangenPoint;
     }
 
     void Moving()
@@ -58,9 +66,18 @@ public class MovingAloneLine : MonoBehaviour
         }
         else
         {
-            this.transform.localPosition = getCurrentPosition(Time.fixedDeltaTime);
+            //this.transform.localPosition = getCurrentPosition(Time.fixedDeltaTime);
+            if (!isEnd)
+            {
+                Vector3 dir;
+                tangenPoint = curse.findTheClosedPoint(this.transform.position, out dir, out isEnd);
+                //Vector3 direction = curse.GetTangent(currentDistance, totalLen);
+                sphere.transform.position = tangenPoint;
+                this.transform.localPosition += dir * Speed * Time.deltaTime;
+            }
+            else
+                this.transform.localPosition += this.transform.forward * Speed * Time.deltaTime;
         }
-
     }
 
     Vector3 getCurrentPosition(float delta)
@@ -83,4 +100,5 @@ public class MovingAloneLine : MonoBehaviour
         }
         return Vector3.zero;
     }
+
 }
