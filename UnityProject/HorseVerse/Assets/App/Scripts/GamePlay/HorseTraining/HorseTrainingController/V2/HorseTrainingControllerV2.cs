@@ -153,17 +153,6 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         touchDown.OnFinger.AddListener(finger =>
         {
             if (!IsStart) return;
-
-            //if (finger.Down && finger.StartScreenPosition.x < Screen.width / 2)
-            //{
-            //    horizontalDirection += 1;
-            //}
-            //else if (finger.Down && finger.StartScreenPosition.x > Screen.width / 2)
-            //{
-            //    horizontalDirection -= 1;
-            //}
-
-            //DetectDoubleTap(finger);
             HandleFirstTouch(finger);
         });
 

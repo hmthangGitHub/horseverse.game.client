@@ -14,16 +14,17 @@ public class TargetGenerator : MonoBehaviour
 
     public Vector3[] GenerateRandomTargets()
     {
-        return Enumerable.Range(0, 11)
-            .Select(i => i * 0.1f + Random.Range(-0.05f, 0.05f))
-            .Select(x => FromTimeToPoint(x, 0))
-            .ToArray();
+        var numberOfWayPoint = 10;
+        return Enumerable.Range(0, numberOfWayPoint)
+                         .Select(i => Mathf.Lerp(predefinePath.StartTime, predefinePath.EndTime,  (float)i / (numberOfWayPoint - 1)))
+                         .Select(x => FromTimeToPoint(x, 0, SimplyPath))
+                         .ToArray();
     }
     
-    private Vector3 FromTimeToPoint(float t, float offset)
+    public static Vector3 FromTimeToPoint(float t, float offset, PathCreator pathCreator)
     {
-        Vector3 rightV = Quaternion.Euler(0, SimplyPath.path.GetRotation(t).eulerAngles.y, 0) * Vector3.right;
-        return SimplyPath.path.GetPointAtTime(t) + rightV.X0Z() * offset;
+        Vector3 rightV = Quaternion.Euler(0, pathCreator.path.GetRotation(t).eulerAngles.y, 0) * Vector3.right;
+        return pathCreator.path.GetPointAtTime(t) + rightV.X0Z() * offset;
     }
 
     private (Vector3 position, Quaternion rotation, float time) FromTimeToPositionAndRotation(float t, float offset, float timeToFinish)
