@@ -5,9 +5,11 @@ using UnityEngine;
 
 public partial class PlatformModular 
 {
-    private void GenerateTurn(GameObject turnPrefab)
+    private BlockObjectData GenerateTurn(GameObject turnPrefab)
     {
         var turn = Instantiate(turnPrefab, this.blockContainer);
+        return turn.GetComponent<BlockObjectData>();
     }
+
 
 }

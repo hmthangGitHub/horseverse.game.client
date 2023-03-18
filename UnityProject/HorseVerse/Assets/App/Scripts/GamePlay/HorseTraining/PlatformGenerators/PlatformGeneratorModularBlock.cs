@@ -10,6 +10,7 @@ using Random = UnityEngine.Random;
 public class PlatformGeneratorModularBlock : PlatformGeneratorBase
 {
     private const string TrainingBlockSettingPath = "Maps/MapSettings/training_block_settings";
+    
     private TrainingBlockSettings trainingBlockSettings;
     private CancellationTokenSource cts;
     private MasterTrainingModularBlockContainer masterTrainingModularBlockContainer;
