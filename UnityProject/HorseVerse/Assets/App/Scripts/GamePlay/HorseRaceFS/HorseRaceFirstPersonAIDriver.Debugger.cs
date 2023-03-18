@@ -17,4 +17,10 @@ public partial class HorseRaceFirstPersonAIDriver
             Gizmos.DrawSphere(x, 0.5f);
         }
     }
+
+    [ContextMenu("ChangeTarget")]
+    private void ChangeTargetTest()
+    {
+        ChangeTarget(); 
+    }
 }

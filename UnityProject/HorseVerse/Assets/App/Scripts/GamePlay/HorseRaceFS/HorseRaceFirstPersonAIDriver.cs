@@ -3,15 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.AI;
 
 public partial class HorseRaceFirstPersonAIDriver : MonoBehaviour
 {
     [SerializeField] private HorseRaceFirstPersonController horseRaceFirstPersonController;
+    [SerializeField] private NavMeshAgent navMeshAgent;
     private int currentWayPointIndex = 0;
     private Vector3 currentTargetWayPoint;
     private Vector3 lastTargetDirection;
-    private float lastOffset;
-    private float targetOffset;
+    private bool isFirstlap = true;
     
     private void FixedUpdate()
     {
@@ -19,36 +20,30 @@ public partial class HorseRaceFirstPersonAIDriver : MonoBehaviour
         if (IfReachTarget())
         {
             ChangeTarget();
+            isFirstlap = false;
         }
-        ToTarget();
     }
-
-    private void ToTarget()
-    {
-        var currentOffset = GetOffsetFromPath(this.transform.position);
-    }
-
+    
     private void ChangeTarget()
     {
         currentWayPointIndex++;
+        currentWayPointIndex %= horseRaceFirstPersonController.HorseRaceThirdPersonData.PredefineWayPoints.Length;
         currentTargetWayPoint = horseRaceFirstPersonController.HorseRaceThirdPersonData.PredefineWayPoints[currentWayPointIndex];
-        lastTargetDirection = currentTargetWayPoint - horseRaceFirstPersonController.HorseRaceThirdPersonData.PredefineWayPoints[currentWayPointIndex - 1];
-        lastOffset = GetOffsetFromPath(this.transform.position);
-        targetOffset = GetOffsetFromPath(currentTargetWayPoint);
+        var lastTargetDirectionIndex
+            = (currentWayPointIndex - 1 +
+               horseRaceFirstPersonController.HorseRaceThirdPersonData.PredefineWayPoints.Length) %
+              horseRaceFirstPersonController.HorseRaceThirdPersonData.PredefineWayPoints.Length;
+        lastTargetDirection = currentTargetWayPoint - horseRaceFirstPersonController.HorseRaceThirdPersonData.PredefineWayPoints[lastTargetDirectionIndex];
+        navMeshAgent.destination = currentTargetWayPoint;
     }
-
-    private float GetOffsetFromPath(Vector3 worldPosition)
-    {
-        var time= horseRaceFirstPersonController.PredefinePath.SimplyPath.path.GetClosestTimeOnPath(worldPosition);
-        var pointOnPath = horseRaceFirstPersonController.PredefinePath.SimplyPath.path.GetPointAtTime(time);
-        var eulerAnglesY = horseRaceFirstPersonController.PredefinePath.SimplyPath.path.GetRotation(time)
-                                                         .eulerAngles.y + 180 * horseRaceFirstPersonController.PredefinePath.Direction;
-        var right = Quaternion.Euler(0, eulerAnglesY, 0) * Vector3.right;
-        return Vector3.Dot((transform.position - pointOnPath), right);
-    }
-
+    
     private bool IfReachTarget()
     {
-        return currentWayPointIndex == 0 || Vector3.Dot(transform.position - currentTargetWayPoint, lastTargetDirection) >= 0.0f;
+        return (isFirstlap && currentWayPointIndex == 0) || Vector3.Dot(transform.position - currentTargetWayPoint, lastTargetDirection) >= 0.0f || navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance;
+    }
+
+    private float DistanceToCurrentTarget()
+    {
+        return navMeshAgent.remainingDistance;
     }
 }

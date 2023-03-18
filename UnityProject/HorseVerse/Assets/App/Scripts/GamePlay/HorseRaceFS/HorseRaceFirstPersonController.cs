@@ -1,20 +1,23 @@
 using System;
 using Lean.Touch;
 using UnityEngine;
+using UnityEngine.AI;
 
 public partial class HorseRaceFirstPersonController : MonoBehaviour
 {
     [SerializeField] private GameObject[] playerRelatedGameObjects;
     [SerializeField] private GameObject[] notPlayerRelatedGameObjects;
+    [SerializeField] private Collider playerRelatedGameComponents;
+    [SerializeField] private NavMeshAgent notPlayerRelatedGameObjectsComponents;
+    [SerializeField] private Transform horseTransform;
     [SerializeField] private PredefinePath predefinePredefinePath;
     [SerializeField] private float horizontalSpeed = 5.0f;
     [SerializeField] private float offsetRange = 5.0f;
     [SerializeField] private bool isPlayer;
-    [SerializeField] public float offset;
-    [SerializeField] private Rigidbody rigidbody;
     [SerializeField] private float forwardSpeed = 0;
     [SerializeField] private float maxSpeed = 10;
     private HorseRaceThirdPersonData horseRaceThirdPersonData;
+    public float CurrentRaceProgressWeight => GetCurrentWeight();
 
     [SerializeField] public float MaxSpeed => maxSpeed;
     private bool isStart;
@@ -41,16 +44,14 @@ public partial class HorseRaceFirstPersonController : MonoBehaviour
     public HorseRaceThirdPersonData HorseRaceThirdPersonData
     {
         get => horseRaceThirdPersonData;
-        set => horseRaceThirdPersonData = value;
+        set
+        {
+            horseRaceThirdPersonData = value;
+            OnSetData();
+        }
     }
 
     public PredefinePath PredefinePath => predefinePredefinePath;
-
-    public float Offset
-    {
-        get => offset;
-        set => offset = value;
-    }
 
     public float OffsetRange
     {
@@ -64,15 +65,22 @@ public partial class HorseRaceFirstPersonController : MonoBehaviour
         set => horizontalSpeed = value;
     }
 
-    private void Start()
+    private void OnSetData()
     {
         playerRelatedGameObjects.ForEach(x => x.SetActive(this.isPlayer));
         notPlayerRelatedGameObjects.ForEach(x => x.SetActive(this.isPlayer == false));
+        playerRelatedGameComponents.enabled = this.isPlayer;
+        notPlayerRelatedGameObjectsComponents.enabled = !this.isPlayer;
     }
 
     private void OnStart(bool isStart)
     {
         if (isStart)
             ForwardSpeed = MaxSpeed;
+    }
+    
+    private float GetCurrentWeight()
+    {
+        return Mathf.InverseLerp(PredefinePath.StartTime, PredefinePath.EndTime, PredefinePath.SimplyPath.path.GetClosestTimeOnPath(horseTransform.position));
     }
 }

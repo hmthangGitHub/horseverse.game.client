@@ -28,23 +28,28 @@ public class HorseRaceFirstPersonPlayerController : MonoBehaviour
     private void UpdateHorsePositionRotation()
     {
         var time = horseRaceFirstPersonController.PredefinePath.SimplyPath.path.GetClosestTimeOnPath(horseTransform.position);
-        var eulerAnglesY = horseRaceFirstPersonController.PredefinePath.SimplyPath.path.GetRotation(time).eulerAngles.y + 180 * horseRaceFirstPersonController.PredefinePath.Direction;
-        horseTransform.rotation = Quaternion.Euler(0, eulerAnglesY, 0);
+        CalculateRotation(time);
+        CalculateVelocity(time);
+    }
 
-        var point = TargetGenerator.FromTimeToPoint(time, horseRaceFirstPersonController.Offset, horseRaceFirstPersonController.PredefinePath.SimplyPath);
-        var velocity = (horseTransform.position - point);
-        var dot = Vector3.Dot(velocity, horseTransform.right);
+    private void CalculateVelocity(float time)
+    {
+        var pointInCurve = TargetGenerator.FromTimeToPoint(time, 0.0f, horseRaceFirstPersonController.PredefinePath.SimplyPath);
+        var toPosition = (horseTransform.position - pointInCurve);
+        var isGoingToWall = Vector3.Dot(toPosition, horseTransform.right) * horseRaceFirstPersonController.HorizontalDirection > 0;
 
         var horizontalSpeed = 0.0f;
-        if (Mathf.Abs(velocity.magnitude) > horseRaceFirstPersonController.OffsetRange && dot * horseRaceFirstPersonController.HorizontalDirection > 0)
-        {
-            horizontalSpeed = 0;
-        }
-        else
-        {
-            horizontalSpeed = horseRaceFirstPersonController.HorizontalSpeed;
-        }
-        
+        horizontalSpeed = Mathf.Abs(toPosition.magnitude) >= horseRaceFirstPersonController.OffsetRange && isGoingToWall
+            ? 0
+            : horseRaceFirstPersonController.HorizontalSpeed;
+
         rigidBody.velocity = horseTransform.rotation * new Vector3(horseRaceFirstPersonController.HorizontalDirection * horizontalSpeed, 0, horseRaceFirstPersonController.ForwardSpeed);
+    }
+
+    private void CalculateRotation(float time)
+    {
+        var eulerAnglesY = horseRaceFirstPersonController.PredefinePath.SimplyPath.path.GetRotation(time)
+                                                         .eulerAngles.y + 180 * horseRaceFirstPersonController.PredefinePath.Direction;
+        horseTransform.rotation = Quaternion.Euler(0, eulerAnglesY, 0);
     }
 }

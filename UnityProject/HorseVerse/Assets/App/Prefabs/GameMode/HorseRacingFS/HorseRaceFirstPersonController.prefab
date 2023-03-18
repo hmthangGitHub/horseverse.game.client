@@ -2135,6 +2135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horseRaceFirstPersonController: {fileID: 8385158567914655429}
+  navMeshAgent: {fileID: 4819913837950558860}
 --- !u!1 &4509603822225868856
 GameObject:
   m_ObjectHideFlags: 0
@@ -18222,6 +18223,8 @@ MonoBehaviour:
   - {fileID: 1907721943895093680}
   notPlayerRelatedGameObjects:
   - {fileID: 843516397355887942}
+  playerRelatedGameComponents: {fileID: 6273187665405855228}
+  notPlayerRelatedGameObjectsComponents: {fileID: 4819913837950558860}
   predefinePredefinePath: {fileID: 0}
   horizontalSpeed: 5
   offsetRange: 5.5
