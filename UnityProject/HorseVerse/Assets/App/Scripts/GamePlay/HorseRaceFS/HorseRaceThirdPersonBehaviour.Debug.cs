@@ -1,12 +1,12 @@
 ﻿#if UNITY_EDITOR
 using UnityEngine;
 
-public partial class HorseRaceFirstPersonController
+public partial class HorseRaceThirdPersonBehaviour
 {
     [ContextMenu("Start")]
     public void StartGameDebug()
     {
-        IsStart = true;
+        StartRace(0.0f);
     }
 }
 #endif

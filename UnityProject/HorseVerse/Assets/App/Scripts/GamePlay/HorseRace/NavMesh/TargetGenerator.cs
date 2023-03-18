@@ -1,23 +1,43 @@
+using System;
 using PathCreation;
 using System.Linq;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
-
+[ExecuteInEditMode]
 public class TargetGenerator : MonoBehaviour
 {
     [SerializeField] private PredefinePath predefinePath;
-    public PathCreator SimplyPath => predefinePath.SimplyPath;
+    public PredefinePath PredefinePath => predefinePath;
+    public PathCreator SimplyPath => PredefinePath.SimplyPath;
     public float spacing = 2.5f;
     public float offset = 2.5f;
     public int numberOfAgents = 8;
-    public Vector3 StartPosition => predefinePath.StartPosition;
-    public Quaternion StartRotation => predefinePath.StartRotation;
+    public Vector3 StartPosition => PredefinePath.StartPosition;
+    public Quaternion StartRotation => PredefinePath.StartRotation;
+
 
     public Vector3[] GenerateRandomTargets()
     {
         var numberOfWayPoint = 10;
         return Enumerable.Range(0, numberOfWayPoint)
-                         .Select(i => Mathf.Lerp(predefinePath.StartTime, predefinePath.EndTime,  (float)i / (numberOfWayPoint - 1)))
-                         .Select(x => FromTimeToPoint(x, 0, SimplyPath))
+                         .Select(i => Mathf.Lerp(PredefinePath.StartTime, PredefinePath.EndTime,  (float)i / (numberOfWayPoint - 1)))
+                         .Select(x => FromTimeToPoint(x, 0.0f, SimplyPath))
+                         .ToArray();
+    }
+    
+    public Vector3[] GenerateRandomTargetsWithNoise()
+    {
+        var numberOfWayPoint = 40;
+        var seed = UnityEngine.Random.value;
+        return Enumerable.Range(0, numberOfWayPoint)
+                         .Select(i => Mathf.Lerp(PredefinePath.StartTime, PredefinePath.EndTime,  (float)i / (numberOfWayPoint - 1)))
+                         .Select(x =>
+                         {
+                             var lane = Mathf.Lerp(0, numberOfAgents - 1, Mathf.PerlinNoise(seed + x * (numberOfWayPoint - 1)  * 0.25f, 0.0f));
+                             return FromTimeToPoint(x, GetOffsetFromLane(lane), SimplyPath);
+                         })
                          .ToArray();
     }
     
@@ -33,18 +53,24 @@ public class TargetGenerator : MonoBehaviour
         return (SimplyPath.path.GetPointAtTime(t) + rightV.X0Z() * offset , SimplyPath.path.GetRotation(t) * Quaternion.Euler(0, 180, 0), timeToFinish);
     }
 
+    public float GetOffsetFromLane(float lane)
+    {
+        var start = spacing * ((numberOfAgents - 1) / 2.0f) + offset;
+        return start - spacing * lane;
+    }
+    
     private float GetOffsetFromLane(int lane)
     {
-        var start = -spacing * ((numberOfAgents - 1) / 2.0f) + offset;
-        return start + spacing * lane;
+        var start = spacing * ((numberOfAgents - 1) / 2.0f) + offset;
+        return start - spacing * lane;
     }
 
     public ((Vector3 target, Quaternion, float time)[] targets,int finishIndex) GenerateTargets(RaceSegmentTime[] raceSegments)
     {
-        var firstPoint = SimplyPath.bezierPath.GetPoint(predefinePath.PredefinedWayPointIndices.First());
+        var firstPoint = SimplyPath.bezierPath.GetPoint(PredefinePath.PredefinedWayPointIndices.First());
         var tFirst = SimplyPath.path.GetClosestTimeOnPath(firstPoint);
         
-        var lastPoint = SimplyPath.bezierPath.GetPoint(predefinePath.PredefinedWayPointIndices.Last());
+        var lastPoint = SimplyPath.bezierPath.GetPoint(PredefinePath.PredefinedWayPointIndices.Last());
         var tLast = SimplyPath.path.GetClosestTimeOnPath(lastPoint);
 
         const int interpolatePointNumber = 7;
@@ -71,4 +97,17 @@ public class TargetGenerator : MonoBehaviour
         }).ToArray();
         return (paddingTargets, paddingTargets.Length - 1);
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        for (var i = 0; i < numberOfAgents; i++)
+        {
+            var position = FromTimeToPoint(PredefinePath.StartTime, GetOffsetFromLane(i), PredefinePath.SimplyPath);
+            GUI.color = Color.black;
+            Handles.Label(position + Vector3.right * 1.0f, $"lane :{i}");
+            Gizmos.DrawSphere(position, 0.5f);
+        }
+    }
+#endif
 }

@@ -25,5 +25,9 @@ public class HorseRaceFirstPersonStandAloneInput : MonoBehaviour
         {
             horseRaceFirstPersonController.MoveHorizontal(-1);
         }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            horseRaceFirstPersonController.Sprint();
+        }
     }
 }

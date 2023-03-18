@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class HorseRaceFirstPersonAnimatorController : MonoBehaviour
     private static readonly int SpeedHash = Animator.StringToHash("Speed"); 
     [SerializeField] private Animator animator;
     [SerializeField] private float smoothTime = 0.2f;
-    [SerializeField] private HorseRaceFirstPersonController horseRaceFirstPersonController;
+    [SerializeField] private HorseRaceThirdPersonBehaviour horseRaceThirdPersonBehaviour;
     
     private float animationHorizontalSpeed;
     private float horizontalVelocity;
@@ -26,10 +27,11 @@ public class HorseRaceFirstPersonAnimatorController : MonoBehaviour
         animationForwardSpeed = Mathf.SmoothDamp(animationForwardSpeed, speed, ref forwardAnimationVelocity, smoothTime);
         animator.SetFloat(SpeedHash, animationForwardSpeed);
     }
-    
+
     private void LateUpdate()
     {
-        SetSpeed(Mathf.InverseLerp(0.0f, horseRaceFirstPersonController.MaxSpeed, horseRaceFirstPersonController.ForwardSpeed));
-        SetHorizontalDirection(horseRaceFirstPersonController.HorizontalDirection);
+        if (!horseRaceThirdPersonBehaviour.IsStart) return;
+        SetSpeed(Mathf.InverseLerp(0.0f, horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.ForwardSpeedRange.y, horseRaceThirdPersonBehaviour.CurrentForwardSpeed));
+        SetHorizontalDirection(horseRaceThirdPersonBehaviour.HorizontalDirection);
     }
 }

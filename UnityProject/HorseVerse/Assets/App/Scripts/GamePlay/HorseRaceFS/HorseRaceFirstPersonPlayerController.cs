@@ -5,18 +5,20 @@ using UnityEngine;
 public class HorseRaceFirstPersonPlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody rigidBody;
-    [SerializeField] private HorseRaceFirstPersonController horseRaceFirstPersonController;
+    [SerializeField] private HorseRaceThirdPersonBehaviour horseRaceThirdPersonBehaviour;
     [SerializeField] private Transform horseTransform;
     
     public void MoveHorizontal(int direction)
     {
-        if (!horseRaceFirstPersonController.IsStart) return;
-        horseRaceFirstPersonController.HorizontalDirection += direction;
-        horseRaceFirstPersonController.HorizontalDirection = Mathf.Clamp(horseRaceFirstPersonController.HorizontalDirection, -1, 1);
+        if (!horseRaceThirdPersonBehaviour.IsStart) return;
+        horseRaceThirdPersonBehaviour.HorizontalDirection += direction;
+        horseRaceThirdPersonBehaviour.HorizontalDirection = Mathf.Clamp(horseRaceThirdPersonBehaviour.HorizontalDirection, -1, 1);
     }
 
     private void FixedUpdate()
     {
+        if (!horseRaceThirdPersonBehaviour.IsStart) return;
+        
         UpdateHorsePositionRotation();
         CheckIfFinish();
     }
@@ -27,29 +29,34 @@ public class HorseRaceFirstPersonPlayerController : MonoBehaviour
 
     private void UpdateHorsePositionRotation()
     {
-        var time = horseRaceFirstPersonController.PredefinePath.SimplyPath.path.GetClosestTimeOnPath(horseTransform.position);
+        var time = horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.PredefinePath.SimplyPath.path.GetClosestTimeOnPath(horseTransform.position);
         CalculateRotation(time);
         CalculateVelocity(time);
     }
 
     private void CalculateVelocity(float time)
     {
-        var pointInCurve = TargetGenerator.FromTimeToPoint(time, 0.0f, horseRaceFirstPersonController.PredefinePath.SimplyPath);
+        var pointInCurve = TargetGenerator.FromTimeToPoint(time, 0.0f, horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.PredefinePath.SimplyPath);
         var toPosition = (horseTransform.position - pointInCurve);
-        var isGoingToWall = Vector3.Dot(toPosition, horseTransform.right) * horseRaceFirstPersonController.HorizontalDirection > 0;
+        var isGoingToWall = Vector3.Dot(toPosition, horseTransform.right) * horseRaceThirdPersonBehaviour.HorizontalDirection > 0;
 
         var horizontalSpeed = 0.0f;
-        horizontalSpeed = Mathf.Abs(toPosition.magnitude) >= horseRaceFirstPersonController.OffsetRange && isGoingToWall
+        horizontalSpeed = Mathf.Abs(toPosition.magnitude) >= horseRaceThirdPersonBehaviour.OffsetRange && isGoingToWall
             ? 0
-            : horseRaceFirstPersonController.HorizontalSpeed;
+            : horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.HorizontalSpeed;
 
-        rigidBody.velocity = horseTransform.rotation * new Vector3(horseRaceFirstPersonController.HorizontalDirection * horizontalSpeed, 0, horseRaceFirstPersonController.ForwardSpeed);
+        rigidBody.velocity = horseTransform.rotation * new Vector3(horseRaceThirdPersonBehaviour.HorizontalDirection * horizontalSpeed, 0, horseRaceThirdPersonBehaviour.CurrentForwardSpeed);
     }
 
     private void CalculateRotation(float time)
     {
-        var eulerAnglesY = horseRaceFirstPersonController.PredefinePath.SimplyPath.path.GetRotation(time)
-                                                         .eulerAngles.y + 180 * horseRaceFirstPersonController.PredefinePath.Direction;
+        var eulerAnglesY = horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.PredefinePath.SimplyPath.path.GetRotation(time)
+                                                         .eulerAngles.y + 180 * horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.PredefinePath.Direction;
         horseTransform.rotation = Quaternion.Euler(0, eulerAnglesY, 0);
+    }
+
+    public void Sprint()
+    {
+        horseRaceThirdPersonBehaviour.Sprint();
     }
 }

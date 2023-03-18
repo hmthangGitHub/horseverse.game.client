@@ -3,20 +3,20 @@ using UnityEngine;
 
 namespace PathCreation.Utility {
     public static class MathUtility {
-
         static PosRotScale LockTransformToSpace (Transform t, PathSpace space) {
             var original = new PosRotScale (t);
+            var tPosition = t.position;
             if (space == PathSpace.xy) {
                 t.eulerAngles = new Vector3 (0, 0, t.eulerAngles.z);
-                t.position = new Vector3 (t.position.x, t.position.y, 0);
+                tPosition = new Vector3 (tPosition.x, tPosition.y, 0);
             } else if (space == PathSpace.xz) {
                 t.eulerAngles = new Vector3 (0, t.eulerAngles.y, 0);
-                t.position = new Vector3 (t.position.x, 0, t.position.z);
+                tPosition = new Vector3 (tPosition.x, 0, tPosition.z);
             }
 
             //float maxScale = Mathf.Max (t.localScale.x * t.parent.localScale.x, t.localScale.y * t.parent.localScale.y, t.localScale.z * t.parent.localScale.z);
-            float maxScale = Mathf.Max (t.lossyScale.x, t.lossyScale.y, t.lossyScale.z);
-
+            var tLossyScale = t.lossyScale;
+            var maxScale = Mathf.Max (Mathf.Max(tLossyScale.x, tLossyScale.y), tLossyScale.z);
             t.localScale = Vector3.one * maxScale;
 
             return original;
@@ -140,10 +140,10 @@ namespace PathCreation.Utility {
             return signedArea >= 0;
         }
 
-        class PosRotScale {
-            public readonly Vector3 position;
-            public readonly Quaternion rotation;
-            public readonly Vector3 scale;
+        readonly struct PosRotScale {
+            private readonly Vector3 position;
+            private readonly Quaternion rotation;
+            private readonly Vector3 scale;
 
             public PosRotScale (Transform t) {
                 this.position = t.position;

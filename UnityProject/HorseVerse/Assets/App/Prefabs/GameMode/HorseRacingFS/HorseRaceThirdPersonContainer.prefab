@@ -2131,10 +2131,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4392586952798163180}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a235da59822138c47a7d8d4395bebf78, type: 3}
+  m_Script: {fileID: 11500000, guid: ad35d3dcd4b6a944fbfad7190fe1484f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horseRaceFirstPersonController: {fileID: 8385158567914655429}
+  horseRaceThirdPersonBehaviour: {fileID: 1709649980283075862}
   navMeshAgent: {fileID: 4819913837950558860}
 --- !u!1 &4509603822225868856
 GameObject:
@@ -2153,7 +2153,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5416156259555006814
 Transform:
   m_ObjectHideFlags: 0
@@ -2176,12 +2176,12 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4509603822225868856}
   serializedVersion: 2
-  m_Mass: 0.0000001
+  m_Mass: 100
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 1
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 3
 --- !u!136 &6401602925942789460
@@ -2393,12 +2393,12 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5121638192052363899}
   serializedVersion: 2
-  m_Mass: 0.0000001
+  m_Mass: 100
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 1
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 3
 --- !u!136 &3064485767634227112
@@ -2411,7 +2411,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.6
+  m_Radius: 0.75
   m_Height: 2.6
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
@@ -17863,7 +17863,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 9050521108427274045}
-  horseRaceFirstPersonController: {fileID: 8385158567914655429}
+  horseRaceThirdPersonBehaviour: {fileID: 1709649980283075862}
   horseTransform: {fileID: 8385158567914655425}
 --- !u!1 &7835457935120484811
 GameObject:
@@ -18176,14 +18176,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8385158567914655425}
-  - component: {fileID: 8385158567914655429}
+  - component: {fileID: 1709649980283075862}
   - component: {fileID: 8385158567914655428}
   - component: {fileID: 5083994052526057142}
   - component: {fileID: 6273187665405855228}
   - component: {fileID: 9050521108427274045}
   - component: {fileID: 4819913837950558860}
   m_Layer: 14
-  m_Name: HorseRaceFirstPersonController
+  m_Name: HorseRaceThirdPersonContainer
   m_TagString: TrainingHorse
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18207,7 +18207,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90.017, z: 0}
---- !u!114 &8385158567914655429
+--- !u!114 &1709649980283075862
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -18225,14 +18225,9 @@ MonoBehaviour:
   - {fileID: 843516397355887942}
   playerRelatedGameComponents: {fileID: 6273187665405855228}
   notPlayerRelatedGameObjectsComponents: {fileID: 4819913837950558860}
-  predefinePredefinePath: {fileID: 0}
-  horizontalSpeed: 5
+  horseTransform: {fileID: 8385158567914655425}
   offsetRange: 5.5
-  isPlayer: 1
-  offset: 0
-  rigidbody: {fileID: 9050521108427274045}
-  forwardSpeed: 0
-  maxSpeed: 10
+  currentRaceProgressWeight: 0
 --- !u!114 &8385158567914655428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18247,7 +18242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6776762544171531799}
   smoothTime: 0.2
-  horseRaceFirstPersonController: {fileID: 8385158567914655429}
+  horseRaceThirdPersonBehaviour: {fileID: 1709649980283075862}
 --- !u!114 &5083994052526057142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18263,7 +18258,6 @@ MonoBehaviour:
   ignoreColliders:
   - {fileID: 6401602925942789460}
   - {fileID: 6273187665405855228}
-  - {fileID: 3064485767634227112}
   - {fileID: 3064485767634227112}
 --- !u!65 &6273187665405855228
 BoxCollider:
@@ -18286,13 +18280,13 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8385158567914655430}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 100
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 84
+  m_Interpolate: 0
+  m_Constraints: 116
   m_CollisionDetection: 1
 --- !u!195 &4819913837950558860
 NavMeshAgent:
@@ -18310,10 +18304,10 @@ NavMeshAgent:
   m_AngularSpeed: 58.7
   m_StoppingDistance: 0.35
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: -0.12
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 2
 --- !u!1 &8385158568262936356

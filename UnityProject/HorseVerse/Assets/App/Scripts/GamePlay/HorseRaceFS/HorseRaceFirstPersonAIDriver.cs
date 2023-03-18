@@ -7,7 +7,7 @@ using UnityEngine.AI;
 
 public partial class HorseRaceFirstPersonAIDriver : MonoBehaviour
 {
-    [SerializeField] private HorseRaceFirstPersonController horseRaceFirstPersonController;
+    [SerializeField] private HorseRaceThirdPersonBehaviour horseRaceThirdPersonBehaviour;
     [SerializeField] private NavMeshAgent navMeshAgent;
     private int currentWayPointIndex = 0;
     private Vector3 currentTargetWayPoint;
@@ -16,24 +16,31 @@ public partial class HorseRaceFirstPersonAIDriver : MonoBehaviour
     
     private void FixedUpdate()
     {
-        if (!horseRaceFirstPersonController.IsStart) return;
+        if (!horseRaceThirdPersonBehaviour.IsStart) return;
+        UpdateSpeed();
         if (IfReachTarget())
         {
             ChangeTarget();
             isFirstlap = false;
         }
     }
-    
+
+    private void UpdateSpeed()
+    {
+        navMeshAgent.speed = horseRaceThirdPersonBehaviour.CurrentForwardSpeed;
+        navMeshAgent.acceleration = horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.Acceleration;
+    }
+
     private void ChangeTarget()
     {
         currentWayPointIndex++;
-        currentWayPointIndex %= horseRaceFirstPersonController.HorseRaceThirdPersonData.PredefineWayPoints.Length;
-        currentTargetWayPoint = horseRaceFirstPersonController.HorseRaceThirdPersonData.PredefineWayPoints[currentWayPointIndex];
+        currentWayPointIndex %= horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.PredefineWayPoints.Length;
+        currentTargetWayPoint = horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.PredefineWayPoints[currentWayPointIndex];
         var lastTargetDirectionIndex
             = (currentWayPointIndex - 1 +
-               horseRaceFirstPersonController.HorseRaceThirdPersonData.PredefineWayPoints.Length) %
-              horseRaceFirstPersonController.HorseRaceThirdPersonData.PredefineWayPoints.Length;
-        lastTargetDirection = currentTargetWayPoint - horseRaceFirstPersonController.HorseRaceThirdPersonData.PredefineWayPoints[lastTargetDirectionIndex];
+               horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.PredefineWayPoints.Length) %
+              horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.PredefineWayPoints.Length;
+        lastTargetDirection = currentTargetWayPoint - horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.PredefineWayPoints[lastTargetDirectionIndex];
         navMeshAgent.destination = currentTargetWayPoint;
     }
     
