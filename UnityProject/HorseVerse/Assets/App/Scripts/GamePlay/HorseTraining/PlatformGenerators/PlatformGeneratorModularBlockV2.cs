@@ -7,10 +7,10 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class PlatformGeneratorModularBlock : PlatformGeneratorBase
+public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
 {
     private const string TrainingBlockSettingPath = "Maps/MapSettings/training_block_settings";
-    
+
     private TrainingBlockSettings trainingBlockSettings;
     private CancellationTokenSource cts;
     private MasterTrainingModularBlockContainer masterTrainingModularBlockContainer;
@@ -28,7 +28,7 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
-        trainingBlockSettings = await PrimitiveAssetLoader.LoadAssetAsync<TrainingBlockSettings>(TrainingBlockSettingPath, cts.Token);
+        trainingBlockSettings = await PrimitiveAssetLoader.LoadAssetAsync<TrainingBlockSettings>($"{TrainingBlockSettingPath}_{path}", cts.Token);
         masterTrainingModularBlockContainer = await MasterLoader.LoadMasterAsync<MasterTrainingModularBlockContainer>(cts.Token);
     }
 

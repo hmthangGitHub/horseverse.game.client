@@ -16,6 +16,14 @@ public class PlatformGeneratorPredefined : PlatformGeneratorBase
         await UniTask.CompletedTask;
     }
 
+    protected override async UniTask InitializeInternal(string path)
+    {
+        cts.SafeCancelAndDispose();
+        cts = new CancellationTokenSource();
+        trainingBlockSettings = await PrimitiveAssetLoader.LoadAssetAsync<TrainingBlockSettings>(TrainingBlockSettingPath, cts.Token);
+        await UniTask.CompletedTask;
+    }
+
     public override void Dispose()
     {
         DisposeUtility.SafeDispose(ref cts);

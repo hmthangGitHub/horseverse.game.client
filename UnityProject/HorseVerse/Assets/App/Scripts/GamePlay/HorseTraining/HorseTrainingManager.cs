@@ -15,6 +15,7 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
     public HorseTrainingControllerV2 HorseTrainingController => horseTrainingController;
 
     public async UniTask Initialize(string mapPath,
+                                    string mapId,
                                     Action onTakeCoin,
                                     Action onUpdateRunTime,
                                     Action onTouchObstacle,
@@ -33,7 +34,8 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
             masterHorseTrainingBlockContainer, 
             masterHorseTrainingBlockComboContainer, 
             masterTrainingDifficultyContainer, 
-            masterTrainingBlockDistributeContainer);
+            masterTrainingBlockDistributeContainer,
+            mapId);
     }
 
     public void StartGame()

@@ -24,22 +24,20 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
                                          MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer,
                                          MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer,
                                          MasterTrainingDifficultyContainer masterTrainingDifficultyContainer,
-                                         MasterTrainingBlockDistributeContainer masterTrainingBlockDistributeContainer)
+                                         MasterTrainingBlockDistributeContainer masterTrainingBlockDistributeContainer,
+                                         string Scene_Key)
     {
         this.masterHorseTrainingProperty = masterHorseTrainingProperty;
         this.masterHorseTrainingBlockContainer = masterHorseTrainingBlockContainer;
         this.masterHorseTrainingBlockComboContainer = masterHorseTrainingBlockComboContainer;
         this.masterTrainingDifficultyContainer = masterTrainingDifficultyContainer;
         this.masterTrainingBlockDistributeContainer = masterTrainingBlockDistributeContainer;
-        await InitializeInternal();
-        //for (var i = 0; i < 4; i++)
-        //{
-        //    Generate();
-        //}
+        await InitializeInternal(Scene_Key);
         GenerateMulti(2);
     }
 
     protected abstract UniTask InitializeInternal();
+    protected abstract UniTask InitializeInternal(string path);
 
     public abstract void Dispose();
 
@@ -69,6 +67,11 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         var maxZ = v0 * v0 * Mathf.Sin(2 * angle) / (-horseTrainingControllerV2.DefaultGravity * 2); 
         var maxY = (horseTrainingControllerV2.JumpVelocity * horseTrainingControllerV2.JumpVelocity) / (2 * -horseTrainingControllerV2.DefaultGravity);
         return new Vector3(0, maxY, maxZ);
+    }
+
+    private Vector3 GetNextDirection()
+    {
+        return Vector3.forward;
     }
 
     private void Generate()

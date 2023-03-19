@@ -68,6 +68,7 @@ public class HorseTrainingPresenter : IDisposable
         
         await horseTrainingManager.Initialize(
             masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.MasterMapId].MapPath,
+            HorseTrainingDataContext.MasterMapId.ToString(),
             OnTakeCoin,
             OnUpdateRuntime,
             () => OnTouchObstacleAsync().Forget(),
