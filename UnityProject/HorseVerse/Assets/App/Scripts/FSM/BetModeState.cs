@@ -26,6 +26,7 @@ public class BetModeState : InjectedBHState
         base.Enter();
         Container.Bind(new BetModeDomainService(Container));
         Container.Bind(new BetMatchRepository(Container));
+        Container.Bind(new HorseRaceManagerFactory(Container));
         HorseRaceContext.GameMode = HorseGameMode.Bet;
 #if ENABLE_DEBUG_MODULE
         Container.Bind(new BetModeUIDebugMenuPresenter(Container));
@@ -39,6 +40,7 @@ public class BetModeState : InjectedBHState
         Container.RemoveAndDisposeIfNeed<BetModeUIDebugMenuPresenter>();
 #endif
         Container.RemoveAndDisposeIfNeed<BetMatchRepository>();
+        Container.RemoveAndDisposeIfNeed<HorseRaceManagerFactory>();
         Container.RemoveAndDisposeIfNeed<BetModeDomainService>();
         HorseRaceContext.Reset();
     }

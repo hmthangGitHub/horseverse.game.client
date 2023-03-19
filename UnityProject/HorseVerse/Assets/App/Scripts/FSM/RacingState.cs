@@ -22,12 +22,14 @@ public class RacingState : InjectedBHState
     {
         HorseRaceContext.GameMode = HorseGameMode.Race;
         HorseRaceContext.RaceMatchDataContext = new RaceMatchDataContext();
+        Container.Bind(new HorseRaceManagerFactory(Container));
         base.Enter();
     }
 
     public override void Exit()
     {
         base.Exit();
+        Container.RemoveAndDisposeIfNeed<HorseRaceManagerFactory>();
         HorseRaceContext.Reset();
         horseRaceContext = default;
     }

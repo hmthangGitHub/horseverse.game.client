@@ -18,10 +18,8 @@ public class HorseRaceTest : MonoBehaviour
 
         await horseRaceManager.InitializeAsync(default,
                                                masterMapContainer.MasterMapIndexer[masterMapId].MapSettings, 
-                                               masterMapContainer.MasterMapIndexer[masterMapId].MapPath,
                                     UnityEngine.Random.Range(0, 7),
                                                Enumerable.Range(1, 8).Select(x => UnityEngine.Random.Range(49.5f, 50.5f)).ToArray(),
-                                               1,
                                                default,
                                                default);
 
