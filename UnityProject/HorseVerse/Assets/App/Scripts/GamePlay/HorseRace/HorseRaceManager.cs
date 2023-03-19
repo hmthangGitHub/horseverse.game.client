@@ -12,10 +12,8 @@ using UnityEngine.SceneManagement;
 
 public class HorseRaceManager : MonoBehaviour, IDisposable
 {
-    public FreeCamera freeCamera;
     public RaceModeCameras raceCamera;
     public TargetGenerator targetGenerator;
-    public WarmUpCamera warmUpCamera;
     private Scene mapScene;
     private string mapPath;
 
@@ -49,6 +47,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
     private bool isStartedRace;
     private bool isHorsesLoaded;
     private CancellationToken token;
+    public Transform WarmUpTarget => this.horseGroup.transform;
 
     public async UniTask InitializeAsync(HorseMeshInformation[] horseMeshControllerPaths,
                                          string mapSettingPath,
@@ -74,57 +73,14 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         this.token = token;
     }
 
-    public async UniTask ShowFreeCamera()
+    public void PrepareWarmUp()
     {
-        freeCamera.gameObject.SetActive(true);
-        var ucs = new UniTaskCompletionSource();
-
-        void OnSkipFreeCamera()
-        {
-            freeCamera.OnSkipFreeCamera -= OnSkipFreeCamera;
-            OnSkipFreeCameraAsync().Forget();
-        }
-        
-        async UniTaskVoid OnSkipFreeCameraAsync()
-        {
-            await cameraBlendingAnimation.FadeInAnimationAsync();
-            freeCamera.gameObject.SetActive(false);
-            ucs.TrySetResult();
-        }
-        
-        freeCamera.OnSkipFreeCamera += OnSkipFreeCamera;
-        await ucs.Task.AttachExternalCancellation(cancellationToken: this.token);
-        mainCamera.SetActive(true);
-    }
-
-    public async UniTask ShowWarmUpCameraThenWait()
-    {
-        await ShowWarmUpCameraAsync();
-        await WaitAndCountDownAsync();
-    }
-
-    private async UniTask ShowWarmUpCameraAsync()
-    {
-        warmUpCamera.gameObject.SetActive(true);
         horseControllers.ForEach(x => { x.gameObject.SetActive(true); });
-
-        var ucs = new UniTaskCompletionSource();
-
-        void OnFinishWarmingUp()
-        {
-            warmUpCamera.OnFinishWarmingUp -= OnFinishWarmingUp;
-            ucs.TrySetResult();
-        }
-
-        warmUpCamera.OnFinishWarmingUp += OnFinishWarmingUp;
-        await ucs.Task.AttachExternalCancellation(this.token);
-        warmUpCamera.gameObject.SetActive(false);
     }
 
     private async UniTask LoadMapSettings(CancellationToken token)
     {
         var mapSettings = await PrimitiveAssetLoader.LoadAssetAsync<MapSettings>(mapSettingsPath, token);
-        freeCamera = Instantiate(mapSettings.freeCamera, transform, true);
 
         raceCamera = Instantiate(GetRaceModeCamera(mapSettings), Vector3.zero, Quaternion.identity, transform);
         raceCamera.gameObject.SetActive(false);
@@ -133,11 +89,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         SubscribeToVcamsFading(true);
 
         targetGenerator = Instantiate(mapSettings.targetGenerator, Vector3.zero,Quaternion.identity, transform);
-        warmUpCamera = Instantiate(mapSettings.warmUpCamera, Vector3.zero, Quaternion.identity, transform);
-
         horsePosition.position = targetGenerator.StartPosition;
-        warmUpCamera.gameObject.SetActive(false);
-        warmUpCamera.SetTargetGroup(this.horseGroup.transform);
     }
 
     private void SubscribeToVcamsFading(bool enable)
@@ -229,14 +181,12 @@ public class HorseRaceManager : MonoBehaviour, IDisposable
         mainCamera.GetComponent<PostProcessVolume>().enabled = enable;
     }
 
-    private async UniTask WaitAndCountDownAsync()
+    public async UniTask WaitToStart()
     {
-        await cameraBlendingAnimation.FadeInAnimationAsync();
-        freeCamera.gameObject.SetActive(false);
+        mainCamera.SetActive(true);
         raceCamera.gameObject.SetActive(true);
         racingTrackController?.PlayStartAnimation();
-        await (cameraBlendingAnimation.FadeOutAnimationAsync(),
-                UniTask.Delay(TimeSpan.FromSeconds(3), cancellationToken: token));
+        await UniTask.Delay(TimeSpan.FromSeconds(3), cancellationToken: token);
     }
 
     private void CalculateRaceStat(float[] times, int totalLap)

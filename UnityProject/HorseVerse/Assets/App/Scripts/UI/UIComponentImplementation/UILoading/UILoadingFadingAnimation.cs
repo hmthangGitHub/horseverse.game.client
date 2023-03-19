@@ -13,6 +13,6 @@ public class UILoadingFadingAnimation : UISequenceAnimationBase
 
     protected override Tween CreateOutAnimation()
     {
-        return canvasGroup.DOFade(1.0f, 0.5f, 0.5f).SetUpdate(true);;
+        return canvasGroup.DOFade(1.0f, 0.0f, 0.5f).SetUpdate(true);;
     }
 }

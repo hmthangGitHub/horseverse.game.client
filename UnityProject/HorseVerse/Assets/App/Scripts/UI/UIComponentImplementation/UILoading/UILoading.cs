@@ -7,12 +7,16 @@ using UnityEngine;
 
 public class UILoading : PopupEntity<UILoading.Entity>
 {
-    protected override void OnSetEntity()
-    {
-    }
-
     [Serializable]
     public class Entity
     {
+        public bool loadingHorse = true;
+    }
+
+    public IsVisibleComponent loadingHorse;
+    
+    protected override void OnSetEntity()
+    {
+        loadingHorse.SetEntity(this.entity.loadingHorse);
     }
 }

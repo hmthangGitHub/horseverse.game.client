@@ -11,21 +11,28 @@ public class RaceModeHorseIntroPresenter : IDisposable
     private CancellationTokenSource cts;
     private MasterHorseContainer masterHorseContainer;
     private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= Container.Inject<MasterHorseContainer>();
-    private Vector3 horsePosition;
-    private Quaternion rotation;
+    private readonly Vector3 horsePosition;
+    private readonly Quaternion rotation;
     private IDIContainer Container { get; }
 
-    public RaceModeHorseIntroPresenter(IDIContainer container)
+    private RaceModeHorseIntroPresenter(IDIContainer container, Vector3 horsePosition, Quaternion rotation)
     {
+        this.horsePosition = horsePosition;
+        this.rotation = rotation;
         Container = container;
     }
 
-    public async UniTask ShowHorsesInfoIntroAsync(IHorseBriefInfo[] horseBriefInfo, Vector3 horsePosition, Quaternion rotation)
+    public static async UniTask<RaceModeHorseIntroPresenter> InstantiateAsync(IDIContainer container, Vector3 horsePosition, Quaternion rotation, CancellationToken token)
+    {
+        var presenter = new RaceModeHorseIntroPresenter(container, horsePosition, rotation);
+        await presenter.LoadUIAsync(token);
+        return presenter;
+    }
+
+    public async UniTask ShowHorsesInfoIntroAsync(IHorseBriefInfo[] horseBriefInfo)
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
-        this.horsePosition = horsePosition;
-        this.rotation = rotation;
 
         try
         {
@@ -42,12 +49,11 @@ public class RaceModeHorseIntroPresenter : IDisposable
         }
     }
 
-    public async UniTask LoadUIAsync()
+    private async UniTask LoadUIAsync(CancellationToken cancellationToken)
     {
-        cts.SafeCancelAndDispose();
-        cts = new CancellationTokenSource();
-        uiHorseInfoIntro = await UILoader.Instantiate<UIHorseInfoIntro>(token: cts.Token);
-        uiHorse3DIntro = await UILoader.Instantiate<UIHorse3DInRaceSceneIntro>(token: cts.Token);
+        uiHorseInfoIntro = await UILoader.Instantiate<UIHorseInfoIntro>(token: cancellationToken);
+        uiHorse3DIntro = await UILoader.Instantiate<UIHorse3DInRaceSceneIntro>(token: cancellationToken);
+        uiHorse3DIntro.horseModelLoader.SetTransform(this.horsePosition, this.rotation);
     }
 
     private async UniTask ShowHorseInfoAsync(IHorseBriefInfo horseRaceInfo, int gate, float introTime)
@@ -106,8 +112,6 @@ public class RaceModeHorseIntroPresenter : IDisposable
                     color2 = horseMeshInformation.color2,
                     color3 = horseMeshInformation.color3,
                     color4 = horseMeshInformation.color4,
-                    position = horsePosition,
-                    rotation = rotation
                 }
             });
             uiHorse3DIntro.In().Forget();
@@ -121,8 +125,6 @@ public class RaceModeHorseIntroPresenter : IDisposable
                 color2 = horseMeshInformation.color2,
                 color3 = horseMeshInformation.color3,
                 color4 = horseMeshInformation.color4,
-                position = horsePosition,
-                rotation = rotation
             };
             uiHorse3DIntro.horseModelLoader.SetEntity(uiHorse3DIntro.entity.horseModelLoader);
         }

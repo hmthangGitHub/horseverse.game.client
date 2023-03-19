@@ -10,6 +10,7 @@ public partial class HorseRacePresenter : IDisposable
 {
     private HorseRaceManager horseRaceManager;
     private UIFlashScreenAnimation uiFlashScreen;
+    private UILoading uiLoading;
 
     private MasterHorseContainer masterHorseContainer;
     public event Action OnToBetModeResultState = ActionUtility.EmptyAction.Instance;
@@ -24,6 +25,7 @@ public partial class HorseRacePresenter : IDisposable
     private CancellationTokenSource cts;
     private readonly CancellationToken token;
     private RaceModeHorseIntroPresenter raceModeHorseIntroPresenter;
+    private HorseIntroCameraPresenter horseIntroCameraPresenter;
     private int numberOfHorseFinishTheRace = 0;
     private IReadOnlyHorseRepository horseRepository;
     private HorseRaceStatusPresenter horseRaceStatusPresenter;
@@ -46,8 +48,7 @@ public partial class HorseRacePresenter : IDisposable
         await GetMapSettings();
         await InitHorseRaceAsync();
         await LoadUIAsync();
-        raceModeHorseIntroPresenter = new RaceModeHorseIntroPresenter(Container);
-        await raceModeHorseIntroPresenter.LoadUIAsync();
+        raceModeHorseIntroPresenter = await RaceModeHorseIntroPresenter.InstantiateAsync(Container, targetGenerator.StartPosition, Quaternion.identity, cts.Token);
         await UniTask.Delay(500, cancellationToken: token);
     }
 
@@ -62,19 +63,30 @@ public partial class HorseRacePresenter : IDisposable
 #if ENABLE_DEBUG_MODULE
         CreateDebuggerAction();
 #endif
-        await horseRaceManager.ShowFreeCamera();
+        await horseIntroCameraPresenter.ShowFreeCamera();
+        await uiLoading.In();
+        horseIntroCameraPresenter.HideFreeCamera();
+        
         horseRaceManager.EnablePostProcessing(true);
-        await (horseRaceManager.cameraBlendingAnimation.FadeOutAnimationAsync(),
-               raceModeHorseIntroPresenter.ShowHorsesInfoIntroAsync(HorseRaceContext.RaceScriptData.HorseRaceInfos, 
-                                                                    targetGenerator.StartPosition, 
-                                                                    Quaternion.identity)
-                                          .AttachExternalCancellation(token));
+        await (raceModeHorseIntroPresenter.ShowHorsesInfoIntroAsync(HorseRaceContext.RaceScriptData.HorseRaceInfos)
+                                                           .AttachExternalCancellation(token),
+            uiLoading.Out());
+        await uiLoading.In();
+        
         DisposeUtility.SafeDispose(ref raceModeHorseIntroPresenter);
         horseRaceManager.EnablePostProcessing(false);
-        await horseRaceManager.cameraBlendingAnimation.FadeInAnimationAsync();
+        horseRaceManager.PrepareWarmUp();
         
-        await (horseRaceManager.ShowWarmUpCameraThenWait(),
-               horseRaceManager.cameraBlendingAnimation.FadeOutAnimationAsync());
+        await (horseIntroCameraPresenter.ShowWarmUpCamera(horseRaceManager.WarmUpTarget), 
+            uiLoading.Out());
+        await uiLoading.In();
+        horseIntroCameraPresenter.HideWarmUpCamera();
+
+        await (horseRaceManager.WaitToStart(), UniTask.Create(async () =>
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f), cancellationToken: cts.Token);
+            await uiLoading.Out();
+        }));
     }
 
     private async UniTask GetMasterMap()
@@ -107,7 +119,10 @@ public partial class HorseRacePresenter : IDisposable
 
     private async UniTask LoadUIAsync()
     {
-        uiFlashScreen ??= await UILoader.Instantiate<UIFlashScreenAnimation>();
+        uiFlashScreen ??= await UILoader.Instantiate<UIFlashScreenAnimation>(token: cts.Token);
+        uiLoading ??= await UILoader.Instantiate<UILoading>(token: cts.Token);
+        uiLoading.SetEntity(new UILoading.Entity(){ loadingHorse = false});
+        horseIntroCameraPresenter ??= await HorseIntroCameraPresenter.InstantiateAsync(mapSettings.freeCamera, mapSettings.warmUpCamera, cts.Token);
     }
 
     public void StartGame()
@@ -196,9 +211,11 @@ public partial class HorseRacePresenter : IDisposable
         DisposeUtility.SafeDispose(ref cts);
         DisposeUtility.SafeDispose(ref horseRaceManager);
         DisposeUtility.SafeDispose(ref horseRaceStatusPresenter);
+        DisposeUtility.SafeDispose(ref horseIntroCameraPresenter);
         DisposeUtility.SafeDisposeMonoBehaviour(ref targetGenerator);
 
         UILoader.SafeRelease(ref uiFlashScreen);
+        UILoader.SafeRelease(ref uiLoading);
         MasterLoader.SafeRelease(ref masterMapContainer);
 
         if(mapSettings != default)

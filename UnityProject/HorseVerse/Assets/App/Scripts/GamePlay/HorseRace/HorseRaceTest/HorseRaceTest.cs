@@ -25,8 +25,7 @@ public class HorseRaceTest : MonoBehaviour
                                                default,
                                                default);
 
-        await horseRaceManager.ShowFreeCamera();
-        await horseRaceManager.ShowWarmUpCameraThenWait();
+        await horseRaceManager.WaitToStart();
         horseRaceManager.StartRace();
     }
 
