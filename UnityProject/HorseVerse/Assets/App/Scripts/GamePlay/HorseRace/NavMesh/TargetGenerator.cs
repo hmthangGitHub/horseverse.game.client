@@ -79,8 +79,8 @@ public class TargetGenerator : MonoBehaviour
         {
             var previousPercentage = i == 0 ? 0 : raceSegments[i - 1].Percentage;
             var previousLane = i == 0 ? x.CurrentLane: raceSegments[i - 1].ToLane;
-            var offsetFromLane = Mathf.Sign(tLast - tFirst) * GetOffsetFromLane(x.ToLane);
-            var previousOffsetFromLane = Mathf.Sign(tLast - tFirst) * GetOffsetFromLane(previousLane);
+            var offsetFromLane = GetOffsetFromLane(x.ToLane - 1);
+            var previousOffsetFromLane = GetOffsetFromLane(previousLane - 1);
             var previousTime = Mathf.Lerp(tFirst, tLast, previousPercentage);
             var time = Mathf.Lerp(tFirst, tLast, x.Percentage);
             var timeToFinish = x.Time;

@@ -29,6 +29,7 @@ public partial class HorseRacePresenter : IDisposable
     private RaceModeHorseIntroPresenter raceModeHorseIntroPresenter;
     private int numberOfHorseFinishTheRace = 0;
     private IReadOnlyHorseRepository horseRepository;
+    private HorseRaceStatusPresenter horseRaceStatusPresenter;
 
     private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= Container.Inject<IReadOnlyUserDataRepository>();
     private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= Container.Inject<MasterHorseContainer>();
@@ -116,28 +117,27 @@ public partial class HorseRacePresenter : IDisposable
 
     public void StartGame()
     {
-        int[] horseIdInLanes = RandomHorseInLanes();
-        SetEntityHorseRaceManager(horseIdInLanes);
-        StartUpdateRaceHorseStatus().Forget();
+        var horseIdInLanes = RandomHorseInLanes();
+        SetEntityHorseRaceManager();
+        SetHorseStatusAsync(horseIdInLanes);
         AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunRacing);
     }
 
-    private async UniTaskVoid StartUpdateRaceHorseStatus()
+    private void SetHorseStatusAsync(int[] horseIdInLanes)
     {
-        statusCts = new CancellationTokenSource();
-        using var linkedToken = CancellationTokenSource.CreateLinkedTokenSource(statusCts.Token, token);
-        while (!linkedToken.Token.IsCancellationRequested)
-        {
-            await UniTask.Yield(cancellationToken : linkedToken.Token);
-            UpdateRaceStatus();
-        }
+        horseRaceStatusPresenter = new HorseRaceStatusPresenter(horseRaceManager.horseControllers,
+            horseIdInLanes,
+            playerHorseIndex, horseRaceManager.RaceTime,
+            horseRaceContext.GameMode == HorseGameMode.Race && horseRaceContext.RaceMatchDataContext.IsReplay,
+            HorseRaceContext.GameMode == HorseGameMode.Race);
+        horseRaceStatusPresenter.Initialize().Forget();
+        horseRaceStatusPresenter.OnSkip += ShowResult;
     }
 
-    private void SetEntityHorseRaceManager(int[] horseIdInLanes)
+    private void SetEntityHorseRaceManager()
     {
         horseRaceManager.StartRace();
         horseRaceManager.OnFinishTrackEvent += OnFinishTrack;
-        SetEntityUIHorseRaceStatus(horseIdInLanes, horseRaceManager.RaceTime);
     }
 
     private void OnFinishTrack()
@@ -160,6 +160,11 @@ public partial class HorseRacePresenter : IDisposable
         }
     }
 
+    private void ShowResult()
+    {
+        OnShowResult().Forget();
+    }
+    
     private async UniTask OnShowResult()
     {
         statusCts.SafeCancelAndDispose();
@@ -188,43 +193,6 @@ public partial class HorseRacePresenter : IDisposable
         await uiFlashScreen.Out().AttachExternalCancellation(cts.Token);
     }
 
-    private void UpdateRaceStatus()
-    {
-        var horseControllersOrderByRank = horseRaceManager.horseControllers.OrderByDescending(x => x.CurrentRaceProgressWeight)
-                                                             .Select(x => x)
-                                                             .ToArray();
-        for (var i = 0; i < horseControllersOrderByRank.Length; i++)
-        {
-            if (cachedPositions[i] != horseControllersOrderByRank[i].InitialLane)
-            {
-                uiHorseRaceStatus.playerList.ChangePosition(horseControllersOrderByRank[i].InitialLane, i);
-                cachedPositions[i] = horseControllersOrderByRank[i].InitialLane;
-            }
-            
-            if (i == 0) uiHorseRaceStatus.UpdateFirstRank(horseControllersOrderByRank[i].Name);
-            if (i == 1) uiHorseRaceStatus.UpdateSecondRank(horseControllersOrderByRank[i].Name);
-            if (horseControllersOrderByRank[i].IsPlayer) uiHorseRaceStatus.UpdateSelfRank(i);
-        }
-    }
-
-    private void SetEntityUIHorseRaceStatus(int[] playerList, float timeToFinish)
-    {
-        cachedPositions = Enumerable.Repeat(-1, playerList.Length).ToArray();
-        uiHorseRaceStatus.SetEntity(new UIHorseRaceStatus.Entity()
-        {
-            playerList = new HorseRaceStatusPlayerList.Entity()
-            {
-                horseIdInLane = playerList,
-                playerId = playerHorseIndex,
-            },
-            finishTime = timeToFinish,
-            selfRaceRankGroup = HorseRaceContext.GameMode == HorseGameMode.Race,
-            isReplay = horseRaceContext.GameMode == HorseGameMode.Race && horseRaceContext.RaceMatchDataContext.IsReplay,
-            skipBtn = new ButtonComponent.Entity(()=> OnShowResult().Forget())
-        });
-        uiHorseRaceStatus.In().Forget();
-    }
-
     private int[] RandomHorseInLanes()
     {
         return Enumerable.Range(0,HorseRaceContext.RaceScriptData.HorseRaceInfos.Length).ToArray();
@@ -235,12 +203,13 @@ public partial class HorseRacePresenter : IDisposable
 #if ENABLE_DEBUG_MODULE
         RemoveDebuggerAction();
 #endif
+        if(horseRaceStatusPresenter != default) horseRaceStatusPresenter.OnSkip -= ShowResult;
+        
         DisposeUtility.SafeDispose(ref statusCts);
         DisposeUtility.SafeDispose(ref cts);
         DisposeUtility.SafeDispose(ref horseRaceManager);
-        
-        Object.Destroy(targetGenerator);
-        targetGenerator = null;
+        DisposeUtility.SafeDispose(ref horseRaceStatusPresenter);
+        DisposeUtility.SafeDisposeMonoBehaviour(ref targetGenerator);
 
         UILoader.SafeRelease(ref uiHorseRaceStatus);
         UILoader.SafeRelease(ref uiFlashScreen);
