@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
-public partial class HorseController : MonoBehaviour
+public partial class HorseController : MonoBehaviour, IHorseRaceInGameStatus
 {
     [SerializeField] NavMeshAgent navMeshAgent;
     [SerializeField] UIComponentEnumInt laneContainer;

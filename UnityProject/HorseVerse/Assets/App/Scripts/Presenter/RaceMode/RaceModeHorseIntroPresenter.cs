@@ -20,7 +20,7 @@ public class RaceModeHorseIntroPresenter : IDisposable
         Container = container;
     }
 
-    public async UniTask ShowHorsesInfoIntroAsync(HorseRaceInfo[] masterHorseIds, Vector3 horsePosition, Quaternion rotation)
+    public async UniTask ShowHorsesInfoIntroAsync(IHorseBriefInfo[] horseBriefInfo, Vector3 horsePosition, Quaternion rotation)
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
@@ -29,9 +29,9 @@ public class RaceModeHorseIntroPresenter : IDisposable
 
         try
         {
-            for (int i = 0; i < masterHorseIds.Length; i++)
+            for (int i = 0; i < horseBriefInfo.Length; i++)
             {
-                await ShowHorseInfoAsync(masterHorseIds[i],
+                await ShowHorseInfoAsync(horseBriefInfo[i],
                                          i + 1,
                                          5.0f)
                      .AttachExternalCancellation(cts.Token);
@@ -50,7 +50,7 @@ public class RaceModeHorseIntroPresenter : IDisposable
         uiHorse3DIntro = await UILoader.Instantiate<UIHorse3DInRaceSceneIntro>(token: cts.Token);
     }
 
-    private async UniTask ShowHorseInfoAsync(HorseRaceInfo horseRaceInfo, int gate, float introTime)
+    private async UniTask ShowHorseInfoAsync(IHorseBriefInfo horseRaceInfo, int gate, float introTime)
     {
         var ucs = new UniTaskCompletionSource();
         void OnSkipHorse()

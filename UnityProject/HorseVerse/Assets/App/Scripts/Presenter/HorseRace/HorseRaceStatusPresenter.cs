@@ -5,7 +5,7 @@ using Cysharp.Threading.Tasks;
 
 public class HorseRaceStatusPresenter : IDisposable
 {
-    private readonly HorseController[] horseControllers;
+    private readonly IHorseRaceInGameStatus[] horseRaceInGameStatus;
     private readonly int[] playerList;
     private readonly int playerHorseIndex;
     private readonly float timeToFinish;
@@ -16,14 +16,14 @@ public class HorseRaceStatusPresenter : IDisposable
     private CancellationTokenSource cts;
     public event Action OnSkip = ActionUtility.EmptyAction.Instance;
 
-    public HorseRaceStatusPresenter(HorseController[] horseControllers,
-                                     int[] playerList,
-                                     int playerHorseIndex,
-                                     float timeToFinish,
-                                     bool isReplay,
-                                     bool isShowSelfRank)
+    public HorseRaceStatusPresenter(IHorseRaceInGameStatus[] horseRaceInGameStatus,
+                                    int[] playerList,
+                                    int playerHorseIndex,
+                                    float timeToFinish,
+                                    bool isReplay,
+                                    bool isShowSelfRank)
     {
-        this.horseControllers = horseControllers;
+        this.horseRaceInGameStatus = horseRaceInGameStatus;
         this.playerList = playerList;
         this.playerHorseIndex = playerHorseIndex;
         this.timeToFinish = timeToFinish;
@@ -68,7 +68,7 @@ public class HorseRaceStatusPresenter : IDisposable
 
     private void UpdateRaceStatus()
     {
-        var horseControllersOrderByRank = horseControllers.OrderByDescending(x => x.CurrentRaceProgressWeight)
+        var horseControllersOrderByRank = horseRaceInGameStatus.OrderByDescending(x => x.CurrentRaceProgressWeight)
                                                           .Select(x => x)
                                                           .ToArray();
         for (var i = 0; i < horseControllersOrderByRank.Length; i++)

@@ -13,11 +13,11 @@ public partial class HorseRacePresenter
     {
         if (HorseRaceContext.GameMode == HorseGameMode.Bet)
         {
-            BetModeUIDebugMenuPresenter.AddSkipRaceMenu(() => OnShowResult().Forget());
+            BetModeUIDebugMenuPresenter.AddSkipRaceMenu(OnShowResult);
         }
         else
         {
-            UIDebugMenuPresenter.AddDebugMenu("RaceMode/Skip",() => OnShowResult().Forget());
+            UIDebugMenuPresenter.AddDebugMenu("RaceMode/Skip", OnShowResult);
         }
     }
 
