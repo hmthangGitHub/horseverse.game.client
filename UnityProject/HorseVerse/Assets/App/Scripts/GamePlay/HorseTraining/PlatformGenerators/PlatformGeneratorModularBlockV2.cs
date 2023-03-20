@@ -91,6 +91,24 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
         return platform;
     }
 
+    protected override async UniTask<PlatformBase> CreateTurnPlatformAsync(Vector3 relativePointToPlayer, Vector3 lastEndPosition)
+    {
+        var platform = Instantiate(platformPrefab, this.transform);
+        var platformModular = platform.GetComponent<PlatformModular>();
+        var randomTurnBlock = trainingBlockSettings.turnLeftBlocks.GetRandom();
+        await platformModular.GenerateTurnBlockAsync(relativePointToPlayer + lastEndPosition,
+            randomTurnBlock,
+            masterHorseTrainingProperty.JumpingPoint,
+            masterHorseTrainingProperty.LandingPoint,
+            trainingBlockSettings.sceneryObjects,
+            pool,
+            gameObjectPoolList);
+#if ENABLE_DEBUG_MODULE
+        platform.GetComponent<PlatformModular>().SetBlockName("Turn Block " + randomTurnBlock.name);
+#endif
+        return platform;
+    }
+
     private MasterHorseTrainingBlockCombo GetRandomBlockCombo()
     {
         var masterHorseTrainingBlockGroupId = GetMasterHorseTrainingBlockGroupId();

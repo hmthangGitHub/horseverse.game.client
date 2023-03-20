@@ -20,6 +20,10 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     private readonly Queue<GameObject> platformQueue = new Queue<GameObject>();
     private bool isFirstJump = true;
 
+    protected Vector3 nextDirection = Vector3.forward;
+    protected Vector3 nextSideDirection = Vector3.right;
+
+
     public async UniTask InitializeAsync(MasterHorseTrainingProperty masterHorseTrainingProperty,
                                          MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer,
                                          MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer,
@@ -47,7 +51,7 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
 
         var timeToReach = Random.Range(horseTrainingControllerV2.AirTime.x, horseTrainingControllerV2.AirTime.y);
         var relativePointToPlayer = PredictDownPoint(timeToReach) 
-                                    + highestPoint + Vector3.right * (horseTrainingControllerV2.HorizontalVelocity * Random.Range(-1f, 1f) * timeToReach);
+                                    + highestPoint + nextSideDirection * (horseTrainingControllerV2.HorizontalVelocity * Random.Range(-1f, 1f) * timeToReach);
         return relativePointToPlayer;
     }
 
@@ -55,23 +59,30 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     {
         var z = horseTrainingControllerV2.ForwardVelocity * time;
         var y = horseTrainingControllerV2.LowJumpMultiplier * horseTrainingControllerV2.DefaultGravity * 0.5f * time * time;
-        return new Vector3(0, y, z);
+        return new Vector3(0, y, 0) + nextDirection * z;
     }
 
     private Vector3 PredictHighestPoint()
     {
-        var jumpVel = new Vector3(0, horseTrainingControllerV2.JumpVelocity, horseTrainingControllerV2.ForwardVelocity); 
+        var jumpVel = new Vector3(0, horseTrainingControllerV2.JumpVelocity, 0) + nextDirection * horseTrainingControllerV2.ForwardVelocity; 
         var v0 = jumpVel.magnitude;
 
-        var angle = Mathf.Deg2Rad * Vector3.Angle(jumpVel, Vector3.forward);
+        var angle = Mathf.Deg2Rad * Vector3.Angle(jumpVel, nextDirection);
         var maxZ = v0 * v0 * Mathf.Sin(2 * angle) / (-horseTrainingControllerV2.DefaultGravity * 2); 
         var maxY = (horseTrainingControllerV2.JumpVelocity * horseTrainingControllerV2.JumpVelocity) / (2 * -horseTrainingControllerV2.DefaultGravity);
-        return new Vector3(0, maxY, maxZ);
+        return new Vector3(0, maxY, 0) + nextDirection * maxZ;
     }
 
-    private Vector3 GetNextDirection()
+    protected void TurnLeft()
     {
-        return Vector3.forward;
+        nextDirection = Quaternion.AngleAxis(-90, Vector3.up) * nextDirection;
+        nextSideDirection = Quaternion.AngleAxis(-90, Vector3.up) * nextSideDirection;
+    }
+
+    protected void TurnRight()
+    {
+        nextDirection = Quaternion.AngleAxis(90, Vector3.up) * nextDirection;
+        nextSideDirection = Quaternion.AngleAxis(90, Vector3.up) * nextSideDirection;
     }
 
     private void Generate()
@@ -89,9 +100,25 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         var relativePointToPlayer = PredictRelativePointToPlayer();
         var platformTest = lastPlatform.GetComponent<PlatformBase>();
         var lastEndPosition = platformTest.end.position;
-        var platform = await CreateNewPlatformAsync(relativePointToPlayer, lastEndPosition);
-        lastPlatform = platform;
-        platformQueue.Enqueue(platform);
+
+        int random = Random.Range(0, 4);
+
+        if (random == 2)
+        {
+            var platform = await CreateNewTurnPlatformAsync(relativePointToPlayer, lastEndPosition, nextDirection);
+            lastPlatform = platform;
+            platformQueue.Enqueue(platform);
+            TurnLeft();
+        }
+        else
+        {
+            var platform = await CreateNewPlatformAsync(relativePointToPlayer, lastEndPosition, nextDirection);
+            lastPlatform = platform;
+            platformQueue.Enqueue(platform);
+
+        }
+
+        //if (random == 3) TurnRight();
     }
 
     private void GenerateMulti(int number)
@@ -127,11 +154,22 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     }
 
     private async UniTask<GameObject> CreateNewPlatformAsync(Vector3 relativePointToPlayer,
-                                         Vector3 lastEndPosition)
+                                         Vector3 lastEndPosition, Vector3 direction)
     {
         CreateDebugSphere(relativePointToPlayer + lastEndPosition);
         var platform = await CreatePlatformAsync(relativePointToPlayer, lastEndPosition);
         platform.OnFinishPlatform += OnCreateNewPlatform;
+        platform.transform.forward = direction;
+        return platform.gameObject;
+    }
+
+    private async UniTask<GameObject> CreateNewTurnPlatformAsync(Vector3 relativePointToPlayer,
+                                         Vector3 lastEndPosition, Vector3 direction)
+    {
+        CreateDebugSphere(relativePointToPlayer + lastEndPosition);
+        var platform = await CreateTurnPlatformAsync(relativePointToPlayer, lastEndPosition);
+        platform.OnFinishPlatform += OnCreateNewPlatform;
+        platform.transform.forward = direction;
         return platform.gameObject;
     }
 
@@ -154,6 +192,12 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
                                                    Vector3 lastEndPosition);
 
     protected virtual async UniTask<PlatformBase> CreatePlatformAsync(Vector3 relativePointToPlayer,
+                                                   Vector3 lastEndPosition)
+    {
+        return null;
+    }
+
+    protected virtual async UniTask<PlatformBase> CreateTurnPlatformAsync(Vector3 relativePointToPlayer,
                                                    Vector3 lastEndPosition)
     {
         return null;

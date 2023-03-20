@@ -20,9 +20,13 @@ public class BlockObjectData : MonoBehaviour
     [SerializeField] Transform endPoint;
     [Space]
     [SerializeField] BezierCurve curve;
+    [Space, Header("Box Colliders")]
+    [SerializeField] List<BoxCollider> boxColliders;
+
 
     public Type BlockType => blockType;
     public Transform StartPoint => startPoint;
     public Transform EndPoint => endPoint;
     public BezierCurve Curve => curve;
+    public List<BoxCollider> BoxColliders => boxColliders;
 }
