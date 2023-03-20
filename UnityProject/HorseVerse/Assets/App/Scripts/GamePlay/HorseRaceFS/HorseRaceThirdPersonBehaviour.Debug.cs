@@ -8,5 +8,7 @@ public partial class HorseRaceThirdPersonBehaviour
     {
         StartRace(0.0f);
     }
+
+    public Transform horseMeshContainer;
 }
 #endif
