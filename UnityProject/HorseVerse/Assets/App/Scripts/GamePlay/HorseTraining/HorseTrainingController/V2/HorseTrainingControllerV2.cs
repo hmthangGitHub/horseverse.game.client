@@ -54,6 +54,8 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private bool isDead;
     private bool isGrounded = true;
     private bool isJumping;
+    private bool isTurning = false;
+
 
     public bool IsLanding => isGrounded;
     public bool IsJumping => isJumping;
@@ -76,6 +78,8 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
     [SerializeField]
     public float ForwardVelocity { get; private set; }
+
+    private BezierCurve currentCurve;
 
     private float GetForwardVelocityFromCurrentDifficulty()
     {
@@ -102,6 +106,10 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private static readonly int VerticalVelocity = Animator.StringToHash("VerticalVelocity");
     private int horizontalDirection = 0;
     private int currentDifficulty = 0;
+
+    private Vector3 v_direction = Vector3.forward;
+    public Vector3 Direction => v_direction;
+    private Vector3 v_side = Vector3.right;
 
     private bool IsGrounded
     {
@@ -283,7 +291,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         {
             cam3.SetActive(false);
             cam1.SetActive(true);
-            
+            v_direction = this.rigidbody.transform.forward;
             DOTween.To(val =>
             {
                 Animator.SetFloat(Speed, val);
@@ -301,6 +309,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
             CheckIfGrounded();
             CheckIfFall();
             ControlHorse();
+            UpdateDirection();
             UpdateHorizontalAnimation();
             UpdateJumpAnimation();
             UpdateForwardVelocity();
@@ -374,6 +383,35 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         Animator.SetFloat(Horizontal, animationHorizontal);
     }
 
+    private void UpdateDirection()
+    {
+        isTurning = false;
+        if (currentCurve != default)
+        {
+            if (horizontalDirection != 0)
+            {
+                bool isEnd = false;
+                if (!isEnd)
+                {
+                    Vector3 dir;
+                    var tangenPoint = currentCurve.findTheClosedPoint(this.rigidbody.transform.position, out dir, out isEnd);
+                    if (!isEnd)
+                    {
+                        v_direction = dir.normalized;
+                        this.rigidbody.transform.forward = v_direction;
+                        isTurning = true;
+                    }
+                }
+            }
+        }
+    }
+
+    Vector3 fixDirection ()
+    {
+        return Vector3.forward;
+    }
+
+
     private void ControlHorse()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -443,7 +481,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private void FixedUpdate()
     {
         if (!IsStart) return;
-        rigidbody.velocity = new Vector3(-horizontalDirection * currentHorizontalVelocity, rigidbody.velocity.y, currentForwardVelocity);
+        rigidbody.velocity = getVelocity();
         if (rigidbody.velocity.y < 0)
         {
             
@@ -455,11 +493,40 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         }
     }
 
+    private Vector3 getVelocity()
+    {
+        Vector3 fwd = v_direction * currentForwardVelocity;
+        v_side = -Vector3.Cross(v_direction, Vector3.up);
+        Vector3 right = isTurning ? Vector3.zero : v_side * (-horizontalDirection * currentHorizontalVelocity);
+        fwd.y = 0;
+        right.y = 0;
+        Vector3 dir = fwd + right;
+        dir.y = rigidbody.velocity.y;
+        //return new Vector3(-horizontalDirection * currentHorizontalVelocity, rigidbody.velocity.y, currentForwardVelocity);
+        return dir;
+    }
+
     private void CheckIfGrounded()
     {
         Debug.DrawLine(pivotPoint.position, pivotPoint.position + -Vector3.up * 0.15f, Color.red);
         IsGrounded = Physics.RaycastAll(pivotPoint.position, -Vector3.up, 0.15f)
             .Any(x => x.collider.CompareTag("Platform"));
+    }
+
+    private void CheckIfCurve()
+    {
+        var target = Physics.RaycastAll(pivotPoint.position, -Vector3.up, 0.15f)
+            .Where(x => x.collider.CompareTag("Platform"));
+        currentCurve = default;
+        if (target != null)
+        {
+            var i = target.FirstOrDefault();
+            var data = i.collider.gameObject.GetComponentInParent<BlockObjectData>();
+            if(data != default)
+            {
+                currentCurve = data.Curve;
+            }
+        }
     }
 
     private void OnGrounded(bool isGrounded)
@@ -488,6 +555,8 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         {
             isJumping = false;
             AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunTraining);
+
+            CheckIfCurve();
         }
     }
     

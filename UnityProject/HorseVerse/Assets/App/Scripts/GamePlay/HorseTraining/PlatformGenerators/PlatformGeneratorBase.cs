@@ -103,7 +103,7 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
 
         int random = Random.Range(0, 4);
 
-        if (random == 2)
+        if (random == 2 || random == 3)
         {
             var platform = await CreateNewTurnPlatformAsync(relativePointToPlayer, lastEndPosition, nextDirection);
             lastPlatform = platform;

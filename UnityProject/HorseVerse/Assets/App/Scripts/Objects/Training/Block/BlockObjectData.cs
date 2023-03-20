@@ -29,4 +29,9 @@ public class BlockObjectData : MonoBehaviour
     public Transform EndPoint => endPoint;
     public BezierCurve Curve => curve;
     public List<BoxCollider> BoxColliders => boxColliders;
+
+    public void Init()
+    {
+        if (curve != default) curve.init();
+    }
 }

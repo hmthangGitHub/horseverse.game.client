@@ -31,6 +31,7 @@ public partial class PlatformModular
         PlaceStartObjectFromBlockData(bl);
         PlaceEndObjectFromBlockData(bl);
         AlignToStartPosition(startPosition);
+        bl.Init();
         yield return null;
     }
 
