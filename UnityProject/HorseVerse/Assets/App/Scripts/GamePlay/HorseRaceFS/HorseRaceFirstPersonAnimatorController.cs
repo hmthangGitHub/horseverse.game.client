@@ -31,7 +31,7 @@ public class HorseRaceFirstPersonAnimatorController : MonoBehaviour
     private void LateUpdate()
     {
         if (!horseRaceThirdPersonBehaviour.IsStart) return;
-        SetSpeed(Mathf.InverseLerp(0.0f, horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.ForwardSpeedRange.y, horseRaceThirdPersonBehaviour.CurrentForwardSpeed));
+        SetSpeed(Mathf.InverseLerp(0.0f, horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.HorseRaceThirdPersonStats.ForwardSpeedRange.y, horseRaceThirdPersonBehaviour.CurrentForwardSpeed));
         SetHorizontalDirection(horseRaceThirdPersonBehaviour.HorizontalDirection);
     }
 }

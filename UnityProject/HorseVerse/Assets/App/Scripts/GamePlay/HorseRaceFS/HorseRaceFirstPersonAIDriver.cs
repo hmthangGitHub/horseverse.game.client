@@ -28,29 +28,24 @@ public partial class HorseRaceFirstPersonAIDriver : MonoBehaviour
     private void UpdateSpeed()
     {
         navMeshAgent.speed = horseRaceThirdPersonBehaviour.CurrentForwardSpeed;
-        navMeshAgent.acceleration = horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.Acceleration;
+        navMeshAgent.acceleration = horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.HorseRaceThirdPersonStats.Acceleration;
     }
 
     private void ChangeTarget()
     {
         currentWayPointIndex++;
-        currentWayPointIndex %= horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.PredefineWayPoints.Length;
-        currentTargetWayPoint = horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.PredefineWayPoints[currentWayPointIndex];
+        currentWayPointIndex %= horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.HorseRaceThirdPersonStats.PredefineWayPoints.Length;
+        currentTargetWayPoint = horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.HorseRaceThirdPersonStats.PredefineWayPoints[currentWayPointIndex];
         var lastTargetDirectionIndex
             = (currentWayPointIndex - 1 +
-               horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.PredefineWayPoints.Length) %
-              horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.PredefineWayPoints.Length;
-        lastTargetDirection = currentTargetWayPoint - horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.PredefineWayPoints[lastTargetDirectionIndex];
+               horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.HorseRaceThirdPersonStats.PredefineWayPoints.Length) %
+              horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.HorseRaceThirdPersonStats.PredefineWayPoints.Length;
+        lastTargetDirection = currentTargetWayPoint - horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.HorseRaceThirdPersonStats.PredefineWayPoints[lastTargetDirectionIndex];
         navMeshAgent.destination = currentTargetWayPoint;
     }
     
     private bool IfReachTarget()
     {
         return (isFirstlap && currentWayPointIndex == 0) || Vector3.Dot(transform.position - currentTargetWayPoint, lastTargetDirection) >= 0.0f || navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance;
-    }
-
-    private float DistanceToCurrentTarget()
-    {
-        return navMeshAgent.remainingDistance;
     }
 }

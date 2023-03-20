@@ -23,21 +23,20 @@ public class HorseRaceManagerFactory : IHorseRaceManagerFactory
         var playerHorseIndex = -1;
         if (HorseRaceContext.GameMode == HorseGameMode.Race)
         {
-            playerHorseIndex = HorseRaceContext.RaceScriptData.
+            playerHorseIndex = HorseRaceContext.RaceMatchData.
                                                 HorseRaceInfos.
                                                 ToList().
                                                 FindIndex(x => HorseRepository.Models.ContainsKey(x.NftHorseId));
         }
         
         var masterMapContainer = await MasterLoader.LoadMasterAsync<MasterMapContainer>(token);
-        var masterMap = masterMapContainer.MasterMapIndexer[HorseRaceContext.RaceScriptData.MasterMapId];
+        var masterMap = masterMapContainer.MasterMapIndexer[HorseRaceContext.MasterMapId];
         MasterLoader.SafeRelease(ref masterMapContainer);
         
-        await horseRaceManager.InitializeAsync(HorseRaceContext.RaceScriptData.HorseRaceInfos.Select(x => MasterHorseContainer.GetHorseMeshInformation(x.MeshInformation, HorseModelMode.Race)).ToArray(),
+        await horseRaceManager.InitializeAsync(HorseRaceContext.RaceMatchData.HorseRaceInfos.Select(x => MasterHorseContainer.GetHorseMeshInformation(x.MeshInformation, HorseModelMode.Race)).ToArray(),
             masterMap.MapSettings,
             playerHorseIndex,
-            HorseRaceContext.RaceScriptData.HorseRaceInfos.Select(x => x.RaceSegments.Sum(segment => segment.Time)).ToArray(),
-            HorseRaceContext.RaceScriptData.HorseRaceInfos,
+            HorseRaceContext.RaceMatchData.HorseRaceInfos,
             token);
         return horseRaceManager;
     }
@@ -45,16 +44,40 @@ public class HorseRaceManagerFactory : IHorseRaceManagerFactory
 
 public class HorseRaceThirdPersonFactory : IHorseRaceManagerFactory
 {
+    private IReadOnlyHorseRepository horseRepository;
     private IDIContainer Container { get; }
+    private HorseRaceContext HorseRaceContext => Container.Inject<HorseRaceContext>();    
+    private IReadOnlyHorseRepository HorseRepository => horseRepository ??= Container.Inject<HorseRepository>();
+    private MasterHorseContainer masterHorseContainer;
+    private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= Container.Inject<MasterHorseContainer>();
 
     public HorseRaceThirdPersonFactory(IDIContainer container)
     {
         Container = container;
     }
 
-    public UniTask<IHorseRaceManager> CreateHorseRaceManagerAsync(CancellationToken token)
+    public async UniTask<IHorseRaceManager> CreateHorseRaceManagerAsync(CancellationToken token)
     {
-        return new UniTask<IHorseRaceManager>();
+        var horseRaceManager = Object.Instantiate((await Resources.LoadAsync<HorseRaceManager>("GamePlay/HorseRaceThirdPersonManager") as HorseRaceThirdPersonManager));
+        var playerHorseIndex = -1;
+        if (HorseRaceContext.GameMode == HorseGameMode.Race)
+        {
+            playerHorseIndex = HorseRaceContext.RaceMatchData.
+                                                HorseRaceInfos.
+                                                ToList().
+                                                FindIndex(x => HorseRepository.Models.ContainsKey(x.NftHorseId));
+        }
+        
+        var masterMapContainer = await MasterLoader.LoadMasterAsync<MasterMapContainer>(token);
+        var masterMap = masterMapContainer.MasterMapIndexer[HorseRaceContext.MasterMapId];
+        MasterLoader.SafeRelease(ref masterMapContainer);
+        
+        await horseRaceManager.InitializeAsync(MasterHorseContainer,
+            masterMap.MapSettings,
+            playerHorseIndex,
+            HorseRaceContext.HorseRaceThirdPersonMatchData.HorseRaceInfos,
+            token);
+        return horseRaceManager;
     }
 }
 

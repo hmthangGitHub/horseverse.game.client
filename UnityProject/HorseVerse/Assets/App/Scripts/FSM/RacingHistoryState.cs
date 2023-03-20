@@ -33,9 +33,10 @@ public class RacingHistoryState : InjectedBState
                               .Forget();
     }
 
-    private void OnReplay(RaceScriptData raceScriptData)
+    private void OnReplay(RaceMatchData raceMatchData)
     {
-        HorseRaceContext.RaceScriptData = raceScriptData;
+        HorseRaceContext.RaceMatchData = raceMatchData;
+        HorseRaceContext.HorseBriefInfos = raceMatchData.HorseRaceInfos;
         HorseRaceContext.RaceMatchDataContext.IsReplay = true;
         
         Machine.ChangeState<HorseRaceActionState>();

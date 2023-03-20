@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using UnityEngine;
 
-public class HorseRaceManager : MonoBehaviour, IDisposable, IHorseRaceManager
+public class HorseRaceManager : MonoBehaviour, IHorseRaceManager
 {
     public RaceModeCameras raceCamera;
     public TargetGenerator targetGenerator;
@@ -21,12 +21,14 @@ public class HorseRaceManager : MonoBehaviour, IDisposable, IHorseRaceManager
     public float offSet = -5;
     public float offsetPerLane = -1.0f;
 
-    public HorseController[] HorseControllers { get; private set; }
+    private HorseController[] HorseControllerInternal { get; set; }
+    public IHorseRaceInGameStatus[] HorseControllers => HorseControllerInternal;
 
     public Transform horsePosition;
     public CinemachineTargetGroup horseGroup;
     public Transform followTarget;
-    public float RaceTime { get; private set; }
+    private float raceTime;
+    public float NormalizedRaceTime { get; set; }
     public int PlayerHorseIndex { get; private set; }
     public event Action OnFinishTrackEvent = ActionUtility.EmptyAction.Instance;
 
@@ -35,29 +37,29 @@ public class HorseRaceManager : MonoBehaviour, IDisposable, IHorseRaceManager
     private bool isHorsesLoaded;
     private CancellationToken token;
     public Transform WarmUpTarget => this.horseGroup.transform;
+    private float currentRaceTime = 0.0f;
 
     public async UniTask InitializeAsync(HorseMeshInformation[] horseMeshControllerPaths,
                                          string mapSettingPath,
                                          int playerHorseIndex,
-                                         float[] times,
                                          HorseRaceInfo[] horseRaceTimes,
                                          CancellationToken token)
     {
         this.PlayerHorseIndex = playerHorseIndex;
         this.mapSettingsPath = mapSettingPath;
         this.horseControllerModelPaths = horseMeshControllerPaths;
-        var tops = times.GetTopByTimes();
         this.token = token;
         await LoadMapSettings(token);
         await LoadHorses(horseMeshControllerPaths, token);
-        SetHorseControllerStat(tops, horseRaceTimes, playerHorseIndex);
-        RaceTime = GetMinimumRaceTime(horseRaceTimes);
+        SetHorseControllerStat(horseRaceTimes, playerHorseIndex);
+        raceTime = GetMinimumRaceTime(horseRaceTimes);
         isHorsesLoaded = true;
     }
 
+
     public void PrepareToRace()
     {
-        HorseControllers.ForEach(x => { x.gameObject.SetActive(true); });
+        HorseControllerInternal.ForEach(x => { x.gameObject.SetActive(true); });
     }
 
     private async UniTask LoadMapSettings(CancellationToken token)
@@ -111,25 +113,13 @@ public class HorseRaceManager : MonoBehaviour, IDisposable, IHorseRaceManager
 
     private static RaceModeCameras GetRaceModeCamera(MapSettings mapSettings)
     {
-#if DEVELOPMENT
-        try
-        {
-            if (PlayerPrefs.GetInt(CameraInMapDebugPanel.MapNumberKey) >= 1)
-            {
-                return mapSettings.raceModeCamera[PlayerPrefs.GetInt(CameraInMapDebugPanel.MapNumberKey) - 1];
-            }
-        }
-        catch (Exception)
-        {
-        }
-#endif
         return mapSettings.raceModeCamera.RandomElement();
     }
 
     private async UniTask LoadHorses(HorseMeshInformation[] horseControllerPaths, CancellationToken token)
     {
-        HorseControllers = await UniTask.WhenAll(horseControllerPaths.Select(x => LoadHorseController(x, token)));
-        HorseControllers.ForEach(x => x.gameObject.SetActive(false));
+        HorseControllerInternal = await UniTask.WhenAll(horseControllerPaths.Select(x => LoadHorseController(x, token)));
+        HorseControllerInternal.ForEach(x => x.gameObject.SetActive(false));
     }
 
     private async UniTask<HorseController> LoadHorseController(HorseMeshInformation horseControllerPath, CancellationToken token)
@@ -146,7 +136,7 @@ public class HorseRaceManager : MonoBehaviour, IDisposable, IHorseRaceManager
         if (isStartedRace == false)
         {
             isStartedRace = true;
-            HorseControllers.ForEach(x => x.StartRaceAsync().Forget());
+            HorseControllerInternal.ForEach(x => x.StartRaceAsync().Forget());
         }
     }
 
@@ -158,23 +148,21 @@ public class HorseRaceManager : MonoBehaviour, IDisposable, IHorseRaceManager
         await UniTask.Delay(TimeSpan.FromSeconds(3), cancellationToken: token);
     }
 
-    private void SetHorseControllerStat(int[] topInRaceMatch,
-                                        HorseRaceInfo[] horseRaceTimes,
+    private void SetHorseControllerStat(HorseRaceInfo[] horseRaceTimes,
                                         int playerHorseIndex)
     {
         horseRaceTimes.OrderBy(x => x.RaceSegments.First().ToLane)
             .ForEach((x, i) =>
             {
                 var index = i;
-                var horseController = HorseControllers[i];
+                var horseController = HorseControllerInternal[i];
                 horseController.SetHorseData(new HorseInGameData()
                 {
                     TargetGenerator = targetGenerator,
                     CurrentOffset = offSet + i * offsetPerLane,
-                    TopInRaceMatch = topInRaceMatch[i],
                     IsPlayer = playerHorseIndex == i,
                     InitialLane = i,
-                    OnFinishTrack = () => OnFinishTrack(topInRaceMatch[index]),
+                    OnFinishTrack = OnFinishTrack,
                     PredefineTargets = CalculatePredefineTarget(horseRaceTimes[i]),
                     MainCamera = mainCamera,
                     Delay = x.DelayTime,
@@ -194,33 +182,39 @@ public class HorseRaceManager : MonoBehaviour, IDisposable, IHorseRaceManager
         return targetGenerator.GenerateTargets(horseRaceInfo.RaceSegments);
     }
 
-    private void OnFinishTrack(int topInGame)
+    private void OnFinishTrack()
     {
         OnFinishTrackEvent.Invoke();
     }
 
-    public void Skip()
+    private void Update()
     {
-        foreach (var item in HorseControllers)
-        {
-            item.Skip();
-        }
+        UpdateFollowTarget();
+        UpdateRaceTime();
     }
 
-    private void Update()
+    private void UpdateFollowTarget()
     {
         if (isHorsesLoaded)
         {
             var firstHorse = isStartedRace
-                ? HorseControllers.OrderByDescending(x => x.CurrentRaceProgressWeight)
-                                  .First()
-                                  .transform
-                : HorseControllers[HorseControllers.Length / 2]
+                ? HorseControllerInternal.OrderByDescending(x => x.CurrentRaceProgressWeight)
+                                         .First()
+                                         .transform
+                : HorseControllerInternal[HorseControllers.Length / 2]
                     .transform;
-            followTarget.position = Vector3.Lerp(followTarget.position, firstHorse.transform.position, Time.deltaTime * 15.0f);
+            followTarget.position
+                = Vector3.Lerp(followTarget.position, firstHorse.transform.position, Time.deltaTime * 15.0f);
         }
     }
-    
+
+    private void UpdateRaceTime()
+    {
+        if (!isStartedRace) return;
+        currentRaceTime += Time.deltaTime;
+        NormalizedRaceTime = Mathf.Clamp01(currentRaceTime / raceTime);
+    }
+
     public void Dispose()
     {
         SubscribeToVcamsFading(false);

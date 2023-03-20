@@ -6,7 +6,6 @@ public class HorseInGameData
 {
     public bool IsPlayer { get; set; }
     public float CurrentOffset { get; set; }
-    public int TopInRaceMatch { get; set; }
     public int InitialLane { get; set; }
     public TargetGenerator TargetGenerator { get; set; }
     public ((Vector3 target, Quaternion rotation, float time)[] targets, int finishIndex) PredefineTargets { get; set; }

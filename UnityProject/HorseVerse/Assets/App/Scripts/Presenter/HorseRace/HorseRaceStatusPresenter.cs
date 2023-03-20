@@ -5,10 +5,10 @@ using Cysharp.Threading.Tasks;
 
 public class HorseRaceStatusPresenter : IDisposable
 {
+    private readonly IHorseRaceManager horseRaceManager;
     private readonly IHorseRaceInGameStatus[] horseRaceInGameStatus;
     private readonly int[] playerList;
     private readonly int playerHorseIndex;
-    private readonly float timeToFinish;
     private readonly bool isReplay;
     private readonly bool isShowSelfRank;
     private readonly int[] cachedPositions;
@@ -16,17 +16,17 @@ public class HorseRaceStatusPresenter : IDisposable
     private CancellationTokenSource cts;
     public event Action OnSkip = ActionUtility.EmptyAction.Instance;
 
-    public HorseRaceStatusPresenter(IHorseRaceInGameStatus[] horseRaceInGameStatus,
+    public HorseRaceStatusPresenter(IHorseRaceManager horseRaceManager, 
+                                    IHorseRaceInGameStatus[] horseRaceInGameStatus,
                                     int[] playerList,
                                     int playerHorseIndex,
-                                    float timeToFinish,
                                     bool isReplay,
                                     bool isShowSelfRank)
     {
+        this.horseRaceManager = horseRaceManager;
         this.horseRaceInGameStatus = horseRaceInGameStatus;
         this.playerList = playerList;
         this.playerHorseIndex = playerHorseIndex;
-        this.timeToFinish = timeToFinish;
         this.isReplay = isReplay;
         this.isShowSelfRank = isShowSelfRank;
         cachedPositions = Enumerable.Repeat(-1, playerList.Length).ToArray();
@@ -49,7 +49,6 @@ public class HorseRaceStatusPresenter : IDisposable
                 horseIdInLane = playerList,
                 playerId = playerHorseIndex,
             },
-            finishTime = timeToFinish,
             selfRaceRankGroup = isShowSelfRank,
             isReplay = isReplay,
             skipBtn = new ButtonComponent.Entity(() => OnSkip())
@@ -83,6 +82,7 @@ public class HorseRaceStatusPresenter : IDisposable
             if (i == 1) uiHorseRaceStatus.UpdateSecondRank(horseControllersOrderByRank[i].Name);
             if (horseControllersOrderByRank[i].IsPlayer) uiHorseRaceStatus.UpdateSelfRank(i);
         }
+        uiHorseRaceStatus.UpdateNormalizeTime(horseRaceManager.NormalizedRaceTime);
     }
 
     public void Dispose()

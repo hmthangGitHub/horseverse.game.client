@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class HorseRaceThirdPersonMasterData
+public class HorseRaceThirdPersonStats
 {
     [field: SerializeField]
     public bool IsPlayer { get; set; }
@@ -17,14 +17,21 @@ public class HorseRaceThirdPersonMasterData
     [field: SerializeField]
     public float Acceleration { get; set; }
     [field: SerializeField]
-    public TargetGenerator TargetGenerator { get; set; }
-    [field: SerializeField]
     public float SprintTime { get; set; }
     [field: SerializeField]
     public float SprintNumber { get; set; }
     [field: SerializeField]
     public float SprintHealingTime { get; set; }
     [field: SerializeField]
-    public float InitialLane { get; set; }
+    public int InitialLane { get; set; }
+}
+
+[Serializable]
+public class HorseRaceThirdPersonData
+{
+    [field: SerializeField]
+    public TargetGenerator TargetGenerator { get; set; }
+    [field: SerializeField]
+    public HorseRaceThirdPersonStats HorseRaceThirdPersonStats { get; set; }
     public PredefinePath PredefinePath => TargetGenerator.PredefinePath;
 }

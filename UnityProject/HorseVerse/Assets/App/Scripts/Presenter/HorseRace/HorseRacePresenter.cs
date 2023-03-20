@@ -71,7 +71,7 @@ public partial class HorseRacePresenter : IDisposable
         await uiLoading.In();
         horseIntroCameraPresenter.HideFreeCamera();
         
-        await (raceModeHorseIntroPresenter.ShowHorsesInfoIntroAsync(HorseRaceContext.RaceScriptData.HorseRaceInfos)
+        await (raceModeHorseIntroPresenter.ShowHorsesInfoIntroAsync(HorseRaceContext.HorseBriefInfos)
                                                            .AttachExternalCancellation(token),
             uiLoading.Out());
         await uiLoading.In();
@@ -93,7 +93,7 @@ public partial class HorseRacePresenter : IDisposable
     private async UniTask GetMasterMap()
     {
         masterMapContainer = await MasterLoader.LoadMasterAsync<MasterMapContainer>(token : cts.Token);
-        masterMap = masterMapContainer.MasterMapIndexer[HorseRaceContext.RaceScriptData.MasterMapId];
+        masterMap = masterMapContainer.MasterMapIndexer[HorseRaceContext.MasterMapId];
     }
 
     private async UniTask LoadUIAsync()
@@ -114,9 +114,10 @@ public partial class HorseRacePresenter : IDisposable
 
     private void SetHorseStatusAsync(int[] horseIdInLanes)
     {
-        horseRaceStatusPresenter = new HorseRaceStatusPresenter(horseRaceManager.HorseControllers,
+        horseRaceStatusPresenter = new HorseRaceStatusPresenter(horseRaceManager, 
+            horseRaceManager.HorseControllers,
             horseIdInLanes,
-            horseRaceManager.PlayerHorseIndex, horseRaceManager.RaceTime,
+            horseRaceManager.PlayerHorseIndex,
             horseRaceContext.GameMode == HorseGameMode.Race && horseRaceContext.RaceMatchDataContext.IsReplay,
             HorseRaceContext.GameMode == HorseGameMode.Race);
         horseRaceStatusPresenter.Initialize().Forget();
@@ -177,7 +178,7 @@ public partial class HorseRacePresenter : IDisposable
 
     private int[] RandomHorseInLanes()
     {
-        return Enumerable.Range(0,HorseRaceContext.RaceScriptData.HorseRaceInfos.Length).ToArray();
+        return Enumerable.Range(0,HorseRaceContext.RaceMatchData.HorseRaceInfos.Length).ToArray();
     }
 
     public void Dispose()

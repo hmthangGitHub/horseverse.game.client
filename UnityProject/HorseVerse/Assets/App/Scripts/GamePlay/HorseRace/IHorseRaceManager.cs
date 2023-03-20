@@ -5,8 +5,8 @@ using UnityEngine;
 public interface IHorseRaceManager : IDisposable
 {
     Transform WarmUpTarget { get; }
-    HorseController[] HorseControllers { get; }
-    float RaceTime { get;}
+    IHorseRaceInGameStatus[] HorseControllers { get; }
+    float NormalizedRaceTime { get;}
     int PlayerHorseIndex { get; }
     event Action OnFinishTrackEvent;
     UniTask WaitToStart();

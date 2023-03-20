@@ -1,27 +1,18 @@
 using io.hverse.game.protogen;
 
-public class RaceScriptData
+public class RaceMatchData
 {
     public HorseRaceInfo[] HorseRaceInfos { get; set; }
-    public long MasterMapId { get; set; }
 }
 
-public class HorseRaceInfo : IHorseBriefInfo
+public class HorseRaceInfo : HorseBriefInfo
 {
     public long NftHorseId { get; set; } 
     public float DelayTime { get; set; }
+    public Rarity Rarity { get; set; }
+    public HorseType Type { get; set; }
     public RaceSegmentTime[] RaceSegments { get; set; }
-    public MasterHorseMeshInformation MeshInformation { get; set; }
-    public string Name { get; set; }
-    public float PowerBonus { get; set; }
-    public float PowerRatio { get; set; }
-    public float SpeedBonus { get; set; }
-    public float SpeedRatio { get; set; }
-    public float TechnicallyBonus { get; set; }
-    public float TechnicallyRatio { get; set; }
-    public int Type { get; set; }
-    public int Rarity { get; set; }
-    public int Level { get; set; }
+    
 }
 
 public class HorseBetInfo
@@ -48,4 +39,17 @@ public interface IHorseBriefInfo
     int Level { get;}
     float TechnicallyBonus { get;}
     float TechnicallyRatio { get;}
+}
+
+public class HorseBriefInfo : IHorseBriefInfo
+{
+    public MasterHorseMeshInformation MeshInformation { get; set; }
+    public string Name { get; set; }
+    public float PowerBonus { get; set; }
+    public float PowerRatio { get; set; }
+    public float SpeedBonus { get; set; }
+    public float SpeedRatio { get; set; }
+    public float TechnicallyBonus { get; set; }
+    public float TechnicallyRatio { get; set; }
+    public int Level { get; set; }
 }

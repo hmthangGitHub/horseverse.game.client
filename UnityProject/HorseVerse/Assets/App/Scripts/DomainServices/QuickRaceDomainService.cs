@@ -11,7 +11,7 @@ using io.hverse.game.protogen;
 public interface IQuickRaceDomainService
 {
     UniTask ChangeHorse(long horseNtfId);
-    UniTask<RaceScriptData> FindMatch(long ntfHorseId, RacingMode racingMode);
+    UniTask<RaceMatchData> FindMatch(long ntfHorseId, RacingMode racingMode);
     UniTask CancelFindMatch(long ntfHorseId);
     event Action<long, int>  OnConnectedPlayerChange;
     void OnResumeFromSoftClose(long matchId, int numberCurrentPlayer, int maxNumberPlayer);
@@ -94,13 +94,12 @@ public class QuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRaceDoma
         await UserDataRepository.UpdateHorse(horseNtfId);
     }
 
-    public async UniTask<RaceScriptData> FindMatch(long ntfHorseId, RacingMode racingMode)
+    public async UniTask<RaceMatchData> FindMatch(long ntfHorseId, RacingMode racingMode)
     {
         JoinPool(ntfHorseId, racingMode).Forget();
-        return new RaceScriptData()
+        return new RaceMatchData()
         {
             HorseRaceInfos = HorseRaceInfoFactory.GetHorseRaceInfos((await findMatchUcs.Task)),
-            MasterMapId = RacingState.MasterMapId,
         };
     }
 
@@ -176,7 +175,7 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
         await UserDataRepository.UpdateHorse(horseNtfId);
     }
 
-    public async UniTask<RaceScriptData> FindMatch(long ntfHorseId, RacingMode racingMode)
+    public async UniTask<RaceMatchData> FindMatch(long ntfHorseId, RacingMode racingMode)
     {
         HorseRaceInfo[] GetAllMasterHorseIds()
         {
@@ -192,10 +191,9 @@ public class LocalQuickRaceDomainService : QuickRaceDomainServiceBase, IQuickRac
                             .ToArray();
         }
 
-        return new RaceScriptData()
+        return new RaceMatchData()
         {
             HorseRaceInfos = GetAllMasterHorseIds(),
-            MasterMapId = RacingState.MasterMapId,
         };
     }
 

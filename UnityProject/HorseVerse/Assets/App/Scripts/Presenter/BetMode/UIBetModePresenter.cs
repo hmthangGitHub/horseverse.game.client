@@ -173,7 +173,8 @@ public class UIBetModePresenter : IDisposable
         {
             var betMatchData = await BetModeDomainService.GetCurrentBetMatchData();
 
-            HorseRaceContext.RaceScriptData = betMatchData.raceScriptData;
+            HorseRaceContext.RaceMatchData = betMatchData.raceScriptData;
+            HorseRaceContext.HorseBriefInfos = betMatchData.raceScriptData.HorseRaceInfos;
             HorseRaceContext.BetMatchDataContext = betMatchData.betMatchDataContext;
             
             UiHorse3DViewPresenter.Dispose();

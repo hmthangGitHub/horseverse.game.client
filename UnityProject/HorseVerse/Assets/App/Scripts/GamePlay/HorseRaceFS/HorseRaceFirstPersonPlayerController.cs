@@ -29,29 +29,29 @@ public class HorseRaceFirstPersonPlayerController : MonoBehaviour
 
     private void UpdateHorsePositionRotation()
     {
-        var time = horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.PredefinePath.SimplyPath.path.GetClosestTimeOnPath(horseTransform.position);
+        var time = horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.PredefinePath.SimplyPath.path.GetClosestTimeOnPath(horseTransform.position);
         CalculateRotation(time);
         CalculateVelocity(time);
     }
 
     private void CalculateVelocity(float time)
     {
-        var pointInCurve = TargetGenerator.FromTimeToPoint(time, 0.0f, horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.PredefinePath.SimplyPath);
+        var pointInCurve = TargetGenerator.FromTimeToPoint(time, 0.0f, horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.PredefinePath.SimplyPath);
         var toPosition = (horseTransform.position - pointInCurve);
         var isGoingToWall = Vector3.Dot(toPosition, horseTransform.right) * horseRaceThirdPersonBehaviour.HorizontalDirection > 0;
 
         var horizontalSpeed = 0.0f;
         horizontalSpeed = Mathf.Abs(toPosition.magnitude) >= horseRaceThirdPersonBehaviour.OffsetRange && isGoingToWall
             ? 0
-            : horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.HorizontalSpeed;
+            : horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.HorseRaceThirdPersonStats.HorizontalSpeed;
 
         rigidBody.velocity = horseTransform.rotation * new Vector3(horseRaceThirdPersonBehaviour.HorizontalDirection * horizontalSpeed, 0, horseRaceThirdPersonBehaviour.CurrentForwardSpeed);
     }
 
     private void CalculateRotation(float time)
     {
-        var eulerAnglesY = horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.PredefinePath.SimplyPath.path.GetRotation(time)
-                                                         .eulerAngles.y + 180 * horseRaceThirdPersonBehaviour.HorseRaceThirdPersonMasterData.PredefinePath.Direction;
+        var eulerAnglesY = horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.PredefinePath.SimplyPath.path.GetRotation(time)
+                                                         .eulerAngles.y + 180 * horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.PredefinePath.Direction;
         horseTransform.rotation = Quaternion.Euler(0, eulerAnglesY, 0);
     }
 

@@ -3,7 +3,7 @@ using Lean.Touch;
 using UnityEngine;
 using UnityEngine.AI;
 
-public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour
+public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour, IHorseRaceInGameStatus
 {
     [SerializeField] private GameObject[] playerRelatedGameObjects;
     [SerializeField] private GameObject[] notPlayerRelatedGameObjects;
@@ -12,7 +12,7 @@ public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour
     [SerializeField] private Transform horseTransform;
     [SerializeField] private float offsetRange = 5.5f;
 
-    private HorseRaceThirdPersonMasterData horseRaceThirdPersonMasterData;
+    private HorseRaceThirdPersonData horseRaceThirdPersonData;
     
     private bool isStart;
     private float currentTargetForwardSpeed;
@@ -20,11 +20,13 @@ public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour
     private int currentSprintNumber;
     private float currentTimeToNextSprint;
     public float CurrentForwardSpeed { get; private set; }
-    public bool IsAbleToSprint => currentTimeToNextSprint == 0 && currentSprintNumber < HorseRaceThirdPersonMasterData.SprintNumber;
+    public bool IsAbleToSprint => currentTimeToNextSprint == 0 && currentSprintNumber < horseRaceThirdPersonData.HorseRaceThirdPersonStats.SprintNumber;
     
-    public float CurrentSprintNormalizeTime => currentSprintTime / horseRaceThirdPersonMasterData.SprintTime;
+    public float CurrentSprintNormalizeTime => currentSprintTime / horseRaceThirdPersonData.HorseRaceThirdPersonStats.SprintTime;
+    public bool IsPlayer => horseRaceThirdPersonData.HorseRaceThirdPersonStats.IsPlayer;
     public float CurrentRaceProgressWeight => GetCurrentProgress();
-    public float currentRaceProgressWeight;
+    public int InitialLane => horseRaceThirdPersonData.HorseRaceThirdPersonStats.InitialLane;
+    public string Name { get; set; }
     
     public int HorizontalDirection { get;  set; }
     public bool IsStart => isStart;
@@ -32,16 +34,16 @@ public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour
     public void StartRace(float normalizeSpeed)
     {
         isStart = true;
-        currentTargetForwardSpeed = Mathf.Lerp(HorseRaceThirdPersonMasterData.ForwardSpeedRange.x, HorseRaceThirdPersonMasterData.ForwardSpeedRange.y, normalizeSpeed);
-        currentSprintTime = HorseRaceThirdPersonMasterData.SprintTime;
+        currentTargetForwardSpeed = Mathf.Lerp(horseRaceThirdPersonData.HorseRaceThirdPersonStats.ForwardSpeedRange.x, horseRaceThirdPersonData.HorseRaceThirdPersonStats.ForwardSpeedRange.y, normalizeSpeed);
+        currentSprintTime = horseRaceThirdPersonData.HorseRaceThirdPersonStats.SprintTime;
     }
 
-    public HorseRaceThirdPersonMasterData HorseRaceThirdPersonMasterData
+    public HorseRaceThirdPersonData HorseRaceThirdPersonData
     {
-        get => horseRaceThirdPersonMasterData;
+        get => horseRaceThirdPersonData;
         set
         {
-            horseRaceThirdPersonMasterData = value;
+            horseRaceThirdPersonData = value;
             OnSetData();
         }
     }
@@ -50,21 +52,21 @@ public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour
 
     private void OnSetData()
     {
-        playerRelatedGameObjects.ForEach(x => x.SetActive(horseRaceThirdPersonMasterData.IsPlayer));
-        notPlayerRelatedGameObjects.ForEach(x => x.SetActive(horseRaceThirdPersonMasterData.IsPlayer == false));
-        playerRelatedGameComponents.enabled = horseRaceThirdPersonMasterData.IsPlayer;
-        notPlayerRelatedGameObjectsComponents.enabled = !horseRaceThirdPersonMasterData.IsPlayer;
+        playerRelatedGameObjects.ForEach(x => x.SetActive(horseRaceThirdPersonData.HorseRaceThirdPersonStats.IsPlayer));
+        notPlayerRelatedGameObjects.ForEach(x => x.SetActive(horseRaceThirdPersonData.HorseRaceThirdPersonStats.IsPlayer == false));
+        playerRelatedGameComponents.enabled = horseRaceThirdPersonData.HorseRaceThirdPersonStats.IsPlayer;
+        notPlayerRelatedGameObjectsComponents.enabled = !horseRaceThirdPersonData.HorseRaceThirdPersonStats.IsPlayer;
         horseTransform.position = TargetGenerator.FromTimeToPoint(
-            horseRaceThirdPersonMasterData.TargetGenerator.PredefinePath.StartTime,
-            horseRaceThirdPersonMasterData.TargetGenerator.GetOffsetFromLane(horseRaceThirdPersonMasterData.InitialLane),
-            horseRaceThirdPersonMasterData.TargetGenerator.SimplyPath);
+            horseRaceThirdPersonData.TargetGenerator.PredefinePath.StartTime,
+            horseRaceThirdPersonData.TargetGenerator.GetOffsetFromLane(horseRaceThirdPersonData.HorseRaceThirdPersonStats.InitialLane),
+            horseRaceThirdPersonData.TargetGenerator.SimplyPath);
     }
 
     private float GetCurrentProgress()
     {
-        return Mathf.InverseLerp(horseRaceThirdPersonMasterData.PredefinePath.StartTime, 
-            horseRaceThirdPersonMasterData.PredefinePath.EndTime, 
-            horseRaceThirdPersonMasterData.PredefinePath.SimplyPath.path.GetClosestTimeOnPath(horseTransform.position));
+        return Mathf.InverseLerp(horseRaceThirdPersonData.PredefinePath.StartTime, 
+            horseRaceThirdPersonData.PredefinePath.EndTime, 
+            horseRaceThirdPersonData.PredefinePath.SimplyPath.path.GetClosestTimeOnPath(horseTransform.position));
     }
     
     private void FixedUpdate()
@@ -73,7 +75,6 @@ public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour
         UpdateSpeed();
         UpdateSprintTime();
         UpdateSprintHealingTime();
-        currentRaceProgressWeight = CurrentRaceProgressWeight;
     }
 
     private void UpdateSprintHealingTime()
@@ -82,7 +83,7 @@ public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour
         currentTimeToNextSprint = Mathf.MoveTowards(currentTimeToNextSprint, 0.0f, Time.deltaTime);
         if (currentTimeToNextSprint <= 0.0f)
         {
-            currentTargetForwardSpeed = horseRaceThirdPersonMasterData.ForwardSpeedRange.x;
+            currentTargetForwardSpeed = horseRaceThirdPersonData.HorseRaceThirdPersonStats.ForwardSpeedRange.x;
         }
     }
 
@@ -93,7 +94,7 @@ public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour
         currentSprintTime = Mathf.MoveTowards(currentSprintTime, 0.0f, Time.deltaTime);
         if (currentSprintTime <= 0.0f)
         {
-            currentTargetForwardSpeed = horseRaceThirdPersonMasterData.ForwardSpeedRange.x;
+            currentTargetForwardSpeed = horseRaceThirdPersonData.HorseRaceThirdPersonStats.ForwardSpeedRange.x;
         }
 
     }
@@ -103,15 +104,15 @@ public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour
         CurrentForwardSpeed = Mathf.MoveTowards(
         CurrentForwardSpeed,
         currentTargetForwardSpeed,
-        HorseRaceThirdPersonMasterData.Acceleration * Time.deltaTime);
+        horseRaceThirdPersonData.HorseRaceThirdPersonStats.Acceleration * Time.deltaTime);
     }
 
     public void Sprint()
     {
         if (!IsAbleToSprint) return;
         currentSprintNumber++;
-        currentTimeToNextSprint = horseRaceThirdPersonMasterData.SprintHealingTime;
-        currentSprintTime = HorseRaceThirdPersonMasterData.SprintTime;
-        currentTargetForwardSpeed = horseRaceThirdPersonMasterData.ForwardSpeedRange.y;
+        currentTimeToNextSprint = horseRaceThirdPersonData.HorseRaceThirdPersonStats.SprintHealingTime;
+        currentSprintTime = horseRaceThirdPersonData.HorseRaceThirdPersonStats.SprintTime;
+        currentTargetForwardSpeed = horseRaceThirdPersonData.HorseRaceThirdPersonStats.ForwardSpeedRange.y;
     }
 }
