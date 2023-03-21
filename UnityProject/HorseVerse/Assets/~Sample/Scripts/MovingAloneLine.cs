@@ -70,10 +70,12 @@ public class MovingAloneLine : MonoBehaviour
             if (!isEnd)
             {
                 Vector3 dir;
-                tangenPoint = curse.findTheClosedPoint(this.transform.position, out dir, out isEnd);
+                var point = curse.transform.InverseTransformPoint(this.transform.position);
+                tangenPoint = curse.findTheClosedPoint(point, out dir, out isEnd);
                 //Vector3 direction = curse.GetTangent(currentDistance, totalLen);
                 sphere.transform.position = tangenPoint;
-                this.transform.localPosition += dir * Speed * Time.deltaTime;
+                var _dir = curse.transform.TransformVector(dir);
+                this.transform.localPosition += _dir * Speed * Time.deltaTime;
             }
             else
                 this.transform.localPosition += this.transform.forward * Speed * Time.deltaTime;

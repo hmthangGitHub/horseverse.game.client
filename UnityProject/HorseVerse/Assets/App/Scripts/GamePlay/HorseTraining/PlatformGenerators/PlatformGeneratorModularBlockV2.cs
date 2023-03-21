@@ -96,8 +96,12 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
         var platform = Instantiate(platformPrefab, this.transform);
         var platformModular = platform.GetComponent<PlatformModular>();
         var randomTurnBlock = trainingBlockSettings.turnLeftBlocks.GetRandom();
+        var randomStartBlock = trainingBlockSettings.startBlocks.GetRandom();
+        var randomEndBlock = trainingBlockSettings.endBlocks.GetRandom();
         await platformModular.GenerateTurnBlockAsync(relativePointToPlayer + lastEndPosition,
             randomTurnBlock,
+            randomStartBlock,
+            randomEndBlock,
             masterHorseTrainingProperty.JumpingPoint,
             masterHorseTrainingProperty.LandingPoint,
             trainingBlockSettings.sceneryObjects,

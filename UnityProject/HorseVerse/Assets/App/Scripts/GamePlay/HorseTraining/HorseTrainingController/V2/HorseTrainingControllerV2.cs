@@ -79,7 +79,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     [SerializeField]
     public float ForwardVelocity { get; private set; }
 
-    private BezierCurve currentCurve;
+    private BlockObjectData currentBlock;
 
     private float GetForwardVelocityFromCurrentDifficulty()
     {
@@ -110,6 +110,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private Vector3 v_direction = Vector3.forward;
     public Vector3 Direction => v_direction;
     private Vector3 v_side = Vector3.right;
+
 
     private bool IsGrounded
     {
@@ -385,30 +386,46 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
     private void UpdateDirection()
     {
+        if (IsGrounded) CheckIfCurve();
+
         isTurning = false;
-        if (currentCurve != default)
+        if (currentBlock != default && currentBlock.Curve != default)
         {
-            if (horizontalDirection != 0)
+            if (currentBlock.BlockType == BlockObjectData.Type.TURN_LEFT || currentBlock.BlockType == BlockObjectData.Type.TURN_RIGHT)
             {
-                bool isEnd = false;
-                if (!isEnd)
+                if ((currentBlock.BlockType == BlockObjectData.Type.TURN_LEFT && horizontalDirection > 0)
+                    || (currentBlock.BlockType == BlockObjectData.Type.TURN_RIGHT && horizontalDirection < 0))
                 {
-                    Vector3 dir;
-                    var tangenPoint = currentCurve.findTheClosedPoint(this.rigidbody.transform.position, out dir, out isEnd);
+                    bool isEnd = false;
                     if (!isEnd)
                     {
-                        v_direction = dir.normalized;
-                        this.rigidbody.transform.forward = v_direction;
-                        isTurning = true;
+                        Vector3 dir;
+                        Vector3 localPoint = currentBlock.Curve.transform.InverseTransformPoint(this.rigidbody.transform.position);
+                        var tangenPoint = currentBlock.Curve.findTheClosedPoint(localPoint, out dir, out isEnd);
+                        if (!isEnd)
+                        {
+                            v_direction = currentBlock.Curve.transform.TransformVector(dir).normalized;
+                            isTurning = true;
+                        }
+                        else
+                            v_direction = fixDirection(v_direction);
                     }
                 }
             }
         }
+        this.rigidbody.transform.forward = Vector3.Lerp(this.rigidbody.transform.forward, v_direction, Time.deltaTime * 15.0f);
     }
 
-    Vector3 fixDirection ()
+    Vector3 fixDirection (Vector3 vec)
     {
-        return Vector3.forward;
+        Vector3 v = vec;
+        v.x = Mathf.Round(vec.x);
+        //v.x = v.x < 0.5f ? 0 : v.x;
+        v.y = Mathf.Round(vec.y);
+        //v.y = v.y < 0.5f ? 0 : v.y;
+        v.z = Mathf.Round(vec.z);
+        //v.z = v.z < 0.5f ? 0 : v.z;
+        return v;
     }
 
 
@@ -517,14 +534,18 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     {
         var target = Physics.RaycastAll(pivotPoint.position, -Vector3.up, 0.15f)
             .Where(x => x.collider.CompareTag("Platform"));
-        currentCurve = default;
         if (target != null)
         {
             var i = target.FirstOrDefault();
             var data = i.collider.gameObject.GetComponentInParent<BlockObjectData>();
-            if(data != default)
+            currentBlock = data;
+        }
+        else
+        {
+            if (currentBlock != default)
             {
-                currentCurve = data.Curve;
+                currentBlock = default;
+                v_direction = fixDirection(v_direction);
             }
         }
     }
@@ -553,10 +574,9 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
         if (isGrounded && isJumping)
         {
+            v_direction = fixDirection(v_direction);
             isJumping = false;
             AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunTraining);
-
-            CheckIfCurve();
         }
     }
     

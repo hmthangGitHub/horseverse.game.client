@@ -11,6 +11,8 @@ public class TrainingBlockSettings : ScriptableObject
     public GameObject[] blocks;
     public GameObject[] turnLeftBlocks;
     public GameObject[] turnRightBlocks;
+    public GameObject[] startBlocks;
+    public GameObject[] endBlocks;
 
     public GameObject[] traps;
     public GameObject[] trapEditors;
@@ -23,4 +25,10 @@ public class TrainingBlockSettings : ScriptableObject
 
     private Dictionary<string, GameObject> turnRightBlocksLookUpTable;
     public IReadOnlyDictionary<string, GameObject> TurnRightBlocksLookUpTable => turnRightBlocksLookUpTable ??= turnRightBlocks.ToDictionary(x => x.name);
+
+    private Dictionary<string, GameObject> startBlocksLookUpTable;
+    public IReadOnlyDictionary<string, GameObject> StartBlocksLookUpTable => startBlocksLookUpTable ??= startBlocks.ToDictionary(x => x.name);
+
+    private Dictionary<string, GameObject> endBlocksLookUpTable;
+    public IReadOnlyDictionary<string, GameObject> EndBlocksLookUpTable => endBlocksLookUpTable ??= endBlocks.ToDictionary(x => x.name);
 }

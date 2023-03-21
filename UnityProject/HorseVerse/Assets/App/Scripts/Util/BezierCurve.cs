@@ -22,10 +22,10 @@ public class BezierCurve : MonoBehaviour
     public void init()
     {
         if (startPoint == default || controlPointStart == default || endPoint == default || controlPointEnd == default) return;
-        A = startPoint.position;
-        B = controlPointStart.position;
-        C = controlPointEnd.position;
-        D = endPoint.position;
+        A = startPoint.localPosition;
+        B = controlPointStart.localPosition;
+        C = controlPointEnd.localPosition;
+        D = endPoint.localPosition;
         currentParts = DivideCurveIntoParts();
     }
 
@@ -33,10 +33,10 @@ public class BezierCurve : MonoBehaviour
     void OnDrawGizmos()
     {
         if (startPoint == default || controlPointStart == default || endPoint == default || controlPointEnd == default) return;
-        A = startPoint.position;
-        B = controlPointStart.position;
-        C = controlPointEnd.position;
-        D = endPoint.position;
+        A = startPoint.localPosition;
+        B = controlPointStart.localPosition;
+        C = controlPointEnd.localPosition;
+        D = endPoint.localPosition;
 
         //The Bezier curve's color
         Gizmos.color = Color.white;
