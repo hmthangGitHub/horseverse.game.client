@@ -1,8 +1,8 @@
-type_name,master_horse_id,model_path,race_mode_model_path,intro_race_mode_model_path,name,master_horse_type,asset_name
-type,long,string,string,string,string,master_horse_type,ignore
-out_put_client,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE
-out_put_server,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE
-id,id,,,,,,
-,10000001,Horses/0001,Horses/RaceMode/0001,Horses/Intro/0001,Fire,Fire,0001
-,10000002,Horses/0002,Horses/RaceMode/0002,Horses/Intro/0002,Lighting,Lighting,0002
-,10000003,Horses/0003,Horses/RaceMode/0003,Horses/Intro/0003,Frost,Frost,0003
+type_name,master_horse_id,model_path,race_mode_model_path,intro_race_mode_model_path,race_mode_third_person_path,name,master_horse_type,asset_name
+type,long,string,string,string,string,string,master_horse_type,ignore
+out_put_client,true,true,true,true,true,true,true,false
+out_put_server,true,false,false,false,false,false,false,false
+id,id,,,,,,,
+,10000001,Horses/0001,Horses/RaceMode/0001,Horses/Intro/0001,Horses/RaceModeThirdPerson/0001,Fire,Fire,0001
+,10000002,Horses/0002,Horses/RaceMode/0002,Horses/Intro/0002,Horses/RaceModeThirdPerson/0002,Lighting,Lighting,0002
+,10000003,Horses/0003,Horses/RaceMode/0003,Horses/Intro/0003,Horses/RaceModeThirdPerson/0003,Frost,Frost,0003
