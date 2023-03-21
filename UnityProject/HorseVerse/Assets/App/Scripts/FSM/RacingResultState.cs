@@ -23,7 +23,7 @@ public class RacingResultState : InjectedBState
             presenter = new QuickRaceResultPresenter(Container);
             await presenter.ShowResultAsync();
             await presenter.UpdatePlayerInfo();
-            this.GetSuperMachine<RootFSM>().ChangeToChildStateRecursive<RacingMenuState>();
+            this.GetSuperMachine<RootFSM>().ChangeToChildStateRecursive<RacingThirdPersonMenuState>();
         }
         else
         {

@@ -23,9 +23,9 @@ public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour, IHorseRaceIn
     public bool IsAbleToSprint => currentTimeToNextSprint == 0 && currentSprintNumber < horseRaceThirdPersonData.HorseRaceThirdPersonStats.SprintNumber;
     
     public float CurrentSprintNormalizeTime => currentSprintTime / horseRaceThirdPersonData.HorseRaceThirdPersonStats.SprintTime;
-    public bool IsPlayer => horseRaceThirdPersonData.HorseRaceThirdPersonStats.IsPlayer;
+    public bool IsPlayer => horseRaceThirdPersonData.IsPlayer;
     public float CurrentRaceProgressWeight => GetCurrentProgress();
-    public int InitialLane => horseRaceThirdPersonData.HorseRaceThirdPersonStats.InitialLane;
+    public int InitialLane => horseRaceThirdPersonData.InitialLane;
     public string Name { get; set; }
     
     public int HorizontalDirection { get;  set; }
@@ -52,13 +52,13 @@ public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour, IHorseRaceIn
 
     private void OnSetData()
     {
-        playerRelatedGameObjects.ForEach(x => x.SetActive(horseRaceThirdPersonData.HorseRaceThirdPersonStats.IsPlayer));
-        notPlayerRelatedGameObjects.ForEach(x => x.SetActive(horseRaceThirdPersonData.HorseRaceThirdPersonStats.IsPlayer == false));
-        playerRelatedGameComponents.enabled = horseRaceThirdPersonData.HorseRaceThirdPersonStats.IsPlayer;
-        notPlayerRelatedGameObjectsComponents.enabled = !horseRaceThirdPersonData.HorseRaceThirdPersonStats.IsPlayer;
+        playerRelatedGameObjects.ForEach(x => x.SetActive(horseRaceThirdPersonData.IsPlayer));
+        notPlayerRelatedGameObjects.ForEach(x => x.SetActive(horseRaceThirdPersonData.IsPlayer == false));
+        playerRelatedGameComponents.enabled = horseRaceThirdPersonData.IsPlayer;
+        notPlayerRelatedGameObjectsComponents.enabled = !horseRaceThirdPersonData.IsPlayer;
         horseTransform.position = TargetGenerator.FromTimeToPoint(
             horseRaceThirdPersonData.TargetGenerator.PredefinePath.StartTime,
-            horseRaceThirdPersonData.TargetGenerator.GetOffsetFromLane(horseRaceThirdPersonData.HorseRaceThirdPersonStats.InitialLane),
+            horseRaceThirdPersonData.TargetGenerator.GetOffsetFromLane(horseRaceThirdPersonData.InitialLane),
             horseRaceThirdPersonData.TargetGenerator.SimplyPath);
     }
 

@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using RobustFSM.Interfaces;
 
 public class RacingMenuState : InjectedBHState
 {
@@ -18,7 +19,7 @@ public class RacingMenuState : InjectedBHState
     {
         base.AddStates();
         AddState<EmptyState>();
-        AddState<RacingMatchFindingState>();
+        AddState<RacingThirdPersonMatchFindingState>();
         SetInitialState<EmptyState>();
     }
 
@@ -41,13 +42,13 @@ public class RacingMenuState : InjectedBHState
 
     private void OnFindMatch()
     {
-        ChangeState<RacingMatchFindingState>();
+        ChangeState<RacingThirdPersonMatchFindingState>();
     }
     
     private void OnBack()
     {
         HorseRaceContext.RaceMatchDataContext.RacingRoomType = RacingRoomType.None;
-        this.Machine.ChangeState<RaceModeChoosingState>();
+        ((IState)this.Machine).Machine.ChangeState<RaceModeChoosingState>();
     }
 
     public override void Exit()

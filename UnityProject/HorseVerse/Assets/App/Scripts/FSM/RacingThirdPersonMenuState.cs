@@ -2,25 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RacingHistoryState : InjectedBHState
+public class RacingThirdPersonMenuState : InjectedBHState
 {
     public override void AddStates()
     {
         base.AddStates();
+        AddState<RacingMenuState>();
         AddState<HorseRaceActionState>();
-        AddState<RacingHistoryMenuState>();
-        SetInitialState<RacingHistoryMenuState>();
+        SetInitialState<RacingMenuState>();
     }
 
     public override void Enter()
     {
         base.Enter();
-        Container.Bind(new HorseRaceManagerFactory(Container));
+        Container.Bind(new HorseRaceThirdPersonFactory(Container));
     }
 
     public override void Exit()
     {
         base.Exit();
-        Container.RemoveAndDisposeIfNeed<HorseRaceManagerFactory>();
+        Container.RemoveAndDisposeIfNeed<HorseRaceThirdPersonFactory>();
     }
 }

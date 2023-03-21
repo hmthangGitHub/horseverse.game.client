@@ -54,7 +54,7 @@ public class RaceModeChoosingState : InjectedBState
     private async UniTask OnFinishChooseRaceModeAsync()
     {
         await OnBeforeExitStateAsync();
-        Machine.ChangeState<RacingMenuState>();
+        Machine.ChangeState<RacingThirdPersonMenuState>();
     }
 
     private async UniTask OnBeforeExitStateAsync()

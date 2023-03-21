@@ -34,13 +34,13 @@ public partial class HorseRaceFirstPersonAIDriver : MonoBehaviour
     private void ChangeTarget()
     {
         currentWayPointIndex++;
-        currentWayPointIndex %= horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.HorseRaceThirdPersonStats.PredefineWayPoints.Length;
-        currentTargetWayPoint = horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.HorseRaceThirdPersonStats.PredefineWayPoints[currentWayPointIndex];
+        currentWayPointIndex %= horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.PredefineWayPoints.Length;
+        currentTargetWayPoint = horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.PredefineWayPoints[currentWayPointIndex];
         var lastTargetDirectionIndex
             = (currentWayPointIndex - 1 +
-               horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.HorseRaceThirdPersonStats.PredefineWayPoints.Length) %
-              horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.HorseRaceThirdPersonStats.PredefineWayPoints.Length;
-        lastTargetDirection = currentTargetWayPoint - horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.HorseRaceThirdPersonStats.PredefineWayPoints[lastTargetDirectionIndex];
+               horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.PredefineWayPoints.Length) %
+              horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.PredefineWayPoints.Length;
+        lastTargetDirection = currentTargetWayPoint - horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.PredefineWayPoints[lastTargetDirectionIndex];
         navMeshAgent.destination = currentTargetWayPoint;
     }
     

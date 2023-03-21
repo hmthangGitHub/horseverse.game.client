@@ -11,9 +11,8 @@ public class RacingState : InjectedBHState
     public override void AddStates()
     {
         base.AddStates();
-        AddState<RacingMenuState>();
+        AddState<RacingThirdPersonMenuState>();
         AddState<RaceModeChoosingState>();
-        AddState<HorseRaceActionState>();
         AddState<RacingHistoryState>();
         SetInitialState<RaceModeChoosingState>();
     }
@@ -22,14 +21,12 @@ public class RacingState : InjectedBHState
     {
         HorseRaceContext.GameMode = HorseGameMode.Race;
         HorseRaceContext.RaceMatchDataContext = new RaceMatchDataContext();
-        Container.Bind(new HorseRaceManagerFactory(Container));
         base.Enter();
     }
 
     public override void Exit()
     {
         base.Exit();
-        Container.RemoveAndDisposeIfNeed<HorseRaceManagerFactory>();
         HorseRaceContext.Reset();
         horseRaceContext = default;
     }

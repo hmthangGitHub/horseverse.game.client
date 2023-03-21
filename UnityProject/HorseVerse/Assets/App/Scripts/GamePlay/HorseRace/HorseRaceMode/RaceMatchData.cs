@@ -7,7 +7,6 @@ public class RaceMatchData
 
 public class HorseRaceInfo : HorseBriefInfo
 {
-    public long NftHorseId { get; set; } 
     public float DelayTime { get; set; }
     public Rarity Rarity { get; set; }
     public HorseType Type { get; set; }
@@ -30,6 +29,7 @@ public class RaceSegmentTime
 
 public interface IHorseBriefInfo
 {
+    long NftHorseId { get;} 
     MasterHorseMeshInformation MeshInformation { get;}
     string Name { get; }
     float PowerBonus { get;}
@@ -43,6 +43,7 @@ public interface IHorseBriefInfo
 
 public class HorseBriefInfo : IHorseBriefInfo
 {
+    public long NftHorseId { get; set; } 
     public MasterHorseMeshInformation MeshInformation { get; set; }
     public string Name { get; set; }
     public float PowerBonus { get; set; }

@@ -176,7 +176,8 @@ public class UIBetModePresenter : IDisposable
             HorseRaceContext.RaceMatchData = betMatchData.raceScriptData;
             HorseRaceContext.HorseBriefInfos = betMatchData.raceScriptData.HorseRaceInfos;
             HorseRaceContext.BetMatchDataContext = betMatchData.betMatchDataContext;
-            
+            HorseRaceContext.MasterMapId = RacingState.MasterMapId;
+
             UiHorse3DViewPresenter.Dispose();
             UiHorseInfo3DViewPresenter.Dispose();
             TransitionAsync(OnToRaceMode).Forget();    

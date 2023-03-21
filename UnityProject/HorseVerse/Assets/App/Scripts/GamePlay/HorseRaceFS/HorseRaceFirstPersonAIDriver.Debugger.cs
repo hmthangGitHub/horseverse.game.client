@@ -9,9 +9,9 @@ public partial class HorseRaceFirstPersonAIDriver
     
     private void DrawAllTargets()
     {
-        if (horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData?.HorseRaceThirdPersonStats?.PredefineWayPoints == default) return;
+        if (horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData?.PredefineWayPoints == default) return;
 
-        foreach (var x in horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.HorseRaceThirdPersonStats.PredefineWayPoints)
+        foreach (var x in horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.PredefineWayPoints)
         {
             Gizmos.DrawSphere(x, 0.5f);
         }

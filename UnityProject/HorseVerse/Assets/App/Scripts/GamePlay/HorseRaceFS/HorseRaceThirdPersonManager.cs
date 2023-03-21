@@ -3,32 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
-using Cinemachine;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public class HorseRaceThirdPersonManager : MonoBehaviour, IHorseRaceManager
+public class HorseRaceThirdPersonManager : IHorseRaceManager
 {
-    [SerializeField] private CinemachineTargetGroup horseGroup;
-    [SerializeField] private Transform horsesContainer;
     private string mapSettingsPath;
     private MapSettings mapSettings;
     private TargetGenerator targetGenerator;
     private bool isStarted;
-    public Transform WarmUpTarget => horseGroup.Transform;
+    private HorseRaceThirdPersonListContainer horseRaceThirdPersonListContainer;
+    private CancellationTokenSource cts;
+    public Transform WarmUpTarget => horseRaceThirdPersonListContainer.WarmUpTarget;
     public IHorseRaceInGameStatus[] HorseControllers => HorseRaceThirdPersonBehaviours;
     private HorseRaceThirdPersonBehaviour[] HorseRaceThirdPersonBehaviours { get; set; }
     public float NormalizedRaceTime { get; private set; }
     public int PlayerHorseIndex { get; private set; }
     public event Action OnFinishTrackEvent;
     
-    public UniTask WaitToStart()
+    public async UniTask WaitToStart()
     {
-        throw new NotImplementedException();
+        await UniTask.Delay(3000);
     }
-
+    
     public void PrepareToRace()
     {
         SetHorsesVisible(true);
@@ -38,6 +36,16 @@ public class HorseRaceThirdPersonManager : MonoBehaviour, IHorseRaceManager
     {
         isStarted = true;
         HorseRaceThirdPersonBehaviours.ForEach(x => x.StartRace(0.0f));
+        UpdateRaceProgressAsync().Forget();
+    }
+
+    private async UniTaskVoid UpdateRaceProgressAsync()
+    {
+        while (!cts.IsCancellationRequested)
+        {
+            NormalizedRaceTime = HorseRaceThirdPersonBehaviours.Min(x => x.CurrentRaceProgressWeight);
+            await UniTask.Yield(timing: PlayerLoopTiming.FixedUpdate, cancellationToken: cts.Token);
+        }
     }
 
     public async UniTask InitializeAsync(MasterHorseContainer masterHorseContainer,
@@ -49,39 +57,47 @@ public class HorseRaceThirdPersonManager : MonoBehaviour, IHorseRaceManager
         PlayerHorseIndex = playerHorseIndex;
         this.mapSettingsPath = mapSettingPath;
         await LoadMapSettings(token);
-        HorseRaceThirdPersonBehaviours = await horseRaceThirdPersonInfo.Select(x => LoadHorseController(masterHorseContainer, x, token));
+        
+        horseRaceThirdPersonListContainer = Object.Instantiate((await Resources.LoadAsync<HorseRaceThirdPersonListContainer>("GamePlay/HorseRaceThirdPersonManager") as HorseRaceThirdPersonListContainer));
+        HorseRaceThirdPersonBehaviours = await horseRaceThirdPersonInfo.Select((x, i) => LoadHorseController(i, masterHorseContainer, x, token));
         SetHorsesVisible(false);
+        
+        cts = new CancellationTokenSource();
     }
 
     private void SetHorsesVisible(bool isVisible)
     {
-        HorseRaceThirdPersonBehaviours.ForEach(x => gameObject.SetActive(isVisible));
+        horseRaceThirdPersonListContainer.gameObject.SetActive(isVisible);
     }
 
     private async UniTask LoadMapSettings(CancellationToken token)
     {
         mapSettings = await PrimitiveAssetLoader.LoadAssetAsync<MapSettings>(mapSettingsPath, token);
-        targetGenerator = Instantiate(mapSettings.targetGenerator, Vector3.zero, Quaternion.identity);
+        targetGenerator = Object.Instantiate(mapSettings.targetGenerator, Vector3.zero, Quaternion.identity);
     }
 
-    private async UniTask<HorseRaceThirdPersonBehaviour> LoadHorseController(MasterHorseContainer masterHorseContainer, HorseRaceThirdPersonInfo horseRaceThirdPersonInfo, CancellationToken token)
+    private async UniTask<HorseRaceThirdPersonBehaviour> LoadHorseController(int initialLane, MasterHorseContainer masterHorseContainer, HorseRaceThirdPersonInfo horseRaceThirdPersonInfo, CancellationToken token)
     {
         var horse = await HorseMeshAssetLoader.InstantiateHorse(masterHorseContainer.GetHorseMeshInformation(horseRaceThirdPersonInfo.MeshInformation, HorseModelMode.RaceThirdPerson) , token);
-        horse.transform.SetParent(horsesContainer);
+        horse.transform.SetParent(horseRaceThirdPersonListContainer.HorsesContainer);
         var horseController = horse.GetComponent<HorseRaceThirdPersonBehaviour>();
-        horseGroup.AddMember(horseController.transform, 1, 0);
+        horseRaceThirdPersonListContainer.HorseGroup.AddMember(horseController.transform, 1, 0);
+        horseController.HorseRaceThirdPersonData = new HorseRaceThirdPersonData()
+        {
+            TargetGenerator = targetGenerator,
+            InitialLane = initialLane,
+            IsPlayer = PlayerHorseIndex == initialLane,
+            PredefineWayPoints = targetGenerator.GenerateRandomTargetsWithNoise(),
+            HorseRaceThirdPersonStats = horseRaceThirdPersonInfo.HorseRaceThirdPersonStats
+        };
         return horseController;
-    }
-
-    private void FixedUpdate()
-    {
-        if (!isStarted) return;
-        NormalizedRaceTime = HorseRaceThirdPersonBehaviours.Min(x => x.CurrentRaceProgressWeight);
     }
     
     public void Dispose()
     {
-        Destroy(mapSettings);
+        DisposeUtility.SafeDispose(ref cts);
+        DisposeUtility.SafeDisposeMonoBehaviour(ref horseRaceThirdPersonListContainer);
+        Object.Destroy(mapSettings);
         mapSettings = default;
         PrimitiveAssetLoader.UnloadAssetAtPath(mapSettingsPath);
         

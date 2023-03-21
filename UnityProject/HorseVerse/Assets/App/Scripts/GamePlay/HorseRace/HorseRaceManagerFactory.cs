@@ -58,15 +58,11 @@ public class HorseRaceThirdPersonFactory : IHorseRaceManagerFactory
 
     public async UniTask<IHorseRaceManager> CreateHorseRaceManagerAsync(CancellationToken token)
     {
-        var horseRaceManager = Object.Instantiate((await Resources.LoadAsync<HorseRaceManager>("GamePlay/HorseRaceThirdPersonManager") as HorseRaceThirdPersonManager));
+        var horseRaceManager = new HorseRaceThirdPersonManager();
         var playerHorseIndex = -1;
-        if (HorseRaceContext.GameMode == HorseGameMode.Race)
-        {
-            playerHorseIndex = HorseRaceContext.RaceMatchData.
-                                                HorseRaceInfos.
-                                                ToList().
-                                                FindIndex(x => HorseRepository.Models.ContainsKey(x.NftHorseId));
-        }
+        playerHorseIndex = HorseRaceContext.HorseBriefInfos.
+                                            ToList().
+                                            FindIndex(x => HorseRepository.Models.ContainsKey(x.NftHorseId));
         
         var masterMapContainer = await MasterLoader.LoadMasterAsync<MasterMapContainer>(token);
         var masterMap = masterMapContainer.MasterMapIndexer[HorseRaceContext.MasterMapId];
