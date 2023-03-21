@@ -66,7 +66,7 @@ public class HorseRaceThirdPersonManager : MonoBehaviour, IHorseRaceManager
 
     private async UniTask<HorseRaceThirdPersonBehaviour> LoadHorseController(MasterHorseContainer masterHorseContainer, HorseRaceThirdPersonInfo horseRaceThirdPersonInfo, CancellationToken token)
     {
-        var horse = await HorseMeshAssetLoader.InstantiateHorse(masterHorseContainer.GetHorseMeshInformation(horseRaceThirdPersonInfo.MeshInformation, HorseModelMode.Race) , token);
+        var horse = await HorseMeshAssetLoader.InstantiateHorse(masterHorseContainer.GetHorseMeshInformation(horseRaceThirdPersonInfo.MeshInformation, HorseModelMode.RaceThirdPerson) , token);
         horse.transform.SetParent(horsesContainer);
         var horseController = horse.GetComponent<HorseRaceThirdPersonBehaviour>();
         horseGroup.AddMember(horseController.transform, 1, 0);

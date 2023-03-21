@@ -1,3 +1,4 @@
+using System;
 using UniRx.Operators;
 using UnityEngine;
 
@@ -26,6 +27,7 @@ public static class MasterHorseContainerExtensions
             HorseModelMode.Menu => masterHorse.ModelPath,
             HorseModelMode.Race => masterHorse.RaceModeModelPath,
             HorseModelMode.Intro => masterHorse.IntroRaceModeModelPath,
+            HorseModelMode.RaceThirdPerson => masterHorse.RaceModeThirdPersonPath,
             _ => masterHorse.ModelPath
         };
     }
@@ -35,7 +37,8 @@ public enum HorseModelMode
 {
     Menu,
     Intro,
-    Race
+    Race,
+    RaceThirdPerson
 }
 
 public class MasterHorseMeshInformation
