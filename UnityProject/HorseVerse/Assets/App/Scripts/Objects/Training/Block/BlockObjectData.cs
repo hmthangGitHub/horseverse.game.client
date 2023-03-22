@@ -4,18 +4,7 @@ using UnityEngine;
 
 public class BlockObjectData : MonoBehaviour
 {
-    public enum Type {
-        NORMAL,
-        START,
-        END,
-        TURN_LEFT,
-        TURN_RIGHT,
-        SPLIT_TWO_TURNS,
-        BEGIN_SCENE,
-        END_SCENE,
-    }
-
-    [SerializeField] Type blockType; 
+    [SerializeField] TYPE_OF_BLOCK blockType; 
     [SerializeField] Transform startPoint;
     [SerializeField] Transform endPoint;
     [Space]
@@ -24,7 +13,7 @@ public class BlockObjectData : MonoBehaviour
     [SerializeField] List<BoxCollider> boxColliders;
 
 
-    public Type BlockType => blockType;
+    public TYPE_OF_BLOCK BlockType => blockType;
     public Transform StartPoint => startPoint;
     public Transform EndPoint => endPoint;
     public BezierCurve Curve => curve;

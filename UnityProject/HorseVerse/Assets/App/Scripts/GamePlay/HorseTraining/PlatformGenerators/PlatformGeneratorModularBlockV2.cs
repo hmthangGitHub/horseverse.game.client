@@ -91,11 +91,18 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
         return platform;
     }
 
-    protected override async UniTask<PlatformBase> CreateTurnPlatformAsync(Vector3 relativePointToPlayer, Vector3 lastEndPosition)
+    protected override async UniTask<PlatformBase> CreateTurnPlatformAsync(TYPE_OF_BLOCK type, Vector3 relativePointToPlayer, Vector3 lastEndPosition)
     {
         var platform = Instantiate(platformPrefab, this.transform);
         var platformModular = platform.GetComponent<PlatformModular>();
-        var randomTurnBlock = trainingBlockSettings.turnLeftBlocks.GetRandom();
+        GameObject randomTurnBlock = default;
+        if (type == TYPE_OF_BLOCK.TURN_LEFT)
+            randomTurnBlock = trainingBlockSettings.turnLeftBlocks.GetRandom();
+        else if (type == TYPE_OF_BLOCK.TURN_RIGHT)
+            randomTurnBlock = trainingBlockSettings.turnRightBlocks.GetRandom();
+        else
+            return platform;
+
         var randomStartBlock = trainingBlockSettings.startBlocks.GetRandom();
         var randomEndBlock = trainingBlockSettings.endBlocks.GetRandom();
         await platformModular.GenerateTurnBlockAsync(relativePointToPlayer + lastEndPosition,

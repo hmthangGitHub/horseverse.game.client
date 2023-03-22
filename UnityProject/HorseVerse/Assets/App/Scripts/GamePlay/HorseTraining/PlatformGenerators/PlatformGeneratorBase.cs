@@ -23,7 +23,6 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     protected Vector3 nextDirection = Vector3.forward;
     protected Vector3 nextSideDirection = Vector3.right;
 
-
     public async UniTask InitializeAsync(MasterHorseTrainingProperty masterHorseTrainingProperty,
                                          MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer,
                                          MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer,
@@ -103,12 +102,19 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
 
         int random = Random.Range(0, 4);
 
-        if (random == 2 || random == 3)
+        if (random == 2)
         {
-            var platform = await CreateNewTurnPlatformAsync(relativePointToPlayer, lastEndPosition, nextDirection);
+            var platform = await CreateNewTurnPlatformAsync(relativePointToPlayer, lastEndPosition, TYPE_OF_BLOCK.TURN_LEFT, nextDirection);
             lastPlatform = platform;
             platformQueue.Enqueue(platform);
             TurnLeft();
+        }
+        else if ( random == 3)
+        {
+            var platform = await CreateNewTurnPlatformAsync(relativePointToPlayer, lastEndPosition, TYPE_OF_BLOCK.TURN_RIGHT, nextDirection);
+            lastPlatform = platform;
+            platformQueue.Enqueue(platform);
+            TurnRight();
         }
         else
         {
@@ -164,10 +170,10 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     }
 
     private async UniTask<GameObject> CreateNewTurnPlatformAsync(Vector3 relativePointToPlayer,
-                                         Vector3 lastEndPosition, Vector3 direction)
+                                         Vector3 lastEndPosition, TYPE_OF_BLOCK type, Vector3 direction)
     {
         CreateDebugSphere(relativePointToPlayer + lastEndPosition);
-        var platform = await CreateTurnPlatformAsync(relativePointToPlayer, lastEndPosition);
+        var platform = await CreateTurnPlatformAsync(type, relativePointToPlayer, lastEndPosition);
         platform.OnFinishPlatform += OnCreateNewPlatform;
         platform.transform.forward = direction;
         return platform.gameObject;
@@ -197,7 +203,7 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         return null;
     }
 
-    protected virtual async UniTask<PlatformBase> CreateTurnPlatformAsync(Vector3 relativePointToPlayer,
+    protected virtual async UniTask<PlatformBase> CreateTurnPlatformAsync(TYPE_OF_BLOCK type, Vector3 relativePointToPlayer,
                                                    Vector3 lastEndPosition)
     {
         return null;

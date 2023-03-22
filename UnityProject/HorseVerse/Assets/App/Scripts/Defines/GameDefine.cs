@@ -20,3 +20,16 @@ public enum FEATURE_TYPE
     ARENA = 2,
     RACING = 3,
 }
+
+
+public enum TYPE_OF_BLOCK
+{
+    NORMAL = 0,
+    START = 1,
+    END = 2,
+    START_SCENE = 3,
+    END_SCENE = 4,
+    TURN_LEFT = 5,
+    TURN_RIGHT = 6,
+    SPLIT_LANES = 7
+}

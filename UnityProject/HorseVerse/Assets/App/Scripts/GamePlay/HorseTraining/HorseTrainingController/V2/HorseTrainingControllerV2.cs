@@ -391,10 +391,10 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         isTurning = false;
         if (currentBlock != default && currentBlock.Curve != default)
         {
-            if (currentBlock.BlockType == BlockObjectData.Type.TURN_LEFT || currentBlock.BlockType == BlockObjectData.Type.TURN_RIGHT)
+            if (currentBlock.BlockType == TYPE_OF_BLOCK.TURN_LEFT || currentBlock.BlockType == TYPE_OF_BLOCK.TURN_RIGHT)
             {
-                if ((currentBlock.BlockType == BlockObjectData.Type.TURN_LEFT && horizontalDirection > 0)
-                    || (currentBlock.BlockType == BlockObjectData.Type.TURN_RIGHT && horizontalDirection < 0))
+                if ((currentBlock.BlockType == TYPE_OF_BLOCK.TURN_LEFT && horizontalDirection > 0)
+                    || (currentBlock.BlockType == TYPE_OF_BLOCK.TURN_RIGHT && horizontalDirection < 0))
                 {
                     bool isEnd = false;
                     if (!isEnd)

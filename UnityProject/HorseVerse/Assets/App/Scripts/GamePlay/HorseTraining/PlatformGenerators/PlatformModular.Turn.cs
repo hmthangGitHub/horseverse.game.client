@@ -54,7 +54,7 @@ public partial class PlatformModular
         
 
 
-        GenerateSceneryObjects(sceneryObjectPrefabs, gameObjectPoolList);
+        //GenerateSceneryObjects(sceneryObjectPrefabs, gameObjectPoolList, 1);
         IsReady = true;
 
         PlaceStartObjectFromBlockData(bl);

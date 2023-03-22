@@ -9,17 +9,25 @@ public partial class PlatformModular
     [SerializeField]
     private Vector3 sceneryContainerScale = new Vector3(14.0f, 20.0f, 1.0f);
 
-    private void CreateSceneryRegions()
+    private void CreateSceneryRegions(int type = 0)
     {
         var bounds = CreatePlatformBound();
-        sceneryConflictRegion = CreateSceneryContainerBoxCollider(bounds.center, bounds, "SceneryConflictRegion", sceneryConflictRegionScale);
-        sceneryBoxContainer = CreateSceneryContainerBoxCollider(bounds.center, bounds, "SceneryContainer", sceneryContainerScale);
+        if (type == 0)
+        {
+            sceneryConflictRegion = CreateSceneryContainerBoxCollider(bounds.center, bounds, "SceneryConflictRegion", sceneryConflictRegionScale);
+            sceneryBoxContainer = CreateSceneryContainerBoxCollider(bounds.center, bounds, "SceneryContainer", sceneryContainerScale);
+        }
+        else
+        {
+            sceneryConflictRegion = CreateSceneryContainerBoxCollider(bounds.center, bounds, "SceneryConflictRegion", Vector3.one * 3.0f);
+            sceneryBoxContainer = CreateSceneryContainerBoxCollider(bounds.center, bounds, "SceneryContainer", Vector3.one * 5.0f);
+        }
     }
     
     private void GenerateSceneryObjects(GameObject[] sceneryObjectPrefabs,
-                                        GameObjectPoolList gameObjectPoolList)
+                                        GameObjectPoolList gameObjectPoolList, int type = 0)
     {
-        CreateSceneryRegions();
+        CreateSceneryRegions(type);
         StartCoroutine(GenerateSceneryObjectsAsync(sceneryObjectPrefabs, gameObjectPoolList));
         //Enumerable.Range(0, Random.Range(0, 20))
         //          .ForEach(x =>
