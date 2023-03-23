@@ -19,11 +19,14 @@ public class HorseRaceActionState : InjectedBHState
     private UIBackGroundPresenter uiBackGroundPresenter;
     private UIHeaderPresenter UIHeaderPresenter => uiHeaderPresenter ??= Container.Inject<UIHeaderPresenter>();
     private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= Container.Inject<UIBackGroundPresenter>();
+    private IPingDomainService pingDomainService;
+    private IPingDomainService PingDomainService => pingDomainService ??= Container.Inject<PingDomainService>();
 
     public override void Enter()
     {
         base.Enter();
         OnEnterAsync().Forget();
+        PingDomainService.StopPingService();
     }
 
     private async UniTask OnEnterAsync()
@@ -70,11 +73,17 @@ public class HorseRaceActionState : InjectedBHState
         horseRacePresenter.StartGame();
     }
 
+    public override void PhysicsExecute()
+    {
+        base.PhysicsExecute();
+        horseRacePresenter?.FixedUpdate();
+    }
+
     public override void Exit()
     {
         base.Exit();
+        PingDomainService.StartPingService().Forget();
         isGameStart = false;
-
         uiLoadingPresenter = default;
         horseRacePresenter.OnToBetModeResultState -= ToBetModeResultState;
         horseRacePresenter.OnToQuickRaceModeResultState -= ToRacingResultState;

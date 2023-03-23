@@ -190,7 +190,6 @@ public class HorseRaceManager : MonoBehaviour, IHorseRaceManager
     private void Update()
     {
         UpdateFollowTarget();
-        UpdateRaceTime();
     }
 
     private void UpdateFollowTarget()
@@ -208,7 +207,7 @@ public class HorseRaceManager : MonoBehaviour, IHorseRaceManager
         }
     }
 
-    private void UpdateRaceTime()
+    public void UpdateRaceTime()
     {
         if (!isStartedRace) return;
         currentRaceTime += Time.deltaTime;

@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using System.Linq;
 using UnityEngine;
 public class HorseRaceFSTest : MonoBehaviour
 {
@@ -9,11 +10,10 @@ public class HorseRaceFSTest : MonoBehaviour
     {
         if (GUILayout.Button("Set",  GUILayout.Width(300), GUILayout.Height(300)))
         {
-            dataTests[1].PredefineWayPoints = targetGenerator.GenerateRandomTargetsWithNoise();
+            dataTests.Skip(1).ForEach(x => x.PredefineWayPoints = targetGenerator.GenerateRandomTargetsWithNoise());
             dataTests.ForEach(x => x.InitialLane = UnityEngine.Random.Range(0, 8));
             var horseRaceFirstPersonControllers = this.GetComponentsInChildren<HorseRaceThirdPersonBehaviour>();
-            horseRaceFirstPersonControllers[0].HorseRaceThirdPersonData = dataTests[0];
-            horseRaceFirstPersonControllers[1].HorseRaceThirdPersonData =  dataTests[1];
+            horseRaceFirstPersonControllers.ForEach((x, i) => horseRaceFirstPersonControllers[i].HorseRaceThirdPersonData = dataTests[i]);
         }
 
         if (GUILayout.Button("Start", GUILayout.Width(300), GUILayout.Height(300)))

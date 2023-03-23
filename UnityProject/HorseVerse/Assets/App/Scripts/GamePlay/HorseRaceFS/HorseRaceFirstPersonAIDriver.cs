@@ -9,14 +9,25 @@ public partial class HorseRaceFirstPersonAIDriver : MonoBehaviour
 {
     [SerializeField] private HorseRaceThirdPersonBehaviour horseRaceThirdPersonBehaviour;
     [SerializeField] private NavMeshAgent navMeshAgent;
+    [SerializeField] private Rigidbody rigidbody;
     private int currentWayPointIndex = 0;
     private Vector3 currentTargetWayPoint;
     private Vector3 lastTargetDirection;
     private bool isFirstlap = true;
-    
+
+    private void OnEnable()
+    {
+        // navMeshAgent.updatePosition = false;
+        // navMeshAgent.updatePosition = false;
+
+    }
+
     private void FixedUpdate()
     {
         if (!horseRaceThirdPersonBehaviour.IsStart) return;
+        navMeshAgent.updatePosition = false;
+        rigidbody.velocity = navMeshAgent.velocity;
+        // horseRaceThirdPersonBehaviour.transform.position += navMeshAgent.velocity * Time.deltaTime;
         UpdateSpeed();
         if (IfReachTarget())
         {

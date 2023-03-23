@@ -9,6 +9,12 @@ public class HorseRaceFirstPersonInput : MonoBehaviour
     [SerializeField] private LeanFingerUp touchUp;
     [SerializeField] private HorseRaceFirstPersonPlayerController horseRaceFirstPersonController;
 
+    public HorseRaceFirstPersonPlayerController HorseRaceFirstPersonController
+    {
+        get => horseRaceFirstPersonController;
+        set => horseRaceFirstPersonController = value;
+    }
+
     void Start()
     {
         touchUp.OnFinger.AddListener(HandleCancelTouch);
@@ -21,11 +27,11 @@ public class HorseRaceFirstPersonInput : MonoBehaviour
 
         if (finger.ScreenPosition.x < halfScreenWidth)
         {
-            horseRaceFirstPersonController.MoveHorizontal(1);
+            HorseRaceFirstPersonController.MoveHorizontal(1);
         }
         else if (finger.ScreenPosition.x > halfScreenWidth)
         {
-            horseRaceFirstPersonController.MoveHorizontal(-1);
+            HorseRaceFirstPersonController.MoveHorizontal(-1);
         }
     }
 
@@ -35,11 +41,11 @@ public class HorseRaceFirstPersonInput : MonoBehaviour
 
         if (finger.ScreenPosition.x < halfScreenWidth)
         {
-            horseRaceFirstPersonController.MoveHorizontal(-1);
+            HorseRaceFirstPersonController.MoveHorizontal(-1);
         }
         else if (finger.ScreenPosition.x > halfScreenWidth)
         {
-            horseRaceFirstPersonController.MoveHorizontal(1);
+            HorseRaceFirstPersonController.MoveHorizontal(1);
         }
     }
 }

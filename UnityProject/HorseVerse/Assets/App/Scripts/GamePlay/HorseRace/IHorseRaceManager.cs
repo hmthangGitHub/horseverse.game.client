@@ -12,4 +12,5 @@ public interface IHorseRaceManager : IDisposable
     UniTask WaitToStart();
     void PrepareToRace();
     void StartRace();
+    void UpdateRaceTime();
 }

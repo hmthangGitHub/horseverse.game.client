@@ -11,6 +11,8 @@ public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour, IHorseRaceIn
     [SerializeField] private NavMeshAgent notPlayerRelatedGameObjectsComponents;
     [SerializeField] private Transform horseTransform;
     [SerializeField] private float offsetRange = 5.5f;
+    [SerializeField] private GameObject cameraFront;
+    [SerializeField] private GameObject cameraBack;
 
     private HorseRaceThirdPersonData horseRaceThirdPersonData;
     
@@ -59,14 +61,19 @@ public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour, IHorseRaceIn
         horseTransform.position = TargetGenerator.FromTimeToPoint(
             horseRaceThirdPersonData.TargetGenerator.PredefinePath.StartTime,
             horseRaceThirdPersonData.TargetGenerator.GetOffsetFromLane(horseRaceThirdPersonData.InitialLane),
-            horseRaceThirdPersonData.TargetGenerator.SimplyPath);
+            horseRaceThirdPersonData.PredefinePath);
+
+        horseTransform.rotation = horseRaceThirdPersonData.TargetGenerator.PredefinePath.StartRotation;
     }
 
     private float GetCurrentProgress()
     {
-        return Mathf.InverseLerp(horseRaceThirdPersonData.PredefinePath.StartTime, 
-            horseRaceThirdPersonData.PredefinePath.EndTime, 
-            horseRaceThirdPersonData.PredefinePath.SimplyPath.path.GetClosestTimeOnPath(horseTransform.position));
+        return 0;
+        // horseRaceThirdPersonData.TargetGenerator.Spline.FindNearestPointTo(horseTransform.position, out var normalizedT);
+        // return normalizedT;
+        // return Mathf.InverseLerp(horseRaceThirdPersonData.PredefinePath.StartTime, 
+        //     horseRaceThirdPersonData.PredefinePath.EndTime, 
+        //     horseRaceThirdPersonData.PredefinePath.SimplyPath.path.GetClosestTimeOnPath(horseTransform.position));
     }
     
     private void FixedUpdate()
@@ -114,5 +121,11 @@ public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour, IHorseRaceIn
         currentTimeToNextSprint = horseRaceThirdPersonData.HorseRaceThirdPersonStats.SprintHealingTime;
         currentSprintTime = horseRaceThirdPersonData.HorseRaceThirdPersonStats.SprintTime;
         currentTargetForwardSpeed = horseRaceThirdPersonData.HorseRaceThirdPersonStats.ForwardSpeedRange.y;
+    }
+
+    public void EnableCamera(bool isBackCamera)
+    {
+        cameraFront.SetActive(!isBackCamera);
+        cameraBack.SetActive(!isBackCamera);
     }
 }

@@ -7,7 +7,6 @@ public class HorseRaceStatusPresenter : IDisposable
 {
     private readonly IHorseRaceManager horseRaceManager;
     private readonly IHorseRaceInGameStatus[] horseRaceInGameStatus;
-    private readonly int[] playerList;
     private readonly int playerHorseIndex;
     private readonly bool isReplay;
     private readonly bool isShowSelfRank;
@@ -18,18 +17,16 @@ public class HorseRaceStatusPresenter : IDisposable
 
     public HorseRaceStatusPresenter(IHorseRaceManager horseRaceManager, 
                                     IHorseRaceInGameStatus[] horseRaceInGameStatus,
-                                    int[] playerList,
                                     int playerHorseIndex,
                                     bool isReplay,
                                     bool isShowSelfRank)
     {
         this.horseRaceManager = horseRaceManager;
         this.horseRaceInGameStatus = horseRaceInGameStatus;
-        this.playerList = playerList;
         this.playerHorseIndex = playerHorseIndex;
         this.isReplay = isReplay;
         this.isShowSelfRank = isShowSelfRank;
-        cachedPositions = Enumerable.Repeat(-1, playerList.Length).ToArray();
+        cachedPositions = Enumerable.Repeat(-1, horseRaceInGameStatus.Length).ToArray();
         cts = new CancellationTokenSource();
     }
 
@@ -37,7 +34,6 @@ public class HorseRaceStatusPresenter : IDisposable
     {
         uiHorseRaceStatus ??= await UILoader.Instantiate<UIHorseRaceStatus>(token: cts.Token);
         SetEntityUIHorseRaceStatus();
-        StartUpdateRaceHorseStatus().Forget();
     }
     
     private void SetEntityUIHorseRaceStatus()
@@ -46,7 +42,7 @@ public class HorseRaceStatusPresenter : IDisposable
         {
             playerList = new HorseRaceStatusPlayerList.Entity()
             {
-                horseIdInLane = playerList,
+                horseIdInLane = Enumerable.Range(0, 8).ToArray(),
                 playerId = playerHorseIndex,
             },
             selfRaceRankGroup = isShowSelfRank,
@@ -55,18 +51,10 @@ public class HorseRaceStatusPresenter : IDisposable
         });
         uiHorseRaceStatus.In().Forget();
     }
-    
-    private async UniTaskVoid StartUpdateRaceHorseStatus()
-    {
-        while (!cts.Token.IsCancellationRequested)
-        {
-            await UniTask.Yield(cts.Token);
-            UpdateRaceStatus();
-        }
-    }
 
-    private void UpdateRaceStatus()
+    public void UpdateRaceStatus()
     {
+        if (uiHorseRaceStatus == default) return;
         var horseControllersOrderByRank = horseRaceInGameStatus.OrderByDescending(x => x.CurrentRaceProgressWeight)
                                                           .Select(x => x)
                                                           .ToArray();

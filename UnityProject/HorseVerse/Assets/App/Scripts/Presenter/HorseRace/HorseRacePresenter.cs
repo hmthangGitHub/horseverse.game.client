@@ -106,17 +106,15 @@ public partial class HorseRacePresenter : IDisposable
 
     public void StartGame()
     {
-        var horseIdInLanes = RandomHorseInLanes();
         SetEntityHorseRaceManager();
-        SetHorseStatusAsync(horseIdInLanes);
+        SetHorseStatusAsync();
         AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunRacing);
     }
 
-    private void SetHorseStatusAsync(int[] horseIdInLanes)
+    private void SetHorseStatusAsync()
     {
         horseRaceStatusPresenter = new HorseRaceStatusPresenter(horseRaceManager, 
             horseRaceManager.HorseControllers,
-            horseIdInLanes,
             horseRaceManager.PlayerHorseIndex,
             horseRaceContext.GameMode == HorseGameMode.Race && horseRaceContext.RaceMatchDataContext.IsReplay,
             HorseRaceContext.GameMode == HorseGameMode.Race);
@@ -176,9 +174,10 @@ public partial class HorseRacePresenter : IDisposable
         await uiFlashScreen.Out().AttachExternalCancellation(cts.Token);
     }
 
-    private int[] RandomHorseInLanes()
+    public void FixedUpdate()
     {
-        return Enumerable.Range(0,HorseRaceContext.RaceMatchData.HorseRaceInfos.Length).ToArray();
+        // horseRaceManager?.UpdateRaceTime();
+        horseRaceStatusPresenter?.UpdateRaceStatus();
     }
 
     public void Dispose()

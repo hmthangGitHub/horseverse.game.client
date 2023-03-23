@@ -7,27 +7,33 @@ public class HorseRaceFirstPersonStandAloneInput : MonoBehaviour
 {
     [SerializeField] private HorseRaceFirstPersonPlayerController horseRaceFirstPersonController;
 
+    public HorseRaceFirstPersonPlayerController HorseRaceFirstPersonController
+    {
+        get => horseRaceFirstPersonController;
+        set => horseRaceFirstPersonController = value;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            horseRaceFirstPersonController.MoveHorizontal(-1);
+            HorseRaceFirstPersonController.MoveHorizontal(-1);
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            horseRaceFirstPersonController.MoveHorizontal(1);
+            HorseRaceFirstPersonController.MoveHorizontal(1);
         }
         if (Input.GetKeyUp(KeyCode.A))
         {
-            horseRaceFirstPersonController.MoveHorizontal(1);
+            HorseRaceFirstPersonController.MoveHorizontal(1);
         }
         if (Input.GetKeyUp(KeyCode.D))
         {
-            horseRaceFirstPersonController.MoveHorizontal(-1);
+            HorseRaceFirstPersonController.MoveHorizontal(-1);
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            horseRaceFirstPersonController.Sprint();
+            HorseRaceFirstPersonController.Sprint();
         }
     }
 }

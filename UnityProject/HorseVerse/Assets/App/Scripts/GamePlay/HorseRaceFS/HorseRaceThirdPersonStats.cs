@@ -33,5 +33,5 @@ public class HorseRaceThirdPersonData
     public Vector3[] PredefineWayPoints { get; set; }
     [field: SerializeField]
     public HorseRaceThirdPersonStats HorseRaceThirdPersonStats { get; set; }
-    public PredefinePath PredefinePath => TargetGenerator.PredefinePath;
+    public IPredefinePath PredefinePath => TargetGenerator.PredefinePath;
 }

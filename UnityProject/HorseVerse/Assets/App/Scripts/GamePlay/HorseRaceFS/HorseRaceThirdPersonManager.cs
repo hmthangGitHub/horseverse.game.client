@@ -39,13 +39,18 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
         UpdateRaceProgressAsync().Forget();
     }
 
+    public void UpdateRaceTime()
+    {
+        // isStarted
+    }
+
     private async UniTaskVoid UpdateRaceProgressAsync()
     {
-        while (!cts.IsCancellationRequested)
-        {
-            NormalizedRaceTime = HorseRaceThirdPersonBehaviours.Min(x => x.CurrentRaceProgressWeight);
-            await UniTask.Yield(timing: PlayerLoopTiming.FixedUpdate, cancellationToken: cts.Token);
-        }
+        // while (!cts.IsCancellationRequested)
+        // {
+        //     // NormalizedRaceTime = HorseRaceThirdPersonBehaviours.Min(x => x.CurrentRaceProgressWeight);
+        //     await UniTask.NextFrame(timing: PlayerLoopTiming.FixedUpdate, cancellationToken: cts.Token);
+        // }
     }
 
     public async UniTask InitializeAsync(MasterHorseContainer masterHorseContainer,
