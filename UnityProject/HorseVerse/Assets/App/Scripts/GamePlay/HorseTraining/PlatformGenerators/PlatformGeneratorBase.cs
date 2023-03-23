@@ -107,17 +107,16 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
 
         if (random == 2 || random == 3)
         {
-            List<BoxCollider> _boxColliders = new List<BoxCollider>();
             var platform1 = await CreatePlatformWithoutSceneryObjectAsync(relativePointToPlayer, lastEndPosition);
             platform1.transform.forward = nextDirection;
             platform1.OnFinishPlatform += OnDestroyPlatform;
             platformQueue.Enqueue(platform1.gameObject);
-
+            List<BoxCollider> _ff = new List<BoxCollider>();
             relativePointToPlayer = PredictRelativePointToPlayer();
             lastEndPosition = platform1.end.position;
             var pp1 = platform1.GetComponent<PlatformModular>();
-            _boxColliders.AddRange(pp1.AllPlatformColliders);
-
+            pp1.CreateSceneryRegions();
+            _ff.Add(pp1.sceneryConflictRegion);
             PlatformBase platform = default;
             if (random == 2)
             {
@@ -131,7 +130,8 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
                 lastEndPosition = platform.end.position;
 
                 var pp = platform.GetComponent<PlatformModular>();
-                _boxColliders.AddRange(pp.AllPlatformColliders);
+                pp.CreateSceneryRegions(1);
+                _ff.Add(pp.sceneryConflictRegion);
             }
             else if (random == 3)
             {
@@ -145,7 +145,8 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
                 lastEndPosition = platform.end.position;
 
                 var pp = platform.GetComponent<PlatformModular>();
-                _boxColliders.AddRange(pp.AllPlatformColliders);
+                pp.CreateSceneryRegions(1);
+                _ff.Add(pp.sceneryConflictRegion);
             }
 
             var platform2 = await CreatePlatformWithoutSceneryObjectAsync(relativePointToPlayer, lastEndPosition);
@@ -153,11 +154,12 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
             platform2.OnFinishPlatform += OnCreateNewPlatform;
             platformQueue.Enqueue(platform2.gameObject);
             var pp2 = platform2.GetComponent<PlatformModular>();
-            _boxColliders.AddRange(pp2.AllPlatformColliders);
-
+            pp2.CreateSceneryRegions();
+            _ff.Add(pp2.sceneryConflictRegion);
             lastPlatform = platform2.gameObject;
-            var ff = _boxColliders.ToArray();
+            var ff = _ff.ToArray();
             await CreateSceneryObectAsync(platform1, ff);
+            await CreateSceneryObectAsync(platform, ff);
             await CreateSceneryObectAsync(platform2, ff);
         }
         else
