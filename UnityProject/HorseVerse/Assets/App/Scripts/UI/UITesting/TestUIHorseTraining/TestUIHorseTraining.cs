@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TestUIHorseTraining : TestUIScript<UIHorseTraining, UIHorseTraining.Entity>
 {
-    public override void SetEntity()
+    protected override void SetEntity()
     {
         this.entity.prepareState.toTraningBtn = new ButtonComponent.Entity(() => {
             this.uiTest.ChangeState(UIComponentTraningState.TraningState.Processing);

@@ -18,6 +18,13 @@ public class UIComponentImageProgress : UIComponent<UIComponentImageProgress.Ent
         image.fillAmount = this.entity.progress;
     }
 
+    public void SetEntity(float progress)
+    {
+        this.entity ??= new Entity();
+        this.entity.progress = progress;
+        SetEntity(this.entity);
+    }
+
     private void Reset()
     {
         this.image ??= this.gameObject.GetComponent<Image>();

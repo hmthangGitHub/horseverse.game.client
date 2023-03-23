@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TestUIHeader : TestUIScript<UIHeader, UIHeader.Entity>
 {
-    public override void SetEntity()
+    protected override void SetEntity()
     {
         entity.backBtn = new ButtonComponent.Entity(() =>
         {
