@@ -9,36 +9,26 @@ public partial class PlatformModular
     [SerializeField]
     private Vector3 sceneryContainerScale = new Vector3(14.0f, 20.0f, 1.0f);
 
-    private void CreateSceneryRegions()
+    public void CreateSceneryRegions(int type = 0)
     {
         var bounds = CreatePlatformBound();
-        sceneryConflictRegion = CreateSceneryContainerBoxCollider(bounds.center, bounds, "SceneryConflictRegion", sceneryConflictRegionScale);
-        sceneryBoxContainer = CreateSceneryContainerBoxCollider(bounds.center, bounds, "SceneryContainer", sceneryContainerScale);
+        if (type == 0)
+        {
+            sceneryConflictRegion = CreateSceneryContainerBoxCollider(bounds.center, bounds, "SceneryConflictRegion", sceneryConflictRegionScale);
+            sceneryBoxContainer = CreateSceneryContainerBoxCollider(bounds.center, bounds, "SceneryContainer", sceneryContainerScale);
+        }
+        else
+        {
+            sceneryConflictRegion = CreateSceneryContainerBoxCollider(bounds.center, bounds, "SceneryConflictRegion", Vector3.one * 3.0f);
+            sceneryBoxContainer = CreateSceneryContainerBoxCollider(bounds.center, bounds, "SceneryContainer", Vector3.one * 5.0f);
+        }
     }
-    
-    private void GenerateSceneryObjects(GameObject[] sceneryObjectPrefabs,
-                                        GameObjectPoolList gameObjectPoolList)
-    {
-        CreateSceneryRegions();
-        StartCoroutine(GenerateSceneryObjectsAsync(sceneryObjectPrefabs, gameObjectPoolList));
-        //Enumerable.Range(0, Random.Range(0, 20))
-        //          .ForEach(x =>
-        //          {
-        //              var attempt = 100;
-        //              var randomPoint = sceneryBoxContainer.RandomPointInBounds();
-        //              while (sceneryConflictRegion.bounds.Contains(randomPoint) && attempt > 0)
-        //              {
-        //                  randomPoint = sceneryBoxContainer.RandomPointInBounds();
-        //                  attempt--;
-        //              }
 
-        //              if (attempt > 0)
-        //              {
-        //                  var sceneryGameObject = InstantiateGameObject(gameObjectPoolList, sceneryObjectPrefabs.RandomElement());
-        //                  sceneryGameObject.transform.position = randomPoint;
-        //                  sceneryGameObject.transform.localScale = UnityEngine.Random.Range(0.2f, 3.5f) * Vector3.one;
-        //              }
-        //          });
+    private void GenerateSceneryObjects(GameObject[] sceneryObjectPrefabs,
+                                        GameObjectPoolList gameObjectPoolList, int type = 0)
+    {
+        CreateSceneryRegions(type);
+        StartCoroutine(GenerateSceneryObjectsAsync(sceneryObjectPrefabs, gameObjectPoolList));
     }
 
     private IEnumerator GenerateSceneryObjectsAsync(GameObject[] sceneryObjectPrefabs,
@@ -66,6 +56,49 @@ public partial class PlatformModular
         }
     }
 
+    private IEnumerator GenerateSceneryObjectsAsync(GameObject[] sceneryObjectPrefabs,
+                                        GameObjectPoolList gameObjectPoolList, BoxCollider[] boxColliders)
+    {
+        int rand = Random.Range(0, 20);
+        for (int i = 0; i < rand; i++)
+        {
+            var attempt = 100;
+            var randomPoint = sceneryBoxContainer.RandomPointInBounds();
+
+            while (attempt > 0)
+            {
+                bool isConflict = false;
+                for(int j = 0; j < boxColliders.Length; j++)
+                {
+                    if (boxColliders[j].bounds.Contains(randomPoint))
+                    {
+                        randomPoint = sceneryBoxContainer.RandomPointInBounds();
+                        isConflict = true;
+                        break;
+                    }
+                }
+                attempt--;
+                if (!isConflict) break;
+            }
+
+            if (attempt > 0)
+            {
+                var sceneryGameObject = InstantiateGameObject(gameObjectPoolList, sceneryObjectPrefabs.RandomElement());
+                sceneryGameObject.transform.position = randomPoint;
+                sceneryGameObject.transform.localScale = UnityEngine.Random.Range(0.2f, 3.5f) * Vector3.one;
+            }
+
+            if (i % 5 == 0) yield return null;
+        }
+    }
+
+    public IEnumerator GenerateSceneryObjects(BoxCollider[] boxColliders, GameObject[] sceneryObjectPrefabs,
+                                        GameObjectPoolList gameObjectPoolList)
+    {
+        yield return GenerateSceneryObjectsAsync(sceneryObjectPrefabs, gameObjectPoolList, boxColliders);
+    }
+
+
     private Bounds CreatePlatformBound()
     {
         var min = Vector3.positiveInfinity;
@@ -82,7 +115,7 @@ public partial class PlatformModular
         bound.SetMinMax(min, max);
         return bound;
     }
-    
+
     private BoxCollider CreateSceneryContainerBoxCollider(Vector3 position,
                                                           Bounds bounds,
                                                           string objectName,
@@ -97,9 +130,10 @@ public partial class PlatformModular
             },
             layer = default
         };
+        go.transform.localRotation = Quaternion.identity;
         var collider = go.AddComponent<BoxCollider>();
         collider.center = Vector3.zero;
-        collider.size = Vector3.Scale(bounds.size, scale);
+        collider.size = Vector3.Scale(bounds.size, Quaternion.LookRotation(transform.forward) * scale);
         collider.isTrigger = true;
         return collider;
     }

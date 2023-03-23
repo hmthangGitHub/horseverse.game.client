@@ -110,9 +110,9 @@ public class TrainingTrapBall : TrainingTrap<TrainingTrapBall.Entity>
     {
         ball.IsReady = true;
         direction = MovingPoint.localPosition - DropPoint.localPosition;
-        direction = direction.normalized; 
+        direction = direction.normalized;
         Rigid.useGravity = true;
-        Rigid.velocity = direction * RollingSpeed;
+        Rigid.velocity = this.transform.TransformVector(direction * RollingSpeed);
         Rigid.WakeUp();
 
 

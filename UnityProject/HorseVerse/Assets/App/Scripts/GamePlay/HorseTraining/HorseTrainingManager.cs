@@ -15,9 +15,11 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
     public HorseTrainingControllerV2 HorseTrainingController => horseTrainingController;
 
     public async UniTask Initialize(string mapPath,
+                                    string mapId,
                                     Action onTakeCoin,
                                     Action onUpdateRunTime,
                                     Action onTouchObstacle,
+                                    Action onFinishOnePlatform,
                                     MasterHorseTrainingProperty masterHorseTrainingProperty,
                                     MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer,
                                     MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer,
@@ -29,11 +31,13 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
         HorseTrainingController.OnTakeCoin += onTakeCoin;
         HorseTrainingController.OnUpdateRunTime += onUpdateRunTime;
         HorseTrainingController.OnDeadEvent += onTouchObstacle;
+        PlatformGenerator.OnFinishOnePlatform += onFinishOnePlatform;
         await PlatformGenerator.InitializeAsync(masterHorseTrainingProperty, 
             masterHorseTrainingBlockContainer, 
             masterHorseTrainingBlockComboContainer, 
             masterTrainingDifficultyContainer, 
-            masterTrainingBlockDistributeContainer);
+            masterTrainingBlockDistributeContainer,
+            mapId);
     }
 
     public void StartGame()

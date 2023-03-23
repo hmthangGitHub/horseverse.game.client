@@ -45,6 +45,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     [SerializeField] private Transform pivotPoint;
     [SerializeField] private Transform coinBenzierEndPoint;
     [SerializeField] private BezierSpline benzierSpline;
+    [SerializeField] private LayerMask platformLayer;
 
     [Space, Header("INPUT SETTINGS")]
     [SerializeField, Range(0, 1)] private float delayTimeForTouch = 0.05f;
@@ -54,6 +55,8 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private bool isDead;
     private bool isGrounded = true;
     private bool isJumping;
+    private bool isTurning = false;
+
 
     public bool IsLanding => isGrounded;
     public bool IsJumping => isJumping;
@@ -76,6 +79,8 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
     [SerializeField]
     public float ForwardVelocity { get; private set; }
+
+    private BlockObjectData currentBlock;
 
     private float GetForwardVelocityFromCurrentDifficulty()
     {
@@ -102,6 +107,11 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private static readonly int VerticalVelocity = Animator.StringToHash("VerticalVelocity");
     private int horizontalDirection = 0;
     private int currentDifficulty = 0;
+
+    private Vector3 v_direction = Vector3.forward;
+    public Vector3 Direction => v_direction;
+    private Vector3 v_side = Vector3.right;
+
 
     private bool IsGrounded
     {
@@ -283,7 +293,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         {
             cam3.SetActive(false);
             cam1.SetActive(true);
-            
+            v_direction = this.rigidbody.transform.forward;
             DOTween.To(val =>
             {
                 Animator.SetFloat(Speed, val);
@@ -301,6 +311,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
             CheckIfGrounded();
             CheckIfFall();
             ControlHorse();
+            UpdateDirection();
             UpdateHorizontalAnimation();
             UpdateJumpAnimation();
             UpdateForwardVelocity();
@@ -374,6 +385,51 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         Animator.SetFloat(Horizontal, animationHorizontal);
     }
 
+    private void UpdateDirection()
+    {
+        CheckIfCurve();
+
+        isTurning = false;
+        if (currentBlock != default && currentBlock.Curve != default)
+        {
+            if (currentBlock.BlockType == TYPE_OF_BLOCK.TURN_LEFT || currentBlock.BlockType == TYPE_OF_BLOCK.TURN_RIGHT)
+            {
+                if ((currentBlock.BlockType == TYPE_OF_BLOCK.TURN_LEFT && horizontalDirection > 0)
+                    || (currentBlock.BlockType == TYPE_OF_BLOCK.TURN_RIGHT && horizontalDirection < 0))
+                {
+                    bool isEnd = false;
+                    if (!isEnd)
+                    {
+                        Vector3 dir;
+                        Vector3 localPoint = currentBlock.Curve.transform.InverseTransformPoint(this.rigidbody.transform.position);
+                        var tangenPoint = currentBlock.Curve.findTheClosedPoint(localPoint, out dir, out isEnd);
+                        if (!isEnd)
+                        {
+                            v_direction = currentBlock.Curve.transform.TransformVector(dir).normalized;
+                            isTurning = true;
+                        }
+                        else
+                            v_direction = fixDirection(v_direction);
+                    }
+                }
+            }
+        }
+        this.rigidbody.transform.forward = Vector3.Lerp(this.rigidbody.transform.forward, v_direction, Time.deltaTime * 15.0f);
+    }
+
+    Vector3 fixDirection (Vector3 vec)
+    {
+        Vector3 v = vec;
+        v.x = Mathf.Round(vec.x);
+        //v.x = v.x < 0.5f ? 0 : v.x;
+        v.y = Mathf.Round(vec.y);
+        //v.y = v.y < 0.5f ? 0 : v.y;
+        v.z = Mathf.Round(vec.z);
+        //v.z = v.z < 0.5f ? 0 : v.z;
+        return v;
+    }
+
+
     private void ControlHorse()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -443,7 +499,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private void FixedUpdate()
     {
         if (!IsStart) return;
-        rigidbody.velocity = new Vector3(-horizontalDirection * currentHorizontalVelocity, rigidbody.velocity.y, currentForwardVelocity);
+        rigidbody.velocity = getVelocity();
         if (rigidbody.velocity.y < 0)
         {
             
@@ -455,11 +511,55 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         }
     }
 
+    private Vector3 getVelocity()
+    {
+        Vector3 fwd = v_direction * currentForwardVelocity;
+        v_side = -Vector3.Cross(v_direction, Vector3.up);
+        Vector3 right = isTurning ? Vector3.zero : v_side * (-horizontalDirection * currentHorizontalVelocity);
+        fwd.y = 0;
+        right.y = 0;
+        Vector3 dir = fwd + right;
+        dir.y = rigidbody.velocity.y;
+        //return new Vector3(-horizontalDirection * currentHorizontalVelocity, rigidbody.velocity.y, currentForwardVelocity);
+        return dir;
+    }
+
     private void CheckIfGrounded()
     {
         Debug.DrawLine(pivotPoint.position, pivotPoint.position + -Vector3.up * 0.15f, Color.red);
         IsGrounded = Physics.RaycastAll(pivotPoint.position, -Vector3.up, 0.15f)
             .Any(x => x.collider.CompareTag("Platform"));
+    }
+
+    private void CheckIfCurve()
+    {
+        var target = Physics.RaycastAll(pivotPoint.position, -Vector3.up, 3.15f, platformLayer.value)
+            .Where(x => x.collider.CompareTag("Platform"));
+        if (target != null)
+        {
+            var i = target.FirstOrDefault();
+            try
+            {
+                var data = i.collider.gameObject.GetComponentInParent<BlockObjectData>();
+                currentBlock = data;
+            }
+            catch
+            {
+                if (currentBlock != default)
+                {
+                    currentBlock = default;
+                    v_direction = fixDirection(v_direction);
+                }
+            }
+        }
+        else
+        {
+            if (currentBlock != default)
+            {
+                currentBlock = default;
+                v_direction = fixDirection(v_direction);
+            }
+        }
     }
 
     private void OnGrounded(bool isGrounded)
@@ -486,6 +586,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
         if (isGrounded && isJumping)
         {
+            v_direction = fixDirection(v_direction);
             isJumping = false;
             AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunTraining);
         }
@@ -552,6 +653,15 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         PrimitiveAssetLoader.UnloadAssetAtPath(horseModelPath);
         masterHorseTrainingProperty = default;
         masterTrainingDifficultyContainer = default;
+    }
+
+    public void OnJumpOutPlatform()
+    {
+        if(currentBlock != default)
+        {
+            currentBlock = default;
+            v_direction = fixDirection(v_direction);
+        }
     }
 
 }

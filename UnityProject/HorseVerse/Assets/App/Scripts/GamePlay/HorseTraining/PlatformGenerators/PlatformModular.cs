@@ -41,6 +41,7 @@ public partial class PlatformModular : PlatformBase
     public BoxCollider PaddingTailCollider => paddingTailCollider;
     public BoxCollider FirstCollider => allPlatformColliders.First();
     public BoxCollider LastCollider => allPlatformColliders.Last();
+    public List<BoxCollider> AllPlatformColliders => allPlatformColliders;
 
     private readonly List<IPoolableDisposableObject> poolingObjectList = new List<IPoolableDisposableObject>();
     private List<GameObject> _cacheObs = new List<GameObject>();
@@ -287,6 +288,30 @@ public partial class PlatformModular : PlatformBase
         GenerateCoins(masterHorseTrainingBlockCombo.CoinList, coinRadius);
         yield return GenerateTrapAsync(masterHorseTrainingBlockCombo.TrapList, trapsPrefab);
         GenerateSceneryObjects(sceneryObjectPrefabs, gameObjectPoolList);
+        yield return AlignObstacle(masterHorseTrainingBlockCombo.ObstacleList);
+        IsReady = true;
+    }
+
+    public IEnumerator GenerateBlockWithouSceneryObjectAsync(Vector3 startPosition,
+                              GameObject[] blockPrefabs,
+                              GameObject paddingStartPrefab,
+                              GameObject paddingEndPrefab,
+                              float jumpingPoint,
+                              float landingPoint,
+                              MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo,
+                              float coinRadius,
+                              GameObject[] obstaclesPrefab,
+                              GameObject[] trapsPrefab,
+                              PlatformGeneratorPool _pool
+                              )
+    {
+        pool = _pool;
+        IsReady = false;
+        //GenerateBlock(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType);
+        yield return GenerateBlockAsync(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType);
+        yield return GenerateObstacleAsync(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab);
+        GenerateCoins(masterHorseTrainingBlockCombo.CoinList, coinRadius);
+        yield return GenerateTrapAsync(masterHorseTrainingBlockCombo.TrapList, trapsPrefab);
         yield return AlignObstacle(masterHorseTrainingBlockCombo.ObstacleList);
         IsReady = true;
     }

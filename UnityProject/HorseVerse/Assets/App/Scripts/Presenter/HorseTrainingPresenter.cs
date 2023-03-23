@@ -68,9 +68,11 @@ public class HorseTrainingPresenter : IDisposable
         
         await horseTrainingManager.Initialize(
             masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.MasterMapId].MapPath,
+            HorseTrainingDataContext.MasterMapId.ToString(),
             OnTakeCoin,
             OnUpdateRuntime,
             () => OnTouchObstacleAsync().Forget(),
+            OnFinishOnePlatform,
             masterHorseTrainingPropertyContainer.DataList.First(),
             masterHorseTrainingBlockContainer, 
             masterHorseTrainingBlockComboContainer,
@@ -96,6 +98,11 @@ public class HorseTrainingPresenter : IDisposable
     private void OnUpdateRuntime()
     {
         UpdateScoreUI();
+    }
+
+    private void OnFinishOnePlatform()
+    {
+        horseTrainingManager.HorseTrainingController.OnJumpOutPlatform();
     }
 
     public async UniTask<bool> StartTrainingAsync()
