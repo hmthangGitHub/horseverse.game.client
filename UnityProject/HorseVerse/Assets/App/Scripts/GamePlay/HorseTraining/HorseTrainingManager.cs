@@ -19,6 +19,7 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
                                     Action onTakeCoin,
                                     Action onUpdateRunTime,
                                     Action onTouchObstacle,
+                                    Action onFinishOnePlatform,
                                     MasterHorseTrainingProperty masterHorseTrainingProperty,
                                     MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer,
                                     MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer,
@@ -30,6 +31,7 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
         HorseTrainingController.OnTakeCoin += onTakeCoin;
         HorseTrainingController.OnUpdateRunTime += onUpdateRunTime;
         HorseTrainingController.OnDeadEvent += onTouchObstacle;
+        PlatformGenerator.OnFinishOnePlatform += onFinishOnePlatform;
         await PlatformGenerator.InitializeAsync(masterHorseTrainingProperty, 
             masterHorseTrainingBlockContainer, 
             masterHorseTrainingBlockComboContainer, 

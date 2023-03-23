@@ -23,6 +23,9 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     protected Vector3 nextDirection = Vector3.forward;
     protected Vector3 nextSideDirection = Vector3.right;
 
+    public event Action OnFinishOnePlatform = ActionUtility.EmptyAction.Instance;
+
+
     public async UniTask InitializeAsync(MasterHorseTrainingProperty masterHorseTrainingProperty,
                                          MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer,
                                          MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer,
@@ -102,29 +105,67 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
 
         int random = Random.Range(0, 4);
 
-        if (random == 2)
+        if (random == 2 || random == 3)
         {
-            var platform = await CreateNewTurnPlatformAsync(relativePointToPlayer, lastEndPosition, TYPE_OF_BLOCK.TURN_LEFT, nextDirection);
-            lastPlatform = platform;
-            platformQueue.Enqueue(platform);
-            TurnLeft();
-        }
-        else if ( random == 3)
-        {
-            var platform = await CreateNewTurnPlatformAsync(relativePointToPlayer, lastEndPosition, TYPE_OF_BLOCK.TURN_RIGHT, nextDirection);
-            lastPlatform = platform;
-            platformQueue.Enqueue(platform);
-            TurnRight();
+            List<BoxCollider> _boxColliders = new List<BoxCollider>();
+            var platform1 = await CreatePlatformWithoutSceneryObjectAsync(relativePointToPlayer, lastEndPosition);
+            platform1.transform.forward = nextDirection;
+            platform1.OnFinishPlatform += OnDestroyPlatform;
+            platformQueue.Enqueue(platform1.gameObject);
+
+            relativePointToPlayer = PredictRelativePointToPlayer();
+            lastEndPosition = platform1.end.position;
+            var pp1 = platform1.GetComponent<PlatformModular>();
+            _boxColliders.AddRange(pp1.AllPlatformColliders);
+
+            PlatformBase platform = default;
+            if (random == 2)
+            {
+                platform = await CreateTurnPlatformAsync(TYPE_OF_BLOCK.TURN_LEFT, relativePointToPlayer, lastEndPosition);
+                platform.OnFinishPlatform += OnDestroyPlatform;
+                platform.transform.forward = nextDirection;
+                platformQueue.Enqueue(platform.gameObject);
+                TurnLeft();
+
+                relativePointToPlayer = PredictRelativePointToPlayer();
+                lastEndPosition = platform.end.position;
+
+                var pp = platform.GetComponent<PlatformModular>();
+                _boxColliders.AddRange(pp.AllPlatformColliders);
+            }
+            else if (random == 3)
+            {
+                platform = await CreateTurnPlatformAsync(TYPE_OF_BLOCK.TURN_RIGHT, relativePointToPlayer, lastEndPosition);
+                platform.OnFinishPlatform += OnDestroyPlatform;
+                platform.transform.forward = nextDirection;
+                platformQueue.Enqueue(platform.gameObject);
+                TurnRight();
+
+                relativePointToPlayer = PredictRelativePointToPlayer();
+                lastEndPosition = platform.end.position;
+
+                var pp = platform.GetComponent<PlatformModular>();
+                _boxColliders.AddRange(pp.AllPlatformColliders);
+            }
+
+            var platform2 = await CreatePlatformWithoutSceneryObjectAsync(relativePointToPlayer, lastEndPosition);
+            platform2.transform.forward = nextDirection;
+            platform2.OnFinishPlatform += OnCreateNewPlatform;
+            platformQueue.Enqueue(platform2.gameObject);
+            var pp2 = platform2.GetComponent<PlatformModular>();
+            _boxColliders.AddRange(pp2.AllPlatformColliders);
+
+            lastPlatform = platform2.gameObject;
+            var ff = _boxColliders.ToArray();
+            await CreateSceneryObectAsync(platform1, ff);
+            await CreateSceneryObectAsync(platform2, ff);
         }
         else
         {
             var platform = await CreateNewPlatformAsync(relativePointToPlayer, lastEndPosition, nextDirection);
             lastPlatform = platform;
             platformQueue.Enqueue(platform);
-
         }
-
-        //if (random == 3) TurnRight();
     }
 
     private void GenerateMulti(int number)
@@ -192,6 +233,16 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
             Destroy(pp);
         }
         GenerateAsync().AttachExternalCancellation(this.GetCancellationTokenOnDestroy()).Forget();
+        OnFinishOnePlatform?.Invoke();
+    }
+
+    private void OnDestroyPlatform()
+    {
+        var pp = platformQueue.Dequeue();
+        pp.GetComponent<PlatformModular>().Clear();
+        Destroy(pp);
+
+        OnFinishOnePlatform?.Invoke();
     }
 
     protected abstract PlatformBase CreatePlatform(Vector3 relativePointToPlayer,
@@ -207,5 +258,16 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
                                                    Vector3 lastEndPosition)
     {
         return null;
+    }
+
+    protected virtual async UniTask<PlatformBase> CreatePlatformWithoutSceneryObjectAsync(Vector3 relativePointToPlayer,
+                                                   Vector3 lastEndPosition)
+    {
+        return null;
+    }
+
+    protected virtual async UniTask CreateSceneryObectAsync(PlatformBase platform, BoxCollider[] boxColliders)
+    {
+
     }
 }

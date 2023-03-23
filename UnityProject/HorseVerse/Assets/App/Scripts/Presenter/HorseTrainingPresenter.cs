@@ -72,6 +72,7 @@ public class HorseTrainingPresenter : IDisposable
             OnTakeCoin,
             OnUpdateRuntime,
             () => OnTouchObstacleAsync().Forget(),
+            OnFinishOnePlatform,
             masterHorseTrainingPropertyContainer.DataList.First(),
             masterHorseTrainingBlockContainer, 
             masterHorseTrainingBlockComboContainer,
@@ -97,6 +98,11 @@ public class HorseTrainingPresenter : IDisposable
     private void OnUpdateRuntime()
     {
         UpdateScoreUI();
+    }
+
+    private void OnFinishOnePlatform()
+    {
+        horseTrainingManager.HorseTrainingController.OnJumpOutPlatform();
     }
 
     public async UniTask<bool> StartTrainingAsync()

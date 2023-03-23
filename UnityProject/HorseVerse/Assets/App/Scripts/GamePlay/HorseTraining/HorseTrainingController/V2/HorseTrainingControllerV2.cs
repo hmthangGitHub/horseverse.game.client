@@ -45,6 +45,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     [SerializeField] private Transform pivotPoint;
     [SerializeField] private Transform coinBenzierEndPoint;
     [SerializeField] private BezierSpline benzierSpline;
+    [SerializeField] private LayerMask platformLayer;
 
     [Space, Header("INPUT SETTINGS")]
     [SerializeField, Range(0, 1)] private float delayTimeForTouch = 0.05f;
@@ -386,7 +387,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
     private void UpdateDirection()
     {
-        if (IsGrounded) CheckIfCurve();
+        CheckIfCurve();
 
         isTurning = false;
         if (currentBlock != default && currentBlock.Curve != default)
@@ -532,13 +533,24 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
     private void CheckIfCurve()
     {
-        var target = Physics.RaycastAll(pivotPoint.position, -Vector3.up, 0.15f)
+        var target = Physics.RaycastAll(pivotPoint.position, -Vector3.up, 3.15f, platformLayer.value)
             .Where(x => x.collider.CompareTag("Platform"));
         if (target != null)
         {
             var i = target.FirstOrDefault();
-            var data = i.collider.gameObject.GetComponentInParent<BlockObjectData>();
-            currentBlock = data;
+            try
+            {
+                var data = i.collider.gameObject.GetComponentInParent<BlockObjectData>();
+                currentBlock = data;
+            }
+            catch
+            {
+                if (currentBlock != default)
+                {
+                    currentBlock = default;
+                    v_direction = fixDirection(v_direction);
+                }
+            }
         }
         else
         {
@@ -641,6 +653,15 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         PrimitiveAssetLoader.UnloadAssetAtPath(horseModelPath);
         masterHorseTrainingProperty = default;
         masterTrainingDifficultyContainer = default;
+    }
+
+    public void OnJumpOutPlatform()
+    {
+        if(currentBlock != default)
+        {
+            currentBlock = default;
+            v_direction = fixDirection(v_direction);
+        }
     }
 
 }

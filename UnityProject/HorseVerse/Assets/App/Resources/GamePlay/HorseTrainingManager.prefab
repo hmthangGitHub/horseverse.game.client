@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7542242080770750152}
-  m_LocalRotation: {x: 0.17626421, y: 0.000000028846692, z: -0.0000000051655165, w: 0.98434293}
+  m_LocalRotation: {x: 0.17626421, y: -0.000000028846692, z: 0.0000000051655165, w: 0.98434293}
   m_LocalPosition: {x: 0.4, y: 4.98, z: -10.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -549,6 +549,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrainingHorseController
       objectReference: {fileID: 0}
+    - target: {fileID: 1532857601942786527, guid: 7dda416d5b895c84896760a3d77cc936, type: 3}
+      propertyPath: platformLayer.m_Bits
+      value: 4096
+      objectReference: {fileID: 0}
     - target: {fileID: 1532857603614099803, guid: 7dda416d5b895c84896760a3d77cc936, type: 3}
       propertyPath: m_LocalPosition.y
       value: 3.6
@@ -563,11 +567,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1532857603614099803, guid: 7dda416d5b895c84896760a3d77cc936, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000028846692
+      value: -0.000000028846692
       objectReference: {fileID: 0}
     - target: {fileID: 1532857603614099803, guid: 7dda416d5b895c84896760a3d77cc936, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000051655165
+      value: 0.0000000051655165
       objectReference: {fileID: 0}
     - target: {fileID: 4765050147964200701, guid: 7dda416d5b895c84896760a3d77cc936, type: 3}
       propertyPath: m_position.x
