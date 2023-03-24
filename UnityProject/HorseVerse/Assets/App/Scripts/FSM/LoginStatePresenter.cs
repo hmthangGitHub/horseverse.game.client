@@ -567,7 +567,7 @@ public class LoginStatePresenter : IDisposable
         }
         else
         {
-            await HandleLoginError("NOT_VALID_NAME");
+            await HandleLoginError(LanguageManager.GetText("NOT_VALID_NAME"));
         }
         uiLoginSetName.SetInteractable(true);
         OnChangeNameValueChanged(newName);
