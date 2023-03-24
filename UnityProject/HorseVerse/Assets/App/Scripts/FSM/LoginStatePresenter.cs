@@ -16,6 +16,7 @@ using Crosstales.BWF.Model;
 using Crosstales.BWF.Util;
 using Crosstales.BWF.Manager;
 using Crosstales.BWF;
+using System.Text.RegularExpressions;
 
 public class LoginStatePresenter : IDisposable
 {
@@ -585,8 +586,15 @@ public class LoginStatePresenter : IDisposable
         var len = _name.Trim().Length;
         if (len >= 5 && len <= 16)
         {
+            if (HasSpecialChars(_name)) return false;
+
             return !BWFManager.Contains(_name, BadwordManager | DomManager | CapsManager | PuncManager, Sources.ToArray());
         }
         return false;
+    }
+
+    bool HasSpecialChars(string str)
+    {
+        return Regex.IsMatch(str, @"[^a-zA-Z0-9 ]");
     }
 }
