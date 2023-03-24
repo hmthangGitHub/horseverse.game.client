@@ -22,6 +22,8 @@ public class LoginStatePresenter : IDisposable
     private UILoginOTP uiLoginOTP;
     private UILogin uiLogin;
     private UIPopupMessage uiPopupMessage;
+    private UILoginSetName uiLoginSetName;
+
     private UILoadingPresenter uiLoadingPresenter;
     private UILoadingPresenter UILoadingPresenter => uiLoadingPresenter ??=container.Inject<UILoadingPresenter>();
 
@@ -45,6 +47,7 @@ public class LoginStatePresenter : IDisposable
         
         await ConnectToServerAsync();
         await LoginAsync();
+        await HandleSetNameAsync();
     }
 
     private async UniTask LoginAsync()
@@ -177,11 +180,13 @@ public class LoginStatePresenter : IDisposable
         cts = default;
         UILoader.SafeRelease(ref uiLogin);
         UILoader.SafeRelease(ref uiPopupMessage);
+        if(uiLoginSetName != default) UILoader.SafeRelease(ref uiLoginSetName);
         if(uiLoginOTP != default) UILoader.SafeRelease(ref uiLoginOTP);
         uiLogin = default;
         uiLoginOTP = default;
         socketClient = default;
         uiLoadingPresenter = default;
+        uiLoginSetName = default;
     }
 
     private async UniTask<bool> DoLoginWithAccessToken()
@@ -495,5 +500,45 @@ public class LoginStatePresenter : IDisposable
             listFeature.Add((FEATURE_TYPE)item);
         }
         return listFeature.ToArray();
+    }
+
+    private async UniTask HandleSetNameAsync()
+    {
+        uiLoginSetName ??= await UILoader.Instantiate<UILoginSetName>(token: cts.Token);
+        var ucs = new UniTaskCompletionSource();
+        uiLoginSetName.SetEntity(new UILoginSetName.Entity()
+        {
+            username = "",
+            onUpdateInput = OnChangeNameValueChanged,
+            confirmBtn = new ButtonComponent.Entity(()=>OnChangeNameClicked(ucs).Forget(), false)
+        });
+        await uiLoginSetName.In();
+        await ucs.Task.AttachExternalCancellation(cts.Token);
+    }
+
+    private async UniTask OnChangeNameClicked(UniTaskCompletionSource ucs)
+    {
+        var newName = uiLoginSetName.username.text;
+        if (isValidName(newName))
+        {
+            var res = await SocketClient.Send<EmailCodeRequest, EmailCodeResponse>(new EmailCodeRequest()
+            {
+
+            });
+
+            ucs.TrySetResult();
+        }
+    }
+
+    private void OnChangeNameValueChanged(string value)
+    {
+        if (uiLoginSetName == default) return;
+        if (value.Trim().Length < 5) uiLoginSetName.confirmBtn.SetInteractable(false);
+        else uiLoginSetName.confirmBtn.SetInteractable(true);
+    }
+
+    private bool isValidName(string _name)
+    {
+        return false;
     }
 }
