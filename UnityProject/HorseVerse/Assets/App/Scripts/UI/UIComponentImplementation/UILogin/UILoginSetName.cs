@@ -15,6 +15,7 @@ public class UILoginSetName : PopupEntity<UILoginSetName.Entity>
 
     public TMP_InputField username;
     public ButtonComponent confirmBtn;
+    public CanvasGroup container;
 
     protected override void OnSetEntity()
     {
@@ -30,5 +31,9 @@ public class UILoginSetName : PopupEntity<UILoginSetName.Entity>
             username.onValueChanged.RemoveAllListeners();
     }
 
-
+    public void SetInteractable(bool active)
+    {
+        username.interactable = active;
+        confirmBtn.SetInteractable(active);
+    }
 }

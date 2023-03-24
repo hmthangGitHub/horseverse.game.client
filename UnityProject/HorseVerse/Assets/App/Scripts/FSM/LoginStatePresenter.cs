@@ -12,6 +12,10 @@ using UnityEngine.ResourceManagement.Exceptions;
 using UnityEngine.UI;
 using ProtoClientInfo = io.hverse.game.protogen.ClientInfo;
 using Platform = io.hverse.game.protogen.Platform;
+using Crosstales.BWF.Model;
+using Crosstales.BWF.Util;
+using Crosstales.BWF.Manager;
+using Crosstales.BWF;
 
 public class LoginStatePresenter : IDisposable
 {
@@ -35,6 +39,14 @@ public class LoginStatePresenter : IDisposable
 
     private int currentProfileIndex = 0;
 
+    private ManagerMask BadwordManager = ManagerMask.BadWord;
+    private ManagerMask DomManager = ManagerMask.Domain;
+    private ManagerMask CapsManager = ManagerMask.Capitalization;
+    private ManagerMask PuncManager = ManagerMask.Punctuation;
+    private List<string> Sources = new List<string>() { "english", "_global", "_emoji", "iana" };
+
+    bool HasChangeName = true;
+
     public LoginStatePresenter(IDIContainer container)
     {
         this.container = container;
@@ -45,6 +57,8 @@ public class LoginStatePresenter : IDisposable
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         
+        BWFManager.Load();
+
         await ConnectToServerAsync();
         await LoginAsync();
         await HandleSetNameAsync();
@@ -406,6 +420,12 @@ public class LoginStatePresenter : IDisposable
         return false;
     }
 
+    private async UniTask<bool> HandleLoginError(string message)
+    {
+        await ShowMessagePopUp("NOTICE", message);
+        return false;
+    }
+
     private async Task LoginSucessAsync(LoginResponse res)
     {
         // GetMasterData 
@@ -420,6 +440,7 @@ public class LoginStatePresenter : IDisposable
 #else
         PlayerPrefs.SetString(GameDefine.TOKEN_STORAGE, res.PlayerInfo.AccessToken);
 #endif
+        this.HasChangeName = res.HasChangedName;
     }
 
     private void ShowNewVersionPopUp(string updateLink)
@@ -510,6 +531,7 @@ public class LoginStatePresenter : IDisposable
 
     private async UniTask HandleSetNameAsync()
     {
+        if (this.HasChangeName) return;
         uiLoginSetName ??= await UILoader.Instantiate<UILoginSetName>(token: cts.Token);
         var ucs = new UniTaskCompletionSource();
         uiLoginSetName.SetEntity(new UILoginSetName.Entity()
@@ -524,6 +546,7 @@ public class LoginStatePresenter : IDisposable
 
     private async UniTask OnChangeNameClicked(UniTaskCompletionSource ucs)
     {
+        uiLoginSetName.SetInteractable(false);
         var newName = uiLoginSetName.username.text;
         if (isValidName(newName))
         {
@@ -534,7 +557,7 @@ public class LoginStatePresenter : IDisposable
 
             if (res.ResultCode == MasterErrorCodeDefine.SUCCESS)
             {
-
+                await UserDataRepository.UpdateName(newName);
                 ucs.TrySetResult();
             }
             else
@@ -542,6 +565,12 @@ public class LoginStatePresenter : IDisposable
                 await HandleLoginError(res.ResultCode);
             }
         }
+        else
+        {
+            await HandleLoginError("NOT_VALID_NAME");
+        }
+        uiLoginSetName.SetInteractable(true);
+        OnChangeNameValueChanged(newName);
     }
 
     private void OnChangeNameValueChanged(string value)
@@ -554,6 +583,10 @@ public class LoginStatePresenter : IDisposable
     private bool isValidName(string _name)
     {
         var len = _name.Trim().Length;
-        return len >= 5 && len <= 16;
+        if (len >= 5 && len <= 16)
+        {
+            return !BWFManager.Contains(_name, BadwordManager | DomManager | CapsManager | PuncManager, Sources.ToArray());
+        }
+        return false;
     }
 }

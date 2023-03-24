@@ -13,7 +13,6 @@
     public int DailyRacingNumberLeft { get; set; }
     public long TrainingHighScore { get; set; }
 
-
     public UserDataModel Clone()
     {
         return (UserDataModel)this.MemberwiseClone();
