@@ -400,6 +400,12 @@ public class LoginStatePresenter : IDisposable
         }
     }
 
+    private async UniTask<bool> HandleLoginError(int resResultCode)
+    {
+        await ShowMessagePopUp("NOTICE", LanguageManager.GetText($"RESULT_CODE_{resResultCode}"));
+        return false;
+    }
+
     private async Task LoginSucessAsync(LoginResponse res)
     {
         // GetMasterData 
@@ -521,12 +527,20 @@ public class LoginStatePresenter : IDisposable
         var newName = uiLoginSetName.username.text;
         if (isValidName(newName))
         {
-            var res = await SocketClient.Send<EmailCodeRequest, EmailCodeResponse>(new EmailCodeRequest()
+            var res = await SocketClient.Send<ChangeNameRequest, ChangeNameResponse>(new ChangeNameRequest()
             {
-
+                NewName = newName
             });
 
-            ucs.TrySetResult();
+            if (res.ResultCode == MasterErrorCodeDefine.SUCCESS)
+            {
+
+                ucs.TrySetResult();
+            }
+            else
+            {
+                await HandleLoginError(res.ResultCode);
+            }
         }
     }
 
@@ -539,6 +553,7 @@ public class LoginStatePresenter : IDisposable
 
     private bool isValidName(string _name)
     {
-        return false;
+        var len = _name.Trim().Length;
+        return len >= 5 && len <= 16;
     }
 }

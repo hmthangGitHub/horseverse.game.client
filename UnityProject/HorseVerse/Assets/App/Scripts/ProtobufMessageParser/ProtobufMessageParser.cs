@@ -25,6 +25,9 @@ public partial class ProtobufMessageParser : IMessageParser
         AddToSerializeLookUpTable<EmailCodeRequest>(x => new LoginMessage(x));
         AddToParseLookUpTable<LoginMessage, LoginMessageType>(LoginMessageType.EmailCodeResponse, x => x.EmailCodeResponse);
 
+        AddToSerializeLookUpTable<ChangeNameRequest>(x => new LoginMessage(x));
+        AddToParseLookUpTable<LoginMessage, LoginMessageType>(LoginMessageType.ChangeNameResponse, x => x.ChangeNameResponse);
+
         AddToSerializeLookUpTable<MasterDataRequest>(x => new DataMessage(x));
         AddToParseLookUpTable<DataMessage, DataMessageType>(DataMessageType.MasterDataResponse, x => x.MasterDataResponse);
 

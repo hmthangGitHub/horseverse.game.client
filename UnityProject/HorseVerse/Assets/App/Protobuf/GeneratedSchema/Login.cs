@@ -24,41 +24,48 @@ namespace io.hverse.game.protogen {
     static LoginReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cgtsb2dpbi5wcm90bxoMcGxheWVyLnByb3RvGgpkYXRhLnByb3RvItoBCgxM",
+            "Cgtsb2dpbi5wcm90bxoMcGxheWVyLnByb3RvGgpkYXRhLnByb3RvIroCCgxM",
             "b2dpbk1lc3NhZ2USIgoHbXNnVHlwZRgBIAEoDjIRLkxvZ2luTWVzc2FnZVR5",
             "cGUSIwoMbG9naW5SZXF1ZXN0GAIgASgLMg0uTG9naW5SZXF1ZXN0EiUKDWxv",
             "Z2luUmVzcG9uc2UYAyABKAsyDi5Mb2dpblJlc3BvbnNlEisKEGVtYWlsQ29k",
             "ZVJlcXVlc3QYBCABKAsyES5FbWFpbENvZGVSZXF1ZXN0Ei0KEWVtYWlsQ29k",
-            "ZVJlc3BvbnNlGAUgASgLMhIuRW1haWxDb2RlUmVzcG9uc2UitgEKCkNsaWVu",
-            "dEluZm8SEAoIcXJDb2RlSWQYASABKAkSEwoLYWNjZXNzVG9rZW4YAiABKAkS",
-            "DQoFZW1haWwYAyABKAkSEAoIcGFzc3dvcmQYBCABKAkSDwoHdmVyc2lvbhgF",
-            "IAEoCRIQCghkZXZpY2VJZBgGIAEoCRIbCghwbGF0Zm9ybRgHIAEoDjIJLlBs",
-            "YXRmb3JtEg0KBW1vZGVsGAggASgJEhEKCWVtYWlsQ29kZRgJIAEoCSJOCgxM",
-            "b2dpblJlcXVlc3QSHwoKY2xpZW50SW5mbxgBIAEoCzILLkNsaWVudEluZm8S",
-            "HQoJbG9naW5UeXBlGAIgASgOMgouTG9naW5UeXBlIoEBCg1Mb2dpblJlc3Bv",
-            "bnNlEhIKCnJlc3VsdENvZGUYASABKAUSHwoKcGxheWVySW5mbxgCIAEoCzIL",
-            "LlBsYXllckluZm8SIQoLZmVhdHVyZUxpc3QYAyADKA4yDC5GZWF0dXJlVHlw",
-            "ZRIYChB1cGRhdGVDbGllbnRMaW5rGAQgASgJIkIKEEVtYWlsQ29kZVJlcXVl",
-            "c3QSDQoFZW1haWwYASABKAkSHwoKY2xpZW50SW5mbxgCIAEoCzILLkNsaWVu",
-            "dEluZm8iQQoRRW1haWxDb2RlUmVzcG9uc2USEgoKcmVzdWx0Q29kZRgBIAEo",
-            "BRIYChB1cGRhdGVDbGllbnRMaW5rGAQgASgJKmoKEExvZ2luTWVzc2FnZVR5",
-            "cGUSEQoNTE9HSU5fUkVRVUVTVBAAEhIKDkxPR0lOX1JFU1BPTlNFEAESFgoS",
-            "RU1BSUxfQ09ERV9SRVFVRVNUEAISFwoTRU1BSUxfQ09ERV9SRVNQT05TRRAD",
-            "KmsKCUxvZ2luVHlwZRIUChBMT0dJTl9UWVBFX0VNQUlMEAASFQoRTE9HSU5f",
-            "VFlQRV9RUkNPREUQARIbChdMT0dJTl9UWVBFX0FDQ0VTU19UT0tFThACEhQK",
-            "EExPR0lOX0VNQUlMX0NPREUQAyopCghQbGF0Zm9ybRILCgdBTkRST0lEEAAS",
-            "BwoDSU9TEAESBwoDV0VCEAJCSAoXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5C",
-            "E0xvZ2luTWVzc2FnZUZhY3RvcnmqAhdpby5odmVyc2UuZ2FtZS5wcm90b2dl",
-            "bmIGcHJvdG8z"));
+            "ZVJlc3BvbnNlGAUgASgLMhIuRW1haWxDb2RlUmVzcG9uc2USLQoRY2hhbmdl",
+            "TmFtZVJlcXVlc3QYBiABKAsyEi5DaGFuZ2VOYW1lUmVxdWVzdBIvChJjaGFu",
+            "Z2VOYW1lUmVzcG9uc2UYByABKAsyEy5DaGFuZ2VOYW1lUmVzcG9uc2UitgEK",
+            "CkNsaWVudEluZm8SEAoIcXJDb2RlSWQYASABKAkSEwoLYWNjZXNzVG9rZW4Y",
+            "AiABKAkSDQoFZW1haWwYAyABKAkSEAoIcGFzc3dvcmQYBCABKAkSDwoHdmVy",
+            "c2lvbhgFIAEoCRIQCghkZXZpY2VJZBgGIAEoCRIbCghwbGF0Zm9ybRgHIAEo",
+            "DjIJLlBsYXRmb3JtEg0KBW1vZGVsGAggASgJEhEKCWVtYWlsQ29kZRgJIAEo",
+            "CSJOCgxMb2dpblJlcXVlc3QSHwoKY2xpZW50SW5mbxgBIAEoCzILLkNsaWVu",
+            "dEluZm8SHQoJbG9naW5UeXBlGAIgASgOMgouTG9naW5UeXBlIpkBCg1Mb2dp",
+            "blJlc3BvbnNlEhIKCnJlc3VsdENvZGUYASABKAUSHwoKcGxheWVySW5mbxgC",
+            "IAEoCzILLlBsYXllckluZm8SIQoLZmVhdHVyZUxpc3QYAyADKA4yDC5GZWF0",
+            "dXJlVHlwZRIYChB1cGRhdGVDbGllbnRMaW5rGAQgASgJEhYKDmhhc0NoYW5n",
+            "ZWROYW1lGAUgASgIIkIKEEVtYWlsQ29kZVJlcXVlc3QSDQoFZW1haWwYASAB",
+            "KAkSHwoKY2xpZW50SW5mbxgCIAEoCzILLkNsaWVudEluZm8iQQoRRW1haWxD",
+            "b2RlUmVzcG9uc2USEgoKcmVzdWx0Q29kZRgBIAEoBRIYChB1cGRhdGVDbGll",
+            "bnRMaW5rGAQgASgJIiQKEUNoYW5nZU5hbWVSZXF1ZXN0Eg8KB25ld05hbWUY",
+            "ASABKAkiKAoSQ2hhbmdlTmFtZVJlc3BvbnNlEhIKCnJlc3VsdENvZGUYASAB",
+            "KAUqnQEKEExvZ2luTWVzc2FnZVR5cGUSEQoNTE9HSU5fUkVRVUVTVBAAEhIK",
+            "DkxPR0lOX1JFU1BPTlNFEAESFgoSRU1BSUxfQ09ERV9SRVFVRVNUEAISFwoT",
+            "RU1BSUxfQ09ERV9SRVNQT05TRRADEhcKE0NIQU5HRV9OQU1FX1JFUVVFU1QQ",
+            "BBIYChRDSEFOR0VfTkFNRV9SRVNQT05TRRAFKmsKCUxvZ2luVHlwZRIUChBM",
+            "T0dJTl9UWVBFX0VNQUlMEAASFQoRTE9HSU5fVFlQRV9RUkNPREUQARIbChdM",
+            "T0dJTl9UWVBFX0FDQ0VTU19UT0tFThACEhQKEExPR0lOX0VNQUlMX0NPREUQ",
+            "AyopCghQbGF0Zm9ybRILCgdBTkRST0lEEAASBwoDSU9TEAESBwoDV0VCEAJC",
+            "SAoXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5CE0xvZ2luTWVzc2FnZUZhY3Rv",
+            "cnmqAhdpby5odmVyc2UuZ2FtZS5wcm90b2dlbmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::io.hverse.game.protogen.PlayerReflection.Descriptor, global::io.hverse.game.protogen.DataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.LoginMessageType), typeof(global::io.hverse.game.protogen.LoginType), typeof(global::io.hverse.game.protogen.Platform), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginMessage), global::io.hverse.game.protogen.LoginMessage.Parser, new[]{ "MsgType", "LoginRequest", "LoginResponse", "EmailCodeRequest", "EmailCodeResponse" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginMessage), global::io.hverse.game.protogen.LoginMessage.Parser, new[]{ "MsgType", "LoginRequest", "LoginResponse", "EmailCodeRequest", "EmailCodeResponse", "ChangeNameRequest", "ChangeNameResponse" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ClientInfo), global::io.hverse.game.protogen.ClientInfo.Parser, new[]{ "QrCodeId", "AccessToken", "Email", "Password", "Version", "DeviceId", "Platform", "Model", "EmailCode" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginRequest), global::io.hverse.game.protogen.LoginRequest.Parser, new[]{ "ClientInfo", "LoginType" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginResponse), global::io.hverse.game.protogen.LoginResponse.Parser, new[]{ "ResultCode", "PlayerInfo", "FeatureList", "UpdateClientLink" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LoginResponse), global::io.hverse.game.protogen.LoginResponse.Parser, new[]{ "ResultCode", "PlayerInfo", "FeatureList", "UpdateClientLink", "HasChangedName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.EmailCodeRequest), global::io.hverse.game.protogen.EmailCodeRequest.Parser, new[]{ "Email", "ClientInfo" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.EmailCodeResponse), global::io.hverse.game.protogen.EmailCodeResponse.Parser, new[]{ "ResultCode", "UpdateClientLink" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.EmailCodeResponse), global::io.hverse.game.protogen.EmailCodeResponse.Parser, new[]{ "ResultCode", "UpdateClientLink" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ChangeNameRequest), global::io.hverse.game.protogen.ChangeNameRequest.Parser, new[]{ "NewName" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ChangeNameResponse), global::io.hverse.game.protogen.ChangeNameResponse.Parser, new[]{ "ResultCode" }, null, null, null, null)
           }));
     }
     #endregion
@@ -70,6 +77,8 @@ namespace io.hverse.game.protogen {
     [pbr::OriginalName("LOGIN_RESPONSE")] LoginResponse = 1,
     [pbr::OriginalName("EMAIL_CODE_REQUEST")] EmailCodeRequest = 2,
     [pbr::OriginalName("EMAIL_CODE_RESPONSE")] EmailCodeResponse = 3,
+    [pbr::OriginalName("CHANGE_NAME_REQUEST")] ChangeNameRequest = 4,
+    [pbr::OriginalName("CHANGE_NAME_RESPONSE")] ChangeNameResponse = 5,
   }
 
   public enum LoginType {
@@ -127,6 +136,8 @@ namespace io.hverse.game.protogen {
       loginResponse_ = other.loginResponse_ != null ? other.loginResponse_.Clone() : null;
       emailCodeRequest_ = other.emailCodeRequest_ != null ? other.emailCodeRequest_.Clone() : null;
       emailCodeResponse_ = other.emailCodeResponse_ != null ? other.emailCodeResponse_.Clone() : null;
+      changeNameRequest_ = other.changeNameRequest_ != null ? other.changeNameRequest_.Clone() : null;
+      changeNameResponse_ = other.changeNameResponse_ != null ? other.changeNameResponse_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -196,6 +207,30 @@ namespace io.hverse.game.protogen {
       }
     }
 
+    /// <summary>Field number for the "changeNameRequest" field.</summary>
+    public const int ChangeNameRequestFieldNumber = 6;
+    private global::io.hverse.game.protogen.ChangeNameRequest changeNameRequest_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.ChangeNameRequest ChangeNameRequest {
+      get { return changeNameRequest_; }
+      set {
+        changeNameRequest_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "changeNameResponse" field.</summary>
+    public const int ChangeNameResponseFieldNumber = 7;
+    private global::io.hverse.game.protogen.ChangeNameResponse changeNameResponse_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.ChangeNameResponse ChangeNameResponse {
+      get { return changeNameResponse_; }
+      set {
+        changeNameResponse_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -216,6 +251,8 @@ namespace io.hverse.game.protogen {
       if (!object.Equals(LoginResponse, other.LoginResponse)) return false;
       if (!object.Equals(EmailCodeRequest, other.EmailCodeRequest)) return false;
       if (!object.Equals(EmailCodeResponse, other.EmailCodeResponse)) return false;
+      if (!object.Equals(ChangeNameRequest, other.ChangeNameRequest)) return false;
+      if (!object.Equals(ChangeNameResponse, other.ChangeNameResponse)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -228,6 +265,8 @@ namespace io.hverse.game.protogen {
       if (loginResponse_ != null) hash ^= LoginResponse.GetHashCode();
       if (emailCodeRequest_ != null) hash ^= EmailCodeRequest.GetHashCode();
       if (emailCodeResponse_ != null) hash ^= EmailCodeResponse.GetHashCode();
+      if (changeNameRequest_ != null) hash ^= ChangeNameRequest.GetHashCode();
+      if (changeNameResponse_ != null) hash ^= ChangeNameResponse.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -266,6 +305,14 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(42);
         output.WriteMessage(EmailCodeResponse);
       }
+      if (changeNameRequest_ != null) {
+        output.WriteRawTag(50);
+        output.WriteMessage(ChangeNameRequest);
+      }
+      if (changeNameResponse_ != null) {
+        output.WriteRawTag(58);
+        output.WriteMessage(ChangeNameResponse);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -296,6 +343,14 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(42);
         output.WriteMessage(EmailCodeResponse);
       }
+      if (changeNameRequest_ != null) {
+        output.WriteRawTag(50);
+        output.WriteMessage(ChangeNameRequest);
+      }
+      if (changeNameResponse_ != null) {
+        output.WriteRawTag(58);
+        output.WriteMessage(ChangeNameResponse);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -320,6 +375,12 @@ namespace io.hverse.game.protogen {
       }
       if (emailCodeResponse_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(EmailCodeResponse);
+      }
+      if (changeNameRequest_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(ChangeNameRequest);
+      }
+      if (changeNameResponse_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(ChangeNameResponse);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -359,6 +420,18 @@ namespace io.hverse.game.protogen {
           EmailCodeResponse = new global::io.hverse.game.protogen.EmailCodeResponse();
         }
         EmailCodeResponse.MergeFrom(other.EmailCodeResponse);
+      }
+      if (other.changeNameRequest_ != null) {
+        if (changeNameRequest_ == null) {
+          ChangeNameRequest = new global::io.hverse.game.protogen.ChangeNameRequest();
+        }
+        ChangeNameRequest.MergeFrom(other.ChangeNameRequest);
+      }
+      if (other.changeNameResponse_ != null) {
+        if (changeNameResponse_ == null) {
+          ChangeNameResponse = new global::io.hverse.game.protogen.ChangeNameResponse();
+        }
+        ChangeNameResponse.MergeFrom(other.ChangeNameResponse);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -407,6 +480,20 @@ namespace io.hverse.game.protogen {
             input.ReadMessage(EmailCodeResponse);
             break;
           }
+          case 50: {
+            if (changeNameRequest_ == null) {
+              ChangeNameRequest = new global::io.hverse.game.protogen.ChangeNameRequest();
+            }
+            input.ReadMessage(ChangeNameRequest);
+            break;
+          }
+          case 58: {
+            if (changeNameResponse_ == null) {
+              ChangeNameResponse = new global::io.hverse.game.protogen.ChangeNameResponse();
+            }
+            input.ReadMessage(ChangeNameResponse);
+            break;
+          }
         }
       }
     #endif
@@ -452,6 +539,20 @@ namespace io.hverse.game.protogen {
               EmailCodeResponse = new global::io.hverse.game.protogen.EmailCodeResponse();
             }
             input.ReadMessage(EmailCodeResponse);
+            break;
+          }
+          case 50: {
+            if (changeNameRequest_ == null) {
+              ChangeNameRequest = new global::io.hverse.game.protogen.ChangeNameRequest();
+            }
+            input.ReadMessage(ChangeNameRequest);
+            break;
+          }
+          case 58: {
+            if (changeNameResponse_ == null) {
+              ChangeNameResponse = new global::io.hverse.game.protogen.ChangeNameResponse();
+            }
+            input.ReadMessage(ChangeNameResponse);
             break;
           }
         }
@@ -1219,6 +1320,7 @@ namespace io.hverse.game.protogen {
       playerInfo_ = other.playerInfo_ != null ? other.playerInfo_.Clone() : null;
       featureList_ = other.featureList_.Clone();
       updateClientLink_ = other.updateClientLink_;
+      hasChangedName_ = other.hasChangedName_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1275,6 +1377,18 @@ namespace io.hverse.game.protogen {
       }
     }
 
+    /// <summary>Field number for the "hasChangedName" field.</summary>
+    public const int HasChangedNameFieldNumber = 5;
+    private bool hasChangedName_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool HasChangedName {
+      get { return hasChangedName_; }
+      set {
+        hasChangedName_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1294,6 +1408,7 @@ namespace io.hverse.game.protogen {
       if (!object.Equals(PlayerInfo, other.PlayerInfo)) return false;
       if(!featureList_.Equals(other.featureList_)) return false;
       if (UpdateClientLink != other.UpdateClientLink) return false;
+      if (HasChangedName != other.HasChangedName) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1305,6 +1420,7 @@ namespace io.hverse.game.protogen {
       if (playerInfo_ != null) hash ^= PlayerInfo.GetHashCode();
       hash ^= featureList_.GetHashCode();
       if (UpdateClientLink.Length != 0) hash ^= UpdateClientLink.GetHashCode();
+      if (HasChangedName != false) hash ^= HasChangedName.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1336,6 +1452,10 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(34);
         output.WriteString(UpdateClientLink);
       }
+      if (HasChangedName != false) {
+        output.WriteRawTag(40);
+        output.WriteBool(HasChangedName);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1359,6 +1479,10 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(34);
         output.WriteString(UpdateClientLink);
       }
+      if (HasChangedName != false) {
+        output.WriteRawTag(40);
+        output.WriteBool(HasChangedName);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1378,6 +1502,9 @@ namespace io.hverse.game.protogen {
       size += featureList_.CalculateSize(_repeated_featureList_codec);
       if (UpdateClientLink.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(UpdateClientLink);
+      }
+      if (HasChangedName != false) {
+        size += 1 + 1;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1403,6 +1530,9 @@ namespace io.hverse.game.protogen {
       featureList_.Add(other.featureList_);
       if (other.UpdateClientLink.Length != 0) {
         UpdateClientLink = other.UpdateClientLink;
+      }
+      if (other.HasChangedName != false) {
+        HasChangedName = other.HasChangedName;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1439,6 +1569,10 @@ namespace io.hverse.game.protogen {
             UpdateClientLink = input.ReadString();
             break;
           }
+          case 40: {
+            HasChangedName = input.ReadBool();
+            break;
+          }
         }
       }
     #endif
@@ -1472,6 +1606,10 @@ namespace io.hverse.game.protogen {
           }
           case 34: {
             UpdateClientLink = input.ReadString();
+            break;
+          }
+          case 40: {
+            HasChangedName = input.ReadBool();
             break;
           }
         }
@@ -1933,6 +2071,384 @@ namespace io.hverse.game.protogen {
           }
           case 34: {
             UpdateClientLink = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class ChangeNameRequest : pb::IMessage<ChangeNameRequest>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<ChangeNameRequest> _parser = new pb::MessageParser<ChangeNameRequest>(() => new ChangeNameRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<ChangeNameRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::io.hverse.game.protogen.LoginReflection.Descriptor.MessageTypes[6]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChangeNameRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChangeNameRequest(ChangeNameRequest other) : this() {
+      newName_ = other.newName_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChangeNameRequest Clone() {
+      return new ChangeNameRequest(this);
+    }
+
+    /// <summary>Field number for the "newName" field.</summary>
+    public const int NewNameFieldNumber = 1;
+    private string newName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string NewName {
+      get { return newName_; }
+      set {
+        newName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as ChangeNameRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(ChangeNameRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (NewName != other.NewName) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (NewName.Length != 0) hash ^= NewName.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (NewName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(NewName);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (NewName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(NewName);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (NewName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(NewName);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(ChangeNameRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.NewName.Length != 0) {
+        NewName = other.NewName;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            NewName = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            NewName = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class ChangeNameResponse : pb::IMessage<ChangeNameResponse>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<ChangeNameResponse> _parser = new pb::MessageParser<ChangeNameResponse>(() => new ChangeNameResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<ChangeNameResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::io.hverse.game.protogen.LoginReflection.Descriptor.MessageTypes[7]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChangeNameResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChangeNameResponse(ChangeNameResponse other) : this() {
+      resultCode_ = other.resultCode_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChangeNameResponse Clone() {
+      return new ChangeNameResponse(this);
+    }
+
+    /// <summary>Field number for the "resultCode" field.</summary>
+    public const int ResultCodeFieldNumber = 1;
+    private int resultCode_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int ResultCode {
+      get { return resultCode_; }
+      set {
+        resultCode_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as ChangeNameResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(ChangeNameResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (ResultCode != other.ResultCode) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (ResultCode != 0) hash ^= ResultCode.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (ResultCode != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(ResultCode);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (ResultCode != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(ResultCode);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (ResultCode != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ResultCode);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(ChangeNameResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.ResultCode != 0) {
+        ResultCode = other.ResultCode;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            ResultCode = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            ResultCode = input.ReadInt32();
             break;
           }
         }
