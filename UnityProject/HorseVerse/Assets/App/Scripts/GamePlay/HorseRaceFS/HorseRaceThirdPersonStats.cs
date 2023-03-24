@@ -34,4 +34,6 @@ public class HorseRaceThirdPersonData
     [field: SerializeField]
     public HorseRaceThirdPersonStats HorseRaceThirdPersonStats { get; set; }
     public IPredefinePath PredefinePath => TargetGenerator.PredefinePath;
+    [field: SerializeField]
+    public Transform Camera { get; set; }
 }

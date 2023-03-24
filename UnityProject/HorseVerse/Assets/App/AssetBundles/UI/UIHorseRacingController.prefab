@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 481435698}
   - component: {fileID: 481435697}
   - component: {fileID: 481435696}
+  - component: {fileID: 2195833979889280155}
   m_Layer: 5
   m_Name: sprintBtn
   m_TagString: Untagged
@@ -122,6 +123,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2195833979889280155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481435694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43b67a9f0edd3594f98981289a84f7c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 481435696}
+  sfxName: Click
+  enableSFX: 1
 --- !u!1 &641873656
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,5 +660,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5a52acdb1e6f0e43ba3c7afa91be693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasGroup: {fileID: 0}
+  canvasGroup: {fileID: 1054217817077697967}
   animation: {fileID: 0}
+  sprintBar: {fileID: 5592729318268193185}
+  sprintHealingProgress: {fileID: 1449110340}
+  sprintBtn: {fileID: 2195833979889280155}
+  cameraBtn: {fileID: 8798971047083241539}

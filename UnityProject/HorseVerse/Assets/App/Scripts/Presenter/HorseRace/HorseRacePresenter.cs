@@ -176,7 +176,7 @@ public partial class HorseRacePresenter : IDisposable
 
     public void FixedUpdate()
     {
-        // horseRaceManager?.UpdateRaceTime();
+        horseRaceManager?.UpdateRaceTime();
         horseRaceStatusPresenter?.UpdateRaceStatus();
     }
 

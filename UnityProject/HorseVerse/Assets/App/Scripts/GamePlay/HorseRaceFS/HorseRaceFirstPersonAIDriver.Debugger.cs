@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 
 public partial class HorseRaceFirstPersonAIDriver
 {
+    private Vector3 lastFrame;
+
     private void OnDrawGizmos()
     {
         DrawAllTargets();
@@ -22,4 +25,14 @@ public partial class HorseRaceFirstPersonAIDriver
     {
         ChangeTarget(); 
     }
+
+    private void LateUpdate()
+    {
+        if ((lastFrame - horseRaceThirdPersonBehaviour.transform.position).magnitude <= Mathf.Epsilon)
+        {
+            int x = 10;
+        }
+        lastFrame = horseRaceThirdPersonBehaviour.transform.position;
+    }
 }
+#endif

@@ -8,8 +8,8 @@ public class HorseRaceOffsetDebugger : MonoBehaviour
     public Transform transform1;
     public Transform transform2;
 
-    private void Update()
+    private void LateUpdate()
     {
-        Debug.DrawLine(transform1.position, transform2.position, Color.blue, 5.0f);
+        Debug.DrawLine(transform1.position + Vector3.up * 0.5f, transform2.position + Vector3.up * 0.5f, Color.blue, 5.0f);
     }
 }

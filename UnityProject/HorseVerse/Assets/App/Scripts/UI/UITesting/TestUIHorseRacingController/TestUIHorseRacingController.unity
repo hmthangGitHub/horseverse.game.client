@@ -123,37 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &481435694 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 481435694, guid: c3407131adbf1534c920b8383df6fbb1, type: 3}
-  m_PrefabInstance: {fileID: 5592729318268193181}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &481435695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 481435694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43b67a9f0edd3594f98981289a84f7c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  button: {fileID: 481435696}
-  sfxName: Click
-  enableSFX: 1
---- !u!114 &481435696 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 481435696, guid: c3407131adbf1534c920b8383df6fbb1, type: 3}
-  m_PrefabInstance: {fileID: 5592729318268193181}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 481435694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &833507582
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,17 +536,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!114 &1449110340 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1449110340, guid: c3407131adbf1534c920b8383df6fbb1, type: 3}
-  m_PrefabInstance: {fileID: 5592729318268193181}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39183181b274c6b4f8ef25c66969eca6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5592729318268193181
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -589,26 +547,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIHorseRacingController
       objectReference: {fileID: 0}
-    - target: {fileID: 6324880653943551207, guid: c3407131adbf1534c920b8383df6fbb1, type: 3}
-      propertyPath: cameraBtn
-      value: 
-      objectReference: {fileID: 5592729318268193183}
-    - target: {fileID: 6324880653943551207, guid: c3407131adbf1534c920b8383df6fbb1, type: 3}
-      propertyPath: sprintBar
-      value: 
-      objectReference: {fileID: 5592729318268193185}
-    - target: {fileID: 6324880653943551207, guid: c3407131adbf1534c920b8383df6fbb1, type: 3}
-      propertyPath: sprintBtn
-      value: 
-      objectReference: {fileID: 481435695}
-    - target: {fileID: 6324880653943551207, guid: c3407131adbf1534c920b8383df6fbb1, type: 3}
-      propertyPath: canvasGroup
-      value: 
-      objectReference: {fileID: 5592729318268193184}
-    - target: {fileID: 6324880653943551207, guid: c3407131adbf1534c920b8383df6fbb1, type: 3}
-      propertyPath: sprintHealingProgress
-      value: 
-      objectReference: {fileID: 1449110340}
     - target: {fileID: 7298819944524798086, guid: c3407131adbf1534c920b8383df6fbb1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -704,32 +642,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5a52acdb1e6f0e43ba3c7afa91be693, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5592729318268193183 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8798971047083241539, guid: c3407131adbf1534c920b8383df6fbb1, type: 3}
-  m_PrefabInstance: {fileID: 5592729318268193181}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b39062c6e2c04e842b660614f4736d16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!225 &5592729318268193184 stripped
-CanvasGroup:
-  m_CorrespondingSourceObject: {fileID: 1054217817077697967, guid: c3407131adbf1534c920b8383df6fbb1, type: 3}
-  m_PrefabInstance: {fileID: 5592729318268193181}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5592729318268193185 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5592729318268193185, guid: c3407131adbf1534c920b8383df6fbb1, type: 3}
-  m_PrefabInstance: {fileID: 5592729318268193181}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39183181b274c6b4f8ef25c66969eca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

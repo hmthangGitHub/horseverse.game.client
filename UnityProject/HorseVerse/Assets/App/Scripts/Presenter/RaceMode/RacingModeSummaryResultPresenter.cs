@@ -20,6 +20,9 @@ internal class RacingModeSummaryResultPresenter : IDisposable
 
     public async UniTask ShowSummaryResultAsync()
     {
+        // TODO
+        if (HorseRaceContext.RaceMatchData == default) return;
+        
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         

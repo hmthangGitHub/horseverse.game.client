@@ -41,6 +41,23 @@ public class TargetGenerator : MonoBehaviour
                          .ToArray();
     }
     
+    public Vector3[] GenerateRandomTargetsWithNoise(float initialLane)
+    {
+        var numberOfWayPoint = 40;
+        var numberOfInitialLane = 3;
+        var seed = UnityEngine.Random.value;
+        return Enumerable.Range(0, numberOfWayPoint)
+                         .Select(i => Mathf.Lerp(PredefinePath.StartTime, PredefinePath.EndTime,  (float)i / (numberOfWayPoint - 1)))
+                         .Select((x, i) =>
+                         {
+                             var lane = i >= numberOfInitialLane 
+                                 ? Mathf.Lerp(0, numberOfAgents - 1, Mathf.PerlinNoise(seed + x * (numberOfWayPoint - 1)  * 0.25f, 0.0f))
+                                 : initialLane;
+                             return FromTimeToPoint(x, GetOffsetFromLane(lane), PredefinePath);
+                         })
+                         .ToArray();
+    }
+    
     public static Vector3 FromTimeToPoint(float t, float offset, IPredefinePath predefinePath)
     {
         var rightV = Quaternion.Euler(0, predefinePath.GetRotation(t).eulerAngles.y, 0) * Vector3.right;
@@ -55,8 +72,8 @@ public class TargetGenerator : MonoBehaviour
 
     public float GetOffsetFromLane(float lane)
     {
-        var start = spacing * ((numberOfAgents - 1) / 2.0f) + offset;
-        return start - spacing * lane;
+        var start = - spacing * ((numberOfAgents - 1) / 2.0f) * PredefinePath.Direction + offset;
+        return start + spacing * lane * PredefinePath.Direction;
     }
     
     private float GetOffsetFromLane(int lane)
@@ -67,6 +84,8 @@ public class TargetGenerator : MonoBehaviour
 
     public ((Vector3 target, Quaternion, float time)[] targets,int finishIndex) GenerateTargets(RaceSegmentTime[] raceSegments)
     {
+        //TODO
+        predefinePath = GetComponentInChildren<PredefinePath>();
         var tFirst = predefinePath.StartTime;
         var tLast = predefinePath.EndTime;
 

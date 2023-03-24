@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Win32.SafeHandles;
 using UnityEngine;
 
 public partial class HorseRaceFirstPersonPlayerController : MonoBehaviour
@@ -7,6 +9,10 @@ public partial class HorseRaceFirstPersonPlayerController : MonoBehaviour
     [SerializeField] private Rigidbody rigidBody;
     [SerializeField] private HorseRaceThirdPersonBehaviour horseRaceThirdPersonBehaviour;
     [SerializeField] private Transform horseTransform;
+
+    private Vector3 lastFrame;
+    private Vector3 lastVelocity;
+    private float lastTime;
     
     public void MoveHorizontal(int direction)
     {
@@ -15,16 +21,11 @@ public partial class HorseRaceFirstPersonPlayerController : MonoBehaviour
         horseRaceThirdPersonBehaviour.HorizontalDirection = Mathf.Clamp(horseRaceThirdPersonBehaviour.HorizontalDirection, -1, 1);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!horseRaceThirdPersonBehaviour.IsStart) return;
         
         UpdateHorsePositionRotation();
-        CheckIfFinish();
-    }
-
-    private void CheckIfFinish()
-    {
     }
 
     private void UpdateHorsePositionRotation()
@@ -40,12 +41,11 @@ public partial class HorseRaceFirstPersonPlayerController : MonoBehaviour
         var toPosition = (horseTransform.position - pointInCurve);
         var isGoingToWall = Vector3.Dot(toPosition, horseTransform.right) * horseRaceThirdPersonBehaviour.HorizontalDirection > 0;
 
-        var horizontalSpeed = 0.0f;
-        horizontalSpeed = Mathf.Abs(toPosition.magnitude) >= horseRaceThirdPersonBehaviour.OffsetRange && isGoingToWall
+        var horizontalSpeed = Mathf.Abs(toPosition.magnitude) >= horseRaceThirdPersonBehaviour.OffsetRange && isGoingToWall
             ? 0
             : horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.HorseRaceThirdPersonStats.HorizontalSpeed;
         rigidBody.velocity = horseTransform.rotation *
-                             new Vector3(horseRaceThirdPersonBehaviour.HorizontalDirection * horizontalSpeed, 0, horseRaceThirdPersonBehaviour.CurrentForwardSpeed);
+                             new Vector3(horseRaceThirdPersonBehaviour.HorizontalDirection * horizontalSpeed, 0, horseRaceThirdPersonBehaviour.CurrentForwardSpeed).normalized * horseRaceThirdPersonBehaviour.CurrentForwardSpeed;
     }
 
     private void CalculateRotation(float time)

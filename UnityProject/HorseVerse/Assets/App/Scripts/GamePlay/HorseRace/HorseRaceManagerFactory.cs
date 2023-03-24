@@ -58,7 +58,7 @@ public class HorseRaceThirdPersonFactory : IHorseRaceManagerFactory
 
     public async UniTask<IHorseRaceManager> CreateHorseRaceManagerAsync(CancellationToken token)
     {
-        var horseRaceManager = new HorseRaceThirdPersonManager();
+        var horseRaceManager = new HorseRaceThirdPersonManager(Container);
         var playerHorseIndex = -1;
         playerHorseIndex = HorseRaceContext.HorseBriefInfos.
                                             ToList().

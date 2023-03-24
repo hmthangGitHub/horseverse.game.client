@@ -15,6 +15,7 @@ public class HorseRaceThirdPersonListContainer : MonoBehaviour
     [SerializeField] private Transform horsesContainer;
     [SerializeField] private HorseRaceFirstPersonInput touchInput;
     [SerializeField] private HorseRaceFirstPersonStandAloneInput standAloneInput;
+    [SerializeField] private Transform camreraTransform;
     public Transform WarmUpTarget => horseGroup.Transform;
     public Transform HorsesContainer => horsesContainer;
     public CinemachineTargetGroup HorseGroup => horseGroup;
@@ -26,5 +27,11 @@ public class HorseRaceThirdPersonListContainer : MonoBehaviour
             touchInput.HorseRaceFirstPersonController = value;
             standAloneInput.HorseRaceFirstPersonController = value;
         }
+    }
+
+    public Transform CamreraTransform
+    {
+        get => camreraTransform;
+        set => camreraTransform = value;
     }
 }

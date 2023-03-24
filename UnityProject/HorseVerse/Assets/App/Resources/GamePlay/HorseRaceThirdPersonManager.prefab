@@ -347,6 +347,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horseGroup: {fileID: 3476486445040573841}
   horsesContainer: {fileID: 8413419475307548827}
+  touchInput: {fileID: 2425554520004341686}
+  standAloneInput: {fileID: 5704522200779285977}
+  camreraTransform: {fileID: 8583935621913822066}
 --- !u!1 &5617142817583305482
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,7 +538,7 @@ MonoBehaviour:
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
+  m_UpdateMethod: 1
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 0
