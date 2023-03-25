@@ -26,7 +26,7 @@ public class UserDataRepository : Repository<long, PlayerInfo, UserDataModel>, I
             NextLevelExp = 1,
             TraningTimeStamp = 0,
             DailyRacingNumberLeft = x.FreeRacingNumber,
-            TrainingHighScore = x.TrainingHighestScore
+            TrainingHighScore = x.TrainingHighestScore,
         };
     }
 
@@ -61,6 +61,13 @@ public class UserDataRepository : Repository<long, PlayerInfo, UserDataModel>, I
         await UpdateModelAsync(new[] { newModel });
     }
 
+    public async UniTask UpdateName(string username)
+    {
+        var newModel = Current.Clone();
+        newModel.UserName = username;
+        await UpdateModelAsync(new[] { newModel });
+    }
+
     private static UniTask<IEnumerable<PlayerInfo>> GetUserDataModels()
     {
         return UniTask.FromResult(Enumerable.Empty<PlayerInfo>());
@@ -79,4 +86,5 @@ public interface IUserDataRepository : IRepository<long, PlayerInfo, UserDataMod
     UniTask UpdateHorse(long nftHorseId);
     UniTask UpdateLightPlayerInfoAsync(LitePlayerInfo litePlayerInfo);
     UniTask UpdateTrainingHighestScore(long score);
+    UniTask UpdateName(string username);
 }

@@ -9,6 +9,9 @@ public partial class PlatformModular
     [SerializeField]
     private Vector3 sceneryContainerScale = new Vector3(14.0f, 20.0f, 1.0f);
 
+    private Vector3 sceneryTurnConflictScale = new Vector3(1, 20, 1);
+    private Vector3 sceneryTurnContainerScale = new Vector3(2, 20, 2);
+
     public void CreateSceneryRegions(int type = 0)
     {
         var bounds = CreatePlatformBound();
@@ -19,8 +22,8 @@ public partial class PlatformModular
         }
         else
         {
-            sceneryConflictRegion = CreateSceneryContainerBoxCollider(bounds.center, bounds, "SceneryConflictRegion", Vector3.one * 3.0f);
-            sceneryBoxContainer = CreateSceneryContainerBoxCollider(bounds.center, bounds, "SceneryContainer", Vector3.one * 5.0f);
+            sceneryConflictRegion = CreateSceneryContainerBoxCollider(bounds.center, bounds, "SceneryConflictRegion", sceneryTurnConflictScale);
+            sceneryBoxContainer = CreateSceneryContainerBoxCollider(bounds.center, bounds, "SceneryContainer", sceneryTurnContainerScale);
         }
     }
 
@@ -131,9 +134,11 @@ public partial class PlatformModular
             layer = default
         };
         go.transform.localRotation = Quaternion.identity;
+        float currentAngle = Vector3.SignedAngle(go.transform.forward, Vector3.forward, Vector3.up);
+        Vector3 _scale = Quaternion.Euler(0, currentAngle, 0) * scale;
         var collider = go.AddComponent<BoxCollider>();
         collider.center = Vector3.zero;
-        collider.size = Vector3.Scale(bounds.size, Quaternion.LookRotation(transform.forward) * scale);
+        collider.size = Vector3.Scale(go.transform.InverseTransformVector(bounds.size), scale);
         collider.isTrigger = true;
         return collider;
     }
