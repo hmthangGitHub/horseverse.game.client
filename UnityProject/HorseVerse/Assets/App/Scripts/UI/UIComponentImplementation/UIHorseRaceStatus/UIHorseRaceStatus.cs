@@ -54,13 +54,14 @@ public class UIHorseRaceStatus : PopupEntity<UIHorseRaceStatus.Entity>
         if (this.entity != null)
         {
             currentTimer += Time.deltaTime;
-            if (currentTimer <= this.entity.finishTime)
-            {
-                timeLine.fillAmount = currentTimer / this.entity.finishTime;
-                this.playerList.UpdatePosition(timeLine.fillAmount);
-            }
             timeText.SetEntity(currentTimer);
         }
+    }
+
+    public void UpdateNormalizeTime(float normalizeTime)
+    {
+        timeLine.fillAmount = normalizeTime;
+        this.playerList.UpdatePosition(timeLine.fillAmount);
     }
 
     public void Skip()

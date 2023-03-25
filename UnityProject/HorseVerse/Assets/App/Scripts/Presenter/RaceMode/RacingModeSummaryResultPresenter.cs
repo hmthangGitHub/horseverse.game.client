@@ -20,6 +20,9 @@ internal class RacingModeSummaryResultPresenter : IDisposable
 
     public async UniTask ShowSummaryResultAsync()
     {
+        // TODO
+        if (HorseRaceContext.RaceMatchData == default) return;
+        
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         
@@ -30,7 +33,7 @@ internal class RacingModeSummaryResultPresenter : IDisposable
         {
             betModeResultList = new UIComponentBetModeResultList.Entity()
             {
-                entities = HorseRaceContext.RaceScriptData.HorseRaceInfos
+                entities = HorseRaceContext.RaceMatchData.HorseRaceInfos
                                              .Select(horseRaceInfo => (horseRaceInfo , lane : horseRaceInfo.RaceSegments.First().ToLane))
                                              .OrderBy(x => x.horseRaceInfo.RaceSegments.Sum(segment => segment.Time) + x.horseRaceInfo.DelayTime)
                                              .Select((x, i) =>

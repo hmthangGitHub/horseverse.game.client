@@ -1,21 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class WorldSpaceCanvasBillBoard : MonoBehaviour
 {
+    [SerializeField]
     public Transform cameraTransform;
 
-    // Start is called before the first frame update
-    void Start()
+    public Transform CameraTransform
     {
-        cameraTransform = Camera.main.transform;
+        get => cameraTransform;
+        set => cameraTransform = value;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.rotation = this.cameraTransform.rotation;
+        if (CameraTransform == default) return;
+        transform.rotation = this.CameraTransform.rotation;
     }
 }

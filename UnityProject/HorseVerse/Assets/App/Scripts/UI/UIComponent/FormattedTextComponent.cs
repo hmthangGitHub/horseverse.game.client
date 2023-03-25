@@ -35,10 +35,15 @@ public class FormattedTextComponent : UIComponent<FormattedTextComponent.Entity>
 
     public void SetEntity(params object[] param)
     {
-        this.entity = new Entity()
-        {
-            param = param
-        };
+        this.entity ??= new Entity();
+        this.entity.param = param;
+        OnSetEntity();
+    }
+    
+    public void SetWithArrayEntity(object[] param)
+    {
+        this.entity ??= new Entity();
+        this.entity.param = param;
         OnSetEntity();
     }
 

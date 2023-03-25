@@ -11,9 +11,8 @@ public class RacingState : InjectedBHState
     public override void AddStates()
     {
         base.AddStates();
-        AddState<RacingMenuState>();
+        AddState<RacingThirdPersonMenuState>();
         AddState<RaceModeChoosingState>();
-        AddState<HorseRaceActionState>();
         AddState<RacingHistoryState>();
         SetInitialState<RaceModeChoosingState>();
     }

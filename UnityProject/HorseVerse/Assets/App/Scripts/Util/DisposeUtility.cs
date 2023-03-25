@@ -16,6 +16,13 @@ public static class DisposeUtility
         disposable?.Dispose();
         disposable = default;
     }
+    
+    public static void SafeDisposeMonoBehaviour<T>(ref T monoBehaviour) where T : MonoBehaviour
+    {
+        if (monoBehaviour == default) return;
+        Object.Destroy(monoBehaviour.gameObject);
+        monoBehaviour = default;
+    }
 
     public static void SafeDispose(ref CancellationTokenSource cts)
     {

@@ -95,7 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb3e10379d8d7ce42a41d1c20a07f232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  freeCamera: {fileID: 0}
   raceCamera: {fileID: 0}
   targetGenerator: {fileID: 0}
   warmUpCamera: {fileID: 0}
@@ -175,8 +174,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3105539194236147834}
-  m_LocalRotation: {x: 0.049546994, y: 0.87769634, z: -0.093024075, w: 0.46748346}
-  m_LocalPosition: {x: 100.76744, y: 5.0199995, z: 29.86583}
+  m_LocalRotation: {x: 0.12958036, y: -0.43610638, z: 0.06362103, w: 0.8882413}
+  m_LocalPosition: {x: -289.2001, y: -98.83592, z: 62.985283}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3105539193444477319}
@@ -206,7 +205,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 500
+  far clip plane: 5000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -310,8 +309,6 @@ MonoBehaviour:
   image: {fileID: 7200690568617021472}
   durationOut: 0.5
   durationIn: 0.5
-  excludeCameraBlending: []
-  cinemachineBrain: {fileID: 3105539194236147830}
 --- !u!114 &5390368373788565429
 MonoBehaviour:
   m_ObjectHideFlags: 0

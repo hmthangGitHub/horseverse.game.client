@@ -29,7 +29,7 @@ internal class BetModeSummaryResultPresenter : IDisposable
         uiBetModeResult ??= await UILoader.Instantiate<UIBetModeResult>();
         uiUserBetSummary ??= await UILoader.Instantiate<UIUserBetSumary>();
 
-        var horseRaceWithOrdered = HorseRaceContext.RaceScriptData.HorseRaceInfos
+        var horseRaceWithOrdered = HorseRaceContext.RaceMatchData.HorseRaceInfos
                                                    .Select((horseRaceInfo, index) => (horseRaceInfo, lane: horseRaceInfo.RaceSegments.First().ToLane))
                                                    .OrderBy(x => x.horseRaceInfo.RaceSegments.Sum(segment => segment.Time) + x.horseRaceInfo.DelayTime)
                                                    .ToArray();

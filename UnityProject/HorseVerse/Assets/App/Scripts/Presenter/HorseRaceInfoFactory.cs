@@ -51,8 +51,8 @@ public class HorseRaceInfoFactory
                     SpeedRatio = 1,
                     TechnicallyBonus = horseInfo.Acceleration,
                     TechnicallyRatio = 1,
-                    Rarity = (int)horseInfo.Rarity,
-                    Type = (int)horseInfo.HorseType,
+                    Rarity = horseInfo.Rarity,
+                    Type = horseInfo.HorseType,
                     Level = horseInfo.Level,
                 };
             })

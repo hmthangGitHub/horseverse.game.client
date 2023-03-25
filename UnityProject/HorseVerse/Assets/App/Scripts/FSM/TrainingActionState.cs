@@ -36,7 +36,7 @@ public class TrainingActionState : InjectedBState
     {
         while (true)
         {
-            PingDomainService.StopService();
+            PingDomainService.StopPingService();
             using var horseTrainingPresenter = new HorseTrainingPresenter(Container);
             await horseTrainingPresenter.LoadAssetsAsync().AttachExternalCancellation(cts.Token);
             UILoadingPresenter.HideLoading();

@@ -23,18 +23,19 @@ public class RacingMatchFindingState : InjectedBState, IOnApplicationPauseState
         presenter.FindMatchAsync().Forget();
     }
 
-    private void OnFoundMatch(RaceScriptData raceScriptData)
+    private void OnFoundMatch(RaceMatchData raceMatchData)
     {
-        OnFoundMatchAsync(raceScriptData).Forget();
+        OnFoundMatchAsync(raceMatchData).Forget();
     }
     
-    private async UniTaskVoid OnFoundMatchAsync (RaceScriptData data)
+    private async UniTaskVoid OnFoundMatchAsync (RaceMatchData raceMatchData)
     {
         await UILoadingPresenter.ShowLoadingAsync();
 
         UiHorse3DViewPresenter.Dispose();
         UIHeaderPresenter.ReleaseHeaderUI();
-        HorseRaceContext.RaceScriptData = data;
+        HorseRaceContext.RaceMatchData = raceMatchData;
+        HorseRaceContext.HorseBriefInfos = raceMatchData.HorseRaceInfos;
         HorseRaceContext.RaceMatchDataContext.IsReplay = false;
         ((IState)Machine).Machine.ChangeState<HorseRaceActionState>();
     }

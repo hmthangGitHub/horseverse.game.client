@@ -22,6 +22,7 @@ public class UIComponentTimeSpan : UIComponent<UIComponentTimeSpan.Entity>
 
     public Format format = Format.DD_HH_MM_SS;
     public FormattedTextComponent timeLeftText;
+    private object[] timeParams;
 
     protected override void OnSetEntity()
     {
@@ -32,7 +33,13 @@ public class UIComponentTimeSpan : UIComponent<UIComponentTimeSpan.Entity>
             case Format.DD_HH_MM_SS_MM:
             case Format.DD_HH_MM_SS:
             case Format.HH_MM_SS_MM:
-                timeLeftText.SetEntity(timeLeft.Days, timeLeft.Hours, timeLeft.Minutes, timeLeft.Seconds, timeLeft.Milliseconds / 10);
+                timeParams ??= new object[5];
+                timeParams[0] = timeLeft.Days;
+                timeParams[1] = timeLeft.Hours;
+                timeParams[2] = timeLeft.Minutes;
+                timeParams[3] = timeLeft.Seconds;
+                timeParams[4] = timeLeft.Milliseconds / 10;
+                timeLeftText.SetWithArrayEntity(timeParams);
                 break;
             case Format.SS:
                 timeLeftText.SetEntity(timeLeft.TotalSeconds);

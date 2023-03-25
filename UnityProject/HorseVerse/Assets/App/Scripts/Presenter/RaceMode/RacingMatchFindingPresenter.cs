@@ -20,7 +20,7 @@ public class RacingMatchFindingPresenter : IDisposable
     private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
     private UITouchDisablePresenter UITouchDisablePresenter => uiTouchDisablePresenter ??= container.Inject<UITouchDisablePresenter>();
     
-    public event Action<RaceScriptData> OnFoundMatch = ActionUtility.EmptyAction<RaceScriptData>.Instance;
+    public event Action<RaceMatchData> OnFoundMatch = ActionUtility.EmptyAction<RaceMatchData>.Instance;
     public event Action OnCancelFindMatch = ActionUtility.EmptyAction.Instance;
 
     private long currentMatchId;

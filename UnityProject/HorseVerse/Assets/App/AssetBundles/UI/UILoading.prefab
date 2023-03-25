@@ -65,6 +65,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 1526402568736741997}
   animation: {fileID: 6648689746812465252}
+  loadingHorse: {fileID: 5148316792823277654}
 --- !u!114 &6648689746812465252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,7 +284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1157847006890891404, guid: 83a3ffda6225a9842b57e48e4b6c5c35, type: 3}
       propertyPath: m_Name
-      value: LoadingHorse
+      value: loadingHorse
       objectReference: {fileID: 0}
     - target: {fileID: 5010289187553351648, guid: 83a3ffda6225a9842b57e48e4b6c5c35, type: 3}
       propertyPath: m_UpdateMode
@@ -291,8 +292,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83a3ffda6225a9842b57e48e4b6c5c35, type: 3}
+--- !u!1 &6598943880264707758 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1157847006890891404, guid: 83a3ffda6225a9842b57e48e4b6c5c35, type: 3}
+  m_PrefabInstance: {fileID: 5441852244709439010}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5651425899302644795 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 425786021677963801, guid: 83a3ffda6225a9842b57e48e4b6c5c35, type: 3}
   m_PrefabInstance: {fileID: 5441852244709439010}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5148316792823277654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6598943880264707758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7271959bb393bd542b9b33c6cf6ce36e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObject: {fileID: 6598943880264707758}

@@ -15,8 +15,6 @@ public class UIHorseModelLoader : UIComponent<UIHorseModelLoader.Entity>
         public Color color2;
         public Color color3;
         public Color color4;
-        public Vector3 position;
-        public Quaternion rotation;
     }
 
     public GameObject horseIntro3DContainer;
@@ -28,8 +26,7 @@ public class UIHorseModelLoader : UIComponent<UIHorseModelLoader.Entity>
 
     protected override void OnSetEntity()
     {
-        this.transform.position = this.entity.position;
-        this.transform.rotation = this.entity.rotation;
+        
         LoadHorseAsync().Forget();
     }
 
@@ -47,8 +44,6 @@ public class UIHorseModelLoader : UIComponent<UIHorseModelLoader.Entity>
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
-        horseIntro3DContainer.transform.parent = default;
-        horseIntro3DContainer.transform.localScale = Vector3.one;
         
         if (horsePosition.transform.childCount > 0)
         {
@@ -70,6 +65,14 @@ public class UIHorseModelLoader : UIComponent<UIHorseModelLoader.Entity>
         {
             AnimatateHorse();
         }
+    }
+
+    public void SetTransform(Vector3 position, Quaternion rotation)
+    {
+        horseIntro3DContainer.transform.parent = default;
+        horseIntro3DContainer.transform.position = position;
+        horseIntro3DContainer.transform.rotation = rotation;
+        horseIntro3DContainer.transform.localScale = Vector3.one;
     }
 
     private void SetHorseAnimation()

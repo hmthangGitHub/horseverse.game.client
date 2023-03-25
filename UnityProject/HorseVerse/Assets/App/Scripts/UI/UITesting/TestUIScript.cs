@@ -28,7 +28,7 @@ public class TestUIScript<T, TEntity> : MonoBehaviour  where T : MonoBehaviour, 
         }
     }
 
-    public virtual void SetEntity()
+    protected virtual void SetEntity()
     {
         uiTest.SetEntity(entity);
     }

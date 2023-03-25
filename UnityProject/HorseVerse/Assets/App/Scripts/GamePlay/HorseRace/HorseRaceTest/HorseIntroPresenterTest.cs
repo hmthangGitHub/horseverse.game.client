@@ -11,9 +11,8 @@ public class HorseIntroPresenterTest : MonoBehaviour
         var container = new DIContainer();
         MasterHorseContainer masterHorseContaienr = await MasterLoader.LoadMasterAsync<MasterHorseContainer>();
         container.Bind(masterHorseContaienr);
-        using var horseIntroPresenter = new RaceModeHorseIntroPresenter(container);
-        await horseIntroPresenter.LoadUIAsync();
-        await horseIntroPresenter.ShowHorsesInfoIntroAsync(default, Vector3.zero, Quaternion.identity);
+        using var horseIntroPresenter = await RaceModeHorseIntroPresenter.InstantiateAsync(container, Vector3.zero, Quaternion.identity, default);
+        await horseIntroPresenter.ShowHorsesInfoIntroAsync(default);
     }
 
     private long[] GetAllMasterHorseIds(MasterHorseContainer horseContainer)
