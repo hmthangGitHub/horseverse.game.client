@@ -16,6 +16,8 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
     private MasterTrainingModularBlockContainer masterTrainingModularBlockContainer;
     private GameObjectPoolList gameObjectPoolList = new GameObjectPoolList();
 
+    private string _path = "";
+
     protected override async UniTask InitializeInternal()
     {
         cts.SafeCancelAndDispose();
@@ -26,10 +28,19 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
 
     protected override async UniTask InitializeInternal(string path)
     {
+        _path = path;
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         trainingBlockSettings = await PrimitiveAssetLoader.LoadAssetAsync<TrainingBlockSettings>($"{TrainingBlockSettingPath}_{path}", cts.Token);
-        masterTrainingModularBlockContainer = await MasterLoader.LoadMasterAsync<MasterTrainingModularBlockContainer>(cts.Token);
+        masterTrainingModularBlockContainer = await MasterLoader.LoadMasterAsync<MasterTrainingModularBlockContainer>(path, cts.Token);
+    }
+
+    protected override async UniTask ReleaseInternal()
+    {
+        PrimitiveAssetLoader.UnloadAssetAtPath($"{TrainingBlockSettingPath}_{_path}");
+        MasterLoader.Unload<MasterTrainingModularBlockContainer>(_path);
+        _path = "";
+        await UniTask.CompletedTask;
     }
 
     protected override PlatformBase CreatePlatform(Vector3 relativePointToPlayer,
@@ -196,6 +207,7 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
         trainingBlockSettings = default;
         PrimitiveAssetLoader.UnloadAssetAtPath(TrainingBlockSettingPath);
         MasterLoader.Unload<MasterTrainingModularBlockContainer>();
+        if(!string.IsNullOrEmpty(_path)) MasterLoader.Unload<MasterTrainingModularBlockContainer>(_path);
         DisposeUtility.SafeDispose(ref gameObjectPoolList);
     }
 }

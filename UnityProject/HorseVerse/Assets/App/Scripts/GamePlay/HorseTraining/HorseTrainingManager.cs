@@ -16,10 +16,12 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
 
     public async UniTask Initialize(string mapPath,
                                     string mapId,
+                                    int NumberOfBlock,
                                     Action onTakeCoin,
                                     Action onUpdateRunTime,
                                     Action onTouchObstacle,
                                     Action onFinishOnePlatform,
+                                    Action onFinishOneScene,
                                     MasterHorseTrainingProperty masterHorseTrainingProperty,
                                     MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer,
                                     MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer,
@@ -32,12 +34,14 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
         HorseTrainingController.OnUpdateRunTime += onUpdateRunTime;
         HorseTrainingController.OnDeadEvent += onTouchObstacle;
         PlatformGenerator.OnFinishOnePlatform += onFinishOnePlatform;
+        PlatformGenerator.OnFinishOneScene += onFinishOneScene;
         await PlatformGenerator.InitializeAsync(masterHorseTrainingProperty, 
             masterHorseTrainingBlockContainer, 
             masterHorseTrainingBlockComboContainer, 
             masterTrainingDifficultyContainer, 
             masterTrainingBlockDistributeContainer,
-            mapId);
+            mapId,
+            NumberOfBlock);
     }
 
     public void StartGame()
@@ -48,5 +52,17 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
     public void Dispose()
     {
         DisposeUtility.SafeDispose(ref horseTrainingController);
+    }
+
+    public async UniTask UpdateMap( string mapPath,
+                                    string mapId,
+                                    int NumberOfBlock,
+                                    MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer,
+                                    MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer)
+    {
+        await PlatformGenerator.UpdateMapAsync(masterHorseTrainingBlockContainer,
+            masterHorseTrainingBlockComboContainer,
+            mapId,
+            NumberOfBlock);
     }
 }

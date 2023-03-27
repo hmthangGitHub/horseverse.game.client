@@ -32,7 +32,7 @@ public static class MasterLoader
     public static async UniTask<TMasterContainer> LoadMasterAsync<TMasterContainer>(string prefix, CancellationToken token = default) where TMasterContainer : IMasterContainer, new()
     {
         var masterContainer = new TMasterContainer();
-        var text = await GetMasterRawDataText<TMasterContainer>(token);
+        var text = await GetMasterRawDataText<TMasterContainer>(prefix, token);
 #if ENABLE_DEBUG_MODULE
         try
         {

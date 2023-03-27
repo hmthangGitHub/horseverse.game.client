@@ -19,31 +19,54 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
 
     private readonly Queue<GameObject> platformQueue = new Queue<GameObject>();
     private bool isFirstJump = true;
+    private bool isEndScene = false;
 
     protected Vector3 nextDirection = Vector3.forward;
     protected Vector3 nextSideDirection = Vector3.right;
 
     public event Action OnFinishOnePlatform = ActionUtility.EmptyAction.Instance;
+    public event Action OnFinishOneScene = ActionUtility.EmptyAction.Instance;
 
+    protected bool isReleasing = false;
+    protected int numberOfBlock = 0;
+    protected int currentBlock = 0;
 
     public async UniTask InitializeAsync(MasterHorseTrainingProperty masterHorseTrainingProperty,
                                          MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer,
                                          MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer,
                                          MasterTrainingDifficultyContainer masterTrainingDifficultyContainer,
                                          MasterTrainingBlockDistributeContainer masterTrainingBlockDistributeContainer,
-                                         string Scene_Key)
+                                         string Scene_Key,
+                                         int NumberOfBlocks)
     {
         this.masterHorseTrainingProperty = masterHorseTrainingProperty;
         this.masterHorseTrainingBlockContainer = masterHorseTrainingBlockContainer;
         this.masterHorseTrainingBlockComboContainer = masterHorseTrainingBlockComboContainer;
         this.masterTrainingDifficultyContainer = masterTrainingDifficultyContainer;
         this.masterTrainingBlockDistributeContainer = masterTrainingBlockDistributeContainer;
+        this.numberOfBlock = NumberOfBlocks;
+        this.currentBlock = 0;
         await InitializeInternal(Scene_Key);
         GenerateMulti(2);
     }
 
+    public async UniTask UpdateMapAsync( MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer,
+                                         MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer,
+                                         string Scene_Key, 
+                                         int NumberOfBlocks)
+    {
+        this.masterHorseTrainingBlockContainer = masterHorseTrainingBlockContainer;
+        this.masterHorseTrainingBlockComboContainer = masterHorseTrainingBlockComboContainer;
+        this.numberOfBlock = NumberOfBlocks;
+        this.currentBlock = 0;
+        await ReleaseInternal();
+        await InitializeInternal(Scene_Key);
+    }
+
     protected abstract UniTask InitializeInternal();
     protected abstract UniTask InitializeInternal(string path);
+    protected abstract UniTask ReleaseInternal();
+
 
     public abstract void Dispose();
 
@@ -198,6 +221,7 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     {
         CreateDebugSphere(relativePointToPlayer + lastEndPosition);
         var platform = CreatePlatform(relativePointToPlayer, lastEndPosition);
+
         platform.OnFinishPlatform += OnCreateNewPlatform;
         return platform.gameObject;
     }
@@ -236,6 +260,17 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         }
         GenerateAsync().AttachExternalCancellation(this.GetCancellationTokenOnDestroy()).Forget();
         OnFinishOnePlatform?.Invoke();
+    }
+
+    private void OnEndOfScene()
+    {
+        var pp = platformQueue.Dequeue();
+        pp.GetComponent<PlatformModular>().Clear();
+        Destroy(pp);
+
+        isEndScene = true;
+        OnFinishOnePlatform?.Invoke();
+        OnFinishOneScene.Invoke();
     }
 
     private void OnDestroyPlatform()

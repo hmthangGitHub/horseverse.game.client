@@ -16,6 +16,11 @@ public class PlatformGenerator : PlatformGeneratorBase
         return UniTask.FromResult(UniTask.CompletedTask);
     }
 
+    protected override UniTask ReleaseInternal()
+    {
+        return UniTask.FromResult(UniTask.CompletedTask);
+    }
+
     protected override PlatformBase CreatePlatform(Vector3 relativePointToPlayer,
                                                    Vector3 lastEndPosition)
     {
