@@ -29,6 +29,7 @@ public class HorseTrainingPresenter : IDisposable
     private ITrainingDomainService trainingDomainService;
 
     private CancellationTokenSource cts;
+    private Scene baseSceneAsset;
     private Scene mapSceneAsset;
     private int distanceOfRunning = 0;
     private UniTaskCompletionSource<bool> trainingUcsRetry;
@@ -49,6 +50,8 @@ public class HorseTrainingPresenter : IDisposable
 
     public async UniTask LoadAssetsAsync()
     {
+        await LoadAssetsAsync(HorseTrainingDataContext.MasterMapId);
+        return;
         masterMapContainer = await MasterLoader.LoadMasterAsync<MasterMapContainer>(token: cts.Token);
         mapSceneAsset = await SceneAssetLoader.LoadSceneAsync(masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.MasterMapId]
             .MapPath, true, token: cts.Token);
@@ -315,6 +318,11 @@ public class HorseTrainingPresenter : IDisposable
             SceneAssetLoader.UnloadAssetAtPath(masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.MasterMapId].MapPath);
             mapSceneAsset = default;
         }
+        if (baseSceneAsset != default)
+        {
+            SceneAssetLoader.UnloadAssetAtPath("Maps/racing_scene_stadium_training_basic");
+            baseSceneAsset = default;
+        }
         UILoader.SafeRelease(ref uiTrainingCoinCounting);
         UILoader.SafeRelease(ref uiTrainingPressAnyKey);
         UILoader.SafeRelease(ref uiHorseTrainingInput);
@@ -365,5 +373,41 @@ public class HorseTrainingPresenter : IDisposable
             highestScore = result.PlayerInfo.TrainingHighestScore,
         });
         await popup.In();
+    }
+
+    public async UniTask LoadAssetsAsync(long mapID)
+    {
+        baseSceneAsset = await SceneAssetLoader.LoadSceneAsync("Maps/racing_scene_stadium_training_basic", true, token: cts.Token);
+
+        masterMapContainer ??= await MasterLoader.LoadMasterAsync<MasterMapContainer>(token: cts.Token);
+        mapSceneAsset = await SceneAssetLoader.LoadSceneAsync(masterMapContainer.MasterMapIndexer[mapID]
+            .MapPath, false, token: cts.Token);
+        horseTrainingManager ??= Object.Instantiate((await Resources.LoadAsync<HorseTrainingManager>("GamePlay/HorseTrainingManager") as HorseTrainingManager));
+
+        masterHorseContainer = await MasterLoader.LoadMasterAsync<MasterHorseContainer>(token: cts.Token);
+        masterHorseTrainingPropertyContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingPropertyContainer>(token: cts.Token);
+        masterHorseTrainingBlockContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(token: cts.Token);
+        masterHorseTrainingBlockComboContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>(token: cts.Token);
+        masterTrainingDifficultyContainer = await MasterLoader.LoadMasterAsync<MasterTrainingDifficultyContainer>(token: cts.Token);
+        masterTrainingBlockDistributeContainer = await MasterLoader.LoadMasterAsync<MasterTrainingBlockDistributeContainer>(token: cts.Token);
+
+        uiTrainingCoinCounting = await UILoader.Instantiate<UITrainingCoinCounting>(token: cts.Token);
+        uiTrainingPressAnyKey = await UILoader.Instantiate<UITrainingPressAnyKey>(token: cts.Token);
+        uiHorseTrainingInput = await UILoader.Instantiate<UIHorseTrainingInput>(token: cts.Token);
+        uiTrainingTutorial = await UILoader.Instantiate<UITrainingTutorial>(token: cts.Token);
+
+        await horseTrainingManager.Initialize(
+            masterMapContainer.MasterMapIndexer[mapID].MapPath,
+            mapID.ToString(),
+            OnTakeCoin,
+            OnUpdateRuntime,
+            () => OnTouchObstacleAsync().Forget(),
+            OnFinishOnePlatform,
+            masterHorseTrainingPropertyContainer.DataList.First(),
+            masterHorseTrainingBlockContainer,
+            masterHorseTrainingBlockComboContainer,
+            masterTrainingBlockDistributeContainer,
+            masterTrainingDifficultyContainer,
+            horseTrainingDataContext.HorseMeshInformation);
     }
 }
