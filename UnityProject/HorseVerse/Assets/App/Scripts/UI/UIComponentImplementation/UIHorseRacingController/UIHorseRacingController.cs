@@ -13,7 +13,7 @@ public class UIHorseRacingController : PopupEntity<UIHorseRacingController.Entit
 	    public UIComponentHoldImageBehavior.Entity cameraBtn;
     }
 
-    public UIComponentImageProgress sprintBar;
+    public UIComponentProgressBar sprintBar;
     public UIComponentImageProgress sprintHealingProgress;
     public ButtonComponent sprintBtn;
     public UIComponentHoldImageBehavior cameraBtn;
@@ -24,5 +24,11 @@ public class UIHorseRacingController : PopupEntity<UIHorseRacingController.Entit
 	     sprintHealingProgress.SetEntity(this.entity.sprintHealingProgress);
 	     sprintBtn.SetEntity(this.entity.sprintBtn);
 	     cameraBtn.SetEntity(this.entity.cameraBtn);
+    }
+
+    public void SetSprintTime(float currentSprintNormalizeTime)
+    {
+	    sprintBar.SetEntity(currentSprintNormalizeTime);
+	    sprintBar.gameObject.SetActive(currentSprintNormalizeTime > 0);
     }
 }

@@ -103,7 +103,7 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
     public void UpdateRaceTime()
     {
         if (!isStarted) return;
-        uiHorseRacingController.sprintBar.SetEntity(playerHorseRaceThirdPersonBehaviour.CurrentSprintNormalizeTime);
+        uiHorseRacingController.SetSprintTime(playerHorseRaceThirdPersonBehaviour.CurrentSprintNormalizeTime);
         uiHorseRacingController.sprintHealingProgress.SetEntity(playerHorseRaceThirdPersonBehaviour.CurrentSprintHealingNormalizeTime);
         uiHorseRacingController.sprintBtn.SetInteractable(playerHorseRaceThirdPersonBehaviour.IsAbleToSprint);
         NormalizedRaceTime = HorseControllers.Max(x => x.CurrentRaceProgressWeight);
