@@ -408,7 +408,7 @@ public class HorseTrainingPresenter : IDisposable
         uiHorseTrainingInput = await UILoader.Instantiate<UIHorseTrainingInput>(token: cts.Token);
         uiTrainingTutorial = await UILoader.Instantiate<UITrainingTutorial>(token: cts.Token);
 
-        int NumberOfBlock = UnityEngine.Random.Range(4, 10);
+        int NumberOfBlock = 4; // UnityEngine.Random.Range(4, 10);
 
         await horseTrainingManager.Initialize(
             masterMapContainer.MasterMapIndexer[mapID].MapPath,
@@ -441,11 +441,13 @@ public class HorseTrainingPresenter : IDisposable
 
     public async UniTask LoadNextAssetsAsync(long mapID)
     {
+        Debug.Log("Load Next Scene");
+        horseTrainingManager.PerformChangeScene(true);
         await UnLoadCurrentScene();
         map_id = mapID;
         mapSceneAsset = await SceneAssetLoader.LoadSceneAsync(masterMapContainer.MasterMapIndexer[map_id]
             .MapPath, false, token: cts.Token);
-        int NumberOfBlock = UnityEngine.Random.Range(4, 10);
+        int NumberOfBlock = 4;// UnityEngine.Random.Range(4, 10);
         masterHorseTrainingBlockContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(map_id.ToString(), token: cts.Token);
         masterHorseTrainingBlockComboContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>(map_id.ToString(), token: cts.Token);
         await horseTrainingManager.UpdateMap(
@@ -455,5 +457,6 @@ public class HorseTrainingPresenter : IDisposable
                 masterHorseTrainingBlockContainer,
                 masterHorseTrainingBlockComboContainer
             );
+        horseTrainingManager.PerformChangeScene(false);
     }
 }

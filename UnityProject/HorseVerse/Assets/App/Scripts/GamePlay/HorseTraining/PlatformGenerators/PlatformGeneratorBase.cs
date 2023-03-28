@@ -46,6 +46,7 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         this.masterTrainingBlockDistributeContainer = masterTrainingBlockDistributeContainer;
         this.numberOfBlock = NumberOfBlocks;
         this.currentBlock = 0;
+        isEndScene = false;
         await InitializeInternal(Scene_Key);
         GenerateMulti(2);
     }
@@ -59,8 +60,10 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         this.masterHorseTrainingBlockComboContainer = masterHorseTrainingBlockComboContainer;
         this.numberOfBlock = NumberOfBlocks;
         this.currentBlock = 0;
+        isEndScene = false;
         await ReleaseInternal();
         await InitializeInternal(Scene_Key);
+        GenerateMulti(2);
     }
 
     protected abstract UniTask InitializeInternal();
@@ -174,7 +177,13 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
 
             var platform2 = await CreatePlatformWithoutSceneryObjectAsync(relativePointToPlayer, lastEndPosition);
             platform2.transform.forward = nextDirection;
-            platform2.OnFinishPlatform += OnCreateNewPlatform;
+
+            currentBlock++;
+            if (currentBlock >= numberOfBlock)
+                platform2.OnFinishPlatform += OnEndOfScene;
+            else
+                platform2.OnFinishPlatform += OnCreateNewPlatform;
+
             platformQueue.Enqueue(platform2.gameObject);
             var pp2 = platform2.GetComponent<PlatformModular>();
             pp2.CreateSceneryRegions();
@@ -221,8 +230,13 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     {
         CreateDebugSphere(relativePointToPlayer + lastEndPosition);
         var platform = CreatePlatform(relativePointToPlayer, lastEndPosition);
+        currentBlock++;
+        if (currentBlock >= numberOfBlock)
+            platform.OnFinishPlatform += OnEndOfScene;
+        else
+            platform.OnFinishPlatform += OnCreateNewPlatform;
+        Debug.LogError("currentBlock " + currentBlock + " vs " + numberOfBlock);
 
-        platform.OnFinishPlatform += OnCreateNewPlatform;
         return platform.gameObject;
     }
 
@@ -231,8 +245,13 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     {
         CreateDebugSphere(relativePointToPlayer + lastEndPosition);
         var platform = await CreatePlatformAsync(relativePointToPlayer, lastEndPosition);
-        platform.OnFinishPlatform += OnCreateNewPlatform;
+        currentBlock++;
+        if (currentBlock >= numberOfBlock)
+            platform.OnFinishPlatform += OnEndOfScene;
+        else
+            platform.OnFinishPlatform += OnCreateNewPlatform;
         platform.transform.forward = direction;
+        Debug.LogError("currentBlock " + currentBlock + " vs " + numberOfBlock);
         return platform.gameObject;
     }
 
@@ -264,13 +283,14 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
 
     private void OnEndOfScene()
     {
+        Debug.Log(" End Of Scene");
         var pp = platformQueue.Dequeue();
         pp.GetComponent<PlatformModular>().Clear();
         Destroy(pp);
 
         isEndScene = true;
         OnFinishOnePlatform?.Invoke();
-        OnFinishOneScene.Invoke();
+        OnFinishOneScene?.Invoke();
     }
 
     private void OnDestroyPlatform()

@@ -199,6 +199,7 @@ public partial class PlatformModular : PlatformBase
                               GameObject[] sceneryObjects,
                               GameObjectPoolList gameObjectPoolList)
     {
+        IsReady = false;
         InstantiateBlocks(blockPrefabs, paddingStartPrefab, paddingEndPrefab, masterTrainingBlockComboType);
         Tiling();
         TilingPaddingBlocks(masterTrainingBlockComboType);
@@ -206,6 +207,7 @@ public partial class PlatformModular : PlatformBase
         PlaceEndObjectAtOffsetToLastBlock(jumpingPoint);
         AlignToStartPosition(startPosition);
         GenerateSceneryObjects(sceneryObjects, gameObjectPoolList);
+        IsReady = true;
     }
 
     private IEnumerator GenerateBlockAsync(Vector3 startPosition,
@@ -216,6 +218,7 @@ public partial class PlatformModular : PlatformBase
                                            float landingPoint,
                                            MasterTrainingBlockComboType masterTrainingBlockComboType)
     {
+        IsReady = false;
         List<BoxCollider> sss = new List<BoxCollider>();
         enableColliders.Clear();
         var paddingHead = Instantiate_PaddingHeadCollider(paddingStartPrefab, masterTrainingBlockComboType);
@@ -243,6 +246,7 @@ public partial class PlatformModular : PlatformBase
         AlignToStartPosition(startPosition);
         yield return null;
         EnableCollider(enableColliders);
+        IsReady = true; 
     }
 
     public void GenerateBlock(Vector3 startPosition,

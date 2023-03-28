@@ -56,12 +56,13 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private bool isGrounded = true;
     private bool isJumping;
     private bool isTurning = false;
-
+    private bool isChangeScene = false;
+    private bool isPerformChangeScene = false;
 
     public bool IsLanding => isGrounded;
     public bool IsJumping => isJumping;
     public bool IsDead => isDead;
-
+    public bool IsPerformChangeScene => isPerformChangeScene;
 
     private Animator animator;
     private Animator Animator => animator ??= GetComponentInChildren<Animator>();
@@ -145,6 +146,18 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
             if (currentDifficulty == value) return;
             currentDifficulty = value;
             ForwardVelocity = GetForwardVelocityFromCurrentDifficulty();
+        }
+    }
+
+    public bool IsChangeScene
+    {
+        get => isChangeScene;
+        set
+        {
+            if (isChangeScene == value) return;
+            isChangeScene = value;
+            if(isChangeScene)
+                OnChangeScene();
         }
     }
 
@@ -295,7 +308,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
     private void Update()
     {
-        if (IsStart && !isDead)
+        if (IsStart && !isDead && !isPerformChangeScene)
         {
             CheckIfGrounded();
             CheckIfFall();
@@ -488,6 +501,8 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private void FixedUpdate()
     {
         if (!IsStart) return;
+        if (isPerformChangeScene) return;
+
         rigidbody.velocity = getVelocity();
         if (rigidbody.velocity.y < 0)
         {
@@ -653,4 +668,25 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         }
     }
 
+    private void OnChangeScene()
+    {
+        StartCoroutine(OnChangeSceneAsync());
+    }
+
+    private IEnumerator OnChangeSceneAsync()
+    {
+        isPerformChangeScene = true;
+        rigidbody.useGravity = false;
+        isJumping = true;
+        animator.CrossFade("JumpStart", 0.1f, 0);
+        float duration = 5.0f;
+        float t = 0;
+        while (IsChangeScene && t < duration)
+        {
+            yield return null;
+            t += Time.deltaTime;
+        }
+        isPerformChangeScene = false;
+        rigidbody.useGravity = true;
+    }
 }

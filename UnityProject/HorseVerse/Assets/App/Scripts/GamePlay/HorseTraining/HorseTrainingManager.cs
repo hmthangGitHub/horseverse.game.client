@@ -65,4 +65,9 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
             mapId,
             NumberOfBlock);
     }
+
+    public void PerformChangeScene(bool active)
+    {
+        horseTrainingController.IsChangeScene = active;
+    }
 }
