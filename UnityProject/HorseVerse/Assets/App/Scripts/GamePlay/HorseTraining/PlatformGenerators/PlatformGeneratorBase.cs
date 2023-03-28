@@ -277,7 +277,8 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
             pp.GetComponent<PlatformModular>().Clear();
             Destroy(pp);
         }
-        GenerateAsync().AttachExternalCancellation(this.GetCancellationTokenOnDestroy()).Forget();
+        if(currentBlock < numberOfBlock)
+            GenerateAsync().AttachExternalCancellation(this.GetCancellationTokenOnDestroy()).Forget();
         OnFinishOnePlatform?.Invoke();
     }
 

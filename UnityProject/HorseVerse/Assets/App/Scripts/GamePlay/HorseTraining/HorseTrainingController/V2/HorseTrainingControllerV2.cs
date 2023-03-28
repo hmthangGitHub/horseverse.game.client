@@ -58,6 +58,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private bool isTurning = false;
     private bool isChangeScene = false;
     private bool isPerformChangeScene = false;
+    private bool isChangeScened = false;
 
     public bool IsLanding => isGrounded;
     public bool IsJumping => isJumping;
@@ -482,13 +483,16 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         if (!isGrounded)
         {
             currentAirTime += Time.deltaTime;
-            
-            if (currentAirTime > MaxAirTime)
+
+            if (!isChangeScened)
             {
-                OnDead();
-                cam1.transform.parent = null;
-                cam2.transform.parent = null;
-            }    
+                if (currentAirTime > MaxAirTime)
+                {
+                    OnDead();
+                    cam1.transform.parent = null;
+                    cam2.transform.parent = null;
+                }
+            }
         }
         
     }
@@ -584,6 +588,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
                 trailVFX.SetActive(false);
                 AudioManager.Instance.PlaySound(AudioManager.HorseLand);
                 AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunTraining);
+                isChangeScened = false;
             }
             currentAirTime = 0.0f;
         }
@@ -681,12 +686,15 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         animator.CrossFade("JumpStart", 0.1f, 0);
         float duration = 5.0f;
         float t = 0;
-        while (IsChangeScene && t < duration)
+        rigidbody.velocity = Vector3.up * JumpVelocity + getVelocity();
+        while (IsChangeScene || t < duration)
         {
             yield return null;
             t += Time.deltaTime;
         }
         isPerformChangeScene = false;
         rigidbody.useGravity = true;
+        currentAirTime = 0;
+        isChangeScened = true;
     }
 }
