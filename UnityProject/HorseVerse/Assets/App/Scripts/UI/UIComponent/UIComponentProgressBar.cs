@@ -29,8 +29,11 @@ public class UIComponentProgressBar : UIComponent<UIComponentProgressBar.Entity>
         progressEvent.AddListener((f) => this.entity.OnChangeValue?.Invoke(f));
     }
 
-    public void SetProgress(float progress)
+    public void SetEntity(float progress)
     {
+        this.entity ??= new Entity()
+        {
+        };
         this.entity.progress = progress;
         OnSetEntity();
     }

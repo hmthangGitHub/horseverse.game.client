@@ -12,7 +12,7 @@ public class UIComponentHorseDetailAnimation : MonoBehaviour
     public Tween CreateAnimation()
     {
         return DOTween.Sequence()
-                      .Join(progressBarWithBonuses.Select(x => DOTweenExtensions.To(x.progressBar.SetProgress,
+                      .Join(progressBarWithBonuses.Select(x => DOTweenExtensions.To(x.progressBar.SetEntity,
                                                                                      0,
                                                                                      x.entity.progressBar.progress,
                                                                                      0.25f)).ToArray().AsSequence(false))

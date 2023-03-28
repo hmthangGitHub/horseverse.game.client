@@ -15,6 +15,7 @@ public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour, IHorseRaceIn
     [SerializeField] private float offsetRange = 5.5f;
     [SerializeField] private GameObject cameraFront;
     [SerializeField] private GameObject cameraBack;
+    private GameObject sprintEffect;
     public event Action OnFinishRace = ActionUtility.EmptyAction.Instance;
 
     private HorseRaceThirdPersonData horseRaceThirdPersonData;
@@ -75,6 +76,7 @@ public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour, IHorseRaceIn
         horseTransform.rotation = horseRaceThirdPersonData.TargetGenerator.PredefinePath.StartRotation;
         laneContainer.SetEntity(horseRaceThirdPersonData.InitialLane);
         worldSpaceCanvasBillBoard.CameraTransform = horseRaceThirdPersonData.Camera;
+        sprintEffect = GetComponentInChildren<HorseObjectReferences>().raceModeSprintParticle;
     }
 
     private float GetCurrentProgress()
@@ -114,8 +116,8 @@ public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour, IHorseRaceIn
 
     private void UpdateSprintTime()
     {
+        sprintEffect.SetActive(currentSprintTime > 0);
         if (!(currentSprintTime > 0.0f)) return;
-        
         currentSprintTime = Mathf.MoveTowards(currentSprintTime, 0.0f, Time.deltaTime);
         if (currentSprintTime <= 0.0f)
         {
