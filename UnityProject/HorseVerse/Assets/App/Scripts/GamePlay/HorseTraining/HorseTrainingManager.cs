@@ -41,7 +41,8 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
             masterTrainingDifficultyContainer, 
             masterTrainingBlockDistributeContainer,
             mapId,
-            NumberOfBlock);
+            NumberOfBlock,
+            Vector3.forward);
     }
 
     public void StartGame()
@@ -60,10 +61,12 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
                                     MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer,
                                     MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer)
     {
+        var dir = PlatformGenerator.NextDirection;
         await PlatformGenerator.UpdateMapAsync(masterHorseTrainingBlockContainer,
             masterHorseTrainingBlockComboContainer,
             mapId,
-            NumberOfBlock);
+            NumberOfBlock,
+            dir);
     }
 
     public void PerformChangeScene(bool active)

@@ -24,6 +24,8 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     protected Vector3 nextDirection = Vector3.forward;
     protected Vector3 nextSideDirection = Vector3.right;
 
+    public Vector3 NextDirection => nextDirection;
+
     public event Action OnFinishOnePlatform = ActionUtility.EmptyAction.Instance;
     public event Action OnFinishOneScene = ActionUtility.EmptyAction.Instance;
 
@@ -37,7 +39,8 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
                                          MasterTrainingDifficultyContainer masterTrainingDifficultyContainer,
                                          MasterTrainingBlockDistributeContainer masterTrainingBlockDistributeContainer,
                                          string Scene_Key,
-                                         int NumberOfBlocks)
+                                         int NumberOfBlocks,
+                                         Vector3 direction)
     {
         this.masterHorseTrainingProperty = masterHorseTrainingProperty;
         this.masterHorseTrainingBlockContainer = masterHorseTrainingBlockContainer;
@@ -47,6 +50,9 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         this.numberOfBlock = NumberOfBlocks;
         this.currentBlock = 0;
         isEndScene = false;
+        this.nextDirection = direction;
+        this.nextSideDirection = Quaternion.AngleAxis(90, Vector3.up) * nextDirection;
+        Debug.Log("DIRECTION " + this.nextDirection + "; SIDE  " + this.nextSideDirection);
         await InitializeInternal(Scene_Key);
         GenerateMulti(2);
     }
@@ -54,16 +60,20 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     public async UniTask UpdateMapAsync( MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer,
                                          MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer,
                                          string Scene_Key, 
-                                         int NumberOfBlocks)
+                                         int NumberOfBlocks,
+                                         Vector3 direction)
     {
         this.masterHorseTrainingBlockContainer = masterHorseTrainingBlockContainer;
         this.masterHorseTrainingBlockComboContainer = masterHorseTrainingBlockComboContainer;
         this.numberOfBlock = NumberOfBlocks;
         this.currentBlock = 0;
         isEndScene = false;
+        this.nextDirection = direction;
+        this.nextSideDirection = Quaternion.AngleAxis(90, Vector3.up) * nextDirection;
+        Debug.Log("DIRECTION " + this.nextDirection + "; SIDE  " + this.nextSideDirection);
         await ReleaseInternal();
         await InitializeInternal(Scene_Key);
-        GenerateMulti(2);
+        await GenerateMultiAsync(2);
     }
 
     protected abstract UniTask InitializeInternal();
@@ -111,16 +121,6 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     {
         nextDirection = Quaternion.AngleAxis(90, Vector3.up) * nextDirection;
         nextSideDirection = Quaternion.AngleAxis(90, Vector3.up) * nextSideDirection;
-    }
-
-    private void Generate()
-    {
-        var relativePointToPlayer = PredictRelativePointToPlayer();
-        var platformTest = lastPlatform.GetComponent<PlatformBase>();
-        var lastEndPosition = platformTest.end.position;
-        var platform = CreateNewPlatform(relativePointToPlayer, lastEndPosition);
-        lastPlatform = platform;
-        platformQueue.Enqueue(platform);
     }
 
     private async UniTask GenerateAsync()
@@ -209,7 +209,20 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
             var relativePointToPlayer = PredictRelativePointToPlayer();
             var platformTest = lastPlatform.GetComponent<PlatformBase>();
             var lastEndPosition = platformTest.end.position;
-            var platform = CreateNewPlatform(relativePointToPlayer, lastEndPosition);
+            var platform = CreateNewPlatform(relativePointToPlayer, lastEndPosition, nextDirection);
+            lastPlatform = platform;
+            platformQueue.Enqueue(platform);
+        }
+    }
+
+    private async UniTask GenerateMultiAsync(int number)
+    {
+        for (int i = 0; i < number; i++)
+        {
+            var relativePointToPlayer = PredictRelativePointToPlayer();
+            var platformTest = lastPlatform.GetComponent<PlatformBase>();
+            var lastEndPosition = platformTest.end.position;
+            var platform = await CreateNewPlatformAsync(relativePointToPlayer, lastEndPosition, nextDirection);
             lastPlatform = platform;
             platformQueue.Enqueue(platform);
         }
@@ -226,7 +239,8 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     }
     
     private GameObject CreateNewPlatform(Vector3 relativePointToPlayer,
-                                         Vector3 lastEndPosition)
+                                         Vector3 lastEndPosition,
+                                         Vector3 direction)
     {
         CreateDebugSphere(relativePointToPlayer + lastEndPosition);
         var platform = CreatePlatform(relativePointToPlayer, lastEndPosition);
@@ -236,12 +250,13 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         else
             platform.OnFinishPlatform += OnCreateNewPlatform;
         Debug.LogError("currentBlock " + currentBlock + " vs " + numberOfBlock);
-
+        platform.transform.forward = direction;
         return platform.gameObject;
     }
 
     private async UniTask<GameObject> CreateNewPlatformAsync(Vector3 relativePointToPlayer,
-                                         Vector3 lastEndPosition, Vector3 direction)
+                                         Vector3 lastEndPosition, 
+                                         Vector3 direction)
     {
         CreateDebugSphere(relativePointToPlayer + lastEndPosition);
         var platform = await CreatePlatformAsync(relativePointToPlayer, lastEndPosition);
