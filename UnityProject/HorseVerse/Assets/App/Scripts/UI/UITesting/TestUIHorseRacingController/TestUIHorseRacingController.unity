@@ -155,7 +155,9 @@ MonoBehaviour:
   uiTest: {fileID: 5592729318268193182}
   entity:
     sprintBar: 0
-    sprintHealingProgress: 0
+    sprintCharge:
+      chargeNumber: 4
+      progress: 1
     sprintBtn:
       onClickEvent:
         m_PersistentCalls:
@@ -566,30 +568,6 @@ PrefabInstance:
     - target: {fileID: 4803808468415483362, guid: c3407131adbf1534c920b8383df6fbb1, type: 3}
       propertyPath: m_Name
       value: UIHorseRacingController
-      objectReference: {fileID: 0}
-    - target: {fileID: 5006544365508194351, guid: c3407131adbf1534c920b8383df6fbb1, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5006544365508194351, guid: c3407131adbf1534c920b8383df6fbb1, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5006544365508194351, guid: c3407131adbf1534c920b8383df6fbb1, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5439148663075339698, guid: c3407131adbf1534c920b8383df6fbb1, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5439148663075339698, guid: c3407131adbf1534c920b8383df6fbb1, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5439148663075339698, guid: c3407131adbf1534c920b8383df6fbb1, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7298819944524798086, guid: c3407131adbf1534c920b8383df6fbb1, type: 3}
       propertyPath: m_Pivot.x

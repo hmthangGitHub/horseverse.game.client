@@ -8,20 +8,20 @@ public class UIHorseRacingController : PopupEntity<UIHorseRacingController.Entit
     public class Entity
     {
 	    public float sprintBar;
-	    public float sprintHealingProgress;
+	    public UIHorseRacingSprintCharge.Entity sprintCharge; 
 	    public ButtonComponent.Entity sprintBtn;
 	    public UIComponentHoldImageBehavior.Entity cameraBtn;
     }
 
     public UIComponentProgressBar sprintBar;
-    public UIComponentImageProgress sprintHealingProgress;
+    public UIHorseRacingSprintCharge sprintCharge;
     public ButtonComponent sprintBtn;
     public UIComponentHoldImageBehavior cameraBtn;
     
     protected override void OnSetEntity()
     {
 	     sprintBar.SetEntity(this.entity.sprintBar);
-	     sprintHealingProgress.SetEntity(this.entity.sprintHealingProgress);
+	     sprintCharge.SetEntity(this.entity.sprintCharge);
 	     sprintBtn.SetEntity(this.entity.sprintBtn);
 	     cameraBtn.SetEntity(this.entity.cameraBtn);
     }
