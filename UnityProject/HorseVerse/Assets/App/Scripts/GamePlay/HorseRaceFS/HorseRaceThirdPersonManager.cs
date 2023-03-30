@@ -77,7 +77,12 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
                 onDown = () => ChangeBackCamera(true),
                 onUp = () => ChangeBackCamera(false)
             },
-            sprintBtn = new ButtonComponent.Entity(playerController.Sprint)
+            sprintBtn = new ButtonComponent.Entity(playerController.Sprint),
+            sprintCharge = new UIHorseRacingSprintCharge.Entity()
+            {
+                progress = 0.0f,
+                chargeNumber = playerHorseRaceThirdPersonBehaviour.SprintChargeNumber
+            }
         });
         uiHorseRacingController.In().Forget();
     }
@@ -104,7 +109,7 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
     {
         if (!isStarted) return;
         uiHorseRacingController.SetSprintTime(playerHorseRaceThirdPersonBehaviour.CurrentSprintNormalizeTime);
-        uiHorseRacingController.sprintHealingProgress.SetEntity(playerHorseRaceThirdPersonBehaviour.CurrentSprintHealingNormalizeTime);
+        uiHorseRacingController.sprintCharge.SetProgress(playerHorseRaceThirdPersonBehaviour.CurrentChargeNormalize);
         uiHorseRacingController.sprintBtn.SetInteractable(playerHorseRaceThirdPersonBehaviour.IsAbleToSprint);
         NormalizedRaceTime = HorseControllers.Max(x => x.CurrentRaceProgressWeight);
     }
@@ -193,6 +198,7 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
             PredefineWayPoints = targetGenerator.GenerateRandomTargetsWithNoise(initialLane),
             HorseRaceThirdPersonStats = horseRaceThirdPersonInfo.HorseRaceThirdPersonStats,
             Camera = horseRaceThirdPersonListContainer.CamreraTransform,
+            Name = horseRaceThirdPersonInfo.Name
         };
         return horseController;
     }

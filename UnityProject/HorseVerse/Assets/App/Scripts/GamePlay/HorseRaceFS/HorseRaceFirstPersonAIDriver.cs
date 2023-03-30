@@ -15,13 +15,6 @@ public partial class HorseRaceFirstPersonAIDriver : MonoBehaviour
     private Vector3 lastTargetDirection;
     private bool isFirstlap = true;
 
-    private void OnEnable()
-    {
-        // navMeshAgent.updatePosition = false;
-        // navMeshAgent.updatePosition = false;
-
-    }
-
     private void FixedUpdate()
     {
         if (!horseRaceThirdPersonBehaviour.IsStart) return;
@@ -49,13 +42,12 @@ public partial class HorseRaceFirstPersonAIDriver : MonoBehaviour
     {
         UpdateSpeed();
         rigidbody.velocity = navMeshAgent.velocity;
-        // rigidbody.velocity = Vector3.right * horseRaceThirdPersonBehaviour.CurrentForwardSpeed;
     }
 
     private void UpdateSpeed()
     {
         navMeshAgent.speed = horseRaceThirdPersonBehaviour.CurrentForwardSpeed;
-        navMeshAgent.acceleration = horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.HorseRaceThirdPersonStats.Acceleration;
+        navMeshAgent.acceleration = horseRaceThirdPersonBehaviour.CurrentAcceleration;
     }
 
     private void ChangeTarget()

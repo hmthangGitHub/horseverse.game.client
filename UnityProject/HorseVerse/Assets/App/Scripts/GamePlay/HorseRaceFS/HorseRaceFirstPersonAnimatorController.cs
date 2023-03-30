@@ -7,6 +7,7 @@ public class HorseRaceFirstPersonAnimatorController : MonoBehaviour
 {
     private static readonly int HorizontalHash = Animator.StringToHash("Horizontal"); 
     private static readonly int SpeedHash = Animator.StringToHash("Speed"); 
+    private static readonly int AnimationSpeedHash = Animator.StringToHash("AnimationSpeed"); 
     [SerializeField] private Animator animator;
     [SerializeField] private float smoothTime = 0.2f;
     [SerializeField] private HorseRaceThirdPersonBehaviour horseRaceThirdPersonBehaviour;
@@ -15,6 +16,8 @@ public class HorseRaceFirstPersonAnimatorController : MonoBehaviour
     private float horizontalVelocity;
     private float forwardAnimationVelocity;
     private float animationForwardSpeed;
+    private float animationSpeed;
+    private float animationSpeedVelocity;
 
     private void SetHorizontalDirection(float horizontalDirection)
     {
@@ -32,7 +35,24 @@ public class HorseRaceFirstPersonAnimatorController : MonoBehaviour
     {
         if (!horseRaceThirdPersonBehaviour.IsStart) return;
         SetSpeed(Mathf.InverseLerp(0.0f, horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData.HorseRaceThirdPersonStats.ForwardSpeedRange.y, horseRaceThirdPersonBehaviour.CurrentForwardSpeed));
+        if (horseRaceThirdPersonBehaviour.CurrentForwardSpeed > horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData
+                .HorseRaceThirdPersonStats.ForwardSpeedRange.y)
+        {
+            SetAnimationSpeed(horseRaceThirdPersonBehaviour.CurrentForwardSpeed/ horseRaceThirdPersonBehaviour.HorseRaceThirdPersonData
+                .HorseRaceThirdPersonStats.ForwardSpeedRange.y);
+        }
+        else
+        {
+            SetAnimationSpeed(1);
+        }
         SetHorizontalDirection(horseRaceThirdPersonBehaviour.HorizontalDirection);
+    }
+
+    private void SetAnimationSpeed(float speed)
+    {
+        speed = Mathf.Min(speed, 1.5f);
+        animationSpeed = Mathf.SmoothDamp(animationSpeed, speed, ref animationSpeedVelocity, smoothTime);
+        animator.SetFloat(AnimationSpeedHash, animationSpeed);
     }
 
     public void Reset()

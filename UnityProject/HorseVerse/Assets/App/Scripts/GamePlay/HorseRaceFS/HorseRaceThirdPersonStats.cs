@@ -11,11 +11,15 @@ public class HorseRaceThirdPersonStats
     [field: SerializeField]
     public Vector2 ForwardSpeedRange { get; set; }
     [field: SerializeField]
-    public float Acceleration { get; set; }
+    public float PercentageSpeedBoostWhenSprint { get; set; }
+    [field: SerializeField]
+    public float PercentageSpeedBonusBoostWhenSprintContinuously { get; set; }
+    [field: SerializeField]
+    public Vector2 AccelerationRange { get; set; }
     [field: SerializeField]
     public float SprintTime { get; set; }
     [field: SerializeField]
-    public float SprintNumber { get; set; }
+    public int SprintChargeNumber { get; set; }
     [field: SerializeField]
     public float SprintHealingTime { get; set; }
 }
@@ -36,4 +40,6 @@ public class HorseRaceThirdPersonData
     public IPredefinePath PredefinePath => TargetGenerator.PredefinePath;
     [field: SerializeField]
     public Transform Camera { get; set; }
+    [field: SerializeField]
+    public string Name { get; set; }
 }
