@@ -28,5 +28,35 @@ public partial class MasterContainer<TKey, TMaster>
             .ToArray());
         PlayerPrefs.SetString(MasterLoader.GetMasterPath(this.GetType()), jsonData);
     }
+
+    public void SaveToLocal(string prefix)
+    {
+        var type = MasterType;
+        var fields = type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+        var headerLine = string.Join(",", fields.Select(x => x.Name));
+        var csvDataAsLine = DataList.Select(master =>
+                fields.Select(x => master.GetPropertyValue(x.Name)?.ToString() ?? string.Empty))
+            .Select(dataInRow => string.Join(",", dataInRow)).ToList();
+        var jsonData = CSVFileToJson.ConvertCsvFileToJsonObject(Array.Empty<string>()
+            .Append(headerLine)
+            .Concat(csvDataAsLine)
+            .ToArray());
+        PlayerPrefs.SetString($"{MasterLoader.GetMasterPath(this.GetType())}_{prefix}", jsonData);
+    }
+
+    public string ToJson()
+    {
+        var type = MasterType;
+        var fields = type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+        var headerLine = string.Join(",", fields.Select(x => x.Name));
+        var csvDataAsLine = DataList.Select(master =>
+                fields.Select(x => master.GetPropertyValue(x.Name)?.ToString() ?? string.Empty))
+            .Select(dataInRow => string.Join(",", dataInRow)).ToList();
+        var jsonData = CSVFileToJson.ConvertCsvFileToJsonObject(Array.Empty<string>()
+            .Append(headerLine)
+            .Concat(csvDataAsLine)
+            .ToArray());
+        return jsonData;
+    }
 }
 #endif

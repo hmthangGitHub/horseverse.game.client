@@ -5,6 +5,13 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
+using System.IO;
+using System.Globalization;
+using System.Data;
+
+#if UNITY_EDITOR || UNITY_STANDALONE
+using SimpleFileBrowser;
+#endif
 
 public partial class AdventureEditor_LevelEditor
 {
@@ -15,6 +22,8 @@ public partial class AdventureEditor_LevelEditor
     private MasterHorseTrainingBlockCombo[] blockCombos;
     private MasterTrainingBlockComboType CurrentBlockComboType = MasterTrainingBlockComboType.Modular;
     private int CurrentSelectetBlockCombo = -1;
+
+    private bool isShowBlockComboList = true;
 
     void InitLevelEditor_BlockCombo() {
         UnSelectOldBlockCombo();
@@ -73,25 +82,38 @@ public partial class AdventureEditor_LevelEditor
         }
 
         GUILayout.EndHorizontal();
-
-
-        if (blockCombos != default)
+        isShowBlockComboList = EditorGUILayout.BeginFoldoutHeaderGroup(isShowBlockComboList, "List Block Combo");
+        if (isShowBlockComboList)
         {
-
-            for (int i = 0; i < blockCombos.Length; i++)
+            if (blockCombos != default)
             {
-                var combo = blockCombos[i];
-                GUILayout.BeginHorizontal(GUILayout.Width(300));
 
-                EditorGUILayout.LabelField(combo.Name);
-                EditorGUILayout.Toggle(CurrentSelectetBlockCombo == i);
-                if (GUILayout.Button("Edit"))
+                for (int i = 0; i < blockCombos.Length; i++)
                 {
-                    OnEditBlockCombo(i);
+                    var combo = blockCombos[i];
+                    GUILayout.BeginHorizontal(GUILayout.Width(300));
+
+                    EditorGUILayout.LabelField(combo.Name);
+                    EditorGUILayout.Toggle(CurrentSelectetBlockCombo == i);
+                    if (GUILayout.Button("Edit"))
+                    {
+                        OnEditBlockCombo(i);
+                    }
+                    GUILayout.EndHorizontal();
                 }
-                GUILayout.EndHorizontal();
             }
         }
+        EditorGUILayout.EndFoldoutHeaderGroup();
+
+        if (GUILayout.Button("Tiling"))
+        {
+            if (currentEditingPlatformObject != default)
+            {
+                var tmp = currentEditingPlatformObject.GetComponent<AdventureEditor_BlockComboData>();
+                Tiling(tmp);
+            }
+        }
+
     }
 
     MasterHorseTrainingBlockCombo[] GetCurrentBlockCombo(MasterTrainingBlockComboType currentBlockComboType)
@@ -102,10 +124,16 @@ public partial class AdventureEditor_LevelEditor
 
     void OnEditBlockCombo(int i)
     {
-        if (CurrentSelectetBlockCombo != i)
+        if (CurrentSelectetBlockCombo != -1)
         {
-            UnSelectOldBlockCombo();
+            if (CurrentSelectetBlockCombo != i)
+            {
+                UnSelectOldBlockCombo();
+            }
+            else
+                return;
         }
+        
         CreatePlatform(i, blockCombos[i]);
 
         CurrentSelectetBlockCombo = i;
@@ -118,7 +146,23 @@ public partial class AdventureEditor_LevelEditor
 
     void OnSaveCurrentBlockCombo()
     {
-
+        if (currentEditingPlatformObject != default && CurrentSelectetBlockCombo != -1)
+        {
+            var editData = blockCombos[CurrentSelectetBlockCombo];
+            var data = masterHorseTrainingBlockComboContainer.DataList.Where(o => o.MasterHorseTrainingBlockId == editData.MasterHorseTrainingBlockId).FirstOrDefault();
+            var blockComboData = currentEditingPlatformObject.GetComponent<AdventureEditor_BlockComboData>();
+            var bnames = blockComboData.paddings.Select(x => x.name).ToArray();
+            if (data != default)
+            {
+                data.MasterHorseTrainingBlockIdList = bnames;
+                if(blockComboData.startPadding != default)
+                    data.SetMasterTrainingModularBlockIdStart(blockComboData.startPadding.name);
+                if (blockComboData.startPadding != default)
+                    data.SetMasterTrainingModularBlockIdEnd(blockComboData.startPadding.name);
+            }
+        }
+        UnSelectOldBlockCombo();
+        InitLevelEditor_BlockCombo();
     }
 
     void CancelEditBlock()
@@ -129,7 +173,6 @@ public partial class AdventureEditor_LevelEditor
         }
         CurrentSelectetBlockCombo = -1;
     }
-
 
     private async UniTaskVoid OnAddBlockComboAsync()
     {
@@ -175,37 +218,88 @@ public partial class AdventureEditor_LevelEditor
         obstObj.transform.parent = currentEditingPlatformObject.transform;
         obstObj.transform.SetAsLastSibling();
 
+        var tmp = AddDataComponent(currentEditingPlatformObject);
+        tmp.id = i.ToString();
+        tmp.block_name = masterHorseTrainingBlockCombo.Name;
+
         var paddingStartBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(masterHorseTrainingBlockCombo.MasterTrainingModularBlockIdStart);
         var paddingEndBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(masterHorseTrainingBlockCombo.MasterTrainingModularBlockIdEnd);
         var modularBlockIds = masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList;
 
-        GeneBlocks(modularBlockIds.Select(x => collection.BlocksLookUpTable[x].gameObject).ToArray(), blockObj.transform).Forget();
+        GeneBlocks(collection.BlocksLookUpTable[paddingStartBlockId].gameObject,
+            collection.BlocksLookUpTable[paddingEndBlockId].gameObject, 
+            modularBlockIds.Select(x => collection.BlocksLookUpTable[x].gameObject).ToArray(), blockObj.transform, tmp).Forget();
 
     }
 
-    private async UniTask GeneBlocks(GameObject[] gameObjects, Transform parent)
+    private async UniTask GeneBlocks(GameObject start, GameObject end, GameObject[] gameObjects, Transform parent, AdventureEditor_BlockComboData data)
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
 
         BoxCollider[] boxColliders = default;
-        await InstantiateBlocksAsync(gameObjects, parent, (s) => boxColliders = s).AttachExternalCancellation(cts.Token);
+        await InstantiateBlocksAsync(start, end, gameObjects, parent, data, (s) => boxColliders = s).AttachExternalCancellation(cts.Token);
         Tiling(boxColliders);
     }
 
-    private async UniTask InstantiateBlocksAsync(GameObject[] gameObjects, Transform parent, System.Action<BoxCollider[]> finish)
+    private async UniTask InstantiateBlocksAsync(GameObject paddingStartPrefab, GameObject paddingEndPrefab, GameObject[] gameObjects, Transform parent, AdventureEditor_BlockComboData data, System.Action<BoxCollider[]> finish)
     {
         var len = gameObjects.Length;
         var BoxColliders = new List<BoxCollider>();
+
+        var paddingHead = Instantiate_PaddingHeadCollider(paddingStartPrefab, parent);
+        var paddingTail = Instantiate_PaddingTailCollider(paddingEndPrefab, parent);
+
+        var headCol = paddingHead?.GetComponentInChildren<BoxCollider>();
+        var tailCol = paddingTail?.GetComponentInChildren<BoxCollider>();
+        
+        if (paddingHead != default)
+        {
+            BoxColliders.Add(headCol);
+            data.startPadding = paddingHead;
+        }
+
         for (int i = 0; i < len; i++)
         {
             var x = gameObjects[i];
             var block = Instantiate(x, parent);
+            block.name = x.name;
             var ss = block.GetComponentInChildren<BoxCollider>();
             BoxColliders.Add(ss);
+            data.paddings.Add(block);
             if (i % 5 == 0) await UniTask.DelayFrame(1);
         }
+
+        if (paddingTail != default)
+        {
+            BoxColliders.Add(tailCol);
+            paddingTail.transform.SetAsLastSibling();
+            data.endPadding = paddingTail;
+        }
+
         finish?.Invoke(BoxColliders.ToArray());
+    }
+
+    private GameObject Instantiate_PaddingHeadCollider(GameObject paddingHead, Transform parent)
+    {
+        if (paddingHead != default)
+        {
+            var obj = Instantiate(paddingHead, parent);
+            obj.name = paddingHead.name;
+            return obj;
+        }
+        return null;
+    }
+
+    private GameObject Instantiate_PaddingTailCollider(GameObject paddingTail, Transform parent)
+    {
+        if (paddingTail != default)
+        {
+            var obj = Instantiate(paddingTail, parent);
+            obj.name = paddingTail.name;
+            return obj;
+        }
+        return null;
     }
 
     private void Tiling(BoxCollider[] _BoxColliders)
@@ -222,6 +316,30 @@ public partial class AdventureEditor_LevelEditor
             var alignedCollider = _BoxColliders[i];
             AlignCollider(baseCollider, alignedCollider, 1);
         }
+    }
+
+    private void Tiling(AdventureEditor_BlockComboData data)
+    {
+        List<BoxCollider> boxColliders = new List<BoxCollider>();
+
+        if(data.startPadding != default)
+        {
+            boxColliders.Add(data.startPadding.GetComponentInChildren<BoxCollider>());
+        }
+
+        for (int i = 0; i < data.paddings.Count; i++)
+        {
+            var x = data.paddings[i];
+            var ss = x.transform.GetChild(0).GetComponent<BoxCollider>();
+            boxColliders.Add(ss);
+        }
+
+        if (data.endPadding != default)
+        {
+            boxColliders.Add(data.endPadding.GetComponentInChildren<BoxCollider>());
+        }
+
+        Tiling(boxColliders.ToArray());
     }
 
     private static void AlignCollider(BoxCollider baseCollider,
@@ -241,5 +359,17 @@ public partial class AdventureEditor_LevelEditor
                                                             Vector3 childWorldDestination)
     {
         parent.position += childWorldDestination - child.position;
+    }
+
+    static AdventureEditor_BlockComboData AddDataComponent(GameObject target)
+    {
+        AdventureEditor_BlockComboData tmp = target.AddComponent<AdventureEditor_BlockComboData>();
+        return tmp;
+    }
+
+    //Block Paddings 
+    private void UpdateBlocksInCombo(MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo, List<string> masterHorseTrainingBlockIdList)
+    {
+        masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList = masterHorseTrainingBlockIdList.ToArray();
     }
 }

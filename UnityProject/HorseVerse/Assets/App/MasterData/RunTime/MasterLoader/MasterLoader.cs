@@ -49,6 +49,22 @@ public static class MasterLoader
         return masterContainer;
     }
 
+    public static TMasterContainer LoadMasterFromTextAsync<TMasterContainer>(string text, CancellationToken token = default) where TMasterContainer : IMasterContainer, new()
+    {
+        var masterContainer = new TMasterContainer();
+#if ENABLE_DEBUG_MODULE
+        try
+        {
+#endif
+            masterContainer.SetDataList(text);
+#if ENABLE_DEBUG_MODULE
+        }
+        catch
+        {
+        }
+#endif
+        return masterContainer;
+    }
 
 
     private static async UniTask<string> GetMasterRawDataText<TMasterContainer>(CancellationToken token) where TMasterContainer : IMasterContainer, new()
