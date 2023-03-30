@@ -29,6 +29,7 @@ public partial class AdventureEditor_LevelEditor : EditorWindow
     private void OnDestroy()
     {
         Dispose();
+        Debug.Log("OnDestroy ");
     }
 
     void OnGUI()
@@ -110,7 +111,7 @@ public partial class AdventureEditor_LevelEditor : EditorWindow
     {
         try
         {
-
+            UnSelectOldBlockCombo();
         }
         finally
         {

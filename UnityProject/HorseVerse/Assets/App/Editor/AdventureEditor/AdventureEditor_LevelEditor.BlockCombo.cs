@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,38 +10,236 @@ public partial class AdventureEditor_LevelEditor
 {
     private readonly List<GameObject> blockComboPinList = new List<GameObject>();
     private MasterHorseTrainingProperty masterHorseTrainingProperty;
+    private GameObject currentEditingPlatformObject;
 
     private MasterHorseTrainingBlockCombo[] blockCombos;
+    private MasterTrainingBlockComboType CurrentBlockComboType = MasterTrainingBlockComboType.Modular;
     private int CurrentSelectetBlockCombo = -1;
-    void InitLevelEditor_BlockCombo() {
-        blockCombos = GetCurrentBlockCombo(MasterTrainingBlockComboType.Modular);
-    }
 
+    void InitLevelEditor_BlockCombo() {
+        UnSelectOldBlockCombo();
+        CurrentSelectetBlockCombo = -1;
+        blockCombos = GetCurrentBlockCombo(CurrentBlockComboType);
+    }
 
     void GUI_ListBlockCombo()
     {
-        if (blockCombos == default) return;
-
-        for (int i = 0; i < blockCombos.Length; i++)
+        if(GUILayout.Button("Add New Block Combo"))
         {
-            var combo = blockCombos[i];
-            GUILayout.BeginHorizontal(GUILayout.Width(300));
+            OnAddNewBlockCombo();
+        }
 
-            EditorGUILayout.LabelField(combo.Name);
-            EditorGUILayout.Toggle(CurrentSelectetBlockCombo == i);
-            if (GUILayout.Button("Edit"))
+        if (GUILayout.Button("Save Current Block Combo"))
+        {
+            OnSaveCurrentBlockCombo();
+        }
+
+        if (GUILayout.Button("Cancel"))
+        {
+            CancelEditBlock();
+        }
+
+        if (CurrentBlockComboType == MasterTrainingBlockComboType.Modular)
+        {
+            EditorGUILayout.LabelField("MasterTrainingBlockComboType: Modular");
+        }
+        else if (CurrentBlockComboType == MasterTrainingBlockComboType.Predefine)
+        {
+            EditorGUILayout.LabelField("MasterTrainingBlockComboType: Predifine");
+        }
+        else if (CurrentBlockComboType == MasterTrainingBlockComboType.Custom)
+        {
+            EditorGUILayout.LabelField("MasterTrainingBlockComboType: Custom");
+        }
+
+        GUILayout.BeginHorizontal(GUILayout.Width(300));
+
+        if(GUILayout.Button("Modular"))
+        {
+            CurrentBlockComboType = MasterTrainingBlockComboType.Modular;
+            InitLevelEditor_BlockCombo();
+        }
+
+        if (GUILayout.Button("Predefine"))
+        {
+            CurrentBlockComboType = MasterTrainingBlockComboType.Predefine;
+            InitLevelEditor_BlockCombo();
+        }
+
+        if (GUILayout.Button("Custom"))
+        {
+            CurrentBlockComboType = MasterTrainingBlockComboType.Custom;
+            InitLevelEditor_BlockCombo();
+        }
+
+        GUILayout.EndHorizontal();
+
+
+        if (blockCombos != default)
+        {
+
+            for (int i = 0; i < blockCombos.Length; i++)
             {
-                CurrentSelectetBlockCombo = i;
-            }
+                var combo = blockCombos[i];
+                GUILayout.BeginHorizontal(GUILayout.Width(300));
 
-            GUILayout.EndHorizontal();
+                EditorGUILayout.LabelField(combo.Name);
+                EditorGUILayout.Toggle(CurrentSelectetBlockCombo == i);
+                if (GUILayout.Button("Edit"))
+                {
+                    OnEditBlockCombo(i);
+                }
+                GUILayout.EndHorizontal();
+            }
         }
     }
 
-    MasterHorseTrainingBlockCombo[] GetCurrentBlockCombo(MasterTrainingBlockComboType CurrentBlockComboType)
+    MasterHorseTrainingBlockCombo[] GetCurrentBlockCombo(MasterTrainingBlockComboType currentBlockComboType)
     {
-        return masterHorseTrainingBlockComboContainer.DataList.Where(x => x.MasterTrainingBlockComboType == CurrentBlockComboType).ToArray();
+        return masterHorseTrainingBlockComboContainer.DataList.Where(x => x.MasterTrainingBlockComboType == currentBlockComboType).ToArray();
     }
 
 
+    void OnEditBlockCombo(int i)
+    {
+        if (CurrentSelectetBlockCombo != i)
+        {
+            UnSelectOldBlockCombo();
+        }
+        CreatePlatform(i, blockCombos[i]);
+
+        CurrentSelectetBlockCombo = i;
+    }
+
+    void OnAddNewBlockCombo()
+    {
+        
+    }
+
+    void OnSaveCurrentBlockCombo()
+    {
+
+    }
+
+    void CancelEditBlock()
+    {
+        if (CurrentSelectetBlockCombo != -1)
+        {
+            UnSelectOldBlockCombo();
+        }
+        CurrentSelectetBlockCombo = -1;
+    }
+
+
+    private async UniTaskVoid OnAddBlockComboAsync()
+    {
+        //var blockComboName = await AskUserInput("Enter block combo name");
+        //if (string.IsNullOrEmpty(blockComboName)) return;
+        //MasterTrainingModularBlockType masterTrainingModularBlockType = FromBlockComboTypeToModularBlockType(CurrentBlockComboType);
+        //var masterHorseTrainingBlockId = CurrentBlockComboType == MasterTrainingBlockComboType.Predefine
+        //    ? await SelectFromList(GetMasterTrainingModularBlockType(masterTrainingModularBlockType))
+        //    : string.Empty;
+        //if (CurrentBlockComboType == MasterTrainingBlockComboType.Predefine &&
+        //    string.IsNullOrEmpty(masterHorseTrainingBlockId)) return;
+
+        //var masterHorseTrainingBlockComboId = masterHorseTrainingBlockComboContainer
+        //                                 .MasterHorseTrainingBlockComboIndexer.Max(x => x.Key) + 1;
+        //var masterHorseTrainingBlockCombo = new MasterHorseTrainingBlockCombo(masterHorseTrainingBlockComboId,
+        //    blockComboName,
+        //    CurrentBlockComboType,
+        //    masterHorseTrainingBlockId);
+        //masterHorseTrainingBlockComboContainer.Add(masterHorseTrainingBlockCombo);
+    }
+
+    private void UnSelectOldBlockCombo()
+    {
+        if (currentEditingPlatformObject != default)
+        {
+            DestroyImmediate(currentEditingPlatformObject);
+            currentEditingPlatformObject = default;
+            CurrentSelectetBlockCombo = -1;
+        }
+    }
+
+    private void CreatePlatform(int i, MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo)
+    {
+        currentEditingPlatformObject = new GameObject();
+        currentEditingPlatformObject.name = masterHorseTrainingBlockCombo.Name;
+
+        var blockObj = new GameObject();
+        blockObj.name = "Block";
+        blockObj.transform.parent = currentEditingPlatformObject.transform;
+
+        var obstObj = new GameObject();
+        obstObj.name = "Obstacle";
+        obstObj.transform.parent = currentEditingPlatformObject.transform;
+        obstObj.transform.SetAsLastSibling();
+
+        var paddingStartBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(masterHorseTrainingBlockCombo.MasterTrainingModularBlockIdStart);
+        var paddingEndBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(masterHorseTrainingBlockCombo.MasterTrainingModularBlockIdEnd);
+        var modularBlockIds = masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList;
+
+        GeneBlocks(modularBlockIds.Select(x => collection.BlocksLookUpTable[x].gameObject).ToArray(), blockObj.transform).Forget();
+
+    }
+
+    private async UniTask GeneBlocks(GameObject[] gameObjects, Transform parent)
+    {
+        cts.SafeCancelAndDispose();
+        cts = new CancellationTokenSource();
+
+        BoxCollider[] boxColliders = default;
+        await InstantiateBlocksAsync(gameObjects, parent, (s) => boxColliders = s).AttachExternalCancellation(cts.Token);
+        Tiling(boxColliders);
+    }
+
+    private async UniTask InstantiateBlocksAsync(GameObject[] gameObjects, Transform parent, System.Action<BoxCollider[]> finish)
+    {
+        var len = gameObjects.Length;
+        var BoxColliders = new List<BoxCollider>();
+        for (int i = 0; i < len; i++)
+        {
+            var x = gameObjects[i];
+            var block = Instantiate(x, parent);
+            var ss = block.GetComponentInChildren<BoxCollider>();
+            BoxColliders.Add(ss);
+            if (i % 5 == 0) await UniTask.DelayFrame(1);
+        }
+        finish?.Invoke(BoxColliders.ToArray());
+    }
+
+    private void Tiling(BoxCollider[] _BoxColliders)
+    {
+        ChangePositionOfParentToMatchChildPosition(_BoxColliders[0].transform.parent,
+            _BoxColliders[0].transform,
+            new Vector3(0, 0, 0));
+
+        var centers = _BoxColliders.Select(x => x.center)
+                                  .ToArray();
+        for (var i = 1; i < _BoxColliders.Length; i++)
+        {
+            var baseCollider = _BoxColliders[i - 1];
+            var alignedCollider = _BoxColliders[i];
+            AlignCollider(baseCollider, alignedCollider, 1);
+        }
+    }
+
+    private static void AlignCollider(BoxCollider baseCollider,
+                                      BoxCollider alignedCollider,
+                                      int direction)
+    {
+        var worldPos = baseCollider.transform.position + baseCollider.center +
+                       new Vector3(0, baseCollider.bounds.extents.y, direction * baseCollider.bounds.extents.z)
+                       - (alignedCollider.center + new Vector3(0, alignedCollider.bounds.extents.y, -direction * alignedCollider.bounds.extents.z));
+        ChangePositionOfParentToMatchChildPosition(alignedCollider.transform.parent,
+            alignedCollider.transform,
+            worldPos);
+    }
+
+    public static void ChangePositionOfParentToMatchChildPosition(Transform parent,
+                                                            Transform child,
+                                                            Vector3 childWorldDestination)
+    {
+        parent.position += childWorldDestination - child.position;
+    }
 }
