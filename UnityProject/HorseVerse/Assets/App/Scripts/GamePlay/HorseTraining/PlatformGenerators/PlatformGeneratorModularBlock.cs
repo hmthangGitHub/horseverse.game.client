@@ -32,6 +32,11 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
         masterTrainingModularBlockContainer = await MasterLoader.LoadMasterAsync<MasterTrainingModularBlockContainer>(cts.Token);
     }
 
+    protected override async UniTask ReleaseInternal()
+    {
+        await UniTask.CompletedTask;
+    }
+
     protected override PlatformBase CreatePlatform(Vector3 relativePointToPlayer,
                                                    Vector3 lastEndPosition)
     {

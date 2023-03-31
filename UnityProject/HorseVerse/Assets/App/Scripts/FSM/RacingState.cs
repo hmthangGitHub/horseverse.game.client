@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RacingState : InjectedBHState
 {
-    public static long MasterMapId = 10001004;
+    public static long MasterMapId = 1003;
     private HorseRaceContext horseRaceContext;
     private HorseRaceContext HorseRaceContext => horseRaceContext ??= Container.Inject<HorseRaceContext>();
     

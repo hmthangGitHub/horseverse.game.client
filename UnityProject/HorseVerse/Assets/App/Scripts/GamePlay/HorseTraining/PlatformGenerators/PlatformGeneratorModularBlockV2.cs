@@ -16,6 +16,8 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
     private MasterTrainingModularBlockContainer masterTrainingModularBlockContainer;
     private GameObjectPoolList gameObjectPoolList = new GameObjectPoolList();
 
+    private string _path = "";
+
     protected override async UniTask InitializeInternal()
     {
         cts.SafeCancelAndDispose();
@@ -26,17 +28,27 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
 
     protected override async UniTask InitializeInternal(string path)
     {
+        _path = path;
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         trainingBlockSettings = await PrimitiveAssetLoader.LoadAssetAsync<TrainingBlockSettings>($"{TrainingBlockSettingPath}_{path}", cts.Token);
-        masterTrainingModularBlockContainer = await MasterLoader.LoadMasterAsync<MasterTrainingModularBlockContainer>(cts.Token);
+        masterTrainingModularBlockContainer = await MasterLoader.LoadMasterAsync<MasterTrainingModularBlockContainer>(path, cts.Token);
+        Debug.Log("Load Master Training path " + path + " -- result " + (masterTrainingModularBlockContainer != null));
+    }
+
+    protected override async UniTask ReleaseInternal()
+    {
+        PrimitiveAssetLoader.UnloadAssetAtPath($"{TrainingBlockSettingPath}_{_path}");
+        MasterLoader.Unload<MasterTrainingModularBlockContainer>(_path);
+        _path = "";
+        await UniTask.CompletedTask;
     }
 
     protected override PlatformBase CreatePlatform(Vector3 relativePointToPlayer,
                                                    Vector3 lastEndPosition)
     {
         var randomBlockCombo = GetRandomBlockCombo();
-
+        if (randomBlockCombo == default) Debug.LogError("NULL random combo");
         var paddingStartBlockId= masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(randomBlockCombo.MasterTrainingModularBlockIdStart);
         var paddingEndBlockId= masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(randomBlockCombo.MasterTrainingModularBlockIdEnd);
 
@@ -157,8 +169,11 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
     private MasterHorseTrainingBlockCombo GetRandomBlockCombo()
     {
         var masterHorseTrainingBlockGroupId = GetMasterHorseTrainingBlockGroupId();
-        return masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer[masterHorseTrainingBlockGroupId]
+        if (masterHorseTrainingBlockGroupId < masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer.Count)
+            return masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer[masterHorseTrainingBlockGroupId]
                                                      .RandomElement();
+        else
+            return masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer[0].First();
         //return masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer[masterHorseTrainingBlockGroupId].Where(x => x.Traps.Length > 0).RandomElement();
     }
 
@@ -196,6 +211,7 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
         trainingBlockSettings = default;
         PrimitiveAssetLoader.UnloadAssetAtPath(TrainingBlockSettingPath);
         MasterLoader.Unload<MasterTrainingModularBlockContainer>();
+        if(!string.IsNullOrEmpty(_path)) MasterLoader.Unload<MasterTrainingModularBlockContainer>(_path);
         DisposeUtility.SafeDispose(ref gameObjectPoolList);
     }
 }

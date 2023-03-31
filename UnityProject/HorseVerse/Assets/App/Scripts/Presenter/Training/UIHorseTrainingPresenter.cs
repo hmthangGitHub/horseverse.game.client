@@ -113,7 +113,7 @@ public class UIHorseTrainingPresenter : IDisposable
                     color3 = userHorse.Color3,
                     color4 = userHorse.Color4,
                 },
-                MasterMapId = 10001003,
+                MasterMapId = 2001,
             });
         }   
     }

@@ -19,31 +19,67 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
 
     private readonly Queue<GameObject> platformQueue = new Queue<GameObject>();
     private bool isFirstJump = true;
+    private bool isEndScene = false;
 
     protected Vector3 nextDirection = Vector3.forward;
     protected Vector3 nextSideDirection = Vector3.right;
 
-    public event Action OnFinishOnePlatform = ActionUtility.EmptyAction.Instance;
+    public Vector3 NextDirection => nextDirection;
 
+    public event Action OnFinishOnePlatform = ActionUtility.EmptyAction.Instance;
+    public event Action OnFinishOneScene = ActionUtility.EmptyAction.Instance;
+
+    protected bool isReleasing = false;
+    protected int numberOfBlock = 0;
+    protected int currentBlock = 0;
 
     public async UniTask InitializeAsync(MasterHorseTrainingProperty masterHorseTrainingProperty,
                                          MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer,
                                          MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer,
                                          MasterTrainingDifficultyContainer masterTrainingDifficultyContainer,
                                          MasterTrainingBlockDistributeContainer masterTrainingBlockDistributeContainer,
-                                         string Scene_Key)
+                                         string Scene_Key,
+                                         int NumberOfBlocks,
+                                         Vector3 direction)
     {
         this.masterHorseTrainingProperty = masterHorseTrainingProperty;
         this.masterHorseTrainingBlockContainer = masterHorseTrainingBlockContainer;
         this.masterHorseTrainingBlockComboContainer = masterHorseTrainingBlockComboContainer;
         this.masterTrainingDifficultyContainer = masterTrainingDifficultyContainer;
         this.masterTrainingBlockDistributeContainer = masterTrainingBlockDistributeContainer;
+        this.numberOfBlock = NumberOfBlocks;
+        this.currentBlock = 0;
+        isEndScene = false;
+        this.nextDirection = direction;
+        this.nextSideDirection = Quaternion.AngleAxis(90, Vector3.up) * nextDirection;
+        Debug.Log("DIRECTION " + this.nextDirection + "; SIDE  " + this.nextSideDirection);
         await InitializeInternal(Scene_Key);
         GenerateMulti(2);
     }
 
+    public async UniTask UpdateMapAsync( MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer,
+                                         MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer,
+                                         string Scene_Key, 
+                                         int NumberOfBlocks,
+                                         Vector3 direction)
+    {
+        this.masterHorseTrainingBlockContainer = masterHorseTrainingBlockContainer;
+        this.masterHorseTrainingBlockComboContainer = masterHorseTrainingBlockComboContainer;
+        this.numberOfBlock = NumberOfBlocks;
+        this.currentBlock = 0;
+        isEndScene = false;
+        this.nextDirection = direction;
+        this.nextSideDirection = Quaternion.AngleAxis(90, Vector3.up) * nextDirection;
+        Debug.Log("DIRECTION " + this.nextDirection + "; SIDE  " + this.nextSideDirection);
+        await ReleaseInternal();
+        await InitializeInternal(Scene_Key);
+        await GenerateMultiAsync(2);
+    }
+
     protected abstract UniTask InitializeInternal();
     protected abstract UniTask InitializeInternal(string path);
+    protected abstract UniTask ReleaseInternal();
+
 
     public abstract void Dispose();
 
@@ -85,16 +121,6 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     {
         nextDirection = Quaternion.AngleAxis(90, Vector3.up) * nextDirection;
         nextSideDirection = Quaternion.AngleAxis(90, Vector3.up) * nextSideDirection;
-    }
-
-    private void Generate()
-    {
-        var relativePointToPlayer = PredictRelativePointToPlayer();
-        var platformTest = lastPlatform.GetComponent<PlatformBase>();
-        var lastEndPosition = platformTest.end.position;
-        var platform = CreateNewPlatform(relativePointToPlayer, lastEndPosition);
-        lastPlatform = platform;
-        platformQueue.Enqueue(platform);
     }
 
     private async UniTask GenerateAsync()
@@ -151,7 +177,13 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
 
             var platform2 = await CreatePlatformWithoutSceneryObjectAsync(relativePointToPlayer, lastEndPosition);
             platform2.transform.forward = nextDirection;
-            platform2.OnFinishPlatform += OnCreateNewPlatform;
+
+            currentBlock++;
+            if (currentBlock >= numberOfBlock)
+                platform2.OnFinishPlatform += OnEndOfScene;
+            else
+                platform2.OnFinishPlatform += OnCreateNewPlatform;
+
             platformQueue.Enqueue(platform2.gameObject);
             var pp2 = platform2.GetComponent<PlatformModular>();
             pp2.CreateSceneryRegions();
@@ -177,7 +209,20 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
             var relativePointToPlayer = PredictRelativePointToPlayer();
             var platformTest = lastPlatform.GetComponent<PlatformBase>();
             var lastEndPosition = platformTest.end.position;
-            var platform = CreateNewPlatform(relativePointToPlayer, lastEndPosition);
+            var platform = CreateNewPlatform(relativePointToPlayer, lastEndPosition, nextDirection);
+            lastPlatform = platform;
+            platformQueue.Enqueue(platform);
+        }
+    }
+
+    private async UniTask GenerateMultiAsync(int number)
+    {
+        for (int i = 0; i < number; i++)
+        {
+            var relativePointToPlayer = PredictRelativePointToPlayer();
+            var platformTest = lastPlatform.GetComponent<PlatformBase>();
+            var lastEndPosition = platformTest.end.position;
+            var platform = await CreateNewPlatformAsync(relativePointToPlayer, lastEndPosition, nextDirection);
             lastPlatform = platform;
             platformQueue.Enqueue(platform);
         }
@@ -194,21 +239,34 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     }
     
     private GameObject CreateNewPlatform(Vector3 relativePointToPlayer,
-                                         Vector3 lastEndPosition)
+                                         Vector3 lastEndPosition,
+                                         Vector3 direction)
     {
         CreateDebugSphere(relativePointToPlayer + lastEndPosition);
         var platform = CreatePlatform(relativePointToPlayer, lastEndPosition);
-        platform.OnFinishPlatform += OnCreateNewPlatform;
+        currentBlock++;
+        if (currentBlock >= numberOfBlock)
+            platform.OnFinishPlatform += OnEndOfScene;
+        else
+            platform.OnFinishPlatform += OnCreateNewPlatform;
+        Debug.LogError("currentBlock " + currentBlock + " vs " + numberOfBlock);
+        platform.transform.forward = direction;
         return platform.gameObject;
     }
 
     private async UniTask<GameObject> CreateNewPlatformAsync(Vector3 relativePointToPlayer,
-                                         Vector3 lastEndPosition, Vector3 direction)
+                                         Vector3 lastEndPosition, 
+                                         Vector3 direction)
     {
         CreateDebugSphere(relativePointToPlayer + lastEndPosition);
         var platform = await CreatePlatformAsync(relativePointToPlayer, lastEndPosition);
-        platform.OnFinishPlatform += OnCreateNewPlatform;
+        currentBlock++;
+        if (currentBlock >= numberOfBlock)
+            platform.OnFinishPlatform += OnEndOfScene;
+        else
+            platform.OnFinishPlatform += OnCreateNewPlatform;
         platform.transform.forward = direction;
+        Debug.LogError("currentBlock " + currentBlock + " vs " + numberOfBlock);
         return platform.gameObject;
     }
 
@@ -234,8 +292,21 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
             pp.GetComponent<PlatformModular>().Clear();
             Destroy(pp);
         }
-        GenerateAsync().AttachExternalCancellation(this.GetCancellationTokenOnDestroy()).Forget();
+        if(currentBlock < numberOfBlock)
+            GenerateAsync().AttachExternalCancellation(this.GetCancellationTokenOnDestroy()).Forget();
         OnFinishOnePlatform?.Invoke();
+    }
+
+    private void OnEndOfScene()
+    {
+        Debug.Log(" End Of Scene");
+        var pp = platformQueue.Dequeue();
+        pp.GetComponent<PlatformModular>().Clear();
+        Destroy(pp);
+
+        isEndScene = true;
+        OnFinishOnePlatform?.Invoke();
+        OnFinishOneScene?.Invoke();
     }
 
     private void OnDestroyPlatform()

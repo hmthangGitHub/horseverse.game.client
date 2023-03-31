@@ -40,6 +40,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     [SerializeField] private GameObject cam1;
     [SerializeField] private GameObject cam2;
     [SerializeField] private GameObject cam3;
+    [SerializeField] private GameObject cam4; //Use for scene change
     [SerializeField] private Transform horsePosition;
     [SerializeField] private Vector3 groundVelocity;
     [SerializeField] private Transform pivotPoint;
@@ -56,12 +57,14 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private bool isGrounded = true;
     private bool isJumping;
     private bool isTurning = false;
-
+    private bool isChangeScene = false;
+    private bool isPerformChangeScene = false;
+    private bool isChangeScened = false;
 
     public bool IsLanding => isGrounded;
     public bool IsJumping => isJumping;
     public bool IsDead => isDead;
-
+    public bool IsPerformChangeScene => isPerformChangeScene;
 
     private Animator animator;
     private Animator Animator => animator ??= GetComponentInChildren<Animator>();
@@ -148,6 +151,18 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         }
     }
 
+    public bool IsChangeScene
+    {
+        get => isChangeScene;
+        set
+        {
+            if (isChangeScene == value) return;
+            isChangeScene = value;
+            if(isChangeScene)
+                OnChangeScene();
+        }
+    }
+
     private void AddInputEvents()
     {
         touchDown.OnFinger.AddListener(finger =>
@@ -187,6 +202,10 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
     private void Start()
     {
+        cam1.SetActive(false);
+        cam2.SetActive(false);
+        cam3.SetActive(true);
+        cam4.SetActive(false);
     }
 
     private void DetectDoubleTap(LeanFinger finger)
@@ -295,7 +314,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
     private void Update()
     {
-        if (IsStart && !isDead)
+        if (IsStart && !isDead && !isPerformChangeScene)
         {
             CheckIfGrounded();
             CheckIfFall();
@@ -311,6 +330,11 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         {
             cinemachineOrbitalTransposer ??= cam3.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineOrbitalTransposer>();
             cinemachineOrbitalTransposer.m_XAxis.m_InputAxisValue = 0.03f;
+        }
+
+        if(isPerformChangeScene)
+        {
+            cinemachineOrbitalTransposer.m_XAxis.m_InputAxisValue = 0.5f;
         }
     }
 
@@ -469,13 +493,16 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         if (!isGrounded)
         {
             currentAirTime += Time.deltaTime;
-            
-            if (currentAirTime > MaxAirTime)
+
+            if (!isChangeScened)
             {
-                OnDead();
-                cam1.transform.parent = null;
-                cam2.transform.parent = null;
-            }    
+                if (currentAirTime > MaxAirTime)
+                {
+                    OnDead();
+                    cam1.transform.parent = null;
+                    cam2.transform.parent = null;
+                }
+            }
         }
         
     }
@@ -488,6 +515,8 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private void FixedUpdate()
     {
         if (!IsStart) return;
+        if (isPerformChangeScene) return;
+
         rigidbody.velocity = getVelocity();
         if (rigidbody.velocity.y < 0)
         {
@@ -569,6 +598,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
                 trailVFX.SetActive(false);
                 AudioManager.Instance.PlaySound(AudioManager.HorseLand);
                 AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunTraining);
+                isChangeScened = false;
             }
             currentAirTime = 0.0f;
         }
@@ -590,7 +620,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     {
         if (!IsStart) return;
 
-        if (other.CompareTag(Bridge))
+        if (other.CompareTag(Bridge) && !isPerformChangeScene)
         {
             cam1.SetActive(false);
             cam2.SetActive(true);
@@ -653,4 +683,38 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         }
     }
 
+    private void OnChangeScene()
+    {
+        StartCoroutine(OnChangeSceneAsync());
+    }
+
+    private IEnumerator OnChangeSceneAsync()
+    {
+        isPerformChangeScene = true;
+        rigidbody.useGravity = false;
+        isJumping = true;
+        animator.CrossFade("JumpStart", 0.1f, 0);
+        float duration = 5.0f;
+        float t = 0;
+        rigidbody.velocity = Vector3.up * JumpVelocity + getVelocity();
+        
+        cam1.SetActive(false);
+        cam2.SetActive(false);
+        cam4.SetActive(true);
+        cinemachineOrbitalTransposer = cam4.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineOrbitalTransposer>();
+
+        while (IsChangeScene || t < duration)
+        {
+            yield return null;
+            t += Time.deltaTime;
+        }
+        cinemachineOrbitalTransposer = default;
+        isPerformChangeScene = false;
+        rigidbody.useGravity = true;
+        currentAirTime = 0;
+        isChangeScened = true;
+        cam1.SetActive(false);
+        cam2.SetActive(true);
+        cam4.SetActive(false);
+    }
 }

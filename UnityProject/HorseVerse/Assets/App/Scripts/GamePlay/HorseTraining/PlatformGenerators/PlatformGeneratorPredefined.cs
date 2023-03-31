@@ -24,6 +24,11 @@ public class PlatformGeneratorPredefined : PlatformGeneratorBase
         await UniTask.CompletedTask;
     }
 
+    protected override async UniTask ReleaseInternal()
+    {
+        await UniTask.CompletedTask;
+    }
+
     public override void Dispose()
     {
         DisposeUtility.SafeDispose(ref cts);
