@@ -121,7 +121,6 @@ public partial class AdventureEditor_LevelEditor
         return masterHorseTrainingBlockComboContainer.DataList.Where(x => x.MasterTrainingBlockComboType == currentBlockComboType).ToArray();
     }
 
-
     void OnEditBlockCombo(int i)
     {
         if (CurrentSelectetBlockCombo != -1)
@@ -139,8 +138,10 @@ public partial class AdventureEditor_LevelEditor
                 UnSelectOldBlockCombo();
         }
 
-        
-        CreatePlatform(blockCombos[i]);
+
+        cts.SafeCancelAndDispose();
+        cts = new CancellationTokenSource();
+        CreatePlatform(blockCombos[i]).AttachExternalCancellation(cts.Token).Forget();
 
         CurrentSelectetBlockCombo = i;
     }
@@ -165,14 +166,15 @@ public partial class AdventureEditor_LevelEditor
                 var editData = blockCombos[CurrentSelectetBlockCombo];
                 var data = masterHorseTrainingBlockComboContainer.DataList.Where(o => o.MasterHorseTrainingBlockId == editData.MasterHorseTrainingBlockId).FirstOrDefault();
                 var blockComboData = currentEditingPlatformObject.GetComponent<AdventureEditor_BlockComboData>();
-                var bnames = blockComboData.paddings.Select(x => x.name).ToArray();
                 if (data != default)
                 {
+                    var bnames = blockComboData.paddings.Select(x => x.name).ToArray();
                     data.MasterHorseTrainingBlockIdList = bnames;
                     if (blockComboData.startPadding != default)
                         data.SetMasterTrainingModularBlockIdStart(blockComboData.startPadding.name);
                     if (blockComboData.endPadding != default)
                         data.SetMasterTrainingModularBlockIdEnd(blockComboData.endPadding.name);
+                    SaveObstacleToBlockAndRemove(data, blockComboData.obstabcles);
                 }
             }
             else
@@ -200,7 +202,7 @@ public partial class AdventureEditor_LevelEditor
                     data.SetMasterTrainingModularBlockIdStart(blockComboData.startPadding.name);
                 if (blockComboData.endPadding != default)
                     data.SetMasterTrainingModularBlockIdEnd(blockComboData.endPadding.name);
-
+                SaveObstacleToBlockAndRemove(data, blockComboData.obstabcles);
                 masterHorseTrainingBlockComboContainer.Add(data);
 
             }
@@ -215,7 +217,6 @@ public partial class AdventureEditor_LevelEditor
         UnSelectOldBlockCombo();
         CurrentSelectetBlockCombo = -1;
     }
-
 
     private void UnSelectOldBlockCombo()
     {
@@ -239,7 +240,7 @@ public partial class AdventureEditor_LevelEditor
         };
     }
 
-    private void CreatePlatform(MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo)
+    private async UniTask CreatePlatform(MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo)
     {
         currentEditingPlatformObject = new GameObject();
         currentEditingPlatformObject.name = masterHorseTrainingBlockCombo.Name;
@@ -261,9 +262,11 @@ public partial class AdventureEditor_LevelEditor
         var paddingEndBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(masterHorseTrainingBlockCombo.MasterTrainingModularBlockIdEnd);
         var modularBlockIds = masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList;
 
-        GeneBlocks(collection.BlocksLookUpTable[paddingStartBlockId].gameObject,
+        await GeneBlocks(collection.BlocksLookUpTable[paddingStartBlockId].gameObject,
             collection.BlocksLookUpTable[paddingEndBlockId].gameObject, 
-            modularBlockIds.Select(x => collection.BlocksLookUpTable[x].gameObject).ToArray(), blockObj.transform, tmp).Forget();
+            modularBlockIds.Select(x => collection.BlocksLookUpTable[x].gameObject).ToArray(), blockObj.transform, tmp);
+
+        await GenerateObstacle(masterHorseTrainingBlockCombo, obstObj.transform, tmp);
 
     }
 
@@ -416,12 +419,6 @@ public partial class AdventureEditor_LevelEditor
     {
         AdventureEditor_BlockComboData tmp = target.AddComponent<AdventureEditor_BlockComboData>();
         return tmp;
-    }
-
-    //Block Paddings 
-    private void UpdateBlocksInCombo(MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo, List<string> masterHorseTrainingBlockIdList)
-    {
-        masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList = masterHorseTrainingBlockIdList.ToArray();
     }
 
 }

@@ -115,7 +115,7 @@ public class HorseTrainingPresenter : IDisposable
     private void OnFinishOneScene()
     {
         horseTrainingManager.HorseTrainingController.OnJumpOutPlatform();
-        LoadNextAssetsAsync(10001003).Forget();
+        LoadNextAssetsAsync(2001).Forget();
     }
 
 
@@ -388,6 +388,7 @@ public class HorseTrainingPresenter : IDisposable
 
     public async UniTask LoadAssetsAsync(long mapID)
     {
+        Debug.Log("Load Map " + mapID);
         map_id = mapID;
         baseSceneAsset = await SceneAssetLoader.LoadSceneAsync("Maps/racing_scene_stadium_training_basic", true, token: cts.Token);
 

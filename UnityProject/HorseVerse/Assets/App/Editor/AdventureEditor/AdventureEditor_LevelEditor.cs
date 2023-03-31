@@ -9,7 +9,7 @@ using System.IO;
 public partial class AdventureEditor_LevelEditor : EditorWindow
 {
     public TrainingBlockSettings collection;
-    public string master_id = "10001003";
+    public string master_id = "2001";
 
     private CancellationTokenSource cts;
 
@@ -132,6 +132,7 @@ public partial class AdventureEditor_LevelEditor : EditorWindow
                                                         MasterLoader.LoadMasterFromTextAsync<MasterHorseTrainingBlockComboContainer>(text_2, cts.Token),
                                                         MasterLoader.LoadMasterFromTextAsync<MasterHorseTrainingPropertyContainer>(text_3, cts.Token),
                                                         MasterLoader.LoadMasterFromTextAsync<MasterTrainingModularBlockContainer>(text_4, cts.Token));
+        await UniTask.CompletedTask;
     }
 
     public void Dispose()

@@ -113,7 +113,7 @@ public partial class LevelEditorPresenter : IDisposable
         freeCameraComponent = levelEditorManager.GetComponentInChildren<Camera>(true);
         
         var horseTrainingManager = await Resources.LoadAsync<HorseTrainingManager>("GamePlay/HorseTrainingManager") as HorseTrainingManager;
-        platformPrefab = horseTrainingManager.GetComponentInChildren<PlatformGeneratorModularBlock>()
+        platformPrefab = horseTrainingManager.GetComponentInChildren<PlatformGeneratorModularBlockV2>()
                                              .platformPrefab;
         debugLineMaterial = await Resources.LoadAsync("GamePlay/Debug/debugLine") as Material;
         
