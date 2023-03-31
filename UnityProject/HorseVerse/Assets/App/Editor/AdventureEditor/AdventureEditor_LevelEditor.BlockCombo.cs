@@ -189,8 +189,8 @@ public partial class AdventureEditor_LevelEditor
                 if (CurrentBlockComboType == MasterTrainingBlockComboType.Predefine ||
                     CurrentBlockComboType == MasterTrainingBlockComboType.Custom) return;
 
-                var masterHorseTrainingBlockComboId = masterHorseTrainingBlockComboContainer
-                                                 .MasterHorseTrainingBlockComboIndexer.Max(x => x.Key) + 1;
+                var masterHorseTrainingBlockComboId = masterHorseTrainingBlockComboContainer.DataList.Length > 0 ? masterHorseTrainingBlockComboContainer
+                                                 .MasterHorseTrainingBlockComboIndexer.Max(x => x.Key) + 1 : blockComboData.id;
                 var data = new MasterHorseTrainingBlockCombo(masterHorseTrainingBlockComboId,
                     blockComboName,
                     CurrentBlockComboType,

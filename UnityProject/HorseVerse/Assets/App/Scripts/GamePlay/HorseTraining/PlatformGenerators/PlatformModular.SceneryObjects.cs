@@ -37,6 +37,7 @@ public partial class PlatformModular
     private IEnumerator GenerateSceneryObjectsAsync(GameObject[] sceneryObjectPrefabs,
                                         GameObjectPoolList gameObjectPoolList)
     {
+        if (sceneryObjectPrefabs.Length == 0) yield break;
         int rand = Random.Range(0, 20);
         for(int i = 0; i < rand; i++)
         {

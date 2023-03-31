@@ -115,7 +115,7 @@ public class HorseTrainingPresenter : IDisposable
     private void OnFinishOneScene()
     {
         horseTrainingManager.HorseTrainingController.OnJumpOutPlatform();
-        LoadNextAssetsAsync(2001).Forget();
+        LoadNextAssetsAsync(2002).Forget();
     }
 
 
@@ -446,6 +446,7 @@ public class HorseTrainingPresenter : IDisposable
         horseTrainingManager.PerformChangeScene(true);
         await UnLoadCurrentScene();
         map_id = mapID;
+        HorseTrainingDataContext.MasterMapId = map_id;
         mapSceneAsset = await SceneAssetLoader.LoadSceneAsync(masterMapContainer.MasterMapIndexer[map_id]
             .MapPath, false, token: cts.Token);
         int NumberOfBlock = 4;// UnityEngine.Random.Range(4, 10);

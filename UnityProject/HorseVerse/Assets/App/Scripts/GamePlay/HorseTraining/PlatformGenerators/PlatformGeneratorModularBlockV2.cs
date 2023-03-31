@@ -33,6 +33,7 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
         cts = new CancellationTokenSource();
         trainingBlockSettings = await PrimitiveAssetLoader.LoadAssetAsync<TrainingBlockSettings>($"{TrainingBlockSettingPath}_{path}", cts.Token);
         masterTrainingModularBlockContainer = await MasterLoader.LoadMasterAsync<MasterTrainingModularBlockContainer>(path, cts.Token);
+        Debug.Log("Load Master Training path " + path + " -- result " + (masterTrainingModularBlockContainer != null));
     }
 
     protected override async UniTask ReleaseInternal()
@@ -47,7 +48,7 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
                                                    Vector3 lastEndPosition)
     {
         var randomBlockCombo = GetRandomBlockCombo();
-
+        if (randomBlockCombo == default) Debug.LogError("NULL random combo");
         var paddingStartBlockId= masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(randomBlockCombo.MasterTrainingModularBlockIdStart);
         var paddingEndBlockId= masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(randomBlockCombo.MasterTrainingModularBlockIdEnd);
 
@@ -168,8 +169,11 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
     private MasterHorseTrainingBlockCombo GetRandomBlockCombo()
     {
         var masterHorseTrainingBlockGroupId = GetMasterHorseTrainingBlockGroupId();
-        return masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer[masterHorseTrainingBlockGroupId]
+        if (masterHorseTrainingBlockGroupId < masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer.Count)
+            return masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer[masterHorseTrainingBlockGroupId]
                                                      .RandomElement();
+        else
+            return masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer[0].First();
         //return masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer[masterHorseTrainingBlockGroupId].Where(x => x.Traps.Length > 0).RandomElement();
     }
 
