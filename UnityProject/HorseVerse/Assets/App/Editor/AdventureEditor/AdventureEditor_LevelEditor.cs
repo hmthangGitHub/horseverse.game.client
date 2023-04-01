@@ -17,6 +17,7 @@ public partial class AdventureEditor_LevelEditor : EditorWindow
     private MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer;
     private MasterHorseTrainingPropertyContainer masterHorseTrainingPropertyContainer;
     private MasterTrainingModularBlockContainer masterTrainingModularBlockContainer;
+    private MasterCoinPresetContainer masterCoinPresetContainer;
 
     private Vector2 scrollPosition;
     
@@ -108,10 +109,12 @@ public partial class AdventureEditor_LevelEditor : EditorWindow
         (masterHorseTrainingBlockContainer,
         masterHorseTrainingBlockComboContainer,
         masterHorseTrainingPropertyContainer,
-        masterTrainingModularBlockContainer) = await (MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(id, cts.Token),
+        masterTrainingModularBlockContainer,
+        masterCoinPresetContainer) = await (MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(id, cts.Token),
                                                         MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>(id, cts.Token),
                                                         MasterLoader.LoadMasterAsync<MasterHorseTrainingPropertyContainer>(id, cts.Token),
-                                                        MasterLoader.LoadMasterAsync<MasterTrainingModularBlockContainer>(id, cts.Token));
+                                                        MasterLoader.LoadMasterAsync<MasterTrainingModularBlockContainer>(id, cts.Token),
+                                                        MasterLoader.LoadMasterAsync<MasterCoinPresetContainer>(id, cts.Token));
     }
 
     private async UniTask LoadMasterAsync(string folder, string id)
@@ -120,18 +123,22 @@ public partial class AdventureEditor_LevelEditor : EditorWindow
         string path_2 = $"{folder}/MasterHorseTrainingBlockCombo_{id}.json";
         string path_3 = $"{folder}/MasterHorseTrainingProperty_{id}.json";
         string path_4 = $"{folder}/MasterTrainingModularBlock_{id}.json";
+        string path_5 = $"{folder}/MasterCoinPreset.json";
         var text_1 = LoadFile(path_1);
         var text_2 = LoadFile(path_2);
         var text_3 = LoadFile(path_3);
         var text_4 = LoadFile(path_4);
+        var text_5 = LoadFile(path_5);
 
         (masterHorseTrainingBlockContainer,
         masterHorseTrainingBlockComboContainer,
         masterHorseTrainingPropertyContainer,
-        masterTrainingModularBlockContainer) = (MasterLoader.LoadMasterFromTextAsync<MasterHorseTrainingBlockContainer>(text_1, cts.Token),
+        masterTrainingModularBlockContainer,
+        masterCoinPresetContainer) = (MasterLoader.LoadMasterFromTextAsync<MasterHorseTrainingBlockContainer>(text_1, cts.Token),
                                                         MasterLoader.LoadMasterFromTextAsync<MasterHorseTrainingBlockComboContainer>(text_2, cts.Token),
                                                         MasterLoader.LoadMasterFromTextAsync<MasterHorseTrainingPropertyContainer>(text_3, cts.Token),
-                                                        MasterLoader.LoadMasterFromTextAsync<MasterTrainingModularBlockContainer>(text_4, cts.Token));
+                                                        MasterLoader.LoadMasterFromTextAsync<MasterTrainingModularBlockContainer>(text_4, cts.Token),
+                                                        MasterLoader.LoadMasterFromTextAsync<MasterCoinPresetContainer>(text_5, cts.Token));
         await UniTask.CompletedTask;
     }
 
@@ -145,10 +152,6 @@ public partial class AdventureEditor_LevelEditor : EditorWindow
         {
             cts.SafeCancelAndDispose();
             cts = default;
-
-            //MasterLoader.SafeRelease(master_id, ref masterHorseTrainingBlockContainer);
-            //MasterLoader.SafeRelease(master_id, ref masterHorseTrainingBlockComboContainer);
-            //MasterLoader.SafeRelease(master_id, ref masterHorseTrainingPropertyContainer);
 
         }
     }

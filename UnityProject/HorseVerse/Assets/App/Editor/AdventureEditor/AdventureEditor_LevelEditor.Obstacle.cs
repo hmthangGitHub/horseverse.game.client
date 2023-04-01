@@ -41,7 +41,7 @@ public partial class AdventureEditor_LevelEditor
         return gameOb;
     }
 
-    private void SaveObstacleToBlockAndRemove(MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo, List<GameObject> obstacles)
+    private void SaveObstacleToBlock(MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo, List<GameObject> obstacles)
     {
         masterHorseTrainingBlockCombo.ObstacleList = obstacles.Select(x =>
                 new Obstacle()

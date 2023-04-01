@@ -114,6 +114,16 @@ public partial class AdventureEditor_LevelEditor
             }
         }
 
+        if (GUILayout.Button("Create New Coin Item"))
+        {
+            if (currentEditingPlatformObject != default)
+            {
+                var tmp = currentEditingPlatformObject.GetComponent<AdventureEditor_BlockComboData>();
+                var item = CreateNewCoinEditor(currentEditingPlatformObject.transform.GetChild(2));
+                tmp.coins.Add(item);
+            }
+        }
+
     }
 
     MasterHorseTrainingBlockCombo[] GetCurrentBlockCombo(MasterTrainingBlockComboType currentBlockComboType)
@@ -174,7 +184,9 @@ public partial class AdventureEditor_LevelEditor
                         data.SetMasterTrainingModularBlockIdStart(blockComboData.startPadding.name);
                     if (blockComboData.endPadding != default)
                         data.SetMasterTrainingModularBlockIdEnd(blockComboData.endPadding.name);
-                    SaveObstacleToBlockAndRemove(data, blockComboData.obstabcles);
+                    SaveObstacleToBlock(data, blockComboData.obstabcles);
+                    SaveCoinToBlock(data, blockComboData.coins);
+                    SaveTrapToBlock(data, blockComboData.traps);
                 }
             }
             else
@@ -202,7 +214,9 @@ public partial class AdventureEditor_LevelEditor
                     data.SetMasterTrainingModularBlockIdStart(blockComboData.startPadding.name);
                 if (blockComboData.endPadding != default)
                     data.SetMasterTrainingModularBlockIdEnd(blockComboData.endPadding.name);
-                SaveObstacleToBlockAndRemove(data, blockComboData.obstabcles);
+                SaveObstacleToBlock(data, blockComboData.obstabcles);
+                SaveCoinToBlock(data, blockComboData.coins);
+                SaveTrapToBlock(data, blockComboData.traps);
                 masterHorseTrainingBlockComboContainer.Add(data);
 
             }
@@ -254,6 +268,16 @@ public partial class AdventureEditor_LevelEditor
         obstObj.transform.parent = currentEditingPlatformObject.transform;
         obstObj.transform.SetAsLastSibling();
 
+        var coinObj = new GameObject();
+        coinObj.name = "Coin";
+        coinObj.transform.parent = currentEditingPlatformObject.transform;
+        coinObj.transform.SetAsLastSibling();
+
+        var trapObj = new GameObject();
+        trapObj.name = "Trap";
+        trapObj.transform.parent = currentEditingPlatformObject.transform;
+        trapObj.transform.SetAsLastSibling();
+
         var tmp = AddDataComponent(currentEditingPlatformObject);
         tmp.id = masterHorseTrainingBlockCombo.MasterHorseTrainingBlockId;
         tmp.block_name = masterHorseTrainingBlockCombo.Name;
@@ -267,6 +291,8 @@ public partial class AdventureEditor_LevelEditor
             modularBlockIds.Select(x => collection.BlocksLookUpTable[x].gameObject).ToArray(), blockObj.transform, tmp);
 
         await GenerateObstacle(masterHorseTrainingBlockCombo, obstObj.transform, tmp);
+        await GenerateCoin(masterHorseTrainingBlockCombo, coinObj.transform, tmp);
+        await GenerateTrap(masterHorseTrainingBlockCombo, trapObj.transform, tmp);
 
     }
 
@@ -282,6 +308,17 @@ public partial class AdventureEditor_LevelEditor
         obstObj.name = "Obstacle";
         obstObj.transform.parent = currentEditingPlatformObject.transform;
         obstObj.transform.SetAsLastSibling();
+
+        var coinObj = new GameObject();
+        coinObj.name = "Coin";
+        coinObj.transform.parent = currentEditingPlatformObject.transform;
+        coinObj.transform.SetAsLastSibling();
+
+        var trapObj = new GameObject();
+        trapObj.name = "Trap";
+        trapObj.transform.parent = currentEditingPlatformObject.transform;
+        trapObj.transform.SetAsLastSibling();
+
 
         AddDataComponent(currentEditingPlatformObject);
     }
