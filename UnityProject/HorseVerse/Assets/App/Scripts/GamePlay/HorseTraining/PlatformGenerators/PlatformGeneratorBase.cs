@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -83,32 +84,32 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
 
     public abstract void Dispose();
 
-    private Vector3 PredictRelativePointToPlayer()
+    private Vector3 PredictRelativePointToPlayer(Vector3 direction)
     {
         var highestPoint = PredictHighestPoint();
 
         var timeToReach = Random.Range(horseTrainingControllerV2.AirTime.x, horseTrainingControllerV2.AirTime.y);
         var relativePointToPlayer = PredictDownPoint(timeToReach) 
-                                    + highestPoint + nextSideDirection * (horseTrainingControllerV2.HorizontalVelocity * Random.Range(-1f, 1f) * timeToReach);
-        return relativePointToPlayer;
+                                    + highestPoint + Vector3.right * (horseTrainingControllerV2.HorizontalVelocity * Random.Range(-1f, 1f) * timeToReach);
+        return Quaternion.LookRotation(direction) * relativePointToPlayer;
     }
 
     private Vector3 PredictDownPoint(float time)
     {
         var z = horseTrainingControllerV2.ForwardVelocity * time;
         var y = horseTrainingControllerV2.LowJumpMultiplier * horseTrainingControllerV2.DefaultGravity * 0.5f * time * time;
-        return new Vector3(0, y, 0) + nextDirection * z;
+        return new Vector3(0, y, z);
     }
 
     private Vector3 PredictHighestPoint()
     {
-        var jumpVel = new Vector3(0, horseTrainingControllerV2.JumpVelocity, 0) + nextDirection * horseTrainingControllerV2.ForwardVelocity; 
+        var jumpVel = new Vector3(0, horseTrainingControllerV2.JumpVelocity, horseTrainingControllerV2.ForwardVelocity); 
         var v0 = jumpVel.magnitude;
 
-        var angle = Mathf.Deg2Rad * Vector3.Angle(jumpVel, nextDirection);
+        var angle = Mathf.Deg2Rad * Vector3.Angle(jumpVel, Vector3.forward);
         var maxZ = v0 * v0 * Mathf.Sin(2 * angle) / (-horseTrainingControllerV2.DefaultGravity * 2); 
         var maxY = (horseTrainingControllerV2.JumpVelocity * horseTrainingControllerV2.JumpVelocity) / (2 * -horseTrainingControllerV2.DefaultGravity);
-        return new Vector3(0, maxY, 0) + nextDirection * maxZ;
+        return new Vector3(0, maxY, maxZ);
     }
 
     protected void TurnLeft()
@@ -125,7 +126,6 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
 
     private async UniTask GenerateAsync()
     {
-        var relativePointToPlayer = PredictRelativePointToPlayer();
         var platformTest = lastPlatform.GetComponent<PlatformBase>();
         var lastEndPosition = platformTest.end.position;
 
@@ -133,80 +133,91 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
 
         if (random == 2 || random == 3)
         {
-            var platform1 = await CreatePlatformWithoutSceneryObjectAsync(relativePointToPlayer, lastEndPosition);
-            platform1.transform.forward = nextDirection;
-            platform1.OnFinishPlatform += OnDestroyPlatform;
-            platformQueue.Enqueue(platform1.gameObject);
-            List<BoxCollider> _ff = new List<BoxCollider>();
-            relativePointToPlayer = PredictRelativePointToPlayer();
-            lastEndPosition = platform1.end.position;
-            var pp1 = platform1.GetComponent<PlatformModular>();
-            pp1.CreateSceneryRegions();
-            _ff.Add(pp1.sceneryConflictRegion);
-            PlatformBase platform = default;
-            if (random == 2)
-            {
-                platform = await CreateTurnPlatformAsync(TYPE_OF_BLOCK.TURN_LEFT, relativePointToPlayer, lastEndPosition);
-                platform.OnFinishPlatform += OnDestroyPlatform;
-                platform.transform.forward = nextDirection;
-                platformQueue.Enqueue(platform.gameObject);
-                TurnLeft();
-
-                relativePointToPlayer = PredictRelativePointToPlayer();
-                lastEndPosition = platform.end.position;
-
-                var pp = platform.GetComponent<PlatformModular>();
-                pp.CreateSceneryRegions(1);
-                _ff.Add(pp.sceneryConflictRegion);
-            }
-            else if (random == 3)
-            {
-                platform = await CreateTurnPlatformAsync(TYPE_OF_BLOCK.TURN_RIGHT, relativePointToPlayer, lastEndPosition);
-                platform.OnFinishPlatform += OnDestroyPlatform;
-                platform.transform.forward = nextDirection;
-                platformQueue.Enqueue(platform.gameObject);
-                TurnRight();
-
-                relativePointToPlayer = PredictRelativePointToPlayer();
-                lastEndPosition = platform.end.position;
-
-                var pp = platform.GetComponent<PlatformModular>();
-                pp.CreateSceneryRegions(1);
-                _ff.Add(pp.sceneryConflictRegion);
-            }
-
-            var platform2 = await CreatePlatformWithoutSceneryObjectAsync(relativePointToPlayer, lastEndPosition);
-            platform2.transform.forward = nextDirection;
-
-            currentBlock++;
-            if (currentBlock >= numberOfBlock)
-                platform2.OnFinishPlatform += OnEndOfScene;
-            else
-                platform2.OnFinishPlatform += OnCreateNewPlatform;
-
-            platformQueue.Enqueue(platform2.gameObject);
-            var pp2 = platform2.GetComponent<PlatformModular>();
-            pp2.CreateSceneryRegions();
-            _ff.Add(pp2.sceneryConflictRegion);
-            lastPlatform = platform2.gameObject;
-            var ff = _ff.ToArray();
-            await CreateSceneryObectAsync(platform1, ff);
-            await CreateSceneryObectAsync(platform, ff);
-            await CreateSceneryObectAsync(platform2, ff);
+            await CreateTurnPlatformsAsync(lastEndPosition, random);
         }
         else
         {
+            var relativePointToPlayer = PredictRelativePointToPlayer(nextDirection);
             var platform = await CreateNewPlatformAsync(relativePointToPlayer, lastEndPosition, nextDirection);
             lastPlatform = platform;
             platformQueue.Enqueue(platform);
         }
     }
 
+    private async UniTask CreateTurnPlatformsAsync(Vector3 lastEndPosition,
+                                       int random)
+    {
+        var relativePointToPlayer = PredictRelativePointToPlayer(nextDirection);
+        var platform1 = await CreatePlatformWithoutSceneryObjectAsync(relativePointToPlayer, lastEndPosition);
+        RotatePlatform(platform1, nextDirection);
+        platform1.OnFinishPlatform += OnDestroyPlatform;
+        platformQueue.Enqueue(platform1.gameObject);
+        
+        List<BoxCollider> _ff = new List<BoxCollider>();
+        lastEndPosition = platform1.end.position;
+        var pp1 = platform1.GetComponent<PlatformModular>();
+        pp1.CreateSceneryRegions();
+        _ff.Add(pp1.sceneryConflictRegion);
+        PlatformBase platform = default;
+        
+        if (random == 2)
+        {
+            platform = await CreateTurnPlatformAsync(TYPE_OF_BLOCK.TURN_LEFT, relativePointToPlayer, lastEndPosition);
+            platform.OnFinishPlatform += OnDestroyPlatform;
+            RotatePlatform(platform, nextDirection);
+            platformQueue.Enqueue(platform.gameObject);
+            TurnLeft();
+
+            relativePointToPlayer = PredictRelativePointToPlayer(nextDirection);
+            lastEndPosition = platform.end.position;
+
+            var pp = platform.GetComponent<PlatformModular>();
+            pp.CreateSceneryRegions(1);
+            _ff.Add(pp.sceneryConflictRegion);
+        }
+        else if (random == 3)
+        {
+            platform = await CreateTurnPlatformAsync(TYPE_OF_BLOCK.TURN_RIGHT, relativePointToPlayer, lastEndPosition);
+            platform.OnFinishPlatform += OnDestroyPlatform;
+            RotatePlatform(platform, nextDirection);
+            platformQueue.Enqueue(platform.gameObject);
+            TurnRight();
+
+            relativePointToPlayer = PredictRelativePointToPlayer(nextDirection);
+            lastEndPosition = platform.end.position;
+
+            var pp = platform.GetComponent<PlatformModular>();
+            pp.CreateSceneryRegions(1);
+            _ff.Add(pp.sceneryConflictRegion);
+        }
+
+        CreateDebugSphere(relativePointToPlayer + lastEndPosition);
+        var platform2 = await CreatePlatformWithoutSceneryObjectAsync(relativePointToPlayer, lastEndPosition);
+        RotatePlatform(platform2, nextDirection);
+
+        currentBlock++;
+        if (currentBlock >= numberOfBlock)
+            platform2.OnFinishPlatform += OnEndOfScene;
+        else
+            platform2.OnFinishPlatform += OnCreateNewPlatform;
+
+        platformQueue.Enqueue(platform2.gameObject);
+        var pp2 = platform2.GetComponent<PlatformModular>();
+        pp2.CreateSceneryRegions();
+        _ff.Add(pp2.sceneryConflictRegion);
+        lastPlatform = platform2.gameObject;
+        var ff = _ff.ToArray();
+        
+        await CreateSceneryObectAsync(platform1, ff);
+        await CreateSceneryObectAsync(platform, ff);
+        await CreateSceneryObectAsync(platform2, ff);
+    }
+
     private void GenerateMulti(int number)
     {
         for(int i = 0; i < number; i++)
         {
-            var relativePointToPlayer = PredictRelativePointToPlayer();
+            var relativePointToPlayer = PredictRelativePointToPlayer(nextDirection);
             var platformTest = lastPlatform.GetComponent<PlatformBase>();
             var lastEndPosition = platformTest.end.position;
             var platform = CreateNewPlatform(relativePointToPlayer, lastEndPosition, nextDirection);
@@ -219,7 +230,7 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     {
         for (int i = 0; i < number; i++)
         {
-            var relativePointToPlayer = PredictRelativePointToPlayer();
+            var relativePointToPlayer = PredictRelativePointToPlayer(nextDirection);
             var platformTest = lastPlatform.GetComponent<PlatformBase>();
             var lastEndPosition = platformTest.end.position;
             var platform = await CreateNewPlatformAsync(relativePointToPlayer, lastEndPosition, nextDirection);
@@ -249,14 +260,19 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
             platform.OnFinishPlatform += OnEndOfScene;
         else
             platform.OnFinishPlatform += OnCreateNewPlatform;
-        Debug.LogError("currentBlock " + currentBlock + " vs " + numberOfBlock);
-        platform.transform.forward = direction;
+        Debug.LogError("currentBlock " + currentBlock + " vs " + numberOfBlock + direction);
+        RotatePlatform(platform, direction);
         return platform.gameObject;
     }
 
+    private static void RotatePlatform(PlatformBase platform, Vector3 direction)
+    {
+        platform.transform.RotateAround(platform.start.position, Vector3.up, Quaternion.LookRotation(direction).eulerAngles.y);
+    }
+
     private async UniTask<GameObject> CreateNewPlatformAsync(Vector3 relativePointToPlayer,
-                                         Vector3 lastEndPosition, 
-                                         Vector3 direction)
+                                                             Vector3 lastEndPosition, 
+                                                             Vector3 direction)
     {
         CreateDebugSphere(relativePointToPlayer + lastEndPosition);
         var platform = await CreatePlatformAsync(relativePointToPlayer, lastEndPosition);
@@ -265,18 +281,8 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
             platform.OnFinishPlatform += OnEndOfScene;
         else
             platform.OnFinishPlatform += OnCreateNewPlatform;
-        platform.transform.forward = direction;
-        Debug.LogError("currentBlock " + currentBlock + " vs " + numberOfBlock);
-        return platform.gameObject;
-    }
-
-    private async UniTask<GameObject> CreateNewTurnPlatformAsync(Vector3 relativePointToPlayer,
-                                         Vector3 lastEndPosition, TYPE_OF_BLOCK type, Vector3 direction)
-    {
-        CreateDebugSphere(relativePointToPlayer + lastEndPosition);
-        var platform = await CreateTurnPlatformAsync(type, relativePointToPlayer, lastEndPosition);
-        platform.OnFinishPlatform += OnCreateNewPlatform;
-        platform.transform.forward = direction;
+        RotatePlatform(platform, direction);
+        Debug.LogError("currentBlock " + currentBlock + " vs " + numberOfBlock + direction);
         return platform.gameObject;
     }
 
@@ -321,26 +327,26 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     protected abstract PlatformBase CreatePlatform(Vector3 relativePointToPlayer,
                                                    Vector3 lastEndPosition);
 
-    protected virtual async UniTask<PlatformBase> CreatePlatformAsync(Vector3 relativePointToPlayer,
+    protected virtual UniTask<PlatformBase> CreatePlatformAsync(Vector3 relativePointToPlayer,
                                                    Vector3 lastEndPosition)
     {
-        return null;
+        return default;
     }
 
-    protected virtual async UniTask<PlatformBase> CreateTurnPlatformAsync(TYPE_OF_BLOCK type, Vector3 relativePointToPlayer,
+    protected virtual UniTask<PlatformBase> CreateTurnPlatformAsync(TYPE_OF_BLOCK type, Vector3 relativePointToPlayer,
                                                    Vector3 lastEndPosition)
     {
-        return null;
+        return default;
     }
 
-    protected virtual async UniTask<PlatformBase> CreatePlatformWithoutSceneryObjectAsync(Vector3 relativePointToPlayer,
+    protected virtual UniTask<PlatformBase> CreatePlatformWithoutSceneryObjectAsync(Vector3 relativePointToPlayer,
                                                    Vector3 lastEndPosition)
     {
-        return null;
+        return default;
     }
 
-    protected virtual async UniTask CreateSceneryObectAsync(PlatformBase platform, BoxCollider[] boxColliders)
+    protected virtual UniTask CreateSceneryObectAsync(PlatformBase platform, BoxCollider[] boxColliders)
     {
-
+        return default;
     }
 }
