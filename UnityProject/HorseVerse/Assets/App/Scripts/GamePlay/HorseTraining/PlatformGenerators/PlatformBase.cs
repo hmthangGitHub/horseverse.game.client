@@ -6,6 +6,7 @@ public class PlatformBase : MonoBehaviour
     public Transform start;
     public Transform end;
     public Action OnFinishPlatform = ActionUtility.EmptyAction.Instance;
+    public PlatformTrigger platformTrigger = default;
     
     [SerializeField]
     protected Transform blockContainer;

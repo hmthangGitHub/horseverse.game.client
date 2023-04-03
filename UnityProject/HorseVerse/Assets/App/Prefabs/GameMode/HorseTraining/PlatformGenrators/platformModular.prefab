@@ -338,6 +338,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8642612561331957944, guid: 55dc9c2553832884cafbb8978427d61c, type: 3}
   m_PrefabInstance: {fileID: 3367242671285223587}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5941827570117263762 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8993483877423513905, guid: 55dc9c2553832884cafbb8978427d61c, type: 3}
+  m_PrefabInstance: {fileID: 3367242671285223587}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31f79a7c54fdb614c8b65945e8e113d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5941827569700069379 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8993483877823946912, guid: 55dc9c2553832884cafbb8978427d61c, type: 3}
@@ -362,6 +373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   start: {fileID: 5941827570052163706}
   end: {fileID: 5941827569700069379}
+  platformTrigger: {fileID: 5941827570117263762}
   blockContainer: {fileID: 6434063920842633243}
   sceneryContainer: {fileID: 1651026050602926669}
   sceneryConflictRegionScale: {x: 3.8, y: 20, z: 1}

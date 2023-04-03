@@ -31,7 +31,6 @@ public class HorseTrainingPresenter : IDisposable
     private CancellationTokenSource cts;
     private Scene baseSceneAsset;
     private Scene mapSceneAsset;
-    private int distanceOfRunning = 0;
     private UniTaskCompletionSource<bool> trainingUcsRetry;
 
     private HorseTrainingDataContext HorseTrainingDataContext => horseTrainingDataContext ??= Container.Inject<HorseTrainingDataContext>();
@@ -42,7 +41,7 @@ public class HorseTrainingPresenter : IDisposable
     private IReadOnlyHorseRepository horseRepository;
     private IReadOnlyHorseRepository HorseRepository => horseRepository ??= Container.Inject<IReadOnlyHorseRepository>();
 
-    private long map_id;
+    private long currentMasterMapId;
 
     public HorseTrainingPresenter(IDIContainer container)
     {
@@ -52,40 +51,7 @@ public class HorseTrainingPresenter : IDisposable
 
     public async UniTask LoadAssetsAsync()
     {
-        await LoadAssetsAsync(HorseTrainingDataContext.MasterMapId);
-        return;
-        masterMapContainer = await MasterLoader.LoadMasterAsync<MasterMapContainer>(token: cts.Token);
-        mapSceneAsset = await SceneAssetLoader.LoadSceneAsync(masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.MasterMapId]
-            .MapPath, true, token: cts.Token);
-        horseTrainingManager ??= Object.Instantiate((await Resources.LoadAsync<HorseTrainingManager>("GamePlay/HorseTrainingManager") as HorseTrainingManager));
-        
-        masterHorseContainer = await MasterLoader.LoadMasterAsync<MasterHorseContainer>(token: cts.Token);
-        masterHorseTrainingPropertyContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingPropertyContainer>(token: cts.Token);
-        masterHorseTrainingBlockContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(token: cts.Token);
-        masterHorseTrainingBlockComboContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>(token: cts.Token);
-        masterTrainingDifficultyContainer = await MasterLoader.LoadMasterAsync<MasterTrainingDifficultyContainer>(token: cts.Token);
-        masterTrainingBlockDistributeContainer = await MasterLoader.LoadMasterAsync<MasterTrainingBlockDistributeContainer>(token: cts.Token);
-
-        uiTrainingCoinCounting = await UILoader.Instantiate<UITrainingCoinCounting>(token: cts.Token);
-        uiTrainingPressAnyKey = await UILoader.Instantiate<UITrainingPressAnyKey>(token: cts.Token);
-        uiHorseTrainingInput = await UILoader.Instantiate<UIHorseTrainingInput>(token: cts.Token);
-        uiTrainingTutorial = await UILoader.Instantiate<UITrainingTutorial>(token: cts.Token);
-        int NumberOfBlock = UnityEngine.Random.Range(4, 10);
-        await horseTrainingManager.Initialize(
-            masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.MasterMapId].MapPath,
-            HorseTrainingDataContext.MasterMapId.ToString(),
-            NumberOfBlock,
-            OnTakeCoin,
-            OnUpdateRuntime,
-            () => OnTouchObstacleAsync().Forget(),
-            OnFinishOnePlatform,
-            OnFinishOneScene,
-            masterHorseTrainingPropertyContainer.DataList.First(),
-            masterHorseTrainingBlockContainer, 
-            masterHorseTrainingBlockComboContainer,
-            masterTrainingBlockDistributeContainer, 
-            masterTrainingDifficultyContainer, 
-            horseTrainingDataContext.HorseMeshInformation);
+        await LoadAssetsAsync(2001);
     }
 
     private void OnStartRunning()
@@ -112,13 +78,15 @@ public class HorseTrainingPresenter : IDisposable
         horseTrainingManager.HorseTrainingController.OnJumpOutPlatform();
     }
 
-    private void OnFinishOneScene()
+    private async UniTaskVoid OnFinishOneSceneAsync()
     {
-        horseTrainingManager.HorseTrainingController.OnJumpOutPlatform();
-        LoadNextAssetsAsync(2002).Forget();
+        await (horseTrainingManager.PerformHighJumpToChangeSceneAsync(),
+        UnLoadCurrentScene(),
+        LoadNextAssetsAsync(2002));
+        await horseTrainingManager.GenerateMultiBlockAsync(2);
+        horseTrainingManager.LandToNewScene();
     }
-
-
+    
     public async UniTask<bool> StartTrainingAsync()
     {
         await UniTask.Delay(1500, cancellationToken: cts.Token);
@@ -326,7 +294,7 @@ public class HorseTrainingPresenter : IDisposable
         Time.timeScale = 1.0f;
         if (mapSceneAsset != default)
         {
-            SceneAssetLoader.UnloadAssetAtPath(masterMapContainer.MasterMapIndexer[HorseTrainingDataContext.MasterMapId].MapPath);
+            SceneAssetLoader.UnloadAssetAtPath(masterMapContainer.MasterMapIndexer[currentMasterMapId].MapPath);
             mapSceneAsset = default;
         }
         if (baseSceneAsset != default)
@@ -341,8 +309,8 @@ public class HorseTrainingPresenter : IDisposable
         MasterLoader.SafeRelease(ref masterMapContainer);
         MasterLoader.SafeRelease(ref masterHorseContainer);
         MasterLoader.SafeRelease(ref masterHorseTrainingPropertyContainer);
-        MasterLoader.SafeRelease(map_id.ToString(), ref masterHorseTrainingBlockContainer);
-        MasterLoader.SafeRelease(map_id.ToString(), ref masterHorseTrainingBlockComboContainer);
+        MasterLoader.SafeRelease(currentMasterMapId.ToString(), ref masterHorseTrainingBlockContainer);
+        MasterLoader.SafeRelease(currentMasterMapId.ToString(), ref masterHorseTrainingBlockComboContainer);
         MasterLoader.SafeRelease(ref masterTrainingDifficultyContainer);
         MasterLoader.SafeRelease(ref masterTrainingBlockDistributeContainer);
         horseTrainingDataContext = default;
@@ -389,7 +357,7 @@ public class HorseTrainingPresenter : IDisposable
     public async UniTask LoadAssetsAsync(long mapID)
     {
         Debug.Log("Load Map " + mapID);
-        map_id = mapID;
+        currentMasterMapId = mapID;
         baseSceneAsset = await SceneAssetLoader.LoadSceneAsync("Maps/racing_scene_stadium_training_basic", true, token: cts.Token);
 
         masterMapContainer ??= await MasterLoader.LoadMasterAsync<MasterMapContainer>(token: cts.Token);
@@ -399,8 +367,8 @@ public class HorseTrainingPresenter : IDisposable
 
         masterHorseContainer = await MasterLoader.LoadMasterAsync<MasterHorseContainer>(token: cts.Token);
         masterHorseTrainingPropertyContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingPropertyContainer>(token: cts.Token);
-        masterHorseTrainingBlockContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(map_id.ToString(), token: cts.Token);
-        masterHorseTrainingBlockComboContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>(map_id.ToString(), token: cts.Token);
+        masterHorseTrainingBlockContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(currentMasterMapId.ToString(), token: cts.Token);
+        masterHorseTrainingBlockComboContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>(currentMasterMapId.ToString(), token: cts.Token);
         masterTrainingDifficultyContainer = await MasterLoader.LoadMasterAsync<MasterTrainingDifficultyContainer>(token: cts.Token);
         masterTrainingBlockDistributeContainer = await MasterLoader.LoadMasterAsync<MasterTrainingBlockDistributeContainer>(token: cts.Token);
 
@@ -409,7 +377,7 @@ public class HorseTrainingPresenter : IDisposable
         uiHorseTrainingInput = await UILoader.Instantiate<UIHorseTrainingInput>(token: cts.Token);
         uiTrainingTutorial = await UILoader.Instantiate<UITrainingTutorial>(token: cts.Token);
 
-        int NumberOfBlock = 4; // UnityEngine.Random.Range(4, 10);
+        int NumberOfBlock = 2; // UnityEngine.Random.Range(4, 10);
 
         await horseTrainingManager.Initialize(
             masterMapContainer.MasterMapIndexer[mapID].MapPath,
@@ -419,46 +387,43 @@ public class HorseTrainingPresenter : IDisposable
             OnUpdateRuntime,
             () => OnTouchObstacleAsync().Forget(),
             OnFinishOnePlatform,
-            OnFinishOneScene,
+            () => OnFinishOneSceneAsync().Forget(),
             masterHorseTrainingPropertyContainer.DataList.First(),
             masterHorseTrainingBlockContainer,
             masterHorseTrainingBlockComboContainer,
             masterTrainingBlockDistributeContainer,
             masterTrainingDifficultyContainer,
-            horseTrainingDataContext.HorseMeshInformation);
+            HorseTrainingDataContext.HorseMeshInformation);
     }
 
     public async UniTask UnLoadCurrentScene()
     {
         if (mapSceneAsset != default)
         {
-            SceneAssetLoader.UnloadAssetAtPath(masterMapContainer.MasterMapIndexer[map_id].MapPath);
+            SceneAssetLoader.UnloadAssetAtPath(masterMapContainer.MasterMapIndexer[currentMasterMapId].MapPath);
             mapSceneAsset = default;
         }
-        MasterLoader.SafeRelease(map_id.ToString(), ref masterHorseTrainingBlockContainer);
-        MasterLoader.SafeRelease(map_id.ToString(), ref masterHorseTrainingBlockComboContainer);
+        MasterLoader.SafeRelease(currentMasterMapId.ToString(), ref masterHorseTrainingBlockContainer);
+        MasterLoader.SafeRelease(currentMasterMapId.ToString(), ref masterHorseTrainingBlockComboContainer);
         await UniTask.CompletedTask;
     }
 
     public async UniTask LoadNextAssetsAsync(long mapID)
     {
         Debug.Log("Load Next Scene");
-        horseTrainingManager.PerformChangeScene(true);
         await UnLoadCurrentScene();
-        map_id = mapID;
-        HorseTrainingDataContext.MasterMapId = map_id;
-        mapSceneAsset = await SceneAssetLoader.LoadSceneAsync(masterMapContainer.MasterMapIndexer[map_id]
+        currentMasterMapId = mapID;
+        mapSceneAsset = await SceneAssetLoader.LoadSceneAsync(masterMapContainer.MasterMapIndexer[currentMasterMapId]
             .MapPath, false, token: cts.Token);
         int NumberOfBlock = 4;// UnityEngine.Random.Range(4, 10);
-        masterHorseTrainingBlockContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(map_id.ToString(), token: cts.Token);
-        masterHorseTrainingBlockComboContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>(map_id.ToString(), token: cts.Token);
+        masterHorseTrainingBlockContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(currentMasterMapId.ToString(), token: cts.Token);
+        masterHorseTrainingBlockComboContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>(currentMasterMapId.ToString(), token: cts.Token);
         await horseTrainingManager.UpdateMap(
-                masterMapContainer.MasterMapIndexer[map_id].MapPath,
-                map_id.ToString(),
+                masterMapContainer.MasterMapIndexer[currentMasterMapId].MapPath,
+                currentMasterMapId.ToString(),
                 NumberOfBlock,
                 masterHorseTrainingBlockContainer,
                 masterHorseTrainingBlockComboContainer
             );
-        horseTrainingManager.PerformChangeScene(false);
     }
 }
