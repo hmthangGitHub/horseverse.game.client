@@ -434,16 +434,7 @@ public partial class PlatformModular : PlatformBase
     {
         if (trainingBlockComboType == MasterTrainingBlockComboType.Modular)
         {
-            //if (pool != default)
-            //{
-            //    var _paddingHead = ((GameObject)pool.GetOrInstante(paddingHead, this.blockContainer));
-            //    _cacheBlock.Add(_paddingHead);
-            //    return _paddingHead.GetComponentInChildren<BoxCollider>();
-            //}
-            //else
-            {
-                return Instantiate(paddingHead, this.blockContainer);
-            }
+            return Instantiate(paddingHead, this.blockContainer);
         }
         return null;
     }
@@ -452,16 +443,7 @@ public partial class PlatformModular : PlatformBase
     {
         if (trainingBlockComboType == MasterTrainingBlockComboType.Modular)
         {
-            //if (pool != default)
-            //{
-            //    var _paddingTail = ((GameObject)pool.GetOrInstante(paddingTail, this.blockContainer));
-            //    _cacheBlock.Add(_paddingTail);
-            //    return paddingTail.GetComponentInChildren<BoxCollider>();
-            //}
-            //else
-            {
-                return Instantiate(paddingTail, this.blockContainer);
-            }
+            return Instantiate(paddingTail, this.blockContainer);
         }
         return null;
     }

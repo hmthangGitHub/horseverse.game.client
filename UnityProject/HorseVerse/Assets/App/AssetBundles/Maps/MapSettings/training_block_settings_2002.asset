@@ -11,19 +11,55 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ae1aa7f65654871ab669823e91b2613, type: 3}
   m_Name: training_block_settings_2002
-  m_EditorClassIdentifier: 
-  blockCombos: []
-  obstacles: []
-  sceneryObjects: []
+  m_EditorClassIdentifier: Assembly-CSharp::TrainingBlockSettings
+  blockCombos:
+  - {fileID: 9101584707329309950, guid: 020d9aaff9aeaa645816ad0e86a6ab6a, type: 3}
+  - {fileID: 8116016106120613779, guid: 00e4e155b1695414792d2603a7350766, type: 3}
+  - {fileID: 844278590898981026, guid: 81b35bae77efd664399944bc00c3e6bb, type: 3}
+  - {fileID: 3580153905447434520, guid: ddf3e9ca967966f48a77c6dcafdc87da, type: 3}
+  - {fileID: 8441190528044371348, guid: 65c62d240e79ccf48bf793d125468b16, type: 3}
+  - {fileID: 7493933759419233841, guid: 2151f3b4f2887d646b4ac22a60c6dbf7, type: 3}
+  - {fileID: 935229610725236696, guid: 3f95214b76beca547ab48e00a595e976, type: 3}
+  - {fileID: 4509238999841577480, guid: eab331cc0739ada47b31e551f959780a, type: 3}
+  - {fileID: 2721131540530023337, guid: 58b9213787f7aa54eb382f02a484450c, type: 3}
+  - {fileID: 4496829813883288935, guid: 00459bda8c447b04ab7a67c9ee5be0ed, type: 3}
+  obstacles:
+  - {fileID: 7005430495803232262, guid: 701ae9c2f079ec54f974ffcb40cd8b06, type: 3}
+  - {fileID: 6342833503003017873, guid: d8e0c3135ef6cc446a0d08c6bd9865a6, type: 3}
+  - {fileID: 4663307916524212944, guid: 1989b2e41c8ff4d4f9a66dd9582ff133, type: 3}
+  - {fileID: 4389148614361398880, guid: e979b136129a65046aa3943589336042, type: 3}
+  sceneryObjects:
+  - {fileID: 6179292989302845388, guid: b2cf4e1d8ffc7f949bd52d0fb092f21e, type: 3}
+  - {fileID: 1306208915440571452, guid: b2cf4e1d8ffc7f949bd52d0fb092f21e, type: 3}
+  - {fileID: 7118491838211204958, guid: b2cf4e1d8ffc7f949bd52d0fb092f21e, type: 3}
+  - {fileID: 793353998083809480, guid: b2cf4e1d8ffc7f949bd52d0fb092f21e, type: 3}
   blocks:
   - {fileID: 7659110610974031011, guid: 01b9f2a2d2a31954cb7be628e7995a9d, type: 3}
   - {fileID: 4686279130270008544, guid: 9cbbb23c00d88064089a56e6bb0d1c7d, type: 3}
   - {fileID: 327459969773971157, guid: bcac3e84b012a154882ae5a296b7d817, type: 3}
   - {fileID: 3018861064562877885, guid: 13423d5ad8c598947a71edf765207b5a, type: 3}
   - {fileID: 4372238731604739928, guid: 9f99804a95f1a044bbf368962812dfab, type: 3}
-  turnLeftBlocks: []
-  turnRightBlocks: []
-  startBlocks: []
-  endBlocks: []
-  traps: []
-  trapEditors: []
+  turnLeftBlocks:
+  - {fileID: 5184185427949382008, guid: 0a28793749c21fe4f9c9a2e1f21e1348, type: 3}
+  turnRightBlocks:
+  - {fileID: 5891187819915620154, guid: 8ba3c3c027e4f934983fb75e8a4508e7, type: 3}
+  startBlocks:
+  - {fileID: 4068024845351799350, guid: 66638ecef699c4947a0cc5b85f27bc0e, type: 3}
+  - {fileID: 2317138125874647042, guid: 1f6856722207e4172a06057b2093227f, type: 3}
+  - {fileID: 6552084248136891001, guid: 406d5061ec3d947289602811a962d13b, type: 3}
+  - {fileID: 7566291088115887429, guid: 1b66f05ec4b8845808ce1773556a8a99, type: 3}
+  - {fileID: 4965979990408507055, guid: e4db29b13372d4fd49e9a6da2ff34ee2, type: 3}
+  endBlocks:
+  - {fileID: 5481630317336909868, guid: aae45f928d77646aa83a447bde873a65, type: 3}
+  - {fileID: 9007411465304286773, guid: 7b2982635f7ac47be8fb64c7742f8137, type: 3}
+  - {fileID: 1809686616389257413, guid: 87c80d5555e2d446a8a9d6b98b6d65b0, type: 3}
+  - {fileID: 3079585834735253498, guid: 9ae3e505fa16048c4a814797262cd0c7, type: 3}
+  - {fileID: 6519555347813250489, guid: 786f70c8ac47c4bbf9cc893bf1cc8e76, type: 3}
+  traps:
+  - {fileID: 7217833750256198963, guid: 1b3ffdc517a5049029ed5cac6c90e2aa, type: 3}
+  - {fileID: 8895838017993138459, guid: dde73a8ad4c7546408b12598bad727b8, type: 3}
+  - {fileID: 3729145409818961292, guid: 639e8b54033234d558c805c8f6838a8d, type: 3}
+  trapEditors:
+  - {fileID: 893609853871210749, guid: 413cda536e5fa45cd897dc9ad9176217, type: 3}
+  - {fileID: 893609853871210749, guid: 23923aed5b22a47f1a7e57285513c0fe, type: 3}
+  - {fileID: 6320889742728075307, guid: bfe8b12722626455bab64406af2e17bf, type: 3}

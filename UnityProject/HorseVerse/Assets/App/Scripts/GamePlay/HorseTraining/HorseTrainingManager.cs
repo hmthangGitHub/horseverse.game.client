@@ -69,8 +69,18 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
             dir);
     }
 
-    public void PerformChangeScene(bool active)
+    public async UniTask PerformHighJumpToChangeSceneAsync()
     {
-        horseTrainingController.IsChangeScene = active;
+        await horseTrainingController.PerformHighJumpToChangeSceneAsync();
+    }
+
+    public void LandToNewScene()
+    {
+        horseTrainingController.LandToNewScene();
+    }
+
+    public async UniTask GenerateMultiBlockAsync(int numberOfBlock)
+    {
+        await PlatformGenerator.GenerateMultiAsync(numberOfBlock);
     }
 }

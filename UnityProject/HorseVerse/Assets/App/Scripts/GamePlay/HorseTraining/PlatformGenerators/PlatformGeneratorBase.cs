@@ -10,7 +10,6 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     protected MasterHorseTrainingProperty masterHorseTrainingProperty;
     protected MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer;
     protected MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer;
-    protected MasterTrainingDifficultyContainer masterTrainingDifficultyContainer;
     protected MasterTrainingBlockDistributeContainer masterTrainingBlockDistributeContainer;
     
     public PlatformBase platformPrefab;
@@ -22,8 +21,8 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     private bool isFirstJump = true;
     private bool isEndScene = false;
 
-    protected Vector3 nextDirection = Vector3.forward;
-    protected Vector3 nextSideDirection = Vector3.right;
+    private Vector3 nextDirection = Vector3.forward;
+    private Vector3 nextSideDirection = Vector3.right;
 
     public Vector3 NextDirection => nextDirection;
 
@@ -46,7 +45,6 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         this.masterHorseTrainingProperty = masterHorseTrainingProperty;
         this.masterHorseTrainingBlockContainer = masterHorseTrainingBlockContainer;
         this.masterHorseTrainingBlockComboContainer = masterHorseTrainingBlockComboContainer;
-        this.masterTrainingDifficultyContainer = masterTrainingDifficultyContainer;
         this.masterTrainingBlockDistributeContainer = masterTrainingBlockDistributeContainer;
         this.numberOfBlock = NumberOfBlocks;
         this.currentBlock = 0;
@@ -74,7 +72,6 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         Debug.Log("DIRECTION " + this.nextDirection + "; SIDE  " + this.nextSideDirection);
         await ReleaseInternal();
         await InitializeInternal(Scene_Key);
-        await GenerateMultiAsync(2);
     }
 
     protected abstract UniTask InitializeInternal();
@@ -84,13 +81,13 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
 
     public abstract void Dispose();
 
-    private Vector3 PredictRelativePointToPlayer(Vector3 direction)
+    private Vector3 PredictRelativePointToPlayer(Vector3 direction, bool isJumping = true)
     {
-        var highestPoint = PredictHighestPoint();
+        var highestPoint = isJumping ? PredictHighestPoint() : Vector3.zero;
 
         var timeToReach = Random.Range(horseTrainingControllerV2.AirTime.x, horseTrainingControllerV2.AirTime.y);
-        var relativePointToPlayer = PredictDownPoint(timeToReach) 
-                                    + highestPoint + Vector3.right * (horseTrainingControllerV2.HorizontalVelocity * Random.Range(-1f, 1f) * timeToReach);
+        var horizontalOffset = isJumping ? horseTrainingControllerV2.HorizontalVelocity * Random.Range(-1f, 1f) : 0.0f;
+        var relativePointToPlayer = PredictDownPoint(timeToReach) + highestPoint + Vector3.right * (horizontalOffset * timeToReach);
         return Quaternion.LookRotation(direction) * relativePointToPlayer;
     }
 
@@ -196,10 +193,7 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         RotatePlatform(platform2, nextDirection);
 
         currentBlock++;
-        if (currentBlock >= numberOfBlock)
-            platform2.OnFinishPlatform += OnEndOfScene;
-        else
-            platform2.OnFinishPlatform += OnCreateNewPlatform;
+        SetEndOfBlockBehaviour(platform2);
 
         platformQueue.Enqueue(platform2.gameObject);
         var pp2 = platform2.GetComponent<PlatformModular>();
@@ -211,6 +205,18 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         await CreateSceneryObectAsync(platform1, ff);
         await CreateSceneryObectAsync(platform, ff);
         await CreateSceneryObectAsync(platform2, ff);
+    }
+
+    private void SetEndOfBlockBehaviour(PlatformBase platform2)
+    {
+        if (currentBlock >= numberOfBlock)
+        {
+            platform2.OnFinishPlatform += OnEndOfScene;
+        }
+        else
+        {
+            platform2.OnFinishPlatform += OnCreateNewPlatform;
+        }
     }
 
     private void GenerateMulti(int number)
@@ -226,13 +232,13 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         }
     }
 
-    private async UniTask GenerateMultiAsync(int number)
+    public async UniTask GenerateMultiAsync(int number)
     {
-        for (int i = 0; i < number; i++)
+        for (var i = 0; i < number; i++)
         {
-            var relativePointToPlayer = PredictRelativePointToPlayer(nextDirection);
+            var relativePointToPlayer = PredictRelativePointToPlayer(nextDirection, i != 0); 
             var platformTest = lastPlatform.GetComponent<PlatformBase>();
-            var lastEndPosition = platformTest.end.position;
+            var lastEndPosition = i != 0 ? platformTest.end.position : horseTrainingControllerV2.transform.position;
             var platform = await CreateNewPlatformAsync(relativePointToPlayer, lastEndPosition, nextDirection);
             lastPlatform = platform;
             platformQueue.Enqueue(platform);
@@ -256,10 +262,7 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         CreateDebugSphere(relativePointToPlayer + lastEndPosition);
         var platform = CreatePlatform(relativePointToPlayer, lastEndPosition);
         currentBlock++;
-        if (currentBlock >= numberOfBlock)
-            platform.OnFinishPlatform += OnEndOfScene;
-        else
-            platform.OnFinishPlatform += OnCreateNewPlatform;
+        SetEndOfBlockBehaviour(platform);
         Debug.LogError("currentBlock " + currentBlock + " vs " + numberOfBlock + direction);
         RotatePlatform(platform, direction);
         return platform.gameObject;
@@ -277,10 +280,7 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         CreateDebugSphere(relativePointToPlayer + lastEndPosition);
         var platform = await CreatePlatformAsync(relativePointToPlayer, lastEndPosition);
         currentBlock++;
-        if (currentBlock >= numberOfBlock)
-            platform.OnFinishPlatform += OnEndOfScene;
-        else
-            platform.OnFinishPlatform += OnCreateNewPlatform;
+        SetEndOfBlockBehaviour(platform);
         RotatePlatform(platform, direction);
         Debug.LogError("currentBlock " + currentBlock + " vs " + numberOfBlock + direction);
         return platform.gameObject;

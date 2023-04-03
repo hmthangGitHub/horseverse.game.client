@@ -182,7 +182,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   start: {fileID: 8993483877505476825}
   end: {fileID: 8993483877823946912}
+  platformTrigger: {fileID: 8993483877423513905}
   blockContainer: {fileID: 8642612561331957944}
+  sceneryContainer: {fileID: 0}
   coinPrefab: {fileID: 2342296183655528524, guid: 8b9668838ab9bc549a1350298e954bc6, type: 3}
 --- !u!1 &8993483877423513916
 GameObject:
@@ -293,6 +295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collider: {fileID: 8993483877423513918}
+  isChangeSceneBridge: 0
 --- !u!1 &8993483877505476824
 GameObject:
   m_ObjectHideFlags: 0
