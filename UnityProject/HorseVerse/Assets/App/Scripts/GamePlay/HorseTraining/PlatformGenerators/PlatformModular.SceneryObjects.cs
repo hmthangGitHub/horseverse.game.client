@@ -39,6 +39,8 @@ public partial class PlatformModular
     {
         if (sceneryObjectPrefabs.Length == 0) yield break;
         int rand = Random.Range(0, 20);
+        yield return null;
+        yield return null;
         for(int i = 0; i < rand; i++)
         {
             var attempt = 100;
@@ -139,7 +141,7 @@ public partial class PlatformModular
         Vector3 _scale = Quaternion.Euler(0, currentAngle, 0) * scale;
         var collider = go.AddComponent<BoxCollider>();
         collider.center = Vector3.zero;
-        collider.size = Vector3.Scale(go.transform.InverseTransformVector(bounds.size), scale);
+        collider.size = Vector3.Scale(bounds.size, scale);
         collider.isTrigger = true;
         return collider;
     }

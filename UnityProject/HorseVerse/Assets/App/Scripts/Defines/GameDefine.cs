@@ -31,5 +31,6 @@ public enum TYPE_OF_BLOCK
     END_SCENE = 4,
     TURN_LEFT = 5,
     TURN_RIGHT = 6,
-    SPLIT_LANES = 7
+    SPLIT_LANES = 7,
+    NORMAL_WITHOUT_SCENERY_OBJECT = 8,
 }

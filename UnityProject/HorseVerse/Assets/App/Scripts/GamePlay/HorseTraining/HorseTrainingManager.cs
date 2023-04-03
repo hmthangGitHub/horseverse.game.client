@@ -79,8 +79,8 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
         horseTrainingController.LandToNewScene();
     }
 
-    public async UniTask GenerateMultiBlockAsync(int numberOfBlock)
+    public async UniTask GenerateMultiBlockAsyncWhenChangeScene(int numberOfBlock)
     {
-        await PlatformGenerator.GenerateMultiAsync(numberOfBlock);
+        await PlatformGenerator.GenerateMultiBlockAsyncWhenChangeScene(numberOfBlock);
     }
 }

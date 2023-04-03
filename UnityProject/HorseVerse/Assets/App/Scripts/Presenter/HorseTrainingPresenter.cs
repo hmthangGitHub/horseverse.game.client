@@ -83,7 +83,7 @@ public class HorseTrainingPresenter : IDisposable
         await (horseTrainingManager.PerformHighJumpToChangeSceneAsync(),
         UnLoadCurrentScene(),
         LoadNextAssetsAsync(2002));
-        await horseTrainingManager.GenerateMultiBlockAsync(2);
+        await horseTrainingManager.GenerateMultiBlockAsyncWhenChangeScene(2);
         horseTrainingManager.LandToNewScene();
     }
     
@@ -377,7 +377,7 @@ public class HorseTrainingPresenter : IDisposable
         uiHorseTrainingInput = await UILoader.Instantiate<UIHorseTrainingInput>(token: cts.Token);
         uiTrainingTutorial = await UILoader.Instantiate<UITrainingTutorial>(token: cts.Token);
 
-        int NumberOfBlock = 2; // UnityEngine.Random.Range(4, 10);
+        int NumberOfBlock = 10; // UnityEngine.Random.Range(4, 10);
 
         await horseTrainingManager.Initialize(
             masterMapContainer.MasterMapIndexer[mapID].MapPath,
