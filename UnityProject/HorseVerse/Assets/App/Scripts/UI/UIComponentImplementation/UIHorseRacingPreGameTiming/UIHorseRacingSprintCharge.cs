@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using CodiceApp;
 using UnityEngine;
 
 public class UIHorseRacingSprintCharge : UIComponent<UIHorseRacingSprintCharge.Entity>

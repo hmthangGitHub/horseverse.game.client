@@ -1,6 +1,4 @@
 using System;
-using Lean.Touch;
-using ToonyColorsPro.ShaderGenerator;
 using UnityEngine;
 using UnityEngine.AI;
 
