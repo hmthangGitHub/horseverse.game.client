@@ -257,7 +257,6 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         var platform = CreatePlatform(relativePointToPlayer, lastEndPosition);
         currentBlock++;
         SetEndOfBlockBehaviour(platform, EndOfBlockBehaviour.DestroyPreviousAndCreateNew);
-        Debug.LogError("currentBlock " + currentBlock + " vs " + numberOfBlock + direction);
         RotatePlatform(platform, direction);
         return platform.gameObject;
     }
@@ -304,7 +303,6 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         }
         SetEndOfBlockBehaviour(platform, endOfBlockBehaviour);
         RotatePlatform(platform, direction);
-        Debug.LogError("currentBlock " + currentBlock + " vs " + numberOfBlock + direction);
         lastPlatform = platform.gameObject;
         platformQueue.Enqueue(lastPlatform);
         return platform.gameObject;
