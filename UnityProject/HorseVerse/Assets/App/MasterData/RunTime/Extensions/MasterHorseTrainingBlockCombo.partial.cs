@@ -61,6 +61,20 @@ public class Trap
 
 }
 
+[Serializable]
+public class SubObject
+{
+    [JsonProperty]
+    public string type;
+    [JsonProperty]
+    public Position localPosition;
+
+    public SubObject Clone()
+    {
+        return (SubObject)this.MemberwiseClone();
+    }
+}
+
 public class Position
 {
     [JsonProperty] public float x;
@@ -160,6 +174,21 @@ public partial class MasterHorseTrainingBlockCombo
         set
         {
             traps = JsonConvert.SerializeObject(value).Replace(",", "...");
+        }
+#endif
+    }
+
+    public SubObject[] SubObjectList
+    {
+        get
+        {
+            return JsonConvert.DeserializeObject(FormatCustomData(SubObjects), typeof(SubObject[])) as SubObject[] ?? Array.Empty<SubObject>();
+        }
+#if ENABLE_DEBUG_MODULE
+        set
+        {
+            sub_objects = JsonConvert.SerializeObject(value)
+                                   .Replace(",", "...");
         }
 #endif
     }

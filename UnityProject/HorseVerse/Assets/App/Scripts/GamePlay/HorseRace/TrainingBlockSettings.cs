@@ -17,6 +17,8 @@ public class TrainingBlockSettings : ScriptableObject
     public GameObject[] traps;
     public GameObject[] trapEditors;
 
+    public GameObject[] subObjects;
+
     private Dictionary<string, GameObject> blocksLookUpTable;
     public IReadOnlyDictionary<string, GameObject> BlocksLookUpTable => blocksLookUpTable ??= blocks.ToDictionary(x => x.name);
 

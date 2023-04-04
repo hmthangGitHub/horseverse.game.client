@@ -58,6 +58,7 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
             trainingBlockSettings.obstacles,
             trainingBlockSettings.traps,
             trainingBlockSettings.sceneryObjects,
+            trainingBlockSettings.subObjects,
             gameObjectPoolList);
         
 #if ENABLE_DEBUG_MODULE
@@ -88,6 +89,7 @@ public class PlatformGeneratorModularBlock : PlatformGeneratorBase
             trainingBlockSettings.obstacles,
             trainingBlockSettings.traps,
             trainingBlockSettings.sceneryObjects,
+            trainingBlockSettings.subObjects,
             pool,
             gameObjectPoolList);
 #if ENABLE_DEBUG_MODULE

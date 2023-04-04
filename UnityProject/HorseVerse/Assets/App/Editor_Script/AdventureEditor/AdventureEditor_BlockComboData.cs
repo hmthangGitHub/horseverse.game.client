@@ -12,4 +12,6 @@ public class AdventureEditor_BlockComboData : MonoBehaviour
     public List<GameObject> obstabcles = new List<GameObject>();
     public List<AdventureEditor_CoinEditor> coins = new List<AdventureEditor_CoinEditor>();
     public List<TrapEditor> traps = new List<TrapEditor>();
+    public List<GameObject> subObjects = new List<GameObject>();
+
 }

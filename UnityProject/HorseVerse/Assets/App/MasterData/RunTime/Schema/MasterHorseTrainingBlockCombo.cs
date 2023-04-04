@@ -28,6 +28,11 @@ public partial class MasterHorseTrainingBlockCombo
 	private string traps;
 	public string Traps => traps;
 
+
+	[JsonProperty]
+	private string sub_objects;
+	public string SubObjects => sub_objects;
+
 	[JsonProperty]
 	private MasterTrainingBlockComboType master_training_block_combo_type;
 	public MasterTrainingBlockComboType MasterTrainingBlockComboType => master_training_block_combo_type;

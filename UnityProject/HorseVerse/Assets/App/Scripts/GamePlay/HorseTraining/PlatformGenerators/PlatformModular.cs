@@ -260,6 +260,7 @@ public partial class PlatformModular : PlatformBase
                               GameObject[] obstaclesPrefab,
                               GameObject[] trapsPrefab,
                               GameObject[] sceneryObjects,
+                              GameObject[] subObjectPrefabs,
                               GameObjectPoolList gameObjectPoolList)
     {
         IsReady = false; 
@@ -267,6 +268,7 @@ public partial class PlatformModular : PlatformBase
         GenerateObstacle(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab);
         GenerateCoins(masterHorseTrainingBlockCombo.CoinList, coinRadius);
         GenerateTraps(masterHorseTrainingBlockCombo.TrapList, trapsPrefab);
+        GenerateSubObjects(masterHorseTrainingBlockCombo.SubObjectList, subObjectPrefabs);
         IsReady = true;
     }
 
@@ -281,6 +283,7 @@ public partial class PlatformModular : PlatformBase
                               GameObject[] obstaclesPrefab,
                               GameObject[] trapsPrefab,
                               GameObject[] sceneryObjectPrefabs,
+                              GameObject[] subObjectPrefab,
                               PlatformGeneratorPool _pool,
                               GameObjectPoolList gameObjectPoolList)
     {
@@ -291,6 +294,7 @@ public partial class PlatformModular : PlatformBase
         yield return GenerateObstacleAsync(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab);
         GenerateCoins(masterHorseTrainingBlockCombo.CoinList, coinRadius);
         yield return GenerateTrapAsync(masterHorseTrainingBlockCombo.TrapList, trapsPrefab);
+        yield return GenerateSubObjectsAsync(masterHorseTrainingBlockCombo.SubObjectList, subObjectPrefab);
         GenerateSceneryObjects(sceneryObjectPrefabs, gameObjectPoolList);
         yield return AlignObstacle(masterHorseTrainingBlockCombo.ObstacleList);
         IsReady = true;
@@ -306,6 +310,7 @@ public partial class PlatformModular : PlatformBase
                               float coinRadius,
                               GameObject[] obstaclesPrefab,
                               GameObject[] trapsPrefab,
+                              GameObject[] subObjectPrefab,
                               PlatformGeneratorPool _pool
                               )
     {
@@ -316,6 +321,7 @@ public partial class PlatformModular : PlatformBase
         yield return GenerateObstacleAsync(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab);
         GenerateCoins(masterHorseTrainingBlockCombo.CoinList, coinRadius);
         yield return GenerateTrapAsync(masterHorseTrainingBlockCombo.TrapList, trapsPrefab);
+        yield return GenerateSubObjectsAsync(masterHorseTrainingBlockCombo.SubObjectList, subObjectPrefab);
         yield return AlignObstacle(masterHorseTrainingBlockCombo.ObstacleList);
         IsReady = true;
     }

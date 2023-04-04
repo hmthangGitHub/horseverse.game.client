@@ -187,6 +187,7 @@ public partial class AdventureEditor_LevelEditor
                     SaveObstacleToBlock(data, blockComboData.obstabcles);
                     SaveCoinToBlock(data, blockComboData.coins);
                     SaveTrapToBlock(data, blockComboData.traps);
+                    SaveSubObjectsToBlock(data, blockComboData.subObjects);
                 }
             }
             else
@@ -217,6 +218,7 @@ public partial class AdventureEditor_LevelEditor
                 SaveObstacleToBlock(data, blockComboData.obstabcles);
                 SaveCoinToBlock(data, blockComboData.coins);
                 SaveTrapToBlock(data, blockComboData.traps);
+                SaveSubObjectsToBlock(data, blockComboData.subObjects);
                 masterHorseTrainingBlockComboContainer.Add(data);
 
             }
@@ -278,6 +280,11 @@ public partial class AdventureEditor_LevelEditor
         trapObj.transform.parent = currentEditingPlatformObject.transform;
         trapObj.transform.SetAsLastSibling();
 
+        var subObj = new GameObject();
+        subObj.name = "SubObject";
+        subObj.transform.parent = currentEditingPlatformObject.transform;
+        subObj.transform.SetAsLastSibling();
+
         var tmp = AddDataComponent(currentEditingPlatformObject);
         tmp.id = masterHorseTrainingBlockCombo.MasterHorseTrainingBlockId;
         tmp.block_name = masterHorseTrainingBlockCombo.Name;
@@ -293,7 +300,7 @@ public partial class AdventureEditor_LevelEditor
         await GenerateObstacle(masterHorseTrainingBlockCombo, obstObj.transform, tmp);
         await GenerateCoin(masterHorseTrainingBlockCombo, coinObj.transform, tmp);
         await GenerateTrap(masterHorseTrainingBlockCombo, trapObj.transform, tmp);
-
+        await GenerateSubObjects(masterHorseTrainingBlockCombo, subObj.transform, tmp);
     }
 
     private void CreateNewPlatform()
@@ -319,6 +326,10 @@ public partial class AdventureEditor_LevelEditor
         trapObj.transform.parent = currentEditingPlatformObject.transform;
         trapObj.transform.SetAsLastSibling();
 
+        var subObj = new GameObject();
+        subObj.name = "SubObject";
+        subObj.transform.parent = currentEditingPlatformObject.transform;
+        subObj.transform.SetAsLastSibling();
 
         AddDataComponent(currentEditingPlatformObject);
     }

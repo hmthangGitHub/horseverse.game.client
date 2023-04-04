@@ -65,6 +65,7 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
             trainingBlockSettings.obstacles,
             trainingBlockSettings.traps,
             trainingBlockSettings.sceneryObjects,
+            trainingBlockSettings.subObjects,
             gameObjectPoolList);
         
 #if ENABLE_DEBUG_MODULE
@@ -95,6 +96,7 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
             trainingBlockSettings.obstacles,
             trainingBlockSettings.traps,
             trainingBlockSettings.sceneryObjects,
+            trainingBlockSettings.subObjects,
             pool,
             gameObjectPoolList);
 #if ENABLE_DEBUG_MODULE
@@ -124,6 +126,7 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
             masterHorseTrainingProperty.CoinColliderRadius,
             trainingBlockSettings.obstacles,
             trainingBlockSettings.traps,
+            trainingBlockSettings.subObjects,
             pool);
 #if ENABLE_DEBUG_MODULE
         platform.GetComponent<PlatformModular>().SetBlockName(randomBlockCombo.Name);
