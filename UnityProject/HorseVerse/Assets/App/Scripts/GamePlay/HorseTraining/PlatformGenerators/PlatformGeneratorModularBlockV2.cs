@@ -160,7 +160,7 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
         return platform;
     }
 
-    protected override async UniTask CreateSceneryObectAsync(PlatformBase platform, BoxCollider[] boxColliders)
+    protected override async UniTask CreateSceneryObjectAsync(PlatformBase platform, BoxCollider[] boxColliders)
     {
         var platformModular = platform.GetComponent<PlatformModular>();
         await platformModular.GenerateSceneryObjects(boxColliders, trainingBlockSettings.sceneryObjects, gameObjectPoolList);
