@@ -133,10 +133,6 @@ namespace Crosstales.BWF.EditorUtil
                 logo = (Texture2D)EditorGUIUtility.Load("crosstales/BadWordFilter/" + fileName);
 #endif
 
-                if (logo == null)
-                {
-                    Debug.LogWarning("Image not found: " + fileName);
-                }
             }
 
             return logo;

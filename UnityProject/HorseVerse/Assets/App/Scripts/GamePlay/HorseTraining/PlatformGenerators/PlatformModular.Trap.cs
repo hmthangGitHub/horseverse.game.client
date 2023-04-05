@@ -9,7 +9,6 @@ public partial class PlatformModular
     private void GenerateTraps(Trap[] trapList,
                                   GameObject[] trapPrefabs)
     {
-        Debug.Log("TRAP LIST " + trapList.Length);
         trapList.ForEach(x =>
         {
             var trapPrefab = trapPrefabs.FirstOrDefault(trapP => trapP.name == $"{x.type}_{x.id}");
@@ -21,7 +20,6 @@ public partial class PlatformModular
                                   GameObject[] trapPrefabs)
     {
         int len = trapList.Length;
-        Debug.Log("TRAP LIST " + len);
         for (int i = 0; i < len; i++)
         {
             var x = trapList[i];

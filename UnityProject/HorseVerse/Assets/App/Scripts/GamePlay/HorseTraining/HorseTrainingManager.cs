@@ -43,6 +43,14 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
             mapId,
             NumberOfBlock,
             Vector3.forward);
+
+        await UniTask.DelayFrame(5);
+
+        if (SceneEntityComponent.Instance != default)
+        {
+            SceneEntityComponent.Instance.SetCameraTarget(HorseTrainingController.transform);
+        }
+        else Debug.LogError("Cant find Entity");
     }
 
     public void StartGame()
@@ -67,6 +75,14 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
             mapId,
             NumberOfBlock,
             dir);
+
+        await UniTask.DelayFrame(5);
+
+        if (SceneEntityComponent.Instance != default)
+        {
+            SceneEntityComponent.Instance.SetCameraTarget(HorseTrainingController.transform);
+        }
+        else Debug.LogError("Cant find Entity");
     }
 
     public async UniTask PerformHighJumpToChangeSceneAsync()
@@ -82,5 +98,12 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
     public async UniTask GenerateMultiBlockAsyncWhenChangeScene(int numberOfBlock)
     {
         await PlatformGenerator.GenerateMultiBlockAsyncWhenChangeScene(numberOfBlock);
+
+        await UniTask.Yield();
+
+        if (SceneEntityComponent.Instance != default)
+        {
+            SceneEntityComponent.Instance.SetCameraTarget(HorseTrainingController.transform);
+        }
     }
 }
