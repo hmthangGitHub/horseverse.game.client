@@ -22,7 +22,7 @@ public class HorseRaceFSTest : MonoBehaviour
         if (GUILayout.Button("Start", GUILayout.Width(300), GUILayout.Height(300)))
         {
             var horseRaceFirstPersonControllers = this.GetComponentsInChildren<HorseRaceThirdPersonBehaviour>();
-            horseRaceFirstPersonControllers.ForEach(x => x.StartRace(UnityEngine.Random.Range(0.0f, 1.0f)));
+            horseRaceFirstPersonControllers.ForEach(x => x.StartRace(UnityEngine.Random.Range(0.0f, 1.0f), false));
         }
     }
 }

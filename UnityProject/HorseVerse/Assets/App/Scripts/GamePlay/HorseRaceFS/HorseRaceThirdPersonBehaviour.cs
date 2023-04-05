@@ -47,13 +47,15 @@ public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour, IHorseRaceIn
     public bool IsStart => isStart;
     public int SprintChargeNumber => horseRaceThirdPersonData.HorseRaceThirdPersonStats.SprintChargeNumber;
 
-    public void StartRace(float normalizeSpeed)
+    public void StartRace(float normalizeSpeed, bool isSprint)
     {
         isStart = true;
         CurrentForwardSpeed = normalizeSpeed * horseRaceThirdPersonData.HorseRaceThirdPersonStats.ForwardSpeedRange.x;
-        currentTargetForwardSpeed = Mathf.Lerp(horseRaceThirdPersonData.HorseRaceThirdPersonStats.ForwardSpeedRange.x, horseRaceThirdPersonData.HorseRaceThirdPersonStats.ForwardSpeedRange.y, normalizeSpeed);
         currentTargetForwardSpeed = horseRaceThirdPersonData.HorseRaceThirdPersonStats.ForwardSpeedRange.y;
-        currentSprintTime = horseRaceThirdPersonData.HorseRaceThirdPersonStats.SprintTime;
+        if (isSprint)
+        {
+            Sprint(true);
+        }
     }
 
     public HorseRaceThirdPersonData HorseRaceThirdPersonData
@@ -110,11 +112,6 @@ public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour, IHorseRaceIn
                 : horseRaceThirdPersonData.HorseRaceThirdPersonStats.AccelerationRange.x;
     }
 
-    private void FixedUpdate()
-    {
-        // UpdateCurrentProgress();
-    }
-
     private void UpdateCurrentProgress()
     {
         delayTime -= Time.deltaTime;
@@ -163,9 +160,9 @@ public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour, IHorseRaceIn
         currentTargetForwardSpeed,CurrentAcceleration * Time.deltaTime);
     }
 
-    public void Sprint()
+    public void Sprint(bool initialSprint = false)
     {
-        if (!IsAbleToSprint) return;
+        if (!IsAbleToSprint && !initialSprint) return;
         currentSprintChargeNumber--;
         currentSprintTime = horseRaceThirdPersonData.HorseRaceThirdPersonStats.SprintTime;
         currentTargetForwardSpeed = horseRaceThirdPersonData.HorseRaceThirdPersonStats.ForwardSpeedRange.y;

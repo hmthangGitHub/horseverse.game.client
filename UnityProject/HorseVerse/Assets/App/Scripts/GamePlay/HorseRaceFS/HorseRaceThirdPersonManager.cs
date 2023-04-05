@@ -69,7 +69,11 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
         isStarted = true;
         HorseRaceThirdPersonBehaviours.ForEach(x =>
         {
-            x.StartRace(x.IsPlayer ? GetNormalizeSpeedBaseOnTimingType() : UnityEngine.Random.value);
+            var horseTimmingType = x.IsPlayer
+                ? this.timingType
+                : (UIHorseRacingTimingType.TimingType)UnityEngine.Random.Range((int)UIHorseRacingTimingType.TimingType.None,
+                    (int)UIHorseRacingTimingType.TimingType.Perfect + 1);
+            x.StartRace(GetNormalizeSpeedBaseOnTimingType(horseTimmingType), timingType == UIHorseRacingTimingType.TimingType.Perfect);
         });
         uiHorseRacingController.SetEntity(new UIHorseRacingController.Entity()
         {
@@ -97,15 +101,15 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
         playerHorseRaceThirdPersonBehaviour.EnableCamera(isBackCamera);
     }
 
-    private float GetNormalizeSpeedBaseOnTimingType()
+    private float GetNormalizeSpeedBaseOnTimingType(UIHorseRacingTimingType.TimingType type)
     {
-        return timingType switch
+        return type switch
         {
-            UIHorseRacingTimingType.TimingType.None => 0.0f,
-            UIHorseRacingTimingType.TimingType.Bad => UnityEngine.Random.Range(0.0f, 0.2f),
-            UIHorseRacingTimingType.TimingType.Good => UnityEngine.Random.Range(0.2f, 0.4f),
-            UIHorseRacingTimingType.TimingType.Great => UnityEngine.Random.Range(0.4f, 0.8f),
-            UIHorseRacingTimingType.TimingType.Perfect => UnityEngine.Random.Range(0.8f, 1.0f),
+            UIHorseRacingTimingType.TimingType.None => 0.7f,
+            UIHorseRacingTimingType.TimingType.Bad => 0.7f,
+            UIHorseRacingTimingType.TimingType.Good => 1.0f,
+            UIHorseRacingTimingType.TimingType.Great => 1.5f,
+            UIHorseRacingTimingType.TimingType.Perfect => 2.0f,
             _ => throw new ArgumentOutOfRangeException()
         };
     }
@@ -116,10 +120,6 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
         uiHorseRacingController.SetSprintTime(playerHorseRaceThirdPersonBehaviour.CurrentSprintNormalizeTime);
         uiHorseRacingController.sprintCharge.SetProgress(playerHorseRaceThirdPersonBehaviour.CurrentChargeNormalize);
         uiHorseRacingController.sprintBtn.SetInteractable(playerHorseRaceThirdPersonBehaviour.IsAbleToSprint);
-        // NormalizedRaceTime = HorseControllers.OrderByDescending(x => x.CurrentRaceProgressWeight)
-                                             // .Select((x,i) => (horse: x, position: i))
-                                             // .First(x => x.horse == playerHorseRaceThirdPersonBehaviour)
-                                             // .position;
         uiHorseRacingController.SetCurrentLap(playerHorseRaceThirdPersonBehaviour.CurrentLap);
         uiHorseRacingController.SetCurrentPosition(HorseControllers.OrderByDescending(x => x.CurrentRaceProgressWeight)
                                                                    .Select((x,i) => (horse: x, position: i + 1))
