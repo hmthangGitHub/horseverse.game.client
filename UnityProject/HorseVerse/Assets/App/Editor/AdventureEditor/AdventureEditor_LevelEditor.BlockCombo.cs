@@ -340,11 +340,10 @@ public partial class AdventureEditor_LevelEditor
         cts = new CancellationTokenSource();
 
         BoxCollider[] boxColliders = default;
-        await InstantiateBlocksAsync(start, end, gameObjects, parent, data, (s) => boxColliders = s).AttachExternalCancellation(cts.Token);
-        Tiling(boxColliders);
+        await InstantiateBlocksAsync(start, end, gameObjects, parent, data).AttachExternalCancellation(cts.Token);
     }
 
-    private async UniTask InstantiateBlocksAsync(GameObject paddingStartPrefab, GameObject paddingEndPrefab, GameObject[] gameObjects, Transform parent, AdventureEditor_BlockComboData data, System.Action<BoxCollider[]> finish)
+    private async UniTask InstantiateBlocksAsync(GameObject paddingStartPrefab, GameObject paddingEndPrefab, GameObject[] gameObjects, Transform parent, AdventureEditor_BlockComboData data)
     {
         var len = gameObjects.Length;
         var BoxColliders = new List<BoxCollider>();
@@ -357,7 +356,6 @@ public partial class AdventureEditor_LevelEditor
         
         if (paddingHead != default)
         {
-            BoxColliders.Add(headCol);
             data.startPadding = paddingHead;
         }
 
@@ -374,12 +372,13 @@ public partial class AdventureEditor_LevelEditor
 
         if (paddingTail != default)
         {
-            BoxColliders.Add(tailCol);
             paddingTail.transform.SetAsLastSibling();
             data.endPadding = paddingTail;
         }
 
-        finish?.Invoke(BoxColliders.ToArray());
+        var xx = BoxColliders.ToArray();
+        Tiling(xx);
+        TilingPaddingBlocks(xx, headCol, tailCol);
     }
 
     private GameObject Instantiate_PaddingHeadCollider(GameObject paddingHead, Transform parent)
@@ -406,12 +405,11 @@ public partial class AdventureEditor_LevelEditor
 
     private void Tiling(BoxCollider[] _BoxColliders)
     {
+        if (_BoxColliders.Length == 0) return;
         ChangePositionOfParentToMatchChildPosition(_BoxColliders[0].transform.parent,
-            _BoxColliders[0].transform,
-            new Vector3(0, 0, 0));
+                _BoxColliders[0].transform,
+                new Vector3(0, 0, 0));
 
-        var centers = _BoxColliders.Select(x => x.center)
-                                  .ToArray();
         for (var i = 1; i < _BoxColliders.Length; i++)
         {
             var baseCollider = _BoxColliders[i - 1];
@@ -423,10 +421,11 @@ public partial class AdventureEditor_LevelEditor
     private void Tiling(AdventureEditor_BlockComboData data)
     {
         List<BoxCollider> boxColliders = new List<BoxCollider>();
-
-        if(data.startPadding != default)
+        BoxCollider startBox = default;
+        BoxCollider endBox = default;
+        if (data.startPadding != default)
         {
-            boxColliders.Add(data.startPadding.GetComponentInChildren<BoxCollider>());
+            startBox = data.startPadding.GetComponentInChildren<BoxCollider>();
         }
 
         for (int i = 0; i < data.paddings.Count; i++)
@@ -438,10 +437,30 @@ public partial class AdventureEditor_LevelEditor
 
         if (data.endPadding != default)
         {
-            boxColliders.Add(data.endPadding.GetComponentInChildren<BoxCollider>());
+            endBox = data.endPadding.GetComponentInChildren<BoxCollider>();
         }
+        var xx = boxColliders.ToArray();
+        Tiling(xx);
+        TilingPaddingBlocks(xx, startBox, endBox);
+    }
 
-        Tiling(boxColliders.ToArray());
+    private void TilingPaddingBlocks(BoxCollider[] _BoxColliders, BoxCollider _PaddingHeadCollider, BoxCollider _PaddingTailCollider)
+    {
+        if (!_BoxColliders.Any())
+        {
+            ChangePositionOfParentToMatchChildPosition(_PaddingHeadCollider.transform.parent,
+                _PaddingHeadCollider.transform,
+                new Vector3(0, 0, -(0 + _PaddingHeadCollider.bounds.extents.z)));
+
+            ChangePositionOfParentToMatchChildPosition(_PaddingTailCollider.transform.parent,
+                _PaddingTailCollider.transform,
+                new Vector3(0, 0, (_BoxColliders.Length - 1) * 0 * 2 + (0 + _PaddingHeadCollider.bounds.extents.z)));
+        }
+        else
+        {
+            AlignCollider(_BoxColliders.First(), _PaddingHeadCollider, -1);
+            AlignCollider(_BoxColliders.Last(), _PaddingTailCollider, 1);
+        }
     }
 
     private static void AlignCollider(BoxCollider baseCollider,

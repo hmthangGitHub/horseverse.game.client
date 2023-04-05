@@ -20,7 +20,8 @@ public partial class AdventureEditor_LevelEditor : EditorWindow
     private MasterCoinPresetContainer masterCoinPresetContainer;
 
     private Vector2 scrollPosition;
-    
+    private string lastPath = "";
+
     [MenuItem("Tools/AdventureEditor/Level Editor")]
     public static void ShowWindows()
     {
@@ -35,6 +36,8 @@ public partial class AdventureEditor_LevelEditor : EditorWindow
 
     void OnGUI()
     {
+        if(string.IsNullOrEmpty(lastPath)) lastPath = $"{Application.dataPath}/App/AssetBundles/MasterData";
+
         collection = EditorGUILayout.ObjectField("Training Block Settings", collection, typeof(TrainingBlockSettings), allowSceneObjects: true) as TrainingBlockSettings;
         master_id = EditorGUILayout.TextField("Map ID", master_id);
 
@@ -63,10 +66,12 @@ public partial class AdventureEditor_LevelEditor : EditorWindow
         if (collection == default) return;
 
 #if UNITY_EDITOR
-        string path = EditorUtility.OpenFolderPanel("Master Data Folder", "", "");
+        string path = EditorUtility.OpenFolderPanel("Master Data Folder", lastPath, "");
         if (path.Length != 0)
         {
             ShowMenuAsync(path).Forget();
+            lastPath = path;
+            Debug.Log("Path " + path);
         }
 #endif
 
@@ -82,11 +87,12 @@ public partial class AdventureEditor_LevelEditor : EditorWindow
         var dataBlock = masterHorseTrainingBlockContainer.ToJson();
         var dataContainer = masterHorseTrainingBlockComboContainer.ToJson();
 
-        string path = EditorUtility.OpenFolderPanel("Save Data Folder", "", "");
+        string path = EditorUtility.OpenFolderPanel("Save Data Folder", lastPath, "");
         if (path.Length != 0)
         {
             SaveFile($"{path}/MasterHorseTrainingBlock_{master_id}.json", dataBlock);
             SaveFile($"{path}/MasterHorseTrainingBlockCombo_{master_id}.json", dataContainer);
+            lastPath = path;
         }
 
 #endif
