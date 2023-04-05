@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3da42bb6c3ddd4c8c85534aa4fbc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activateCamera: {fileID: 2771604663208461116}
+  cameraContainer: {fileID: 0}
 --- !u!1 &1394788695
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,7 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3da42bb6c3ddd4c8c85534aa4fbc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activateCamera: {fileID: 7529348003520735300}
+  cameraContainer: {fileID: 0}
 --- !u!1 &1595266066
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,7 +527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3da42bb6c3ddd4c8c85534aa4fbc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activateCamera: {fileID: 3980291035960573399}
+  cameraContainer: {fileID: 0}
 --- !u!1 &696365250356002813
 GameObject:
   m_ObjectHideFlags: 0
@@ -1069,7 +1069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3da42bb6c3ddd4c8c85534aa4fbc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activateCamera: {fileID: 8449148280384268349}
+  cameraContainer: {fileID: 0}
 --- !u!1 &1840302519236625753
 GameObject:
   m_ObjectHideFlags: 0
@@ -1362,7 +1362,7 @@ MonoBehaviour:
     FieldOfView: 60
     OrthographicSize: 10
     NearClipPlane: 0.1
-    FarClipPlane: 500
+    FarClipPlane: 1500
     Dutch: 0
     LensShift: {x: 0, y: 0}
   m_Transitions:
@@ -1427,13 +1427,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5776cd59683680243977779efc766ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetGroup: {fileID: 0}
-  timeToChangeTarget: 7
-  changeTargetTime: 5.3018494
-  updateChangingTarget: 1
   changingFollow: 1
   changingLookAt: 1
-  isLookingForTopHorse: 1
+  targetGroup: {fileID: 0}
 --- !u!1 &3244200881548169043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1492,7 +1488,7 @@ MonoBehaviour:
     FieldOfView: 70
     OrthographicSize: 10
     NearClipPlane: 0.1
-    FarClipPlane: 500
+    FarClipPlane: 1500
     Dutch: 0
     LensShift: {x: 0, y: 0}
   m_Transitions:
@@ -1557,13 +1553,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5776cd59683680243977779efc766ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetGroup: {fileID: 0}
-  timeToChangeTarget: 6
-  changeTargetTime: 4.6756964
-  updateChangingTarget: 1
   changingFollow: 1
   changingLookAt: 1
-  isLookingForTopHorse: 0
+  targetGroup: {fileID: 0}
 --- !u!1 &3559829020715616788
 GameObject:
   m_ObjectHideFlags: 0
@@ -1673,6 +1665,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cinemachineClearShot: {fileID: 2263654106809861234}
+  vCameraContainer: {fileID: 0}
+  triggerContainer: {fileID: 0}
 --- !u!1 &3710040159320572442
 GameObject:
   m_ObjectHideFlags: 0
@@ -1827,7 +1821,7 @@ MonoBehaviour:
     FieldOfView: 60
     OrthographicSize: 10
     NearClipPlane: 0.1
-    FarClipPlane: 500
+    FarClipPlane: 1500
     Dutch: 0
     LensShift: {x: 0, y: 0}
   m_Transitions:
@@ -1892,13 +1886,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5776cd59683680243977779efc766ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetGroup: {fileID: 0}
-  timeToChangeTarget: 8
-  changeTargetTime: 1.2362028
-  updateChangingTarget: 1
   changingFollow: 1
   changingLookAt: 1
-  isLookingForTopHorse: 1
+  targetGroup: {fileID: 0}
 --- !u!1 &4666237103433236725
 GameObject:
   m_ObjectHideFlags: 0
@@ -2074,7 +2064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3da42bb6c3ddd4c8c85534aa4fbc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activateCamera: {fileID: 8759835897718547894}
+  cameraContainer: {fileID: 0}
 --- !u!1 &5239869548386769080
 GameObject:
   m_ObjectHideFlags: 0
@@ -2580,7 +2570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3da42bb6c3ddd4c8c85534aa4fbc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activateCamera: {fileID: 3244200881548169043}
+  cameraContainer: {fileID: 0}
 --- !u!1 &7529348003520735300
 GameObject:
   m_ObjectHideFlags: 0
@@ -2639,7 +2629,7 @@ MonoBehaviour:
     FieldOfView: 70
     OrthographicSize: 10
     NearClipPlane: 0.1
-    FarClipPlane: 500
+    FarClipPlane: 1500
     Dutch: 0
     LensShift: {x: 0, y: 0}
   m_Transitions:
@@ -2704,13 +2694,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5776cd59683680243977779efc766ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetGroup: {fileID: 0}
-  timeToChangeTarget: 7
-  changeTargetTime: 0.30441183
-  updateChangingTarget: 1
   changingFollow: 0
   changingLookAt: 0
-  isLookingForTopHorse: 1
+  targetGroup: {fileID: 0}
 --- !u!1 &7755967003658282652
 GameObject:
   m_ObjectHideFlags: 0
@@ -2801,7 +2787,7 @@ MonoBehaviour:
     FieldOfView: 75
     OrthographicSize: 10
     NearClipPlane: 0.1
-    FarClipPlane: 500
+    FarClipPlane: 1500
     Dutch: 0
     LensShift: {x: 0, y: 0}
   m_Transitions:
@@ -2866,13 +2852,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5776cd59683680243977779efc766ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetGroup: {fileID: 0}
-  timeToChangeTarget: 6
-  changeTargetTime: 0.2200106
-  updateChangingTarget: 1
   changingFollow: 1
   changingLookAt: 1
-  isLookingForTopHorse: 0
+  targetGroup: {fileID: 0}
 --- !u!1 &8759835897718547894
 GameObject:
   m_ObjectHideFlags: 0
@@ -2931,7 +2913,7 @@ MonoBehaviour:
     FieldOfView: 65
     OrthographicSize: 10
     NearClipPlane: 0.1
-    FarClipPlane: 500
+    FarClipPlane: 1500
     Dutch: 0
     LensShift: {x: 0, y: 0}
   m_Transitions:
@@ -2996,13 +2978,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5776cd59683680243977779efc766ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetGroup: {fileID: 0}
-  timeToChangeTarget: 8
-  changeTargetTime: 7.423875
-  updateChangingTarget: 1
   changingFollow: 1
   changingLookAt: 1
-  isLookingForTopHorse: 0
+  targetGroup: {fileID: 0}
 --- !u!1 &8837361233778357670
 GameObject:
   m_ObjectHideFlags: 0
