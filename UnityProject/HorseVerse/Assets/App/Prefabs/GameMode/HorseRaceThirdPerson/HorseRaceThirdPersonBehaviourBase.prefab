@@ -1387,7 +1387,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.75
+  m_Radius: 0.36
   m_Height: 2.6
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
@@ -1694,6 +1694,7 @@ GameObject:
   - component: {fileID: 5083994052526057142}
   - component: {fileID: 6273187665405855228}
   - component: {fileID: 9050521108427274045}
+  - component: {fileID: 629917617782286211}
   m_Layer: 14
   m_Name: HorseRaceThirdPersonBehaviourBase
   m_TagString: TrainingHorse
@@ -1736,7 +1737,7 @@ MonoBehaviour:
   - {fileID: 1907721943895093680}
   notPlayerRelatedGameObjects:
   - {fileID: 843516397355887942}
-  playerRelatedGameComponents: {fileID: 6273187665405855228}
+  playerRelatedGameComponents: {fileID: 629917617782286211}
   notPlayerRelatedGameObjectsComponents: {fileID: 6376503429299937410}
   laneContainer: {fileID: 2544753395494913619}
   worldSpaceCanvasBillBoard: {fileID: 2544753395494913620}
@@ -1775,6 +1776,7 @@ MonoBehaviour:
   - {fileID: 6401602925942789460}
   - {fileID: 6273187665405855228}
   - {fileID: 3064485767634227112}
+  - {fileID: 629917617782286211}
 --- !u!65 &6273187665405855228
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1784,7 +1786,7 @@ BoxCollider:
   m_GameObject: {fileID: 8385158567914655430}
   m_Material: {fileID: 13400000, guid: 316955aff07026541afe68801d5cf7be, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.92, z: 2.5437424}
   m_Center: {x: 6.070843e-12, y: 0.8286756, z: 0.2533636}
@@ -1804,6 +1806,20 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 1
+--- !u!136 &629917617782286211
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8385158567914655430}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 2.6
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.8286756, z: 0.25}
 --- !u!1 &8385158568262936356
 GameObject:
   m_ObjectHideFlags: 0
@@ -1828,8 +1844,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8385158568262936356}
-  m_LocalRotation: {x: 0.107599035, y: -0.0000004172325, z: 0.000000044703484, w: 0.9941944}
-  m_LocalPosition: {x: 0.0000026227208, y: 3.0300002, z: -3.4700012}
+  m_LocalRotation: {x: 0.107599035, y: -0.00000047683716, z: 0.000000055879354, w: 0.99419445}
+  m_LocalPosition: {x: 0.0000040532323, y: 3.0300002, z: -3.4699998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8385158568358454109}

@@ -22,6 +22,8 @@ public class HorseRaceThirdPersonStats
     public int SprintChargeNumber { get; set; }
     [field: SerializeField]
     public float SprintHealingTime { get; set; }
+    [field: SerializeField]
+    public float SprintBonusTime { get; set; }
 }
 
 [Serializable]

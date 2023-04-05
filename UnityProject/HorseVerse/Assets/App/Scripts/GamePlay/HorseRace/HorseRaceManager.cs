@@ -30,7 +30,8 @@ public class HorseRaceManager : MonoBehaviour, IHorseRaceManager
     private float raceTime;
     public float NormalizedRaceTime { get; set; }
     public int PlayerHorseIndex { get; private set; }
-    public event Action OnFinishTrackEvent = ActionUtility.EmptyAction.Instance;
+    public event Action OnHorseFinishTrackEvent = ActionUtility.EmptyAction.Instance;
+    public event Action OnShowResult = ActionUtility.EmptyAction.Instance;
 
     private RacingTrackController racingTrackController;
     private bool isStartedRace;
@@ -38,11 +39,14 @@ public class HorseRaceManager : MonoBehaviour, IHorseRaceManager
     private CancellationToken token;
     public Transform WarmUpTarget => this.horseGroup.transform;
     private float currentRaceTime = 0.0f;
+    private HorseRaceStatusPresenter horseRaceStatusPresenter;
 
     public async UniTask InitializeAsync(HorseMeshInformation[] horseMeshControllerPaths,
                                          string mapSettingPath,
                                          int playerHorseIndex,
                                          HorseRaceInfo[] horseRaceTimes,
+                                         bool isReplay,
+                                         bool showSelfRank,
                                          CancellationToken token)
     {
         this.PlayerHorseIndex = playerHorseIndex;
@@ -54,8 +58,20 @@ public class HorseRaceManager : MonoBehaviour, IHorseRaceManager
         SetHorseControllerStat(horseRaceTimes, playerHorseIndex);
         raceTime = GetMinimumRaceTime(horseRaceTimes);
         isHorsesLoaded = true;
+        SetHorseStatusAsync(isReplay, showSelfRank);
     }
 
+    private void SetHorseStatusAsync(bool replay,
+                                     bool showSelfRank)
+    {
+        horseRaceStatusPresenter = new HorseRaceStatusPresenter(this, 
+            this.HorseControllers,
+            this.PlayerHorseIndex,
+            replay,
+            showSelfRank);
+        horseRaceStatusPresenter.Initialize().Forget();
+        horseRaceStatusPresenter.OnSkip += () => OnShowResult.Invoke();
+    }
 
     public void PrepareToRace()
     {
@@ -184,7 +200,7 @@ public class HorseRaceManager : MonoBehaviour, IHorseRaceManager
 
     private void OnFinishTrack()
     {
-        OnFinishTrackEvent.Invoke();
+        OnHorseFinishTrackEvent.Invoke();
     }
 
     private void Update()
@@ -212,17 +228,18 @@ public class HorseRaceManager : MonoBehaviour, IHorseRaceManager
         if (!isStartedRace) return;
         currentRaceTime += Time.deltaTime;
         NormalizedRaceTime = Mathf.Clamp01(currentRaceTime / raceTime);
+        horseRaceStatusPresenter?.UpdateRaceStatus();
     }
 
     public void Dispose()
     {
         SubscribeToVcamsFading(false);
-        
         this.horseControllerModelPaths?.Select(x => x.horseModelPath)
             .ToList()
             .ForEach(PrimitiveAssetLoader.UnloadAssetAtPath);
         PrimitiveAssetLoader.UnloadAssetAtPath(mapSettingsPath);
         Time.timeScale = 1;
         racingTrackController = default;
+        DisposeUtility.SafeDispose(ref horseRaceStatusPresenter);
     }
 }

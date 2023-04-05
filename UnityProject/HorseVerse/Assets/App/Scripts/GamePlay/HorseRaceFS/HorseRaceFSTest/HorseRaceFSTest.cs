@@ -10,8 +10,11 @@ public class HorseRaceFSTest : MonoBehaviour
     {
         if (GUILayout.Button("Set",  GUILayout.Width(300), GUILayout.Height(300)))
         {
-            dataTests.Skip(1).ForEach(x => x.PredefineWayPoints = targetGenerator.GenerateRandomTargetsWithNoise());
-            dataTests.ForEach(x => x.InitialLane = UnityEngine.Random.Range(0, 8));
+            var lane = Enumerable.Range(0, 8)
+                                 .Shuffle()
+                                 .ToList();
+            dataTests.ForEach((x, i) => x.InitialLane = lane[i]);
+            dataTests.Skip(1).ForEach(x => x.PredefineWayPoints = targetGenerator.GenerateRandomTargetsWithNoise(x.InitialLane));
             var horseRaceFirstPersonControllers = this.GetComponentsInChildren<HorseRaceThirdPersonBehaviour>();
             horseRaceFirstPersonControllers.ForEach((x, i) => horseRaceFirstPersonControllers[i].HorseRaceThirdPersonData = dataTests[i]);
         }

@@ -20,6 +20,8 @@ public class HorseRaceTest : MonoBehaviour
                                                masterMapContainer.MasterMapIndexer[masterMapId].MapSettings, 
                                     UnityEngine.Random.Range(0, 7),
                                                default,
+                                               default,
+                                               default,
                                                default);
 
         await horseRaceManager.WaitToStart();

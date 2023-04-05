@@ -24,7 +24,8 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
     private HorseRaceThirdPersonBehaviour[] HorseRaceThirdPersonBehaviours { get; set; }
     public float NormalizedRaceTime { get; private set; }
     public int PlayerHorseIndex { get; private set; }
-    public event Action OnFinishTrackEvent = ActionUtility.EmptyAction.Instance;
+    public event Action OnHorseFinishTrackEvent = ActionUtility.EmptyAction.Instance;
+    public event Action OnShowResult = ActionUtility.EmptyAction.Instance;
     private UIHorseRacingTimingType.TimingType timingType;
     private HorseRaceFirstPersonPlayerController playerController;
     private HorseRaceThirdPersonBehaviour playerHorseRaceThirdPersonBehaviour;
@@ -82,7 +83,11 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
             {
                 progress = 0.0f,
                 chargeNumber = playerHorseRaceThirdPersonBehaviour.SprintChargeNumber
-            }
+            },
+            currentLap = 1,
+            currentPosition = 8,
+            maxLap = 3,
+            maxPosition = 8,
         });
         uiHorseRacingController.In().Forget();
     }
@@ -111,7 +116,15 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
         uiHorseRacingController.SetSprintTime(playerHorseRaceThirdPersonBehaviour.CurrentSprintNormalizeTime);
         uiHorseRacingController.sprintCharge.SetProgress(playerHorseRaceThirdPersonBehaviour.CurrentChargeNormalize);
         uiHorseRacingController.sprintBtn.SetInteractable(playerHorseRaceThirdPersonBehaviour.IsAbleToSprint);
-        NormalizedRaceTime = HorseControllers.Max(x => x.CurrentRaceProgressWeight);
+        // NormalizedRaceTime = HorseControllers.OrderByDescending(x => x.CurrentRaceProgressWeight)
+                                             // .Select((x,i) => (horse: x, position: i))
+                                             // .First(x => x.horse == playerHorseRaceThirdPersonBehaviour)
+                                             // .position;
+        uiHorseRacingController.SetCurrentLap(playerHorseRaceThirdPersonBehaviour.CurrentLap);
+        uiHorseRacingController.SetCurrentPosition(HorseControllers.OrderByDescending(x => x.CurrentRaceProgressWeight)
+                                                                   .Select((x,i) => (horse: x, position: i + 1))
+                                                                   .First(x => x.horse == playerHorseRaceThirdPersonBehaviour)
+                                                                   .position);
     }
 
     public async UniTask InitializeAsync(MasterHorseContainer masterHorseContainer,
@@ -131,14 +144,14 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
 
     private void SubscribeFinishTrackEvents()
     {
-        HorseRaceThirdPersonBehaviours.ForEach(x => x.OnFinishRace += FinishTrackEvent);
+        playerHorseRaceThirdPersonBehaviour.OnFinishRace += FinishTrackEvent;
     }
 
-    private void FinishTrackEvent() => OnFinishTrackEvent.Invoke();
+    private void FinishTrackEvent() => OnShowResult.Invoke();
 
     private void UnsubscribeFinishTrackEvents()
     {
-        HorseRaceThirdPersonBehaviours.ForEach(x => x.OnFinishRace -= FinishTrackEvent);
+        playerHorseRaceThirdPersonBehaviour.OnFinishRace -= FinishTrackEvent;
     }
 
     private async UniTask LoadAllHorsesAsync(MasterHorseContainer masterHorseContainer,
@@ -198,7 +211,7 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
             PredefineWayPoints = targetGenerator.GenerateRandomTargetsWithNoise(initialLane),
             HorseRaceThirdPersonStats = horseRaceThirdPersonInfo.HorseRaceThirdPersonStats,
             Camera = horseRaceThirdPersonListContainer.CamreraTransform,
-            Name = horseRaceThirdPersonInfo.Name
+            Name = horseRaceThirdPersonInfo.Name,
         };
         return horseController;
     }
@@ -221,7 +234,8 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
         DisposeUtility.SafeDisposeMonoBehaviour(ref targetGenerator);
         Time.timeScale = 1;
         
-        OnFinishTrackEvent = ActionUtility.EmptyAction.Instance;
+        OnHorseFinishTrackEvent = ActionUtility.EmptyAction.Instance;
+        OnShowResult = ActionUtility.EmptyAction.Instance;
         timingType = default;
         playerController = default;
         playerHorseRaceThirdPersonBehaviour = default;
