@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.13296545, g: 0.19145328, b: 0.33962262, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 65b22b3f81d49cd40b9753bfdeae0912, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 00caf1203bb437a4ea198382a79dd9af, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 0.64
   m_FlareFadeSpeed: 2.99
@@ -992,7 +992,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 500
+  far clip plane: 1500
   field of view: 50
   orthographic: 0
   orthographic size: 5
@@ -1018,13 +1018,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
-  m_LocalRotation: {x: -0.000000007740619, y: 0.98419565, z: -0.17708473, w: -0.000000043020556}
-  m_LocalPosition: {x: 72.391624, y: 4.63, z: -46.5}
+  m_LocalRotation: {x: -0.025093496, y: -0.9723598, z: 0.1245622, w: -0.19588533}
+  m_LocalPosition: {x: 72.391624, y: 96.9, z: -46.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0.583, y: -45.509, z: 0}
+  m_LocalEulerAnglesHint: {x: 14.6, y: -202.78, z: 0}
 --- !u!114 &1687258586
 MonoBehaviour:
   m_ObjectHideFlags: 0
