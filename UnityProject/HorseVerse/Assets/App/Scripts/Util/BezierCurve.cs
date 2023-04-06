@@ -60,7 +60,7 @@ public class BezierCurve : MonoBehaviour
             Vector3 newPos = DeCasteljausAlgorithm(t);
 
             //Draw this line segment
-            Gizmos.DrawLine(lastPos, newPos);
+            Gizmos.DrawLine(this.transform.TransformPoint(lastPos), this.transform.TransformPoint(newPos));
 
             //Save this pos so we can draw the next line segment
             lastPos = newPos;
@@ -69,8 +69,8 @@ public class BezierCurve : MonoBehaviour
         //Also draw lines between the control points and endpoints
         Gizmos.color = Color.green;
 
-        Gizmos.DrawLine(A, B);
-        Gizmos.DrawLine(C, D);
+        Gizmos.DrawLine(this.transform.TransformPoint(A), this.transform.TransformPoint(B));
+        Gizmos.DrawLine(this.transform.TransformPoint(C), this.transform.TransformPoint(D));
 
         DivideCurveIntoSteps();
     }
@@ -147,7 +147,7 @@ public class BezierCurve : MonoBehaviour
 
             Gizmos.color = colorsArray[newRandom];
 
-            Gizmos.DrawLine(lastPos, pos);
+            Gizmos.DrawLine(this.transform.TransformPoint(lastPos), this.transform.TransformPoint(pos));
 
 
             //Save the last position

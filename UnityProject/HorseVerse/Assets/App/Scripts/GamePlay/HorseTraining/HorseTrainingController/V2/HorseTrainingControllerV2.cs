@@ -418,7 +418,8 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
                         Vector3 dir;
                         Vector3 localPoint = currentBlock.Curve.transform.InverseTransformPoint(this.rigidbody.transform.position);
                         var tangenPoint = currentBlock.Curve.findTheClosedPoint(localPoint, out dir, out isEnd);
-                        if (!isEnd)
+                        bool isNeedTurn = !CheckIfIsRunForward(dir);
+                        if (!isEnd && isNeedTurn)
                         {
                             v_direction = currentBlock.Curve.transform.TransformVector(dir).normalized;
                             isTurning = true;
@@ -735,5 +736,14 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private GameObject GetCamera(CameraType cameraType)
     {
         return cameraTypes.First(x => x.Key == cameraType).Value;
+    }
+
+    private bool CheckIfIsRunForward(Vector3 direction)
+    {
+        var dir = direction.normalized;
+        float A1 = Vector3.Dot(dir, Vector3.forward);
+        float A2 = Vector3.Dot(dir, Vector3.right);
+        if (Mathf.Abs(A1) >= 0.985f || Mathf.Abs(A2) >= 0.985f) return true;
+        return false;
     }
 }

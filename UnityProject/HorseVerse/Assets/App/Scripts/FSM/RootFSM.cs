@@ -13,7 +13,7 @@ public class RootFSM : MonoFSMContainer
     {
         Application.runInBackground = true;
 #if !UNITY_EDITOR
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 30;
 #endif
         base.AddStates();
         AddState<StartUpState>();
