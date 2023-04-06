@@ -22,6 +22,15 @@ public partial class HorseRaceFirstPersonAIDriver : MonoBehaviour
         UpdateVelocity();
         UpdateRotation();
         UpdateTarget();
+        SprintIfAvailable();
+    }
+
+    private void SprintIfAvailable()
+    {
+        if (horseRaceThirdPersonBehaviour.IsAbleToSprint)
+        {
+            horseRaceThirdPersonBehaviour.Sprint();
+        }
     }
 
     private void UpdateRotation()
@@ -47,7 +56,7 @@ public partial class HorseRaceFirstPersonAIDriver : MonoBehaviour
     private void UpdateSpeed()
     {
         navMeshAgent.speed = horseRaceThirdPersonBehaviour.CurrentForwardSpeed;
-        navMeshAgent.acceleration = horseRaceThirdPersonBehaviour.CurrentAcceleration;
+        // navMeshAgent.acceleration = horseRaceThirdPersonBehaviour.CurrentAcceleration;
     }
 
     private void ChangeTarget()

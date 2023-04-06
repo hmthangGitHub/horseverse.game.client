@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class UIHorseRacingController : PopupEntity<UIHorseRacingController.Entit
 	    public int maxPosition;
 	    public int currentLap;
 	    public int maxLap;
+	    public int speed;
     }
 
     public UIComponentProgressBar sprintBar;
@@ -22,8 +24,12 @@ public class UIHorseRacingController : PopupEntity<UIHorseRacingController.Entit
     public ButtonComponent sprintBtn;
     public UIComponentHoldImageBehavior cameraBtn;
     public FormattedTextComponent position;
+    public FormattedTextComponent speed;
     public FormattedTextComponent lap;
-    
+    public UIComponentTimeSpan timer;
+    private bool isStartTimer;
+    private float totalSecond;
+
     protected override void OnSetEntity()
     {
 	     sprintBar.SetEntity(this.entity.sprintBar);
@@ -32,6 +38,21 @@ public class UIHorseRacingController : PopupEntity<UIHorseRacingController.Entit
 	     cameraBtn.SetEntity(this.entity.cameraBtn);
 	     position.SetEntity(this.entity.currentPosition, this.entity.maxPosition);
 	     lap.SetEntity(this.entity.currentLap, this.entity.maxLap);
+	     speed.SetEntity(entity.speed);
+	     StartTimer();
+    }
+
+    private void StartTimer()
+    {
+	    isStartTimer = true;
+	    totalSecond = 0.0f;
+    }
+
+    private void Update()
+    {
+	    if (!isStartTimer) return;
+	    totalSecond += Time.deltaTime;
+	    timer.SetEntity(totalSecond);
     }
 
     public void SetSprintTime(float currentSprintNormalizeTime)

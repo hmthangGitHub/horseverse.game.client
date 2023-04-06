@@ -71,7 +71,7 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
         {
             var horseTimmingType = x.IsPlayer
                 ? this.timingType
-                : (UIHorseRacingTimingType.TimingType)UnityEngine.Random.Range((int)UIHorseRacingTimingType.TimingType.None,
+                : (UIHorseRacingTimingType.TimingType)UnityEngine.Random.Range((int)UIHorseRacingTimingType.TimingType.Good,
                     (int)UIHorseRacingTimingType.TimingType.Perfect + 1);
             x.StartRace(GetNormalizeSpeedBaseOnTimingType(horseTimmingType), timingType == UIHorseRacingTimingType.TimingType.Perfect);
         });
@@ -125,6 +125,7 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
                                                                    .Select((x,i) => (horse: x, position: i + 1))
                                                                    .First(x => x.horse == playerHorseRaceThirdPersonBehaviour)
                                                                    .position);
+        uiHorseRacingController.speed.SetEntity(Mathf.Round(playerHorseRaceThirdPersonBehaviour.CurrentForwardSpeed * 3.6f));
     }
 
     public async UniTask InitializeAsync(MasterHorseContainer masterHorseContainer,
