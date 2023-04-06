@@ -10,4 +10,9 @@ public class TestUIHorseRacingController : TestUIScript<UIHorseRacingController,
         this.entity.cameraBtn.onUp = () => { Debug.Log("Up"); };
         base.SetEntity();
     }
+
+    protected override void OnGUI()
+    {
+        base.OnGUI();
+    }
 }

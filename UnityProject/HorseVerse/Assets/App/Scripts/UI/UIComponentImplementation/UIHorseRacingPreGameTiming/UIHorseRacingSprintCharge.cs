@@ -12,23 +12,25 @@ public class UIHorseRacingSprintCharge : UIComponent<UIHorseRacingSprintCharge.E
 	    public float progress;
     }
 
-    public Color colorMin;
-    public Color colorMax;
     public UIHorseRacingSprintChargeList sprintCharge;
-    public UIComponentImageProgress progress;
+    public UIComponentImageProgress emptyCharge;
+    public UIComponentImageProgress chargeProgress;
+    public int part;
+    public float offset;
+    public int maxCharge;
+    private float percentagePerCharge;
+    private float RawPercentagePerCharge => (1.0f - part * offset)/ part;
     
     protected override void OnSetEntity()
     {
-	    sprintCharge.SetEntity(Enumerable.Range(0, this.entity.chargeNumber).Select((x, i) => new UIHorseRacingSprintChargeItem.Entity()
-	    {
-		    color = Color.Lerp(colorMin, colorMax, (float)(i + 1) / (this.entity.chargeNumber))
-	    }).ToArray());
-	    progress.SetEntity(1f - this.entity.progress);
-	    progress.transform.SetAsLastSibling();
+	    percentagePerCharge = 1.0f / this.entity.chargeNumber;
+	    emptyCharge.SetEntity(RawPercentagePerCharge * this.entity.chargeNumber + (this.entity.chargeNumber - 1) * offset);
+	    SetProgress(this.entity.progress);
     }
 
     public void SetProgress(float progress)
     {
-	    this.progress.SetEntity(1f - progress);
+	    var normalizeOffset = Mathf.Floor(progress / percentagePerCharge) * this.offset;
+	    chargeProgress.SetEntity(Mathf.Lerp(0, RawPercentagePerCharge * this.entity.chargeNumber, progress) + normalizeOffset);
     }
 }	

@@ -125,6 +125,7 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
                                                                    .Select((x,i) => (horse: x, position: i + 1))
                                                                    .First(x => x.horse == playerHorseRaceThirdPersonBehaviour)
                                                                    .position);
+        uiHorseRacingController.speed.SetEntity(Mathf.Round(playerHorseRaceThirdPersonBehaviour.CurrentForwardSpeed));
     }
 
     public async UniTask InitializeAsync(MasterHorseContainer masterHorseContainer,
