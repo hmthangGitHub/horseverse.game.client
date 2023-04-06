@@ -37,6 +37,8 @@ public class HorseRaceManagerFactory : IHorseRaceManagerFactory
             masterMap.MapSettings,
             playerHorseIndex,
             HorseRaceContext.RaceMatchData.HorseRaceInfos,
+            HorseRaceContext.GameMode == HorseGameMode.Race && HorseRaceContext.RaceMatchDataContext.IsReplay,
+            HorseRaceContext.GameMode == HorseGameMode.Race,
             token);
         return horseRaceManager;
     }

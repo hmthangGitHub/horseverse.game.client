@@ -8,7 +8,8 @@ public interface IHorseRaceManager : IDisposable
     IHorseRaceInGameStatus[] HorseControllers { get; }
     float NormalizedRaceTime { get;}
     int PlayerHorseIndex { get; }
-    event Action OnFinishTrackEvent;
+    event Action OnHorseFinishTrackEvent;
+    event Action OnShowResult;
     UniTask WaitToStart();
     void PrepareToRace();
     void StartRace();

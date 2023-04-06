@@ -1,18 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TestUIHorseRacingPreGameTiming : TestUIScript<UIHorseRacingPreGameTiming, UIHorseRacingPreGameTiming.Entity>
 {
-    protected override void OnGUI()
+    private void Update()
     {
-        base.OnGUI();
-        if (GUILayout.Button("StartTiming"))
+        if (Input.GetKeyUp(KeyCode.Return))
         {
             uiTest.StartTiming();
         }
         
-        if (GUILayout.Button("StopTiming"))
+        if (Input.GetKeyUp(KeyCode.Space))
         {
             uiTest.StopTimming();
         }

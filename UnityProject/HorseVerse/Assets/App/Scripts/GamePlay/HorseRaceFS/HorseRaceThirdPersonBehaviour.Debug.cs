@@ -6,7 +6,7 @@ public partial class HorseRaceThirdPersonBehaviour
     [ContextMenu("Start")]
     public void StartGameDebug()
     {
-        StartRace(0.0f);
+        StartRace(0.0f, false);
     }
 
     public Transform horseMeshContainer;

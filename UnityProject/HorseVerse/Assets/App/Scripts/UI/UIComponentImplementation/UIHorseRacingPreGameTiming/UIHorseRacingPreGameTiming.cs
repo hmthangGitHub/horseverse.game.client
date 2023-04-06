@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -20,8 +21,10 @@ public class UIHorseRacingPreGameTiming : PopupEntity<UIHorseRacingPreGameTiming
     public RectTransform timingBar;
     public float roundTime;
     public UIHorseRacingTimingType timingType;
+    public FormattedTextComponent timer;
 
     public UnityEngine.UI.Slider slider;
+    private UIHorseRacingTimingType.TimingType result = UIHorseRacingTimingType.TimingType.None;
     
     protected override void OnSetEntity()
     {
@@ -31,6 +34,7 @@ public class UIHorseRacingPreGameTiming : PopupEntity<UIHorseRacingPreGameTiming
 
     public void StartTiming()
     {
+	    result = default;
 	    timingType.SetEntity(UIHorseRacingTimingType.TimingType.None);
 	    timingTween = DOTween.To(val =>
 	                         {
@@ -38,18 +42,43 @@ public class UIHorseRacingPreGameTiming : PopupEntity<UIHorseRacingPreGameTiming
 	                         }, 0.0f, 1.0f, roundTime)
 	                         .SetEase(Ease.Linear)
 	                         .SetLoops(-1, LoopType.Yoyo);
+	    StartTimmingInternal().Forget();
+    }
+
+    private async UniTaskVoid StartTimmingInternal()
+    {
+	    var time = 3;
+	    this.timer.SetEntity(time);
+	    while (time >= 0)
+	    {
+		    await UniTask.Delay(TimeSpan.FromSeconds(1));
+		    time--;
+		    this.timer.SetEntity(time);
+	    }
+	    
+	    if(result == UIHorseRacingTimingType.TimingType.None)
+	    {
+		    result = UIHorseRacingTimingType.TimingType.Bad;
+		    timingType.SetEntity(result);
+	    }
+	    this.timer.SetEntity("GO");
+	    await UniTask.Delay(TimeSpan.FromSeconds(1));
+	    timingTween?.Kill(false);
+	    timingTween = default;
+	    this.entity.timingType.Invoke(result);
     }
 
     public void StopTimming()
     {
 	    if (timingTween == default) return;
-	    timingTween.Kill();
+	    if (result != default) return;
+	    
+	    timingTween.Kill(false);
 	    timingTween = default;
 	    var markerIndex = markers.ToList()
 	                             .FindLastIndex(x => IsInRange(slider.value, GetValueRange(x)));
-	    var timingTypeResult = (UIHorseRacingTimingType.TimingType)(markerIndex + 2);
-	    timingType.SetEntity(timingTypeResult);
-	    this.entity.timingType.Invoke(timingTypeResult);
+	    result = (UIHorseRacingTimingType.TimingType)(markerIndex + 2);
+	    timingType.SetEntity(result);
     }
 
     private Vector2 GetValueRange(RectTransform marker)

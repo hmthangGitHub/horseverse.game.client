@@ -86,9 +86,10 @@ public class HorseRaceThirdPersonDataFactory
             SprintChargeNumber = Random.Range(1, 6),
             SprintTime = Random.Range(4f, 5f),
             ForwardSpeedRange = new Vector2(4, 4 + Random.Range(0, 2f)),
-            SprintHealingTime = Random.Range(4f, 5f) * 3,
+            SprintHealingTime = Random.Range(4f, 5f),
             PercentageSpeedBoostWhenSprint = 0.2f,
-            PercentageSpeedBonusBoostWhenSprintContinuously = 0.2f
+            PercentageSpeedBonusBoostWhenSprintContinuously = 0.2f,
+            SprintBonusTime = 2.0f
         };
     }
 

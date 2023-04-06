@@ -27,7 +27,6 @@ public partial class HorseRacePresenter : IDisposable
     private RaceModeHorseIntroPresenter raceModeHorseIntroPresenter;
     private HorseIntroCameraPresenter horseIntroCameraPresenter;
     private int numberOfHorseFinishTheRace = 0;
-    private HorseRaceStatusPresenter horseRaceStatusPresenter;
 
     private HorseRaceContext HorseRaceContext => horseRaceContext ??= Container.Inject<HorseRaceContext>();
     private IHorseRaceManagerFactory HorseRaceManagerFactory => horseRaceManagerFactory ??= Container.Inject<IHorseRaceManagerFactory>();
@@ -107,28 +106,17 @@ public partial class HorseRacePresenter : IDisposable
     public void StartGame()
     {
         SetEntityHorseRaceManager();
-        SetHorseStatusAsync();
         AudioManager.Instance.PlaySoundHasLoop(AudioManager.HorseRunRacing);
-    }
-
-    private void SetHorseStatusAsync()
-    {
-        horseRaceStatusPresenter = new HorseRaceStatusPresenter(horseRaceManager, 
-            horseRaceManager.HorseControllers,
-            horseRaceManager.PlayerHorseIndex,
-            horseRaceContext.GameMode == HorseGameMode.Race && horseRaceContext.RaceMatchDataContext.IsReplay,
-            HorseRaceContext.GameMode == HorseGameMode.Race);
-        horseRaceStatusPresenter.Initialize().Forget();
-        horseRaceStatusPresenter.OnSkip += OnShowResult;
     }
 
     private void SetEntityHorseRaceManager()
     {
         horseRaceManager.StartRace();
-        horseRaceManager.OnFinishTrackEvent += OnFinishTrack;
+        horseRaceManager.OnHorseFinishTrackEvent += OnHorseHorseFinishTrack;
+        horseRaceManager.OnShowResult += OnShowResult;
     }
 
-    private void OnFinishTrack()
+    private void OnHorseHorseFinishTrack()
     {
         OnFinishTrackAsync().Forget();
     }
@@ -152,7 +140,8 @@ public partial class HorseRacePresenter : IDisposable
     {
         statusCts.SafeCancelAndDispose();
         
-        horseRaceManager.OnFinishTrackEvent -= OnFinishTrack;
+        horseRaceManager.OnHorseFinishTrackEvent -= OnHorseHorseFinishTrack;
+        horseRaceManager.OnHorseFinishTrackEvent -= OnShowResult;
         if (HorseRaceContext.GameMode == HorseGameMode.Race)
         {
             OnToQuickRaceModeResultState();
@@ -177,7 +166,6 @@ public partial class HorseRacePresenter : IDisposable
     public void FixedUpdate()
     {
         horseRaceManager?.UpdateRaceTime();
-        horseRaceStatusPresenter?.UpdateRaceStatus();
     }
 
     public void Dispose()
@@ -190,12 +178,10 @@ public partial class HorseRacePresenter : IDisposable
             SceneAssetLoader.UnloadAssetAtPath(masterMap.MapPath);
             mapScene = default;
         }
-        if(horseRaceStatusPresenter != default) horseRaceStatusPresenter.OnSkip -= OnShowResult;
         
         DisposeUtility.SafeDispose(ref statusCts);
         DisposeUtility.SafeDispose(ref cts);
         DisposeUtility.SafeDispose(ref horseRaceManager);
-        DisposeUtility.SafeDispose(ref horseRaceStatusPresenter);
         DisposeUtility.SafeDispose(ref horseIntroCameraPresenter);
         DisposeUtility.SafeDisposeMonoBehaviour(ref targetGenerator);
 

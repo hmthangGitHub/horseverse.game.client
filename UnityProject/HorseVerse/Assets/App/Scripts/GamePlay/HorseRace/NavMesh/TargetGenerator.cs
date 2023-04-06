@@ -17,7 +17,6 @@ public class TargetGenerator : MonoBehaviour
     public Vector3 StartPosition => PredefinePath.StartPosition;
     public Quaternion StartRotation => PredefinePath.StartRotation;
 
-
     public Vector3[] GenerateRandomTargets()
     {
         var numberOfWayPoint = 10;
@@ -27,33 +26,19 @@ public class TargetGenerator : MonoBehaviour
                          .ToArray();
     }
     
-    public Vector3[] GenerateRandomTargetsWithNoise()
-    {
-        var numberOfWayPoint = 40;
-        var seed = UnityEngine.Random.value;
-        return Enumerable.Range(0, numberOfWayPoint)
-                         .Select(i => Mathf.Lerp(PredefinePath.StartTime, PredefinePath.EndTime,  (float)i / (numberOfWayPoint - 1)))
-                         .Select(x =>
-                         {
-                             var lane = Mathf.Lerp(0, numberOfAgents - 1, Mathf.PerlinNoise(seed + x * (numberOfWayPoint - 1)  * 0.25f, 0.0f));
-                             return FromTimeToPoint(x, GetOffsetFromLane(lane), PredefinePath);
-                         })
-                         .ToArray();
-    }
-    
     public Vector3[] GenerateRandomTargetsWithNoise(float initialLane)
     {
-        var numberOfWayPoint = 40;
+        var numberOfWayPoint = UnityEngine.Random.Range(40, 60);
         var numberOfInitialLane = 3;
-        var seed = UnityEngine.Random.value;
-        return Enumerable.Range(0, numberOfWayPoint)
-                         .Select(i => Mathf.Lerp(PredefinePath.StartTime, PredefinePath.EndTime,  (float)i / (numberOfWayPoint - 1)))
+        var seed = UnityEngine.Random.Range(0.0f, 10.0f);
+        return Enumerable.Range(0, numberOfWayPoint - 1)
+                         .Select(i => Mathf.Lerp(0f, 1f,  (float)i / (numberOfWayPoint - 1)))
                          .Select((x, i) =>
                          {
                              var lane = i >= numberOfInitialLane 
-                                 ? Mathf.Lerp(0, numberOfAgents - 1, Mathf.PerlinNoise(seed + x * (numberOfWayPoint - 1)  * 0.25f, 0.0f))
+                                 ? Mathf.Lerp(0, 4, Mathf.PerlinNoise(seed + x * (numberOfWayPoint - 1)  * 0.15f, 0.0f))
                                  : initialLane;
-                             return FromTimeToPoint(x, GetOffsetFromLane(lane), PredefinePath);
+                             return FromTimeToPoint(x + PredefinePath.StartTime, GetOffsetFromLane(lane), PredefinePath);
                          })
                          .ToArray();
     }
