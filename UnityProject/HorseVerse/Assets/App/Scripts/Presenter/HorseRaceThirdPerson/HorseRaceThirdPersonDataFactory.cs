@@ -85,7 +85,7 @@ public class HorseRaceThirdPersonDataFactory
             HorizontalSpeed = Mathf.Lerp(3, 3, Random.value),
             SprintChargeNumber = Random.Range(1, 6),
             SprintTime = Random.Range(4f, 5f),
-            ForwardSpeedRange = new Vector2(4, 4 + Random.Range(0, 2f)),
+            ForwardSpeedRange = new Vector2(12, 12 + Random.Range(0, 6f)),
             SprintHealingTime = Random.Range(4f, 5f),
             PercentageSpeedBoostWhenSprint = 0.2f,
             PercentageSpeedBonusBoostWhenSprintContinuously = 0.2f,
