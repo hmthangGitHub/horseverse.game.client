@@ -71,7 +71,7 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
         {
             var horseTimmingType = x.IsPlayer
                 ? this.timingType
-                : (UIHorseRacingTimingType.TimingType)UnityEngine.Random.Range((int)UIHorseRacingTimingType.TimingType.Good,
+                : (UIHorseRacingTimingType.TimingType)UnityEngine.Random.Range((int)UIHorseRacingTimingType.TimingType.Great,
                     (int)UIHorseRacingTimingType.TimingType.Perfect + 1);
             x.StartRace(GetNormalizeSpeedBaseOnTimingType(horseTimmingType), timingType == UIHorseRacingTimingType.TimingType.Perfect);
         });

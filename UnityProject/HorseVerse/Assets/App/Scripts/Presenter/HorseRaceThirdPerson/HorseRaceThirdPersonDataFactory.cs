@@ -84,11 +84,11 @@ public class HorseRaceThirdPersonDataFactory
             AccelerationRange = new Vector2(Random.Range(1f, 2f), Random.Range(3f, 4f)),
             HorizontalSpeed = Mathf.Lerp(3, 3, Random.value),
             SprintChargeNumber = Random.Range(1, 5),
-            SprintTime = Random.Range(4f, 6f),
-            ForwardSpeedRange = new Vector2(Random.Range(8f, 12f), Random.Range(20f, 25f)),
-            SprintHealingTime = Random.Range(8f, 10f),
+            SprintTime = 4f,
+            ForwardSpeedRange = new Vector2(Random.Range(10f, 11f), Random.Range(20f, 21f)),
+            SprintHealingTime = 8f,
             PercentageSpeedBoostWhenSprint = 0.05f,
-            PercentageSpeedBonusBoostWhenSprintContinuously = 0.01f,
+            PercentageSpeedBonusBoostWhenSprintContinuously = 0.005f,
             SprintBonusTime = 2.0f
         };
     }
