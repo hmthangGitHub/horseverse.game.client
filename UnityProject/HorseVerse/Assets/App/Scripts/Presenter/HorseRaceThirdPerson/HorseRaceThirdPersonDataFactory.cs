@@ -81,14 +81,14 @@ public class HorseRaceThirdPersonDataFactory
     {
         return new HorseRaceThirdPersonStats()
         {
-            AccelerationRange = new Vector2(Random.Range(1f, 2f), Random.Range(4f, 5f)),
+            AccelerationRange = new Vector2(Random.Range(1f, 2f), Random.Range(3f, 4f)),
             HorizontalSpeed = Mathf.Lerp(3, 3, Random.value),
-            SprintChargeNumber = Random.Range(1, 6),
-            SprintTime = Random.Range(4f, 5f),
-            ForwardSpeedRange = new Vector2(12, 12 + Random.Range(0, 6f)),
-            SprintHealingTime = Random.Range(4f, 5f),
-            PercentageSpeedBoostWhenSprint = 0.2f,
-            PercentageSpeedBonusBoostWhenSprintContinuously = 0.2f,
+            SprintChargeNumber = Random.Range(1, 5),
+            SprintTime = Random.Range(4f, 6f),
+            ForwardSpeedRange = new Vector2(Random.Range(8f, 12f), Random.Range(20f, 25f)),
+            SprintHealingTime = Random.Range(8f, 10f),
+            PercentageSpeedBoostWhenSprint = 0.05f,
+            PercentageSpeedBonusBoostWhenSprintContinuously = 0.01f,
             SprintBonusTime = 2.0f
         };
     }
