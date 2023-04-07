@@ -50,6 +50,36 @@ PositionConstraint:
   m_Sources:
   - sourceTransform: {fileID: 8993483877505476825}
     weight: 1
+--- !u!1 &6585670166175591412
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2317836449649982380}
+  m_Layer: 0
+  m_Name: CoinContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2317836449649982380
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6585670166175591412}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8993483876949355948}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8993483876141378154
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,6 +195,7 @@ Transform:
   - {fileID: 8642612561331957944}
   - {fileID: 8993483876141378155}
   - {fileID: 8993483876397789577}
+  - {fileID: 2317836449649982380}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -185,6 +216,7 @@ MonoBehaviour:
   platformTrigger: {fileID: 8993483877423513905}
   blockContainer: {fileID: 8642612561331957944}
   sceneryContainer: {fileID: 0}
+  coinContainer: {fileID: 2317836449649982380}
   coinPrefab: {fileID: 2342296183655528524, guid: 8b9668838ab9bc549a1350298e954bc6, type: 3}
 --- !u!1 &8993483877423513916
 GameObject:
@@ -295,7 +327,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collider: {fileID: 8993483877423513918}
-  isChangeSceneBridge: 0
 --- !u!1 &8993483877505476824
 GameObject:
   m_ObjectHideFlags: 0

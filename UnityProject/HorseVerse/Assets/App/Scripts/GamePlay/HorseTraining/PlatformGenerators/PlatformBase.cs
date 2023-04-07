@@ -12,6 +12,8 @@ public class PlatformBase : MonoBehaviour
     protected Transform blockContainer;
     [SerializeField]
     protected Transform sceneryContainer;
+    [SerializeField]
+    protected Transform coinContainer;
 
     public bool IsReady { get; set; } = true;
 

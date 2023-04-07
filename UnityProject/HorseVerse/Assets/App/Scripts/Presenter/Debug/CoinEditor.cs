@@ -153,7 +153,7 @@ public class CoinEditor : MonoBehaviour
         UpdateCoinPosition();
     }
     
-    private void UpdateCoinPosition()
+    public void UpdateCoinPosition()
     {
         listCoin.ForEach((x,
                           i) => x.transform.position = spline.GetPoint(Mathf.InverseLerp(0, listCoin.Count - 1, i)));

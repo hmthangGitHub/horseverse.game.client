@@ -207,6 +207,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2317836449649982380, guid: 55dc9c2553832884cafbb8978427d61c, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4214096149191990809, guid: 55dc9c2553832884cafbb8978427d61c, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.09
@@ -359,6 +363,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8993483877505476825, guid: 55dc9c2553832884cafbb8978427d61c, type: 3}
   m_PrefabInstance: {fileID: 3367242671285223587}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1049411994088160015 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2317836449649982380, guid: 55dc9c2553832884cafbb8978427d61c, type: 3}
+  m_PrefabInstance: {fileID: 3367242671285223587}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1265945211471292911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,6 +385,7 @@ MonoBehaviour:
   platformTrigger: {fileID: 5941827570117263762}
   blockContainer: {fileID: 6434063920842633243}
   sceneryContainer: {fileID: 1651026050602926669}
+  coinContainer: {fileID: 1049411994088160015}
   sceneryConflictRegionScale: {x: 3.8, y: 20, z: 1.5}
   sceneryContainerScale: {x: 14, y: 20, z: 1}
   testBlocks: []

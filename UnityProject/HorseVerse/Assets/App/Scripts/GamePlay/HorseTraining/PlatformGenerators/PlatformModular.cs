@@ -292,7 +292,7 @@ public partial class PlatformModular : PlatformBase
         //GenerateBlock(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType);
         yield return GenerateBlockAsync(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType);
         yield return GenerateObstacleAsync(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab);
-        GenerateCoins(masterHorseTrainingBlockCombo.CoinList, coinRadius);
+        yield return GenerateCoinsAsync(masterHorseTrainingBlockCombo.CoinList, coinRadius);
         yield return GenerateTrapAsync(masterHorseTrainingBlockCombo.TrapList, trapsPrefab);
         yield return GenerateSubObjectsAsync(masterHorseTrainingBlockCombo.SubObjectList, subObjectPrefab);
         GenerateSceneryObjects(sceneryObjectPrefabs, gameObjectPoolList);
@@ -319,7 +319,7 @@ public partial class PlatformModular : PlatformBase
         //GenerateBlock(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType);
         yield return GenerateBlockAsync(startPosition, blockPrefabs, paddingStartPrefab, paddingEndPrefab, jumpingPoint, landingPoint, masterHorseTrainingBlockCombo.MasterTrainingBlockComboType);
         yield return GenerateObstacleAsync(masterHorseTrainingBlockCombo.ObstacleList, obstaclesPrefab);
-        GenerateCoins(masterHorseTrainingBlockCombo.CoinList, coinRadius);
+        yield return GenerateCoinsAsync(masterHorseTrainingBlockCombo.CoinList, coinRadius);
         yield return GenerateTrapAsync(masterHorseTrainingBlockCombo.TrapList, trapsPrefab);
         yield return GenerateSubObjectsAsync(masterHorseTrainingBlockCombo.SubObjectList, subObjectPrefab);
         yield return AlignObstacle(masterHorseTrainingBlockCombo.ObstacleList);
@@ -330,10 +330,34 @@ public partial class PlatformModular : PlatformBase
     {
         coinsList.ForEach(x =>
         {
-            var coin = Instantiate(coinPrefab, this.transform);
+            var coin = Instantiate(coinPrefab, this.coinContainer);
             coin.transform.localPosition = x.localPosition.ToVector3();
             coin.Init(x.numberOfCoin, x.benzierPointPositions.Select(x => x.ToVector3()).ToArray(), coinRadius, this.pool, false);
         });
+    }
+
+    private IEnumerator GenerateCoinsAsync(Coin[] coinsList, float coinRadius)
+    {
+        yield return null;
+        var len = coinsList.Length;
+        List<CoinEditor> coints = new List<CoinEditor>();
+        for(int i = 0; i < len; i++)
+        {
+            var x = coinsList[i];
+            var coin = Instantiate(coinPrefab, this.coinContainer);
+            coin.transform.localPosition = x.localPosition.ToVector3();
+            coin.Init(x.numberOfCoin, x.benzierPointPositions.Select(x => x.ToVector3()).ToArray(), coinRadius, this.pool, false);
+            if (i % 10 == 0) yield return null;
+            coints.Add(coin);
+        }
+        yield return new WaitForSeconds(0.2f);
+        for (int i = 0; i < len; i++)
+        {
+            var coin = coints[i];
+            coin.UpdateCoinPosition();
+        }
+
+        yield return null;
     }
 
     private GameObject InstantiateGameObject(GameObjectPoolList gameObjectPoolList,
