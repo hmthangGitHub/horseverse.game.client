@@ -24,7 +24,7 @@ public class CoinEditor : MonoBehaviour
                                               .ToArray();
     private PlatformGeneratorPool pool;
     private bool isEditing;
-    private bool isInitialized;
+    private int initDelayFrame = 3;
 
     public void OnToggleStatus()
     {
@@ -65,8 +65,11 @@ public class CoinEditor : MonoBehaviour
         this.pool = _pool;
         OnChangeNumberOfCoin(coinNumber);
         InitBenzierPoints(positions);
-        UpdateCoinPosition();
         this.isEditing = isEditing;
+        if (!this.isEditing)
+        {
+            UpdateCoinPositionAsync().Forget();
+        }
     }
 
     public void Clear()
@@ -140,9 +143,13 @@ public class CoinEditor : MonoBehaviour
 
     private void Update()
     {
-        if (!isEditing && isInitialized) return;
-        
-        isInitialized = true;
+        if (!isEditing) return;
+        UpdateCoinPosition();
+    }
+
+    private async UniTaskVoid UpdateCoinPositionAsync()
+    {
+        await UniTask.DelayFrame(2, cancellationToken: this.GetCancellationTokenOnDestroy());
         UpdateCoinPosition();
     }
     
