@@ -198,11 +198,13 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     private void SetEndOfBlockBehaviour(PlatformBase platform, EndOfBlockBehaviour endOfBlockBehaviour)
     {
         Action action;
+#if ENABLE_ADVENTURE_CHANGE_SCENE
         if (currentBlock >= numberOfBlock)
         {
             action = OnEndOfScene;
         }
         else
+#endif
         {
             action = endOfBlockBehaviour switch
             {
@@ -255,7 +257,9 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     {
         CreateDebugSphere(relativePointToPlayer + lastEndPosition);
         var platform = CreatePlatform(relativePointToPlayer, lastEndPosition);
+#if ENABLE_ADVENTURE_CHANGE_SCENE
         currentBlock++;
+#endif
         SetEndOfBlockBehaviour(platform, EndOfBlockBehaviour.DestroyPreviousAndCreateNew);
         RotatePlatform(platform, direction);
         return platform.gameObject;
@@ -297,10 +301,12 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
             TYPE_OF_BLOCK.NORMAL_WITHOUT_SCENERY_OBJECT => await CreatePlatformWithoutSceneryObjectAsync(relativePointToPlayer, lastEndPosition),
             _ => throw new ArgumentOutOfRangeException(nameof(platformType), platformType, null)
         };
+#if ENABLE_ADVENTURE_CHANGE_SCENE
         if (isSinglePlatform)
         {
             currentBlock++;
         }
+#endif
         SetEndOfBlockBehaviour(platform, endOfBlockBehaviour);
         RotatePlatform(platform, direction);
         lastPlatform = platform.gameObject;

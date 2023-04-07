@@ -35,6 +35,7 @@ public class ScriptingDefineSymbolEditor : EditorWindow
 			{ "MULTI_ACCOUNT", ""},
 			{ "WEB_SOCKET", "" },
 			{ "ENABLE_DEBUG_MODULE", ""},
+			{ "ENABLE_ADVENTURE_CHANGE_SCENE", ""},
 		 };
 	}
 
