@@ -30,13 +30,12 @@ public class HorseRaceStatusPresenter : IDisposable
         cts = new CancellationTokenSource();
     }
 
-    public async UniTask Initialize()
+    public async UniTask InitializeAsync()
     {
         uiHorseRaceStatus ??= await UILoader.Instantiate<UIHorseRaceStatus>(token: cts.Token);
-        SetEntityUIHorseRaceStatus();
     }
     
-    private void SetEntityUIHorseRaceStatus()
+    public void SetEntityUIHorseRaceStatus()
     {
         uiHorseRaceStatus.SetEntity(new UIHorseRaceStatus.Entity()
         {

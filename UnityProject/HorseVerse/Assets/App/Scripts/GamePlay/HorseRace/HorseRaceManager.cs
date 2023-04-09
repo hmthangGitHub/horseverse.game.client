@@ -58,10 +58,10 @@ public class HorseRaceManager : MonoBehaviour, IHorseRaceManager
         SetHorseControllerStat(horseRaceTimes, playerHorseIndex);
         raceTime = GetMinimumRaceTime(horseRaceTimes);
         isHorsesLoaded = true;
-        SetHorseStatusAsync(isReplay, showSelfRank);
+        await SetHorseStatusAsync(isReplay, showSelfRank);
     }
 
-    private void SetHorseStatusAsync(bool replay,
+    private async UniTask SetHorseStatusAsync(bool replay,
                                      bool showSelfRank)
     {
         horseRaceStatusPresenter = new HorseRaceStatusPresenter(this, 
@@ -69,8 +69,7 @@ public class HorseRaceManager : MonoBehaviour, IHorseRaceManager
             this.PlayerHorseIndex,
             replay,
             showSelfRank);
-        horseRaceStatusPresenter.Initialize().Forget();
-        horseRaceStatusPresenter.OnSkip += () => OnShowResult.Invoke();
+        await horseRaceStatusPresenter.InitializeAsync();
     }
 
     public void PrepareToRace()
@@ -152,6 +151,8 @@ public class HorseRaceManager : MonoBehaviour, IHorseRaceManager
         if (isStartedRace == false)
         {
             isStartedRace = true;
+            horseRaceStatusPresenter.SetEntityUIHorseRaceStatus();
+            horseRaceStatusPresenter.OnSkip += () => OnShowResult.Invoke();
             HorseControllerInternal.ForEach(x => x.StartRaceAsync().Forget());
         }
     }
@@ -216,10 +217,8 @@ public class HorseRaceManager : MonoBehaviour, IHorseRaceManager
                 ? HorseControllerInternal.OrderByDescending(x => x.CurrentRaceProgressWeight)
                                          .First()
                                          .transform
-                : HorseControllerInternal[HorseControllers.Length / 2]
-                    .transform;
-            followTarget.position
-                = Vector3.Lerp(followTarget.position, firstHorse.transform.position, Time.deltaTime * 15.0f);
+                : HorseControllerInternal[HorseControllers.Length / 2].transform;
+            followTarget.position = Vector3.Lerp(followTarget.position, firstHorse.transform.position, Time.deltaTime * 15.0f);
         }
     }
 

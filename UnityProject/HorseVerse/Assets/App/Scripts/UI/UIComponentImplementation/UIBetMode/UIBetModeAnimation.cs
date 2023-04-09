@@ -19,17 +19,7 @@ public class UIBetModeAnimation : UISequenceAnimationBase
     public RectTransform quickBetButtonsContainer;
     public RectTransform betAmouthsContainer;
         
-    public async UniTask AnimationIn()
-    {
-        await PlayAnimationAsync(CreateAnimationIn);
-    }
-
-    public async UniTask AnimationOut()
-    {
-        await PlayAnimationAsync(CreateAnimationOut);
-    }
-
-    private Tween CreateAnimationOut()
+    protected override Tween CreateOutAnimation()
     {
         return DOTween.Sequence()
             
@@ -52,7 +42,7 @@ public class UIBetModeAnimation : UISequenceAnimationBase
             });
     }
 
-    private Sequence CreateAnimationIn()
+    protected override Tween CreateInAnimation()
     {
         return DOTween.Sequence()
             .AppendCallback(() => canvasGroup.alpha = 0)

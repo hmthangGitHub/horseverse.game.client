@@ -16,49 +16,22 @@ public class UIMainMenuAnimation : UISequenceAnimationBase
     public GameObject userInfoAndhorseBreed;
     public CanvasGroup Banner;
 
-    //public UIComponentHorseBreedProgressList horseProgressList;
     public UIComponentHorseDetailAnimation horseDetailAnimation;
-    //public VerticalLayoutGroup buttonLayOutGroup;
 
-    public async UniTask AnimationIn()
-    {
-        await PlayAnimationAsync(CreatInAnimation);
-    }
-
-    private Sequence CreatInAnimation()
+    protected override Tween CreateInAnimation()
     {
         return DOTween.Sequence()
             .Append(((RectTransform)userInfoAndhorseBreed.transform).DOAnchorPosXFrom(-700, 0.25f))
             .Join(((RectTransform)userInfoAndhorseBreed.transform).DOFade(0.0f, 1.0f, 0.25f))
-            //.Append(horseProgressList.instanceList
-            //    .Select(x => DOTweenExtensions.To(x.SetProgress, 0, x.entity.progress, 0.25f)).ToArray()
-            //    .AsSequence(false))
             .Join(horseDetailAnimation.CreateAnimation())
             .Join(((RectTransform)Banner.transform).DOAnchorPosXFrom(1200, 0.25f));
     }
 
-    public UniTask AnimationOut()
-    {
-        return PlayAnimationAsync(CreatOutAnimation);
-    }
-
-    private Tween CreatOutAnimation()
+    protected override Tween CreateOutAnimation()
     {
         return DOTween.Sequence()
             .Append(((RectTransform)userInfoAndhorseBreed.transform).DOAnchorPosXToThenReverse(-700, 0.25f))
             .Join(((RectTransform)userInfoAndhorseBreed.transform).DOFade(1.0f, 0.0f, 0.5f, true))
             .Join(((RectTransform)Banner.transform).DOAnchorPosXToThenReverse(1200, 0.25f));
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            AnimationIn().Forget();
-        }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            AnimationOut().Forget();
-        }
     }
 }

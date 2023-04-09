@@ -10,6 +10,7 @@ using Object = UnityEngine.Object;
 
 public class HorseRaceThirdPersonManager : IHorseRaceManager
 {
+    private const float MPerSecondToKmPerHour = 3.6f;
     private readonly IDIContainer container;
     private string mapSettingsPath;
     private MapSettings mapSettings;
@@ -19,6 +20,14 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
     private CancellationTokenSource cts;
     private UIHorseRacingController uiHorseRacingController;
     private UIHorseRacingPreGameTiming uiHorseRacingPreGameTiming;
+    private UIHorseRacingThirdPersonResult uiHorseRacingThirdPersonResult;
+    
+    private UIHorseRacingTimingType.TimingType timingType;
+    private HorseRaceFirstPersonPlayerController playerController;
+    private HorseRaceThirdPersonBehaviour playerHorseRaceThirdPersonBehaviour;
+    private UITouchDisablePresenter touchDisablePresenter;
+    private HorseRaceThirdPersonInfo[] horseRaceThirdPersonInfo;
+    private MasterHorseContainer masterHorseContainer;
     public Transform WarmUpTarget => horseRaceThirdPersonListContainer.WarmUpTarget;
     public IHorseRaceInGameStatus[] HorseControllers => HorseRaceThirdPersonBehaviours;
     private HorseRaceThirdPersonBehaviour[] HorseRaceThirdPersonBehaviours { get; set; }
@@ -26,14 +35,9 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
     public int PlayerHorseIndex { get; private set; }
     public event Action OnHorseFinishTrackEvent = ActionUtility.EmptyAction.Instance;
     public event Action OnShowResult = ActionUtility.EmptyAction.Instance;
-    private UIHorseRacingTimingType.TimingType timingType;
-    private HorseRaceFirstPersonPlayerController playerController;
-    private HorseRaceThirdPersonBehaviour playerHorseRaceThirdPersonBehaviour;
-    private UITouchDisablePresenter touchDisablePresenter;
-    private HorseRaceThirdPersonInfo[] horseRaceThirdPersonInfo;
-    private MasterHorseContainer masterHorseContainer;
     private UITouchDisablePresenter TouchDisablePresenter => touchDisablePresenter ??= container.Inject<UITouchDisablePresenter>();
     private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= container.Inject<MasterHorseContainer>();
+    private float totalSecond;
 
     public HorseRaceThirdPersonManager(IDIContainer container)
     {
@@ -121,11 +125,18 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
         uiHorseRacingController.sprintCharge.SetProgress(playerHorseRaceThirdPersonBehaviour.CurrentChargeNormalize);
         uiHorseRacingController.sprintBtn.SetInteractable(playerHorseRaceThirdPersonBehaviour.IsAbleToSprint);
         uiHorseRacingController.SetCurrentLap(playerHorseRaceThirdPersonBehaviour.CurrentLap);
-        uiHorseRacingController.SetCurrentPosition(HorseControllers.OrderByDescending(x => x.CurrentRaceProgressWeight)
-                                                                   .Select((x,i) => (horse: x, position: i + 1))
-                                                                   .First(x => x.horse == playerHorseRaceThirdPersonBehaviour)
-                                                                   .position);
-        uiHorseRacingController.speed.SetEntity(Mathf.Round(playerHorseRaceThirdPersonBehaviour.CurrentForwardSpeed * 3.6f));
+        uiHorseRacingController.SetCurrentPosition(GetCurrentPlayerPosition());
+        uiHorseRacingController.speed.SetEntity(Mathf.Round(playerHorseRaceThirdPersonBehaviour.CurrentForwardSpeed * MPerSecondToKmPerHour));
+        totalSecond += Time.deltaTime;
+        uiHorseRacingController.totalSecond.SetEntity((int)totalSecond);
+    }
+
+    private int GetCurrentPlayerPosition()
+    {
+        return HorseControllers.OrderByDescending(x => x.CurrentRaceProgressWeight)
+                               .Select((x,i) => (horse: x, position: i + 1))
+                               .First(x => x.horse == playerHorseRaceThirdPersonBehaviour)
+                               .position;
     }
 
     public async UniTask InitializeAsync(MasterHorseContainer masterHorseContainer,
@@ -148,7 +159,35 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
         playerHorseRaceThirdPersonBehaviour.OnFinishRace += FinishTrackEvent;
     }
 
-    private void FinishTrackEvent() => OnShowResult.Invoke();
+    private void FinishTrackEvent()
+    {
+        FinishTrackEventAsync().Forget();
+    }
+
+    private async UniTaskVoid FinishTrackEventAsync()
+    {
+        var ucs = new UniTaskCompletionSource();
+        uiHorseRacingThirdPersonResult.SetEntity(new UIHorseRacingThirdPersonResult.Entity()
+        {
+            position = GetCurrentPlayerPosition(),
+            raceTime = (int)totalSecond,
+            outerBtn = new ButtonComponent.Entity(() =>
+            {
+                ucs.TrySetResult();
+            }),
+            realm = new UIComponentRealmIntro.Entity()
+            {
+                realm = "FORGOTTEN REALM",
+                track = "The Old Observatory"
+            }
+        });
+        HorseRaceThirdPersonBehaviours.ForEach(x => x.SetVisibleLane(false));
+        await uiHorseRacingController.Out().AttachExternalCancellation(cts.Token);
+        await uiHorseRacingThirdPersonResult.In().AttachExternalCancellation(cts.Token);;
+        await ucs.Task.AttachExternalCancellation(cts.Token);
+        await uiHorseRacingThirdPersonResult.Out().AttachExternalCancellation(cts.Token);
+        OnShowResult.Invoke();
+    }
 
     private void UnsubscribeFinishTrackEvents()
     {
@@ -185,6 +224,7 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
     {
         uiHorseRacingPreGameTiming = await UILoader.Instantiate<UIHorseRacingPreGameTiming>(token: token);
         uiHorseRacingController = await UILoader.Instantiate<UIHorseRacingController>(token: token);
+        uiHorseRacingThirdPersonResult = await UILoader.Instantiate<UIHorseRacingThirdPersonResult>(token: token);
     }
 
     private void SetHorsesVisible(bool isVisible)
@@ -232,6 +272,7 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
         PrimitiveAssetLoader.UnloadAssetAtPath(mapSettingsPath);
         UILoader.SafeRelease(ref uiHorseRacingPreGameTiming);
         UILoader.SafeRelease(ref uiHorseRacingController);
+        UILoader.SafeRelease(ref uiHorseRacingThirdPersonResult);
         DisposeUtility.SafeDisposeMonoBehaviour(ref targetGenerator);
         Time.timeScale = 1;
         
