@@ -14,6 +14,7 @@ public class RootFSM : MonoFSMContainer
         Application.runInBackground = true;
 #if !UNITY_EDITOR
         Application.targetFrameRate = 30;
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
 #endif
         base.AddStates();
         AddState<StartUpState>();
