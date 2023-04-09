@@ -12,6 +12,7 @@ public partial class HorseRacePresenter : IDisposable
     private IHorseRaceManager horseRaceManager;
     private UIFlashScreenAnimation uiFlashScreen;
     private UILoading uiLoading;
+    private UIHorseRealmIntro uiHorseRealmIntro;
     private Scene mapScene;
     public event Action OnToBetModeResultState = ActionUtility.EmptyAction.Instance;
     public event Action OnToQuickRaceModeResultState = ActionUtility.EmptyAction.Instance;
@@ -66,13 +67,13 @@ public partial class HorseRacePresenter : IDisposable
 #if ENABLE_DEBUG_MODULE
         CreateDebuggerAction();
 #endif
-        await horseIntroCameraPresenter.ShowFreeCamera();
-        await uiLoading.In();
+        await (horseIntroCameraPresenter.ShowFreeCamera().AttachExternalCancellation(token), uiHorseRealmIntro.In());
+        await (uiLoading.In().AttachExternalCancellation(token), uiHorseRealmIntro.Out().AttachExternalCancellation(token));
         horseIntroCameraPresenter.HideFreeCamera();
         
         await (raceModeHorseIntroPresenter.ShowHorsesInfoIntroAsync(HorseRaceContext.HorseBriefInfos)
                                                            .AttachExternalCancellation(token),
-            uiLoading.Out());
+        uiLoading.Out());
         await uiLoading.In();
         
         DisposeUtility.SafeDispose(ref raceModeHorseIntroPresenter);
@@ -100,6 +101,15 @@ public partial class HorseRacePresenter : IDisposable
         uiFlashScreen ??= await UILoader.Instantiate<UIFlashScreenAnimation>(token: cts.Token);
         uiLoading ??= await UILoader.Instantiate<UILoading>(token: cts.Token);
         uiLoading.SetEntity(new UILoading.Entity(){ loadingHorse = false});
+        uiHorseRealmIntro ??= await UILoader.Instantiate<UIHorseRealmIntro>(token: cts.Token);
+        uiHorseRealmIntro.SetEntity(new UIHorseRealmIntro.Entity()
+        {
+            realm = new UIComponentRealmIntro.Entity()
+            {
+                realm = "FORGOTTEN REALM",
+                track = "The Old Observatory"
+            }
+        });
         horseIntroCameraPresenter ??= await HorseIntroCameraPresenter.InstantiateAsync(mapSettings.freeCamera, mapSettings.warmUpCamera, cts.Token);
     }
 

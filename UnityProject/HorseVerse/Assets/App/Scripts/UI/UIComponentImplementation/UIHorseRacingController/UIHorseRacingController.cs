@@ -17,6 +17,7 @@ public class UIHorseRacingController : PopupEntity<UIHorseRacingController.Entit
 	    public int currentLap;
 	    public int maxLap;
 	    public int speed;
+	    public float totalSecond;
     }
 
     public UIComponentProgressBar sprintBar;
@@ -26,9 +27,8 @@ public class UIHorseRacingController : PopupEntity<UIHorseRacingController.Entit
     public FormattedTextComponent position;
     public FormattedTextComponent speed;
     public FormattedTextComponent lap;
-    public UIComponentTimeSpan timer;
+    public UIComponentTimeSpan totalSecond;
     private bool isStartTimer;
-    private float totalSecond;
 
     protected override void OnSetEntity()
     {
@@ -39,20 +39,7 @@ public class UIHorseRacingController : PopupEntity<UIHorseRacingController.Entit
 	     position.SetEntity(this.entity.currentPosition, this.entity.maxPosition);
 	     lap.SetEntity(this.entity.currentLap, this.entity.maxLap);
 	     speed.SetEntity(entity.speed);
-	     StartTimer();
-    }
-
-    private void StartTimer()
-    {
-	    isStartTimer = true;
-	    totalSecond = 0.0f;
-    }
-
-    private void Update()
-    {
-	    if (!isStartTimer) return;
-	    totalSecond += Time.deltaTime;
-	    timer.SetEntity(totalSecond);
+	     totalSecond.SetEntity(this.entity.totalSecond);
     }
 
     public void SetSprintTime(float currentSprintNormalizeTime)

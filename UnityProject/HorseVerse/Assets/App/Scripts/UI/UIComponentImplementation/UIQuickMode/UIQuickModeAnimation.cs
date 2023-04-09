@@ -23,6 +23,6 @@ public class UIQuickModeAnimation : UISequenceAnimationBase
 
     protected override Tween CreateOutAnimation()
     {
-        return base.CreateOutAnimation();
+        return default;
     }
 }

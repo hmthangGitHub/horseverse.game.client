@@ -4,22 +4,16 @@ using System;
 using System.Threading;
 using UnityEngine;
 
-public class UISequenceAnimationBase : UIAnimationBase
+public abstract class UISequenceAnimationBase : UIAnimationBase
 {
     public virtual UniTask AnimationIn()
     {
         return PlayAnimationAsync(CreateInAnimation);
     }
 
-    protected virtual Tween CreateInAnimation()
-    {
-        return default;
-    }
+    protected abstract Tween CreateInAnimation();
 
-    protected virtual Tween CreateOutAnimation()
-    {
-        return default;
-    }
+    protected abstract Tween CreateOutAnimation();
 
     public virtual UniTask AnimationOut()
     {

@@ -182,4 +182,9 @@ public partial class HorseRaceThirdPersonBehaviour : MonoBehaviour, IHorseRaceIn
         cameraFront.SetActive(!isBackCamera);
         cameraBack.SetActive(isBackCamera);
     }
+
+    public void SetVisibleLane(bool visible)
+    {
+        laneContainer.gameObject.SetActive(visible);
+    }
 }

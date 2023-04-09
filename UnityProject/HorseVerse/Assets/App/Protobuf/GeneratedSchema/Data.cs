@@ -34,7 +34,7 @@ namespace io.hverse.game.protogen {
             "ZxgCIAEoBRIVCg1iZXROdW1iZXJMaXN0GAMgAygFEhwKFG1heERhaWx5UmFj",
             "aW5nTnVtYmVyGAQgASgFEigKD3JhY2VSZXdhcmRJbmZvcxgFIAMoCzIPLlJh",
             "Y2VSZXdhcmRJbmZvIjoKFUVuYWJsZUZlYXR1cmVzUmVjZWlwdBIhCgtmZWF0",
-            "dXJlTGlzdBgBIAMoDjIMLkZlYXR1cmVUeXBlIpQDCglIb3JzZUluZm8SDQoF",
+            "dXJlTGlzdBgBIAMoDjIMLkZlYXR1cmVUeXBlIsEDCglIb3JzZUluZm8SDQoF",
             "bmZ0SWQYASABKAMSCwoDYm1zGAIgASgCEgsKA21tcxgDIAEoAhIUCgxhY2Nl",
             "bGVyYXRpb24YBCABKAISDwoHc3RhbWluYRgFIAEoAhIdCglob3JzZVR5cGUY",
             "BiABKA4yCi5Ib3JzZVR5cGUSFwoGcmFyaXR5GAcgASgOMgcuUmFyaXR5EgwK",
@@ -43,7 +43,8 @@ namespace io.hverse.game.protogen {
             "Eg8KB3dpblJhdGUYDiABKAISDAoEbmFtZRgPIAEoCRIZChFsYXN0QmV0dGlu",
             "Z1JlY29yZBgQIAEoAhIcChRhdmVyYWdlQmV0dGluZ1JlY29yZBgRIAEoAhIZ",
             "ChFiZXN0QmV0dGluZ1JlY29yZBgSIAEoAhIRCgloYXBwaW5lc3MYEyABKAUS",
-            "HAoUcmVzdG9yZUhhcHBpbmVzc1RpbWUYFCABKAMiNwoKUmV3YXJkSW5mbxIZ",
+            "HAoUcmVzdG9yZUhhcHBpbmVzc1RpbWUYFCABKAMSCwoDYWdlGBUgASgFEgsK",
+            "A3NleBgWIAEoBRIRCgljb2xvclR5cGUYFyABKAUiNwoKUmV3YXJkSW5mbxIZ",
             "CgR0eXBlGAEgASgOMgsuUmV3YXJkVHlwZRIOCgZhbW91bnQYAiABKAMiWwoO",
             "UmFjZVJld2FyZEluZm8SDAoEcmFuaxgBIAEoBRIdCgVsZXZlbBgCIAEoDjIO",
             "LlJhY2VSb29tTGV2ZWwSHAoHcmV3YXJkcxgDIAMoCzILLlJld2FyZEluZm8i",
@@ -86,7 +87,7 @@ namespace io.hverse.game.protogen {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataRequest), global::io.hverse.game.protogen.MasterDataRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataResponse), global::io.hverse.game.protogen.MasterDataResponse.Parser, new[]{ "MaxHappinessNumber", "HappinessNumberPerTraining", "BetNumberList", "MaxDailyRacingNumber", "RaceRewardInfos" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.EnableFeaturesReceipt), global::io.hverse.game.protogen.EnableFeaturesReceipt.Parser, new[]{ "FeatureList" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "Bms", "Mms", "Acceleration", "Stamina", "HorseType", "Rarity", "Luck", "Level", "Color1", "Color2", "Color3", "Color4", "WinRate", "Name", "LastBettingRecord", "AverageBettingRecord", "BestBettingRecord", "Happiness", "RestoreHappinessTime" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "Bms", "Mms", "Acceleration", "Stamina", "HorseType", "Rarity", "Luck", "Level", "Color1", "Color2", "Color3", "Color4", "WinRate", "Name", "LastBettingRecord", "AverageBettingRecord", "BestBettingRecord", "Happiness", "RestoreHappinessTime", "Age", "Sex", "ColorType" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RewardInfo), global::io.hverse.game.protogen.RewardInfo.Parser, new[]{ "Type", "Amount" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RaceRewardInfo), global::io.hverse.game.protogen.RaceRewardInfo.Parser, new[]{ "Rank", "Level", "Rewards" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ItemInfo), global::io.hverse.game.protogen.ItemInfo.Parser, new[]{ "Type", "ChestKeyInfo", "ChestInfo", "PieceInfo" }, null, null, null, null),
@@ -1206,6 +1207,9 @@ namespace io.hverse.game.protogen {
       bestBettingRecord_ = other.bestBettingRecord_;
       happiness_ = other.happiness_;
       restoreHappinessTime_ = other.restoreHappinessTime_;
+      age_ = other.age_;
+      sex_ = other.sex_;
+      colorType_ = other.colorType_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1476,6 +1480,42 @@ namespace io.hverse.game.protogen {
       }
     }
 
+    /// <summary>Field number for the "age" field.</summary>
+    public const int AgeFieldNumber = 21;
+    private int age_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Age {
+      get { return age_; }
+      set {
+        age_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "sex" field.</summary>
+    public const int SexFieldNumber = 22;
+    private int sex_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Sex {
+      get { return sex_; }
+      set {
+        sex_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "colorType" field.</summary>
+    public const int ColorTypeFieldNumber = 23;
+    private int colorType_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int ColorType {
+      get { return colorType_; }
+      set {
+        colorType_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1511,6 +1551,9 @@ namespace io.hverse.game.protogen {
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(BestBettingRecord, other.BestBettingRecord)) return false;
       if (Happiness != other.Happiness) return false;
       if (RestoreHappinessTime != other.RestoreHappinessTime) return false;
+      if (Age != other.Age) return false;
+      if (Sex != other.Sex) return false;
+      if (ColorType != other.ColorType) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1538,6 +1581,9 @@ namespace io.hverse.game.protogen {
       if (BestBettingRecord != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(BestBettingRecord);
       if (Happiness != 0) hash ^= Happiness.GetHashCode();
       if (RestoreHappinessTime != 0L) hash ^= RestoreHappinessTime.GetHashCode();
+      if (Age != 0) hash ^= Age.GetHashCode();
+      if (Sex != 0) hash ^= Sex.GetHashCode();
+      if (ColorType != 0) hash ^= ColorType.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1636,6 +1682,18 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(160, 1);
         output.WriteInt64(RestoreHappinessTime);
       }
+      if (Age != 0) {
+        output.WriteRawTag(168, 1);
+        output.WriteInt32(Age);
+      }
+      if (Sex != 0) {
+        output.WriteRawTag(176, 1);
+        output.WriteInt32(Sex);
+      }
+      if (ColorType != 0) {
+        output.WriteRawTag(184, 1);
+        output.WriteInt32(ColorType);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1726,6 +1784,18 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(160, 1);
         output.WriteInt64(RestoreHappinessTime);
       }
+      if (Age != 0) {
+        output.WriteRawTag(168, 1);
+        output.WriteInt32(Age);
+      }
+      if (Sex != 0) {
+        output.WriteRawTag(176, 1);
+        output.WriteInt32(Sex);
+      }
+      if (ColorType != 0) {
+        output.WriteRawTag(184, 1);
+        output.WriteInt32(ColorType);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1795,6 +1865,15 @@ namespace io.hverse.game.protogen {
       }
       if (RestoreHappinessTime != 0L) {
         size += 2 + pb::CodedOutputStream.ComputeInt64Size(RestoreHappinessTime);
+      }
+      if (Age != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(Age);
+      }
+      if (Sex != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(Sex);
+      }
+      if (ColorType != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(ColorType);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1867,6 +1946,15 @@ namespace io.hverse.game.protogen {
       }
       if (other.RestoreHappinessTime != 0L) {
         RestoreHappinessTime = other.RestoreHappinessTime;
+      }
+      if (other.Age != 0) {
+        Age = other.Age;
+      }
+      if (other.Sex != 0) {
+        Sex = other.Sex;
+      }
+      if (other.ColorType != 0) {
+        ColorType = other.ColorType;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1963,6 +2051,18 @@ namespace io.hverse.game.protogen {
             RestoreHappinessTime = input.ReadInt64();
             break;
           }
+          case 168: {
+            Age = input.ReadInt32();
+            break;
+          }
+          case 176: {
+            Sex = input.ReadInt32();
+            break;
+          }
+          case 184: {
+            ColorType = input.ReadInt32();
+            break;
+          }
         }
       }
     #endif
@@ -2056,6 +2156,18 @@ namespace io.hverse.game.protogen {
           }
           case 160: {
             RestoreHappinessTime = input.ReadInt64();
+            break;
+          }
+          case 168: {
+            Age = input.ReadInt32();
+            break;
+          }
+          case 176: {
+            Sex = input.ReadInt32();
+            break;
+          }
+          case 184: {
+            ColorType = input.ReadInt32();
             break;
           }
         }
