@@ -694,7 +694,6 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         var t = 0f;
 
         var velocity = rigidbody.velocity;
-
         while (t <= changeSceneInAirDuration)
         {
             velocity.y = Mathf.Lerp(JumpVelocity, 0.0f, t / changeSceneInAirDuration);

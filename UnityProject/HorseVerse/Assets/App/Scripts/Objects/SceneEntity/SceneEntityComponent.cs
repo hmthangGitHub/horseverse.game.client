@@ -8,6 +8,9 @@ public class SceneEntityComponent : MonoBehaviour
     public static SceneEntityComponent Instance => _instance;
 
     [SerializeField] ObjectFollowing _cameraFollower;
+    [SerializeField] Material skybox;
+
+    public Material Skybox => skybox;
 
     private void Start()
     {

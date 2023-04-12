@@ -9,7 +9,7 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
 {
     [SerializeField] private HorseTrainingControllerV2 horseTrainingController;
     [SerializeField] private PlatformGeneratorBase platformGenerator;
-
+    [SerializeField] private Animator changeSceneVFX;
     public PlatformGeneratorBase PlatformGenerator => platformGenerator;
 
     public HorseTrainingControllerV2 HorseTrainingController => horseTrainingController;
@@ -81,13 +81,15 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
         if (SceneEntityComponent.Instance != default)
         {
             SceneEntityComponent.Instance.SetCameraTarget(HorseTrainingController.transform);
+            if(SceneEntityComponent.Instance.Skybox != default)
+                RenderSettings.skybox = SceneEntityComponent.Instance.Skybox;
         }
         else Debug.LogError("Cant find Entity");
     }
 
     public async UniTask PerformHighJumpToChangeSceneAsync()
     {
-        await horseTrainingController.PerformHighJumpToChangeSceneAsync();
+        await (horseTrainingController.PerformHighJumpToChangeSceneAsync(), PerformChangeSceneEffect());
     }
 
     public void LandToNewScene()
@@ -104,6 +106,33 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
         if (SceneEntityComponent.Instance != default)
         {
             SceneEntityComponent.Instance.SetCameraTarget(HorseTrainingController.transform);
+        }
+    }
+
+    public async UniTask PerformChangeSceneEffect()
+    {
+        await UniTask.Delay(1500);
+        await PerformChangeSceneEffect(true);
+    }
+
+    public async UniTask StopChangeSceneEffect()
+    {
+        await PerformChangeSceneEffect(false);
+    }
+
+    private IEnumerator PerformChangeSceneEffect(bool active)
+    {
+        changeSceneVFX.gameObject.SetActive(true);
+        if (active)
+        {
+            changeSceneVFX.SetTrigger("In");
+            yield return new WaitForSeconds(7.0f);
+        }
+        else
+        {
+            changeSceneVFX.SetTrigger("Out");
+            yield return new WaitForSeconds(7.0f);
+            changeSceneVFX.gameObject.SetActive(false);
         }
     }
 }
