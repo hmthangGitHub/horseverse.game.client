@@ -81,9 +81,6 @@ Shader "BOXOPHOBIC/Polyverse Skies/Mobile"
 				float3 worldPos : TEXCOORD0;
 				#endif
 				float4 ase_texcoord1 : TEXCOORD1;
-				/*float4 ase_texcoord2 : TEXCOORD2;
-				float4 ase_texcoord3 : TEXCOORD3;
-				float4 ase_texcoord4 : TEXCOORD4;*/
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -147,38 +144,6 @@ Shader "BOXOPHOBIC/Polyverse Skies/Mobile"
 				o.ase_texcoord1.w = 0.0;
 				half3 VertexPos1217 = vertexToFrag1216;
 
-				/*float3 break1223 = VertexPos1217;
-				float lerpResult268 = lerp(1.0 , (unity_OrthoParams.y / unity_OrthoParams.x) , unity_OrthoParams.w);
-				half CAMERA_MODE300 = lerpResult268;
-				float temp_output_673_0 = (break1223.y * CAMERA_MODE300);
-				float3 appendResult675 = (float3(break1223.x , temp_output_673_0 , break1223.z));
-				o.ase_texcoord2.xyz = float3(0,0,0);*/
-
-				/*float3 temp_output_962_0 = cross(GlobalSunDirection , half3(0,1,0));
-				float3 normalizeResult967 = normalize(temp_output_962_0);
-				float dotResult968 = dot(normalizeResult967 , v.vertex.xyz);
-				half3 GlobalSunDirection1005 = GlobalSunDirection;
-				float3 normalizeResult965 = normalize(cross(GlobalSunDirection1005 , temp_output_962_0));
-				float dotResult969 = dot(normalizeResult965 , v.vertex.xyz);
-				float2 appendResult970 = (float2(dotResult968 , dotResult969));
-				float2 break972 = appendResult970;
-				float2 appendResult980 = (float2(break972.x , (break972.y * CAMERA_MODE300)));
-				float lerpResult1246 = lerp(20.0 , 2.0 , _SunSize);
-				
-				o.ase_texcoord3.xy = float2(0,0);
-				float dotResult988 = dot(GlobalSunDirection1005 , v.vertex.xyz);*/
-				
-				//o.ase_texcoord2.w = 0.0;
-				/*float3 break1225 = VertexPos1217;
-				float3 appendResult246 = (float3(break1225.x , ((break1225.y + (_CloudsHeight * -1.0)) * CAMERA_MODE300) , break1225.z));
-				
-				o.ase_texcoord4.xyz = float3(0,0,0);*/
-
-
-				//setting value to unused interpolator channels and avoid initialization warnings
-				//o.ase_texcoord3.zw = 0;
-				//o.ase_texcoord4.w = 0;
-
 				float3 vertexValue = float3(0, 0, 0);
 				#if ASE_ABSOLUTE_VERTEX_POS
 				vertexValue = v.vertex.xyz;
@@ -223,42 +188,6 @@ Shader "BOXOPHOBIC/Polyverse Skies/Mobile"
 				float4 staticSwitch1207 = SKY218;
 				#endif
 
-				/*float vertexToFrag856 = i.ase_texcoord1.w;
-				float3 vertexToFrag763 = i.ase_texcoord2.xyz;
-				float3 break1223 = VertexPos1217;
-				float lerpResult268 = lerp(1.0 , (unity_OrthoParams.y / unity_OrthoParams.x) , unity_OrthoParams.w);
-				half CAMERA_MODE300 = lerpResult268;
-				float temp_output_673_0 = (break1223.y * CAMERA_MODE300);
-				half Starts_Bottom_Mask1230 = step(0.0 , temp_output_673_0);
-				float lerpResult1234 = lerp(1.0 , saturate(Starts_Bottom_Mask1230) , _StarsBottomMask);
-				half STARS630 = (floor((vertexToFrag856 * (texCUBE(_StarsCubemap, vertexToFrag763).g + _StarsSize))) * _StarsIntensity * lerpResult1234);
-				#ifdef _ENABLESTARS_ON
-				float4 staticSwitch1170 = (staticSwitch1207 + STARS630);
-				#else
-				float4 staticSwitch1170 = staticSwitch1207;
-				#endif
-				float2 vertexToFrag993 = i.ase_texcoord3.xy;
-				float4 tex2DNode995 = tex2D(_SunTexture, vertexToFrag993);
-				half4 SUN1004 = (tex2DNode995.r * _SunColor * max(_SunIntensity , 1.0));
-				float vertexToFrag997 = i.ase_texcoord2.w;
-				half SUN_MASK1003 = (tex2DNode995.a * saturate(_SunIntensity) * vertexToFrag997);
-				float4 lerpResult176 = lerp(staticSwitch1170 , SUN1004 , SUN_MASK1003);
-				#ifdef _ENABLESUN_ON
-				float4 staticSwitch1167 = lerpResult176;
-				#else
-				float4 staticSwitch1167 = staticSwitch1170;
-				#endif
-				float3 vertexToFrag1133 = i.ase_texcoord4.xyz;
-				float4 texCUBENode41 = texCUBE(_CloudsCubemap, vertexToFrag1133);
-				float4 lerpResult101 = lerp(_CloudsShadowColor , _CloudsLightColor , texCUBENode41.g);
-				half4 CLOUDS222 = lerpResult101;
-				half CLOUDS_MASK223 = (texCUBENode41.a * _CloudsIntensity);
-				float4 lerpResult227 = lerp(staticSwitch1167 , CLOUDS222 , CLOUDS_MASK223);
-				#ifdef _ENABLECLOUDS_ON
-				float4 staticSwitch1162 = lerpResult227;
-				#else
-				float4 staticSwitch1162 = staticSwitch1167;
-				#endif*/
 				float4 staticSwitch1162 = staticSwitch1207;
 				float temp_output_7_0_g2 = 0.0;
 				float lerpResult678 = lerp(saturate(pow(((abs(VertexPos1217.y) - temp_output_7_0_g2) / (_FogHeight - temp_output_7_0_g2)) , (1.0 - _FogSmoothness))) , 0.0 , _FogFill);
