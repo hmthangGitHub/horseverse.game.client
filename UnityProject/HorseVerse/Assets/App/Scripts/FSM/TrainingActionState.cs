@@ -1,7 +1,5 @@
 ﻿using System.Threading;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 
 public class TrainingActionState : InjectedBState
 {
@@ -54,7 +52,7 @@ public class TrainingActionState : InjectedBState
     private async UniTask ShowHorseAndBackground()
     {
         await UILoadingPresenter.ShowLoadingAsync();
-        await UIHorse3DViewPresenter.ShowHorse3DViewAsync();
+        await UIHorse3DViewPresenter.ShowHorse3DViewAsync(cameraType: MainMenuCameraType.CameraType.MainMenuZoomOut);
         await UIBackGroundPresenter.HideBackground();
     }
 

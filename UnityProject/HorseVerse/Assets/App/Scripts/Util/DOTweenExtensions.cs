@@ -116,7 +116,7 @@ public static class DOTweenExtensions
         return transform.DOScale(to, duration);
     }
 
-    public static Tween DOMoveFrom(this Transform transform, Vector3 from, Vector3 to, float duration)
+    public static Tween DOMoveFrom(this Transform transform, Vector3 from, Vector3 to, float duration, bool reverseOnKill = false)
     {
         transform.position = from;
         return transform.DOMove(to, duration);

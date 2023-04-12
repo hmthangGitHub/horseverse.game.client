@@ -1,8 +1,4 @@
 using Cysharp.Threading.Tasks;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using UnityEngine;
 
 public class StableHorseDetailState : InjectedBState
 {
@@ -23,8 +19,8 @@ public class StableHorseDetailState : InjectedBState
         UIHeaderPresenter.ShowHeaderAsync(true, "STABLE").Forget();
         UIHeaderPresenter.OnBack += OnBack;
 
-        UIHorse3DViewPresenter.ShowHorse3DViewAsync().Forget();
-
+        UIHorse3DViewPresenter.SetRotateEnable(true);
+        UIHorse3DViewPresenter.ChangeCameraType(MainMenuCameraType.CameraType.StableDetail);
         uiHorseStablePresenter = new UIHorseDetailPresenter(Container);
         uiHorseStablePresenter.ShowUIHorseDetailAsync().Forget();
     }
