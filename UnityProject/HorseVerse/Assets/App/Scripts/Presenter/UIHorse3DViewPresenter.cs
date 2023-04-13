@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using Random = System.Random;
 
@@ -14,7 +15,9 @@ public class UIHorse3DViewPresenter : IDisposable
     private IUserDataRepository userDataRepository = null;
     private IUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IUserDataRepository>();
     private IReadOnlyHorseRepository horseRepository = null;
+    private UITouchDisablePresenter uiTouchDisablePresenter = null;
     private IReadOnlyHorseRepository HorseRepository => horseRepository ??= container.Inject<IReadOnlyHorseRepository>();
+    private UITouchDisablePresenter UITouchDisablePresenter => uiTouchDisablePresenter ??= container.Inject<UITouchDisablePresenter>();
 
     private UIHorse3DView uiHorse3DView = default;
     private ObjectHorse3DView objHorse3DView = default;
@@ -140,12 +143,16 @@ public class UIHorse3DViewPresenter : IDisposable
 
     public async UniTaskVoid ChangeHorseOnSwipe(int direction)
     {
-        await objHorse3DView.PlayHorizontalAnimation(direction);
-        changeHorseTask = new UniTaskCompletionSource();
-        UserDataRepository.UpdateHorse(GetNextHorse(direction)).Forget();
-        await changeHorseTask.Task.AttachExternalCancellation(cts.Token);
-        changeHorseTask = default;
-        await objHorse3DView.InFromOppositeDirectionAnimation(direction);
+        await UITouchDisablePresenter.ShowTillFinishTaskAsync(UniTask.Create(async () =>
+        {
+            await objHorse3DView.PlayHorizontalAnimation(direction);
+            changeHorseTask = new UniTaskCompletionSource();
+            UserDataRepository.UpdateHorse(GetNextHorse(direction))
+                              .Forget();
+            await changeHorseTask.Task.AttachExternalCancellation(cts.Token);
+            changeHorseTask = default;
+            await objHorse3DView.InFromOppositeDirectionAnimation(direction);
+        }));
     }
 
     private long GetNextHorse(int direction)

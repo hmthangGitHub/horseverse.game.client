@@ -47,7 +47,6 @@ public class HorseRotator : MonoBehaviour
 
     protected void Start()
     {
-        fingerFilter.UpdateRequiredSelectable(gameObject);
         currentUpRotation = this.transform.rotation.eulerAngles.y;
         targetRotation = currentUpRotation;
     }
@@ -56,7 +55,6 @@ public class HorseRotator : MonoBehaviour
     {
         var fingers = fingerFilter.UpdateAndGetFingers();
         var screenDelta = LeanGesture.GetScreenDelta(fingers);
-
         if (screenDelta != Vector2.zero)
         {
             targetRotation = currentUpRotation + -screenDelta.x * Sensitivity;

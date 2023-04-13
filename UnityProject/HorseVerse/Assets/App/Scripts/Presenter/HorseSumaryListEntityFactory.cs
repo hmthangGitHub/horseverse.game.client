@@ -31,7 +31,7 @@ public class HorseSumaryListEntityFactory
                 horseNFTId = x.Value.HorseNtfId,
                 horseName = x.Value.Name,
                 horseLevel = x.Value.Level,
-                horseRace = new UIComponentHorseRace.Entity() {type = x.Value.Type },
+                horseRace = new UIComponentHorseRace.Entity() {type = (int)x.Value.Type },
                 selectBtn = new ButtonSelectedComponent.Entity(() => OnSelectHorse(x.Key).Forget(), x.Value.HorseNtfId == current)
             }).ToArray()
         };
