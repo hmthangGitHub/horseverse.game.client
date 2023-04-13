@@ -313,9 +313,12 @@ public partial class AdventureEditor_LevelEditor
         var paddingEndBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(masterHorseTrainingBlockCombo.MasterTrainingModularBlockIdEnd);
         var modularBlockIds = masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList;
 
-        await GeneBlocks(collection.BlocksLookUpTable[paddingStartBlockId].gameObject,
-            collection.BlocksLookUpTable[paddingEndBlockId].gameObject, 
-            modularBlockIds.Select(x => collection.BlocksLookUpTable[x].gameObject).ToArray(), blockObj.transform, tmp);
+        var prefabStart = string.IsNullOrEmpty(paddingStartBlockId) ? null : collection.BlocksLookUpTable[paddingStartBlockId].gameObject;
+        var prefabEnd = string.IsNullOrEmpty(paddingEndBlockId) ? null : collection.BlocksLookUpTable[paddingEndBlockId].gameObject;
+        await GeneBlocks(prefabStart,
+            prefabEnd, 
+            modularBlockIds.Select(x => collection.BlocksLookUpTable[x]?.gameObject).ToArray(),
+            blockObj.transform, tmp);
 
         await GenerateObstacle(masterHorseTrainingBlockCombo, obstObj.transform, tmp);
         await GenerateCoin(masterHorseTrainingBlockCombo, coinObj.transform, tmp);
@@ -368,8 +371,8 @@ public partial class AdventureEditor_LevelEditor
         var len = gameObjects.Length;
         var BoxColliders = new List<BoxCollider>();
 
-        var paddingHead = Instantiate_PaddingHeadCollider(paddingStartPrefab, parent);
-        var paddingTail = Instantiate_PaddingTailCollider(paddingEndPrefab, parent);
+        GameObject paddingHead = (paddingStartPrefab != default) ? Instantiate_PaddingHeadCollider(paddingStartPrefab, parent) : null;
+        GameObject paddingTail = (paddingEndPrefab != default) ? Instantiate_PaddingTailCollider(paddingEndPrefab, parent) : null;
 
         var headCol = paddingHead?.GetComponentInChildren<BoxCollider>();
         var tailCol = paddingTail?.GetComponentInChildren<BoxCollider>();
