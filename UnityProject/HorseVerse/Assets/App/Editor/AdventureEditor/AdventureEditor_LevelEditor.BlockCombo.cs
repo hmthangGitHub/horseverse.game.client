@@ -180,6 +180,7 @@ public partial class AdventureEditor_LevelEditor
                 {
                     var bnames = blockComboData.paddings.Select(x => x.name).ToArray();
                     data.MasterHorseTrainingBlockIdList = bnames;
+                    data.SetMasterTrainingGroupId(blockComboData.group_id);
                     if (blockComboData.startPadding != default)
                         data.SetMasterTrainingModularBlockIdStart(blockComboData.startPadding.name);
                     if (blockComboData.endPadding != default)
