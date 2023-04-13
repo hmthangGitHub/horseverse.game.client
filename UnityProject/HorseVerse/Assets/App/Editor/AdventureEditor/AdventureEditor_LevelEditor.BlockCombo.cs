@@ -20,6 +20,9 @@ public partial class AdventureEditor_LevelEditor
     private GameObject currentEditingPlatformObject;
 
     private MasterHorseTrainingBlockCombo[] blockCombos;
+    private MasterHorseTrainingBlock[] blockContainers;
+    private bool[] blockCombosInContainer;
+
     private MasterTrainingBlockComboType CurrentBlockComboType = MasterTrainingBlockComboType.Modular;
     private int CurrentSelectetBlockCombo = -1;
 
@@ -29,6 +32,7 @@ public partial class AdventureEditor_LevelEditor
         UnSelectOldBlockCombo();
         CurrentSelectetBlockCombo = -1;
         blockCombos = GetCurrentBlockCombo(CurrentBlockComboType);
+        UpdateListBlockContainer(blockCombos.Length, blockContainers, blockCombos);
     }
 
     void GUI_ListBlockCombo()
@@ -94,9 +98,21 @@ public partial class AdventureEditor_LevelEditor
 
                     EditorGUILayout.LabelField(combo.Name);
                     EditorGUILayout.Toggle(CurrentSelectetBlockCombo == i);
+                    EditorGUILayout.Toggle("Using", blockCombosInContainer[i]);
                     if (GUILayout.Button("Edit"))
                     {
                         OnEditBlockCombo(i);
+                    }
+                    if (GUILayout.Button(blockCombosInContainer[i] ? "Disable" : "Enable"))
+                    {
+                        if (blockCombosInContainer[i])
+                        {
+                            OnRemoveBlockContainer(i);
+                        }
+                        else
+                        {
+                            OnAddBlockContainer(i);
+                        }
                     }
                     GUILayout.EndHorizontal();
                 }
@@ -122,6 +138,8 @@ public partial class AdventureEditor_LevelEditor
                 tmp.coins.Add(item);
             }
         }
+
+        GUI_ListModular();
 
     }
 

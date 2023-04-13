@@ -107,6 +107,9 @@ public partial class AdventureEditor_LevelEditor : EditorWindow
 
         await LoadMasterAsync(masterFolder, master_id);
 
+        if (masterHorseTrainingBlockContainer != default)
+            blockContainers = masterHorseTrainingBlockContainer.DataList;
+
         InitLevelEditor_BlockCombo();
     }
 
