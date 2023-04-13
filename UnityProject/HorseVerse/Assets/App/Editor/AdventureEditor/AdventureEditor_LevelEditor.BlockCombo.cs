@@ -87,7 +87,6 @@ public partial class AdventureEditor_LevelEditor
         {
             if (blockCombos != default)
             {
-
                 for (int i = 0; i < blockCombos.Length; i++)
                 {
                     var combo = blockCombos[i];
@@ -128,6 +127,7 @@ public partial class AdventureEditor_LevelEditor
 
     MasterHorseTrainingBlockCombo[] GetCurrentBlockCombo(MasterTrainingBlockComboType currentBlockComboType)
     {
+        if (masterHorseTrainingBlockComboContainer == default || masterHorseTrainingBlockComboContainer.DataList == default) return null;
         return masterHorseTrainingBlockComboContainer.DataList.Where(x => x.MasterTrainingBlockComboType == currentBlockComboType).ToArray();
     }
 
@@ -193,8 +193,8 @@ public partial class AdventureEditor_LevelEditor
             else
             {
                 // Save New Block
-                var blockComboName = currentEditingPlatformObject.name;
                 var blockComboData = currentEditingPlatformObject.GetComponent<AdventureEditor_BlockComboData>();
+                var blockComboName = blockComboData.block_name;
 
                 if (string.IsNullOrEmpty(blockComboName)) return;
                 MasterTrainingModularBlockType masterTrainingModularBlockType = FromBlockComboTypeToModularBlockType(CurrentBlockComboType);
@@ -208,9 +208,9 @@ public partial class AdventureEditor_LevelEditor
                     blockComboName,
                     CurrentBlockComboType,
                     string.Empty);
-
                 var bnames = blockComboData.paddings.Select(x => x.name).ToArray();
                 data.MasterHorseTrainingBlockIdList = bnames;
+                data.SetMasterTrainingGroupId(blockComboData.group_id);
                 if (blockComboData.startPadding != default)
                     data.SetMasterTrainingModularBlockIdStart(blockComboData.startPadding.name);
                 if (blockComboData.endPadding != default)
@@ -288,6 +288,7 @@ public partial class AdventureEditor_LevelEditor
         var tmp = AddDataComponent(currentEditingPlatformObject);
         tmp.id = masterHorseTrainingBlockCombo.MasterHorseTrainingBlockId;
         tmp.block_name = masterHorseTrainingBlockCombo.Name;
+        tmp.group_id = masterHorseTrainingBlockCombo.MasterHorseTrainingBlockComboGroupId;
 
         var paddingStartBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(masterHorseTrainingBlockCombo.MasterTrainingModularBlockIdStart);
         var paddingEndBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(masterHorseTrainingBlockCombo.MasterTrainingModularBlockIdEnd);
