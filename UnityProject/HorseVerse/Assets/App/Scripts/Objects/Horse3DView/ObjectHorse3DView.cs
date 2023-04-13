@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using CW.Common;
 using DG.Tweening;
 using Lean.Touch;
 using UnityEngine;
@@ -30,7 +31,7 @@ public class ObjectHorse3DView : ObjectComponent<ObjectHorse3DView.Entity>
     private int animationOffset = 10;
     [SerializeField]
     private float duration = 0.25f;
-    public LeanSelectableByFinger selectableByFinger;
+    public LeanFingerTap selectableByFinger;
 
     private void Start()
     {
@@ -43,8 +44,15 @@ public class ObjectHorse3DView : ObjectComponent<ObjectHorse3DView.Entity>
         SetPlatformIndex(this.entity.platformIndex);
         mainMenuCameraType.SetCameraType(this.entity.cameraType);
         SetRotateEnable(this.entity.rotateEnable);
-        selectableByFinger.OnSelectedFingerUp.RemoveAllListeners();
-        selectableByFinger.OnSelectedFingerUp.AddListener(_ => this.entity.horseTouchAction());
+        selectableByFinger.OnFinger.RemoveAllListeners();
+        
+        selectableByFinger.OnFinger.AddListener(finger =>
+        {
+            if (finger.Tap)
+            {
+                this.entity.horseTouchAction();
+            }
+        }); 
     }
 
     public void SetRotateEnable(bool enable)
@@ -112,6 +120,6 @@ public class ObjectHorse3DView : ObjectComponent<ObjectHorse3DView.Entity>
     public void EnableHorseTouch(bool enable)
     {
         selectableByFinger.enabled = enable;
-        selectableByFinger.OnSelectedFingerUp.RemoveAllListeners();
+        selectableByFinger.OnFinger.RemoveAllListeners();
     }
 }

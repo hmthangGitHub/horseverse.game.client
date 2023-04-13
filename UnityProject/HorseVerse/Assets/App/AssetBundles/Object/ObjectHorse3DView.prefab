@@ -1268,7 +1268,7 @@ MonoBehaviour:
   rotateTouch: {fileID: 1264033555176488098}
   animationOffset: 15
   duration: 0.25
-  selectableByFinger: {fileID: 5996593926931988263}
+  selectableByFinger: {fileID: 599053277563187105}
 --- !u!1 &4965077203991041522
 GameObject:
   m_ObjectHideFlags: 0
@@ -1708,6 +1708,7 @@ GameObject:
   - component: {fileID: 1828152018006774969}
   - component: {fileID: 2455499154363939683}
   - component: {fileID: 5996593926931988263}
+  - component: {fileID: 599053277563187105}
   m_Layer: 0
   m_Name: HorsePosition
   m_TagString: Untagged
@@ -1821,6 +1822,43 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onSelectedSelectFingerUp:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &599053277563187105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727424567875407527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c1c71d8ad5da9438de3b2e5990763f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ignoreStartedOverGui: 1
+  ignoreIsOverGui: 0
+  requiredSelectable: {fileID: 5996593926931988263}
+  requiredTapCount: 0
+  requiredTapInterval: 0
+  onFinger:
+    m_PersistentCalls:
+      m_Calls: []
+  onCount:
+    m_PersistentCalls:
+      m_Calls: []
+  ScreenDepth:
+    Conversion: 1
+    Camera: {fileID: 0}
+    Object: {fileID: 0}
+    Layers:
+      serializedVersion: 2
+      m_Bits: 4294967291
+    Distance: 0
+  onWorld:
+    m_PersistentCalls:
+      m_Calls: []
+  onScreen:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &8727424568572293243
