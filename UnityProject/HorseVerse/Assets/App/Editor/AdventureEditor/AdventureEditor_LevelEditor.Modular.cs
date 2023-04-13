@@ -22,11 +22,11 @@ public partial class AdventureEditor_LevelEditor
                     GUILayout.BeginHorizontal(GUILayout.Width(300));
                     EditorGUILayout.LabelField(item.MasterHorseTrainingBlockId.ToString());
                     item.Name = EditorGUILayout.TextField(item.Name);
-                    item.MasterHorseTrainingLaneTypeLeft = (MasterHorseTrainingLaneType)EditorGUILayout.EnumFlagsField(item.MasterHorseTrainingLaneTypeLeft);
+                    item.MasterHorseTrainingLaneTypeLeft = (MasterHorseTrainingLaneType)EditorGUILayout.EnumPopup(item.MasterHorseTrainingLaneTypeLeft);
                     item.CustomValueLeft = EditorGUILayout.IntField(item.CustomValueLeft);
-                    item.MasterHorseTrainingLaneTypeMid = (MasterHorseTrainingLaneType)EditorGUILayout.EnumFlagsField(item.MasterHorseTrainingLaneTypeMid);
+                    item.MasterHorseTrainingLaneTypeMid = (MasterHorseTrainingLaneType)EditorGUILayout.EnumPopup(item.MasterHorseTrainingLaneTypeMid);
                     item.CustomValueMid = EditorGUILayout.IntField(item.CustomValueMid);
-                    item.MasterHorseTrainingLaneTypeRight = (MasterHorseTrainingLaneType)EditorGUILayout.EnumFlagsField(item.MasterHorseTrainingLaneTypeRight);
+                    item.MasterHorseTrainingLaneTypeRight = (MasterHorseTrainingLaneType)EditorGUILayout.EnumPopup(item.MasterHorseTrainingLaneTypeRight);
                     item.CustomValueRight = EditorGUILayout.IntField(item.CustomValueRight);
 
                     if (GUILayout.Button("SaveEdit"))
