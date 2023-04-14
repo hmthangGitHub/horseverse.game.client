@@ -310,12 +310,12 @@ public partial class AdventureEditor_LevelEditor
         tmp.block_name = masterHorseTrainingBlockCombo.Name;
         tmp.group_id = masterHorseTrainingBlockCombo.MasterHorseTrainingBlockComboGroupId;
 
-        var paddingStartBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(masterHorseTrainingBlockCombo.MasterTrainingModularBlockIdStart);
-        var paddingEndBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(masterHorseTrainingBlockCombo.MasterTrainingModularBlockIdEnd);
+        var paddingStartBlockId = masterHorseTrainingBlockCombo.MasterTrainingModularBlockIdStart;
+        var paddingEndBlockId = masterHorseTrainingBlockCombo.MasterTrainingModularBlockIdEnd;
         var modularBlockIds = masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList;
 
-        var prefabStart = string.IsNullOrEmpty(paddingStartBlockId) ? null : collection.BlocksLookUpTable[paddingStartBlockId];
-        var prefabEnd = string.IsNullOrEmpty(paddingEndBlockId) ? null : collection.BlocksLookUpTable[paddingEndBlockId];
+        var prefabStart = string.IsNullOrEmpty(paddingStartBlockId) ? null : collection.StartBlocksLookUpTable[paddingStartBlockId];
+        var prefabEnd = string.IsNullOrEmpty(paddingEndBlockId) ? null : collection.EndBlocksLookUpTable[paddingEndBlockId];
         if (prefabStart == default) Debug.Log("paddingStartBlockId " + paddingStartBlockId + " is not found");
         if (prefabEnd == default) Debug.Log("paddingEndBlockId " + paddingEndBlockId + " is not found");
 
