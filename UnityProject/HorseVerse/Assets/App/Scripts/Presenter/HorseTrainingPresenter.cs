@@ -365,7 +365,7 @@ public class HorseTrainingPresenter : IDisposable
         masterHorseTrainingBlockContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(currentMasterMapId.ToString(), token: cts.Token);
         masterHorseTrainingBlockComboContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>(currentMasterMapId.ToString(), token: cts.Token);
         masterTrainingDifficultyContainer = await MasterLoader.LoadMasterAsync<MasterTrainingDifficultyContainer>(token: cts.Token);
-        masterTrainingBlockDistributeContainer = await MasterLoader.LoadMasterAsync<MasterTrainingBlockDistributeContainer>(token: cts.Token);
+        masterTrainingBlockDistributeContainer = await MasterLoader.LoadMasterAsync<MasterTrainingBlockDistributeContainer>(currentMasterMapId.ToString(), token: cts.Token);
 
         uiTrainingCoinCounting = await UILoader.Instantiate<UITrainingCoinCounting>(token: cts.Token);
         uiTrainingPressAnyKey = await UILoader.Instantiate<UITrainingPressAnyKey>(token: cts.Token);
