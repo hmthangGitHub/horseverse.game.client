@@ -150,7 +150,7 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
                 TechnicallyBonus = x.Acceleration,
                 TechnicallyRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
                 Rarity = (HorseRarity)x.Rarity,
-                Type = (int)x.HorseType,
+                Type = x.HorseType,
                 Level = x.Level,
                 Color1 = HorseRepository.GetColorFromHexCode(x.Color1),
                 Color2 = HorseRepository.GetColorFromHexCode(x.Color2),

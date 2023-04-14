@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using io.hverse.game.protogen;
+using UnityEngine;
 
 public class HorseDataModel
 {
@@ -13,7 +14,7 @@ public class HorseDataModel
     public float TechnicallyBonus { get; set; }
     public float TechnicallyRatio { get; set; }
 
-    public int Type { get; set; }
+    public HorseType Type { get; set; }
     public HorseRarity Rarity { get; set; }
     public int Level { get; set; }
 

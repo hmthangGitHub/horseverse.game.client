@@ -1,12 +1,3 @@
-using Cysharp.Threading.Tasks;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
-
 public class DownloadAssetState : InjectedBState
 {
     private UIDownloadProgressPresenter uIDownloadProgressPresenter;

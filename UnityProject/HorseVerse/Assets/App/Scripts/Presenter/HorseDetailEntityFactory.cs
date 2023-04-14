@@ -19,7 +19,6 @@ public class HorseDetailEntityFactory
     public UIComponentHorseDetail.Entity InstantiateHorseDetailEntity(long horseNtfId)
     {
         var userHorse = HorseRepository.Models[horseNtfId];
-        var masterHorse = MasterHorseContainer.FromTypeToMasterHorse(userHorse.Type);
         return new UIComponentHorseDetail.Entity()
         {
             level = userHorse.Level,
@@ -60,6 +59,6 @@ public class HorseDetailEntityFactory
     private int GetHorseRace(long horseNtfId)
     {
         var userHorse = HorseRepository.Models[horseNtfId];
-        return userHorse.Type;
+        return (int)userHorse.Type;
     }
 }

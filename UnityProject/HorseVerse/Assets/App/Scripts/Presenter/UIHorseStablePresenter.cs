@@ -44,7 +44,7 @@ public class UIHorseStablePresenter : IDisposable
                     horseNFTId = x.Value.HorseNtfId,
                     horseName = x.Value.Name,
                     horseLevel = x.Value.Level,
-                    horseRace = new UIComponentHorseRace.Entity() { type = x.Value.Type },
+                    horseRace = new UIComponentHorseRace.Entity() { type = (int)x.Value.Type },
                     selectBtn = new ButtonSelectedComponent.Entity(() => OnSelectHorseAsync(x.Key).Forget(), x.Value.HorseNtfId == current)
                 }).ToArray()
             },
@@ -81,7 +81,7 @@ public class UIHorseStablePresenter : IDisposable
             },
             horseRace = new UIComponentHorseRace.Entity()
             {
-                type = HorseRepository.Models[current].Type
+                type = (int)HorseRepository.Models[current].Type
             },
             breedingBtn = new ButtonComponent.Entity(()=> OnBreedingAsync().Forget(), false),
             upgradeBtn = new ButtonComponent.Entity(() => OnUpgradeAsync().Forget(), false),
@@ -146,7 +146,7 @@ public class UIHorseStablePresenter : IDisposable
         };
 
         var er = uiHorseStable.horseRace.entity;
-        er.type = HorseRepository.Models[masterHorseId].Type;
+        er.type = (int)HorseRepository.Models[masterHorseId].Type;
 
         uiHorseStable.SetHorseDetailEntity(eh);
         uiHorseStable.SetHorseRaceEntity(er);

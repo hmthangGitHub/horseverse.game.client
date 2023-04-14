@@ -1,10 +1,5 @@
 using Cysharp.Threading.Tasks;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading;
-using RobustFSM.Interfaces;
-using UnityEngine;
 
 public class MainMenuState : InjectedBState
 {
@@ -32,7 +27,7 @@ public class MainMenuState : InjectedBState
         cts = new CancellationTokenSource();
 
         HideBackgroundAsync().Forget();
-        UIHorse3DViewPresenter.ShowHorse3DViewAsync().Forget();
+        UIHorse3DViewPresenter.ShowHorse3DViewAsync(cameraType: MainMenuCameraType.CameraType.MainMenu).Forget();
         UiHeaderPresenter.ShowHeaderAsync(false).Forget();
         uiMainMenuPresenter ??= new UIMainMenuPresenter(this.Container);
         SubcribeEvents();

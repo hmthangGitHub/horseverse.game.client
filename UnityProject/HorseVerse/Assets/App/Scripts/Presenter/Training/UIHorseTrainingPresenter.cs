@@ -57,7 +57,7 @@ public class UIHorseTrainingPresenter : IDisposable
         uiHorseTraining.SetEntity(new UIHorseTraining.Entity()
         {
             horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.CurrentHorseNftId),
-            horseRace = new UIComponentHorseRace.Entity() { type = h.Type },
+            horseRace = new UIComponentHorseRace.Entity() { type = (int)h.Type },
             horseSelectSumaryList = HorseSummaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(),
             prepareState = new UIComponentTrainingPrepareState.Entity()
             {
@@ -124,7 +124,7 @@ public class UIHorseTrainingPresenter : IDisposable
         {
             uiHorseTraining.SetHorseDetailEntity(HorseDetailEntityFactory.InstantiateHorseDetailEntity(model.after.CurrentHorseNftId));
             var h = HorseRepository.Models[model.after.CurrentHorseNftId];
-            uiHorseTraining.SetHorseRaceEntity( new UIComponentHorseRace.Entity() { type = h.Type });
+            uiHorseTraining.SetHorseRaceEntity( new UIComponentHorseRace.Entity() { type = (int)h.Type });
 
             uiHorseTraining.entity.prepareState.toTraningBtn = new ButtonComponent.Entity(() => ToTrainingAsync()
                 .Forget())

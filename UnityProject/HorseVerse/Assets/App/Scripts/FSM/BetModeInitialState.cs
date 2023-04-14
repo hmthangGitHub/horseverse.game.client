@@ -1,6 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
 using io.hverse.game.protogen;
-using UnityEngine;
 
 public class BetModeInitialState : InjectedBState
 {

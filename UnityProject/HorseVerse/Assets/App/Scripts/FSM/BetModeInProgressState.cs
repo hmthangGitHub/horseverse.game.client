@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class BetModeInProgressState : InjectedBState
+﻿public class BetModeInProgressState : InjectedBState
 {
     private UIBetModeInProgressStatePresenter presenter; 
     

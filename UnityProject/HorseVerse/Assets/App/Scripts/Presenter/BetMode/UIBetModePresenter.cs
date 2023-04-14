@@ -390,7 +390,7 @@ public class UIBetModePresenter : IDisposable
             entity.horseDetailNumber = index + 1;
             entity.horseRace = new UIComponentHorseRace.Entity()
             {
-                type = horseInfo.Type
+                type = (int)horseInfo.Type
             };
             
             uiBetModeHorseInfo.UpdateDetailInfo(entity);

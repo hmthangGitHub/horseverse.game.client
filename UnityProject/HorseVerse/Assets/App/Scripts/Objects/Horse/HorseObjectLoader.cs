@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -37,7 +38,7 @@ public class HorseObjectLoader : MonoBehaviour
         OnSetEntity();
     }
 
-    protected void OnSetEntity()
+    private void OnSetEntity()
     {
         LoadHorseAsync().Forget();
     }
