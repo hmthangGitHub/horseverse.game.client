@@ -313,8 +313,11 @@ public partial class AdventureEditor_LevelEditor
         var paddingEndBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(masterHorseTrainingBlockCombo.MasterTrainingModularBlockIdEnd);
         var modularBlockIds = masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList;
 
-        var prefabStart = string.IsNullOrEmpty(paddingStartBlockId) ? null : collection.BlocksLookUpTable[paddingStartBlockId].gameObject;
-        var prefabEnd = string.IsNullOrEmpty(paddingEndBlockId) ? null : collection.BlocksLookUpTable[paddingEndBlockId].gameObject;
+        var prefabStart = string.IsNullOrEmpty(paddingStartBlockId) ? null : collection.BlocksLookUpTable[paddingStartBlockId];
+        var prefabEnd = string.IsNullOrEmpty(paddingEndBlockId) ? null : collection.BlocksLookUpTable[paddingEndBlockId];
+        if (prefabStart == default) Debug.Log("paddingStartBlockId " + paddingStartBlockId + " is not found");
+        if (prefabEnd == default) Debug.Log("paddingEndBlockId " + paddingEndBlockId + " is not found");
+
         await GeneBlocks(prefabStart,
             prefabEnd, 
             modularBlockIds.Select(x => collection.BlocksLookUpTable[x]?.gameObject).ToArray(),
