@@ -11,7 +11,7 @@ public partial class AdventureEditor_LevelEditor
 
     void GUI_ListModular()
     {
-        isShowBlockContainerList = EditorGUILayout.BeginFoldoutHeaderGroup(isShowBlockContainerList, "List Block Container");
+        isShowBlockContainerList = EditorGUILayout.BeginFoldoutHeaderGroup(isShowBlockContainerList, "List Block Container (ID  --- Name -- Left -- Mid -- Right)");
         if (isShowBlockContainerList)
         {
             if (blockContainers != default)

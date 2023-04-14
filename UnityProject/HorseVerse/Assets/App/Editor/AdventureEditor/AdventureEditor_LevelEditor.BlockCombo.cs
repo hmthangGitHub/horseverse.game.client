@@ -33,6 +33,7 @@ public partial class AdventureEditor_LevelEditor
         CurrentSelectetBlockCombo = -1;
         blockCombos = GetCurrentBlockCombo(CurrentBlockComboType);
         UpdateListBlockContainer(blockCombos.Length, blockContainers, blockCombos);
+        UpdateListBlockDistribute(distributes);
     }
 
     void GUI_ListBlockCombo()
@@ -95,7 +96,7 @@ public partial class AdventureEditor_LevelEditor
                 {
                     var combo = blockCombos[i];
                     GUILayout.BeginHorizontal(GUILayout.Width(300));
-
+                    EditorGUILayout.LabelField(combo.MasterHorseTrainingBlockId.ToString());
                     EditorGUILayout.LabelField(combo.Name);
                     EditorGUILayout.Toggle(CurrentSelectetBlockCombo == i);
                     EditorGUILayout.Toggle("Using", blockCombosInContainer[i]);
@@ -140,7 +141,7 @@ public partial class AdventureEditor_LevelEditor
         }
 
         GUI_ListModular();
-
+        GUI_ListDistribute();
     }
 
     MasterHorseTrainingBlockCombo[] GetCurrentBlockCombo(MasterTrainingBlockComboType currentBlockComboType)
