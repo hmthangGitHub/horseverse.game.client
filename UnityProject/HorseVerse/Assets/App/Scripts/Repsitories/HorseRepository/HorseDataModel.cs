@@ -27,15 +27,6 @@ public class HorseDataModel
     public float AverageBettingRecord { get; set; }
     public float BestBettingRecord { get; set; }
     public float Rate { get; set; }
-    public float HorizontalSpeed { get; set; }
-    public Vector2 ForwardSpeedRange { get; set; }
-    public float PercentageSpeedBoostWhenSprint { get; set; }
-    public float PercentageSpeedBonusBoostWhenSprintContinuously { get; set; }
-    public Vector2 AccelerationRange { get; set; }
-    public float SprintTime { get; set; }
-    public int SprintChargeNumber { get; set; }
-    public float SprintHealingTime { get; set; }
-    public float SprintBonusTime { get; set; }
     public HorseBasic HorseBasic { get; set; }
     public HorseAttribute HorseAttribute { get; set; }
     public HorseRising HorseRising { get; set; }
