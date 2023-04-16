@@ -52,25 +52,23 @@ public class UIHorseDetailPresenter : IDisposable
             },
             info = new UIComponentHorseDetailInfo.Entity()
             {
-                acceleration = 100,
-                endurance = 100,
-                speed = 100,
-                breedCount = 100,
-                coinCollected = 100,
-                sprintEnergy = 100,
-                sprintNumber = 100,
-                sprintRegen = 100,
-                sprintSpeed = 100,
-                sprintTime = 100,
-                breedCountMax = 100,
-                coinCollectedMax = 100
+                acceleration = currentHorse.HorseAttribute.Sa,
+                speed = currentHorse.HorseAttribute.Bms,
+                breedCount = currentHorse.HorseRising.BreedingCount,
+                coinCollected = currentHorse.HorseRising.CoinCollected,
+                stamina = currentHorse.HorseAttribute.SprintNumber * 100f,
+                agility = currentHorse.HorseAttribute.Hms,
+                staminaRecovery = 100f / currentHorse.HorseAttribute.RestoreSprintTime,
+                sprintTime = currentHorse.SprintTime,
+                breedCountMax = 3, // TODO
+                coinCollectedMax = 100 // TODO
             },
             briefInfo = new UIHorseStableBriefInfo.Entity()
             {
                 horseName = currentHorse.Name,
-                age = 1,
+                age = currentHorse.HorseBasic.Age,
                 element = currentHorse.Type.ConvertTo<HorseType, UIComponentHorseElement.Element>(),
-                sex = UIHorseSexInfo.Sex.Female,
+                sex = currentHorse.HorseBasic.Sex == 0 ? UIHorseSexInfo.Sex.Female : UIHorseSexInfo.Sex.Male,
                 leftBtn = new ButtonComponent.Entity(() =>
                 {
                     UIHorse3DViewPresenter.ChangeHorseOnSwipe(-1).Forget();
@@ -79,6 +77,7 @@ public class UIHorseDetailPresenter : IDisposable
                 {
                     UIHorse3DViewPresenter.ChangeHorseOnSwipe(1).Forget();
                 }),
+                rarity = currentHorse.Rarity.ConvertTo<HorseRarity, UIComponentHorseRankRequirement.Rarity>()
             }
         };
     }

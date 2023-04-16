@@ -26,15 +26,15 @@ namespace io.hverse.game.protogen {
           string.Concat(
             "CgxodmVyc2UucHJvdG8aGWdvb2dsZS9wcm90b2J1Zi9hbnkucHJvdG8iVwoL",
             "R2FtZU1lc3NhZ2USIQoHbXNnVHlwZRgBIAEoDjIQLkdhbWVNZXNzYWdlVHlw",
-            "ZRIlCgdtc2dEYXRhGAIgASgLMhQuZ29vZ2xlLnByb3RvYnVmLkFueSr9AQoP",
+            "ZRIlCgdtc2dEYXRhGAIgASgLMhQuZ29vZ2xlLnByb3RvYnVmLkFueSqQAgoP",
             "R2FtZU1lc3NhZ2VUeXBlEhIKDkNPTU1PTl9NRVNTQUdFEAASEAoMUElOR19N",
             "RVNTQUdFEAESEAoMREFUQV9NRVNTQUdFEAISEQoNTE9HSU5fTUVTU0FHRRAD",
             "EhIKDlBMQVlFUl9NRVNTQUdFEAQSEgoOUkFDSU5HX01FU1NBR0UQBRITCg9C",
             "RVRUSU5HX01FU1NBR0UQBhIQCgxDSEFUX01FU1NBR0UQBxITCg9NQUlMQk9Y",
             "X01FU1NBR0UQCBIRCg1DSEVTVF9NRVNTQUdFEAkSFAoQVFJBSU5JTkdfTUVT",
-            "U0FHRRAKEhIKDlNUQUJMRV9NRVNTQUdFEAtCSQoXaW8uaHZlcnNlLmdhbWUu",
-            "cHJvdG9nZW5CFEh2ZXJzZU1lc3NhZ2VGYWN0b3J5qgIXaW8uaHZlcnNlLmdh",
-            "bWUucHJvdG9nZW5iBnByb3RvMw=="));
+            "U0FHRRAKEhIKDlNUQUJMRV9NRVNTQUdFEAsSEQoNSE9SU0VfTUVTU0FHRRAM",
+            "QkkKF2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuQhRIdmVyc2VNZXNzYWdlRmFj",
+            "dG9yeaoCF2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.AnyReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.GameMessageType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -58,6 +58,7 @@ namespace io.hverse.game.protogen {
     [pbr::OriginalName("CHEST_MESSAGE")] ChestMessage = 9,
     [pbr::OriginalName("TRAINING_MESSAGE")] TrainingMessage = 10,
     [pbr::OriginalName("STABLE_MESSAGE")] StableMessage = 11,
+    [pbr::OriginalName("HORSE_MESSAGE")] HorseMessage = 12,
   }
 
   #endregion

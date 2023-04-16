@@ -1,3 +1,5 @@
+using UnityEngine.Experimental.TerrainAPI;
+
 namespace io.hverse.game.protogen
 {
     public sealed partial class LoginResponse : IErrorCodeMessage {}
@@ -31,4 +33,20 @@ namespace io.hverse.game.protogen
     public sealed partial class RestartGamePopUpMessage : IErrorCodeMessage {}
     public sealed partial class UpdateRoomResponse : IErrorCodeMessage {}
     public sealed partial class StartRoomResponse : IErrorCodeMessage {}
+    public sealed partial class PlayerHorseBasicResponse : IErrorCodeMessage
+    {
+        public int ResultCode => ErrorCode;
+    }
+    public sealed partial class PlayerHorseRisingResponse : IErrorCodeMessage
+    {
+        public int ResultCode => ErrorCode;
+    }
+    public sealed partial class PlayerHorseHistoryResponse : IErrorCodeMessage
+    {
+        public int ResultCode => ErrorCode;
+    }
+    public sealed partial class PlayerHorseAttributeResponse : IErrorCodeMessage
+    {
+        public int ResultCode => ErrorCode;
+    }
 }

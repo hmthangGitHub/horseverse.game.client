@@ -96,6 +96,18 @@ public partial class ProtobufMessageParser : IMessageParser
         
         AddToSerializeLookUpTable<StartRoomRequest>(x => new RacingMessage(x));
         AddToParseLookUpTable<RacingMessage, RacingMessageType>(RacingMessageType.StartRoomResponse, x => x.StartRoomResponse);
+        
+        AddToSerializeLookUpTable<PlayerHorseBasicRequest>(x => new HorseMessage(x));
+        AddToParseLookUpTable<HorseMessage, HorseMessageType>(HorseMessageType.PlayerHorseBasicResponse, x => x.PlayerHorseBasicResponse);
+        
+        AddToSerializeLookUpTable<PlayerHorseAttributeRequest>(x => new HorseMessage(x));
+        AddToParseLookUpTable<HorseMessage, HorseMessageType>(HorseMessageType.PlayerHorseAttributeResponse, x => x.PlayerHorseAttributeResponse);
+        
+        AddToSerializeLookUpTable<PlayerHorseRisingRequest>(x => new HorseMessage(x));
+        AddToParseLookUpTable<HorseMessage, HorseMessageType>(HorseMessageType.PlayerHorseRisingResponse, x => x.PlayerHorseRisingResponse);
+        
+        AddToSerializeLookUpTable<PlayerHorseHistoryRequest>(x => new HorseMessage(x));
+        AddToParseLookUpTable<HorseMessage, HorseMessageType>(HorseMessageType.PlayerHorseHistoryResponse, x => x.PlayerHorseHistoryResponse);
     }
     
     private void AddToParseLookUpTable<TSubMessage, TEnum>(TEnum enumMessage, Func<TSubMessage, IMessage> resultFactory) where TEnum : System.Enum

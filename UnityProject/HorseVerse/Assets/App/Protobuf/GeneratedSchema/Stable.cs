@@ -32,27 +32,30 @@ namespace io.hverse.game.protogen {
             "ZGRIb3JzZVJlc3BvbnNlGAUgASgLMhEuQWRkSG9yc2VSZXNwb25zZRIvChJy",
             "ZW1vdmVIb3JzZVJlcXVlc3QYBiABKAsyEy5SZW1vdmVIb3JzZVJlcXVlc3QS",
             "MQoTcmVtb3ZlSG9yc2VSZXNwb25zZRgHIAEoCzIULlJlbW92ZUhvcnNlUmVz",
-            "cG9uc2UiEwoRU3RhYmxlSW5mb1JlcXVlc3QiWwoSU3RhYmxlSW5mb1Jlc3Bv",
-            "bnNlEhEKCWVycm9yQ29kZRgBIAEoBRIhCg1ob3JzZUluZm9MaXN0GAIgAygL",
-            "MgouSG9yc2VJbmZvEg8KB21heFNsb3QYAyABKAUiIgoPQWRkSG9yc2VSZXF1",
-            "ZXN0Eg8KB2hvcnNlSWQYASABKAMiJQoQQWRkSG9yc2VSZXNwb25zZRIRCgll",
-            "cnJvckNvZGUYASABKAUiJQoSUmVtb3ZlSG9yc2VSZXF1ZXN0Eg8KB2hvcnNl",
-            "SWQYASABKAMiKAoTUmVtb3ZlSG9yc2VSZXNwb25zZRIRCgllcnJvckNvZGUY",
-            "ASABKAUqqgEKEVN0YWJsZU1lc3NhZ2VUeXBlEhcKE1NUQUJMRV9JTkZPX1JF",
-            "UVVFU1QQABIYChRTVEFCTEVfSU5GT19SRVNQT05TRRABEhUKEUFERF9IT1JT",
-            "RV9SRVFVRVNUEAISFgoSQUREX0hPUlNFX1JFU1BPTlNFEAMSGAoUUkVNT1ZF",
-            "X0hPUlNFX1JFUVVFU1QQBBIZChVSRU1PVkVfSE9SU0VfUkVTUE9OU0UQBUJJ",
-            "Chdpby5odmVyc2UuZ2FtZS5wcm90b2dlbkIUU3RhYmxlTWVzc2FnZUZhY3Rv",
-            "cnmqAhdpby5odmVyc2UuZ2FtZS5wcm90b2dlbmIGcHJvdG8z"));
+            "cG9uc2UiOgoKU3RhYmxlU2xvdBINCgVpbmRleBgBIAEoBRIdCglob3JzZUlu",
+            "Zm8YAiABKAsyCi5Ib3JzZUluZm8iEwoRU3RhYmxlSW5mb1JlcXVlc3QiXQoS",
+            "U3RhYmxlSW5mb1Jlc3BvbnNlEhEKCWVycm9yQ29kZRgBIAEoBRIjCg5zdGFi",
+            "bGVTbG90TGlzdBgCIAMoCzILLlN0YWJsZVNsb3QSDwoHbWF4U2xvdBgDIAEo",
+            "BSIyCg9BZGRIb3JzZVJlcXVlc3QSDgoGc2xvdElkGAEgASgFEg8KB2hvcnNl",
+            "SWQYAiABKAMiJQoQQWRkSG9yc2VSZXNwb25zZRIRCgllcnJvckNvZGUYASAB",
+            "KAUiJAoSUmVtb3ZlSG9yc2VSZXF1ZXN0Eg4KBnNsb3RJZBgBIAEoBSIoChNS",
+            "ZW1vdmVIb3JzZVJlc3BvbnNlEhEKCWVycm9yQ29kZRgBIAEoBSqqAQoRU3Rh",
+            "YmxlTWVzc2FnZVR5cGUSFwoTU1RBQkxFX0lORk9fUkVRVUVTVBAAEhgKFFNU",
+            "QUJMRV9JTkZPX1JFU1BPTlNFEAESFQoRQUREX0hPUlNFX1JFUVVFU1QQAhIW",
+            "ChJBRERfSE9SU0VfUkVTUE9OU0UQAxIYChRSRU1PVkVfSE9SU0VfUkVRVUVT",
+            "VBAEEhkKFVJFTU9WRV9IT1JTRV9SRVNQT05TRRAFQkkKF2lvLmh2ZXJzZS5n",
+            "YW1lLnByb3RvZ2VuQhRTdGFibGVNZXNzYWdlRmFjdG9yeaoCF2lvLmh2ZXJz",
+            "ZS5nYW1lLnByb3RvZ2VuYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::io.hverse.game.protogen.DataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.StableMessageType), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.StableMessage), global::io.hverse.game.protogen.StableMessage.Parser, new[]{ "MsgType", "StableInfoRequest", "StableInfoResponse", "AddHorseRequest", "AddHorseResponse", "RemoveHorseRequest", "RemoveHorseResponse" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.StableSlot), global::io.hverse.game.protogen.StableSlot.Parser, new[]{ "Index", "HorseInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.StableInfoRequest), global::io.hverse.game.protogen.StableInfoRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.StableInfoResponse), global::io.hverse.game.protogen.StableInfoResponse.Parser, new[]{ "ErrorCode", "HorseInfoList", "MaxSlot" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.AddHorseRequest), global::io.hverse.game.protogen.AddHorseRequest.Parser, new[]{ "HorseId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.StableInfoResponse), global::io.hverse.game.protogen.StableInfoResponse.Parser, new[]{ "ErrorCode", "StableSlotList", "MaxSlot" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.AddHorseRequest), global::io.hverse.game.protogen.AddHorseRequest.Parser, new[]{ "SlotId", "HorseId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.AddHorseResponse), global::io.hverse.game.protogen.AddHorseResponse.Parser, new[]{ "ErrorCode" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RemoveHorseRequest), global::io.hverse.game.protogen.RemoveHorseRequest.Parser, new[]{ "HorseId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RemoveHorseRequest), global::io.hverse.game.protogen.RemoveHorseRequest.Parser, new[]{ "SlotId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RemoveHorseResponse), global::io.hverse.game.protogen.RemoveHorseResponse.Parser, new[]{ "ErrorCode" }, null, null, null, null)
           }));
     }
@@ -537,6 +540,241 @@ namespace io.hverse.game.protogen {
 
   }
 
+  public sealed partial class StableSlot : pb::IMessage<StableSlot>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<StableSlot> _parser = new pb::MessageParser<StableSlot>(() => new StableSlot());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<StableSlot> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::io.hverse.game.protogen.StableReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public StableSlot() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public StableSlot(StableSlot other) : this() {
+      index_ = other.index_;
+      horseInfo_ = other.horseInfo_ != null ? other.horseInfo_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public StableSlot Clone() {
+      return new StableSlot(this);
+    }
+
+    /// <summary>Field number for the "index" field.</summary>
+    public const int IndexFieldNumber = 1;
+    private int index_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Index {
+      get { return index_; }
+      set {
+        index_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "horseInfo" field.</summary>
+    public const int HorseInfoFieldNumber = 2;
+    private global::io.hverse.game.protogen.HorseInfo horseInfo_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::io.hverse.game.protogen.HorseInfo HorseInfo {
+      get { return horseInfo_; }
+      set {
+        horseInfo_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as StableSlot);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(StableSlot other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Index != other.Index) return false;
+      if (!object.Equals(HorseInfo, other.HorseInfo)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Index != 0) hash ^= Index.GetHashCode();
+      if (horseInfo_ != null) hash ^= HorseInfo.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Index != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Index);
+      }
+      if (horseInfo_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(HorseInfo);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Index != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Index);
+      }
+      if (horseInfo_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(HorseInfo);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Index != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Index);
+      }
+      if (horseInfo_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(HorseInfo);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(StableSlot other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Index != 0) {
+        Index = other.Index;
+      }
+      if (other.horseInfo_ != null) {
+        if (horseInfo_ == null) {
+          HorseInfo = new global::io.hverse.game.protogen.HorseInfo();
+        }
+        HorseInfo.MergeFrom(other.HorseInfo);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Index = input.ReadInt32();
+            break;
+          }
+          case 18: {
+            if (horseInfo_ == null) {
+              HorseInfo = new global::io.hverse.game.protogen.HorseInfo();
+            }
+            input.ReadMessage(HorseInfo);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            Index = input.ReadInt32();
+            break;
+          }
+          case 18: {
+            if (horseInfo_ == null) {
+              HorseInfo = new global::io.hverse.game.protogen.HorseInfo();
+            }
+            input.ReadMessage(HorseInfo);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
   public sealed partial class StableInfoRequest : pb::IMessage<StableInfoRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -551,7 +789,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.StableReflection.Descriptor.MessageTypes[1]; }
+      get { return global::io.hverse.game.protogen.StableReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -703,7 +941,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.StableReflection.Descriptor.MessageTypes[2]; }
+      get { return global::io.hverse.game.protogen.StableReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -724,7 +962,7 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public StableInfoResponse(StableInfoResponse other) : this() {
       errorCode_ = other.errorCode_;
-      horseInfoList_ = other.horseInfoList_.Clone();
+      stableSlotList_ = other.stableSlotList_.Clone();
       maxSlot_ = other.maxSlot_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -747,15 +985,15 @@ namespace io.hverse.game.protogen {
       }
     }
 
-    /// <summary>Field number for the "horseInfoList" field.</summary>
-    public const int HorseInfoListFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::io.hverse.game.protogen.HorseInfo> _repeated_horseInfoList_codec
-        = pb::FieldCodec.ForMessage(18, global::io.hverse.game.protogen.HorseInfo.Parser);
-    private readonly pbc::RepeatedField<global::io.hverse.game.protogen.HorseInfo> horseInfoList_ = new pbc::RepeatedField<global::io.hverse.game.protogen.HorseInfo>();
+    /// <summary>Field number for the "stableSlotList" field.</summary>
+    public const int StableSlotListFieldNumber = 2;
+    private static readonly pb::FieldCodec<global::io.hverse.game.protogen.StableSlot> _repeated_stableSlotList_codec
+        = pb::FieldCodec.ForMessage(18, global::io.hverse.game.protogen.StableSlot.Parser);
+    private readonly pbc::RepeatedField<global::io.hverse.game.protogen.StableSlot> stableSlotList_ = new pbc::RepeatedField<global::io.hverse.game.protogen.StableSlot>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::io.hverse.game.protogen.HorseInfo> HorseInfoList {
-      get { return horseInfoList_; }
+    public pbc::RepeatedField<global::io.hverse.game.protogen.StableSlot> StableSlotList {
+      get { return stableSlotList_; }
     }
 
     /// <summary>Field number for the "maxSlot" field.</summary>
@@ -786,7 +1024,7 @@ namespace io.hverse.game.protogen {
         return true;
       }
       if (ErrorCode != other.ErrorCode) return false;
-      if(!horseInfoList_.Equals(other.horseInfoList_)) return false;
+      if(!stableSlotList_.Equals(other.stableSlotList_)) return false;
       if (MaxSlot != other.MaxSlot) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -796,7 +1034,7 @@ namespace io.hverse.game.protogen {
     public override int GetHashCode() {
       int hash = 1;
       if (ErrorCode != 0) hash ^= ErrorCode.GetHashCode();
-      hash ^= horseInfoList_.GetHashCode();
+      hash ^= stableSlotList_.GetHashCode();
       if (MaxSlot != 0) hash ^= MaxSlot.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -820,7 +1058,7 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(8);
         output.WriteInt32(ErrorCode);
       }
-      horseInfoList_.WriteTo(output, _repeated_horseInfoList_codec);
+      stableSlotList_.WriteTo(output, _repeated_stableSlotList_codec);
       if (MaxSlot != 0) {
         output.WriteRawTag(24);
         output.WriteInt32(MaxSlot);
@@ -839,7 +1077,7 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(8);
         output.WriteInt32(ErrorCode);
       }
-      horseInfoList_.WriteTo(ref output, _repeated_horseInfoList_codec);
+      stableSlotList_.WriteTo(ref output, _repeated_stableSlotList_codec);
       if (MaxSlot != 0) {
         output.WriteRawTag(24);
         output.WriteInt32(MaxSlot);
@@ -857,7 +1095,7 @@ namespace io.hverse.game.protogen {
       if (ErrorCode != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(ErrorCode);
       }
-      size += horseInfoList_.CalculateSize(_repeated_horseInfoList_codec);
+      size += stableSlotList_.CalculateSize(_repeated_stableSlotList_codec);
       if (MaxSlot != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(MaxSlot);
       }
@@ -876,7 +1114,7 @@ namespace io.hverse.game.protogen {
       if (other.ErrorCode != 0) {
         ErrorCode = other.ErrorCode;
       }
-      horseInfoList_.Add(other.horseInfoList_);
+      stableSlotList_.Add(other.stableSlotList_);
       if (other.MaxSlot != 0) {
         MaxSlot = other.MaxSlot;
       }
@@ -900,7 +1138,7 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 18: {
-            horseInfoList_.AddEntriesFrom(input, _repeated_horseInfoList_codec);
+            stableSlotList_.AddEntriesFrom(input, _repeated_stableSlotList_codec);
             break;
           }
           case 24: {
@@ -927,7 +1165,7 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 18: {
-            horseInfoList_.AddEntriesFrom(ref input, _repeated_horseInfoList_codec);
+            stableSlotList_.AddEntriesFrom(ref input, _repeated_stableSlotList_codec);
             break;
           }
           case 24: {
@@ -955,7 +1193,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.StableReflection.Descriptor.MessageTypes[3]; }
+      get { return global::io.hverse.game.protogen.StableReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -975,6 +1213,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public AddHorseRequest(AddHorseRequest other) : this() {
+      slotId_ = other.slotId_;
       horseId_ = other.horseId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -985,8 +1224,20 @@ namespace io.hverse.game.protogen {
       return new AddHorseRequest(this);
     }
 
+    /// <summary>Field number for the "slotId" field.</summary>
+    public const int SlotIdFieldNumber = 1;
+    private int slotId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int SlotId {
+      get { return slotId_; }
+      set {
+        slotId_ = value;
+      }
+    }
+
     /// <summary>Field number for the "horseId" field.</summary>
-    public const int HorseIdFieldNumber = 1;
+    public const int HorseIdFieldNumber = 2;
     private long horseId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1012,6 +1263,7 @@ namespace io.hverse.game.protogen {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (SlotId != other.SlotId) return false;
       if (HorseId != other.HorseId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -1020,6 +1272,7 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (SlotId != 0) hash ^= SlotId.GetHashCode();
       if (HorseId != 0L) hash ^= HorseId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -1039,8 +1292,12 @@ namespace io.hverse.game.protogen {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (HorseId != 0L) {
+      if (SlotId != 0) {
         output.WriteRawTag(8);
+        output.WriteInt32(SlotId);
+      }
+      if (HorseId != 0L) {
+        output.WriteRawTag(16);
         output.WriteInt64(HorseId);
       }
       if (_unknownFields != null) {
@@ -1053,8 +1310,12 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (HorseId != 0L) {
+      if (SlotId != 0) {
         output.WriteRawTag(8);
+        output.WriteInt32(SlotId);
+      }
+      if (HorseId != 0L) {
+        output.WriteRawTag(16);
         output.WriteInt64(HorseId);
       }
       if (_unknownFields != null) {
@@ -1067,6 +1328,9 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (SlotId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SlotId);
+      }
       if (HorseId != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(HorseId);
       }
@@ -1081,6 +1345,9 @@ namespace io.hverse.game.protogen {
     public void MergeFrom(AddHorseRequest other) {
       if (other == null) {
         return;
+      }
+      if (other.SlotId != 0) {
+        SlotId = other.SlotId;
       }
       if (other.HorseId != 0L) {
         HorseId = other.HorseId;
@@ -1101,6 +1368,10 @@ namespace io.hverse.game.protogen {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
+            SlotId = input.ReadInt32();
+            break;
+          }
+          case 16: {
             HorseId = input.ReadInt64();
             break;
           }
@@ -1120,6 +1391,10 @@ namespace io.hverse.game.protogen {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
+            SlotId = input.ReadInt32();
+            break;
+          }
+          case 16: {
             HorseId = input.ReadInt64();
             break;
           }
@@ -1144,7 +1419,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.StableReflection.Descriptor.MessageTypes[4]; }
+      get { return global::io.hverse.game.protogen.StableReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1333,7 +1608,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.StableReflection.Descriptor.MessageTypes[5]; }
+      get { return global::io.hverse.game.protogen.StableReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1353,7 +1628,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public RemoveHorseRequest(RemoveHorseRequest other) : this() {
-      horseId_ = other.horseId_;
+      slotId_ = other.slotId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1363,15 +1638,15 @@ namespace io.hverse.game.protogen {
       return new RemoveHorseRequest(this);
     }
 
-    /// <summary>Field number for the "horseId" field.</summary>
-    public const int HorseIdFieldNumber = 1;
-    private long horseId_;
+    /// <summary>Field number for the "slotId" field.</summary>
+    public const int SlotIdFieldNumber = 1;
+    private int slotId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public long HorseId {
-      get { return horseId_; }
+    public int SlotId {
+      get { return slotId_; }
       set {
-        horseId_ = value;
+        slotId_ = value;
       }
     }
 
@@ -1390,7 +1665,7 @@ namespace io.hverse.game.protogen {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (HorseId != other.HorseId) return false;
+      if (SlotId != other.SlotId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1398,7 +1673,7 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (HorseId != 0L) hash ^= HorseId.GetHashCode();
+      if (SlotId != 0) hash ^= SlotId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1417,9 +1692,9 @@ namespace io.hverse.game.protogen {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (HorseId != 0L) {
+      if (SlotId != 0) {
         output.WriteRawTag(8);
-        output.WriteInt64(HorseId);
+        output.WriteInt32(SlotId);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1431,9 +1706,9 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (HorseId != 0L) {
+      if (SlotId != 0) {
         output.WriteRawTag(8);
-        output.WriteInt64(HorseId);
+        output.WriteInt32(SlotId);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1445,8 +1720,8 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (HorseId != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(HorseId);
+      if (SlotId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SlotId);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1460,8 +1735,8 @@ namespace io.hverse.game.protogen {
       if (other == null) {
         return;
       }
-      if (other.HorseId != 0L) {
-        HorseId = other.HorseId;
+      if (other.SlotId != 0) {
+        SlotId = other.SlotId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1479,7 +1754,7 @@ namespace io.hverse.game.protogen {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            HorseId = input.ReadInt64();
+            SlotId = input.ReadInt32();
             break;
           }
         }
@@ -1498,7 +1773,7 @@ namespace io.hverse.game.protogen {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            HorseId = input.ReadInt64();
+            SlotId = input.ReadInt32();
             break;
           }
         }
@@ -1522,7 +1797,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.StableReflection.Descriptor.MessageTypes[6]; }
+      get { return global::io.hverse.game.protogen.StableReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

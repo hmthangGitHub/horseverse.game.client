@@ -64,7 +64,7 @@ public partial class UIRacePresenter : IDisposable
             horseSelectSumaryList = HorseSumaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(),
             raceRoomInfo = new UIComponentRaceRoomInfo.Entity()
             {
-                horseRankRequirement = GetRankRequirement(),
+                rarityRequirement = GetRankRequirement(),
                 rewardGroup1st = UIComponentRaceRewardGroupFactory.CreateRewardGroup(1, HorseRaceContext.RaceMatchDataContext.RacingRoomType),
                 rewardGroup2nd = UIComponentRaceRewardGroupFactory.CreateRewardGroup(2, HorseRaceContext.RaceMatchDataContext.RacingRoomType),
                 rewardGroup3rd = UIComponentRaceRewardGroupFactory.CreateRewardGroup(3, HorseRaceContext.RaceMatchDataContext.RacingRoomType),
@@ -73,16 +73,16 @@ public partial class UIRacePresenter : IDisposable
         uiQuickMode.In().Forget();
     }
 
-    private UIComponentHorseRankRequirement.HorseRank GetRankRequirement()
+    private UIComponentHorseRankRequirement.Rarity GetRankRequirement()
     {
         return HorseRaceContext.RaceMatchDataContext.RacingRoomType switch
         {
-            RacingRoomType.Novice => UIComponentHorseRankRequirement.HorseRank.Common,
-            RacingRoomType.Basic => UIComponentHorseRankRequirement.HorseRank.Uncommon,
-            RacingRoomType.Advance => UIComponentHorseRankRequirement.HorseRank.Rare,
-            RacingRoomType.Expert => UIComponentHorseRankRequirement.HorseRank.Epic,
-            RacingRoomType.Master => UIComponentHorseRankRequirement.HorseRank.Legend,
-            _ => UIComponentHorseRankRequirement.HorseRank.Uncommon
+            RacingRoomType.Novice => UIComponentHorseRankRequirement.Rarity.Common,
+            RacingRoomType.Basic => UIComponentHorseRankRequirement.Rarity.Uncommon,
+            RacingRoomType.Advance => UIComponentHorseRankRequirement.Rarity.Rare,
+            RacingRoomType.Expert => UIComponentHorseRankRequirement.Rarity.Epic,
+            RacingRoomType.Master => UIComponentHorseRankRequirement.Rarity.Legend,
+            _ => UIComponentHorseRankRequirement.Rarity.Uncommon
         };
     }
 

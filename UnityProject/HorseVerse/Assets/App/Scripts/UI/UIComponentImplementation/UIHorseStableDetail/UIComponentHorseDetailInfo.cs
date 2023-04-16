@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,40 +10,34 @@ public class UIComponentHorseDetailInfo : UIComponent<UIComponentHorseDetailInfo
         {
     	    public float speed;
     	    public float acceleration;
-    	    public float endurance;
     	    public float coinCollected;
     	    public float coinCollectedMax;
     	    public float breedCount;
     	    public float breedCountMax;
-    	    public float sprintNumber;
-    	    public float sprintSpeed;
+    	    public float agility;
     	    public float sprintTime;
-    	    public float sprintEnergy;
-    	    public float sprintRegen;
+    	    public float stamina;
+    	    public float staminaRecovery;
         }
     
         public FormattedTextComponent speed;
         public FormattedTextComponent acceleration;
-        public FormattedTextComponent endurance;
+        public FormattedTextComponent agility;
         public FormattedTextComponent coinCollected;
         public FormattedTextComponent breedCount;
-        public FormattedTextComponent sprintNumber;
-        public FormattedTextComponent sprintSpeed;
         public FormattedTextComponent sprintTime;
-        public FormattedTextComponent sprintEnergy;
-        public FormattedTextComponent sprintRegen;
+        public FormattedTextComponent stamina;
+        public FormattedTextComponent staminaRecovery;
         
         protected override void OnSetEntity()
         {
-    	    speed.SetEntity(this.entity.speed);
-    	    acceleration.SetEntity(this.entity.acceleration);
-    	    endurance.SetEntity(this.entity.endurance);
+    	    speed.SetEntity(Math.Round(this.entity.speed, 1));
+    	    acceleration.SetEntity(Math.Round(this.entity.acceleration, 1));
+    	    agility.SetEntity(Math.Round(this.entity.agility, 1));
     	    coinCollected.SetEntity(this.entity.coinCollected, this.entity.coinCollectedMax);
     	    breedCount.SetEntity(this.entity.breedCount, this.entity.breedCountMax);
-    	    sprintNumber.SetEntity(this.entity.sprintNumber);
-    	    sprintSpeed.SetEntity(this.entity.sprintSpeed);
-    	    sprintTime.SetEntity(this.entity.sprintTime);
-    	    sprintEnergy.SetEntity(this.entity.sprintEnergy);
-    	    sprintRegen.SetEntity(this.entity.sprintRegen);
+    	    sprintTime.SetEntity(Math.Round(this.entity.sprintTime, 1));
+    	    stamina.SetEntity(Math.Round(this.entity.stamina, 1));
+    	    staminaRecovery.SetEntity(Math.Round(this.entity.staminaRecovery, 1));
         }
 }	
