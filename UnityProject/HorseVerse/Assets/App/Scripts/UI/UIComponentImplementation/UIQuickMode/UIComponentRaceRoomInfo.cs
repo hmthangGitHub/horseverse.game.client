@@ -7,7 +7,7 @@ public class UIComponentRaceRoomInfo : UIComponent<UIComponentRaceRoomInfo.Entit
 	[System.Serializable]
     public class Entity
     {
-	    public UIComponentHorseRankRequirement.HorseRank horseRankRequirement;
+	    public UIComponentHorseRankRequirement.Rarity rarityRequirement;
 	    public UIComponentRaceRewardGroup.Entity rewardGroup1st;
 	    public UIComponentRaceRewardGroup.Entity rewardGroup2nd;
 	    public UIComponentRaceRewardGroup.Entity rewardGroup3rd;
@@ -20,7 +20,7 @@ public class UIComponentRaceRoomInfo : UIComponent<UIComponentRaceRoomInfo.Entit
 
     protected override void OnSetEntity()
     {
-	    horseRankRequirement.SetEntity(this.entity.horseRankRequirement);
+	    horseRankRequirement.SetEntity(this.entity.rarityRequirement);
 	    rewardGroup1st.SetEntity(this.entity.rewardGroup1st);
 	    rewardGroup2nd.SetEntity(this.entity.rewardGroup2nd);
 	    rewardGroup3rd.SetEntity(this.entity.rewardGroup3rd);

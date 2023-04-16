@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIComponentHorseRankRequirement : UIComponentEnum<UIComponentHorseRankRequirement.HorseRank>
+public class UIComponentHorseRankRequirement : UIComponentEnum<UIComponentHorseRankRequirement.Rarity>
 {
-    public enum HorseRank
+    public enum Rarity
     {
+        None,
         Common,
         Uncommon,
         Rare,
