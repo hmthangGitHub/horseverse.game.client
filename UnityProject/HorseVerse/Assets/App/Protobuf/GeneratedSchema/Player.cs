@@ -42,15 +42,16 @@ namespace io.hverse.game.protogen {
             "cmVudEhvcnNlGAkgASgLMgouSG9yc2VJbmZvEiYKEWN1cnJlbnRIb3JzZUJh",
             "c2ljGAogASgLMgsuSG9yc2VCYXNpYyJiCg5MaXRlUGxheWVySW5mbxIKCgJp",
             "ZBgBIAEoAxIMCgRjaGlwGAIgASgDEhgKEGZyZWVSYWNpbmdOdW1iZXIYAyAB",
-            "KAUSHAoUdHJhaW5pbmdIaWdoZXN0U2NvcmUYBCABKAMiTQoPUGxheWVySW52",
-            "ZW50b3J5Eh0KCWhvcnNlTGlzdBgBIAMoCzIKLkhvcnNlSW5mbxIbCghpdGVt",
-            "SW5mbxgCIAMoCzIJLkl0ZW1JbmZvKoMBChFQbGF5ZXJNZXNzYWdlVHlwZRIX",
-            "ChNQTEFZRVJfSU5GT19SRVFVRVNUEAASGAoUUExBWUVSX0lORk9fUkVTUE9O",
-            "U0UQARIcChhQTEFZRVJfSU5WRU5UT1JZX1JFUVVFU1QQAhIdChlQTEFZRVJf",
-            "SU5WRU5UT1JZX1JFU1BPTlNFEAMqPgoLQWNjb3VudFR5cGUSFgoSQUNDT1VO",
-            "VF9UWVBFX0dVRVNUEAASFwoTQUNDT1VOVF9UWVBFX05PUk1BTBABQkkKF2lv",
-            "Lmh2ZXJzZS5nYW1lLnByb3RvZ2VuQhRQbGF5ZXJNZXNzYWdlRmFjdG9yeaoC",
-            "F2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuYgZwcm90bzM="));
+            "KAUSHAoUdHJhaW5pbmdIaWdoZXN0U2NvcmUYBCABKAMibgoPUGxheWVySW52",
+            "ZW50b3J5Eh0KCWhvcnNlTGlzdBgBIAMoCzIKLkhvcnNlSW5mbxIfCgpob3Jz",
+            "ZUJhc2ljGAIgAygLMgsuSG9yc2VCYXNpYxIbCghpdGVtSW5mbxgDIAMoCzIJ",
+            "Lkl0ZW1JbmZvKoMBChFQbGF5ZXJNZXNzYWdlVHlwZRIXChNQTEFZRVJfSU5G",
+            "T19SRVFVRVNUEAASGAoUUExBWUVSX0lORk9fUkVTUE9OU0UQARIcChhQTEFZ",
+            "RVJfSU5WRU5UT1JZX1JFUVVFU1QQAhIdChlQTEFZRVJfSU5WRU5UT1JZX1JF",
+            "U1BPTlNFEAMqPgoLQWNjb3VudFR5cGUSFgoSQUNDT1VOVF9UWVBFX0dVRVNU",
+            "EAASFwoTQUNDT1VOVF9UWVBFX05PUk1BTBABQkkKF2lvLmh2ZXJzZS5nYW1l",
+            "LnByb3RvZ2VuQhRQbGF5ZXJNZXNzYWdlRmFjdG9yeaoCF2lvLmh2ZXJzZS5n",
+            "YW1lLnByb3RvZ2VuYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::io.hverse.game.protogen.DataReflection.Descriptor, global::io.hverse.game.protogen.HorseReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.PlayerMessageType), typeof(global::io.hverse.game.protogen.AccountType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -61,7 +62,7 @@ namespace io.hverse.game.protogen {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInventoryResponse), global::io.hverse.game.protogen.PlayerInventoryResponse.Parser, new[]{ "PlayerInventory" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInfo), global::io.hverse.game.protogen.PlayerInfo.Parser, new[]{ "Id", "Name", "AccountType", "PublicAddress", "AccessToken", "Chip", "FreeRacingNumber", "TrainingHighestScore", "CurrentHorse", "CurrentHorseBasic" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.LitePlayerInfo), global::io.hverse.game.protogen.LitePlayerInfo.Parser, new[]{ "Id", "Chip", "FreeRacingNumber", "TrainingHighestScore" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInventory), global::io.hverse.game.protogen.PlayerInventory.Parser, new[]{ "HorseList", "ItemInfo" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.PlayerInventory), global::io.hverse.game.protogen.PlayerInventory.Parser, new[]{ "HorseList", "HorseBasic", "ItemInfo" }, null, null, null, null)
           }));
     }
     #endregion
@@ -2031,6 +2032,7 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public PlayerInventory(PlayerInventory other) : this() {
       horseList_ = other.horseList_.Clone();
+      horseBasic_ = other.horseBasic_.Clone();
       itemInfo_ = other.itemInfo_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -2052,10 +2054,21 @@ namespace io.hverse.game.protogen {
       get { return horseList_; }
     }
 
+    /// <summary>Field number for the "horseBasic" field.</summary>
+    public const int HorseBasicFieldNumber = 2;
+    private static readonly pb::FieldCodec<global::io.hverse.game.protogen.HorseBasic> _repeated_horseBasic_codec
+        = pb::FieldCodec.ForMessage(18, global::io.hverse.game.protogen.HorseBasic.Parser);
+    private readonly pbc::RepeatedField<global::io.hverse.game.protogen.HorseBasic> horseBasic_ = new pbc::RepeatedField<global::io.hverse.game.protogen.HorseBasic>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::io.hverse.game.protogen.HorseBasic> HorseBasic {
+      get { return horseBasic_; }
+    }
+
     /// <summary>Field number for the "itemInfo" field.</summary>
-    public const int ItemInfoFieldNumber = 2;
+    public const int ItemInfoFieldNumber = 3;
     private static readonly pb::FieldCodec<global::io.hverse.game.protogen.ItemInfo> _repeated_itemInfo_codec
-        = pb::FieldCodec.ForMessage(18, global::io.hverse.game.protogen.ItemInfo.Parser);
+        = pb::FieldCodec.ForMessage(26, global::io.hverse.game.protogen.ItemInfo.Parser);
     private readonly pbc::RepeatedField<global::io.hverse.game.protogen.ItemInfo> itemInfo_ = new pbc::RepeatedField<global::io.hverse.game.protogen.ItemInfo>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2079,6 +2092,7 @@ namespace io.hverse.game.protogen {
         return true;
       }
       if(!horseList_.Equals(other.horseList_)) return false;
+      if(!horseBasic_.Equals(other.horseBasic_)) return false;
       if(!itemInfo_.Equals(other.itemInfo_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -2088,6 +2102,7 @@ namespace io.hverse.game.protogen {
     public override int GetHashCode() {
       int hash = 1;
       hash ^= horseList_.GetHashCode();
+      hash ^= horseBasic_.GetHashCode();
       hash ^= itemInfo_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -2108,6 +2123,7 @@ namespace io.hverse.game.protogen {
       output.WriteRawMessage(this);
     #else
       horseList_.WriteTo(output, _repeated_horseList_codec);
+      horseBasic_.WriteTo(output, _repeated_horseBasic_codec);
       itemInfo_.WriteTo(output, _repeated_itemInfo_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -2120,6 +2136,7 @@ namespace io.hverse.game.protogen {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
       horseList_.WriteTo(ref output, _repeated_horseList_codec);
+      horseBasic_.WriteTo(ref output, _repeated_horseBasic_codec);
       itemInfo_.WriteTo(ref output, _repeated_itemInfo_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -2132,6 +2149,7 @@ namespace io.hverse.game.protogen {
     public int CalculateSize() {
       int size = 0;
       size += horseList_.CalculateSize(_repeated_horseList_codec);
+      size += horseBasic_.CalculateSize(_repeated_horseBasic_codec);
       size += itemInfo_.CalculateSize(_repeated_itemInfo_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -2146,6 +2164,7 @@ namespace io.hverse.game.protogen {
         return;
       }
       horseList_.Add(other.horseList_);
+      horseBasic_.Add(other.horseBasic_);
       itemInfo_.Add(other.itemInfo_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2167,6 +2186,10 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 18: {
+            horseBasic_.AddEntriesFrom(input, _repeated_horseBasic_codec);
+            break;
+          }
+          case 26: {
             itemInfo_.AddEntriesFrom(input, _repeated_itemInfo_codec);
             break;
           }
@@ -2190,6 +2213,10 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 18: {
+            horseBasic_.AddEntriesFrom(ref input, _repeated_horseBasic_codec);
+            break;
+          }
+          case 26: {
             itemInfo_.AddEntriesFrom(ref input, _repeated_itemInfo_codec);
             break;
           }

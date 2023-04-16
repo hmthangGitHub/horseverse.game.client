@@ -43,15 +43,13 @@ public class UIHorseStablePresenter : IDisposable
                 {
                     horseNFTId = x.Value.HorseNtfId,
                     horseName = x.Value.Name,
-                    horseLevel = x.Value.Level,
-                    horseRace = new UIComponentHorseRace.Entity() { type = (int)x.Value.Type },
+                    horseRace = new UIComponentHorseRace.Entity() { type = (int)x.Value.HorseType },
                     selectBtn = new ButtonSelectedComponent.Entity(() => OnSelectHorseAsync(x.Key).Forget(), x.Value.HorseNtfId == current)
                 }).ToArray()
             },
             horseDetail = new UIComponentHorseDetail.Entity()
             {
                 horseName = HorseRepository.Models[current].Name,
-                level = HorseRepository.Models[current].Level,
                 powerProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
                 {
                     bonus = HorseRepository.Models[current].PowerBonus,
@@ -81,7 +79,7 @@ public class UIHorseStablePresenter : IDisposable
             },
             horseRace = new UIComponentHorseRace.Entity()
             {
-                type = (int)HorseRepository.Models[current].Type
+                type = (int)HorseRepository.Models[current].HorseType
             },
             breedingBtn = new ButtonComponent.Entity(()=> OnBreedingAsync().Forget(), false),
             upgradeBtn = new ButtonComponent.Entity(() => OnUpgradeAsync().Forget(), false),
@@ -116,7 +114,6 @@ public class UIHorseStablePresenter : IDisposable
         var eh = uiHorseStable.horseDetail.entity;
         {
             eh.horseName = HorseRepository.Models[masterHorseId].Name;
-            eh.level = HorseRepository.Models[masterHorseId].Level;
             eh.powerProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
             {
                 bonus = HorseRepository.Models[masterHorseId].PowerBonus,
@@ -146,14 +143,12 @@ public class UIHorseStablePresenter : IDisposable
         };
 
         var er = uiHorseStable.horseRace.entity;
-        er.type = (int)HorseRepository.Models[masterHorseId].Type;
+        er.type = (int)HorseRepository.Models[masterHorseId].HorseType;
 
         uiHorseStable.SetHorseDetailEntity(eh);
         uiHorseStable.SetHorseRaceEntity(er);
 
         await QuickRaceDomainService.ChangeHorse(masterHorseId);
-        //await OutAsync();
-        //OnViewHorseDetail.Invoke();
     }
 
     private async UniTaskVoid OnBreedingAsync() 

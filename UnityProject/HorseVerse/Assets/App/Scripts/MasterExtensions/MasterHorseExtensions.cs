@@ -9,7 +9,7 @@ public static class MasterHorseExtensions
     public static MasterHorse FromTypeToMasterHorse(this MasterHorseContainer masterHorseContainer,
                                                     HorseType type)
     {
-        var masterHorseType = type.ConvertTo<HorseType, MasterHorseType>();
+        var masterHorseType = (MasterHorseType)type;
         return masterHorseContainer.MasterHorseIndexer.Values.FirstOrDefault(x => x.MasterHorseType == masterHorseType);
     }
 }

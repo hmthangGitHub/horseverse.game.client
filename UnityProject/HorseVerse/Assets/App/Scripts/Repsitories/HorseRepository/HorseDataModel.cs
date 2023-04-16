@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class HorseDataModel
 {
-    public long HorseNtfId { get; set; }
-    public string Name { get; set; }
-    public int Happiness { get; set; }
+    public long HorseNtfId => HorseBasic.Id;
+    public string Name => HorseBasic.Name;
+    public int Happiness => HorseRising.Happiness;
     public int Earning { get; set; }
     public float PowerBonus { get; set; }
     public float PowerRatio { get; set; }
@@ -14,9 +14,8 @@ public class HorseDataModel
     public float TechnicallyBonus { get; set; }
     public float TechnicallyRatio { get; set; }
 
-    public HorseType Type { get; set; }
-    public HorseRarity Rarity { get; set; }
-    public int Level { get; set; }
+    public HorseType HorseType => (HorseType)HorseBasic.HorseType;
+    public HorseRarity Rarity => (HorseRarity)HorseBasic.Rarity;
 
     public Color Color1 { get; set; }
     public Color Color2 { get; set; }

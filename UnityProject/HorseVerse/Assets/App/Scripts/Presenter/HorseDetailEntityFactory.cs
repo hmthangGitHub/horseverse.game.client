@@ -21,7 +21,6 @@ public class HorseDetailEntityFactory
         var userHorse = HorseRepository.Models[horseNtfId];
         return new UIComponentHorseDetail.Entity()
         {
-            level = userHorse.Level,
             horseName = userHorse.Name,
             powerProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
             {
@@ -59,6 +58,6 @@ public class HorseDetailEntityFactory
     private int GetHorseRace(long horseNtfId)
     {
         var userHorse = HorseRepository.Models[horseNtfId];
-        return (int)userHorse.Type;
+        return (int)userHorse.HorseType;
     }
 }

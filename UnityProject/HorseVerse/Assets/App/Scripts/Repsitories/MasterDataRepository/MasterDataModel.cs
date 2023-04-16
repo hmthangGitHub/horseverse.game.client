@@ -11,6 +11,8 @@ public class MasterDataModel
     public List<int> BetNumberList { get; set; } = new List<int>();
     public Dictionary<(RacingRoomType roomType, int rank), RewardInfo[]> RacingRewardInfos { get; set; }
     public int MaxDailyRacingNumber { get; set; }
+    public int MaxBreedingNumber  { get; set; }
+    public int MaxCoinCollected  { get; set; }
     
     public MasterDataModel Clone()
     {

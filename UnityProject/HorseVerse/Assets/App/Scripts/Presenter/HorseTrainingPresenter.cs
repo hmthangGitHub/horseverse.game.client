@@ -38,8 +38,8 @@ public class HorseTrainingPresenter : IDisposable
 
     private IUserDataRepository userDataRepository;
     private IUserDataRepository UserDataRepository => userDataRepository ??= Container.Inject<UserDataRepository>();
-    private IReadOnlyHorseRepository horseRepository;
-    private IReadOnlyHorseRepository HorseRepository => horseRepository ??= Container.Inject<IReadOnlyHorseRepository>();
+    private IHorseRepository horseRepository;
+    private IHorseRepository HorseRepository => horseRepository ??= Container.Inject<IHorseRepository>();
 
     private long currentMasterMapId;
 
@@ -100,15 +100,9 @@ public class HorseTrainingPresenter : IDisposable
         if (isNeedRetry)
         {
             var data = await TrainingDomainService.StartTrainingData(UserDataRepository.Current.CurrentHorseNftId);
-            if (data.ResultCode == 100)
-            {
-                var userHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
-                userHorse.Happiness = data.Happiness;
-            }
-            else
-            {
-                isNeedRetry = false;
-            }
+            var userHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
+            userHorse.HorseRising.Happiness = data.Happiness;
+            await HorseRepository.UpdateModelAsync(userHorse.HorseRising);
         }
 
         AudioManager.Instance.StopSound();

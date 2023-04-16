@@ -23,11 +23,12 @@ public class HorseRepository : Repository<long, HorseDataModel, HorseDataModel>,
         var socketClient = container.Inject<ISocketClient>();
         var response = await socketClient.Send<PlayerInventoryRequest, PlayerInventoryResponse>(new PlayerInventoryRequest());
         var nftIds = new RepeatedField<long>();
-        nftIds.AddRange(response.PlayerInventory.HorseList.Select(x => x.NftId));
-        var horseBasicResponse = await socketClient.Send<PlayerHorseBasicRequest, PlayerHorseBasicResponse>(new PlayerHorseBasicRequest()
-        {
-            Id = { nftIds  }
-        });
+        nftIds.AddRange(response.PlayerInventory.HorseBasic.Select(x => x.Id));
+        
+        // var horseBasicResponse = await socketClient.Send<PlayerHorseBasicRequest, PlayerHorseBasicResponse>(new PlayerHorseBasicRequest()
+        // {
+        //     Id = { nftIds  }
+        // });
         
         var horseAttributeResponse = await socketClient.Send<PlayerHorseAttributeRequest, PlayerHorseAttributeResponse>(new PlayerHorseAttributeRequest()
         {
@@ -39,34 +40,17 @@ public class HorseRepository : Repository<long, HorseDataModel, HorseDataModel>,
             Id = {nftIds}
         });
         
-        var horseHistoryResponse = await socketClient.Send<PlayerHorseHistoryRequest, PlayerHorseHistoryResponse>(new PlayerHorseHistoryRequest()
-        {
-            Id = {nftIds}
-        });
+        // var horseHistoryResponse = await socketClient.Send<PlayerHorseHistoryRequest, PlayerHorseHistoryResponse>(new PlayerHorseHistoryRequest()
+        // {
+        //     Id = {nftIds}
+        // });
         
-        return response.PlayerInventory.HorseList.Select(horseInfo => new HorseDataModel()
+        return response.PlayerInventory.HorseBasic.Select(horseInfo => new HorseDataModel()
        {
-           HorseNtfId = horseInfo.NftId,
-           Name = horseInfo.Name,
-           Happiness = horseInfo.Happiness,
-           Earning = UnityEngine.Random.Range(100, 10000),
-           PowerBonus = UnityEngine.Random.Range(0.0001f, 0.5f),
-           PowerRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
-           SpeedBonus = UnityEngine.Random.Range(0.0001f, 0.5f),
-           SpeedRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
-           TechnicallyBonus = UnityEngine.Random.Range(0.0001f, 0.5f),
-           TechnicallyRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
-           Rarity = (HorseRarity)horseInfo.Rarity,
-           Type = horseInfo.HorseType,
-           Level = horseInfo.Level,
-           Color1 = GetColorFromHexCode(horseInfo.Color1),
-           Color2 = GetColorFromHexCode(horseInfo.Color2),
-           Color3 = GetColorFromHexCode(horseInfo.Color3),
-           Color4 = GetColorFromHexCode(horseInfo.Color4),
-           HorseBasic = horseBasicResponse.HorseBasicList.First(x => x.Id == horseInfo.NftId),
-           HorseAttribute = horseAttributeResponse.HorseAttributeList.First(x => x.Id == horseInfo.NftId),
-           HorseRising = horseRisingResponse.HorseRisingList.First(x => x.Id == horseInfo.NftId),
-           HorseHistory = horseHistoryResponse.HorseHistoryList.First(x => x.Id == horseInfo.NftId),
+           HorseBasic = horseInfo,
+           HorseAttribute = horseAttributeResponse.HorseAttributeList.First(x => x.Id == horseInfo.Id),
+           HorseRising = horseRisingResponse.HorseRisingList.First(x => x.Id == horseInfo.Id),
+           HorseHistory = default, // TODO
        })
        .ToList();
     }

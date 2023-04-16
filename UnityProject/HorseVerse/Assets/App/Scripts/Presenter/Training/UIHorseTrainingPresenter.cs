@@ -57,7 +57,7 @@ public class UIHorseTrainingPresenter : IDisposable
         uiHorseTraining.SetEntity(new UIHorseTraining.Entity()
         {
             horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.CurrentHorseNftId),
-            horseRace = new UIComponentHorseRace.Entity() { type = (int)h.Type },
+            horseRace = new UIComponentHorseRace.Entity() { type = (int)h.HorseType },
             horseSelectSumaryList = HorseSummaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(),
             prepareState = new UIComponentTrainingPrepareState.Entity()
             {
@@ -102,12 +102,11 @@ public class UIHorseTrainingPresenter : IDisposable
             ToTrainingActionState.Invoke();
 
             var userHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
-            userHorse.Happiness = data.Happiness;
             container.Bind(new HorseTrainingDataContext()
             {
                 HorseMeshInformation = new HorseMeshInformation()
                 {
-                    horseModelPath = MasterHorseContainer.FromTypeToMasterHorse(userHorse.Type).ModelPath,
+                    horseModelPath = MasterHorseContainer.FromTypeToMasterHorse(userHorse.HorseType).ModelPath,
                     color1 = userHorse.Color1,
                     color2 = userHorse.Color2,
                     color3 = userHorse.Color3,
@@ -124,7 +123,7 @@ public class UIHorseTrainingPresenter : IDisposable
         {
             uiHorseTraining.SetHorseDetailEntity(HorseDetailEntityFactory.InstantiateHorseDetailEntity(model.after.CurrentHorseNftId));
             var h = HorseRepository.Models[model.after.CurrentHorseNftId];
-            uiHorseTraining.SetHorseRaceEntity( new UIComponentHorseRace.Entity() { type = (int)h.Type });
+            uiHorseTraining.SetHorseRaceEntity( new UIComponentHorseRace.Entity() { type = (int)h.HorseType });
 
             uiHorseTraining.entity.prepareState.toTraningBtn = new ButtonComponent.Entity(() => ToTrainingAsync()
                 .Forget())
