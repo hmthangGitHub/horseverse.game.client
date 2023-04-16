@@ -59,7 +59,7 @@ public class UIHorseDetailPresenter : IDisposable
                 stamina = currentHorse.HorseAttribute.SprintNumber * 100f,
                 agility = currentHorse.HorseAttribute.Hms,
                 staminaRecovery = 100f / currentHorse.HorseAttribute.RestoreSprintTime,
-                sprintTime = currentHorse.SprintTime,
+                sprintTime = currentHorse.HorseAttribute.SprintTime,
                 breedCountMax = 3, // TODO
                 coinCollectedMax = 100 // TODO
             },
