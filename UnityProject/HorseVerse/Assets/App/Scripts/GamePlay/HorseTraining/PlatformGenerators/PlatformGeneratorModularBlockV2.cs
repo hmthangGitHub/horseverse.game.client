@@ -49,15 +49,19 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
     {
         var randomBlockCombo = GetRandomBlockCombo();
         if (randomBlockCombo == default) Debug.LogError("NULL random combo");
-        var paddingStartBlockId= masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(randomBlockCombo.MasterTrainingModularBlockIdStart);
-        var paddingEndBlockId= masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(randomBlockCombo.MasterTrainingModularBlockIdEnd);
+        //var paddingStartBlockId= masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(randomBlockCombo.MasterTrainingModularBlockIdStart);
+        //var paddingEndBlockId= masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(randomBlockCombo.MasterTrainingModularBlockIdEnd);
+        var paddingStartBlockId = randomBlockCombo.MasterTrainingModularBlockIdStart;
+        var paddingEndBlockId = randomBlockCombo.MasterTrainingModularBlockIdEnd;
+        var prefabStart = string.IsNullOrEmpty(paddingStartBlockId) ? null : trainingBlockSettings.StartBlocksLookUpTable[paddingStartBlockId];
+        var prefabEnd = string.IsNullOrEmpty(paddingEndBlockId) ? null : trainingBlockSettings.EndBlocksLookUpTable[paddingEndBlockId];
 
         var modularBlockIds = randomBlockCombo.MasterHorseTrainingBlockIdList; 
         var platform = Instantiate(platformPrefab, this.transform);
         platform.GetComponent<PlatformModular>().GenerateBlock(relativePointToPlayer + lastEndPosition, 
-            modularBlockIds.Select(x => trainingBlockSettings.BlocksLookUpTable[x].gameObject).ToArray(), 
-            trainingBlockSettings.BlocksLookUpTable[paddingStartBlockId].gameObject,
-            trainingBlockSettings.BlocksLookUpTable[paddingEndBlockId].gameObject,
+            modularBlockIds.Select(x => trainingBlockSettings.BlocksLookUpTable[x].gameObject).ToArray(),
+            prefabStart,
+            prefabEnd,
             masterHorseTrainingProperty.JumpingPoint,
             masterHorseTrainingProperty.LandingPoint,
             randomBlockCombo,
@@ -79,16 +83,20 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
     {
         var randomBlockCombo = GetRandomBlockCombo();
 
-        var paddingStartBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(randomBlockCombo.MasterTrainingModularBlockIdStart);
-        var paddingEndBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(randomBlockCombo.MasterTrainingModularBlockIdEnd);
+        //var paddingStartBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(randomBlockCombo.MasterTrainingModularBlockIdStart);
+        //var paddingEndBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(randomBlockCombo.MasterTrainingModularBlockIdEnd);
+        var paddingStartBlockId = randomBlockCombo.MasterTrainingModularBlockIdStart;
+        var paddingEndBlockId = randomBlockCombo.MasterTrainingModularBlockIdEnd;
+        var prefabStart = string.IsNullOrEmpty(paddingStartBlockId) ? null : trainingBlockSettings.StartBlocksLookUpTable[paddingStartBlockId];
+        var prefabEnd = string.IsNullOrEmpty(paddingEndBlockId) ? null : trainingBlockSettings.EndBlocksLookUpTable[paddingEndBlockId];
 
         var modularBlockIds = randomBlockCombo.MasterHorseTrainingBlockIdList;
         var platform = Instantiate(platformPrefab, this.transform);
         var platformModular = platform.GetComponent<PlatformModular>();
         await platformModular.GenerateBlockAsync(relativePointToPlayer + lastEndPosition, 
             modularBlockIds.Select(x => trainingBlockSettings.BlocksLookUpTable[x].gameObject).ToArray(),
-            trainingBlockSettings.BlocksLookUpTable[paddingStartBlockId].gameObject,
-            trainingBlockSettings.BlocksLookUpTable[paddingEndBlockId].gameObject,
+            prefabStart,
+            prefabEnd,
             masterHorseTrainingProperty.JumpingPoint,
             masterHorseTrainingProperty.LandingPoint,
             randomBlockCombo,
@@ -110,16 +118,20 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
     {
         var randomBlockCombo = GetRandomBlockCombo();
 
-        var paddingStartBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(randomBlockCombo.MasterTrainingModularBlockIdStart);
-        var paddingEndBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(randomBlockCombo.MasterTrainingModularBlockIdEnd);
+        //var paddingStartBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(randomBlockCombo.MasterTrainingModularBlockIdStart);
+        //var paddingEndBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(randomBlockCombo.MasterTrainingModularBlockIdEnd);
+        var paddingStartBlockId = randomBlockCombo.MasterTrainingModularBlockIdStart;
+        var paddingEndBlockId = randomBlockCombo.MasterTrainingModularBlockIdEnd;
+        var prefabStart = string.IsNullOrEmpty(paddingStartBlockId) ? null : trainingBlockSettings.StartBlocksLookUpTable[paddingStartBlockId];
+        var prefabEnd = string.IsNullOrEmpty(paddingEndBlockId) ? null : trainingBlockSettings.EndBlocksLookUpTable[paddingEndBlockId];
 
         var modularBlockIds = randomBlockCombo.MasterHorseTrainingBlockIdList;
         var platform = Instantiate(platformPrefab, this.transform);
         var platformModular = platform.GetComponent<PlatformModular>();
         await platformModular.GenerateBlockWithouSceneryObjectAsync(relativePointToPlayer + lastEndPosition,
             modularBlockIds.Select(x => trainingBlockSettings.BlocksLookUpTable[x].gameObject).ToArray(),
-            trainingBlockSettings.BlocksLookUpTable[paddingStartBlockId].gameObject,
-            trainingBlockSettings.BlocksLookUpTable[paddingEndBlockId].gameObject,
+            prefabStart,
+            prefabEnd,
             masterHorseTrainingProperty.JumpingPoint,
             masterHorseTrainingProperty.LandingPoint,
             randomBlockCombo,

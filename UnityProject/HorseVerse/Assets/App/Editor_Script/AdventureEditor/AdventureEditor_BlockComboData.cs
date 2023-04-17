@@ -6,6 +6,7 @@ public class AdventureEditor_BlockComboData : MonoBehaviour
 {
     public long id;
     public string block_name;
+    public int group_id;
     public GameObject startPadding;
     public GameObject endPadding;
     public List<GameObject> paddings = new List<GameObject>();

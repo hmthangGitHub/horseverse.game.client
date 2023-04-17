@@ -20,6 +20,9 @@ public partial class AdventureEditor_LevelEditor
     private GameObject currentEditingPlatformObject;
 
     private MasterHorseTrainingBlockCombo[] blockCombos;
+    private MasterHorseTrainingBlock[] blockContainers;
+    private bool[] blockCombosInContainer;
+
     private MasterTrainingBlockComboType CurrentBlockComboType = MasterTrainingBlockComboType.Modular;
     private int CurrentSelectetBlockCombo = -1;
 
@@ -29,6 +32,8 @@ public partial class AdventureEditor_LevelEditor
         UnSelectOldBlockCombo();
         CurrentSelectetBlockCombo = -1;
         blockCombos = GetCurrentBlockCombo(CurrentBlockComboType);
+        UpdateListBlockContainer(blockCombos.Length, blockContainers, blockCombos);
+        UpdateListBlockDistribute(distributes);
     }
 
     void GUI_ListBlockCombo()
@@ -87,17 +92,28 @@ public partial class AdventureEditor_LevelEditor
         {
             if (blockCombos != default)
             {
-
                 for (int i = 0; i < blockCombos.Length; i++)
                 {
                     var combo = blockCombos[i];
                     GUILayout.BeginHorizontal(GUILayout.Width(300));
-
+                    EditorGUILayout.LabelField(combo.MasterHorseTrainingBlockId.ToString());
                     EditorGUILayout.LabelField(combo.Name);
                     EditorGUILayout.Toggle(CurrentSelectetBlockCombo == i);
+                    EditorGUILayout.Toggle("Using", blockCombosInContainer[i]);
                     if (GUILayout.Button("Edit"))
                     {
                         OnEditBlockCombo(i);
+                    }
+                    if (GUILayout.Button(blockCombosInContainer[i] ? "Disable" : "Enable"))
+                    {
+                        if (blockCombosInContainer[i])
+                        {
+                            OnRemoveBlockContainer(i);
+                        }
+                        else
+                        {
+                            OnAddBlockContainer(i);
+                        }
                     }
                     GUILayout.EndHorizontal();
                 }
@@ -124,10 +140,13 @@ public partial class AdventureEditor_LevelEditor
             }
         }
 
+        GUI_ListModular();
+        GUI_ListDistribute();
     }
 
     MasterHorseTrainingBlockCombo[] GetCurrentBlockCombo(MasterTrainingBlockComboType currentBlockComboType)
     {
+        if (masterHorseTrainingBlockComboContainer == default || masterHorseTrainingBlockComboContainer.DataList == default) return null;
         return masterHorseTrainingBlockComboContainer.DataList.Where(x => x.MasterTrainingBlockComboType == currentBlockComboType).ToArray();
     }
 
@@ -180,6 +199,7 @@ public partial class AdventureEditor_LevelEditor
                 {
                     var bnames = blockComboData.paddings.Select(x => x.name).ToArray();
                     data.MasterHorseTrainingBlockIdList = bnames;
+                    data.SetMasterTrainingGroupId(blockComboData.group_id);
                     if (blockComboData.startPadding != default)
                         data.SetMasterTrainingModularBlockIdStart(blockComboData.startPadding.name);
                     if (blockComboData.endPadding != default)
@@ -193,8 +213,8 @@ public partial class AdventureEditor_LevelEditor
             else
             {
                 // Save New Block
-                var blockComboName = currentEditingPlatformObject.name;
                 var blockComboData = currentEditingPlatformObject.GetComponent<AdventureEditor_BlockComboData>();
+                var blockComboName = blockComboData.block_name;
 
                 if (string.IsNullOrEmpty(blockComboName)) return;
                 MasterTrainingModularBlockType masterTrainingModularBlockType = FromBlockComboTypeToModularBlockType(CurrentBlockComboType);
@@ -208,9 +228,9 @@ public partial class AdventureEditor_LevelEditor
                     blockComboName,
                     CurrentBlockComboType,
                     string.Empty);
-
                 var bnames = blockComboData.paddings.Select(x => x.name).ToArray();
                 data.MasterHorseTrainingBlockIdList = bnames;
+                data.SetMasterTrainingGroupId(blockComboData.group_id);
                 if (blockComboData.startPadding != default)
                     data.SetMasterTrainingModularBlockIdStart(blockComboData.startPadding.name);
                 if (blockComboData.endPadding != default)
@@ -288,14 +308,21 @@ public partial class AdventureEditor_LevelEditor
         var tmp = AddDataComponent(currentEditingPlatformObject);
         tmp.id = masterHorseTrainingBlockCombo.MasterHorseTrainingBlockId;
         tmp.block_name = masterHorseTrainingBlockCombo.Name;
+        tmp.group_id = masterHorseTrainingBlockCombo.MasterHorseTrainingBlockComboGroupId;
 
-        var paddingStartBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(masterHorseTrainingBlockCombo.MasterTrainingModularBlockIdStart);
-        var paddingEndBlockId = masterTrainingModularBlockContainer.GetFirstPaddingIfEmpty(masterHorseTrainingBlockCombo.MasterTrainingModularBlockIdEnd);
+        var paddingStartBlockId = masterHorseTrainingBlockCombo.MasterTrainingModularBlockIdStart;
+        var paddingEndBlockId = masterHorseTrainingBlockCombo.MasterTrainingModularBlockIdEnd;
         var modularBlockIds = masterHorseTrainingBlockCombo.MasterHorseTrainingBlockIdList;
 
-        await GeneBlocks(collection.BlocksLookUpTable[paddingStartBlockId].gameObject,
-            collection.BlocksLookUpTable[paddingEndBlockId].gameObject, 
-            modularBlockIds.Select(x => collection.BlocksLookUpTable[x].gameObject).ToArray(), blockObj.transform, tmp);
+        var prefabStart = string.IsNullOrEmpty(paddingStartBlockId) ? null : collection.StartBlocksLookUpTable[paddingStartBlockId];
+        var prefabEnd = string.IsNullOrEmpty(paddingEndBlockId) ? null : collection.EndBlocksLookUpTable[paddingEndBlockId];
+        if (prefabStart == default) Debug.Log("paddingStartBlockId " + paddingStartBlockId + " is not found");
+        if (prefabEnd == default) Debug.Log("paddingEndBlockId " + paddingEndBlockId + " is not found");
+
+        await GeneBlocks(prefabStart,
+            prefabEnd, 
+            modularBlockIds.Select(x => collection.BlocksLookUpTable[x]?.gameObject).ToArray(),
+            blockObj.transform, tmp);
 
         await GenerateObstacle(masterHorseTrainingBlockCombo, obstObj.transform, tmp);
         await GenerateCoin(masterHorseTrainingBlockCombo, coinObj.transform, tmp);
@@ -348,8 +375,8 @@ public partial class AdventureEditor_LevelEditor
         var len = gameObjects.Length;
         var BoxColliders = new List<BoxCollider>();
 
-        var paddingHead = Instantiate_PaddingHeadCollider(paddingStartPrefab, parent);
-        var paddingTail = Instantiate_PaddingTailCollider(paddingEndPrefab, parent);
+        GameObject paddingHead = (paddingStartPrefab != default) ? Instantiate_PaddingHeadCollider(paddingStartPrefab, parent) : null;
+        GameObject paddingTail = (paddingEndPrefab != default) ? Instantiate_PaddingTailCollider(paddingEndPrefab, parent) : null;
 
         var headCol = paddingHead?.GetComponentInChildren<BoxCollider>();
         var tailCol = paddingTail?.GetComponentInChildren<BoxCollider>();

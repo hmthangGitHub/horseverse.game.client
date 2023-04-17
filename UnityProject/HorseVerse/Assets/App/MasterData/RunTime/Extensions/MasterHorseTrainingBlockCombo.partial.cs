@@ -203,6 +203,11 @@ public partial class MasterHorseTrainingBlockCombo
     {
         master_training_modular_block_id_end = blockId;
     }
+
+    public void SetMasterTrainingGroupId(int id)
+    {
+        master_horse_training_block_combo_group_id = id;
+    }
 #endif
 
     public static string FormatCustomData(string s)
