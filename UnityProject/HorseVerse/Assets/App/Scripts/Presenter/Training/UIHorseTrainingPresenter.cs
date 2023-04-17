@@ -32,6 +32,7 @@ public class UIHorseTrainingPresenter : IDisposable
     private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= container.Inject<UIBackGroundPresenter>();
 
     private long currentSelectHorseId = -1;
+    private int currentMapIndex = 0;
     public UIHorseTrainingPresenter(IDIContainer container)
     {
         this.container = container;
@@ -67,6 +68,19 @@ public class UIHorseTrainingPresenter : IDisposable
                                      >= UserSettingLocalRepository.MasterDataModel.TrainingHappinessCost
                 },
                 traningCost = UserSettingLocalRepository.MasterDataModel.TrainingHappinessCost,
+#if ENABLE_DEBUG_MODULE
+                mapSelection = new UIComponentHorseTraningMapSelection.Entity()
+                {
+                    mapToggleGroup = new UIComponentToggleGroup.Entity() { 
+                        onActiveToggle = (val) => { if (val)
+                            {
+                                currentMapIndex = uiHorseTraining.prepareState.mapSelection.mapToggleGroup.toggleGroup.GetFirstActiveToggle().transform.GetSiblingIndex();
+                                Debug.Log("currentMapIndex " + currentMapIndex);
+                            } 
+                        } 
+                    }
+                },
+#endif
             },
             processingState = currentState == UIComponentTraningState.TraningState.Processing ? new UIComponentTraningProcessingState.Entity()
             {
@@ -96,12 +110,13 @@ public class UIHorseTrainingPresenter : IDisposable
 
     private async UniTask ToTrainingAsync()
     {
-        var data = await TrainingDomainService.StartTrainingData(UserDataRepository.Current.CurrentHorseNftId);
-        if (data.ResultCode == 100)
+        //var data = await TrainingDomainService.StartTrainingData(UserDataRepository.Current.CurrentHorseNftId);
+        //if (data.ResultCode == 100)
         {
             ToTrainingActionState.Invoke();
 
             var userHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
+            var mapID = currentMapIndex == 0 ? 2001 : 2002;
             container.Bind(new HorseTrainingDataContext()
             {
                 HorseMeshInformation = new HorseMeshInformation()
@@ -112,9 +127,9 @@ public class UIHorseTrainingPresenter : IDisposable
                     color3 = userHorse.Color3,
                     color4 = userHorse.Color4,
                 },
-                MasterMapId = 2001,
+                MasterMapId = mapID,
             });
-        }   
+        }
     }
 
     private void UserDataRepositoryOnModelUpdate((UserDataModel before, UserDataModel after) model)
@@ -199,5 +214,4 @@ public class UIHorseTrainingPresenter : IDisposable
         var userHorse = HorseRepository.Models[currentSelectHorseId];
         uiHorseTraining.prepareState.toTraningBtn.SetInteractable(userHorse.Happiness >= UserSettingLocalRepository.MasterDataModel.TrainingHappinessCost);
     }
-
 }

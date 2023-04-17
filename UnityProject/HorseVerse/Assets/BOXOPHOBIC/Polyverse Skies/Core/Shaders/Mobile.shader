@@ -27,7 +27,7 @@ Shader "BOXOPHOBIC/Polyverse Skies/Mobile"
     SubShader
     {
 		Tags { "RenderType" = "Background" "Queue" = "Background" "PreviewType" = "Skybox" }
-	LOD 100
+		LOD 100
 
 		CGINCLUDE
 		#pragma target 2.0

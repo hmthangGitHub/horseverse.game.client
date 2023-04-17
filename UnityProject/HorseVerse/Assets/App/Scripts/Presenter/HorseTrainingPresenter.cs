@@ -51,7 +51,9 @@ public class HorseTrainingPresenter : IDisposable
 
     public async UniTask LoadAssetsAsync()
     {
-        await LoadAssetsAsync(2001);
+        var mapID = HorseTrainingDataContext.MasterMapId;
+        if (mapID == 0) mapID = 2001;
+        await LoadAssetsAsync(mapID);
     }
 
     private void OnStartRunning()
@@ -277,9 +279,10 @@ public class HorseTrainingPresenter : IDisposable
         Time.timeScale = 0.0f;
         AudioManager.Instance.StopSound();
         SoundController.PlayHitObstance();
-        var data = await TrainingDomainService.GetTrainingRewardData(CurrentPoint, CurrentCoin);
-        await UserDataRepository.UpdateLightPlayerInfoAsync(data.PlayerInfo);
-        await ShowUIHorseTrainingResultAsync(data);
+        //var data = await TrainingDomainService.GetTrainingRewardData(CurrentPoint, CurrentCoin);
+        //await UserDataRepository.UpdateLightPlayerInfoAsync(data.PlayerInfo);
+        //await ShowUIHorseTrainingResultAsync(data);
+        trainingUcsRetry.TrySetResult(false);
     }
 
     public void Dispose()
@@ -307,7 +310,7 @@ public class HorseTrainingPresenter : IDisposable
         MasterLoader.SafeRelease(currentMasterMapId.ToString(), ref masterHorseTrainingBlockContainer);
         MasterLoader.SafeRelease(currentMasterMapId.ToString(), ref masterHorseTrainingBlockComboContainer);
         MasterLoader.SafeRelease(ref masterTrainingDifficultyContainer);
-        MasterLoader.SafeRelease(ref masterTrainingBlockDistributeContainer);
+        MasterLoader.SafeRelease(currentMasterMapId.ToString(), ref masterTrainingBlockDistributeContainer);
         horseTrainingDataContext = default;
         DisposeUtility.SafeDispose(ref horseTrainingManager);
         AudioManager.Instance.StopSound();

@@ -14,9 +14,10 @@ public class UIComponentToggleGroup : UIComponent<UIComponentToggleGroup.Entity>
     }
 
     public ToggleGroup toggleGroup;
+    public List<Toggle> toggles;
 
     protected override void OnSetEntity()
     {
-        toggleGroup.ActiveToggles().ToList().ForEach(x => x.onValueChanged.AddListener(val => this.entity.onActiveToggle(val)));
+        toggles.ForEach(x => x.onValueChanged.AddListener(val => this.entity.onActiveToggle(val)));
     }
 }	
