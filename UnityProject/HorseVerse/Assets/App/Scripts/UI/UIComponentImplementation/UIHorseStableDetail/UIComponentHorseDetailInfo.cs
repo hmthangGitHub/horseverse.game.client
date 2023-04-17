@@ -18,6 +18,7 @@ public class UIComponentHorseDetailInfo : UIComponent<UIComponentHorseDetailInfo
     	    public float sprintTime;
     	    public float stamina;
     	    public float staminaRecovery;
+    	    public float sprintSpeed;
         }
     
         public FormattedTextComponent speed;
@@ -28,6 +29,7 @@ public class UIComponentHorseDetailInfo : UIComponent<UIComponentHorseDetailInfo
         public FormattedTextComponent sprintTime;
         public FormattedTextComponent stamina;
         public FormattedTextComponent staminaRecovery;
+        public FormattedTextComponent sprintSpeed;
         
         protected override void OnSetEntity()
         {
@@ -39,5 +41,6 @@ public class UIComponentHorseDetailInfo : UIComponent<UIComponentHorseDetailInfo
     	    sprintTime.SetEntity(Math.Round(this.entity.sprintTime, 1));
     	    stamina.SetEntity(Math.Round(this.entity.stamina, 1));
     	    staminaRecovery.SetEntity(Math.Round(this.entity.staminaRecovery, 1));
+            sprintSpeed.SetEntity(Math.Round(this.entity.sprintSpeed, 1));
         }
 }	
