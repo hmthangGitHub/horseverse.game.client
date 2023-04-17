@@ -510,6 +510,8 @@ public class LoginStatePresenter : IDisposable
         UserSettingLocalRepository.MasterDataModel.BetNumberList.Clear();
         UserSettingLocalRepository.MasterDataModel.BetNumberList.AddRange(data.BetNumberList);
         UserSettingLocalRepository.MasterDataModel.MaxDailyRacingNumber = data.MaxDailyRacingNumber;
+        UserSettingLocalRepository.MasterDataModel.MaxBreedingNumber = data.MaxBreedingNumber;
+        UserSettingLocalRepository.MasterDataModel.MaxCoinCollected = data.MaxCoinCollected;
         UserSettingLocalRepository.MasterDataModel.RacingRewardInfos = data.RaceRewardInfos
                                                                            .ToDictionary(x => ((RacingRoomType)(int)x.Level, x.Rank), x => x.Rewards.ToArray());
     }

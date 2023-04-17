@@ -60,15 +60,15 @@ public class UIHorseDetailPresenter : IDisposable
                 agility = currentHorse.HorseAttribute.Hms,
                 staminaRecovery = 100f / currentHorse.HorseAttribute.RestoreSprintTime,
                 sprintTime = currentHorse.HorseAttribute.SprintTime,
-                breedCountMax = 3, // TODO
-                coinCollectedMax = 100 // TODO
+                breedCountMax = UserSettingLocalRepository.MasterDataModel.MaxBreedingNumber,
+                coinCollectedMax = UserSettingLocalRepository.MasterDataModel.MaxCoinCollected
             },
             briefInfo = new UIHorseStableBriefInfo.Entity()
             {
                 horseName = currentHorse.Name,
                 age = currentHorse.HorseBasic.Age,
-                element = currentHorse.Type.ConvertTo<HorseType, UIComponentHorseElement.Element>(),
-                sex = currentHorse.HorseBasic.Sex == 0 ? UIHorseSexInfo.Sex.Female : UIHorseSexInfo.Sex.Male,
+                element = (UIComponentHorseElement.Element)currentHorse.HorseType,
+                sex = (UIHorseSexInfo.Sex)currentHorse.HorseBasic.Sex,
                 leftBtn = new ButtonComponent.Entity(() =>
                 {
                     UIHorse3DViewPresenter.ChangeHorseOnSwipe(-1).Forget();
@@ -77,7 +77,7 @@ public class UIHorseDetailPresenter : IDisposable
                 {
                     UIHorse3DViewPresenter.ChangeHorseOnSwipe(1).Forget();
                 }),
-                rarity = currentHorse.Rarity.ConvertTo<HorseRarity, UIComponentHorseRankRequirement.Rarity>()
+                rarity = (UIComponentHorseRankRequirement.Rarity)currentHorse.Rarity
             }
         };
     }

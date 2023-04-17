@@ -36,42 +36,43 @@ namespace io.hverse.game.protogen {
             "ZXNwb25zZRgHIAEoCzIaLlBsYXllckhvcnNlUmlzaW5nUmVzcG9uc2USPQoZ",
             "cGxheWVySG9yc2VIaXN0b3J5UmVxdWVzdBgIIAEoCzIaLlBsYXllckhvcnNl",
             "SGlzdG9yeVJlcXVlc3QSPwoacGxheWVySG9yc2VIaXN0b3J5UmVzcG9uc2UY",
-            "CSABKAsyGy5QbGF5ZXJIb3JzZUhpc3RvcnlSZXNwb25zZSJ2CgpIb3JzZUJh",
-            "c2ljEgoKAmlkGAEgASgDEgwKBG5hbWUYAiABKAkSCwoDc2V4GAMgASgFEgsK",
-            "A2FnZRgEIAEoBRIRCgljb2xvclR5cGUYBSABKAUSEQoJaG9yc2VUeXBlGAYg",
-            "ASgFEg4KBnJhcml0eRgHIAEoBSKgAQoOSG9yc2VBdHRyaWJ1dGUSCgoCaWQY",
-            "ASABKAMSCwoDYm1zGAIgASgFEgsKA2htcxgDIAEoBRILCgNtbXMYBCABKAUS",
-            "CgoCYmEYBSABKAUSCgoCc2EYBiABKAUSEgoKc3ByaW50VGltZRgHIAEoBRIZ",
-            "ChFyZXN0b3JlU3ByaW50VGltZRgIIAEoBRIUCgxzcHJpbnROdW1iZXIYCSAB",
-            "KAUiiAEKC0hvcnNlUmlzaW5nEgoKAmlkGAEgASgDEgsKA2V4cBgCIAEoBRIP",
-            "CgduZXh0RXhwGAMgASgFEhUKDWNvaW5Db2xsZWN0ZWQYBCABKAUSDgoGZ3Jv",
-            "d1VwGAUgASgFEhEKCWhhcHBpbmVzcxgGIAEoBRIVCg1icmVlZGluZ0NvdW50",
-            "GAcgASgFIn8KDEhvcnNlSGlzdG9yeRIKCgJpZBgBIAEoAxIZChFsYXN0QmV0",
-            "dGluZ1JlY29yZBgCIAEoAhIcChRhdmVyYWdlQmV0dGluZ1JlY29yZBgDIAEo",
-            "AhIZChFiZXN0QmV0dGluZ1JlY29yZBgEIAEoAhIPCgd3aW5SYXRlGAUgASgC",
-            "IiUKF1BsYXllckhvcnNlQmFzaWNSZXF1ZXN0EgoKAmlkGAEgAygDIlIKGFBs",
-            "YXllckhvcnNlQmFzaWNSZXNwb25zZRIRCgllcnJvckNvZGUYASABKAUSIwoO",
-            "aG9yc2VCYXNpY0xpc3QYAiADKAsyCy5Ib3JzZUJhc2ljIikKG1BsYXllckhv",
-            "cnNlQXR0cmlidXRlUmVxdWVzdBIKCgJpZBgBIAMoAyJeChxQbGF5ZXJIb3Jz",
-            "ZUF0dHJpYnV0ZVJlc3BvbnNlEhEKCWVycm9yQ29kZRgBIAEoBRIrChJob3Jz",
-            "ZUF0dHJpYnV0ZUxpc3QYAiADKAsyDy5Ib3JzZUF0dHJpYnV0ZSImChhQbGF5",
-            "ZXJIb3JzZVJpc2luZ1JlcXVlc3QSCgoCaWQYASADKAMiVQoZUGxheWVySG9y",
-            "c2VSaXNpbmdSZXNwb25zZRIRCgllcnJvckNvZGUYASABKAUSJQoPaG9yc2VS",
-            "aXNpbmdMaXN0GAIgAygLMgwuSG9yc2VSaXNpbmciJwoZUGxheWVySG9yc2VI",
-            "aXN0b3J5UmVxdWVzdBIKCgJpZBgBIAMoAyJYChpQbGF5ZXJIb3JzZUhpc3Rv",
-            "cnlSZXNwb25zZRIRCgllcnJvckNvZGUYASABKAUSJwoQaG9yc2VIaXN0b3J5",
-            "TGlzdBgCIAMoCzINLkhvcnNlSGlzdG9yeSqkAgoQSG9yc2VNZXNzYWdlVHlw",
-            "ZRIeChpQTEFZRVJfSE9SU0VfQkFTSUNfUkVRVUVTVBAAEh8KG1BMQVlFUl9I",
-            "T1JTRV9CQVNJQ19SRVNQT05TRRABEiIKHlBMQVlFUl9IT1JTRV9BVFRSSUJV",
-            "VEVfUkVRVUVTVBACEiMKH1BMQVlFUl9IT1JTRV9BVFRSSUJVVEVfUkVTUE9O",
-            "U0UQAxIfChtQTEFZRVJfSE9SU0VfUklTSU5HX1JFUVVFU1QQBBIgChxQTEFZ",
-            "RVJfSE9SU0VfUklTSU5HX1JFU1BPTlNFEAUSIAocUExBWUVSX0hPUlNFX0hJ",
-            "U1RPUllfUkVRVUVTVBAGEiEKHVBMQVlFUl9IT1JTRV9ISVNUT1JZX1JFU1BP",
-            "TlNFEAdCSAoXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5CE0hvcnNlTWVzc2Fn",
-            "ZUZhY3RvcnmqAhdpby5odmVyc2UuZ2FtZS5wcm90b2dlbmIGcHJvdG8z"));
+            "CSABKAsyGy5QbGF5ZXJIb3JzZUhpc3RvcnlSZXNwb25zZSKBAQoKSG9yc2VC",
+            "YXNpYxIKCgJpZBgBIAEoAxIMCgRuYW1lGAIgASgJEhYKA3NleBgDIAEoDjIJ",
+            "LkhvcnNlU2V4EgsKA2FnZRgEIAEoBRIRCgljb2xvclR5cGUYBSABKAUSEQoJ",
+            "aG9yc2VUeXBlGAYgASgFEg4KBnJhcml0eRgHIAEoBSKgAQoOSG9yc2VBdHRy",
+            "aWJ1dGUSCgoCaWQYASABKAMSCwoDYm1zGAIgASgFEgsKA2htcxgDIAEoBRIL",
+            "CgNtbXMYBCABKAUSCgoCYmEYBSABKAUSCgoCc2EYBiABKAUSEgoKc3ByaW50",
+            "VGltZRgHIAEoBRIZChFyZXN0b3JlU3ByaW50VGltZRgIIAEoBRIUCgxzcHJp",
+            "bnROdW1iZXIYCSABKAUiiAEKC0hvcnNlUmlzaW5nEgoKAmlkGAEgASgDEgsK",
+            "A2V4cBgCIAEoBRIPCgduZXh0RXhwGAMgASgFEhUKDWNvaW5Db2xsZWN0ZWQY",
+            "BCABKAUSDgoGZ3Jvd1VwGAUgASgFEhEKCWhhcHBpbmVzcxgGIAEoBRIVCg1i",
+            "cmVlZGluZ0NvdW50GAcgASgFIn8KDEhvcnNlSGlzdG9yeRIKCgJpZBgBIAEo",
+            "AxIZChFsYXN0QmV0dGluZ1JlY29yZBgCIAEoAhIcChRhdmVyYWdlQmV0dGlu",
+            "Z1JlY29yZBgDIAEoAhIZChFiZXN0QmV0dGluZ1JlY29yZBgEIAEoAhIPCgd3",
+            "aW5SYXRlGAUgASgCIiUKF1BsYXllckhvcnNlQmFzaWNSZXF1ZXN0EgoKAmlk",
+            "GAEgAygDIlIKGFBsYXllckhvcnNlQmFzaWNSZXNwb25zZRIRCgllcnJvckNv",
+            "ZGUYASABKAUSIwoOaG9yc2VCYXNpY0xpc3QYAiADKAsyCy5Ib3JzZUJhc2lj",
+            "IikKG1BsYXllckhvcnNlQXR0cmlidXRlUmVxdWVzdBIKCgJpZBgBIAMoAyJe",
+            "ChxQbGF5ZXJIb3JzZUF0dHJpYnV0ZVJlc3BvbnNlEhEKCWVycm9yQ29kZRgB",
+            "IAEoBRIrChJob3JzZUF0dHJpYnV0ZUxpc3QYAiADKAsyDy5Ib3JzZUF0dHJp",
+            "YnV0ZSImChhQbGF5ZXJIb3JzZVJpc2luZ1JlcXVlc3QSCgoCaWQYASADKAMi",
+            "VQoZUGxheWVySG9yc2VSaXNpbmdSZXNwb25zZRIRCgllcnJvckNvZGUYASAB",
+            "KAUSJQoPaG9yc2VSaXNpbmdMaXN0GAIgAygLMgwuSG9yc2VSaXNpbmciJwoZ",
+            "UGxheWVySG9yc2VIaXN0b3J5UmVxdWVzdBIKCgJpZBgBIAMoAyJYChpQbGF5",
+            "ZXJIb3JzZUhpc3RvcnlSZXNwb25zZRIRCgllcnJvckNvZGUYASABKAUSJwoQ",
+            "aG9yc2VIaXN0b3J5TGlzdBgCIAMoCzINLkhvcnNlSGlzdG9yeSqkAgoQSG9y",
+            "c2VNZXNzYWdlVHlwZRIeChpQTEFZRVJfSE9SU0VfQkFTSUNfUkVRVUVTVBAA",
+            "Eh8KG1BMQVlFUl9IT1JTRV9CQVNJQ19SRVNQT05TRRABEiIKHlBMQVlFUl9I",
+            "T1JTRV9BVFRSSUJVVEVfUkVRVUVTVBACEiMKH1BMQVlFUl9IT1JTRV9BVFRS",
+            "SUJVVEVfUkVTUE9OU0UQAxIfChtQTEFZRVJfSE9SU0VfUklTSU5HX1JFUVVF",
+            "U1QQBBIgChxQTEFZRVJfSE9SU0VfUklTSU5HX1JFU1BPTlNFEAUSIAocUExB",
+            "WUVSX0hPUlNFX0hJU1RPUllfUkVRVUVTVBAGEiEKHVBMQVlFUl9IT1JTRV9I",
+            "SVNUT1JZX1JFU1BPTlNFEAcqIAoISG9yc2VTZXgSCAoETUFMRRAAEgoKBkZF",
+            "TUFMRRABQkgKF2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuQhNIb3JzZU1lc3Nh",
+            "Z2VGYWN0b3J5qgIXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.HorseMessageType), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.HorseMessageType), typeof(global::io.hverse.game.protogen.HorseSex), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseMessage), global::io.hverse.game.protogen.HorseMessage.Parser, new[]{ "MsgType", "PlayerHorseBasicRequest", "PlayerHorseBasicResponse", "PlayerHorseAttributeRequest", "PlayerHorseAttributeResponse", "PlayerHorseRisingRequest", "PlayerHorseRisingResponse", "PlayerHorseHistoryRequest", "PlayerHorseHistoryResponse" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseBasic), global::io.hverse.game.protogen.HorseBasic.Parser, new[]{ "Id", "Name", "Sex", "Age", "ColorType", "HorseType", "Rarity" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseAttribute), global::io.hverse.game.protogen.HorseAttribute.Parser, new[]{ "Id", "Bms", "Hms", "Mms", "Ba", "Sa", "SprintTime", "RestoreSprintTime", "SprintNumber" }, null, null, null, null),
@@ -100,6 +101,11 @@ namespace io.hverse.game.protogen {
     [pbr::OriginalName("PLAYER_HORSE_RISING_RESPONSE")] PlayerHorseRisingResponse = 5,
     [pbr::OriginalName("PLAYER_HORSE_HISTORY_REQUEST")] PlayerHorseHistoryRequest = 6,
     [pbr::OriginalName("PLAYER_HORSE_HISTORY_RESPONSE")] PlayerHorseHistoryResponse = 7,
+  }
+
+  public enum HorseSex {
+    [pbr::OriginalName("MALE")] Male = 0,
+    [pbr::OriginalName("FEMALE")] Female = 1,
   }
 
   #endregion
@@ -738,10 +744,10 @@ namespace io.hverse.game.protogen {
 
     /// <summary>Field number for the "sex" field.</summary>
     public const int SexFieldNumber = 3;
-    private int sex_;
+    private global::io.hverse.game.protogen.HorseSex sex_ = global::io.hverse.game.protogen.HorseSex.Male;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int Sex {
+    public global::io.hverse.game.protogen.HorseSex Sex {
       get { return sex_; }
       set {
         sex_ = value;
@@ -827,7 +833,7 @@ namespace io.hverse.game.protogen {
       int hash = 1;
       if (Id != 0L) hash ^= Id.GetHashCode();
       if (Name.Length != 0) hash ^= Name.GetHashCode();
-      if (Sex != 0) hash ^= Sex.GetHashCode();
+      if (Sex != global::io.hverse.game.protogen.HorseSex.Male) hash ^= Sex.GetHashCode();
       if (Age != 0) hash ^= Age.GetHashCode();
       if (ColorType != 0) hash ^= ColorType.GetHashCode();
       if (HorseType != 0) hash ^= HorseType.GetHashCode();
@@ -858,9 +864,9 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(18);
         output.WriteString(Name);
       }
-      if (Sex != 0) {
+      if (Sex != global::io.hverse.game.protogen.HorseSex.Male) {
         output.WriteRawTag(24);
-        output.WriteInt32(Sex);
+        output.WriteEnum((int) Sex);
       }
       if (Age != 0) {
         output.WriteRawTag(32);
@@ -896,9 +902,9 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(18);
         output.WriteString(Name);
       }
-      if (Sex != 0) {
+      if (Sex != global::io.hverse.game.protogen.HorseSex.Male) {
         output.WriteRawTag(24);
-        output.WriteInt32(Sex);
+        output.WriteEnum((int) Sex);
       }
       if (Age != 0) {
         output.WriteRawTag(32);
@@ -932,8 +938,8 @@ namespace io.hverse.game.protogen {
       if (Name.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
       }
-      if (Sex != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Sex);
+      if (Sex != global::io.hverse.game.protogen.HorseSex.Male) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Sex);
       }
       if (Age != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Age);
@@ -965,7 +971,7 @@ namespace io.hverse.game.protogen {
       if (other.Name.Length != 0) {
         Name = other.Name;
       }
-      if (other.Sex != 0) {
+      if (other.Sex != global::io.hverse.game.protogen.HorseSex.Male) {
         Sex = other.Sex;
       }
       if (other.Age != 0) {
@@ -1004,7 +1010,7 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 24: {
-            Sex = input.ReadInt32();
+            Sex = (global::io.hverse.game.protogen.HorseSex) input.ReadEnum();
             break;
           }
           case 32: {
@@ -1047,7 +1053,7 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 24: {
-            Sex = input.ReadInt32();
+            Sex = (global::io.hverse.game.protogen.HorseSex) input.ReadEnum();
             break;
           }
           case 32: {

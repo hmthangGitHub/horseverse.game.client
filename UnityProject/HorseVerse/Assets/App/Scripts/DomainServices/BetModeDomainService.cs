@@ -135,36 +135,17 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
         {
             MatchId = BetMatchRepository.Current.BetMatchId
         }, 5.0f);
-        HorseDataModel[] data = default;
-        data = horseResponse.HorseInfos.Select(x =>
+
+        return new HorseBetInfo()
         {
-            return new HorseDataModel()
+            HorseInfos = horseResponse.HorseInfos.Select(x => new HorseDataModel()
             {
-                HorseNtfId = x.NftId,
-                Name = x.Name,
-                Earning = UnityEngine.Random.Range(100, 10000),
-                PowerBonus = x.Bms,
-                PowerRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
-                SpeedBonus = x.Mms,
-                SpeedRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
                 TechnicallyBonus = x.Acceleration,
-                TechnicallyRatio = UnityEngine.Random.Range(0.0001f, 0.5f),
-                Rarity = (HorseRarity)x.Rarity,
-                Type = x.HorseType,
-                Level = x.Level,
-                Color1 = HorseRepository.GetColorFromHexCode(x.Color1),
-                Color2 = HorseRepository.GetColorFromHexCode(x.Color2),
-                Color3 = HorseRepository.GetColorFromHexCode(x.Color3),
-                Color4 = HorseRepository.GetColorFromHexCode(x.Color4),
                 LastBettingRecord = x.LastBettingRecord,
                 AverageBettingRecord = x.AverageBettingRecord,
                 BestBettingRecord = x.BestBettingRecord,
-                Rate = x.WinRate
-            };
-        }).ToArray();
-        return new HorseBetInfo()
-        {
-            HorseInfos = data
+                Rate = x.WinRate,
+            }).ToArray()
         };
     }
          

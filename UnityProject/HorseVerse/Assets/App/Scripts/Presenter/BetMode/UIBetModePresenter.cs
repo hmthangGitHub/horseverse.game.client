@@ -361,7 +361,6 @@ public class UIBetModePresenter : IDisposable
             entity.horseDetail = new UIComponentHorseDetail.Entity()
             {
                 horseName = horseInfo.Name,
-                level = horseInfo.Level,
                 powerProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
                 {
                     bonus = horseInfo.PowerBonus,
@@ -390,14 +389,14 @@ public class UIBetModePresenter : IDisposable
             entity.horseDetailNumber = index + 1;
             entity.horseRace = new UIComponentHorseRace.Entity()
             {
-                type = (int)horseInfo.Type
+                type = (int)horseInfo.HorseType
             };
             
             uiBetModeHorseInfo.UpdateDetailInfo(entity);
             if (!update)
-                await UiHorseInfo3DViewPresenter.ShowHorse3DViewAsync(MasterHorseContainer.FromTypeToMasterHorse(horseInfo.Type).MasterHorseId, horseInfo.Color1, horseInfo.Color2, horseInfo.Color3, horseInfo.Color4).AttachExternalCancellation(ctsInfo.Token);
+                await UiHorseInfo3DViewPresenter.ShowHorse3DViewAsync(MasterHorseContainer.FromTypeToMasterHorse(horseInfo.HorseType).MasterHorseId, horseInfo.Color1, horseInfo.Color2, horseInfo.Color3, horseInfo.Color4).AttachExternalCancellation(ctsInfo.Token);
             else
-                await UiHorseInfo3DViewPresenter.UpdateMode(MasterHorseContainer.FromTypeToMasterHorse(horseInfo.Type).MasterHorseId, horseInfo.Color1, horseInfo.Color2, horseInfo.Color3, horseInfo.Color4).AttachExternalCancellation(ctsInfo.Token);
+                await UiHorseInfo3DViewPresenter.UpdateMode(MasterHorseContainer.FromTypeToMasterHorse(horseInfo.HorseType).MasterHorseId, horseInfo.Color1, horseInfo.Color2, horseInfo.Color3, horseInfo.Color4).AttachExternalCancellation(ctsInfo.Token);
         }
     }
     

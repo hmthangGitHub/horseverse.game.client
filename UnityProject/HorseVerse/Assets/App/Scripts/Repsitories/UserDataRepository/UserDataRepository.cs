@@ -18,7 +18,7 @@ public class UserDataRepository : Repository<long, PlayerInfo, UserDataModel>, I
         {
             Coin = x.Chip,
             Energy = 0,
-            CurrentHorseNftId = x.CurrentHorse.NftId,
+            CurrentHorseNftId = x.CurrentHorseBasic.Id,
             UserId = x.Id,
             UserName = x.Name,
             Exp = 0,
