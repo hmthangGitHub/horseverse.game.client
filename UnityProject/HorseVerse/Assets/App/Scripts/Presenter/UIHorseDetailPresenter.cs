@@ -60,8 +60,9 @@ public class UIHorseDetailPresenter : IDisposable
                 agility = currentHorse.HorseAttribute.Hms,
                 staminaRecovery = 100f / currentHorse.HorseAttribute.RestoreSprintTime,
                 sprintTime = currentHorse.HorseAttribute.SprintTime,
+                sprintSpeed = currentHorse.HorseAttribute.Mms,
                 breedCountMax = UserSettingLocalRepository.MasterDataModel.MaxBreedingNumber,
-                coinCollectedMax = UserSettingLocalRepository.MasterDataModel.MaxCoinCollected
+                coinCollectedMax = UserSettingLocalRepository.MasterDataModel.MaxCoinCollected,
             },
             briefInfo = new UIHorseStableBriefInfo.Entity()
             {
