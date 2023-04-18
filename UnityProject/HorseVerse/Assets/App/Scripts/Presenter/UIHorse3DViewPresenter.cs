@@ -150,9 +150,11 @@ public class UIHorse3DViewPresenter : IDisposable
 
         await UITouchDisablePresenter.ShowTillFinishTaskAsync(UniTask.Create(async () =>
         {
+            var nftHorseId = GetNextHorse(direction);
+            if (nftHorseId == UserDataRepository.Current.CurrentHorseNftId) return;
             await objHorse3DView.PlayHorizontalAnimation(direction);
             changeHorseTask = new UniTaskCompletionSource();
-            UserDataRepository.UpdateHorse(GetNextHorse(direction))
+            UserDataRepository.UpdateHorse(nftHorseId)
                               .Forget();
             await changeHorseTask.Task.AttachExternalCancellation(cts.Token);
             changeHorseTask = default;
