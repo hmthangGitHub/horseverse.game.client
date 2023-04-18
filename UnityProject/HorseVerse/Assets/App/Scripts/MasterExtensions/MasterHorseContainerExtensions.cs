@@ -10,10 +10,10 @@ public static class MasterHorseContainerExtensions
     {
         return new HorseMeshInformation()
         {
-            color1 = masterHorseMeshInformation.color1,
-            color2 = masterHorseMeshInformation.color2,
-            color3 = masterHorseMeshInformation.color3,
-            color4 = masterHorseMeshInformation.color4,
+            //color1 = masterHorseMeshInformation.color1,
+            //color2 = masterHorseMeshInformation.color2,
+            //color3 = masterHorseMeshInformation.color3,
+            //color4 = masterHorseMeshInformation.color4,
             horseModelPath = GetModelPathFromHorseModelMode(
                 masterHorseContainer.MasterHorseIndexer[masterHorseMeshInformation.masterHorseId], horseModelMode)
         };

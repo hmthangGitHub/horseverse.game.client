@@ -30,6 +30,7 @@ public class UIHorse3DViewPresenter : IDisposable
     private UniTaskCompletionSource changeHorseTask;
     public event Action OnTouchHorseEvent = ActionUtility.EmptyAction.Instance;
     private int platformIndex = -1;
+    private long currentHorseID = -1;
     public UIHorse3DViewPresenter(IDIContainer container)
     {
         this.container = container;    
@@ -51,10 +52,10 @@ public class UIHorse3DViewPresenter : IDisposable
                 horseLoader = new HorseObjectLoader.Entity()
                 {
                     horse = MasterHorseContainer.FromTypeToMasterHorse(HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].HorseType).ModelPath,
-                    color1 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color1,
-                    color2 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color2,
-                    color3 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color3,
-                    color4 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color4,
+                    //color1 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color1,
+                    //color2 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color2,
+                    //color3 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color3,
+                    //color4 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color4,
                     backgroundType = backgroundType,
                 },
                 horseTouchAction = () => OnTouchHorseEvent.Invoke()
@@ -122,10 +123,10 @@ public class UIHorse3DViewPresenter : IDisposable
         objHorse3DView.entity.horseLoader = new HorseObjectLoader.Entity()
         {
             horse = masterHorse.ModelPath,
-            color1 = userHorse.Color1,
-            color2 = userHorse.Color2,
-            color3 = userHorse.Color3,
-            color4 = userHorse.Color4,
+            //color1 = userHorse.Color1,
+            //color2 = userHorse.Color2,
+            //color3 = userHorse.Color3,
+            //color4 = userHorse.Color4,
             backgroundType = backgroundType,
         };
         objHorse3DView.horseLoader.SetEntity(objHorse3DView.entity.horseLoader);
@@ -143,6 +144,10 @@ public class UIHorse3DViewPresenter : IDisposable
 
     public async UniTaskVoid ChangeHorseOnSwipe(int direction)
     {
+        if (HorseRepository.Models.Count == 0 || HorseRepository.Models.Count == 1) return;
+        var nextHorse = GetNextHorse(direction);
+        if (nextHorse == currentHorseID) return;
+
         await UITouchDisablePresenter.ShowTillFinishTaskAsync(UniTask.Create(async () =>
         {
             await objHorse3DView.PlayHorizontalAnimation(direction);

@@ -62,7 +62,7 @@ public class HorseObjectLoader : MonoBehaviour
             await LoadNewHorse();
             SetHorseAnimationIfNeed();
         }
-        else UpdateColor();
+        //else UpdateColor();
     }
 
     private void SetHorseAnimationIfNeed()
@@ -76,10 +76,7 @@ public class HorseObjectLoader : MonoBehaviour
     private async UniTask LoadNewHorse()
     {
         oldHorse = this.entity.horse;
-        horse = await HorseMeshAssetLoader.InstantiateHorse(this.entity.horse, this.entity.color1,
-            this.entity.color2,
-            this.entity.color3,
-            this.entity.color4, cts.Token);
+        horse = await HorseMeshAssetLoader.InstantiateHorse(this.entity.horse, cts.Token);
 
         horse.transform.parent = horsePosition;
         horse.transform.localScale = Vector3.one;

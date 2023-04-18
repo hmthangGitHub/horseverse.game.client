@@ -54,8 +54,7 @@ public class UIHorseModelLoader : UIComponent<UIHorseModelLoader.Entity>
 
         oldHorse = this.entity.horse;
 
-        horse = await HorseMeshAssetLoader.InstantiateHorse(this.entity.horse, this.entity.color1,
-            this.entity.color2, this.entity.color3, this.entity.color4, cts.Token);
+        horse = await HorseMeshAssetLoader.InstantiateHorse(this.entity.horse, cts.Token);
         horse.transform.parent = horsePosition.transform;
         horse.transform.localPosition = Vector3.zero;
         horse.transform.localRotation = Quaternion.Euler(0, 90, 0);

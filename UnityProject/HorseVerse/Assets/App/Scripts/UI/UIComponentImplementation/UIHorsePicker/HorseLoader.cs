@@ -66,10 +66,7 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
     private async UniTask LoadNewHorse()
     {
         oldHorse = this.entity.horse;
-        horse = await HorseMeshAssetLoader.InstantiateHorse(this.entity.horse, this.entity.color1, 
-            this.entity.color2, 
-            this.entity.color3, 
-            this.entity.color4, cts.Token);
+        horse = await HorseMeshAssetLoader.InstantiateHorse(this.entity.horse,  cts.Token);
 
         horse.transform.parent = horsePosition;
         horse.transform.localScale = Vector3.one;
