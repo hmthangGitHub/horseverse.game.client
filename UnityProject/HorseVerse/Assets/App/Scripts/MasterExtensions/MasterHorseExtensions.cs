@@ -12,4 +12,11 @@ public static class MasterHorseExtensions
         var masterHorseType = (MasterHorseType)type;
         return masterHorseContainer.MasterHorseIndexer.Values.FirstOrDefault(x => x.MasterHorseType == masterHorseType);
     }
+
+    public static MasterHorse FromColorToMasterHorse(this MasterHorseContainer masterHorseContainer,
+                                                    int color)
+    {
+        var id = 10000000 + color;
+        return masterHorseContainer.MasterHorseIndexer.Values.FirstOrDefault(x => x.MasterHorseId == id);
+    }
 }

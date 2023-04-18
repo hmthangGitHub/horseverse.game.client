@@ -16,6 +16,8 @@ public class HorseDataModel
 
     public HorseType HorseType => (HorseType)HorseBasic.HorseType;
     public HorseRarity Rarity => (HorseRarity)HorseBasic.Rarity;
+    public int HorseMasterID => (10000000 + HorseBasic.ColorType);
+
 
     public Color Color1 { get; set; }
     public Color Color2 { get; set; }

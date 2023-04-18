@@ -394,9 +394,9 @@ public class UIBetModePresenter : IDisposable
             
             uiBetModeHorseInfo.UpdateDetailInfo(entity);
             if (!update)
-                await UiHorseInfo3DViewPresenter.ShowHorse3DViewAsync(MasterHorseContainer.FromTypeToMasterHorse(horseInfo.HorseType).MasterHorseId, horseInfo.Color1, horseInfo.Color2, horseInfo.Color3, horseInfo.Color4).AttachExternalCancellation(ctsInfo.Token);
+                await UiHorseInfo3DViewPresenter.ShowHorse3DViewAsync(horseInfo.HorseMasterID).AttachExternalCancellation(ctsInfo.Token);
             else
-                await UiHorseInfo3DViewPresenter.UpdateMode(MasterHorseContainer.FromTypeToMasterHorse(horseInfo.HorseType).MasterHorseId, horseInfo.Color1, horseInfo.Color2, horseInfo.Color3, horseInfo.Color4).AttachExternalCancellation(ctsInfo.Token);
+                await UiHorseInfo3DViewPresenter.UpdateMode(horseInfo.HorseMasterID).AttachExternalCancellation(ctsInfo.Token);
         }
     }
     

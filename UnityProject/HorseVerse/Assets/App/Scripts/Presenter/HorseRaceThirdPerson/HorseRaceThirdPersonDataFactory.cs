@@ -28,7 +28,7 @@ public class HorseRaceThirdPersonDataFactory
     private HorseRaceThirdPersonInfo CreateUserHorseData()
     {
         var userHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
-        var masterHorse = MasterHorseContainer.FromTypeToMasterHorse(userHorse.HorseType);
+        var masterHorse = MasterHorseContainer.MasterHorseIndexer[userHorse.HorseMasterID];
         return new HorseRaceThirdPersonInfo()
         {
             Name = userHorse.Name,

@@ -23,7 +23,7 @@ public class HorseRaceInfoFactory
             .Select(x =>
             {
                 var horseInfo = responseRaceScript.HorseInfos.First(info => info.NftId == x.Key);
-                var masterHorse = MasterHorseContainer.FromTypeToMasterHorse(horseInfo.HorseType);
+                var masterHorse = MasterHorseContainer.FromColorToMasterHorse(horseInfo.ColorType);
                 return new HorseRaceInfo()
                 {
                     DelayTime = x.First().stat.DelayTime,

@@ -22,6 +22,28 @@ public class UIHorseInfo3DViewPresenter : IDisposable
         this.container = container;    
     }
 
+    public async UniTask ShowHorse3DViewAsync(long MasterHorseId)
+    {
+        cts.SafeCancelAndDispose();
+        cts = new CancellationTokenSource();
+        await HorseRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
+
+        uiHorse3DView ??= await UILoader.Instantiate<UIHorseInfo3DView>(token: cts.Token);
+        if (!isIn)
+        {
+            uiHorse3DView.SetEntity(new UIHorseInfo3DView.Entity()
+            {
+                horseLoader = new HorseLoader.Entity()
+                {
+                    horse = MasterHorseContainer.MasterHorseIndexer[MasterHorseId].ModelPath,
+                }
+            });
+            uiHorse3DView.transform.SetAsFirstSibling();
+            uiHorse3DView.In().Forget();
+            isIn = true;
+        }
+    }
+
     public async UniTask ShowHorse3DViewAsync(long MasterHorseId, Color color1, Color color2, Color color3, Color color4)
     {
         cts.SafeCancelAndDispose();
@@ -59,6 +81,17 @@ public class UIHorseInfo3DViewPresenter : IDisposable
     private UniTask GetOutTask()
     {
         return uiHorse3DView?.Out() ?? UniTask.CompletedTask;
+    }
+
+    public async UniTask UpdateMode(long MasterHorseId)
+    {
+        var masterHorse = MasterHorseContainer.MasterHorseIndexer[MasterHorseId];
+        uiHorse3DView.entity.horseLoader = new HorseLoader.Entity()
+        {
+            horse = masterHorse.ModelPath,
+        };
+        uiHorse3DView.horseLoader.SetEntity(uiHorse3DView.entity.horseLoader);
+        await uiHorse3DView.In();
     }
 
     public async UniTask UpdateMode(long MasterHorseId, Color color1, Color color2, Color color3, Color color4)

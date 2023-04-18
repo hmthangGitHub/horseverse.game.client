@@ -51,7 +51,8 @@ public class UIHorse3DViewPresenter : IDisposable
             {
                 horseLoader = new HorseObjectLoader.Entity()
                 {
-                    horse = MasterHorseContainer.FromTypeToMasterHorse(HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].HorseType).ModelPath,
+                    //horse = MasterHorseContainer.FromTypeToMasterHorse(HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].HorseType).ModelPath,
+                    horse = MasterHorseContainer.MasterHorseIndexer[HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].HorseMasterID].ModelPath,
                     //color1 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color1,
                     //color2 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color2,
                     //color3 = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId].Color3,
@@ -118,7 +119,7 @@ public class UIHorse3DViewPresenter : IDisposable
     private async UniTask UpdateMode(int backgroundType = 0)
     {
         var userHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
-        var masterHorse = MasterHorseContainer.FromTypeToMasterHorse(userHorse.HorseType);
+        var masterHorse = MasterHorseContainer.MasterHorseIndexer[userHorse.HorseMasterID];
 
         objHorse3DView.entity.horseLoader = new HorseObjectLoader.Entity()
         {
