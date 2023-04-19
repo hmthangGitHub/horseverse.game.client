@@ -19,7 +19,9 @@ public class AdventureEditor_MasterTrainingBlockDistribute
 
 	public void CopyTo(ref MasterTrainingBlockDistribute c)
 	{
+#if ENABLE_DEBUG_MODULE
 		c.Set(MasterTrainingBlockDistributeId, Difficulty,
 			MasterHorseTrainingBlockGroupId, Weight);
+#endif
 	}
 }

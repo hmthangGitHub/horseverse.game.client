@@ -43,6 +43,7 @@ public partial class AdventureEditor_LevelEditor
 
     private void SaveObstacleToBlock(MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo, List<GameObject> obstacles)
     {
+#if ENABLE_DEBUG_MODULE
         masterHorseTrainingBlockCombo.ObstacleList = obstacles.Select(x =>
                 new Obstacle()
                 {
@@ -50,6 +51,7 @@ public partial class AdventureEditor_LevelEditor
                     localPosition = Position.FromVector3(x.transform.localPosition)
                 })
             .ToArray();
+#endif
     }
 
 }

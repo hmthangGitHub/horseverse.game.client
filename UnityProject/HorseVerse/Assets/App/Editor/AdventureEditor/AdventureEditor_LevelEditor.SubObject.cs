@@ -39,6 +39,7 @@ public partial class AdventureEditor_LevelEditor
 
     private void SaveSubObjectsToBlock(MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo, List<GameObject> subObjects)
     {
+#if ENABLE_DEBUG_MODULE
         masterHorseTrainingBlockCombo.SubObjectList = subObjects.Select(x =>
                 new SubObject()
                 {
@@ -46,5 +47,6 @@ public partial class AdventureEditor_LevelEditor
                     localPosition = Position.FromVector3(x.transform.localPosition)
                 })
             .ToArray();
+#endif
     }
 }

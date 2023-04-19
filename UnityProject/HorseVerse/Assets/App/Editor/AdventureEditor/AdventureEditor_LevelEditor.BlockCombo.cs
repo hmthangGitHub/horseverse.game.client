@@ -187,6 +187,7 @@ public partial class AdventureEditor_LevelEditor
 
     void OnSaveCurrentBlockCombo()
     {
+#if ENABLE_DEBUG_MODULE
         if (currentEditingPlatformObject != default)
         {
             if (CurrentSelectetBlockCombo != -1)
@@ -244,6 +245,8 @@ public partial class AdventureEditor_LevelEditor
             }
 
         }
+        
+#endif
         UnSelectOldBlockCombo();
         InitLevelEditor_BlockCombo();
     }

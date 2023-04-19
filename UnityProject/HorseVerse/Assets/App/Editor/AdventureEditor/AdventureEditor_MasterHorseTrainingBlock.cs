@@ -27,12 +27,15 @@ public class AdventureEditor_MasterHorseTrainingBlock
 
 	public void CopyTo(ref MasterHorseTrainingBlock c)
     {
+#if ENABLE_DEBUG_MODULE
 		c.Set(MasterHorseTrainingBlockId, Name,
 			MasterHorseTrainingLaneTypeLeft, CustomValueLeft,
 			MasterHorseTrainingLaneTypeMid, CustomValueMid,
 			MasterHorseTrainingLaneTypeRight, CustomValueRight);
+#endif
 	}
 
+#if ENABLE_DEBUG_MODULE
 	public MasterHorseTrainingBlock Create()
 	{
 		return new MasterHorseTrainingBlock(MasterHorseTrainingBlockId, Name,
@@ -40,5 +43,5 @@ public class AdventureEditor_MasterHorseTrainingBlock
 			MasterHorseTrainingLaneTypeMid, CustomValueMid,
 			MasterHorseTrainingLaneTypeRight, CustomValueRight);
 	}
-
+#endif
 }

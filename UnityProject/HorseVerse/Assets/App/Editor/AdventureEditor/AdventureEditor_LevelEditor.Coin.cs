@@ -49,8 +49,10 @@ public partial class AdventureEditor_LevelEditor
 
     private void SaveCoinToBlock(MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo, List<AdventureEditor_CoinEditor> coins)
     {
+#if ENABLE_DEBUG_MODULE
         masterHorseTrainingBlockCombo.CoinList = coins.Select(FromCoinEditorToMasterCoin)
             .ToArray();
+#endif
     }
 
     private static Coin FromCoinEditorToMasterCoin(AdventureEditor_CoinEditor x)

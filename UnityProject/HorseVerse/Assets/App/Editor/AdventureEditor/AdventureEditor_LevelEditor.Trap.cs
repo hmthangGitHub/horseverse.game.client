@@ -56,6 +56,7 @@ public partial class AdventureEditor_LevelEditor
 
     private void SaveTrapToBlock(MasterHorseTrainingBlockCombo masterHorseTrainingBlockCombo, List<TrapEditor> traps)
     {
+#if ENABLE_DEBUG_MODULE
         masterHorseTrainingBlockCombo.TrapList = traps.Select(x => {
             var trapEdi = x;
             return new Trap()
@@ -67,5 +68,6 @@ public partial class AdventureEditor_LevelEditor
                 extraData = trapEdi.getExtraData(),
             };
         }).ToArray();
+#endif
     }
 }

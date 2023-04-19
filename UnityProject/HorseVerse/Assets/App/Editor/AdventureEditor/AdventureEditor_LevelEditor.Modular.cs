@@ -65,6 +65,7 @@ public partial class AdventureEditor_LevelEditor
 
     void OnAddBlockContainer(int index)
     {
+#if ENABLE_DEBUG_MODULE
         var ss = blockCombos[index];
         var id = ss.MasterHorseTrainingBlockId;
         if (blockContainers.Any(x => x.MasterHorseTrainingBlockId == id)) return;
@@ -76,20 +77,25 @@ public partial class AdventureEditor_LevelEditor
         masterHorseTrainingBlockContainer.Add(xs);
         blockContainers = masterHorseTrainingBlockContainer.DataList;
         UpdateListBlockContainer(blockCombos.Length, blockContainers, blockCombos);
+#endif
     }
 
     void OnRemoveBlockContainer(int index)
     {
+#if ENABLE_DEBUG_MODULE
         var ss = blockCombos[index];
         var id = ss.MasterHorseTrainingBlockId;
         if (!blockContainers.Any(x => x.MasterHorseTrainingBlockId == id)) return;
         masterHorseTrainingBlockContainer.Remove(id);
         blockContainers = masterHorseTrainingBlockContainer.DataList;
         UpdateListBlockContainer(blockCombos.Length, blockContainers, blockCombos);
+#endif
     }
 
     void OnEditBlockContainer(int index, AdventureEditor_MasterHorseTrainingBlock item)
     {
+#if ENABLE_DEBUG_MODULE
         item.CopyTo(ref blockContainers[index]);
+#endif
     }
 }

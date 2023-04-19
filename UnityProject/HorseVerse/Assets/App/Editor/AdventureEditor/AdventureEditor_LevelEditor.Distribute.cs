@@ -66,23 +66,29 @@ public partial class AdventureEditor_LevelEditor
 
     void OnCreateNewDistribute(long id)
     {
+#if ENABLE_DEBUG_MODULE
         MasterTrainingBlockDistribute d = new MasterTrainingBlockDistribute(id);
         masterTrainingBlockDistributeContainer.Add(d);
         distributes = masterTrainingBlockDistributeContainer.DataList;
         UpdateListBlockDistribute(distributes);
+#endif
         id = 0;
     }
 
     void OnRemoveDistribute(int index)
     {
+#if ENABLE_DEBUG_MODULE
         var id = distributes[index].MasterTrainingBlockDistributeId;
         masterTrainingBlockDistributeContainer.Remove(id);
         distributes = masterTrainingBlockDistributeContainer.DataList;
         UpdateListBlockDistribute(distributes);
+#endif
     }
 
     void OnEditDistribute(int index, AdventureEditor_MasterTrainingBlockDistribute item)
     {
+#if ENABLE_DEBUG_MODULE
         item.CopyTo(ref distributes[index]);
+#endif
     }
 }
