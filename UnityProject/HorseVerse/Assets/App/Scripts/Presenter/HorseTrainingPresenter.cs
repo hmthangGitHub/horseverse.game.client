@@ -279,10 +279,10 @@ public class HorseTrainingPresenter : IDisposable
         Time.timeScale = 0.0f;
         AudioManager.Instance.StopSound();
         SoundController.PlayHitObstance();
-        //var data = await TrainingDomainService.GetTrainingRewardData(CurrentPoint, CurrentCoin);
-        //await UserDataRepository.UpdateLightPlayerInfoAsync(data.PlayerInfo);
-        //await ShowUIHorseTrainingResultAsync(data);
-        trainingUcsRetry.TrySetResult(false);
+        var data = await TrainingDomainService.GetTrainingRewardData(CurrentPoint, CurrentCoin);
+        await UserDataRepository.UpdateLightPlayerInfoAsync(data.PlayerInfo);
+        await ShowUIHorseTrainingResultAsync(data);
+        //trainingUcsRetry.TrySetResult(false);
     }
 
     public void Dispose()

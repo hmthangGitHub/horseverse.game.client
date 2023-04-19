@@ -110,8 +110,8 @@ public class UIHorseTrainingPresenter : IDisposable
 
     private async UniTask ToTrainingAsync()
     {
-        //var data = await TrainingDomainService.StartTrainingData(UserDataRepository.Current.CurrentHorseNftId);
-        //if (data.ResultCode == 100)
+        var data = await TrainingDomainService.StartTrainingData(UserDataRepository.Current.CurrentHorseNftId);
+        if (data.ResultCode == 100)
         {
             ToTrainingActionState.Invoke();
 
