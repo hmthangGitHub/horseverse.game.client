@@ -25,12 +25,20 @@ MonoBehaviour:
     m_Address: UI/UIBetConfirmation
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 5b2d251648c399a4c82e48392e81913a
+    m_Address: UI/UIBetHistory
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 02992266875dd0245a4b9d703ecba00d
     m_Address: UI/UIBetInProgressPopUp
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: c9bd18317771ee0489208c5255a0e637
     m_Address: UI/UIBetMode
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ec031050cde053341bc31187e842fd9f
+    m_Address: UI/UIBetModeHorseInfo
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: ab93dd222bd96c14aafcd7aff875084d
@@ -41,6 +49,10 @@ MonoBehaviour:
     m_Address: UI/UIBetReward
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: d10e608ce32923f469fa800a5eee6490
+    m_Address: UI/UIClientInfo
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 99042204952c7e04cb7a556dddd1812b
     m_Address: UI/UIDebugLevelDesignBlockTransformPin
     m_ReadOnly: 0
@@ -49,12 +61,24 @@ MonoBehaviour:
     m_Address: UI/UIDebugLevelEditor
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: a9575bf7e1515384aa66f3cf33138824
+    m_Address: UI/UIDebugLevelEditorSplineEditor
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2b7afbdc20cdb4db3b0400406f400783
+    m_Address: UI/UIDebugLevelEditorTrap
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 73c7c5fa6fe297c47bb7f945101c569c
     m_Address: UI/UIDebugMasterEditor
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 4b55b5039743112419475d9e16b86ccf
     m_Address: UI/UIDebugMenu
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 25985edbbf2df6941b82a05400863996
+    m_Address: UI/UIDownloadAssetProgress
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 2a940bfb5b8f0454b985cead1f822442
@@ -77,6 +101,10 @@ MonoBehaviour:
     m_Address: UI/UIHorseDetail
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 2068aac415dfe5c43a22ca147ff9b170
+    m_Address: UI/UIHorseInfo3DView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: e887615e0ec67784db3926a8134a5f73
     m_Address: UI/UIHorseInfoIntro
     m_ReadOnly: 0
@@ -93,6 +121,18 @@ MonoBehaviour:
     m_Address: UI/UIHorseRaceStatus
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: c3407131adbf1534c920b8383df6fbb1
+    m_Address: UI/UIHorseRacingController
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3c0aff7745933a94698fa376cbdf4f2c
+    m_Address: UI/UIHorseRacingPreGameTiming
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 560082977e435244692c839342dadabd
+    m_Address: UI/UIHorseRacingThirdPersonResult
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 9bf6a4f019d8f504a8cc365b6eef0069
     m_Address: UI/UIHorseRank
     m_ReadOnly: 0
@@ -101,8 +141,16 @@ MonoBehaviour:
     m_Address: UI/UIHorseRankResultList
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 9f644ed70628f22429e2d26ccfb44dfe
+    m_Address: UI/UIHorseRealmIntro
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: ab3d5ab8ddb05614cb2978d303dac6da
     m_Address: UI/UIHorseStable
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5d8d6805c0c27eb43bbecb21c4a8ca66
+    m_Address: UI/UIHorseStableDetail
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: a035d5d43e39d454f96fc2e1ff97b6c5
@@ -125,6 +173,14 @@ MonoBehaviour:
     m_Address: UI/UILoginOTP
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 9a38fd95e184e2f4ead4f0c74c68f53a
+    m_Address: UI/UILoginSelection
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d4b522a2095c94d9e9f0b4bee0b0bb4d
+    m_Address: UI/UILoginSetName
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 7ec18559549433b429cd5cb291522ee6
     m_Address: UI/UIMainMenu
     m_ReadOnly: 0
@@ -133,8 +189,20 @@ MonoBehaviour:
     m_Address: UI/UIPopUpBetReward
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 461e519e00caffc4e9ffe9509b4dd60b
+    m_Address: UI/UIPopupMessage
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b6a9f8940b743554d9df7bfdac4b71eb
+    m_Address: UI/UIPopUpPause
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 18552482c1cf448f7b739198cb23e1c5
     m_Address: UI/UIPopUpServerSelection
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f6c26d3ece8f05c43978e6fd2af9e3bc
+    m_Address: UI/UIPopUpSettingInGame
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 4a1ab380875865d4987fae7f3eef16c9
@@ -145,8 +213,16 @@ MonoBehaviour:
     m_Address: UI/UIPopUpTypeRaceChoose
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 260ccb87d31ac164bb8b5510ed7e8328
+    m_Address: UI/UIPopupYesNoMessage
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 9e5d640d07e86284da92c1b6fbfe1a28
     m_Address: UI/UIQuickMode
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8503ab72ba7b35749b45f910be3b4059
+    m_Address: UI/UIRaceModeResult
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: bf0e197f8d76baf488a5d777ab9174ae
@@ -157,12 +233,36 @@ MonoBehaviour:
     m_Address: UI/UIRaceResultSelf
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: ced402de89c4d9f49ae8acfd7692c21d
+    m_Address: UI/UIRacingFindMatch
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 800c4914255642848b6736bc62d316c5
+    m_Address: UI/UIRacingHistory
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 241b008db1ec98c4eb8f14111bf0458d
+    m_Address: UI/UIRacingMode
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 67aba718799e19941be0e6e261f3403c
     m_Address: UI/UIResultTimeAndPricePool
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 947094f97982b9148b902132e2b789fb
     m_Address: UI/UISpeedController
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 40615fa9de8d56d4390f1ca0b3491b9b
+    m_Address: UI/UISwipeRegister
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 84d8d704578bdbf46b9666d2e084e61b
+    m_Address: UI/UITouchDisable
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 640cfbd1a6933864fb54e231c4a35131
+    m_Address: UI/UITraditionalRoom
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: a81fde10d082c5b41ae2e4f57a6c3224
@@ -173,76 +273,28 @@ MonoBehaviour:
     m_Address: UI/UITrainingHorseProperties
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 539d7e72e92692148be2cc1bb933f348
+    m_Address: UI/UITrainingLeaderBoard
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 2cc88f84b20b08a44958c6e1062401df
     m_Address: UI/UITrainingPressAnyKey
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: a9575bf7e1515384aa66f3cf33138824
-    m_Address: UI/UIDebugLevelEditorSplineEditor
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 241b008db1ec98c4eb8f14111bf0458d
-    m_Address: UI/UIRacingMode
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 640cfbd1a6933864fb54e231c4a35131
-    m_Address: UI/UITraditionalRoom
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 800c4914255642848b6736bc62d316c5
-    m_Address: UI/UIRacingHistory
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: ced402de89c4d9f49ae8acfd7692c21d
-    m_Address: UI/UIRacingFindMatch
+  - m_GUID: afd3589cc2c89664783ccd2c9be19e8d
+    m_Address: UI/UITrainingResult
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 96f0ac4f08776a746abf3bc86564d5ca
     m_Address: UI/UITrainingTutorial
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 8503ab72ba7b35749b45f910be3b4059
-    m_Address: UI/UIRaceModeResult
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 5b2d251648c399a4c82e48392e81913a
-    m_Address: UI/UIBetHistory
+  - m_GUID: aa8307585255576498e410898fa15915
+    m_Address: UI/UITransformTapRegister
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 6791b561d9b4cf24a89d38306d63a958
     m_Address: UI/UIUserBetSumary
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 539d7e72e92692148be2cc1bb933f348
-    m_Address: UI/UITrainingLeaderBoard
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: c3407131adbf1534c920b8383df6fbb1
-    m_Address: UI/UIHorseRacingController
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 3c0aff7745933a94698fa376cbdf4f2c
-    m_Address: UI/UIHorseRacingPreGameTiming
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 560082977e435244692c839342dadabd
-    m_Address: UI/UIHorseRacingThirdPersonResult
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 9f644ed70628f22429e2d26ccfb44dfe
-    m_Address: UI/UIHorseRealmIntro
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 40615fa9de8d56d4390f1ca0b3491b9b
-    m_Address: UI/UISwipeRegister
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 5d8d6805c0c27eb43bbecb21c4a8ca66
-    m_Address: UI/UIHorseStableDetail
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: aa8307585255576498e410898fa15915
-    m_Address: UI/UITransformTapRegister
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

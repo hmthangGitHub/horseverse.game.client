@@ -16,7 +16,7 @@ public class UIHorseTrainingPresenter : IDisposable
     private IReadOnlyUserDataRepository userDataRepository;
     private HorseSumaryListEntityFactory horseSumaryListEntityFactory;
     private ITrainingDomainService trainingDomainService;
-    private IReadOnlyHorseRepository horseRepository;
+    private HorseRepository horseRepository;
     private MasterHorseContainer masterHorseContainer;
     private UITrainingLeaderBoardPresenter uiTrainingLeaderBoardPresenter;
     public event Action ToTrainingActionState = ActionUtility.EmptyAction.Instance;
@@ -25,7 +25,7 @@ public class UIHorseTrainingPresenter : IDisposable
     private HorseSumaryListEntityFactory HorseSummaryListEntityFactory => horseSumaryListEntityFactory ??= container.Inject<HorseSumaryListEntityFactory>();
     private IReadOnlyUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IReadOnlyUserDataRepository>();
     private ITrainingDomainService TrainingDomainService => trainingDomainService ??= container.Inject<ITrainingDomainService>();
-    private IReadOnlyHorseRepository HorseRepository => horseRepository ??= container.Inject<IReadOnlyHorseRepository>();
+    private HorseRepository HorseRepository => horseRepository ??= container.Inject<HorseRepository>();
     private MasterHorseContainer MasterHorseContainer => masterHorseContainer ??= container.Inject<MasterHorseContainer>();
 
     private UIBackGroundPresenter uiBackGroundPresenter;
@@ -114,8 +114,9 @@ public class UIHorseTrainingPresenter : IDisposable
         if (data.ResultCode == 100)
         {
             ToTrainingActionState.Invoke();
-
             var userHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
+            userHorse.HorseRising.Happiness = data.Happiness;
+            await HorseRepository.UpdateModelAsync(userHorse.HorseRising);
             var mapID = currentMapIndex == 0 ? 2001 : 2002;
             container.Bind(new HorseTrainingDataContext()
             {
