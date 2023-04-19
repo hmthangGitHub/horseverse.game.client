@@ -206,8 +206,9 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
             if (randomWeighted <= weight)
                 return item.MasterHorseTrainingBlockGroupId;
         }
-
-        throw new Exception($"Can not get random MasterHorseTrainingBlockGroupId ");
+        
+        Debug.LogError($"Can not get random MasterHorseTrainingBlockGroupId " + weight + " " + randomWeighted + " le " + masterTrainingBlockDistributeContainer.DifficultyIndexer[horseTrainingControllerV2.CurrentDifficulty].Count());
+        return group;
     }
 
     private string GetPaddingMasterTrainingModularBlockId(string masterTrainingModularBlockId)

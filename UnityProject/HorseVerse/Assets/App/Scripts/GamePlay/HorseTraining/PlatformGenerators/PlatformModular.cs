@@ -71,6 +71,7 @@ public partial class PlatformModular : PlatformBase
 
     private void Tiling(BoxCollider[] _BoxColliders)
     {
+        if (_BoxColliders == default || _BoxColliders.Length == 0) return;
         ChangePositionOfParentToMatchChildPosition(_BoxColliders[0].transform.parent,
             _BoxColliders[0].transform,
             new Vector3(0, 0, 0));
