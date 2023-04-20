@@ -49,6 +49,8 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
         if (SceneEntityComponent.Instance != default)
         {
             SceneEntityComponent.Instance.SetCameraTarget(HorseTrainingController.transform);
+            if (SceneEntityComponent.Instance.Skybox != default)
+                RenderSettings.skybox = SceneEntityComponent.Instance.Skybox;
         }
         else Debug.LogError("Cant find Entity");
     }
