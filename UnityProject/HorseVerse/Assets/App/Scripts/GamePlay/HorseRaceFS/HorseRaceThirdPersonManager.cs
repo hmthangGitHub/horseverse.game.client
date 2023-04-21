@@ -179,11 +179,12 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
             {
                 realm = "FORGOTTEN REALM",
                 track = "The Old Observatory"
-            }
+            },
+            timeOut = 10.0f,
         });
         HorseRaceThirdPersonBehaviours.ForEach(x => x.SetVisibleLane(false));
         await uiHorseRacingController.Out().AttachExternalCancellation(cts.Token);
-        await uiHorseRacingThirdPersonResult.In().AttachExternalCancellation(cts.Token);;
+        await uiHorseRacingThirdPersonResult.In().AttachExternalCancellation(cts.Token);
         await ucs.Task.AttachExternalCancellation(cts.Token);
         await uiHorseRacingThirdPersonResult.Out().AttachExternalCancellation(cts.Token);
         OnShowResult.Invoke();
