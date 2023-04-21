@@ -16,10 +16,10 @@ public class UIComponentOrdinalNumber : UIComponent<UIComponentOrdinalNumber.Ent
     {
 	    ordinalNumber.SetEntity(this.entity.ordinalNumber, this.entity.ordinalNumber switch
 	    {
-		    1 => "st",
-		    2 => "nd",
-		    3 => "rd",
-		    _ => "th"
+		    1 => "ST",
+		    2 => "ND",
+		    3 => "RD",
+		    _ => "TH"
 	    });
     }
 
