@@ -78,7 +78,8 @@ public class UIHorseDetailPresenter : IDisposable
                 {
                     UIHorse3DViewPresenter.ChangeHorseOnSwipe(1).Forget();
                 }),
-                rarity = (UIComponentHorseRankRequirement.Rarity)currentHorse.Rarity
+                rarity = (UIComponentHorseRankRequirement.Rarity)currentHorse.Rarity,
+                showChangeHorseBtn = true
             }
         };
     }

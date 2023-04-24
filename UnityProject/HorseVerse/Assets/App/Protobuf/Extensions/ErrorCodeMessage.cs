@@ -49,4 +49,9 @@ namespace io.hverse.game.protogen
     {
         public int ResultCode => ErrorCode;
     }
+    public sealed partial class BreedingResponse : IErrorCodeMessage {}
+    public sealed partial class BreedingInfoResponse : IErrorCodeMessage {}
+    public sealed partial class FinishBreedingResponse : IErrorCodeMessage {}
+    public sealed partial class CheatPlayerInfoResponse : IErrorCodeMessage {}
+    public sealed partial class CheatHorseInfoResponse : IErrorCodeMessage {}
 }

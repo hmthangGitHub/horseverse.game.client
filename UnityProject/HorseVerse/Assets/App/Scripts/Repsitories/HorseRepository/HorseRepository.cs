@@ -25,11 +25,6 @@ public class HorseRepository : Repository<long, HorseDataModel, HorseDataModel>,
         var nftIds = new RepeatedField<long>();
         nftIds.AddRange(response.PlayerInventory.HorseBasic.Select(x => x.Id));
         
-        // var horseBasicResponse = await socketClient.Send<PlayerHorseBasicRequest, PlayerHorseBasicResponse>(new PlayerHorseBasicRequest()
-        // {
-        //     Id = { nftIds  }
-        // });
-        
         var horseAttributeResponse = await socketClient.Send<PlayerHorseAttributeRequest, PlayerHorseAttributeResponse>(new PlayerHorseAttributeRequest()
         {
             Id = { nftIds  }
@@ -39,11 +34,6 @@ public class HorseRepository : Repository<long, HorseDataModel, HorseDataModel>,
         {
             Id = {nftIds}
         });
-        
-        // var horseHistoryResponse = await socketClient.Send<PlayerHorseHistoryRequest, PlayerHorseHistoryResponse>(new PlayerHorseHistoryRequest()
-        // {
-        //     Id = {nftIds}
-        // });
         
         return response.PlayerInventory.HorseBasic.Select(horseInfo => new HorseDataModel()
        {
@@ -94,10 +84,33 @@ public class HorseRepository : Repository<long, HorseDataModel, HorseDataModel>,
         newModel.HorseRising = horseRising;
         return UpdateDataAsync(new []{newModel});
     }
+
+    public async UniTask AddHorseModelAsync(HorseBasic horseBasic)
+    {
+        var horseAttributeResponse = await SocketClient.Send<PlayerHorseAttributeRequest, PlayerHorseAttributeResponse>(new PlayerHorseAttributeRequest()
+        {
+            Id = { horseBasic.Id  }
+        });
+        
+        var horseRisingResponse = await SocketClient.Send<PlayerHorseRisingRequest, PlayerHorseRisingResponse>(new PlayerHorseRisingRequest()
+        {
+            Id = {horseBasic.Id}
+        });
+
+        await UpdateModelAsync(new[]
+        {
+            new HorseDataModel()
+            {
+                HorseBasic = horseBasic,
+                HorseAttribute = horseAttributeResponse.HorseAttributeList.First(x => x.Id == horseBasic.Id),
+                HorseRising = horseRisingResponse.HorseRisingList.First(x => x.Id == horseBasic.Id),
+                HorseHistory = default, // TODO
+            }
+        });
+    }
 }
 
 public interface IReadOnlyHorseRepository : IReadOnlyRepository<long, HorseDataModel> {
-    public HorseDataModel GetHorseDataModel(long ntfItemId);
 }
 
 public interface IHorseRepository : IRepository<long, HorseDataModel, HorseDataModel>
@@ -106,4 +119,5 @@ public interface IHorseRepository : IRepository<long, HorseDataModel, HorseDataM
     UniTask UpdateModelAsync(HorseAttribute horseAttribute);
     UniTask UpdateModelAsync(HorseHistory horseHistory);
     UniTask UpdateModelAsync(HorseRising horseRising);
+    UniTask AddHorseModelAsync(HorseBasic horseBasic);
 }

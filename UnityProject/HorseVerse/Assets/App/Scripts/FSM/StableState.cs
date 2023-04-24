@@ -5,6 +5,7 @@ public class StableState : InjectedBHState
         base.AddStates();
         AddState<StableUIState>();
         AddState<StableHorseDetailState>();
+        AddState<BreedingState>();
         SetInitialState<StableUIState>();
     }
 }

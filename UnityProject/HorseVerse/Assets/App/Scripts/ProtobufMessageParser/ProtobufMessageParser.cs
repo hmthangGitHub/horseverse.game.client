@@ -108,12 +108,28 @@ public partial class ProtobufMessageParser : IMessageParser
         
         AddToSerializeLookUpTable<PlayerHorseHistoryRequest>(x => new HorseMessage(x));
         AddToParseLookUpTable<HorseMessage, HorseMessageType>(HorseMessageType.PlayerHorseHistoryResponse, x => x.PlayerHorseHistoryResponse);
+        
+        AddToSerializeLookUpTable<BreedingInfoRequest>(x => new BreedingMessage(x));
+        AddToParseLookUpTable<BreedingMessage , BreedingMessageType >(BreedingMessageType .BreedingInfoResponse, x => x.BreedingInfoResponse);
+        
+        AddToSerializeLookUpTable<BreedingRequest>(x => new BreedingMessage(x));
+        AddToParseLookUpTable<BreedingMessage, BreedingMessageType >(BreedingMessageType .BreedingResponse , x => x.BreedingResponse);
+        
+        AddToSerializeLookUpTable<FinishBreedingRequest>(x => new BreedingMessage(x));
+        AddToParseLookUpTable<BreedingMessage, BreedingMessageType >(BreedingMessageType.FinishBreedingResponse, x => x.FinishBreedingResponse);
+        
+        AddToSerializeLookUpTable<CheatHorseInfoRequest>(x => new CheatMessage(x));
+        AddToParseLookUpTable<CheatMessage, CheatMessageType>(CheatMessageType.CheatHorseInfoResponse , x => x.CheatHorseInfoResponse);
+        
+        AddToSerializeLookUpTable<CheatPlayerInfoRequest>(x => new CheatMessage(x));
+        AddToParseLookUpTable<CheatMessage, CheatMessageType >(CheatMessageType.CheatPlayerInfoResponse, x => x.CheatPlayerInfoResponse);
     }
     
     private void AddToParseLookUpTable<TSubMessage, TEnum>(TEnum enumMessage, Func<TSubMessage, IMessage> resultFactory) where TEnum : System.Enum
                                                                                                                          where TSubMessage : ISubMessage, IMessage, ISubMessage<TEnum>, new()
     {
         TSubMessage message = new TSubMessage();
+        
         if(!lookUpToISubMessageFunc.ContainsKey(message.Descriptor.FullName))
             lookUpToISubMessageFunc.Add(message.Descriptor.FullName, x => x.Unpack<TSubMessage>());
         lookUpToMessageFunc.Add(enumMessage, x => resultFactory((TSubMessage)x));

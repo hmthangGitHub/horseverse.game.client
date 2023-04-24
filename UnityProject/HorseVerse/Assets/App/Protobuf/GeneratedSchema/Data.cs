@@ -29,64 +29,67 @@ namespace io.hverse.game.protogen {
             "MhIuTWFzdGVyRGF0YVJlcXVlc3QSLwoSbWFzdGVyRGF0YVJlc3BvbnNlGAMg",
             "ASgLMhMuTWFzdGVyRGF0YVJlc3BvbnNlEjUKFWVuYWJsZUZlYXR1cmVzUmVj",
             "ZWlwdBgEIAEoCzIWLkVuYWJsZUZlYXR1cmVzUmVjZWlwdCITChFNYXN0ZXJE",
-            "YXRhUmVxdWVzdCLoAQoSTWFzdGVyRGF0YVJlc3BvbnNlEhoKEm1heEhhcHBp",
+            "YXRhUmVxdWVzdCKLAgoSTWFzdGVyRGF0YVJlc3BvbnNlEhoKEm1heEhhcHBp",
             "bmVzc051bWJlchgBIAEoBRIiChpoYXBwaW5lc3NOdW1iZXJQZXJUcmFpbmlu",
             "ZxgCIAEoBRIVCg1iZXROdW1iZXJMaXN0GAMgAygFEhwKFG1heERhaWx5UmFj",
             "aW5nTnVtYmVyGAQgASgFEigKD3JhY2VSZXdhcmRJbmZvcxgFIAMoCzIPLlJh",
             "Y2VSZXdhcmRJbmZvEhkKEW1heEJyZWVkaW5nTnVtYmVyGAYgASgFEhgKEG1h",
-            "eENvaW5Db2xsZWN0ZWQYByABKAUiOgoVRW5hYmxlRmVhdHVyZXNSZWNlaXB0",
-            "EiEKC2ZlYXR1cmVMaXN0GAEgAygOMgwuRmVhdHVyZVR5cGUiwQMKCUhvcnNl",
-            "SW5mbxINCgVuZnRJZBgBIAEoAxILCgNibXMYAiABKAISCwoDbW1zGAMgASgC",
-            "EhQKDGFjY2VsZXJhdGlvbhgEIAEoAhIPCgdzdGFtaW5hGAUgASgCEh0KCWhv",
-            "cnNlVHlwZRgGIAEoDjIKLkhvcnNlVHlwZRIXCgZyYXJpdHkYByABKA4yBy5S",
-            "YXJpdHkSDAoEbHVjaxgIIAEoBRINCgVsZXZlbBgJIAEoBRIOCgZjb2xvcjEY",
-            "CiABKAkSDgoGY29sb3IyGAsgASgJEg4KBmNvbG9yMxgMIAEoCRIOCgZjb2xv",
-            "cjQYDSABKAkSDwoHd2luUmF0ZRgOIAEoAhIMCgRuYW1lGA8gASgJEhkKEWxh",
-            "c3RCZXR0aW5nUmVjb3JkGBAgASgCEhwKFGF2ZXJhZ2VCZXR0aW5nUmVjb3Jk",
-            "GBEgASgCEhkKEWJlc3RCZXR0aW5nUmVjb3JkGBIgASgCEhEKCWhhcHBpbmVz",
-            "cxgTIAEoBRIcChRyZXN0b3JlSGFwcGluZXNzVGltZRgUIAEoAxILCgNhZ2UY",
-            "FSABKAUSCwoDc2V4GBYgASgFEhEKCWNvbG9yVHlwZRgXIAEoBSI3CgpSZXdh",
-            "cmRJbmZvEhkKBHR5cGUYASABKA4yCy5SZXdhcmRUeXBlEg4KBmFtb3VudBgC",
-            "IAEoAyJbCg5SYWNlUmV3YXJkSW5mbxIMCgRyYW5rGAEgASgFEh0KBWxldmVs",
-            "GAIgASgOMg4uUmFjZVJvb21MZXZlbBIcCgdyZXdhcmRzGAMgAygLMgsuUmV3",
-            "YXJkSW5mbyKGAQoISXRlbUluZm8SFwoEdHlwZRgBIAEoDjIJLkl0ZW1UeXBl",
-            "EiMKDGNoZXN0S2V5SW5mbxgCIAEoCzINLkNoZXN0S2V5SW5mbxIdCgljaGVz",
-            "dEluZm8YAyABKAsyCi5DaGVzdEluZm8SHQoJcGllY2VJbmZvGAQgASgLMgou",
-            "UGllY2VJbmZvIkkKDENoZXN0S2V5SW5mbxIMCgRuYW1lGAEgASgJEhsKBHR5",
-            "cGUYAiABKA4yDS5DaGVzdEtleVR5cGUSDgoGYW1vdW50GAMgASgFIkMKCUNo",
-            "ZXN0SW5mbxIMCgRuYW1lGAEgASgJEhgKBHR5cGUYAiABKA4yCi5DaGVzdFR5",
-            "cGUSDgoGYW1vdW50GAMgASgFIloKCVBpZWNlSW5mbxIMCgRuYW1lGAEgASgJ",
-            "EhgKBHR5cGUYAiABKA4yCi5QaWVjZVR5cGUSFQoNY29tYmluZU51bWJlchgD",
-            "IAEoBRIOCgZhbW91bnQYBCABKAUqYQoPRGF0YU1lc3NhZ2VUeXBlEhcKE01B",
-            "U1RFUl9EQVRBX1JFUVVFU1QQABIYChRNQVNURVJfREFUQV9SRVNQT05TRRAB",
-            "EhsKF0VOQUJMRV9GRUFUVVJFU19SRUNFSVBUEAIqPQoLRmVhdHVyZVR5cGUS",
-            "CAoEU0hPUBAAEg0KCUFEVkVOVFVSRRABEgkKBUFSRU5BEAISCgoGUkFDSU5H",
-            "EAMqeQoGUmFyaXR5EhIKDlJBUklUWV9VTktOT1dOEAASEQoNUkFSSVRZX0NP",
-            "TU1PThABEhMKD1JBUklUWV9VTkNPTU1PThACEg8KC1JBUklUWV9SQVJFEAMS",
-            "DwoLUkFSSVRZX0VQSUMQBBIRCg1SQVJJVFlfTEVHRU5EEAUqZwoJSG9yc2VU",
-            "eXBlEhYKEkhPUlNFX1RZUEVfVU5LTk9XThAAEhQKEEhPUlNFX1RZUEVfQkxB",
-            "WkUQARIWChJIT1JTRV9UWVBFX1RIVU5ERVIQAhIUChBIT1JTRV9UWVBFX0hJ",
-            "RFJPEAMqIAoETGFuZRIGCgJJThAAEgcKA01JRBABEgcKA09VVBACKkYKDFJl",
-            "d2FyZFN0YXR1cxIbChdSRVdBUkRfU1RBVFVTX1VOQ0xBSU1FRBAAEhkKFVJF",
-            "V0FSRF9TVEFUVVNfQ0xBSU1FRBABKk8KClJld2FyZFR5cGUSFAoQUkVXQVJE",
-            "X1RZUEVfTk9ORRAAEhQKEFJFV0FSRF9UWVBFX0NISVAQARIVChFSRVdBUkRf",
-            "VFlQRV9DSEVTVBACKp8BCg1SYWNlUm9vbUxldmVsEhsKF1JBQ0VfUk9PTV9M",
-            "RVZFTF9VTktOT1dOEAASFQoRUkFDRV9ST09NX0xFVkVMXzEQARIVChFSQUNF",
-            "X1JPT01fTEVWRUxfMhACEhUKEVJBQ0VfUk9PTV9MRVZFTF8zEAMSFQoRUkFD",
-            "RV9ST09NX0xFVkVMXzQQBBIVChFSQUNFX1JPT01fTEVWRUxfNRAFKk0KCEl0",
-            "ZW1UeXBlEhcKE0lURU1fVFlQRV9DSEVTVF9LRVkQABITCg9JVEVNX1RZUEVf",
-            "Q0hFU1QQARITCg9JVEVNX1RZUEVfUElFQ0UQAiopCgxDaGVzdEtleVR5cGUS",
-            "GQoVQ0hFU1RfS0VZX1RZUEVfQ09NTU9OEAAqNwoJQ2hlc3RUeXBlEhUKEUNI",
-            "RVNUX1RZUEVfQ09NTU9OEAASEwoPQ0hFU1RfVFlQRV9SQVJFEAEqIQoJUGll",
-            "Y2VUeXBlEhQKEFBJRUNFX1RZUEVfQ0hFU1QQAEJHChdpby5odmVyc2UuZ2Ft",
-            "ZS5wcm90b2dlbkISRGF0YU1lc3NhZ2VGYWN0b3J5qgIXaW8uaHZlcnNlLmdh",
-            "bWUucHJvdG9nZW5iBnByb3RvMw=="));
+            "eENvaW5Db2xsZWN0ZWQYByABKAUSIQoLYnJlZWRpbmdGZWUYCCADKAsyDC5C",
+            "cmVlZGluZ0ZlZSJECgtCcmVlZGluZ0ZlZRISCgptYWxlUmFyaXR5GAEgASgF",
+            "EhQKDGZlbWFsZVJhcml0eRgCIAEoBRILCgNmZWUYAyABKAUiOgoVRW5hYmxl",
+            "RmVhdHVyZXNSZWNlaXB0EiEKC2ZlYXR1cmVMaXN0GAEgAygOMgwuRmVhdHVy",
+            "ZVR5cGUiwQMKCUhvcnNlSW5mbxINCgVuZnRJZBgBIAEoAxILCgNibXMYAiAB",
+            "KAISCwoDbW1zGAMgASgCEhQKDGFjY2VsZXJhdGlvbhgEIAEoAhIPCgdzdGFt",
+            "aW5hGAUgASgCEh0KCWhvcnNlVHlwZRgGIAEoDjIKLkhvcnNlVHlwZRIXCgZy",
+            "YXJpdHkYByABKA4yBy5SYXJpdHkSDAoEbHVjaxgIIAEoBRINCgVsZXZlbBgJ",
+            "IAEoBRIOCgZjb2xvcjEYCiABKAkSDgoGY29sb3IyGAsgASgJEg4KBmNvbG9y",
+            "MxgMIAEoCRIOCgZjb2xvcjQYDSABKAkSDwoHd2luUmF0ZRgOIAEoAhIMCgRu",
+            "YW1lGA8gASgJEhkKEWxhc3RCZXR0aW5nUmVjb3JkGBAgASgCEhwKFGF2ZXJh",
+            "Z2VCZXR0aW5nUmVjb3JkGBEgASgCEhkKEWJlc3RCZXR0aW5nUmVjb3JkGBIg",
+            "ASgCEhEKCWhhcHBpbmVzcxgTIAEoBRIcChRyZXN0b3JlSGFwcGluZXNzVGlt",
+            "ZRgUIAEoAxILCgNhZ2UYFSABKAUSCwoDc2V4GBYgASgFEhEKCWNvbG9yVHlw",
+            "ZRgXIAEoBSI3CgpSZXdhcmRJbmZvEhkKBHR5cGUYASABKA4yCy5SZXdhcmRU",
+            "eXBlEg4KBmFtb3VudBgCIAEoAyJbCg5SYWNlUmV3YXJkSW5mbxIMCgRyYW5r",
+            "GAEgASgFEh0KBWxldmVsGAIgASgOMg4uUmFjZVJvb21MZXZlbBIcCgdyZXdh",
+            "cmRzGAMgAygLMgsuUmV3YXJkSW5mbyKGAQoISXRlbUluZm8SFwoEdHlwZRgB",
+            "IAEoDjIJLkl0ZW1UeXBlEiMKDGNoZXN0S2V5SW5mbxgCIAEoCzINLkNoZXN0",
+            "S2V5SW5mbxIdCgljaGVzdEluZm8YAyABKAsyCi5DaGVzdEluZm8SHQoJcGll",
+            "Y2VJbmZvGAQgASgLMgouUGllY2VJbmZvIkkKDENoZXN0S2V5SW5mbxIMCgRu",
+            "YW1lGAEgASgJEhsKBHR5cGUYAiABKA4yDS5DaGVzdEtleVR5cGUSDgoGYW1v",
+            "dW50GAMgASgFIkMKCUNoZXN0SW5mbxIMCgRuYW1lGAEgASgJEhgKBHR5cGUY",
+            "AiABKA4yCi5DaGVzdFR5cGUSDgoGYW1vdW50GAMgASgFIloKCVBpZWNlSW5m",
+            "bxIMCgRuYW1lGAEgASgJEhgKBHR5cGUYAiABKA4yCi5QaWVjZVR5cGUSFQoN",
+            "Y29tYmluZU51bWJlchgDIAEoBRIOCgZhbW91bnQYBCABKAUqYQoPRGF0YU1l",
+            "c3NhZ2VUeXBlEhcKE01BU1RFUl9EQVRBX1JFUVVFU1QQABIYChRNQVNURVJf",
+            "REFUQV9SRVNQT05TRRABEhsKF0VOQUJMRV9GRUFUVVJFU19SRUNFSVBUEAIq",
+            "PQoLRmVhdHVyZVR5cGUSCAoEU0hPUBAAEg0KCUFEVkVOVFVSRRABEgkKBUFS",
+            "RU5BEAISCgoGUkFDSU5HEAMqeQoGUmFyaXR5EhIKDlJBUklUWV9VTktOT1dO",
+            "EAASEQoNUkFSSVRZX0NPTU1PThABEhMKD1JBUklUWV9VTkNPTU1PThACEg8K",
+            "C1JBUklUWV9SQVJFEAMSDwoLUkFSSVRZX0VQSUMQBBIRCg1SQVJJVFlfTEVH",
+            "RU5EEAUqZwoJSG9yc2VUeXBlEhYKEkhPUlNFX1RZUEVfVU5LTk9XThAAEhQK",
+            "EEhPUlNFX1RZUEVfQkxBWkUQARIWChJIT1JTRV9UWVBFX1RIVU5ERVIQAhIU",
+            "ChBIT1JTRV9UWVBFX0hJRFJPEAMqIAoETGFuZRIGCgJJThAAEgcKA01JRBAB",
+            "EgcKA09VVBACKkYKDFJld2FyZFN0YXR1cxIbChdSRVdBUkRfU1RBVFVTX1VO",
+            "Q0xBSU1FRBAAEhkKFVJFV0FSRF9TVEFUVVNfQ0xBSU1FRBABKk8KClJld2Fy",
+            "ZFR5cGUSFAoQUkVXQVJEX1RZUEVfTk9ORRAAEhQKEFJFV0FSRF9UWVBFX0NI",
+            "SVAQARIVChFSRVdBUkRfVFlQRV9DSEVTVBACKp8BCg1SYWNlUm9vbUxldmVs",
+            "EhsKF1JBQ0VfUk9PTV9MRVZFTF9VTktOT1dOEAASFQoRUkFDRV9ST09NX0xF",
+            "VkVMXzEQARIVChFSQUNFX1JPT01fTEVWRUxfMhACEhUKEVJBQ0VfUk9PTV9M",
+            "RVZFTF8zEAMSFQoRUkFDRV9ST09NX0xFVkVMXzQQBBIVChFSQUNFX1JPT01f",
+            "TEVWRUxfNRAFKk0KCEl0ZW1UeXBlEhcKE0lURU1fVFlQRV9DSEVTVF9LRVkQ",
+            "ABITCg9JVEVNX1RZUEVfQ0hFU1QQARITCg9JVEVNX1RZUEVfUElFQ0UQAiop",
+            "CgxDaGVzdEtleVR5cGUSGQoVQ0hFU1RfS0VZX1RZUEVfQ09NTU9OEAAqNwoJ",
+            "Q2hlc3RUeXBlEhUKEUNIRVNUX1RZUEVfQ09NTU9OEAASEwoPQ0hFU1RfVFlQ",
+            "RV9SQVJFEAEqIQoJUGllY2VUeXBlEhQKEFBJRUNFX1RZUEVfQ0hFU1QQAEJH",
+            "Chdpby5odmVyc2UuZ2FtZS5wcm90b2dlbkISRGF0YU1lc3NhZ2VGYWN0b3J5",
+            "qgIXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.DataMessageType), typeof(global::io.hverse.game.protogen.FeatureType), typeof(global::io.hverse.game.protogen.Rarity), typeof(global::io.hverse.game.protogen.HorseType), typeof(global::io.hverse.game.protogen.Lane), typeof(global::io.hverse.game.protogen.RewardStatus), typeof(global::io.hverse.game.protogen.RewardType), typeof(global::io.hverse.game.protogen.RaceRoomLevel), typeof(global::io.hverse.game.protogen.ItemType), typeof(global::io.hverse.game.protogen.ChestKeyType), typeof(global::io.hverse.game.protogen.ChestType), typeof(global::io.hverse.game.protogen.PieceType), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.DataMessage), global::io.hverse.game.protogen.DataMessage.Parser, new[]{ "MsgType", "MasterDataRequest", "MasterDataResponse", "EnableFeaturesReceipt" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataRequest), global::io.hverse.game.protogen.MasterDataRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataResponse), global::io.hverse.game.protogen.MasterDataResponse.Parser, new[]{ "MaxHappinessNumber", "HappinessNumberPerTraining", "BetNumberList", "MaxDailyRacingNumber", "RaceRewardInfos", "MaxBreedingNumber", "MaxCoinCollected" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataResponse), global::io.hverse.game.protogen.MasterDataResponse.Parser, new[]{ "MaxHappinessNumber", "HappinessNumberPerTraining", "BetNumberList", "MaxDailyRacingNumber", "RaceRewardInfos", "MaxBreedingNumber", "MaxCoinCollected", "BreedingFee" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.BreedingFee), global::io.hverse.game.protogen.BreedingFee.Parser, new[]{ "MaleRarity", "FemaleRarity", "Fee" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.EnableFeaturesReceipt), global::io.hverse.game.protogen.EnableFeaturesReceipt.Parser, new[]{ "FeatureList" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "Bms", "Mms", "Acceleration", "Stamina", "HorseType", "Rarity", "Luck", "Level", "Color1", "Color2", "Color3", "Color4", "WinRate", "Name", "LastBettingRecord", "AverageBettingRecord", "BestBettingRecord", "Happiness", "RestoreHappinessTime", "Age", "Sex", "ColorType" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RewardInfo), global::io.hverse.game.protogen.RewardInfo.Parser, new[]{ "Type", "Amount" }, null, null, null, null),
@@ -698,6 +701,7 @@ namespace io.hverse.game.protogen {
       raceRewardInfos_ = other.raceRewardInfos_.Clone();
       maxBreedingNumber_ = other.maxBreedingNumber_;
       maxCoinCollected_ = other.maxCoinCollected_;
+      breedingFee_ = other.breedingFee_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -789,6 +793,17 @@ namespace io.hverse.game.protogen {
       }
     }
 
+    /// <summary>Field number for the "breedingFee" field.</summary>
+    public const int BreedingFeeFieldNumber = 8;
+    private static readonly pb::FieldCodec<global::io.hverse.game.protogen.BreedingFee> _repeated_breedingFee_codec
+        = pb::FieldCodec.ForMessage(66, global::io.hverse.game.protogen.BreedingFee.Parser);
+    private readonly pbc::RepeatedField<global::io.hverse.game.protogen.BreedingFee> breedingFee_ = new pbc::RepeatedField<global::io.hverse.game.protogen.BreedingFee>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::io.hverse.game.protogen.BreedingFee> BreedingFee {
+      get { return breedingFee_; }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -811,6 +826,7 @@ namespace io.hverse.game.protogen {
       if(!raceRewardInfos_.Equals(other.raceRewardInfos_)) return false;
       if (MaxBreedingNumber != other.MaxBreedingNumber) return false;
       if (MaxCoinCollected != other.MaxCoinCollected) return false;
+      if(!breedingFee_.Equals(other.breedingFee_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -825,6 +841,7 @@ namespace io.hverse.game.protogen {
       hash ^= raceRewardInfos_.GetHashCode();
       if (MaxBreedingNumber != 0) hash ^= MaxBreedingNumber.GetHashCode();
       if (MaxCoinCollected != 0) hash ^= MaxCoinCollected.GetHashCode();
+      hash ^= breedingFee_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -865,6 +882,7 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(56);
         output.WriteInt32(MaxCoinCollected);
       }
+      breedingFee_.WriteTo(output, _repeated_breedingFee_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -897,6 +915,7 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(56);
         output.WriteInt32(MaxCoinCollected);
       }
+      breedingFee_.WriteTo(ref output, _repeated_breedingFee_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -924,6 +943,7 @@ namespace io.hverse.game.protogen {
       if (MaxCoinCollected != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(MaxCoinCollected);
       }
+      size += breedingFee_.CalculateSize(_repeated_breedingFee_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -953,6 +973,7 @@ namespace io.hverse.game.protogen {
       if (other.MaxCoinCollected != 0) {
         MaxCoinCollected = other.MaxCoinCollected;
       }
+      breedingFee_.Add(other.breedingFee_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -995,6 +1016,10 @@ namespace io.hverse.game.protogen {
           }
           case 56: {
             MaxCoinCollected = input.ReadInt32();
+            break;
+          }
+          case 66: {
+            breedingFee_.AddEntriesFrom(input, _repeated_breedingFee_codec);
             break;
           }
         }
@@ -1041,6 +1066,273 @@ namespace io.hverse.game.protogen {
             MaxCoinCollected = input.ReadInt32();
             break;
           }
+          case 66: {
+            breedingFee_.AddEntriesFrom(ref input, _repeated_breedingFee_codec);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class BreedingFee : pb::IMessage<BreedingFee>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<BreedingFee> _parser = new pb::MessageParser<BreedingFee>(() => new BreedingFee());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<BreedingFee> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public BreedingFee() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public BreedingFee(BreedingFee other) : this() {
+      maleRarity_ = other.maleRarity_;
+      femaleRarity_ = other.femaleRarity_;
+      fee_ = other.fee_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public BreedingFee Clone() {
+      return new BreedingFee(this);
+    }
+
+    /// <summary>Field number for the "maleRarity" field.</summary>
+    public const int MaleRarityFieldNumber = 1;
+    private int maleRarity_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int MaleRarity {
+      get { return maleRarity_; }
+      set {
+        maleRarity_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "femaleRarity" field.</summary>
+    public const int FemaleRarityFieldNumber = 2;
+    private int femaleRarity_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int FemaleRarity {
+      get { return femaleRarity_; }
+      set {
+        femaleRarity_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "fee" field.</summary>
+    public const int FeeFieldNumber = 3;
+    private int fee_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Fee {
+      get { return fee_; }
+      set {
+        fee_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as BreedingFee);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(BreedingFee other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (MaleRarity != other.MaleRarity) return false;
+      if (FemaleRarity != other.FemaleRarity) return false;
+      if (Fee != other.Fee) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (MaleRarity != 0) hash ^= MaleRarity.GetHashCode();
+      if (FemaleRarity != 0) hash ^= FemaleRarity.GetHashCode();
+      if (Fee != 0) hash ^= Fee.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (MaleRarity != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(MaleRarity);
+      }
+      if (FemaleRarity != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(FemaleRarity);
+      }
+      if (Fee != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Fee);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (MaleRarity != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(MaleRarity);
+      }
+      if (FemaleRarity != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(FemaleRarity);
+      }
+      if (Fee != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Fee);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (MaleRarity != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MaleRarity);
+      }
+      if (FemaleRarity != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(FemaleRarity);
+      }
+      if (Fee != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Fee);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(BreedingFee other) {
+      if (other == null) {
+        return;
+      }
+      if (other.MaleRarity != 0) {
+        MaleRarity = other.MaleRarity;
+      }
+      if (other.FemaleRarity != 0) {
+        FemaleRarity = other.FemaleRarity;
+      }
+      if (other.Fee != 0) {
+        Fee = other.Fee;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            MaleRarity = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            FemaleRarity = input.ReadInt32();
+            break;
+          }
+          case 24: {
+            Fee = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            MaleRarity = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            FemaleRarity = input.ReadInt32();
+            break;
+          }
+          case 24: {
+            Fee = input.ReadInt32();
+            break;
+          }
         }
       }
     }
@@ -1062,7 +1354,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[3]; }
+      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1242,7 +1534,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[4]; }
+      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2266,7 +2558,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[5]; }
+      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2492,7 +2784,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[6]; }
+      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2744,7 +3036,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[7]; }
+      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3071,7 +3363,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[8]; }
+      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3334,7 +3626,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[9]; }
+      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3597,7 +3889,7 @@ namespace io.hverse.game.protogen {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[10]; }
+      get { return global::io.hverse.game.protogen.DataReflection.Descriptor.MessageTypes[11]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

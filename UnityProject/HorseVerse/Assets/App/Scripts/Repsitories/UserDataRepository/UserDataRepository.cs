@@ -58,6 +58,7 @@ public class UserDataRepository : Repository<long, PlayerInfo, UserDataModel>, I
         var newModel = Current.Clone();
         newModel.Coin = litePlayerInfo.Chip;
         newModel.DailyRacingNumberLeft = litePlayerInfo.FreeRacingNumber;
+        newModel.TrainingHighScore = litePlayerInfo.TrainingHighestScore;
         await UpdateModelAsync(new[] { newModel });
     }
 

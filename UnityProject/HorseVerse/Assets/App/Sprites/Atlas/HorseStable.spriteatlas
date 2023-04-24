@@ -41,15 +41,20 @@ SpriteAtlas:
   - {fileID: 21300000, guid: c70b8062bddf1d74f880d8f61b059b15, type: 3}
   - {fileID: 21300000, guid: b01286a2e207f2e449354ffb8f9da34c, type: 3}
   - {fileID: 21300000, guid: 4d4cace220678e742af2b913b9f1c4c9, type: 3}
+  - {fileID: 21300000, guid: e50b68f206d18e448b2c381e0b6d1811, type: 3}
+  - {fileID: 21300000, guid: 165ad323a7f529845865f99cf975d8fa, type: 3}
+  - {fileID: 21300000, guid: f8dda743676330546bd8b212e647455a, type: 3}
   - {fileID: 21300000, guid: 08574753cea61244f9525ff992129a45, type: 3}
   - {fileID: 21300000, guid: 9743fa53b9116c54d96f3e1ad60c650b, type: 3}
   - {fileID: 21300000, guid: 7c1929c31916c03429799b02607f7d5c, type: 3}
   - {fileID: 21300000, guid: 25ce71d37594dad4b8ebd6e316db7d96, type: 3}
   - {fileID: 21300000, guid: 9b570ca46f4ae27409b61ce32ebba538, type: 3}
+  - {fileID: 21300000, guid: c14066b4375923c4cb9a15fc769b18a3, type: 3}
   - {fileID: 21300000, guid: 5f46b965d6eb2a3428dc4959ea4719c7, type: 3}
   - {fileID: 21300000, guid: 16153275fdf9ec14f82a127cd831c9fc, type: 3}
   - {fileID: 21300000, guid: 4ca7913633234524a9f78ff517e81c5b, type: 3}
   - {fileID: 21300000, guid: 524d8e074dbf2994f81bd1eefa24fd27, type: 3}
+  - {fileID: 21300000, guid: 81088617e8e37a64496ea6d3b63f08ef, type: 3}
   - {fileID: 21300000, guid: 5d6f1d479c568ab488ecf35af359be9a, type: 3}
   - {fileID: 21300000, guid: a25ba877c76f85f4fa9552008e392d10, type: 3}
   - {fileID: 21300000, guid: 3f857e7738cec9e46aae889f0a26edcd, type: 3}
@@ -68,24 +73,35 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 900b171dba002ce4a8587d89b98c3237, type: 3}
   - {fileID: 21300000, guid: 3d22593d72c200d478bcd92399db69d9, type: 3}
   - {fileID: 21300000, guid: 3769666d922157a41b87228360d3956e, type: 3}
+  - {fileID: 21300000, guid: c40eae6d31a2d4c4dbb2ab747a6523ea, type: 3}
   - {fileID: 21300000, guid: a04ad08d0b12324469b5c12bed311582, type: 3}
+  - {fileID: 21300000, guid: f1546c8df66b74d4e9eaf07fc1ee6969, type: 3}
   - {fileID: 21300000, guid: 0b5f35cd04b506544abe7ca3dcc38941, type: 3}
+  - {fileID: 21300000, guid: 1db5550eef828b140bddfac4fb60c9f7, type: 3}
+  - {fileID: 21300000, guid: 24a30e7e74d599b4c93cb25475b8f2c2, type: 3}
+  - {fileID: 21300000, guid: c3b676be87ac6274abd213c68e7b303b, type: 3}
   - {fileID: 21300000, guid: e9caa1ded18c6af46ad6c044b38e7035, type: 3}
   - {fileID: 21300000, guid: 639a314f42080164680c43d8c0e267c2, type: 3}
+  - {fileID: 21300000, guid: bd4d15ff16199b949ae8a7ce48af06dc, type: 3}
   m_PackedSpriteNamesToIndex:
   - tab base
   - frame
   - tab select
   - SPRINT-TEXT
+  - UNLOCKED-SLOT
+  - BREED-ICON
+  - lighter framer
   - legend
   - FRAME-INFO
   - stable_item_5
   - stable_item_1
   - back_ground
+  - FRAME
   - epic
   - rare
   - common
   - uncommon
+  - BREED-BUTTON
   - stable_item_3
   - ped
   - frame2
@@ -104,10 +120,16 @@ SpriteAtlas:
   - MALE-ICON
   - stable_item_6
   - NAME-FRAME
+  - UI_Horse-Stable2
   - stable_item_4
+  - SECRET-HORSE-ICON
   - bg_stable_list
+  - BUTTON
+  - SECRET
+  - LOCKED-SLOT
   - daco_1
   - THUNDER
+  - Rectangle-BREEDCOUNT
   m_RenderDataMap: {}
   m_Tag: HorseStable
   m_IsVariant: 0

@@ -13,6 +13,7 @@ public class MasterDataModel
     public int MaxDailyRacingNumber { get; set; }
     public int MaxBreedingNumber  { get; set; }
     public int MaxCoinCollected  { get; set; }
+    public BreedingFee[] BreedingFees  { get; set; }
     
     public MasterDataModel Clone()
     {

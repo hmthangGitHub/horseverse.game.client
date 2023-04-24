@@ -514,6 +514,8 @@ public class LoginStatePresenter : IDisposable
         UserSettingLocalRepository.MasterDataModel.MaxCoinCollected = data.MaxCoinCollected;
         UserSettingLocalRepository.MasterDataModel.RacingRewardInfos = data.RaceRewardInfos
                                                                            .ToDictionary(x => ((RacingRoomType)(int)x.Level, x.Rank), x => x.Rewards.ToArray());
+
+        UserSettingLocalRepository.MasterDataModel.BreedingFees = data.BreedingFee.ToArray();
     }
 
     private FEATURE_TYPE[] GetFeatureList(LoginResponse res)

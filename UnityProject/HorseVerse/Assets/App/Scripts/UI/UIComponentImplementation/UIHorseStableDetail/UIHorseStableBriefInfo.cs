@@ -14,6 +14,7 @@ public class UIHorseStableBriefInfo : UIComponent<UIHorseStableBriefInfo.Entity>
 	    public int age;
 	    public UIComponentHorseElement.Element element;
 	    public UIComponentHorseRankRequirement.Rarity rarity;
+	    public bool showChangeHorseBtn;
     }
 
     public FormattedTextComponent horseName;
@@ -24,6 +25,8 @@ public class UIHorseStableBriefInfo : UIComponent<UIHorseStableBriefInfo.Entity>
     public UIComponentEnumInt femaleAge;
     public UIComponentHorseElement element;
     public UIComponentHorseRankRequirement rarity;
+    public IsVisibleComponent showChangeHorseLeft;
+    public IsVisibleComponent showChangeHorseRight;
 
     
     protected override void OnSetEntity()
@@ -36,5 +39,7 @@ public class UIHorseStableBriefInfo : UIComponent<UIHorseStableBriefInfo.Entity>
 	    femaleAge.SetEntity(this.entity.age);
 	    element.SetEntity(this.entity.element);
 	    rarity.SetEntity(this.entity.rarity);
+	    showChangeHorseLeft.SetEntity(this.entity.showChangeHorseBtn);
+	    showChangeHorseRight.SetEntity(this.entity.showChangeHorseBtn);
     }
 }	

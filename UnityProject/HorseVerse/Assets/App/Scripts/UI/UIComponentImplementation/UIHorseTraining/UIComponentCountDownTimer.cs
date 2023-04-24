@@ -33,7 +33,7 @@ public class UIComponentCountDownTimer : UIComponent<UIComponentCountDownTimer.E
         timeLeftText.format = GetFormat(format);
         endTimeStampDateTime = UnixTimeStampToDateTime(this.entity.utcEndTimeStamp);
         outOfDate = false;
-        SetDateTimeLeft();
+        SetDateTimeLeft(true);
     }
 
     private string GetFormat(Format format)
@@ -54,18 +54,21 @@ public class UIComponentCountDownTimer : UIComponent<UIComponentCountDownTimer.E
             if (currentTime >= updateInterval)
             {
                 currentTime -= updateInterval;
-                SetDateTimeLeft();
+                SetDateTimeLeft(false);
             }
         }
     }
 
-    private void SetDateTimeLeft()
+    private void SetDateTimeLeft(bool isInitial)
     {
         TimeSpan timeLeft = GetTimeLeft();
         if (GetTimeLeft().TotalSeconds <= 0)
         {
-            outOfDate = true;
-            this.entity.outDatedEvent?.Invoke();
+            if (!isInitial)
+            {
+                outOfDate = true;
+                this.entity.outDatedEvent?.Invoke();
+            }
             timeLeft = new TimeSpan(0, 0, 0, 0);
         }
         switch (format)

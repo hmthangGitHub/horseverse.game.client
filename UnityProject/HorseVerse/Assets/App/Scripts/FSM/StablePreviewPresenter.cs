@@ -7,9 +7,11 @@ internal class StablePreviewPresenter : IDisposable
     private readonly IDIContainer container;
     private CancellationTokenSource cts;
     private UISwipeRegister uiSwipeRegister;
+    private UIHorseStablePreview uiHorseStablePreview;
     private UIHorse3DViewPresenter uiHorse3DViewPresenter;
     private UIHorse3DViewPresenter UIHorse3DViewPresenter => uiHorse3DViewPresenter ??= container.Inject<UIHorse3DViewPresenter>();
     public event Action OnToHorseDetail = ActionUtility.EmptyAction.Instance;
+    public event Action OnToBreeding = ActionUtility.EmptyAction.Instance;
     
     public StablePreviewPresenter(IDIContainer container)
     {
@@ -20,11 +22,18 @@ internal class StablePreviewPresenter : IDisposable
     {
         cts = new CancellationTokenSource();
         uiSwipeRegister ??= await UILoader.Instantiate<UISwipeRegister>(token: cts.Token);
+        uiHorseStablePreview ??= await UILoader.Instantiate<UIHorseStablePreview>(token: cts.Token);
         uiSwipeRegister.SetEntity(new UISwipeRegister.Entity()
         {
             OnHorizontalDirection = OnSwipe
         });
         uiSwipeRegister.In().Forget();
+        uiHorseStablePreview.SetEntity(new UIHorseStablePreview.Entity()
+        {
+            breedingBtn = new ButtonComponent.Entity(OnToBreeding.Invoke)
+        });
+        uiHorseStablePreview.In().Forget();
+        
         UIHorse3DViewPresenter.OnTouchHorseEvent += OnTouchHorse;
     }
 
@@ -42,6 +51,7 @@ internal class StablePreviewPresenter : IDisposable
     public void Dispose()
     {
         UILoader.SafeRelease(ref uiSwipeRegister);
+        UILoader.SafeRelease(ref uiHorseStablePreview);
         UIHorse3DViewPresenter.OnTouchHorseEvent -= OnTouchHorse;
         uiHorse3DViewPresenter = default;
     }
