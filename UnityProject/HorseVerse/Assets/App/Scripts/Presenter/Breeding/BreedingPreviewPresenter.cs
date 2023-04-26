@@ -50,9 +50,12 @@ internal class BreedingPreviewPresenter : IDisposable
         uiHorseStableBreedingPreview ??= await UILoader.Instantiate<UIHorseStableBreedingPreview>(token:cts.Token);
         uiHorseStableBreedingPreview.SetEntity(new UIHorseStableBreedingPreview.Entity()
         {
-            speed = 10,
-            stamina = 10,
-            sprintSpeed = 10,
+            speedMin = 10,
+            speedMax = 20,
+            staminaMin = 10,
+            staminaMax = 20,
+            sprintSpeedMin = 10,
+            sprintSpeedMax = 20,
             commonOdd = 75,
             uncommonOdd = 55,
             rareOdd = 35,

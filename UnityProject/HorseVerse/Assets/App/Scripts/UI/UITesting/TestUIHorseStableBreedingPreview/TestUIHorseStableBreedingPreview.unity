@@ -427,9 +427,12 @@ MonoBehaviour:
     rareOdd: 10
     epicOdd: 10.6
     legendOdd: 10.68
-    speed: 10.68
-    sprintSpeed: 10.68
-    stamina: 10.89
+    speedMin: 10
+    speedMax: 20
+    sprintSpeedMin: 10
+    sprintSpeedMax: 20
+    staminaMin: 100
+    staminaMax: 200
     rubyNeedToBreed: 0
     maleBreedingHorse:
       horseLoader:
@@ -462,7 +465,7 @@ MonoBehaviour:
         isInteractable: 1
       breedCount: 1
       maxBreedCount: 3
-      isShowBriefInfo: 0
+      isShowBriefInfo: 1
     femaleBreedingHorse:
       horseLoader:
         horse: Horses/0002
@@ -494,7 +497,7 @@ MonoBehaviour:
         isInteractable: 1
       breedCount: 1
       maxBreedCount: 3
-      isShowBriefInfo: 0
+      isShowBriefInfo: 1
     breedingBtn:
       onClickEvent:
         m_PersistentCalls:

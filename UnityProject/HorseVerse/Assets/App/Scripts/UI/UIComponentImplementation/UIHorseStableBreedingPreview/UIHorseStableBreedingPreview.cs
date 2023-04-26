@@ -13,9 +13,12 @@ public class UIHorseStableBreedingPreview : PopupEntity<UIHorseStableBreedingPre
 	    public float rareOdd;
 	    public float epicOdd;
 	    public float legendOdd;
-	    public float speed;
-	    public float sprintSpeed;
-	    public float stamina;
+	    public float speedMin;
+	    public float speedMax;
+	    public float sprintSpeedMin;
+	    public float sprintSpeedMax;
+	    public float staminaMin;
+	    public float staminaMax;
 	    public int rubyNeedToBreed;
 	    public UIHorseBreedingCandidate.Entity maleBreedingHorse;
 	    public UIHorseBreedingCandidate.Entity femaleBreedingHorse;
@@ -42,9 +45,9 @@ public class UIHorseStableBreedingPreview : PopupEntity<UIHorseStableBreedingPre
 	    rareOdd.SetEntity(Math.Round(entity.rareOdd, 2));
 	    epicOdd.SetEntity(Math.Round(entity.epicOdd, 2));
 	    legendOdd.SetEntity(Math.Round(entity.legendOdd, 2));
-	    speed.SetEntity(Math.Round(entity.speed, 2));
-	    sprintSpeed.SetEntity(Math.Round(entity.sprintSpeed, 2));
-	    stamina.SetEntity(Math.Round(entity.stamina, 2));
+	    speed.SetEntity(Math.Round(entity.speedMin, 2), Math.Round(entity.speedMax, 2));
+	    sprintSpeed.SetEntity(Math.Round(entity.sprintSpeedMin, 2), Math.Round(entity.sprintSpeedMax, 2));
+	    stamina.SetEntity(Math.Round(entity.staminaMin, 2), Math.Round(entity.staminaMax, 2));
 	    maleBreedingHorse.SetEntity(entity.maleBreedingHorse);
 	    femaleBreedingHorse.SetEntity(entity.femaleBreedingHorse);
 	    breedingBtn.SetEntity(entity.breedingBtn);
