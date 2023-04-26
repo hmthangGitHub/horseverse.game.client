@@ -715,12 +715,14 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         isJumping = true;
         animator.SetBool(Jumping, isJumping);
         await UniTask.Delay(TimeSpan.FromSeconds(1.5f), cancellationToken: this.GetCancellationTokenOnDestroy());
+        rigidbody.constraints = RigidbodyConstraints.FreezeAll;
     }
 
     public void LandToNewScene()
     {
         isPerformingChangeScene = false;
         rigidbody.useGravity = true;
+        rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
         SetActiveCamera(CameraType.Jump);
     }
 
