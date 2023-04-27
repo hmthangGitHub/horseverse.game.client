@@ -18,6 +18,7 @@ public class StableUIState : InjectedBState
         stablePreviewPresenter = new StablePreviewPresenter(Container);
         stablePreviewPresenter.ShowAsync().Forget();
         stablePreviewPresenter.OnToHorseDetail += OnViewHorseDetail;
+        stablePreviewPresenter.OnToBreeding += OnToBreeding;
     }
 
     private void OnBack()
@@ -33,6 +34,11 @@ public class StableUIState : InjectedBState
     private void OnViewHorseDetail()
     {
         this.Machine.ChangeState<StableHorseDetailState>();
+    }
+    
+    private void OnToBreeding()
+    {
+        this.Machine.ChangeState<BreedingState>();
     }
 
     public override void Exit()

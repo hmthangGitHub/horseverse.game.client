@@ -22,6 +22,7 @@ public partial class UIDebugMenuPresenter : IDisposable
     public UIDebugMenuPresenter(IDIContainer container)
     {
         Container = container;
+        objectModifierPresenter = new ObjectModifierPresenter(container);
     }
 
     public async UniTask InitializeAsync()
@@ -70,6 +71,8 @@ public partial class UIDebugMenuPresenter : IDisposable
         debugMenuList.Add(CreateInvisibleDebugMenu());
         debugMenuList.Add(CreateLevelEditorDebugMenu());
         debugMenuList.Add(CreateToTrainingState());
+        debugMenuList.Add(CreateHorseCheatDebugMenu());
+        debugMenuList.Add(CreatePlayerInfoCheatDebugMenu());
     }
 
     private (string debugMenu, Action action) CreateToTrainingState()
@@ -129,7 +132,12 @@ public partial class UIDebugMenuPresenter : IDisposable
 
     private (string debugMenu, Action action) CreateReloadDebugMenu()
     {
-        return ("Reload", () => throw new Exception("Reload"));
+        return ("Reload", ThrowToReload);
+    }
+
+    private static void ThrowToReload()
+    {
+        throw new Exception("Reload");
     }
 
     public void Dispose()
@@ -137,6 +145,7 @@ public partial class UIDebugMenuPresenter : IDisposable
         cts.SafeCancelAndDispose();
         cts = default;
         UILoader.SafeRelease(ref uiDebugMenu);
+        DisposeUtility.SafeDispose(ref objectModifierPresenter);
         debugMenuList.Clear();
     }
 }

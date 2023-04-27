@@ -120,10 +120,17 @@ public class ErrorHandler : IDisposable
         {
             var socketException when socketException.Contains("SocketException") => "Network Error",
             var timeOutException when timeOutException.Contains("TimeoutException") => "Network Error",
-            var failedResponseException when failedResponseException.Contains(nameof(FailedResponseException)) => MasterLocalizeContainer.GetString(MasterErrorCodeContainer.MasterErrorCodeIndexer[SocketClient.LatestException.ErrorCode].DescriptionKey),
+            var failedResponseException when failedResponseException.Contains(nameof(FailedResponseException)) => MasterLocalizeContainer.GetString(GetDescriptionKey()),
             _ => "Unknown Error"
         };
         ShowErrorMessageAsync(message);
+    }
+
+    private string GetDescriptionKey()
+    {
+        return MasterErrorCodeContainer.MasterErrorCodeIndexer.TryGetValue(SocketClient.LatestException.ErrorCode, out var masterErrorCode)
+                                       ? masterErrorCode.DescriptionKey
+                                       : "UNKNOWN_ERROR";
     }
 
     private void ShowErrorMessageAsync(string message)

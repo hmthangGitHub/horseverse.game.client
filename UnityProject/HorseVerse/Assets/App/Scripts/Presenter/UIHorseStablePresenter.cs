@@ -19,7 +19,7 @@ public class UIHorseStablePresenter : IDisposable
     private IQuickRaceDomainService QuickRaceDomainService => quickRaceDomainService ??= container.Inject<IQuickRaceDomainService>();
     
     private IUserDataRepository userDataRepository;
-    protected IUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IUserDataRepository>();
+    private IUserDataRepository UserDataRepository => userDataRepository ??= container.Inject<IUserDataRepository>();
 
     private float currentSelectHorseId = -1;
 

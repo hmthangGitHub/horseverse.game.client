@@ -78,9 +78,9 @@ public class HorseLoader : UIComponent<HorseLoader.Entity>
 
     private void RemoveOldHorse()
     {
-        if (horsePosition.transform.childCount > 0)
+        if (horse != default && !string.IsNullOrEmpty(oldHorse))
         {
-            Destroy(horsePosition.transform.GetChild(0).gameObject);
+            Destroy(horse);
             PrimitiveAssetLoader.UnloadAssetAtPath(oldHorse);
         }
     }
