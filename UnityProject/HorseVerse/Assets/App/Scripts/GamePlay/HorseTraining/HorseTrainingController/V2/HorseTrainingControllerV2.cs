@@ -747,4 +747,9 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         if (Mathf.Abs(A1) >= 0.985f || Mathf.Abs(A2) >= 0.985f) return true;
         return false;
     }
+
+    public void SetDirection(Vector3 dir)
+    {
+        v_direction = dir;
+    }
 }

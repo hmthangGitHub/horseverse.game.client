@@ -10,10 +10,11 @@ public class SceneEntityComponent : MonoBehaviour
     [SerializeField] ObjectFollowing _cameraFollower;
     [SerializeField] Material skybox;
     [SerializeField] GameObject _changingPoint;
+    [SerializeField] GameObject _startPlatform;
 
     public GameObject ChangingPoint => _changingPoint;
-
     public Material Skybox => skybox;
+    public GameObject StartPlatform => _startPlatform;
 
     private void Start()
     {

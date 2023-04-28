@@ -72,6 +72,7 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
                                     MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer)
     {
         var dir = Vector3.forward;//PlatformGenerator.NextDirection;
+        PlatformGenerator.SetLastPlatform(null);
         await PlatformGenerator.UpdateMapAsync(masterHorseTrainingBlockContainer,
             masterHorseTrainingBlockComboContainer,
             mapId,
@@ -79,13 +80,14 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
             dir);
 
         await UniTask.DelayFrame(5);
-
+        HorseTrainingController.SetDirection(dir);
         if (SceneEntityComponent.Instance != default)
         {
             SceneEntityComponent.Instance.SetCameraTarget(HorseTrainingController.transform);
             if(SceneEntityComponent.Instance.Skybox != default)
                 RenderSettings.skybox = SceneEntityComponent.Instance.Skybox;
             HorseTrainingController.transform.position = SceneEntityComponent.Instance.ChangingPoint.transform.position;
+            PlatformGenerator.SetLastPlatform(SceneEntityComponent.Instance.StartPlatform);
         }
         else Debug.LogError("Cant find Entity");
     }

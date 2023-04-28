@@ -33,6 +33,8 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
     protected int numberOfBlock = 0;
     protected int currentBlock = 0;
 
+    private GameObject startingPlatform;
+
     private enum EndOfBlockBehaviour
     {
         DestroyPreviousAndCreateNew,
@@ -78,6 +80,11 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         Debug.Log("DIRECTION " + this.nextDirection + "; SIDE  " + this.nextSideDirection);
         await ReleaseInternal();
         await InitializeInternal(Scene_Key);
+    }
+
+    public void SetLastPlatform(GameObject _lastPlatform)
+    {
+        lastPlatform = _lastPlatform;
     }
 
     protected abstract UniTask InitializeInternal();
@@ -236,7 +243,7 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
         {
             var relativePointToPlayer = PredictRelativePointToPlayer(nextDirection, i != 0); 
             var platformTest = lastPlatform.GetComponent<PlatformBase>();
-            var lastEndPosition = i != 0 ? platformTest.end.position : horseTrainingControllerV2.transform.position;
+            var lastEndPosition = platformTest.end.position; //i != 0 ? platformTest.end.position : horseTrainingControllerV2.transform.position;
             await CreateNewPlatformAsync(relativePointToPlayer, lastEndPosition, nextDirection, TYPE_OF_BLOCK.NORMAL, EndOfBlockBehaviour.DestroyPreviousAndCreateNew, true);
         }
     }
