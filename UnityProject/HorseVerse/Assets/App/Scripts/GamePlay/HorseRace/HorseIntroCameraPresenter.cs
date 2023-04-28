@@ -76,7 +76,7 @@ public class HorseIntroCameraPresenter : IDisposable
     public void Dispose()
     {
         DisposeUtility.SafeDispose(ref cts);
-        DisposeUtility.SafeDisposeMonoBehaviour(ref freeCamera);
-        DisposeUtility.SafeDisposeMonoBehaviour(ref warmUpCamera);
+        DisposeUtility.SafeDisposeComponent(ref freeCamera);
+        DisposeUtility.SafeDisposeComponent(ref warmUpCamera);
     }
 }
