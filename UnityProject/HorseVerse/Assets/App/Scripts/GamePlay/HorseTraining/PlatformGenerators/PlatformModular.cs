@@ -31,6 +31,7 @@ public partial class PlatformModular : PlatformBase
     public BoxCollider sceneryBoxContainer;
     [SerializeField]
     public BoxCollider sceneryConflictRegion;
+    public List<BoxCollider> sceneryPositionContainers;
     
     private PlatformGeneratorPool pool;
 

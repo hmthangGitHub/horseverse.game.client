@@ -386,8 +386,8 @@ MonoBehaviour:
   blockContainer: {fileID: 6434063920842633243}
   sceneryContainer: {fileID: 1651026050602926669}
   coinContainer: {fileID: 1049411994088160015}
-  sceneryConflictRegionScale: {x: 3.8, y: 20, z: 1.5}
-  sceneryContainerScale: {x: 14, y: 20, z: 1}
+  sceneryConflictRegionScale: {x: 5, y: 50, z: 1.5}
+  sceneryContainerScale: {x: 18, y: 20, z: 1}
   testBlocks: []
   testPaddingHead: {fileID: 4686279130270008544, guid: 9cbbb23c00d88064089a56e6bb0d1c7d, type: 3}
   testPaddingTail: {fileID: 4686279130270008544, guid: 9cbbb23c00d88064089a56e6bb0d1c7d, type: 3}
@@ -402,3 +402,4 @@ MonoBehaviour:
   paddingTailCollider: {fileID: 0}
   sceneryBoxContainer: {fileID: 0}
   sceneryConflictRegion: {fileID: 0}
+  sceneryPositionContainers: []

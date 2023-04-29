@@ -262,7 +262,7 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
     {
         DisposeUtility.SafeDispose(ref cts);
         UnsubscribeFinishTrackEvents();
-        DisposeUtility.SafeDisposeMonoBehaviour(ref horseRaceThirdPersonListContainer);
+        DisposeUtility.SafeDisposeComponent(ref horseRaceThirdPersonListContainer);
         HorseRaceThirdPersonBehaviours = default;
         
         horseRaceThirdPersonInfo.ForEach(x =>
@@ -274,7 +274,7 @@ public class HorseRaceThirdPersonManager : IHorseRaceManager
         UILoader.SafeRelease(ref uiHorseRacingPreGameTiming);
         UILoader.SafeRelease(ref uiHorseRacingController);
         UILoader.SafeRelease(ref uiHorseRacingThirdPersonResult);
-        DisposeUtility.SafeDisposeMonoBehaviour(ref targetGenerator);
+        DisposeUtility.SafeDisposeComponent(ref targetGenerator);
         Time.timeScale = 1;
         
         OnHorseFinishTrackEvent = ActionUtility.EmptyAction.Instance;

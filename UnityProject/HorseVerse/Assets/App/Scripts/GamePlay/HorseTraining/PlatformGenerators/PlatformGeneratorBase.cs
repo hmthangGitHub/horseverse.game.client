@@ -195,13 +195,6 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
             true);
     }
 
-    private static BoxCollider GetSceneryConflictRegion(PlatformBase platform1)
-    {
-        var platformModular = platform1.GetComponent<PlatformModular>();
-        platformModular.CreateSceneryRegions();
-        return platformModular.sceneryConflictRegion;
-    }
-
     private void SetEndOfBlockBehaviour(PlatformBase platform, EndOfBlockBehaviour endOfBlockBehaviour)
     {
         Action action;

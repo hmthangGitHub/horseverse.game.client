@@ -17,7 +17,7 @@ public static class DisposeUtility
         disposable = default;
     }
     
-    public static void SafeDisposeMonoBehaviour<T>(ref T monoBehaviour) where T : MonoBehaviour
+    public static void SafeDisposeComponent<T>(ref T monoBehaviour) where T : Component
     {
         if (monoBehaviour == default) return;
         Object.Destroy(monoBehaviour.gameObject);

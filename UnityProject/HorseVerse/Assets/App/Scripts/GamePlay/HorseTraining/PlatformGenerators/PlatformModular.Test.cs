@@ -2,6 +2,7 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public partial class PlatformModular
 {
@@ -42,17 +43,9 @@ public partial class PlatformModular
         allPlatformColliders.Clear();
         gameObjectPoolTest?.Dispose();
         gameObjectPoolTest ??= new GameObjectPoolList();
-        sceneryObjectsTest = AssetDatabase.LoadAssetAtPath<TrainingBlockSettings>("Assets/App/AssetBundles/Maps/MapSettings/training_block_settings.asset")
+        sceneryObjectsTest = AssetDatabase.LoadAssetAtPath<TrainingBlockSettings>("Assets/App/AssetBundles/Maps/MapSettings/training_block_settings_2002.asset")
                                             .sceneryObjects;
-        if (sceneryBoxContainer != default)
-        {
-            DestroyImmediate(sceneryBoxContainer.gameObject);
-        }
-        
-        if (sceneryConflictRegion != default)
-        {
-            DestroyImmediate(sceneryConflictRegion.gameObject);
-        }
+        ClearOldSceneryContainer();
         
         GenerateBlock(testStartPosition.position, testBlocks, testPaddingHead, testPaddingTail, testOffset, testOffset, masterTrainingBlockComboTypeTest, sceneryObjectsTest, gameObjectPoolTest);
     #if ENABLE_DEBUG_MODULE
@@ -63,16 +56,32 @@ public partial class PlatformModular
     [ContextMenu("CreateSceneryContainer")]
     public void CreateSceneryContainerTest()
     {
+        ClearOldSceneryContainer();
+        CreateSceneryRegions();
+    }
+
+    private void ClearOldSceneryContainer()
+    {
         if (sceneryBoxContainer != default)
         {
             DestroyImmediate(sceneryBoxContainer.gameObject);
         }
-        
-        if (sceneryConflictRegion != default)
+
+        SafeDisposeComponent(ref sceneryConflictRegion);
+        SafeDisposeComponent(ref sceneryBoxContainer);
+
+        sceneryPositionContainers.ForEach(x =>
         {
-            DestroyImmediate(sceneryConflictRegion.gameObject);
-        }
-        CreateSceneryRegions();
+            SafeDisposeComponent(ref x);
+        });
+        sceneryPositionContainers.Clear();
+    }
+
+    public static void SafeDisposeComponent<T>(ref T monoBehaviour) where T : Component
+    {
+        if (monoBehaviour == default) return;
+        Object.Destroy(monoBehaviour.gameObject);
+        monoBehaviour = default;
     }
 
     private void OnDestroy()

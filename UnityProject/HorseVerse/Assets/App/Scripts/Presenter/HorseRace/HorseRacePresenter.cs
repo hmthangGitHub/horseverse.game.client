@@ -193,7 +193,7 @@ public partial class HorseRacePresenter : IDisposable
         DisposeUtility.SafeDispose(ref cts);
         DisposeUtility.SafeDispose(ref horseRaceManager);
         DisposeUtility.SafeDispose(ref horseIntroCameraPresenter);
-        DisposeUtility.SafeDisposeMonoBehaviour(ref targetGenerator);
+        DisposeUtility.SafeDisposeComponent(ref targetGenerator);
 
         UILoader.SafeRelease(ref uiFlashScreen);
         UILoader.SafeRelease(ref uiLoading);
