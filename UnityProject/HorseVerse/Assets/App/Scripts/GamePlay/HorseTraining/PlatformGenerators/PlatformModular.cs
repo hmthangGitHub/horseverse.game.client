@@ -225,8 +225,10 @@ public partial class PlatformModular : PlatformBase
         enableColliders.Clear();
         var paddingHead = Instantiate_PaddingHeadCollider(paddingStartPrefab, masterTrainingBlockComboType);
         var paddingTail = Instantiate_PaddingTailCollider(paddingEndPrefab, masterTrainingBlockComboType);
-        var headCol = paddingHead.GetComponentInChildren<BoxCollider>();
-        var tailCol = paddingTail.GetComponentInChildren<BoxCollider>();
+        BoxCollider headCol = null;
+        if(paddingHead != default) headCol = paddingHead.transform.GetChild(0).GetComponent<BoxCollider>();
+        BoxCollider tailCol = null;
+        if (paddingTail != default) tailCol = paddingTail.transform.GetChild(0).GetComponent<BoxCollider>();
         //if (headCol.enabled) { enableColliders.Add(headCol); headCol.enabled = false; }
         //if (tailCol.enabled) { enableColliders.Add(tailCol); tailCol.enabled = false; }
         yield return InstantiateBlocksAsync(blockPrefabs, (s1)=>{
@@ -452,7 +454,8 @@ public partial class PlatformModular : PlatformBase
         for (int i = 0; i < len; i++)
         {
             var x = gameObjects[i];
-            var ss = Instantiate(x, this.blockContainer).GetComponentInChildren<BoxCollider>();
+            var obj = Instantiate(x, this.blockContainer);
+            var ss = obj.transform.GetChild(0).GetComponent<BoxCollider>();
             //if(ss.enabled)
             //    enableColliders.Add(ss);
             //ss.enabled = false;

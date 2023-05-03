@@ -27,8 +27,10 @@ public partial class PlatformModular
 
         var paddingHead = Instantiate_PaddingHeadCollider(paddingStartPrefab, MasterTrainingBlockComboType.Modular);
         var paddingTail = Instantiate_PaddingTailCollider(paddingEndPrefab, MasterTrainingBlockComboType.Modular);
-        var headCol = paddingHead.GetComponentInChildren<BoxCollider>();
-        var tailCol = paddingTail.GetComponentInChildren<BoxCollider>();
+        BoxCollider headCol = null;
+        if (paddingHead != default) headCol = paddingHead.transform.GetChild(0).GetComponent<BoxCollider>();
+        BoxCollider tailCol = null;
+        if (paddingTail != default) tailCol = paddingTail.transform.GetChild(0).GetComponent<BoxCollider>();
 
         var bl = GenerateTurn(turnPrefab);
         yield return null;
