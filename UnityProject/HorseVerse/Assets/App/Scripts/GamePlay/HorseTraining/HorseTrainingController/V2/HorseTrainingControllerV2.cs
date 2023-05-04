@@ -690,7 +690,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     private async Task PreviewHorseInAirAsync()
     {
         SetActiveCamera(CameraType.ChangeScene);
-        var changeSceneInAirDuration = 4.5f;
+        var changeSceneInAirDuration = 1.5f;
         var t = 0f;
 
         var velocity = rigidbody.velocity;
@@ -751,5 +751,15 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
     public void SetDirection(Vector3 dir)
     {
         v_direction = dir;
+    }
+
+    public void EnableRotateToWard()
+    {
+        StartCoroutine(doRotateToward());
+    }
+
+    IEnumerator doRotateToward()
+    {
+        yield return this.transform.DORotate(v_direction, 1.0f);
     }
 }

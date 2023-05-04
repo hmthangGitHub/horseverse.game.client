@@ -81,6 +81,7 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
 
         await UniTask.DelayFrame(5);
         HorseTrainingController.SetDirection(dir);
+        HorseTrainingController.EnableRotateToWard();
         if (SceneEntityComponent.Instance != default)
         {
             SceneEntityComponent.Instance.SetCameraTarget(HorseTrainingController.transform);
@@ -131,12 +132,12 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
         if (active)
         {
             changeSceneVFX.SetTrigger("In");
-            yield return new WaitForSeconds(7.0f);
+            yield return new WaitForSeconds(4.0f);
         }
         else
         {
             changeSceneVFX.SetTrigger("Out");
-            yield return new WaitForSeconds(7.0f);
+            yield return new WaitForSeconds(3.5f);
             changeSceneVFX.gameObject.SetActive(false);
         }
     }
