@@ -48,7 +48,6 @@ public class BreedingBreedingDomainService : IBreedingDomainService
                 SlotIndex = slotIndex,
             });
 
-        response.SlotInfo.Status = BreedSlotStatus.Breeding; // TODO remove
         await BreedSlotRepository.UpdateDataAsync(new[] { response.SlotInfo });
         await HorseRepository.AddHorseModelAsync(childHorse);
     }

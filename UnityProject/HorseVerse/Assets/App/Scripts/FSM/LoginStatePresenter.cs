@@ -516,6 +516,7 @@ public class LoginStatePresenter : IDisposable
                                                                            .ToDictionary(x => ((RacingRoomType)(int)x.Level, x.Rank), x => x.Rewards.ToArray());
 
         UserSettingLocalRepository.MasterDataModel.BreedingFees = data.BreedingFee.ToArray();
+        UserSettingLocalRepository.MasterDataModel.BreedingAttributeFactor = data.BreedingFactor;
     }
 
     private FEATURE_TYPE[] GetFeatureList(LoginResponse res)

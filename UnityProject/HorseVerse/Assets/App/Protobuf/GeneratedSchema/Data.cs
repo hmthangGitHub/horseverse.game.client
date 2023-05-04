@@ -29,66 +29,67 @@ namespace io.hverse.game.protogen {
             "MhIuTWFzdGVyRGF0YVJlcXVlc3QSLwoSbWFzdGVyRGF0YVJlc3BvbnNlGAMg",
             "ASgLMhMuTWFzdGVyRGF0YVJlc3BvbnNlEjUKFWVuYWJsZUZlYXR1cmVzUmVj",
             "ZWlwdBgEIAEoCzIWLkVuYWJsZUZlYXR1cmVzUmVjZWlwdCITChFNYXN0ZXJE",
-            "YXRhUmVxdWVzdCKLAgoSTWFzdGVyRGF0YVJlc3BvbnNlEhoKEm1heEhhcHBp",
+            "YXRhUmVxdWVzdCKjAgoSTWFzdGVyRGF0YVJlc3BvbnNlEhoKEm1heEhhcHBp",
             "bmVzc051bWJlchgBIAEoBRIiChpoYXBwaW5lc3NOdW1iZXJQZXJUcmFpbmlu",
             "ZxgCIAEoBRIVCg1iZXROdW1iZXJMaXN0GAMgAygFEhwKFG1heERhaWx5UmFj",
             "aW5nTnVtYmVyGAQgASgFEigKD3JhY2VSZXdhcmRJbmZvcxgFIAMoCzIPLlJh",
             "Y2VSZXdhcmRJbmZvEhkKEW1heEJyZWVkaW5nTnVtYmVyGAYgASgFEhgKEG1h",
             "eENvaW5Db2xsZWN0ZWQYByABKAUSIQoLYnJlZWRpbmdGZWUYCCADKAsyDC5C",
-            "cmVlZGluZ0ZlZSJECgtCcmVlZGluZ0ZlZRISCgptYWxlUmFyaXR5GAEgASgF",
-            "EhQKDGZlbWFsZVJhcml0eRgCIAEoBRILCgNmZWUYAyABKAUiOgoVRW5hYmxl",
-            "RmVhdHVyZXNSZWNlaXB0EiEKC2ZlYXR1cmVMaXN0GAEgAygOMgwuRmVhdHVy",
-            "ZVR5cGUiwQMKCUhvcnNlSW5mbxINCgVuZnRJZBgBIAEoAxILCgNibXMYAiAB",
-            "KAISCwoDbW1zGAMgASgCEhQKDGFjY2VsZXJhdGlvbhgEIAEoAhIPCgdzdGFt",
-            "aW5hGAUgASgCEh0KCWhvcnNlVHlwZRgGIAEoDjIKLkhvcnNlVHlwZRIXCgZy",
-            "YXJpdHkYByABKA4yBy5SYXJpdHkSDAoEbHVjaxgIIAEoBRINCgVsZXZlbBgJ",
-            "IAEoBRIOCgZjb2xvcjEYCiABKAkSDgoGY29sb3IyGAsgASgJEg4KBmNvbG9y",
-            "MxgMIAEoCRIOCgZjb2xvcjQYDSABKAkSDwoHd2luUmF0ZRgOIAEoAhIMCgRu",
-            "YW1lGA8gASgJEhkKEWxhc3RCZXR0aW5nUmVjb3JkGBAgASgCEhwKFGF2ZXJh",
-            "Z2VCZXR0aW5nUmVjb3JkGBEgASgCEhkKEWJlc3RCZXR0aW5nUmVjb3JkGBIg",
-            "ASgCEhEKCWhhcHBpbmVzcxgTIAEoBRIcChRyZXN0b3JlSGFwcGluZXNzVGlt",
-            "ZRgUIAEoAxILCgNhZ2UYFSABKAUSCwoDc2V4GBYgASgFEhEKCWNvbG9yVHlw",
-            "ZRgXIAEoBSI3CgpSZXdhcmRJbmZvEhkKBHR5cGUYASABKA4yCy5SZXdhcmRU",
-            "eXBlEg4KBmFtb3VudBgCIAEoAyJbCg5SYWNlUmV3YXJkSW5mbxIMCgRyYW5r",
-            "GAEgASgFEh0KBWxldmVsGAIgASgOMg4uUmFjZVJvb21MZXZlbBIcCgdyZXdh",
-            "cmRzGAMgAygLMgsuUmV3YXJkSW5mbyKGAQoISXRlbUluZm8SFwoEdHlwZRgB",
-            "IAEoDjIJLkl0ZW1UeXBlEiMKDGNoZXN0S2V5SW5mbxgCIAEoCzINLkNoZXN0",
-            "S2V5SW5mbxIdCgljaGVzdEluZm8YAyABKAsyCi5DaGVzdEluZm8SHQoJcGll",
-            "Y2VJbmZvGAQgASgLMgouUGllY2VJbmZvIkkKDENoZXN0S2V5SW5mbxIMCgRu",
-            "YW1lGAEgASgJEhsKBHR5cGUYAiABKA4yDS5DaGVzdEtleVR5cGUSDgoGYW1v",
-            "dW50GAMgASgFIkMKCUNoZXN0SW5mbxIMCgRuYW1lGAEgASgJEhgKBHR5cGUY",
-            "AiABKA4yCi5DaGVzdFR5cGUSDgoGYW1vdW50GAMgASgFIloKCVBpZWNlSW5m",
-            "bxIMCgRuYW1lGAEgASgJEhgKBHR5cGUYAiABKA4yCi5QaWVjZVR5cGUSFQoN",
-            "Y29tYmluZU51bWJlchgDIAEoBRIOCgZhbW91bnQYBCABKAUqYQoPRGF0YU1l",
-            "c3NhZ2VUeXBlEhcKE01BU1RFUl9EQVRBX1JFUVVFU1QQABIYChRNQVNURVJf",
-            "REFUQV9SRVNQT05TRRABEhsKF0VOQUJMRV9GRUFUVVJFU19SRUNFSVBUEAIq",
-            "PQoLRmVhdHVyZVR5cGUSCAoEU0hPUBAAEg0KCUFEVkVOVFVSRRABEgkKBUFS",
-            "RU5BEAISCgoGUkFDSU5HEAMqeQoGUmFyaXR5EhIKDlJBUklUWV9VTktOT1dO",
-            "EAASEQoNUkFSSVRZX0NPTU1PThABEhMKD1JBUklUWV9VTkNPTU1PThACEg8K",
-            "C1JBUklUWV9SQVJFEAMSDwoLUkFSSVRZX0VQSUMQBBIRCg1SQVJJVFlfTEVH",
-            "RU5EEAUqZwoJSG9yc2VUeXBlEhYKEkhPUlNFX1RZUEVfVU5LTk9XThAAEhQK",
-            "EEhPUlNFX1RZUEVfQkxBWkUQARIWChJIT1JTRV9UWVBFX1RIVU5ERVIQAhIU",
-            "ChBIT1JTRV9UWVBFX0hJRFJPEAMqIAoETGFuZRIGCgJJThAAEgcKA01JRBAB",
-            "EgcKA09VVBACKkYKDFJld2FyZFN0YXR1cxIbChdSRVdBUkRfU1RBVFVTX1VO",
-            "Q0xBSU1FRBAAEhkKFVJFV0FSRF9TVEFUVVNfQ0xBSU1FRBABKk8KClJld2Fy",
-            "ZFR5cGUSFAoQUkVXQVJEX1RZUEVfTk9ORRAAEhQKEFJFV0FSRF9UWVBFX0NI",
-            "SVAQARIVChFSRVdBUkRfVFlQRV9DSEVTVBACKp8BCg1SYWNlUm9vbUxldmVs",
-            "EhsKF1JBQ0VfUk9PTV9MRVZFTF9VTktOT1dOEAASFQoRUkFDRV9ST09NX0xF",
-            "VkVMXzEQARIVChFSQUNFX1JPT01fTEVWRUxfMhACEhUKEVJBQ0VfUk9PTV9M",
-            "RVZFTF8zEAMSFQoRUkFDRV9ST09NX0xFVkVMXzQQBBIVChFSQUNFX1JPT01f",
-            "TEVWRUxfNRAFKk0KCEl0ZW1UeXBlEhcKE0lURU1fVFlQRV9DSEVTVF9LRVkQ",
-            "ABITCg9JVEVNX1RZUEVfQ0hFU1QQARITCg9JVEVNX1RZUEVfUElFQ0UQAiop",
-            "CgxDaGVzdEtleVR5cGUSGQoVQ0hFU1RfS0VZX1RZUEVfQ09NTU9OEAAqNwoJ",
-            "Q2hlc3RUeXBlEhUKEUNIRVNUX1RZUEVfQ09NTU9OEAASEwoPQ0hFU1RfVFlQ",
-            "RV9SQVJFEAEqIQoJUGllY2VUeXBlEhQKEFBJRUNFX1RZUEVfQ0hFU1QQAEJH",
-            "Chdpby5odmVyc2UuZ2FtZS5wcm90b2dlbkISRGF0YU1lc3NhZ2VGYWN0b3J5",
-            "qgIXaW8uaHZlcnNlLmdhbWUucHJvdG9nZW5iBnByb3RvMw=="));
+            "cmVlZGluZ0ZlZRIWCg5icmVlZGluZ0ZhY3RvchgJIAEoBSJECgtCcmVlZGlu",
+            "Z0ZlZRISCgptYWxlUmFyaXR5GAEgASgFEhQKDGZlbWFsZVJhcml0eRgCIAEo",
+            "BRILCgNmZWUYAyABKAUiOgoVRW5hYmxlRmVhdHVyZXNSZWNlaXB0EiEKC2Zl",
+            "YXR1cmVMaXN0GAEgAygOMgwuRmVhdHVyZVR5cGUiwQMKCUhvcnNlSW5mbxIN",
+            "CgVuZnRJZBgBIAEoAxILCgNibXMYAiABKAISCwoDbW1zGAMgASgCEhQKDGFj",
+            "Y2VsZXJhdGlvbhgEIAEoAhIPCgdzdGFtaW5hGAUgASgCEh0KCWhvcnNlVHlw",
+            "ZRgGIAEoDjIKLkhvcnNlVHlwZRIXCgZyYXJpdHkYByABKA4yBy5SYXJpdHkS",
+            "DAoEbHVjaxgIIAEoBRINCgVsZXZlbBgJIAEoBRIOCgZjb2xvcjEYCiABKAkS",
+            "DgoGY29sb3IyGAsgASgJEg4KBmNvbG9yMxgMIAEoCRIOCgZjb2xvcjQYDSAB",
+            "KAkSDwoHd2luUmF0ZRgOIAEoAhIMCgRuYW1lGA8gASgJEhkKEWxhc3RCZXR0",
+            "aW5nUmVjb3JkGBAgASgCEhwKFGF2ZXJhZ2VCZXR0aW5nUmVjb3JkGBEgASgC",
+            "EhkKEWJlc3RCZXR0aW5nUmVjb3JkGBIgASgCEhEKCWhhcHBpbmVzcxgTIAEo",
+            "BRIcChRyZXN0b3JlSGFwcGluZXNzVGltZRgUIAEoAxILCgNhZ2UYFSABKAUS",
+            "CwoDc2V4GBYgASgFEhEKCWNvbG9yVHlwZRgXIAEoBSI3CgpSZXdhcmRJbmZv",
+            "EhkKBHR5cGUYASABKA4yCy5SZXdhcmRUeXBlEg4KBmFtb3VudBgCIAEoAyJb",
+            "Cg5SYWNlUmV3YXJkSW5mbxIMCgRyYW5rGAEgASgFEh0KBWxldmVsGAIgASgO",
+            "Mg4uUmFjZVJvb21MZXZlbBIcCgdyZXdhcmRzGAMgAygLMgsuUmV3YXJkSW5m",
+            "byKGAQoISXRlbUluZm8SFwoEdHlwZRgBIAEoDjIJLkl0ZW1UeXBlEiMKDGNo",
+            "ZXN0S2V5SW5mbxgCIAEoCzINLkNoZXN0S2V5SW5mbxIdCgljaGVzdEluZm8Y",
+            "AyABKAsyCi5DaGVzdEluZm8SHQoJcGllY2VJbmZvGAQgASgLMgouUGllY2VJ",
+            "bmZvIkkKDENoZXN0S2V5SW5mbxIMCgRuYW1lGAEgASgJEhsKBHR5cGUYAiAB",
+            "KA4yDS5DaGVzdEtleVR5cGUSDgoGYW1vdW50GAMgASgFIkMKCUNoZXN0SW5m",
+            "bxIMCgRuYW1lGAEgASgJEhgKBHR5cGUYAiABKA4yCi5DaGVzdFR5cGUSDgoG",
+            "YW1vdW50GAMgASgFIloKCVBpZWNlSW5mbxIMCgRuYW1lGAEgASgJEhgKBHR5",
+            "cGUYAiABKA4yCi5QaWVjZVR5cGUSFQoNY29tYmluZU51bWJlchgDIAEoBRIO",
+            "CgZhbW91bnQYBCABKAUqYQoPRGF0YU1lc3NhZ2VUeXBlEhcKE01BU1RFUl9E",
+            "QVRBX1JFUVVFU1QQABIYChRNQVNURVJfREFUQV9SRVNQT05TRRABEhsKF0VO",
+            "QUJMRV9GRUFUVVJFU19SRUNFSVBUEAIqPQoLRmVhdHVyZVR5cGUSCAoEU0hP",
+            "UBAAEg0KCUFEVkVOVFVSRRABEgkKBUFSRU5BEAISCgoGUkFDSU5HEAMqeQoG",
+            "UmFyaXR5EhIKDlJBUklUWV9VTktOT1dOEAASEQoNUkFSSVRZX0NPTU1PThAB",
+            "EhMKD1JBUklUWV9VTkNPTU1PThACEg8KC1JBUklUWV9SQVJFEAMSDwoLUkFS",
+            "SVRZX0VQSUMQBBIRCg1SQVJJVFlfTEVHRU5EEAUqZwoJSG9yc2VUeXBlEhYK",
+            "EkhPUlNFX1RZUEVfVU5LTk9XThAAEhQKEEhPUlNFX1RZUEVfQkxBWkUQARIW",
+            "ChJIT1JTRV9UWVBFX1RIVU5ERVIQAhIUChBIT1JTRV9UWVBFX0hJRFJPEAMq",
+            "IAoETGFuZRIGCgJJThAAEgcKA01JRBABEgcKA09VVBACKkYKDFJld2FyZFN0",
+            "YXR1cxIbChdSRVdBUkRfU1RBVFVTX1VOQ0xBSU1FRBAAEhkKFVJFV0FSRF9T",
+            "VEFUVVNfQ0xBSU1FRBABKk8KClJld2FyZFR5cGUSFAoQUkVXQVJEX1RZUEVf",
+            "Tk9ORRAAEhQKEFJFV0FSRF9UWVBFX0NISVAQARIVChFSRVdBUkRfVFlQRV9D",
+            "SEVTVBACKp8BCg1SYWNlUm9vbUxldmVsEhsKF1JBQ0VfUk9PTV9MRVZFTF9V",
+            "TktOT1dOEAASFQoRUkFDRV9ST09NX0xFVkVMXzEQARIVChFSQUNFX1JPT01f",
+            "TEVWRUxfMhACEhUKEVJBQ0VfUk9PTV9MRVZFTF8zEAMSFQoRUkFDRV9ST09N",
+            "X0xFVkVMXzQQBBIVChFSQUNFX1JPT01fTEVWRUxfNRAFKk0KCEl0ZW1UeXBl",
+            "EhcKE0lURU1fVFlQRV9DSEVTVF9LRVkQABITCg9JVEVNX1RZUEVfQ0hFU1QQ",
+            "ARITCg9JVEVNX1RZUEVfUElFQ0UQAiopCgxDaGVzdEtleVR5cGUSGQoVQ0hF",
+            "U1RfS0VZX1RZUEVfQ09NTU9OEAAqNwoJQ2hlc3RUeXBlEhUKEUNIRVNUX1RZ",
+            "UEVfQ09NTU9OEAASEwoPQ0hFU1RfVFlQRV9SQVJFEAEqIQoJUGllY2VUeXBl",
+            "EhQKEFBJRUNFX1RZUEVfQ0hFU1QQAEJHChdpby5odmVyc2UuZ2FtZS5wcm90",
+            "b2dlbkISRGF0YU1lc3NhZ2VGYWN0b3J5qgIXaW8uaHZlcnNlLmdhbWUucHJv",
+            "dG9nZW5iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.DataMessageType), typeof(global::io.hverse.game.protogen.FeatureType), typeof(global::io.hverse.game.protogen.Rarity), typeof(global::io.hverse.game.protogen.HorseType), typeof(global::io.hverse.game.protogen.Lane), typeof(global::io.hverse.game.protogen.RewardStatus), typeof(global::io.hverse.game.protogen.RewardType), typeof(global::io.hverse.game.protogen.RaceRoomLevel), typeof(global::io.hverse.game.protogen.ItemType), typeof(global::io.hverse.game.protogen.ChestKeyType), typeof(global::io.hverse.game.protogen.ChestType), typeof(global::io.hverse.game.protogen.PieceType), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.DataMessage), global::io.hverse.game.protogen.DataMessage.Parser, new[]{ "MsgType", "MasterDataRequest", "MasterDataResponse", "EnableFeaturesReceipt" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataRequest), global::io.hverse.game.protogen.MasterDataRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataResponse), global::io.hverse.game.protogen.MasterDataResponse.Parser, new[]{ "MaxHappinessNumber", "HappinessNumberPerTraining", "BetNumberList", "MaxDailyRacingNumber", "RaceRewardInfos", "MaxBreedingNumber", "MaxCoinCollected", "BreedingFee" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataResponse), global::io.hverse.game.protogen.MasterDataResponse.Parser, new[]{ "MaxHappinessNumber", "HappinessNumberPerTraining", "BetNumberList", "MaxDailyRacingNumber", "RaceRewardInfos", "MaxBreedingNumber", "MaxCoinCollected", "BreedingFee", "BreedingFactor" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.BreedingFee), global::io.hverse.game.protogen.BreedingFee.Parser, new[]{ "MaleRarity", "FemaleRarity", "Fee" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.EnableFeaturesReceipt), global::io.hverse.game.protogen.EnableFeaturesReceipt.Parser, new[]{ "FeatureList" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "Bms", "Mms", "Acceleration", "Stamina", "HorseType", "Rarity", "Luck", "Level", "Color1", "Color2", "Color3", "Color4", "WinRate", "Name", "LastBettingRecord", "AverageBettingRecord", "BestBettingRecord", "Happiness", "RestoreHappinessTime", "Age", "Sex", "ColorType" }, null, null, null, null),
@@ -702,6 +703,7 @@ namespace io.hverse.game.protogen {
       maxBreedingNumber_ = other.maxBreedingNumber_;
       maxCoinCollected_ = other.maxCoinCollected_;
       breedingFee_ = other.breedingFee_.Clone();
+      breedingFactor_ = other.breedingFactor_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -804,6 +806,18 @@ namespace io.hverse.game.protogen {
       get { return breedingFee_; }
     }
 
+    /// <summary>Field number for the "breedingFactor" field.</summary>
+    public const int BreedingFactorFieldNumber = 9;
+    private int breedingFactor_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int BreedingFactor {
+      get { return breedingFactor_; }
+      set {
+        breedingFactor_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -827,6 +841,7 @@ namespace io.hverse.game.protogen {
       if (MaxBreedingNumber != other.MaxBreedingNumber) return false;
       if (MaxCoinCollected != other.MaxCoinCollected) return false;
       if(!breedingFee_.Equals(other.breedingFee_)) return false;
+      if (BreedingFactor != other.BreedingFactor) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -842,6 +857,7 @@ namespace io.hverse.game.protogen {
       if (MaxBreedingNumber != 0) hash ^= MaxBreedingNumber.GetHashCode();
       if (MaxCoinCollected != 0) hash ^= MaxCoinCollected.GetHashCode();
       hash ^= breedingFee_.GetHashCode();
+      if (BreedingFactor != 0) hash ^= BreedingFactor.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -883,6 +899,10 @@ namespace io.hverse.game.protogen {
         output.WriteInt32(MaxCoinCollected);
       }
       breedingFee_.WriteTo(output, _repeated_breedingFee_codec);
+      if (BreedingFactor != 0) {
+        output.WriteRawTag(72);
+        output.WriteInt32(BreedingFactor);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -916,6 +936,10 @@ namespace io.hverse.game.protogen {
         output.WriteInt32(MaxCoinCollected);
       }
       breedingFee_.WriteTo(ref output, _repeated_breedingFee_codec);
+      if (BreedingFactor != 0) {
+        output.WriteRawTag(72);
+        output.WriteInt32(BreedingFactor);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -944,6 +968,9 @@ namespace io.hverse.game.protogen {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(MaxCoinCollected);
       }
       size += breedingFee_.CalculateSize(_repeated_breedingFee_codec);
+      if (BreedingFactor != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(BreedingFactor);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -974,6 +1001,9 @@ namespace io.hverse.game.protogen {
         MaxCoinCollected = other.MaxCoinCollected;
       }
       breedingFee_.Add(other.breedingFee_);
+      if (other.BreedingFactor != 0) {
+        BreedingFactor = other.BreedingFactor;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -1022,6 +1052,10 @@ namespace io.hverse.game.protogen {
             breedingFee_.AddEntriesFrom(input, _repeated_breedingFee_codec);
             break;
           }
+          case 72: {
+            BreedingFactor = input.ReadInt32();
+            break;
+          }
         }
       }
     #endif
@@ -1068,6 +1102,10 @@ namespace io.hverse.game.protogen {
           }
           case 66: {
             breedingFee_.AddEntriesFrom(ref input, _repeated_breedingFee_codec);
+            break;
+          }
+          case 72: {
+            BreedingFactor = input.ReadInt32();
             break;
           }
         }
