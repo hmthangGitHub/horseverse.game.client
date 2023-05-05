@@ -14,6 +14,7 @@ public class MasterDataModel
     public int MaxBreedingNumber  { get; set; }
     public int MaxCoinCollected  { get; set; }
     public BreedingFee[] BreedingFees  { get; set; }
+    public float BreedingAttributeFactor  { get; set; }
     
     public MasterDataModel Clone()
     {

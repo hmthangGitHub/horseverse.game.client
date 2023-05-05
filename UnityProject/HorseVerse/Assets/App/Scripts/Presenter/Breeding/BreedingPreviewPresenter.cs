@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using io.hverse.game.protogen;
+using UnityEngine;
 
 internal class BreedingPreviewPresenter : IDisposable
 {
@@ -50,12 +51,12 @@ internal class BreedingPreviewPresenter : IDisposable
         uiHorseStableBreedingPreview ??= await UILoader.Instantiate<UIHorseStableBreedingPreview>(token:cts.Token);
         uiHorseStableBreedingPreview.SetEntity(new UIHorseStableBreedingPreview.Entity()
         {
-            speedMin = 10,
-            speedMax = 20,
-            staminaMin = 10,
-            staminaMax = 20,
-            sprintSpeedMin = 10,
-            sprintSpeedMax = 20,
+            speedMin = 0,
+            speedMax = 0,
+            staminaMin = 0,
+            staminaMax = 0,
+            sprintSpeedMin = 0,
+            sprintSpeedMax = 0,
             commonOdd = 75,
             uncommonOdd = 55,
             rareOdd = 35,
@@ -121,21 +122,43 @@ internal class BreedingPreviewPresenter : IDisposable
         currentSelectingHorse[horseSex] = horseId;
         await uiHorseStableBreedingPreview.In();
         SetHeaderAndCallBack(BreedingState.Preview, default);
-        UpdateBreedingBtn();
+        UpdateBreedingEntity();
         SetSelectHorseEntity(horseId, horseSex);
     }
 
-    private void UpdateBreedingBtn()
+    private void UpdateBreedingEntity()
     {
+        if (currentSelectingHorse[HorseSex.Male] <= 0 || currentSelectingHorse[HorseSex.Female] <= 0) return;
         uiHorseStableBreedingPreview.breedingBtn.SetEntity(CreateBreedingBtnEntity());
-        if (currentSelectingHorse[HorseSex.Male] > 0 && currentSelectingHorse[HorseSex.Female] > 0)
-        {
-            uiHorseStableBreedingPreview.rubyNeedToBreed.SetEntity(GetBreedingCost());
-        }
-        else
-        {
-            uiHorseStableBreedingPreview.rubyNeedToBreed.SetEntity(0);
-        }
+        uiHorseStableBreedingPreview.rubyNeedToBreed.SetEntity(GetBreedingCost());
+        UpdateChildHorseAttribute();
+    }
+
+    private void UpdateChildHorseAttribute()
+    {
+        var maleAttribute = HorseRepository.Models[currentSelectingHorse[HorseSex.Male]]
+                                           .HorseAttribute;
+        var feMaleAttribute = HorseRepository.Models[currentSelectingHorse[HorseSex.Female]]
+                                             .HorseAttribute;
+        uiHorseStableBreedingPreview.entity.speedMax = Mathf.Max(maleAttribute.Bms, feMaleAttribute.Bms) +
+                                                       UserSettingLocalRepository.MasterDataModel.BreedingAttributeFactor /
+                                                       100f;
+        uiHorseStableBreedingPreview.entity.speedMin = Mathf.Min(maleAttribute.Bms, feMaleAttribute.Bms) -
+                                                       UserSettingLocalRepository.MasterDataModel.BreedingAttributeFactor /
+                                                       100f;
+        uiHorseStableBreedingPreview.entity.sprintSpeedMax = Mathf.Max(maleAttribute.Mms, feMaleAttribute.Mms) +
+                                                             UserSettingLocalRepository.MasterDataModel
+                                                                 .BreedingAttributeFactor / 100f;
+        uiHorseStableBreedingPreview.entity.sprintSpeedMin = Mathf.Min(maleAttribute.Mms, feMaleAttribute.Mms) -
+                                                             UserSettingLocalRepository.MasterDataModel
+                                                                 .BreedingAttributeFactor / 100f;
+        uiHorseStableBreedingPreview.entity.staminaMax = Mathf.Max(maleAttribute.SprintNumber * 100, feMaleAttribute.SprintNumber * 100) +
+                                                         UserSettingLocalRepository.MasterDataModel.BreedingAttributeFactor / 100f;
+        uiHorseStableBreedingPreview.entity.staminaMin = Mathf.Min(maleAttribute.SprintNumber * 100, feMaleAttribute.SprintNumber * 100) -
+                                                         UserSettingLocalRepository.MasterDataModel.BreedingAttributeFactor / 100f;
+        uiHorseStableBreedingPreview.speed.SetEntity(uiHorseStableBreedingPreview.entity.speedMin, uiHorseStableBreedingPreview.entity.speedMax);
+        uiHorseStableBreedingPreview.sprintSpeed.SetEntity(uiHorseStableBreedingPreview.entity.sprintSpeedMin, uiHorseStableBreedingPreview.entity.sprintSpeedMax);
+        uiHorseStableBreedingPreview.stamina.SetEntity(uiHorseStableBreedingPreview.entity.staminaMin, uiHorseStableBreedingPreview.entity.staminaMax);
     }
 
     private void SetSelectHorseEntity(long horseId,
@@ -220,7 +243,7 @@ internal class BreedingPreviewPresenter : IDisposable
     {
         DisposeUtility.SafeDispose(ref selectHorseCts);
         SetHeaderAndCallBack(BreedingState.Preview, default);
-        ShowHorseBreedingPreviewAsync().Forget();
+        uiHorseStableBreedingPreview.In().Forget();
     }
 
     public void Dispose()

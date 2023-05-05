@@ -20,7 +20,6 @@ internal class BreedingSlotPresenter : IDisposable
         this.container = container;
         cts = new CancellationTokenSource();
     }
-
     
     public async UniTaskVoid ShowBreedingSlotAsync()
     {
@@ -42,7 +41,7 @@ internal class BreedingSlotPresenter : IDisposable
                                                           .state
                                                           .SetEntity(UIBreedSlotState.State.CheckingFoal) 
                             : ActionUtility.EmptyAction.Instance,
-                        utcEndTimeStamp = Mathf.CeilToInt((float)x.BreedingTime / 1000)
+                        utcEndTimeStamp = (int)Math.Ceiling(x.BreedingTime / 1000.0 + 1.0)
                     } : default,
                     checkingFoalBtn = new ButtonComponent.Entity(() => { FinishBreedingSlotEvent.Invoke((int)x.Index); }),
                     emptySlotBtn = new ButtonComponent.Entity(() => { OnEnterBreedingSlotEvent.Invoke((int)x.Index); })
@@ -62,8 +61,8 @@ internal class BreedingSlotPresenter : IDisposable
         return x.Status switch
         {
             BreedSlotStatus.Available => UIBreedSlotState.State.Empty,
-            BreedSlotStatus.Breeding when x.BreedingTime / 1000 <= DateTimeOffset.Now.ToUnixTimeSeconds() => UIBreedSlotState.State.CheckingFoal,
-            BreedSlotStatus.Breeding when x.BreedingTime / 1000 > DateTimeOffset.Now.ToUnixTimeSeconds() => UIBreedSlotState.State.Breeding,
+            BreedSlotStatus.Breeding when x.BreedingTime <= DateTimeOffset.Now.ToUnixTimeMilliseconds() => UIBreedSlotState.State.CheckingFoal,
+            BreedSlotStatus.Breeding when x.BreedingTime > DateTimeOffset.Now.ToUnixTimeMilliseconds() => UIBreedSlotState.State.Breeding,
             BreedSlotStatus.Lock => UIBreedSlotState.State.Locked,
             _ => throw new ArgumentOutOfRangeException()
         };

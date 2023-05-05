@@ -38,7 +38,7 @@ public class HorseBreedingSelectorPresenter : IDisposable
                                                    isCountDown = x.HorseRising.BreedingCoolDown > DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
                                                    countDown = new UIComponentCountDownTimer.Entity()
                                                    {
-                                                       utcEndTimeStamp = (int)Mathf.Ceil(((float)x.HorseRising.BreedingCoolDown / 1000) + 1),
+                                                       utcEndTimeStamp = (int)Math.Ceiling(x.HorseRising.BreedingCoolDown / 1000.0 + 1.0),
                                                        outDatedEvent = x.HorseRising.BreedingCoolDown > DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
                                                            ? () =>
                                                            {
