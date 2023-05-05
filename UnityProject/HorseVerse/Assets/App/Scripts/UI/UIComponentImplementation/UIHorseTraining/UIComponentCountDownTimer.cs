@@ -30,7 +30,6 @@ public class UIComponentCountDownTimer : UIComponent<UIComponentCountDownTimer.E
 
     protected override void OnSetEntity()
     {
-        timeLeftText.format = GetFormat(format);
         endTimeStampDateTime = UnixTimeStampToDateTime(this.entity.utcEndTimeStamp);
         outOfDate = false;
         SetDateTimeLeft(true);
@@ -40,7 +39,7 @@ public class UIComponentCountDownTimer : UIComponent<UIComponentCountDownTimer.E
     {
         return format switch
         {
-            Format.DD_HH_MM_SS => "{0:00}:{1:00}:{2:00}:{3:00}",
+            Format.DD_HH_MM_SS => "{0:00}:{1:00}:{2:00}",
             Format.SS => "{0:00}",
             _ => "{0:00}"
         };
@@ -74,10 +73,10 @@ public class UIComponentCountDownTimer : UIComponent<UIComponentCountDownTimer.E
         switch (format)
         {
             case Format.DD_HH_MM_SS:
-                timeLeftText.SetEntity(timeLeft.Days, timeLeft.Hours, timeLeft.Minutes, timeLeft.Seconds);
+                timeLeftText.SetEntity(string.Format(GetFormat(this.format), timeLeft.TotalHours, timeLeft.Minutes, timeLeft.Seconds));
                 break;
             case Format.SS:
-                timeLeftText.SetEntity(timeLeft.TotalSeconds);
+                timeLeftText.SetEntity(string.Format(GetFormat(this.format), timeLeft.TotalSeconds));
                 break;
             default:
                 break;
