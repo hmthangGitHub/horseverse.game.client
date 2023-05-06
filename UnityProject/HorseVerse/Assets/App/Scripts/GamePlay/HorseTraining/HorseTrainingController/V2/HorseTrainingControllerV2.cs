@@ -477,7 +477,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
             isJumping = true;
             animator.CrossFade("JumpStart", 0.1f, 0);
             var vfx = Instantiate(jumpVFX);
-            vfx.transform.position = pivotPoint.position + Vector3.up * 0.1f;
+            vfx.transform.position = pivotPoint.position + Vector3.up * 0.2f;
             AudioManager.Instance.StopSound();
         }
     }
@@ -542,8 +542,8 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
     private void CheckIfGrounded()
     {
-        Debug.DrawLine(pivotPoint.position, pivotPoint.position + -Vector3.up * 0.15f, Color.red);
-        IsGrounded = Physics.RaycastAll(pivotPoint.position, -Vector3.up, 0.15f)
+        Debug.DrawLine(pivotPoint.position, pivotPoint.position + -Vector3.up * 0.5f, Color.red);
+        IsGrounded = Physics.RaycastAll(pivotPoint.position, -Vector3.up, 0.5f)
             .Any(x => x.collider.CompareTag("Platform"));
     }
 
@@ -625,6 +625,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
         
         if (other.CompareTag(Obstacle) && !isDead)
         {
+            Debug.Log("On Dead " + other.name);
             OnDead();
             GetCamera(CameraType.Run).transform.DOShakePosition(0.35f, 2.5f);
             GetCamera(CameraType.Jump).transform.DOShakePosition(0.35f, 2.5f);
@@ -658,6 +659,7 @@ public class HorseTrainingControllerV2 : MonoBehaviour, IDisposable
 
     private void OnDead()
     {
+        Debug.Log("OnDead");
         isDead = true;
         currentForwardVelocity = 0.0f;
         currentHorizontalVelocity = 0.0f;

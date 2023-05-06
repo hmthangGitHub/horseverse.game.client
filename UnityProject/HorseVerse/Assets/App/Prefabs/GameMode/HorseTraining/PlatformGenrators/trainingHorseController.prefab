@@ -515,7 +515,6 @@ MonoBehaviour:
   trailVFX: {fileID: 7542242081035554575}
   takeCoinVFX: {fileID: 2959277526282057451}
   jumpVFX: {fileID: 2983672761649285415, guid: 66de920ef8e684436bfe590f2483b29a, type: 3}
-  changeSceneVFX: {fileID: 0}
   touchUp: {fileID: 8214101905714961756}
   touchDown: {fileID: 5748847106446482676}
   touchUpdate: {fileID: 7832949823813963352}
@@ -534,7 +533,7 @@ MonoBehaviour:
   benzierSpline: {fileID: 5747854098013682079}
   platformLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4096
   delayTimeForTouch: 0.05
   clampOffsetY: 25
   lastTapTimeStamp: 0
@@ -794,7 +793,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1532857602256613052}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.074, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1532857601942786514}
@@ -891,7 +890,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1532857603614099802}
-  m_LocalRotation: {x: 0.20474699, y: -0.0000000084209315, z: 0.0000000017614773, w: 0.97881496}
+  m_LocalRotation: {x: 0.20474699, y: 0.0000000084209315, z: -0.0000000017614773, w: 0.97881496}
   m_LocalPosition: {x: 0, y: 3.3999996, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
