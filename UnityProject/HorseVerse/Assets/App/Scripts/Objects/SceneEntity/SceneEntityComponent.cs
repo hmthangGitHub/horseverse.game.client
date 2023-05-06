@@ -42,6 +42,18 @@ public class SceneEntityComponent : MonoBehaviour
         }
     }
 
+    public ObjectFollowing InstanceFollow(Transform parent)
+    {
+        if (_cameraFollower != default)
+        {
+            var ss = Instantiate(_cameraFollower.gameObject, parent);
+            _cameraFollower.gameObject.SetActive(false);
+            ss.gameObject.SetActive(true);
+            return ss.GetComponent<ObjectFollowing>(); 
+        }
+        return null;
+    }
+
     private void OnDestroy()
     {
         if (_instance == this) _instance = default;

@@ -14,6 +14,8 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
 
     public HorseTrainingControllerV2 HorseTrainingController => horseTrainingController;
 
+    private GameObject follower = default;
+
     public async UniTask Initialize(string mapPath,
                                     string mapId,
                                     int NumberOfBlock,
@@ -48,9 +50,14 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
 
         if (SceneEntityComponent.Instance != default)
         {
-            SceneEntityComponent.Instance.SetCameraTarget(HorseTrainingController.transform);
+            //SceneEntityComponent.Instance.SetCameraTarget(HorseTrainingController.transform);
+            
             if (SceneEntityComponent.Instance.Skybox != default)
                 RenderSettings.skybox = SceneEntityComponent.Instance.Skybox;
+            var ss = SceneEntityComponent.Instance.InstanceFollow(this.transform);
+            ss.target = HorseTrainingController.transform;
+            if (follower != default) Destroy(follower);
+            follower = ss.gameObject;
         }
         else Debug.LogError("Cant find Entity");
     }
@@ -84,11 +91,16 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
         HorseTrainingController.EnableRotateToWard();
         if (SceneEntityComponent.Instance != default)
         {
-            SceneEntityComponent.Instance.SetCameraTarget(HorseTrainingController.transform);
+            //SceneEntityComponent.Instance.SetCameraTarget(HorseTrainingController.transform);
             if(SceneEntityComponent.Instance.Skybox != default)
                 RenderSettings.skybox = SceneEntityComponent.Instance.Skybox;
             HorseTrainingController.transform.position = SceneEntityComponent.Instance.ChangingPoint.transform.position;
             PlatformGenerator.SetLastPlatform(SceneEntityComponent.Instance.StartPlatform);
+
+            var ss = SceneEntityComponent.Instance.InstanceFollow(this.transform);
+            ss.target = HorseTrainingController.transform;
+            if (follower != default) Destroy(follower);
+            follower = ss.gameObject;
         }
         else Debug.LogError("Cant find Entity");
     }
@@ -111,7 +123,11 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
 
         if (SceneEntityComponent.Instance != default)
         {
-            SceneEntityComponent.Instance.SetCameraTarget(HorseTrainingController.transform);
+            //SceneEntityComponent.Instance.SetCameraTarget(HorseTrainingController.transform);
+            var ss = SceneEntityComponent.Instance.InstanceFollow(this.transform);
+            ss.target = HorseTrainingController.transform;
+            if (follower != default) Destroy(follower);
+            follower = ss.gameObject;
         }
     }
 

@@ -385,7 +385,11 @@ public class HorseTrainingPresenter : IDisposable
         uiHorseTrainingInput = await UILoader.Instantiate<UIHorseTrainingInput>(token: cts.Token);
         uiTrainingTutorial = await UILoader.Instantiate<UITrainingTutorial>(token: cts.Token);
 
-        int NumberOfBlock =  UnityEngine.Random.Range(4, 10);
+#if ENABLE_DEBUG_MODULE
+        int NumberOfBlock = 3;
+#else
+        int NumberOfBlock =  UnityEngine.Random.Range(8, 16);
+#endif
 
         await horseTrainingManager.Initialize(
             masterMapContainer.MasterMapIndexer[mapID].MapPath,
@@ -413,6 +417,8 @@ public class HorseTrainingPresenter : IDisposable
         }
         MasterLoader.SafeRelease(currentMasterMapId.ToString(), ref masterHorseTrainingBlockContainer);
         MasterLoader.SafeRelease(currentMasterMapId.ToString(), ref masterHorseTrainingBlockComboContainer);
+        MasterLoader.SafeRelease(currentMasterMapId.ToString(), ref masterTrainingBlockDistributeContainer);
+
         await UniTask.CompletedTask;
     }
 
@@ -424,9 +430,14 @@ public class HorseTrainingPresenter : IDisposable
         currentMasterMapId = mapID;
         mapSceneAsset = await SceneAssetLoader.LoadSceneAsync(masterMapContainer.MasterMapIndexer[currentMasterMapId]
             .MapPath, false, token: cts.Token);
-        int NumberOfBlock = UnityEngine.Random.Range(4, 10);
+#if ENABLE_DEBUG_MODULE
+        int NumberOfBlock = 3;
+#else
+        int NumberOfBlock =  UnityEngine.Random.Range(8, 16);
+#endif
         masterHorseTrainingBlockContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(currentMasterMapId.ToString(), token: cts.Token);
         masterHorseTrainingBlockComboContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>(currentMasterMapId.ToString(), token: cts.Token);
+        masterTrainingBlockDistributeContainer = await MasterLoader.LoadMasterAsync<MasterTrainingBlockDistributeContainer>(currentMasterMapId.ToString(), token: cts.Token);
         await horseTrainingManager.UpdateMap(
                 masterMapContainer.MasterMapIndexer[currentMasterMapId].MapPath,
                 currentMasterMapId.ToString(),
