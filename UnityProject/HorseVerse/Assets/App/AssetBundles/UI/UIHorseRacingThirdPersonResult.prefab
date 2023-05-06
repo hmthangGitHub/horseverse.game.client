@@ -624,10 +624,10 @@ RectTransform:
   m_Father: {fileID: 1116078740901206331}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 943, y: -561}
-  m_SizeDelta: {x: -2000.087, y: -1287.478}
+  m_SizeDelta: {x: 687.91296, y: 224.52197}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5961190166537715389
 CanvasRenderer:
@@ -875,11 +875,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ec48deed2eb64b4ca6af64c75f4afbc, type: 3}
---- !u!224 &1045037881128978910 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8468463838006811708, guid: 1ec48deed2eb64b4ca6af64c75f4afbc, type: 3}
-  m_PrefabInstance: {fileID: 8864982462210905570}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6112314653217350787 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3446928676020121953, guid: 1ec48deed2eb64b4ca6af64c75f4afbc, type: 3}
@@ -891,3 +886,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bdcd4f9d217e2547be2b793bb92cc8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &1045037881128978910 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8468463838006811708, guid: 1ec48deed2eb64b4ca6af64c75f4afbc, type: 3}
+  m_PrefabInstance: {fileID: 8864982462210905570}
+  m_PrefabAsset: {fileID: 0}
