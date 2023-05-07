@@ -54,6 +54,14 @@ public class HorseTrainingPresenter : IDisposable
     {
         var mapID = HorseTrainingDataContext.MasterMapId;
         if (mapID == 0) mapID = 2001;
+        if (masterMapContainer == default)
+        {
+            masterMapContainer = await MasterLoader.LoadMasterAsync<MasterMapContainer>(token: cts.Token);
+
+            var ss = masterMapContainer.DataList.Where(x => x.MasterMapId > 2000).ToList();
+            mapList = ss.Select(x => x.MasterMapId).ToArray();
+        }
+
         await LoadAssetsAsync(mapID);
     }
 
@@ -361,14 +369,6 @@ public class HorseTrainingPresenter : IDisposable
         currentMasterMapId = mapID;
         baseSceneAsset = await SceneAssetLoader.LoadSceneAsync("Maps/racing_scene_stadium_training_basic", true, token: cts.Token);
 
-        if (masterMapContainer == default)
-        {
-            masterMapContainer = await MasterLoader.LoadMasterAsync<MasterMapContainer>(token: cts.Token);
-
-            var ss = masterMapContainer.DataList.Where(x => x.MasterMapId > 2000).ToList();
-            mapList = ss.Select(x => x.MasterMapId).ToArray();
-        }
-
         mapSceneAsset = await SceneAssetLoader.LoadSceneAsync(masterMapContainer.MasterMapIndexer[mapID]
             .MapPath, false, token: cts.Token);
         horseTrainingManager ??= Object.Instantiate((await Resources.LoadAsync<HorseTrainingManager>("GamePlay/HorseTrainingManager") as HorseTrainingManager));
@@ -388,7 +388,7 @@ public class HorseTrainingPresenter : IDisposable
 #if ENABLE_DEBUG_MODULE
         int NumberOfBlock = 3;
 #else
-        int NumberOfBlock =  UnityEngine.Random.Range(8, 16);
+        int NumberOfBlock =  UnityEngine.Random.Range(5, 10);
 #endif
 
         await horseTrainingManager.Initialize(
@@ -433,7 +433,7 @@ public class HorseTrainingPresenter : IDisposable
 #if ENABLE_DEBUG_MODULE
         int NumberOfBlock = 3;
 #else
-        int NumberOfBlock =  UnityEngine.Random.Range(8, 16);
+        int NumberOfBlock =  UnityEngine.Random.Range(5, 10);
 #endif
         masterHorseTrainingBlockContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockContainer>(currentMasterMapId.ToString(), token: cts.Token);
         masterHorseTrainingBlockComboContainer = await MasterLoader.LoadMasterAsync<MasterHorseTrainingBlockComboContainer>(currentMasterMapId.ToString(), token: cts.Token);

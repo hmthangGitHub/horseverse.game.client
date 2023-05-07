@@ -31,6 +31,9 @@ public class UIHorseTrainingPresenter : IDisposable
     private UIBackGroundPresenter uiBackGroundPresenter;
     private UIBackGroundPresenter UIBackGroundPresenter => uiBackGroundPresenter ??= container.Inject<UIBackGroundPresenter>();
 
+    private MasterMapContainer masterMapContainer;
+    private long[] mapList;
+
     private long currentSelectHorseId = -1;
     private int currentMapIndex = 0;
     public UIHorseTrainingPresenter(IDIContainer container)
@@ -44,6 +47,12 @@ public class UIHorseTrainingPresenter : IDisposable
         cts = new CancellationTokenSource();
         await HideBackgroundAsync();
         await HorseRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
+        masterMapContainer ??= await MasterLoader.LoadMasterAsync<MasterMapContainer>(token: cts.Token);
+        Debug.Log("Load masterMap " + (masterMapContainer != default));
+
+        var ss = masterMapContainer.DataList.Where(x => x.MasterMapId > 2000).ToList();
+        mapList = ss.Select(x => x.MasterMapId).ToArray();
+
         uiHorseTraining ??= await UILoader.Instantiate<UIHorseTraining>(token : cts.Token);
         var currentState = UserDataRepository.Current.TraningTimeStamp <= DateTimeOffset.UtcNow.ToUnixTimeSeconds() ? UIComponentTraningState.TraningState.Prepare 
                                                                                                                     : UIComponentTraningState.TraningState.Processing;
@@ -117,7 +126,15 @@ public class UIHorseTrainingPresenter : IDisposable
             var userHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
             userHorse.HorseRising.Happiness = data.Happiness;
             await HorseRepository.UpdateModelAsync(userHorse.HorseRising);
-            var mapID = currentMapIndex == 0 ? 2001 : 2002;
+            long mapID = currentMapIndex == 0 ? 2001 : 2002;
+#if ENABLE_DEBUG_MODULE
+            //var randomMap = GetRandomMap();
+            //if (randomMap != -1) mapID = randomMap;
+#else
+            var randomMap = GetRandomMap();
+            if (randomMap != -1) mapID = randomMap;
+#endif
+
             container.Bind(new HorseTrainingDataContext()
             {
                 HorseMeshInformation = new HorseMeshInformation()
@@ -186,6 +203,7 @@ public class UIHorseTrainingPresenter : IDisposable
         cts = default;
         UILoader.SafeRelease(ref uiHorseTraining);
         DisposeUtility.SafeDispose(ref uiTrainingLeaderBoardPresenter);
+        MasterLoader.SafeRelease(ref masterMapContainer);
         UserDataRepository.OnModelUpdate -= UserDataRepositoryOnModelUpdate;
     }
 
@@ -215,5 +233,12 @@ public class UIHorseTrainingPresenter : IDisposable
     {
         var userHorse = HorseRepository.Models[currentSelectHorseId];
         uiHorseTraining.prepareState.toTraningBtn.SetInteractable(userHorse.Happiness >= UserSettingLocalRepository.MasterDataModel.TrainingHappinessCost);
+    }
+
+    private long GetRandomMap()
+    {
+        if (mapList == null || mapList.Length == 0) return -1;
+        var random = UnityEngine.Random.Range(0, mapList.Length);
+        return mapList[random];
     }
 }
