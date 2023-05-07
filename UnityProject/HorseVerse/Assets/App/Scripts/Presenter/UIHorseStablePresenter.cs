@@ -52,26 +52,26 @@ public class UIHorseStablePresenter : IDisposable
                 horseName = HorseRepository.Models[current].Name,
                 powerProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
                 {
-                    bonus = HorseRepository.Models[current].PowerBonus,
+                    bonus = 0,
                     progressBar = new UIComponentProgressBar.Entity()
                     {
-                        progress = HorseRepository.Models[current].PowerRatio
+                        progress = 0
                     }
                 },
                 speedProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
                 {
-                    bonus = HorseRepository.Models[current].SpeedBonus,
+                    bonus = 0,
                     progressBar = new UIComponentProgressBar.Entity()
                     {
-                        progress = HorseRepository.Models[current].SpeedRatio
+                        progress = 0
                     }
                 },
                 technicallyProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
                 {
-                    bonus = HorseRepository.Models[current].TechnicallyBonus,
+                    bonus = 0,
                     progressBar = new UIComponentProgressBar.Entity()
                     {
-                        progress = HorseRepository.Models[current].TechnicallyRatio
+                        progress = 0
                     }
                 },
                 happiness = HorseRepository.Models[current].Happiness,
@@ -116,26 +116,26 @@ public class UIHorseStablePresenter : IDisposable
             eh.horseName = HorseRepository.Models[masterHorseId].Name;
             eh.powerProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
             {
-                bonus = HorseRepository.Models[masterHorseId].PowerBonus,
+                bonus = 0,
                 progressBar = new UIComponentProgressBar.Entity()
                 {
-                    progress = HorseRepository.Models[masterHorseId].PowerRatio
+                    progress = 0
                 }
             };
             eh.speedProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
             {
-                bonus = HorseRepository.Models[masterHorseId].SpeedBonus,
+                bonus = 0,
                 progressBar = new UIComponentProgressBar.Entity()
                 {
-                    progress = HorseRepository.Models[masterHorseId].SpeedRatio
+                    progress = 0
                 }
             };
             eh.technicallyProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
             {
-                bonus = HorseRepository.Models[masterHorseId].TechnicallyBonus,
+                bonus = 0,
                 progressBar = new UIComponentProgressBar.Entity()
                 {
-                    progress = HorseRepository.Models[masterHorseId].TechnicallyRatio
+                    progress = 0
                 }
             };
             eh.happiness = HorseRepository.Models[masterHorseId].Happiness;

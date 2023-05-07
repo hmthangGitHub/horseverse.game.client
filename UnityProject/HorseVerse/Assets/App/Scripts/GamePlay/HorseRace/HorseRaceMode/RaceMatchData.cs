@@ -16,7 +16,7 @@ public class HorseRaceInfo : HorseBriefInfo
 
 public class HorseBetInfo
 {
-    public HorseDataModel[] HorseInfos { get; set; }
+    public HorseInfo[] HorseInfos { get; set; }
 }
 
 public class RaceSegmentTime

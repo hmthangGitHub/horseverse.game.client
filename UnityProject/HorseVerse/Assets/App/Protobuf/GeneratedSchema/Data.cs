@@ -38,7 +38,7 @@ namespace io.hverse.game.protogen {
             "cmVlZGluZ0ZlZRIWCg5icmVlZGluZ0ZhY3RvchgJIAEoBSJECgtCcmVlZGlu",
             "Z0ZlZRISCgptYWxlUmFyaXR5GAEgASgFEhQKDGZlbWFsZVJhcml0eRgCIAEo",
             "BRILCgNmZWUYAyABKAUiOgoVRW5hYmxlRmVhdHVyZXNSZWNlaXB0EiEKC2Zl",
-            "YXR1cmVMaXN0GAEgAygOMgwuRmVhdHVyZVR5cGUiwQMKCUhvcnNlSW5mbxIN",
+            "YXR1cmVMaXN0GAEgAygOMgwuRmVhdHVyZVR5cGUipwMKCUhvcnNlSW5mbxIN",
             "CgVuZnRJZBgBIAEoAxILCgNibXMYAiABKAISCwoDbW1zGAMgASgCEhQKDGFj",
             "Y2VsZXJhdGlvbhgEIAEoAhIPCgdzdGFtaW5hGAUgASgCEh0KCWhvcnNlVHlw",
             "ZRgGIAEoDjIKLkhvcnNlVHlwZRIXCgZyYXJpdHkYByABKA4yBy5SYXJpdHkS",
@@ -47,43 +47,42 @@ namespace io.hverse.game.protogen {
             "KAkSDwoHd2luUmF0ZRgOIAEoAhIMCgRuYW1lGA8gASgJEhkKEWxhc3RCZXR0",
             "aW5nUmVjb3JkGBAgASgCEhwKFGF2ZXJhZ2VCZXR0aW5nUmVjb3JkGBEgASgC",
             "EhkKEWJlc3RCZXR0aW5nUmVjb3JkGBIgASgCEhEKCWhhcHBpbmVzcxgTIAEo",
-            "BRIcChRyZXN0b3JlSGFwcGluZXNzVGltZRgUIAEoAxILCgNhZ2UYFSABKAUS",
-            "CwoDc2V4GBYgASgFEhEKCWNvbG9yVHlwZRgXIAEoBSI3CgpSZXdhcmRJbmZv",
-            "EhkKBHR5cGUYASABKA4yCy5SZXdhcmRUeXBlEg4KBmFtb3VudBgCIAEoAyJb",
-            "Cg5SYWNlUmV3YXJkSW5mbxIMCgRyYW5rGAEgASgFEh0KBWxldmVsGAIgASgO",
-            "Mg4uUmFjZVJvb21MZXZlbBIcCgdyZXdhcmRzGAMgAygLMgsuUmV3YXJkSW5m",
-            "byKGAQoISXRlbUluZm8SFwoEdHlwZRgBIAEoDjIJLkl0ZW1UeXBlEiMKDGNo",
-            "ZXN0S2V5SW5mbxgCIAEoCzINLkNoZXN0S2V5SW5mbxIdCgljaGVzdEluZm8Y",
-            "AyABKAsyCi5DaGVzdEluZm8SHQoJcGllY2VJbmZvGAQgASgLMgouUGllY2VJ",
-            "bmZvIkkKDENoZXN0S2V5SW5mbxIMCgRuYW1lGAEgASgJEhsKBHR5cGUYAiAB",
-            "KA4yDS5DaGVzdEtleVR5cGUSDgoGYW1vdW50GAMgASgFIkMKCUNoZXN0SW5m",
-            "bxIMCgRuYW1lGAEgASgJEhgKBHR5cGUYAiABKA4yCi5DaGVzdFR5cGUSDgoG",
-            "YW1vdW50GAMgASgFIloKCVBpZWNlSW5mbxIMCgRuYW1lGAEgASgJEhgKBHR5",
-            "cGUYAiABKA4yCi5QaWVjZVR5cGUSFQoNY29tYmluZU51bWJlchgDIAEoBRIO",
-            "CgZhbW91bnQYBCABKAUqYQoPRGF0YU1lc3NhZ2VUeXBlEhcKE01BU1RFUl9E",
-            "QVRBX1JFUVVFU1QQABIYChRNQVNURVJfREFUQV9SRVNQT05TRRABEhsKF0VO",
-            "QUJMRV9GRUFUVVJFU19SRUNFSVBUEAIqPQoLRmVhdHVyZVR5cGUSCAoEU0hP",
-            "UBAAEg0KCUFEVkVOVFVSRRABEgkKBUFSRU5BEAISCgoGUkFDSU5HEAMqeQoG",
-            "UmFyaXR5EhIKDlJBUklUWV9VTktOT1dOEAASEQoNUkFSSVRZX0NPTU1PThAB",
-            "EhMKD1JBUklUWV9VTkNPTU1PThACEg8KC1JBUklUWV9SQVJFEAMSDwoLUkFS",
-            "SVRZX0VQSUMQBBIRCg1SQVJJVFlfTEVHRU5EEAUqZwoJSG9yc2VUeXBlEhYK",
-            "EkhPUlNFX1RZUEVfVU5LTk9XThAAEhQKEEhPUlNFX1RZUEVfQkxBWkUQARIW",
-            "ChJIT1JTRV9UWVBFX1RIVU5ERVIQAhIUChBIT1JTRV9UWVBFX0hJRFJPEAMq",
-            "IAoETGFuZRIGCgJJThAAEgcKA01JRBABEgcKA09VVBACKkYKDFJld2FyZFN0",
-            "YXR1cxIbChdSRVdBUkRfU1RBVFVTX1VOQ0xBSU1FRBAAEhkKFVJFV0FSRF9T",
-            "VEFUVVNfQ0xBSU1FRBABKk8KClJld2FyZFR5cGUSFAoQUkVXQVJEX1RZUEVf",
-            "Tk9ORRAAEhQKEFJFV0FSRF9UWVBFX0NISVAQARIVChFSRVdBUkRfVFlQRV9D",
-            "SEVTVBACKp8BCg1SYWNlUm9vbUxldmVsEhsKF1JBQ0VfUk9PTV9MRVZFTF9V",
-            "TktOT1dOEAASFQoRUkFDRV9ST09NX0xFVkVMXzEQARIVChFSQUNFX1JPT01f",
-            "TEVWRUxfMhACEhUKEVJBQ0VfUk9PTV9MRVZFTF8zEAMSFQoRUkFDRV9ST09N",
-            "X0xFVkVMXzQQBBIVChFSQUNFX1JPT01fTEVWRUxfNRAFKk0KCEl0ZW1UeXBl",
-            "EhcKE0lURU1fVFlQRV9DSEVTVF9LRVkQABITCg9JVEVNX1RZUEVfQ0hFU1QQ",
-            "ARITCg9JVEVNX1RZUEVfUElFQ0UQAiopCgxDaGVzdEtleVR5cGUSGQoVQ0hF",
-            "U1RfS0VZX1RZUEVfQ09NTU9OEAAqNwoJQ2hlc3RUeXBlEhUKEUNIRVNUX1RZ",
-            "UEVfQ09NTU9OEAASEwoPQ0hFU1RfVFlQRV9SQVJFEAEqIQoJUGllY2VUeXBl",
-            "EhQKEFBJRUNFX1RZUEVfQ0hFU1QQAEJHChdpby5odmVyc2UuZ2FtZS5wcm90",
-            "b2dlbkISRGF0YU1lc3NhZ2VGYWN0b3J5qgIXaW8uaHZlcnNlLmdhbWUucHJv",
-            "dG9nZW5iBnByb3RvMw=="));
+            "BRIcChRyZXN0b3JlSGFwcGluZXNzVGltZRgUIAEoAxIRCgljb2xvclR5cGUY",
+            "FSABKAUiNwoKUmV3YXJkSW5mbxIZCgR0eXBlGAEgASgOMgsuUmV3YXJkVHlw",
+            "ZRIOCgZhbW91bnQYAiABKAMiWwoOUmFjZVJld2FyZEluZm8SDAoEcmFuaxgB",
+            "IAEoBRIdCgVsZXZlbBgCIAEoDjIOLlJhY2VSb29tTGV2ZWwSHAoHcmV3YXJk",
+            "cxgDIAMoCzILLlJld2FyZEluZm8ihgEKCEl0ZW1JbmZvEhcKBHR5cGUYASAB",
+            "KA4yCS5JdGVtVHlwZRIjCgxjaGVzdEtleUluZm8YAiABKAsyDS5DaGVzdEtl",
+            "eUluZm8SHQoJY2hlc3RJbmZvGAMgASgLMgouQ2hlc3RJbmZvEh0KCXBpZWNl",
+            "SW5mbxgEIAEoCzIKLlBpZWNlSW5mbyJJCgxDaGVzdEtleUluZm8SDAoEbmFt",
+            "ZRgBIAEoCRIbCgR0eXBlGAIgASgOMg0uQ2hlc3RLZXlUeXBlEg4KBmFtb3Vu",
+            "dBgDIAEoBSJDCglDaGVzdEluZm8SDAoEbmFtZRgBIAEoCRIYCgR0eXBlGAIg",
+            "ASgOMgouQ2hlc3RUeXBlEg4KBmFtb3VudBgDIAEoBSJaCglQaWVjZUluZm8S",
+            "DAoEbmFtZRgBIAEoCRIYCgR0eXBlGAIgASgOMgouUGllY2VUeXBlEhUKDWNv",
+            "bWJpbmVOdW1iZXIYAyABKAUSDgoGYW1vdW50GAQgASgFKmEKD0RhdGFNZXNz",
+            "YWdlVHlwZRIXChNNQVNURVJfREFUQV9SRVFVRVNUEAASGAoUTUFTVEVSX0RB",
+            "VEFfUkVTUE9OU0UQARIbChdFTkFCTEVfRkVBVFVSRVNfUkVDRUlQVBACKj0K",
+            "C0ZlYXR1cmVUeXBlEggKBFNIT1AQABINCglBRFZFTlRVUkUQARIJCgVBUkVO",
+            "QRACEgoKBlJBQ0lORxADKnkKBlJhcml0eRISCg5SQVJJVFlfVU5LTk9XThAA",
+            "EhEKDVJBUklUWV9DT01NT04QARITCg9SQVJJVFlfVU5DT01NT04QAhIPCgtS",
+            "QVJJVFlfUkFSRRADEg8KC1JBUklUWV9FUElDEAQSEQoNUkFSSVRZX0xFR0VO",
+            "RBAFKmcKCUhvcnNlVHlwZRIWChJIT1JTRV9UWVBFX1VOS05PV04QABIUChBI",
+            "T1JTRV9UWVBFX0JMQVpFEAESFgoSSE9SU0VfVFlQRV9USFVOREVSEAISFAoQ",
+            "SE9SU0VfVFlQRV9ISURSTxADKiAKBExhbmUSBgoCSU4QABIHCgNNSUQQARIH",
+            "CgNPVVQQAipGCgxSZXdhcmRTdGF0dXMSGwoXUkVXQVJEX1NUQVRVU19VTkNM",
+            "QUlNRUQQABIZChVSRVdBUkRfU1RBVFVTX0NMQUlNRUQQASpPCgpSZXdhcmRU",
+            "eXBlEhQKEFJFV0FSRF9UWVBFX05PTkUQABIUChBSRVdBUkRfVFlQRV9DSElQ",
+            "EAESFQoRUkVXQVJEX1RZUEVfQ0hFU1QQAiqfAQoNUmFjZVJvb21MZXZlbBIb",
+            "ChdSQUNFX1JPT01fTEVWRUxfVU5LTk9XThAAEhUKEVJBQ0VfUk9PTV9MRVZF",
+            "TF8xEAESFQoRUkFDRV9ST09NX0xFVkVMXzIQAhIVChFSQUNFX1JPT01fTEVW",
+            "RUxfMxADEhUKEVJBQ0VfUk9PTV9MRVZFTF80EAQSFQoRUkFDRV9ST09NX0xF",
+            "VkVMXzUQBSpNCghJdGVtVHlwZRIXChNJVEVNX1RZUEVfQ0hFU1RfS0VZEAAS",
+            "EwoPSVRFTV9UWVBFX0NIRVNUEAESEwoPSVRFTV9UWVBFX1BJRUNFEAIqKQoM",
+            "Q2hlc3RLZXlUeXBlEhkKFUNIRVNUX0tFWV9UWVBFX0NPTU1PThAAKjcKCUNo",
+            "ZXN0VHlwZRIVChFDSEVTVF9UWVBFX0NPTU1PThAAEhMKD0NIRVNUX1RZUEVf",
+            "UkFSRRABKiEKCVBpZWNlVHlwZRIUChBQSUVDRV9UWVBFX0NIRVNUEABCRwoX",
+            "aW8uaHZlcnNlLmdhbWUucHJvdG9nZW5CEkRhdGFNZXNzYWdlRmFjdG9yeaoC",
+            "F2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.DataMessageType), typeof(global::io.hverse.game.protogen.FeatureType), typeof(global::io.hverse.game.protogen.Rarity), typeof(global::io.hverse.game.protogen.HorseType), typeof(global::io.hverse.game.protogen.Lane), typeof(global::io.hverse.game.protogen.RewardStatus), typeof(global::io.hverse.game.protogen.RewardType), typeof(global::io.hverse.game.protogen.RaceRoomLevel), typeof(global::io.hverse.game.protogen.ItemType), typeof(global::io.hverse.game.protogen.ChestKeyType), typeof(global::io.hverse.game.protogen.ChestType), typeof(global::io.hverse.game.protogen.PieceType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -92,7 +91,7 @@ namespace io.hverse.game.protogen {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataResponse), global::io.hverse.game.protogen.MasterDataResponse.Parser, new[]{ "MaxHappinessNumber", "HappinessNumberPerTraining", "BetNumberList", "MaxDailyRacingNumber", "RaceRewardInfos", "MaxBreedingNumber", "MaxCoinCollected", "BreedingFee", "BreedingFactor" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.BreedingFee), global::io.hverse.game.protogen.BreedingFee.Parser, new[]{ "MaleRarity", "FemaleRarity", "Fee" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.EnableFeaturesReceipt), global::io.hverse.game.protogen.EnableFeaturesReceipt.Parser, new[]{ "FeatureList" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "Bms", "Mms", "Acceleration", "Stamina", "HorseType", "Rarity", "Luck", "Level", "Color1", "Color2", "Color3", "Color4", "WinRate", "Name", "LastBettingRecord", "AverageBettingRecord", "BestBettingRecord", "Happiness", "RestoreHappinessTime", "Age", "Sex", "ColorType" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "Bms", "Mms", "Acceleration", "Stamina", "HorseType", "Rarity", "Luck", "Level", "Color1", "Color2", "Color3", "Color4", "WinRate", "Name", "LastBettingRecord", "AverageBettingRecord", "BestBettingRecord", "Happiness", "RestoreHappinessTime", "ColorType" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RewardInfo), global::io.hverse.game.protogen.RewardInfo.Parser, new[]{ "Type", "Amount" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RaceRewardInfo), global::io.hverse.game.protogen.RaceRewardInfo.Parser, new[]{ "Rank", "Level", "Rewards" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ItemInfo), global::io.hverse.game.protogen.ItemInfo.Parser, new[]{ "Type", "ChestKeyInfo", "ChestInfo", "PieceInfo" }, null, null, null, null),
@@ -1612,8 +1611,6 @@ namespace io.hverse.game.protogen {
       bestBettingRecord_ = other.bestBettingRecord_;
       happiness_ = other.happiness_;
       restoreHappinessTime_ = other.restoreHappinessTime_;
-      age_ = other.age_;
-      sex_ = other.sex_;
       colorType_ = other.colorType_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -1885,32 +1882,8 @@ namespace io.hverse.game.protogen {
       }
     }
 
-    /// <summary>Field number for the "age" field.</summary>
-    public const int AgeFieldNumber = 21;
-    private int age_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int Age {
-      get { return age_; }
-      set {
-        age_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "sex" field.</summary>
-    public const int SexFieldNumber = 22;
-    private int sex_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int Sex {
-      get { return sex_; }
-      set {
-        sex_ = value;
-      }
-    }
-
     /// <summary>Field number for the "colorType" field.</summary>
-    public const int ColorTypeFieldNumber = 23;
+    public const int ColorTypeFieldNumber = 21;
     private int colorType_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1956,8 +1929,6 @@ namespace io.hverse.game.protogen {
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(BestBettingRecord, other.BestBettingRecord)) return false;
       if (Happiness != other.Happiness) return false;
       if (RestoreHappinessTime != other.RestoreHappinessTime) return false;
-      if (Age != other.Age) return false;
-      if (Sex != other.Sex) return false;
       if (ColorType != other.ColorType) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -1986,8 +1957,6 @@ namespace io.hverse.game.protogen {
       if (BestBettingRecord != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(BestBettingRecord);
       if (Happiness != 0) hash ^= Happiness.GetHashCode();
       if (RestoreHappinessTime != 0L) hash ^= RestoreHappinessTime.GetHashCode();
-      if (Age != 0) hash ^= Age.GetHashCode();
-      if (Sex != 0) hash ^= Sex.GetHashCode();
       if (ColorType != 0) hash ^= ColorType.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -2087,16 +2056,8 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(160, 1);
         output.WriteInt64(RestoreHappinessTime);
       }
-      if (Age != 0) {
-        output.WriteRawTag(168, 1);
-        output.WriteInt32(Age);
-      }
-      if (Sex != 0) {
-        output.WriteRawTag(176, 1);
-        output.WriteInt32(Sex);
-      }
       if (ColorType != 0) {
-        output.WriteRawTag(184, 1);
+        output.WriteRawTag(168, 1);
         output.WriteInt32(ColorType);
       }
       if (_unknownFields != null) {
@@ -2189,16 +2150,8 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(160, 1);
         output.WriteInt64(RestoreHappinessTime);
       }
-      if (Age != 0) {
-        output.WriteRawTag(168, 1);
-        output.WriteInt32(Age);
-      }
-      if (Sex != 0) {
-        output.WriteRawTag(176, 1);
-        output.WriteInt32(Sex);
-      }
       if (ColorType != 0) {
-        output.WriteRawTag(184, 1);
+        output.WriteRawTag(168, 1);
         output.WriteInt32(ColorType);
       }
       if (_unknownFields != null) {
@@ -2270,12 +2223,6 @@ namespace io.hverse.game.protogen {
       }
       if (RestoreHappinessTime != 0L) {
         size += 2 + pb::CodedOutputStream.ComputeInt64Size(RestoreHappinessTime);
-      }
-      if (Age != 0) {
-        size += 2 + pb::CodedOutputStream.ComputeInt32Size(Age);
-      }
-      if (Sex != 0) {
-        size += 2 + pb::CodedOutputStream.ComputeInt32Size(Sex);
       }
       if (ColorType != 0) {
         size += 2 + pb::CodedOutputStream.ComputeInt32Size(ColorType);
@@ -2351,12 +2298,6 @@ namespace io.hverse.game.protogen {
       }
       if (other.RestoreHappinessTime != 0L) {
         RestoreHappinessTime = other.RestoreHappinessTime;
-      }
-      if (other.Age != 0) {
-        Age = other.Age;
-      }
-      if (other.Sex != 0) {
-        Sex = other.Sex;
       }
       if (other.ColorType != 0) {
         ColorType = other.ColorType;
@@ -2457,14 +2398,6 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 168: {
-            Age = input.ReadInt32();
-            break;
-          }
-          case 176: {
-            Sex = input.ReadInt32();
-            break;
-          }
-          case 184: {
             ColorType = input.ReadInt32();
             break;
           }
@@ -2564,14 +2497,6 @@ namespace io.hverse.game.protogen {
             break;
           }
           case 168: {
-            Age = input.ReadInt32();
-            break;
-          }
-          case 176: {
-            Sex = input.ReadInt32();
-            break;
-          }
-          case 184: {
             ColorType = input.ReadInt32();
             break;
           }
