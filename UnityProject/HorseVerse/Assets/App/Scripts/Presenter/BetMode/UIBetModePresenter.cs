@@ -322,18 +322,31 @@ public class UIBetModePresenter : IDisposable
             for(int i = 0; i < len; i++)
             {
                 int index = i;
-                // var userHorse = 
-                var item = new UIComponentBetModeHorseInfoItem.Entity()
-                {
-                    no = i + 1,
-                    horseName = horseBetInfo.HorseInfos[i].Name,
-                    avgRec = horseBetInfo.HorseInfos[i].AverageBettingRecord,
-                    bestRec = horseBetInfo.HorseInfos[i].BestBettingRecord,
-                    lastMatch = horseBetInfo.HorseInfos[i].LastBettingRecord,
-                    rate = BetRateRepository.Models[(i + 1, default)].Rate,
-                    button = new ButtonSelectedComponent.Entity(()=> { OnUpdateHorseInfoView(index).Forget();}, index == 0)
-                };
-                data.Add(item);
+                var horse = horseBetInfo.HorseInfos[i]; Debug.Log("Hose " + (horse != default));
+                //try
+                //{
+                    //var item = new UIComponentBetModeHorseInfoItem.Entity()
+                    //{
+                    //    no = i + 1,
+                    //    horseName = horseBetInfo.HorseInfos[i].Name,
+                    //    avgRec = horseBetInfo.HorseInfos[i].AverageBettingRecord,
+                    //    bestRec = horseBetInfo.HorseInfos[i].BestBettingRecord,
+                    //    lastMatch = horseBetInfo.HorseInfos[i].LastBettingRecord,
+                    //    rate = BetRateRepository.Models[(i + 1, default)].Rate,
+                    //    button = new ButtonSelectedComponent.Entity(() => { OnUpdateHorseInfoView(index).Forget(); }, index == 0)
+                    //};
+                    var item = new UIComponentBetModeHorseInfoItem.Entity();
+                    item.no = index + 1;
+                    item.horseName = horse.HorseName;
+                    item.avgRec = horse.AverageBettingRecord;
+                    item.bestRec = horse.BestBettingRecord;
+                    item.lastMatch = horse.LastBettingRecord;
+                    item.rate = BetRateRepository.Models[(i + 1, default)].Rate;
+                    item.button = new ButtonSelectedComponent.Entity(() => { OnUpdateHorseInfoView(index).Forget(); }, index == 0);
+
+                    data.Add(item);
+                //} catch(Exception ex) { Debug.LogError("ess " + ex.Message); }
+
             }
             return data.ToArray();
         }
@@ -360,7 +373,7 @@ public class UIBetModePresenter : IDisposable
             var entity = uiBetModeHorseInfo.entity;
             entity.horseDetail = new UIComponentHorseDetail.Entity()
             {
-                horseName = horseInfo.Name,
+                horseName = horseInfo.HorseName,
                 powerProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
                 {
                     bonus = horseInfo.PowerBonus,
@@ -389,7 +402,7 @@ public class UIBetModePresenter : IDisposable
             entity.horseDetailNumber = index + 1;
             entity.horseRace = new UIComponentHorseRace.Entity()
             {
-                type = (int)horseInfo.HorseType
+                type = (int)horseInfo.HorseTypeRaw
             };
             
             uiBetModeHorseInfo.UpdateDetailInfo(entity);

@@ -17,6 +17,7 @@ public static class MasterHorseExtensions
                                                     int color)
     {
         var id = 10000000 + color;
+        if (color == 0) id = 10000001;
         return masterHorseContainer.MasterHorseIndexer.Values.FirstOrDefault(x => x.MasterHorseId == id);
     }
 }

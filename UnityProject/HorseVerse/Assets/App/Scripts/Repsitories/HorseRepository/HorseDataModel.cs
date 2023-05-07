@@ -6,6 +6,8 @@ public class HorseDataModel
     public long HorseNtfId => HorseBasic.Id;
     public string Name => HorseBasic.Name;
     public int Happiness => HorseRising.Happiness;
+    public string HorseName { get; set; }
+
     public int Earning { get; set; }
     public float PowerBonus { get; set; }
     public float PowerRatio { get; set; }
@@ -16,7 +18,11 @@ public class HorseDataModel
 
     public HorseType HorseType => (HorseType)HorseBasic.HorseType;
     public HorseRarity Rarity => (HorseRarity)HorseBasic.Rarity;
-    public int HorseMasterId => (10000000 + HorseBasic.ColorType);
+    public int HorseMasterId => (HorseBasic != default ? (10000000 + HorseBasic.ColorType) : (ColorID == 0 ? 10000001 : (10000000 + ColorID)));
+
+    public HorseType HorseTypeRaw { get; set; }
+    public HorseRarity HorseRarityRaw { get; set; }
+    public int ColorID { get; set; }
 
 
     public Color Color1 { get; set; }
@@ -28,6 +34,7 @@ public class HorseDataModel
     public float AverageBettingRecord { get; set; }
     public float BestBettingRecord { get; set; }
     public float Rate { get; set; }
+
     public HorseBasic HorseBasic { get; set; }
     public HorseAttribute HorseAttribute { get; set; }
     public HorseRising HorseRising { get; set; }

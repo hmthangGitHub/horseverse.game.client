@@ -7,5 +7,5 @@ public enum MasterHorseType
 	 Fire, 
 	 Lighting, 
 	 Frost, 
-
+	 Water,
 }
