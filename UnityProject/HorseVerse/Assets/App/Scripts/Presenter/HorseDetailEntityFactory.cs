@@ -24,26 +24,26 @@ public class HorseDetailEntityFactory
             horseName = userHorse.Name,
             powerProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
             {
-                bonus = userHorse.PowerBonus,
+                bonus = 0,
                 progressBar = new UIComponentProgressBar.Entity()
                 {
-                    progress = userHorse.PowerRatio
+                    progress = 0
                 }
             },
             speedProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
             {
-                bonus = userHorse.SpeedBonus,
+                bonus = 0,
                 progressBar = new UIComponentProgressBar.Entity()
                 {
-                    progress = userHorse.SpeedRatio
+                    progress = 0
                 }
             },
             technicallyProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
             {
-                bonus = userHorse.TechnicallyBonus,
+                bonus = 0,
                 progressBar = new UIComponentProgressBar.Entity()
                 {
-                    progress = userHorse.TechnicallyRatio
+                    progress = 0
                 }
             },
             happiness = userHorse.Happiness,

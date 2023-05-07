@@ -39,14 +39,6 @@ public class LocalHorseDetailDomainService : HorseDetailDomainServiceBase, IHors
         {
             new HorseDataModel()
             {
-                Earning = oldModel.Earning,
-                // HorseNtfId = nftId,
-                PowerBonus = oldModel.PowerBonus + 0.015f,
-                PowerRatio = oldModel.PowerRatio + 0.015f,
-                SpeedBonus = oldModel.SpeedBonus + 0.015f,
-                SpeedRatio = oldModel.SpeedRatio + 0.015f,
-                TechnicallyBonus = oldModel.TechnicallyBonus + 0.015f,
-                TechnicallyRatio = oldModel.TechnicallyRatio + 0.015f,
             }
         });
     }

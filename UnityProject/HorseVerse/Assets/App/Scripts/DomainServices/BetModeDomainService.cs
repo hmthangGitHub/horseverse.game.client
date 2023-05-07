@@ -138,18 +138,7 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
 
         return new HorseBetInfo()
         {
-            HorseInfos = horseResponse.HorseInfos.Select(x => new HorseDataModel()
-            {
-                TechnicallyBonus = x.Acceleration,
-                LastBettingRecord = x.LastBettingRecord,
-                AverageBettingRecord = x.AverageBettingRecord,
-                BestBettingRecord = x.BestBettingRecord,
-                Rate = x.WinRate,
-                HorseName = x.Name,
-                HorseTypeRaw = x.HorseType,
-                HorseRarityRaw = (HorseRarity)x.Rarity,
-                ColorID = x.ColorType,
-            }).ToArray()
+            HorseInfos = horseResponse.HorseInfos.ToArray()
         };
     }
          

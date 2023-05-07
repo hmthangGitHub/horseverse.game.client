@@ -22,9 +22,9 @@ public class UIHorseInfo3DViewPresenter : IDisposable
         this.container = container;    
     }
 
-    public async UniTask ShowHorse3DViewAsync(long MasterHorseId)
+    public async UniTask ShowHorse3DViewAsync(long masterHorseId)
     {
-        Debug.Log("Load master Horse ID " + MasterHorseId);
+        Debug.Log("Load master Horse ID " + masterHorseId);
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         await HorseRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
@@ -36,7 +36,7 @@ public class UIHorseInfo3DViewPresenter : IDisposable
             {
                 horseLoader = new HorseLoader.Entity()
                 {
-                    horse = MasterHorseContainer.MasterHorseIndexer[MasterHorseId].ModelPath,
+                    horse = MasterHorseContainer.MasterHorseIndexer[masterHorseId].ModelPath,
                 }
             });
             uiHorse3DView.transform.SetAsFirstSibling();
@@ -45,7 +45,7 @@ public class UIHorseInfo3DViewPresenter : IDisposable
         }
     }
 
-    public async UniTask ShowHorse3DViewAsync(long MasterHorseId, Color color1, Color color2, Color color3, Color color4)
+    public async UniTask ShowHorse3DViewAsync(long masterHorseId, Color color1, Color color2, Color color3, Color color4)
     {
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
@@ -58,7 +58,7 @@ public class UIHorseInfo3DViewPresenter : IDisposable
             {
                 horseLoader = new HorseLoader.Entity()
                 {
-                    horse = MasterHorseContainer.MasterHorseIndexer[MasterHorseId].ModelPath,
+                    horse = MasterHorseContainer.MasterHorseIndexer[masterHorseId].ModelPath,
                     color1 = color1,
                     color2 = color2,
                     color3 = color3,

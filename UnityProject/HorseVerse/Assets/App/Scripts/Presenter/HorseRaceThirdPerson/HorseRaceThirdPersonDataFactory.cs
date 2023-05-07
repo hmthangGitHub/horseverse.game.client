@@ -34,18 +34,8 @@ public class HorseRaceThirdPersonDataFactory
             Name = userHorse.Name,
             MeshInformation = new MasterHorseMeshInformation()
             {
-                color1 = userHorse.Color1,
-                color2 = userHorse.Color2,
-                color3 = userHorse.Color3,
-                color4 = userHorse.Color4,
                 masterHorseId = masterHorse.MasterHorseId
             },
-            PowerBonus = userHorse.PowerBonus,
-            PowerRatio = userHorse.PowerRatio,
-            SpeedBonus = userHorse.SpeedBonus,
-            SpeedRatio = userHorse.SpeedRatio,
-            TechnicallyBonus = userHorse.TechnicallyBonus,
-            TechnicallyRatio = userHorse.TechnicallyRatio,
             NftHorseId = userHorse.HorseNtfId,
             HorseRaceThirdPersonStats = CreateRandomHorseRaceThirdPersonStats()
         };
