@@ -9,13 +9,13 @@ public class UIHorseInfoIntro : PopupEntity<UIHorseInfoIntro.Entity>
     {
         public ButtonComponent.Entity outerBtn;
         public ButtonComponent.Entity skipAllBtn;
-        public UIComponentHorseDetail.Entity horseInfo;
+        public UIComponentHorseBriefInfo.Entity horseInfo;
         public int gate;
     }
 
     public ButtonComponent outerBtn;
     public ButtonComponent skipAllBtn;
-    public UIComponentHorseDetail horseInfo;
+    public UIComponentHorseBriefInfo horseInfo;
     public FormattedTextComponent gate;
 
     protected override void OnSetEntity()

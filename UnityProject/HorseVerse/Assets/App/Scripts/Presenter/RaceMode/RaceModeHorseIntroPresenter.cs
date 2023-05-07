@@ -67,34 +67,13 @@ public class RaceModeHorseIntroPresenter : IDisposable
         uiHorseInfoIntro.SetEntity(new UIHorseInfoIntro.Entity()
         {
             gate = gate,
-            horseInfo = new UIComponentHorseDetail.Entity()
+            horseInfo = new UIComponentHorseBriefInfo.Entity()
             {
                 horseName = horseRaceInfo.Name,
-                level = horseRaceInfo.Level,
-                powerProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
-                {
-                    bonus = horseRaceInfo.PowerBonus,
-                    progressBar = new UIComponentProgressBar.Entity()
-                    {
-                        progress = horseRaceInfo.PowerRatio
-                    }
-                },
-                speedProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
-                {
-                    bonus = horseRaceInfo.SpeedBonus,
-                    progressBar = new UIComponentProgressBar.Entity()
-                    {
-                        progress = horseRaceInfo.SpeedRatio
-                    }
-                },
-                technicallyProgressBarWithBonus = new UIComponentProgressBarWithBonus.Entity()
-                {
-                    bonus = horseRaceInfo.TechnicallyBonus,
-                    progressBar = new UIComponentProgressBar.Entity()
-                    {
-                        progress = horseRaceInfo.TechnicallyRatio
-                    }
-                },
+                acceleration = horseRaceInfo.Acceleration,
+                agility = horseRaceInfo.Agility,
+                speed = horseRaceInfo.Speed,
+                stamina = horseRaceInfo.Stamina,
             },
             outerBtn = new ButtonComponent.Entity(OnSkipHorse),
             skipAllBtn = new ButtonComponent.Entity(OnSkipAllHorseIntro)

@@ -55,11 +55,11 @@ public class HorseRaceThirdPersonDataFactory
                 color4 = RandomColor(),
                 masterHorseId = MasterHorseContainer.MasterHorseIndexer.Keys.RandomElement()
             },
-            PowerBonus = Random.value,
-            PowerRatio = Random.value,
-            SpeedBonus = Random.value,
+            Speed = Random.value,
+            Agility = Random.value,
+            Acceleration = Random.value,
             SpeedRatio = Random.value,
-            TechnicallyBonus = Random.value,
+            Stamina = Random.value,
             TechnicallyRatio = Random.value,
             NftHorseId = (long)Random.Range((float)0, Mathf.Infinity),
             HorseRaceThirdPersonStats = CreateRandomHorseRaceThirdPersonStats()

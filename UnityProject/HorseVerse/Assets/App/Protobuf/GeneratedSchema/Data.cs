@@ -38,51 +38,50 @@ namespace io.hverse.game.protogen {
             "cmVlZGluZ0ZlZRIWCg5icmVlZGluZ0ZhY3RvchgJIAEoBSJECgtCcmVlZGlu",
             "Z0ZlZRISCgptYWxlUmFyaXR5GAEgASgFEhQKDGZlbWFsZVJhcml0eRgCIAEo",
             "BRILCgNmZWUYAyABKAUiOgoVRW5hYmxlRmVhdHVyZXNSZWNlaXB0EiEKC2Zl",
-            "YXR1cmVMaXN0GAEgAygOMgwuRmVhdHVyZVR5cGUipwMKCUhvcnNlSW5mbxIN",
-            "CgVuZnRJZBgBIAEoAxILCgNibXMYAiABKAISCwoDbW1zGAMgASgCEhQKDGFj",
-            "Y2VsZXJhdGlvbhgEIAEoAhIPCgdzdGFtaW5hGAUgASgCEh0KCWhvcnNlVHlw",
-            "ZRgGIAEoDjIKLkhvcnNlVHlwZRIXCgZyYXJpdHkYByABKA4yBy5SYXJpdHkS",
-            "DAoEbHVjaxgIIAEoBRINCgVsZXZlbBgJIAEoBRIOCgZjb2xvcjEYCiABKAkS",
-            "DgoGY29sb3IyGAsgASgJEg4KBmNvbG9yMxgMIAEoCRIOCgZjb2xvcjQYDSAB",
-            "KAkSDwoHd2luUmF0ZRgOIAEoAhIMCgRuYW1lGA8gASgJEhkKEWxhc3RCZXR0",
-            "aW5nUmVjb3JkGBAgASgCEhwKFGF2ZXJhZ2VCZXR0aW5nUmVjb3JkGBEgASgC",
-            "EhkKEWJlc3RCZXR0aW5nUmVjb3JkGBIgASgCEhEKCWhhcHBpbmVzcxgTIAEo",
-            "BRIcChRyZXN0b3JlSGFwcGluZXNzVGltZRgUIAEoAxIRCgljb2xvclR5cGUY",
-            "FSABKAUiNwoKUmV3YXJkSW5mbxIZCgR0eXBlGAEgASgOMgsuUmV3YXJkVHlw",
-            "ZRIOCgZhbW91bnQYAiABKAMiWwoOUmFjZVJld2FyZEluZm8SDAoEcmFuaxgB",
-            "IAEoBRIdCgVsZXZlbBgCIAEoDjIOLlJhY2VSb29tTGV2ZWwSHAoHcmV3YXJk",
-            "cxgDIAMoCzILLlJld2FyZEluZm8ihgEKCEl0ZW1JbmZvEhcKBHR5cGUYASAB",
-            "KA4yCS5JdGVtVHlwZRIjCgxjaGVzdEtleUluZm8YAiABKAsyDS5DaGVzdEtl",
-            "eUluZm8SHQoJY2hlc3RJbmZvGAMgASgLMgouQ2hlc3RJbmZvEh0KCXBpZWNl",
-            "SW5mbxgEIAEoCzIKLlBpZWNlSW5mbyJJCgxDaGVzdEtleUluZm8SDAoEbmFt",
-            "ZRgBIAEoCRIbCgR0eXBlGAIgASgOMg0uQ2hlc3RLZXlUeXBlEg4KBmFtb3Vu",
-            "dBgDIAEoBSJDCglDaGVzdEluZm8SDAoEbmFtZRgBIAEoCRIYCgR0eXBlGAIg",
-            "ASgOMgouQ2hlc3RUeXBlEg4KBmFtb3VudBgDIAEoBSJaCglQaWVjZUluZm8S",
-            "DAoEbmFtZRgBIAEoCRIYCgR0eXBlGAIgASgOMgouUGllY2VUeXBlEhUKDWNv",
-            "bWJpbmVOdW1iZXIYAyABKAUSDgoGYW1vdW50GAQgASgFKmEKD0RhdGFNZXNz",
-            "YWdlVHlwZRIXChNNQVNURVJfREFUQV9SRVFVRVNUEAASGAoUTUFTVEVSX0RB",
-            "VEFfUkVTUE9OU0UQARIbChdFTkFCTEVfRkVBVFVSRVNfUkVDRUlQVBACKj0K",
-            "C0ZlYXR1cmVUeXBlEggKBFNIT1AQABINCglBRFZFTlRVUkUQARIJCgVBUkVO",
-            "QRACEgoKBlJBQ0lORxADKnkKBlJhcml0eRISCg5SQVJJVFlfVU5LTk9XThAA",
-            "EhEKDVJBUklUWV9DT01NT04QARITCg9SQVJJVFlfVU5DT01NT04QAhIPCgtS",
-            "QVJJVFlfUkFSRRADEg8KC1JBUklUWV9FUElDEAQSEQoNUkFSSVRZX0xFR0VO",
-            "RBAFKmcKCUhvcnNlVHlwZRIWChJIT1JTRV9UWVBFX1VOS05PV04QABIUChBI",
-            "T1JTRV9UWVBFX0JMQVpFEAESFgoSSE9SU0VfVFlQRV9USFVOREVSEAISFAoQ",
-            "SE9SU0VfVFlQRV9ISURSTxADKiAKBExhbmUSBgoCSU4QABIHCgNNSUQQARIH",
-            "CgNPVVQQAipGCgxSZXdhcmRTdGF0dXMSGwoXUkVXQVJEX1NUQVRVU19VTkNM",
-            "QUlNRUQQABIZChVSRVdBUkRfU1RBVFVTX0NMQUlNRUQQASpPCgpSZXdhcmRU",
-            "eXBlEhQKEFJFV0FSRF9UWVBFX05PTkUQABIUChBSRVdBUkRfVFlQRV9DSElQ",
-            "EAESFQoRUkVXQVJEX1RZUEVfQ0hFU1QQAiqfAQoNUmFjZVJvb21MZXZlbBIb",
-            "ChdSQUNFX1JPT01fTEVWRUxfVU5LTk9XThAAEhUKEVJBQ0VfUk9PTV9MRVZF",
-            "TF8xEAESFQoRUkFDRV9ST09NX0xFVkVMXzIQAhIVChFSQUNFX1JPT01fTEVW",
-            "RUxfMxADEhUKEVJBQ0VfUk9PTV9MRVZFTF80EAQSFQoRUkFDRV9ST09NX0xF",
-            "VkVMXzUQBSpNCghJdGVtVHlwZRIXChNJVEVNX1RZUEVfQ0hFU1RfS0VZEAAS",
-            "EwoPSVRFTV9UWVBFX0NIRVNUEAESEwoPSVRFTV9UWVBFX1BJRUNFEAIqKQoM",
-            "Q2hlc3RLZXlUeXBlEhkKFUNIRVNUX0tFWV9UWVBFX0NPTU1PThAAKjcKCUNo",
-            "ZXN0VHlwZRIVChFDSEVTVF9UWVBFX0NPTU1PThAAEhMKD0NIRVNUX1RZUEVf",
-            "UkFSRRABKiEKCVBpZWNlVHlwZRIUChBQSUVDRV9UWVBFX0NIRVNUEABCRwoX",
-            "aW8uaHZlcnNlLmdhbWUucHJvdG9nZW5CEkRhdGFNZXNzYWdlRmFjdG9yeaoC",
-            "F2lvLmh2ZXJzZS5nYW1lLnByb3RvZ2VuYgZwcm90bzM="));
+            "YXR1cmVMaXN0GAEgAygOMgwuRmVhdHVyZVR5cGUi5QIKCUhvcnNlSW5mbxIN",
+            "CgVuZnRJZBgBIAEoAxILCgNibXMYAiABKAISCwoDbW1zGAMgASgCEgsKA2ht",
+            "cxgEIAEoBRIUCgxhY2NlbGVyYXRpb24YBSABKAISDwoHc3RhbWluYRgGIAEo",
+            "AhIdCglob3JzZVR5cGUYByABKA4yCi5Ib3JzZVR5cGUSFwoGcmFyaXR5GAgg",
+            "ASgOMgcuUmFyaXR5EgwKBGx1Y2sYCSABKAUSDQoFbGV2ZWwYCiABKAUSDwoH",
+            "d2luUmF0ZRgLIAEoAhIMCgRuYW1lGAwgASgJEhkKEWxhc3RCZXR0aW5nUmVj",
+            "b3JkGA0gASgCEhwKFGF2ZXJhZ2VCZXR0aW5nUmVjb3JkGA4gASgCEhkKEWJl",
+            "c3RCZXR0aW5nUmVjb3JkGA8gASgCEhEKCWNvbG9yVHlwZRgQIAEoBRIUCgxz",
+            "cHJpbnROdW1iZXIYESABKAUSCgoCc2EYEiABKAUiNwoKUmV3YXJkSW5mbxIZ",
+            "CgR0eXBlGAEgASgOMgsuUmV3YXJkVHlwZRIOCgZhbW91bnQYAiABKAMiWwoO",
+            "UmFjZVJld2FyZEluZm8SDAoEcmFuaxgBIAEoBRIdCgVsZXZlbBgCIAEoDjIO",
+            "LlJhY2VSb29tTGV2ZWwSHAoHcmV3YXJkcxgDIAMoCzILLlJld2FyZEluZm8i",
+            "hgEKCEl0ZW1JbmZvEhcKBHR5cGUYASABKA4yCS5JdGVtVHlwZRIjCgxjaGVz",
+            "dEtleUluZm8YAiABKAsyDS5DaGVzdEtleUluZm8SHQoJY2hlc3RJbmZvGAMg",
+            "ASgLMgouQ2hlc3RJbmZvEh0KCXBpZWNlSW5mbxgEIAEoCzIKLlBpZWNlSW5m",
+            "byJJCgxDaGVzdEtleUluZm8SDAoEbmFtZRgBIAEoCRIbCgR0eXBlGAIgASgO",
+            "Mg0uQ2hlc3RLZXlUeXBlEg4KBmFtb3VudBgDIAEoBSJDCglDaGVzdEluZm8S",
+            "DAoEbmFtZRgBIAEoCRIYCgR0eXBlGAIgASgOMgouQ2hlc3RUeXBlEg4KBmFt",
+            "b3VudBgDIAEoBSJaCglQaWVjZUluZm8SDAoEbmFtZRgBIAEoCRIYCgR0eXBl",
+            "GAIgASgOMgouUGllY2VUeXBlEhUKDWNvbWJpbmVOdW1iZXIYAyABKAUSDgoG",
+            "YW1vdW50GAQgASgFKmEKD0RhdGFNZXNzYWdlVHlwZRIXChNNQVNURVJfREFU",
+            "QV9SRVFVRVNUEAASGAoUTUFTVEVSX0RBVEFfUkVTUE9OU0UQARIbChdFTkFC",
+            "TEVfRkVBVFVSRVNfUkVDRUlQVBACKj0KC0ZlYXR1cmVUeXBlEggKBFNIT1AQ",
+            "ABINCglBRFZFTlRVUkUQARIJCgVBUkVOQRACEgoKBlJBQ0lORxADKnkKBlJh",
+            "cml0eRISCg5SQVJJVFlfVU5LTk9XThAAEhEKDVJBUklUWV9DT01NT04QARIT",
+            "Cg9SQVJJVFlfVU5DT01NT04QAhIPCgtSQVJJVFlfUkFSRRADEg8KC1JBUklU",
+            "WV9FUElDEAQSEQoNUkFSSVRZX0xFR0VORBAFKmcKCUhvcnNlVHlwZRIWChJI",
+            "T1JTRV9UWVBFX1VOS05PV04QABIUChBIT1JTRV9UWVBFX0JMQVpFEAESFgoS",
+            "SE9SU0VfVFlQRV9USFVOREVSEAISFAoQSE9SU0VfVFlQRV9ISURSTxADKiAK",
+            "BExhbmUSBgoCSU4QABIHCgNNSUQQARIHCgNPVVQQAipGCgxSZXdhcmRTdGF0",
+            "dXMSGwoXUkVXQVJEX1NUQVRVU19VTkNMQUlNRUQQABIZChVSRVdBUkRfU1RB",
+            "VFVTX0NMQUlNRUQQASpPCgpSZXdhcmRUeXBlEhQKEFJFV0FSRF9UWVBFX05P",
+            "TkUQABIUChBSRVdBUkRfVFlQRV9DSElQEAESFQoRUkVXQVJEX1RZUEVfQ0hF",
+            "U1QQAiqfAQoNUmFjZVJvb21MZXZlbBIbChdSQUNFX1JPT01fTEVWRUxfVU5L",
+            "Tk9XThAAEhUKEVJBQ0VfUk9PTV9MRVZFTF8xEAESFQoRUkFDRV9ST09NX0xF",
+            "VkVMXzIQAhIVChFSQUNFX1JPT01fTEVWRUxfMxADEhUKEVJBQ0VfUk9PTV9M",
+            "RVZFTF80EAQSFQoRUkFDRV9ST09NX0xFVkVMXzUQBSpNCghJdGVtVHlwZRIX",
+            "ChNJVEVNX1RZUEVfQ0hFU1RfS0VZEAASEwoPSVRFTV9UWVBFX0NIRVNUEAES",
+            "EwoPSVRFTV9UWVBFX1BJRUNFEAIqKQoMQ2hlc3RLZXlUeXBlEhkKFUNIRVNU",
+            "X0tFWV9UWVBFX0NPTU1PThAAKjcKCUNoZXN0VHlwZRIVChFDSEVTVF9UWVBF",
+            "X0NPTU1PThAAEhMKD0NIRVNUX1RZUEVfUkFSRRABKiEKCVBpZWNlVHlwZRIU",
+            "ChBQSUVDRV9UWVBFX0NIRVNUEABCRwoXaW8uaHZlcnNlLmdhbWUucHJvdG9n",
+            "ZW5CEkRhdGFNZXNzYWdlRmFjdG9yeaoCF2lvLmh2ZXJzZS5nYW1lLnByb3Rv",
+            "Z2VuYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::io.hverse.game.protogen.DataMessageType), typeof(global::io.hverse.game.protogen.FeatureType), typeof(global::io.hverse.game.protogen.Rarity), typeof(global::io.hverse.game.protogen.HorseType), typeof(global::io.hverse.game.protogen.Lane), typeof(global::io.hverse.game.protogen.RewardStatus), typeof(global::io.hverse.game.protogen.RewardType), typeof(global::io.hverse.game.protogen.RaceRoomLevel), typeof(global::io.hverse.game.protogen.ItemType), typeof(global::io.hverse.game.protogen.ChestKeyType), typeof(global::io.hverse.game.protogen.ChestType), typeof(global::io.hverse.game.protogen.PieceType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -91,7 +90,7 @@ namespace io.hverse.game.protogen {
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.MasterDataResponse), global::io.hverse.game.protogen.MasterDataResponse.Parser, new[]{ "MaxHappinessNumber", "HappinessNumberPerTraining", "BetNumberList", "MaxDailyRacingNumber", "RaceRewardInfos", "MaxBreedingNumber", "MaxCoinCollected", "BreedingFee", "BreedingFactor" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.BreedingFee), global::io.hverse.game.protogen.BreedingFee.Parser, new[]{ "MaleRarity", "FemaleRarity", "Fee" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.EnableFeaturesReceipt), global::io.hverse.game.protogen.EnableFeaturesReceipt.Parser, new[]{ "FeatureList" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "Bms", "Mms", "Acceleration", "Stamina", "HorseType", "Rarity", "Luck", "Level", "Color1", "Color2", "Color3", "Color4", "WinRate", "Name", "LastBettingRecord", "AverageBettingRecord", "BestBettingRecord", "Happiness", "RestoreHappinessTime", "ColorType" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.HorseInfo), global::io.hverse.game.protogen.HorseInfo.Parser, new[]{ "NftId", "Bms", "Mms", "Hms", "Acceleration", "Stamina", "HorseType", "Rarity", "Luck", "Level", "WinRate", "Name", "LastBettingRecord", "AverageBettingRecord", "BestBettingRecord", "ColorType", "SprintNumber", "Sa" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RewardInfo), global::io.hverse.game.protogen.RewardInfo.Parser, new[]{ "Type", "Amount" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.RaceRewardInfo), global::io.hverse.game.protogen.RaceRewardInfo.Parser, new[]{ "Rank", "Level", "Rewards" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::io.hverse.game.protogen.ItemInfo), global::io.hverse.game.protogen.ItemInfo.Parser, new[]{ "Type", "ChestKeyInfo", "ChestInfo", "PieceInfo" }, null, null, null, null),
@@ -1594,24 +1593,21 @@ namespace io.hverse.game.protogen {
       nftId_ = other.nftId_;
       bms_ = other.bms_;
       mms_ = other.mms_;
+      hms_ = other.hms_;
       acceleration_ = other.acceleration_;
       stamina_ = other.stamina_;
       horseType_ = other.horseType_;
       rarity_ = other.rarity_;
       luck_ = other.luck_;
       level_ = other.level_;
-      color1_ = other.color1_;
-      color2_ = other.color2_;
-      color3_ = other.color3_;
-      color4_ = other.color4_;
       winRate_ = other.winRate_;
       name_ = other.name_;
       lastBettingRecord_ = other.lastBettingRecord_;
       averageBettingRecord_ = other.averageBettingRecord_;
       bestBettingRecord_ = other.bestBettingRecord_;
-      happiness_ = other.happiness_;
-      restoreHappinessTime_ = other.restoreHappinessTime_;
       colorType_ = other.colorType_;
+      sprintNumber_ = other.sprintNumber_;
+      sa_ = other.sa_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1657,8 +1653,20 @@ namespace io.hverse.game.protogen {
       }
     }
 
+    /// <summary>Field number for the "hms" field.</summary>
+    public const int HmsFieldNumber = 4;
+    private int hms_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Hms {
+      get { return hms_; }
+      set {
+        hms_ = value;
+      }
+    }
+
     /// <summary>Field number for the "acceleration" field.</summary>
-    public const int AccelerationFieldNumber = 4;
+    public const int AccelerationFieldNumber = 5;
     private float acceleration_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1670,7 +1678,7 @@ namespace io.hverse.game.protogen {
     }
 
     /// <summary>Field number for the "stamina" field.</summary>
-    public const int StaminaFieldNumber = 5;
+    public const int StaminaFieldNumber = 6;
     private float stamina_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1682,7 +1690,7 @@ namespace io.hverse.game.protogen {
     }
 
     /// <summary>Field number for the "horseType" field.</summary>
-    public const int HorseTypeFieldNumber = 6;
+    public const int HorseTypeFieldNumber = 7;
     private global::io.hverse.game.protogen.HorseType horseType_ = global::io.hverse.game.protogen.HorseType.Unknown;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1694,7 +1702,7 @@ namespace io.hverse.game.protogen {
     }
 
     /// <summary>Field number for the "rarity" field.</summary>
-    public const int RarityFieldNumber = 7;
+    public const int RarityFieldNumber = 8;
     private global::io.hverse.game.protogen.Rarity rarity_ = global::io.hverse.game.protogen.Rarity.Unknown;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1706,7 +1714,7 @@ namespace io.hverse.game.protogen {
     }
 
     /// <summary>Field number for the "luck" field.</summary>
-    public const int LuckFieldNumber = 8;
+    public const int LuckFieldNumber = 9;
     private int luck_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1718,7 +1726,7 @@ namespace io.hverse.game.protogen {
     }
 
     /// <summary>Field number for the "level" field.</summary>
-    public const int LevelFieldNumber = 9;
+    public const int LevelFieldNumber = 10;
     private int level_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1729,68 +1737,8 @@ namespace io.hverse.game.protogen {
       }
     }
 
-    /// <summary>Field number for the "color1" field.</summary>
-    public const int Color1FieldNumber = 10;
-    private string color1_ = "";
-    /// <summary>
-    /// skin
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Color1 {
-      get { return color1_; }
-      set {
-        color1_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "color2" field.</summary>
-    public const int Color2FieldNumber = 11;
-    private string color2_ = "";
-    /// <summary>
-    /// fur
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Color2 {
-      get { return color2_; }
-      set {
-        color2_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "color3" field.</summary>
-    public const int Color3FieldNumber = 12;
-    private string color3_ = "";
-    /// <summary>
-    /// border
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Color3 {
-      get { return color3_; }
-      set {
-        color3_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "color4" field.</summary>
-    public const int Color4FieldNumber = 13;
-    private string color4_ = "";
-    /// <summary>
-    /// armor
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Color4 {
-      get { return color4_; }
-      set {
-        color4_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
     /// <summary>Field number for the "winRate" field.</summary>
-    public const int WinRateFieldNumber = 14;
+    public const int WinRateFieldNumber = 11;
     private float winRate_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1802,7 +1750,7 @@ namespace io.hverse.game.protogen {
     }
 
     /// <summary>Field number for the "name" field.</summary>
-    public const int NameFieldNumber = 15;
+    public const int NameFieldNumber = 12;
     private string name_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1814,7 +1762,7 @@ namespace io.hverse.game.protogen {
     }
 
     /// <summary>Field number for the "lastBettingRecord" field.</summary>
-    public const int LastBettingRecordFieldNumber = 16;
+    public const int LastBettingRecordFieldNumber = 13;
     private float lastBettingRecord_;
     /// <summary>
     /// Just for betting
@@ -1829,7 +1777,7 @@ namespace io.hverse.game.protogen {
     }
 
     /// <summary>Field number for the "averageBettingRecord" field.</summary>
-    public const int AverageBettingRecordFieldNumber = 17;
+    public const int AverageBettingRecordFieldNumber = 14;
     private float averageBettingRecord_;
     /// <summary>
     /// Just for betting
@@ -1844,7 +1792,7 @@ namespace io.hverse.game.protogen {
     }
 
     /// <summary>Field number for the "bestBettingRecord" field.</summary>
-    public const int BestBettingRecordFieldNumber = 18;
+    public const int BestBettingRecordFieldNumber = 15;
     private float bestBettingRecord_;
     /// <summary>
     /// Just for betting
@@ -1858,32 +1806,8 @@ namespace io.hverse.game.protogen {
       }
     }
 
-    /// <summary>Field number for the "happiness" field.</summary>
-    public const int HappinessFieldNumber = 19;
-    private int happiness_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int Happiness {
-      get { return happiness_; }
-      set {
-        happiness_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "restoreHappinessTime" field.</summary>
-    public const int RestoreHappinessTimeFieldNumber = 20;
-    private long restoreHappinessTime_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public long RestoreHappinessTime {
-      get { return restoreHappinessTime_; }
-      set {
-        restoreHappinessTime_ = value;
-      }
-    }
-
     /// <summary>Field number for the "colorType" field.</summary>
-    public const int ColorTypeFieldNumber = 21;
+    public const int ColorTypeFieldNumber = 16;
     private int colorType_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1891,6 +1815,30 @@ namespace io.hverse.game.protogen {
       get { return colorType_; }
       set {
         colorType_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "sprintNumber" field.</summary>
+    public const int SprintNumberFieldNumber = 17;
+    private int sprintNumber_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int SprintNumber {
+      get { return sprintNumber_; }
+      set {
+        sprintNumber_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "sa" field.</summary>
+    public const int SaFieldNumber = 18;
+    private int sa_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Sa {
+      get { return sa_; }
+      set {
+        sa_ = value;
       }
     }
 
@@ -1912,24 +1860,21 @@ namespace io.hverse.game.protogen {
       if (NftId != other.NftId) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Bms, other.Bms)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Mms, other.Mms)) return false;
+      if (Hms != other.Hms) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Acceleration, other.Acceleration)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Stamina, other.Stamina)) return false;
       if (HorseType != other.HorseType) return false;
       if (Rarity != other.Rarity) return false;
       if (Luck != other.Luck) return false;
       if (Level != other.Level) return false;
-      if (Color1 != other.Color1) return false;
-      if (Color2 != other.Color2) return false;
-      if (Color3 != other.Color3) return false;
-      if (Color4 != other.Color4) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(WinRate, other.WinRate)) return false;
       if (Name != other.Name) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(LastBettingRecord, other.LastBettingRecord)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(AverageBettingRecord, other.AverageBettingRecord)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(BestBettingRecord, other.BestBettingRecord)) return false;
-      if (Happiness != other.Happiness) return false;
-      if (RestoreHappinessTime != other.RestoreHappinessTime) return false;
       if (ColorType != other.ColorType) return false;
+      if (SprintNumber != other.SprintNumber) return false;
+      if (Sa != other.Sa) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1940,24 +1885,21 @@ namespace io.hverse.game.protogen {
       if (NftId != 0L) hash ^= NftId.GetHashCode();
       if (Bms != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Bms);
       if (Mms != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Mms);
+      if (Hms != 0) hash ^= Hms.GetHashCode();
       if (Acceleration != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Acceleration);
       if (Stamina != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Stamina);
       if (HorseType != global::io.hverse.game.protogen.HorseType.Unknown) hash ^= HorseType.GetHashCode();
       if (Rarity != global::io.hverse.game.protogen.Rarity.Unknown) hash ^= Rarity.GetHashCode();
       if (Luck != 0) hash ^= Luck.GetHashCode();
       if (Level != 0) hash ^= Level.GetHashCode();
-      if (Color1.Length != 0) hash ^= Color1.GetHashCode();
-      if (Color2.Length != 0) hash ^= Color2.GetHashCode();
-      if (Color3.Length != 0) hash ^= Color3.GetHashCode();
-      if (Color4.Length != 0) hash ^= Color4.GetHashCode();
       if (WinRate != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(WinRate);
       if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (LastBettingRecord != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(LastBettingRecord);
       if (AverageBettingRecord != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(AverageBettingRecord);
       if (BestBettingRecord != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(BestBettingRecord);
-      if (Happiness != 0) hash ^= Happiness.GetHashCode();
-      if (RestoreHappinessTime != 0L) hash ^= RestoreHappinessTime.GetHashCode();
       if (ColorType != 0) hash ^= ColorType.GetHashCode();
+      if (SprintNumber != 0) hash ^= SprintNumber.GetHashCode();
+      if (Sa != 0) hash ^= Sa.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1988,77 +1930,65 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(29);
         output.WriteFloat(Mms);
       }
+      if (Hms != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(Hms);
+      }
       if (Acceleration != 0F) {
-        output.WriteRawTag(37);
+        output.WriteRawTag(45);
         output.WriteFloat(Acceleration);
       }
       if (Stamina != 0F) {
-        output.WriteRawTag(45);
+        output.WriteRawTag(53);
         output.WriteFloat(Stamina);
       }
       if (HorseType != global::io.hverse.game.protogen.HorseType.Unknown) {
-        output.WriteRawTag(48);
+        output.WriteRawTag(56);
         output.WriteEnum((int) HorseType);
       }
       if (Rarity != global::io.hverse.game.protogen.Rarity.Unknown) {
-        output.WriteRawTag(56);
+        output.WriteRawTag(64);
         output.WriteEnum((int) Rarity);
       }
       if (Luck != 0) {
-        output.WriteRawTag(64);
+        output.WriteRawTag(72);
         output.WriteInt32(Luck);
       }
       if (Level != 0) {
-        output.WriteRawTag(72);
+        output.WriteRawTag(80);
         output.WriteInt32(Level);
       }
-      if (Color1.Length != 0) {
-        output.WriteRawTag(82);
-        output.WriteString(Color1);
-      }
-      if (Color2.Length != 0) {
-        output.WriteRawTag(90);
-        output.WriteString(Color2);
-      }
-      if (Color3.Length != 0) {
-        output.WriteRawTag(98);
-        output.WriteString(Color3);
-      }
-      if (Color4.Length != 0) {
-        output.WriteRawTag(106);
-        output.WriteString(Color4);
-      }
       if (WinRate != 0F) {
-        output.WriteRawTag(117);
+        output.WriteRawTag(93);
         output.WriteFloat(WinRate);
       }
       if (Name.Length != 0) {
-        output.WriteRawTag(122);
+        output.WriteRawTag(98);
         output.WriteString(Name);
       }
       if (LastBettingRecord != 0F) {
-        output.WriteRawTag(133, 1);
+        output.WriteRawTag(109);
         output.WriteFloat(LastBettingRecord);
       }
       if (AverageBettingRecord != 0F) {
-        output.WriteRawTag(141, 1);
+        output.WriteRawTag(117);
         output.WriteFloat(AverageBettingRecord);
       }
       if (BestBettingRecord != 0F) {
-        output.WriteRawTag(149, 1);
+        output.WriteRawTag(125);
         output.WriteFloat(BestBettingRecord);
       }
-      if (Happiness != 0) {
-        output.WriteRawTag(152, 1);
-        output.WriteInt32(Happiness);
-      }
-      if (RestoreHappinessTime != 0L) {
-        output.WriteRawTag(160, 1);
-        output.WriteInt64(RestoreHappinessTime);
-      }
       if (ColorType != 0) {
-        output.WriteRawTag(168, 1);
+        output.WriteRawTag(128, 1);
         output.WriteInt32(ColorType);
+      }
+      if (SprintNumber != 0) {
+        output.WriteRawTag(136, 1);
+        output.WriteInt32(SprintNumber);
+      }
+      if (Sa != 0) {
+        output.WriteRawTag(144, 1);
+        output.WriteInt32(Sa);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -2082,77 +2012,65 @@ namespace io.hverse.game.protogen {
         output.WriteRawTag(29);
         output.WriteFloat(Mms);
       }
+      if (Hms != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(Hms);
+      }
       if (Acceleration != 0F) {
-        output.WriteRawTag(37);
+        output.WriteRawTag(45);
         output.WriteFloat(Acceleration);
       }
       if (Stamina != 0F) {
-        output.WriteRawTag(45);
+        output.WriteRawTag(53);
         output.WriteFloat(Stamina);
       }
       if (HorseType != global::io.hverse.game.protogen.HorseType.Unknown) {
-        output.WriteRawTag(48);
+        output.WriteRawTag(56);
         output.WriteEnum((int) HorseType);
       }
       if (Rarity != global::io.hverse.game.protogen.Rarity.Unknown) {
-        output.WriteRawTag(56);
+        output.WriteRawTag(64);
         output.WriteEnum((int) Rarity);
       }
       if (Luck != 0) {
-        output.WriteRawTag(64);
+        output.WriteRawTag(72);
         output.WriteInt32(Luck);
       }
       if (Level != 0) {
-        output.WriteRawTag(72);
+        output.WriteRawTag(80);
         output.WriteInt32(Level);
       }
-      if (Color1.Length != 0) {
-        output.WriteRawTag(82);
-        output.WriteString(Color1);
-      }
-      if (Color2.Length != 0) {
-        output.WriteRawTag(90);
-        output.WriteString(Color2);
-      }
-      if (Color3.Length != 0) {
-        output.WriteRawTag(98);
-        output.WriteString(Color3);
-      }
-      if (Color4.Length != 0) {
-        output.WriteRawTag(106);
-        output.WriteString(Color4);
-      }
       if (WinRate != 0F) {
-        output.WriteRawTag(117);
+        output.WriteRawTag(93);
         output.WriteFloat(WinRate);
       }
       if (Name.Length != 0) {
-        output.WriteRawTag(122);
+        output.WriteRawTag(98);
         output.WriteString(Name);
       }
       if (LastBettingRecord != 0F) {
-        output.WriteRawTag(133, 1);
+        output.WriteRawTag(109);
         output.WriteFloat(LastBettingRecord);
       }
       if (AverageBettingRecord != 0F) {
-        output.WriteRawTag(141, 1);
+        output.WriteRawTag(117);
         output.WriteFloat(AverageBettingRecord);
       }
       if (BestBettingRecord != 0F) {
-        output.WriteRawTag(149, 1);
+        output.WriteRawTag(125);
         output.WriteFloat(BestBettingRecord);
       }
-      if (Happiness != 0) {
-        output.WriteRawTag(152, 1);
-        output.WriteInt32(Happiness);
-      }
-      if (RestoreHappinessTime != 0L) {
-        output.WriteRawTag(160, 1);
-        output.WriteInt64(RestoreHappinessTime);
-      }
       if (ColorType != 0) {
-        output.WriteRawTag(168, 1);
+        output.WriteRawTag(128, 1);
         output.WriteInt32(ColorType);
+      }
+      if (SprintNumber != 0) {
+        output.WriteRawTag(136, 1);
+        output.WriteInt32(SprintNumber);
+      }
+      if (Sa != 0) {
+        output.WriteRawTag(144, 1);
+        output.WriteInt32(Sa);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -2173,6 +2091,9 @@ namespace io.hverse.game.protogen {
       if (Mms != 0F) {
         size += 1 + 4;
       }
+      if (Hms != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Hms);
+      }
       if (Acceleration != 0F) {
         size += 1 + 4;
       }
@@ -2191,18 +2112,6 @@ namespace io.hverse.game.protogen {
       if (Level != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Level);
       }
-      if (Color1.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Color1);
-      }
-      if (Color2.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Color2);
-      }
-      if (Color3.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Color3);
-      }
-      if (Color4.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Color4);
-      }
       if (WinRate != 0F) {
         size += 1 + 4;
       }
@@ -2210,22 +2119,22 @@ namespace io.hverse.game.protogen {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
       }
       if (LastBettingRecord != 0F) {
-        size += 2 + 4;
+        size += 1 + 4;
       }
       if (AverageBettingRecord != 0F) {
-        size += 2 + 4;
+        size += 1 + 4;
       }
       if (BestBettingRecord != 0F) {
-        size += 2 + 4;
-      }
-      if (Happiness != 0) {
-        size += 2 + pb::CodedOutputStream.ComputeInt32Size(Happiness);
-      }
-      if (RestoreHappinessTime != 0L) {
-        size += 2 + pb::CodedOutputStream.ComputeInt64Size(RestoreHappinessTime);
+        size += 1 + 4;
       }
       if (ColorType != 0) {
         size += 2 + pb::CodedOutputStream.ComputeInt32Size(ColorType);
+      }
+      if (SprintNumber != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(SprintNumber);
+      }
+      if (Sa != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(Sa);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -2248,6 +2157,9 @@ namespace io.hverse.game.protogen {
       if (other.Mms != 0F) {
         Mms = other.Mms;
       }
+      if (other.Hms != 0) {
+        Hms = other.Hms;
+      }
       if (other.Acceleration != 0F) {
         Acceleration = other.Acceleration;
       }
@@ -2266,18 +2178,6 @@ namespace io.hverse.game.protogen {
       if (other.Level != 0) {
         Level = other.Level;
       }
-      if (other.Color1.Length != 0) {
-        Color1 = other.Color1;
-      }
-      if (other.Color2.Length != 0) {
-        Color2 = other.Color2;
-      }
-      if (other.Color3.Length != 0) {
-        Color3 = other.Color3;
-      }
-      if (other.Color4.Length != 0) {
-        Color4 = other.Color4;
-      }
       if (other.WinRate != 0F) {
         WinRate = other.WinRate;
       }
@@ -2293,14 +2193,14 @@ namespace io.hverse.game.protogen {
       if (other.BestBettingRecord != 0F) {
         BestBettingRecord = other.BestBettingRecord;
       }
-      if (other.Happiness != 0) {
-        Happiness = other.Happiness;
-      }
-      if (other.RestoreHappinessTime != 0L) {
-        RestoreHappinessTime = other.RestoreHappinessTime;
-      }
       if (other.ColorType != 0) {
         ColorType = other.ColorType;
+      }
+      if (other.SprintNumber != 0) {
+        SprintNumber = other.SprintNumber;
+      }
+      if (other.Sa != 0) {
+        Sa = other.Sa;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2329,76 +2229,64 @@ namespace io.hverse.game.protogen {
             Mms = input.ReadFloat();
             break;
           }
-          case 37: {
-            Acceleration = input.ReadFloat();
+          case 32: {
+            Hms = input.ReadInt32();
             break;
           }
           case 45: {
+            Acceleration = input.ReadFloat();
+            break;
+          }
+          case 53: {
             Stamina = input.ReadFloat();
             break;
           }
-          case 48: {
+          case 56: {
             HorseType = (global::io.hverse.game.protogen.HorseType) input.ReadEnum();
             break;
           }
-          case 56: {
+          case 64: {
             Rarity = (global::io.hverse.game.protogen.Rarity) input.ReadEnum();
             break;
           }
-          case 64: {
+          case 72: {
             Luck = input.ReadInt32();
             break;
           }
-          case 72: {
+          case 80: {
             Level = input.ReadInt32();
             break;
           }
-          case 82: {
-            Color1 = input.ReadString();
-            break;
-          }
-          case 90: {
-            Color2 = input.ReadString();
-            break;
-          }
-          case 98: {
-            Color3 = input.ReadString();
-            break;
-          }
-          case 106: {
-            Color4 = input.ReadString();
-            break;
-          }
-          case 117: {
+          case 93: {
             WinRate = input.ReadFloat();
             break;
           }
-          case 122: {
+          case 98: {
             Name = input.ReadString();
             break;
           }
-          case 133: {
+          case 109: {
             LastBettingRecord = input.ReadFloat();
             break;
           }
-          case 141: {
+          case 117: {
             AverageBettingRecord = input.ReadFloat();
             break;
           }
-          case 149: {
+          case 125: {
             BestBettingRecord = input.ReadFloat();
             break;
           }
-          case 152: {
-            Happiness = input.ReadInt32();
-            break;
-          }
-          case 160: {
-            RestoreHappinessTime = input.ReadInt64();
-            break;
-          }
-          case 168: {
+          case 128: {
             ColorType = input.ReadInt32();
+            break;
+          }
+          case 136: {
+            SprintNumber = input.ReadInt32();
+            break;
+          }
+          case 144: {
+            Sa = input.ReadInt32();
             break;
           }
         }
@@ -2428,76 +2316,64 @@ namespace io.hverse.game.protogen {
             Mms = input.ReadFloat();
             break;
           }
-          case 37: {
-            Acceleration = input.ReadFloat();
+          case 32: {
+            Hms = input.ReadInt32();
             break;
           }
           case 45: {
+            Acceleration = input.ReadFloat();
+            break;
+          }
+          case 53: {
             Stamina = input.ReadFloat();
             break;
           }
-          case 48: {
+          case 56: {
             HorseType = (global::io.hverse.game.protogen.HorseType) input.ReadEnum();
             break;
           }
-          case 56: {
+          case 64: {
             Rarity = (global::io.hverse.game.protogen.Rarity) input.ReadEnum();
             break;
           }
-          case 64: {
+          case 72: {
             Luck = input.ReadInt32();
             break;
           }
-          case 72: {
+          case 80: {
             Level = input.ReadInt32();
             break;
           }
-          case 82: {
-            Color1 = input.ReadString();
-            break;
-          }
-          case 90: {
-            Color2 = input.ReadString();
-            break;
-          }
-          case 98: {
-            Color3 = input.ReadString();
-            break;
-          }
-          case 106: {
-            Color4 = input.ReadString();
-            break;
-          }
-          case 117: {
+          case 93: {
             WinRate = input.ReadFloat();
             break;
           }
-          case 122: {
+          case 98: {
             Name = input.ReadString();
             break;
           }
-          case 133: {
+          case 109: {
             LastBettingRecord = input.ReadFloat();
             break;
           }
-          case 141: {
+          case 117: {
             AverageBettingRecord = input.ReadFloat();
             break;
           }
-          case 149: {
+          case 125: {
             BestBettingRecord = input.ReadFloat();
             break;
           }
-          case 152: {
-            Happiness = input.ReadInt32();
-            break;
-          }
-          case 160: {
-            RestoreHappinessTime = input.ReadInt64();
-            break;
-          }
-          case 168: {
+          case 128: {
             ColorType = input.ReadInt32();
+            break;
+          }
+          case 136: {
+            SprintNumber = input.ReadInt32();
+            break;
+          }
+          case 144: {
+            Sa = input.ReadInt32();
             break;
           }
         }

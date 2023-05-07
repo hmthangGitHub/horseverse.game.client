@@ -38,22 +38,16 @@ public class HorseRaceInfoFactory
                     MeshInformation = new MasterHorseMeshInformation()
                     {
                         masterHorseId = masterHorse.MasterHorseId,
-                        //color1 = HorseRepository.GetColorFromHexCode(horseInfo.Color1),
-                        //color2 = HorseRepository.GetColorFromHexCode(horseInfo.Color2),
-                        //color3 = HorseRepository.GetColorFromHexCode(horseInfo.Color3),
-                        //color4 = HorseRepository.GetColorFromHexCode(horseInfo.Color4),
                     },
                     Name = horseInfo.Name,
                     NftHorseId = horseInfo.NftId,
-                    PowerBonus = horseInfo.Bms,
-                    PowerRatio = 1,
-                    SpeedBonus = horseInfo.Mms,
-                    SpeedRatio = 1,
-                    TechnicallyBonus = horseInfo.Acceleration,
-                    TechnicallyRatio = 1,
                     Rarity = horseInfo.Rarity,
                     Type = horseInfo.HorseType,
                     Level = horseInfo.Level,
+                    Speed = horseInfo.Bms,
+                    Acceleration = horseInfo.Sa,
+                    Agility = horseInfo.Hms,
+                    Stamina = horseInfo.SprintNumber * 100.0f,
                 };
             })
             .OrderBy(x => x.RaceSegments.First().CurrentLane)
