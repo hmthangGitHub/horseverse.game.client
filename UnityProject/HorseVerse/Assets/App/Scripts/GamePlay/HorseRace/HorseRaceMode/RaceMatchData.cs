@@ -32,12 +32,12 @@ public interface IHorseBriefInfo
     long NftHorseId { get;} 
     MasterHorseMeshInformation MeshInformation { get;}
     string Name { get; }
-    float PowerBonus { get;}
-    float PowerRatio { get;}
-    float SpeedBonus { get;}
+    float Speed { get;}
+    float Agility { get;}
+    float Acceleration { get;}
     float SpeedRatio { get;}
     int Level { get;}
-    float TechnicallyBonus { get;}
+    float Stamina { get;}
     float TechnicallyRatio { get;}
 }
 
@@ -46,11 +46,11 @@ public class HorseBriefInfo : IHorseBriefInfo
     public long NftHorseId { get; set; } 
     public MasterHorseMeshInformation MeshInformation { get; set; }
     public string Name { get; set; }
-    public float PowerBonus { get; set; }
-    public float PowerRatio { get; set; }
-    public float SpeedBonus { get; set; }
+    public float Speed { get; set; }
+    public float Agility { get; set; }
+    public float Acceleration { get; set; }
     public float SpeedRatio { get; set; }
-    public float TechnicallyBonus { get; set; }
+    public float Stamina { get; set; }
     public float TechnicallyRatio { get; set; }
     public int Level { get; set; }
 }
