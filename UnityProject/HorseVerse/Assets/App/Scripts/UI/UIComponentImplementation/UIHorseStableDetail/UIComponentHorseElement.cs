@@ -9,7 +9,8 @@ public class UIComponentHorseElement : UIComponentEnum<UIComponentHorseElement.E
     {
         None,
         Fire,
-        Thunder,
-        Light,
+        Lighting,
+        Frost,
+        Water,
     }
 }
