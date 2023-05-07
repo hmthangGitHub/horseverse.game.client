@@ -84,7 +84,7 @@ public class ErrorHandler : IDisposable
 
             if (GUILayout.Button("Copy error"))
             {
-                GUIUtility.systemCopyBuffer = StackTrace;
+                GUIUtility.systemCopyBuffer = $"{Error} \n {StackTrace}";
             }
 
             if (GUILayout.Button("Quit"))
