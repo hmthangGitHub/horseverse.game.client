@@ -315,8 +315,6 @@ public class UIBetModePresenter : IDisposable
 
     private UIComponentBetModeHorseInfoItem.Entity[] GetHorseInfo()
     {
-        var len = horseBetInfo.HorseInfos.Length;
-        var data = new List<UIComponentBetModeHorseInfoItem.Entity>();
         return horseBetInfo.HorseInfos
                            .Select((x , i) => new UIComponentBetModeHorseInfoItem.Entity()
                            {
@@ -328,9 +326,9 @@ public class UIBetModePresenter : IDisposable
                                rate = BetRateRepository.Models[(i + 1, default)]
                                                        .Rate,
                                button = new ButtonSelectedComponent.Entity(() =>
-                               {
-                                   OnUpdateHorseInfoView(i).Forget();
-                               }, 
+                                   {
+                                       OnUpdateHorseInfoView(i).Forget();
+                                   }, 
                                    i == 0)
                            })
                            .ToArray();
