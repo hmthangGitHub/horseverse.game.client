@@ -38,10 +38,10 @@ public class HorseRaceInfoFactory
                     MeshInformation = new MasterHorseMeshInformation()
                     {
                         masterHorseId = masterHorse.MasterHorseId,
-                        color1 = HorseRepository.GetColorFromHexCode(horseInfo.Color1),
-                        color2 = HorseRepository.GetColorFromHexCode(horseInfo.Color2),
-                        color3 = HorseRepository.GetColorFromHexCode(horseInfo.Color3),
-                        color4 = HorseRepository.GetColorFromHexCode(horseInfo.Color4),
+                        //color1 = HorseRepository.GetColorFromHexCode(horseInfo.Color1),
+                        //color2 = HorseRepository.GetColorFromHexCode(horseInfo.Color2),
+                        //color3 = HorseRepository.GetColorFromHexCode(horseInfo.Color3),
+                        //color4 = HorseRepository.GetColorFromHexCode(horseInfo.Color4),
                     },
                     Name = horseInfo.Name,
                     NftHorseId = horseInfo.NftId,

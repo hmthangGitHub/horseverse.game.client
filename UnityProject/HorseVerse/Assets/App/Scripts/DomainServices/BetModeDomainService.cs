@@ -145,6 +145,10 @@ public class BetModeDomainService : BetModeDomainServiceBase, IBetModeDomainServ
                 AverageBettingRecord = x.AverageBettingRecord,
                 BestBettingRecord = x.BestBettingRecord,
                 Rate = x.WinRate,
+                HorseName = x.Name,
+                HorseTypeRaw = x.HorseType,
+                HorseRarityRaw = (HorseRarity)x.Rarity,
+                ColorID = x.ColorType,
             }).ToArray()
         };
     }

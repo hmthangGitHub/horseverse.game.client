@@ -24,6 +24,7 @@ public class UIHorseInfo3DViewPresenter : IDisposable
 
     public async UniTask ShowHorse3DViewAsync(long MasterHorseId)
     {
+        Debug.Log("Load master Horse ID " + MasterHorseId);
         cts.SafeCancelAndDispose();
         cts = new CancellationTokenSource();
         await HorseRepository.LoadRepositoryIfNeedAsync().AttachExternalCancellation(cts.Token);
