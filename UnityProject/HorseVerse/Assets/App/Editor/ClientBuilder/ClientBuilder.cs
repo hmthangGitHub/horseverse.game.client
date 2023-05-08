@@ -276,6 +276,8 @@ public class ClientBuilder : EditorWindow
         clientInfo.CurrentEnviroment = currentEnviroment;
         clientInfo.Version = currentClientVersion;
         clientInfo.AssetVersion = assetVersion;
+        EditorUtility.SetDirty(clientInfo);
+        AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
 
