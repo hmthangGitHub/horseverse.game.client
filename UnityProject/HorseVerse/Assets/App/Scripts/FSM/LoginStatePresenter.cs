@@ -99,7 +99,7 @@ public class LoginStatePresenter : IDisposable
 #endif
         await doInitLocalLocalization();
 
-        uiPopupMessage = await UILoader.Instantiate<UIPopupMessage>(UICanvas.UICanvasType.PopUp, token: cts.Token);
+        uiPopupMessage ??= await UILoader.Instantiate<UIPopupMessage>(UICanvas.UICanvasType.PopUp, token: cts.Token);
 #if CUSTOM_SERVER
         var uiSV = await UILoader.Instantiate<UIPopUpServerSelection>(token: cts.Token);
         bool wait = true;
@@ -401,6 +401,8 @@ public class LoginStatePresenter : IDisposable
     {
         if (resResultCode == MasterErrorCodeDefine.NEED_TO_UPDATE_CLIENT)
         {
+            if(uiPopupMessage == null)
+                uiPopupMessage ??= await UILoader.Instantiate<UIPopupMessage>(UICanvas.UICanvasType.PopUp, token: cts.Token);
             ShowNewVersionPopUp(resUpdateClientLink);
             throw new OperationCanceledException("Client need update");
         }
