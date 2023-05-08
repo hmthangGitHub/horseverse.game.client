@@ -98,9 +98,10 @@ public class LoginStatePresenter : IDisposable
         }
 #endif
         await doInitLocalLocalization();
+
+        uiPopupMessage = await UILoader.Instantiate<UIPopupMessage>(UICanvas.UICanvasType.PopUp, token: cts.Token);
 #if CUSTOM_SERVER
         var uiSV = await UILoader.Instantiate<UIPopUpServerSelection>(token: cts.Token);
-        uiPopupMessage = await UILoader.Instantiate<UIPopupMessage>(UICanvas.UICanvasType.PopUp, token: cts.Token);
         bool wait = true;
         currentProfileIndex = 0;
         uiSV.SetEntity(new UIPopUpServerSelection.Entity()
@@ -135,6 +136,7 @@ public class LoginStatePresenter : IDisposable
         }
 
 #endif
+        
 
 #if MULTI_ACCOUNT
         PlayerPrefs.SetString(GameDefine.TOKEN_CURRENT_KEY_INDEX, currentProfileIndex.ToString());
