@@ -399,6 +399,7 @@ public class LoginStatePresenter : IDisposable
     private async UniTask<bool> HandleLoginError(int resResultCode,
                                                  string resUpdateClientLink)
     {
+        UILoadingPresenter.HideLoading();
         if (resResultCode == MasterErrorCodeDefine.NEED_TO_UPDATE_CLIENT)
         {
             if(uiPopupMessage == null)
