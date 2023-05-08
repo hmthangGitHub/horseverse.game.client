@@ -69,6 +69,14 @@ public class LoginStatePresenter : IDisposable
             int type = 0;
             bool res = false;
 
+#if ONLY_OTP
+            while (!res)
+            {
+                res = await DoLoginWithOTP();
+                await UniTask.Delay(500);
+            }
+#else
+
             while (!res)
             {
                 type = await DoSelectLoginType();
@@ -77,6 +85,7 @@ public class LoginStatePresenter : IDisposable
                 else
                     res = await DoLoginWithEmail();
             }
+#endif
         }
 
         await UniTask.Delay(1000, cancellationToken: cts.Token);
@@ -303,7 +312,7 @@ public class LoginStatePresenter : IDisposable
         });
         await uiLoginOTP.In();
         await UniTask.WaitUntil(() => closed == true);
-        if(result) 
+        if (result) 
             return await LoginOTPAsync();
         return result;
     }

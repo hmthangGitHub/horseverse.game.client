@@ -36,6 +36,7 @@ public class ScriptingDefineSymbolEditor : EditorWindow
 			{ "WEB_SOCKET", "" },
 			{ "ENABLE_DEBUG_MODULE", ""},
 			{ "ENABLE_ADVENTURE_CHANGE_SCENE", ""},
+			{ "ONLY_OTP", ""},
 		 };
 	}
 
