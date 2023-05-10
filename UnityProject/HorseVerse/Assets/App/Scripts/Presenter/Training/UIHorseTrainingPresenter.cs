@@ -126,7 +126,7 @@ public class UIHorseTrainingPresenter : IDisposable
             var userHorse = HorseRepository.Models[UserDataRepository.Current.CurrentHorseNftId];
             userHorse.HorseRising.Happiness = data.Happiness;
             await HorseRepository.UpdateModelAsync(userHorse.HorseRising);
-            long mapID = currentMapIndex == 0 ? 2001 : 2002;
+            long mapID = mapList[currentMapIndex];
 #if ENABLE_DEBUG_MODULE
             //var randomMap = GetRandomMap();
             //if (randomMap != -1) mapID = randomMap;
