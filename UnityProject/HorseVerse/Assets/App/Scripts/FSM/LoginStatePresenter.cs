@@ -538,7 +538,7 @@ public class LoginStatePresenter : IDisposable
         List<FEATURE_TYPE> listFeature = new List<FEATURE_TYPE>();
         foreach(var item in res.FeatureList)
         {
-            listFeature.Add((FEATURE_TYPE)item);
+            listFeature.Add((FEATURE_TYPE)item); Debug.Log("Add Feature List " + ((FEATURE_TYPE)item).ToString());
         }
         return listFeature.ToArray();
     }

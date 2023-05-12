@@ -22,7 +22,8 @@ public class BreedingSlotState : InjectedBState
 
     private void OnBack()
     {
-        ((IState)Machine).Machine.ChangeState<StableUIState>();
+        //((IState)Machine).Machine.ChangeState<StableUIState>();
+        ((IState)Machine).Machine.ChangeState<StableHorseDetailState>();
     }
 
     private void OnEnterBreedingSlotEvent(int slotIndex)

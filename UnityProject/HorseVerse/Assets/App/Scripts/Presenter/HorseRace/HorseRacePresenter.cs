@@ -65,7 +65,7 @@ public partial class HorseRacePresenter : IDisposable
     public async UniTask PlayIntro()
     {
 #if ENABLE_DEBUG_MODULE
-        CreateDebuggerAction();
+        //CreateDebuggerAction();
 #endif
         await (horseIntroCameraPresenter.ShowFreeCamera().AttachExternalCancellation(token), uiHorseRealmIntro.In());
         await (uiLoading.In().AttachExternalCancellation(token), uiHorseRealmIntro.Out().AttachExternalCancellation(token));
@@ -108,7 +108,8 @@ public partial class HorseRacePresenter : IDisposable
             {
                 realm = "FORGOTTEN REALM",
                 track = "The Old Observatory"
-            }
+            },
+            btnSkip = new ButtonComponent.Entity(OnShowResult)
         });
         horseIntroCameraPresenter ??= await HorseIntroCameraPresenter.InstantiateAsync(mapSettings.freeCamera, mapSettings.warmUpCamera, cts.Token);
     }

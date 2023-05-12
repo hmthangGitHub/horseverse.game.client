@@ -17,6 +17,8 @@ public class UIHorseDetailPresenter : IDisposable
     private IHorseRepository HorseRepository => horseRepository ??= container.Inject<IHorseRepository>();
     private UIHorse3DViewPresenter uiHorse3DViewPresenter = default;
     private UIHorse3DViewPresenter UIHorse3DViewPresenter => uiHorse3DViewPresenter ??= container.Inject<UIHorse3DViewPresenter>();
+    
+    public event Action OnToBreeding = ActionUtility.EmptyAction.Instance;
 
     public UIHorseDetailPresenter(IDIContainer container)
     {
@@ -80,7 +82,8 @@ public class UIHorseDetailPresenter : IDisposable
                 }),
                 rarity = (UIComponentHorseRankRequirement.Rarity)currentHorse.Rarity,
                 showChangeHorseBtn = true
-            }
+            },
+            breedingBtn = new ButtonComponent.Entity(OnToBreeding.Invoke)
         };
     }
 

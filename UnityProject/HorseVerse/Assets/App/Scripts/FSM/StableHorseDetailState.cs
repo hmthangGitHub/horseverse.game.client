@@ -16,13 +16,15 @@ public class StableHorseDetailState : InjectedBState
         base.Enter();
         Container.Bind(new LocalHorseDetailDomainService(Container));
 
+        UIHorse3DViewPresenter.ShowHorse3DViewAsync(2, true, false, cameraType: MainMenuCameraType.CameraType.StableDetail).Forget();
         UIHeaderPresenter.ShowHeaderAsync(true, "STABLE").Forget();
         UIHeaderPresenter.OnBack += OnBack;
 
         UIHorse3DViewPresenter.SetRotateEnable(true);
-        UIHorse3DViewPresenter.ChangeCameraType(MainMenuCameraType.CameraType.StableDetail);
+        //UIHorse3DViewPresenter.ChangeCameraType(MainMenuCameraType.CameraType.StableDetail);
         uiHorseStablePresenter = new UIHorseDetailPresenter(Container);
         uiHorseStablePresenter.ShowUIHorseDetailAsync().Forget();
+        uiHorseStablePresenter.OnToBreeding += OnToBreeding;
     }
 
     private void OnBack()
@@ -33,7 +35,13 @@ public class StableHorseDetailState : InjectedBState
     private async UniTask OnBackAsync()
     {
         await uiHorseStablePresenter.OutAsync();
-        this.Machine.ChangeState<StableUIState>();
+        //this.Machine.ChangeState<StableUIState>();
+        this.GetMachine<StableState>().GetMachine<InitialState>().ChangeState<MainMenuState>();
+    }
+
+    private void OnToBreeding()
+    {
+        this.Machine.ChangeState<BreedingState>();
     }
 
     public override void Exit()
