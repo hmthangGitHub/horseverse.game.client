@@ -73,6 +73,11 @@ public class HorseIntroCameraPresenter : IDisposable
         await ucs.Task.AttachExternalCancellation(cts.Token);
     }
 
+    public void Skip()
+    {
+        freeCamera.EndCameraAnimation();
+    }
+
     public void Dispose()
     {
         DisposeUtility.SafeDispose(ref cts);

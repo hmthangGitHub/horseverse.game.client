@@ -109,7 +109,7 @@ public partial class HorseRacePresenter : IDisposable
                 realm = "FORGOTTEN REALM",
                 track = "The Old Observatory"
             },
-            btnSkip = new ButtonComponent.Entity(OnShowResult)
+            btnSkip = new ButtonComponent.Entity(()=> { if(horseIntroCameraPresenter != default) horseIntroCameraPresenter.Skip(); })
         });
         horseIntroCameraPresenter ??= await HorseIntroCameraPresenter.InstantiateAsync(mapSettings.freeCamera, mapSettings.warmUpCamera, cts.Token);
     }
