@@ -41,6 +41,7 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.Bind(new HorseRaceInfoFactory(Container));
         this.Container.Bind(RetryHandler.Instantiate(Container));
         this.Container.Bind(LoginDomainService.Instantiate(Container));
+        this.Container.Bind(new NotificationPresenter(Container));
 
         uiHeaderPresenter.OnLogOut += OnLogOut;
         base.Enter();
@@ -87,6 +88,7 @@ public class InitialState : InjectedBHState, IDisposable
         this.Container.RemoveAndDisposeIfNeed<HorseRaceInfoFactory>();
         this.Container.RemoveAndDisposeIfNeed<HorseRaceContext>();
         this.Container.RemoveAndDisposeIfNeed<FeaturePresenter>();
+        this.Container.RemoveAndDisposeIfNeed<NotificationPresenter>();
         this.Container.RemoveAndDisposeIfNeed<LoginDomainService>();
         this.Container.RemoveAndDisposeIfNeed<RetryHandler>();
         this.Container.RemoveAndDisposeIfNeed<PingDomainService>();
