@@ -10,6 +10,7 @@ public class HorseDataModel
     public HorseType HorseType => (HorseType)HorseBasic.HorseType;
     public HorseRarity Rarity => (HorseRarity)HorseBasic.Rarity;
     public int HorseMasterId => 10000000 + HorseBasic.ColorType;
+    public string HorseShortId => HorseBasic.ColorType.ToString("D4");
 
     public HorseBasic HorseBasic { get; set; }
     public HorseAttribute HorseAttribute { get; set; }
@@ -30,4 +31,12 @@ public enum HorseRarity
     Rare,
     Epic,
     Legend
+}
+
+public static class HorseDataModelHelper
+{
+    public static string GetSpritePath(string HorseShortId)
+    {
+        return $"Avatar/horse_avatar/{HorseShortId}";
+    }
 }

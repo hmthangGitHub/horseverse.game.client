@@ -15,6 +15,7 @@ public class UIImage : UIComponent<UIImage.Entity>
 
     protected override void OnSetEntity()
     {
+        Debug.Log("Set Avatar " + (this.entity.sprite != null));
         img.sprite = this.entity.sprite;
         if (img.sprite == default) img.enabled = false;
         else img.enabled = true;

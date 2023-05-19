@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 
 public class HorseSumaryListEntityFactory
@@ -21,18 +22,28 @@ public class HorseSumaryListEntityFactory
         this.container = container;
     }
 
-    public UIComponentTraningHorseSelectSumaryList.Entity InstantiateHorseSelectSumaryListEntity()
+    public async UniTask<UIComponentTraningHorseSelectSumaryList.Entity> InstantiateHorseSelectSumaryListEntity(CancellationToken token = default)
     {
         var current = UserReponsitory.Current.CurrentHorseNftId;
-        return new UIComponentTraningHorseSelectSumaryList.Entity()
+        List<UIComponentTraningHorseSelectSumary.Entity> ss = new List<UIComponentTraningHorseSelectSumary.Entity>();
+        foreach(var x in HorseRepository.Models)
         {
-            entities = HorseRepository.Models.Select(x => new UIComponentTraningHorseSelectSumary.Entity()
+            var sp = await HorseSpriteAssetLoader.InstantiateHorseAvatar(HorseDataModelHelper.GetSpritePath(x.Value.HorseShortId), token);
+            var item = new UIComponentTraningHorseSelectSumary.Entity()
             {
                 horseNFTId = x.Value.HorseNtfId,
                 horseName = x.Value.Name,
-                horseRace = new UIComponentHorseRace.Entity() {type = (int)x.Value.HorseType },
-                selectBtn = new ButtonSelectedComponent.Entity(() => OnSelectHorse(x.Key).Forget(), x.Value.HorseNtfId == current)
-            }).ToArray()
+                horseRace = new UIComponentHorseRace.Entity() { type = (int)x.Value.HorseType },
+                horseRank = new UIComponentHorseRace.Entity() { type = (int)x.Value.Rarity },
+                horseRankBorder = new UIComponentHorseRankBorder.Entity() { Rank = ((int)x.Value.Rarity - 1) },
+                selectBtn = new ButtonSelectedComponent.Entity(() => OnSelectHorse(x.Key).Forget(), x.Value.HorseNtfId == current),
+                horseAvatar = new UIImage.Entity() { sprite = sp },
+            };
+            ss.Add(item);
+        }
+        return new UIComponentTraningHorseSelectSumaryList.Entity()
+        {
+            entities = ss.ToArray()
         };
     }
 

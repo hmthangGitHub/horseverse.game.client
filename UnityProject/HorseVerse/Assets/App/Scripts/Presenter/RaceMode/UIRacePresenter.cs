@@ -61,7 +61,7 @@ public partial class UIRacePresenter : IDisposable
             findMatchLimit = UserSettingLocalRepository.MasterDataModel.MaxDailyRacingNumber,
             currentFindMatchLeft = UserDataRepository.Current.DailyRacingNumberLeft,
             horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.CurrentHorseNftId),
-            horseSelectSumaryList = HorseSumaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(),
+            horseSelectSumaryList = await HorseSumaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(cts.Token),
             raceRoomInfo = new UIComponentRaceRoomInfo.Entity()
             {
                 rarityRequirement = GetRankRequirement(),

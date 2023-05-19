@@ -68,7 +68,7 @@ public class UIHorseTrainingPresenter : IDisposable
         {
             horseDetail = HorseDetailEntityFactory.InstantiateHorseDetailEntity(UserDataRepository.Current.CurrentHorseNftId),
             horseRace = new UIComponentHorseRace.Entity() { type = (int)h.HorseType },
-            horseSelectSumaryList = HorseSummaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(),
+            horseSelectSumaryList = await HorseSummaryListEntityFactory.InstantiateHorseSelectSumaryListEntity(cts.Token),
             prepareState = new UIComponentTrainingPrepareState.Entity()
             {
                 toTraningBtn = new ButtonComponent.Entity(() => ToTrainingAsync().Forget())
