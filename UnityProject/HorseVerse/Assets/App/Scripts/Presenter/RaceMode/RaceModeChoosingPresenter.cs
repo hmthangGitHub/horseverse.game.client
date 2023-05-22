@@ -83,13 +83,15 @@ internal class RaceModeChoosingPresenter : IDisposable
             {
                 await uiRacingMode.Out();
                 OnViewHistory.Invoke();
-            })),
+            }), false),
             traditionalBtn = SelectRaceModeBtnEntity(RaceMode.Traditional),
             rankBtn = SelectRaceModeBtnEntity(RaceMode.Rank),
             tournamentBtn = SelectRaceModeBtnEntity(RaceMode.Tournament),
             stableVsStableBtn = SelectRaceModeBtnEntity(RaceMode.StableVsStable),
         });
-        
+        uiRacingMode.historyBtn.gameObject.SetActive(false);
+
+
         if (HorseRaceContext.RaceMatchDataContext.RaceMode == RaceMode.None)
         {
             await ChangeHeaderTitle();
