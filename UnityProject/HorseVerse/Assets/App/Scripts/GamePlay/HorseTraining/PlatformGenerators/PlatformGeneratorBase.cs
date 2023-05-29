@@ -66,12 +66,15 @@ public abstract class PlatformGeneratorBase : MonoBehaviour, IDisposable
 
     public async UniTask UpdateMapAsync( MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer,
                                          MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer,
+                                         MasterTrainingBlockDistributeContainer masterTrainingBlockDistributeContainer,
                                          string Scene_Key, 
                                          int NumberOfBlocks,
                                          Vector3 direction)
     {
         this.masterHorseTrainingBlockContainer = masterHorseTrainingBlockContainer;
         this.masterHorseTrainingBlockComboContainer = masterHorseTrainingBlockComboContainer;
+        this.masterTrainingBlockDistributeContainer = masterTrainingBlockDistributeContainer;
+
         this.numberOfBlock = NumberOfBlocks;
         this.currentBlock = 0;
         isEndScene = false;

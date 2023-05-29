@@ -76,12 +76,14 @@ public class HorseTrainingManager : MonoBehaviour, IDisposable
                                     string mapId,
                                     int NumberOfBlock,
                                     MasterHorseTrainingBlockContainer masterHorseTrainingBlockContainer,
-                                    MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer)
+                                    MasterHorseTrainingBlockComboContainer masterHorseTrainingBlockComboContainer,
+                                    MasterTrainingBlockDistributeContainer masterTrainingBlockDistributeContainer)
     {
         var dir = Vector3.forward;//PlatformGenerator.NextDirection;
         PlatformGenerator.SetLastPlatform(null);
         await PlatformGenerator.UpdateMapAsync(masterHorseTrainingBlockContainer,
             masterHorseTrainingBlockComboContainer,
+            masterTrainingBlockDistributeContainer,
             mapId,
             NumberOfBlock,
             dir);

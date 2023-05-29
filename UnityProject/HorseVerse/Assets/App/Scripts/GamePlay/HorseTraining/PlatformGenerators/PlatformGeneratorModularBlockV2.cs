@@ -185,10 +185,15 @@ public class PlatformGeneratorModularBlockV2 : PlatformGeneratorBase
     {
         var masterHorseTrainingBlockGroupId = GetMasterHorseTrainingBlockGroupId();
         if (masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer.Contains(masterHorseTrainingBlockGroupId))
+        {
             return masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer[masterHorseTrainingBlockGroupId]
                                                      .RandomElement();
+        }
         else
+        {
+            Debug.LogError("Cant not find suitable block with group ID " + masterHorseTrainingBlockGroupId);
             return masterHorseTrainingBlockComboContainer.MasterHorseTrainingBlockComboGroupIdIndexer.First().First();
+        }
     }
 
     private int GetMasterHorseTrainingBlockGroupId()

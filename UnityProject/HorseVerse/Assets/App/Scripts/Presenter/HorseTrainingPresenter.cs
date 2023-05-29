@@ -443,7 +443,8 @@ public class HorseTrainingPresenter : IDisposable
                 currentMasterMapId.ToString(),
                 NumberOfBlock,
                 masterHorseTrainingBlockContainer,
-                masterHorseTrainingBlockComboContainer
+                masterHorseTrainingBlockComboContainer,
+                masterTrainingBlockDistributeContainer
             );
     }
 }
