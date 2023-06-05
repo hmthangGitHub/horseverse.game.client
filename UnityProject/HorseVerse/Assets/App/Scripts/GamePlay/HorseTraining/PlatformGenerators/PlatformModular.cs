@@ -10,8 +10,11 @@ public partial class PlatformModular : PlatformBase
     public TextMeshPro blockName;
     public void SetBlockName(string name)
     {
-        blockName.transform.position = FirstCollider.transform.position + Vector3.up * 5.0f;
-        blockName.text = name;
+        if (FirstCollider != default)
+        {
+            blockName.transform.position = FirstCollider.transform.position + Vector3.up * 5.0f;
+            blockName.text = name;
+        }
         this.gameObject.name = name;
         this.blockName.gameObject.SetActive(true);
     }
